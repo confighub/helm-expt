@@ -70,13 +70,13 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 83/84 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 83/85 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 74/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 0/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 1/1 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | GitOps aggregate health residue rows | 1/84 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/84 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 1/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 1/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | GitOps aggregate health residue rows | 1/85 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/85 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -189,6 +189,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
+| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ### Active Proof Queue
@@ -200,6 +201,7 @@ needs a support artifact or a direct receipt review before rerun.
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime-review | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) |
+| hashicorp/vault@0.32.0 | ha-raft-ui | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 
 ### Local Live Non-Pass Triage
 
@@ -369,7 +371,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/84
+ConfigHub/OCI live comparison: 0/85
 two-cluster kind parity:       0/74
 ~~~
 
@@ -386,10 +388,12 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
+| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
+| operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -399,6 +403,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
+| hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy: Vault init/unseal readiness (parity passed) |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
 
 

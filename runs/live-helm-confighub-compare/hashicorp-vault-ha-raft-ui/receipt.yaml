@@ -1,0 +1,1564 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: hashicorp-vault-0.32.0-ha-raft-ui-live-parity-20260605
+spec:
+  chart: hashicorp/vault
+  version: 0.32.0
+  base: ha-raft-ui
+  result: watch
+  observedAt: '2026-06-14T15:12:03Z'
+  package:
+    path: packages/hashicorp/vault/0.32.0
+  recipe:
+    path: recipes/hashicorp/vault/0.32.0
+  variantRevision: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-three-node
+    result: pass
+    resources:
+    - node/1
+    - node/2
+    - node/3
+    observedSchedulableNodes: 3
+    observedBehavior: The proof target has at least three schedulable Kubernetes nodes
+      for bases with hard pod anti-affinity or quorum topology.
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-vault-mqdxae1t-1fwo
+    kubeContext: kind-helm-expt-parity-vault-mqdxae1t-1fwo
+    namespace: vault
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: vault-helm
+      configHubKubectlApply: vault-apply
+      configHubOciArgo: vault-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-vault-mqdxae1t-1fwo --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-vault-mqdxae1t-1fwo"...
+
+        Deleting cluster "helm-expt-parity-vault-mqdxae1t-1fwo" ...
+
+        Deleted nodes: ["helm-expt-parity-vault-mqdxae1t-1fwo-worker" "helm-expt-parity-vault-mqdxae1t-1fwo-control-plane"
+        "helm-expt-parity-vault-mqdxae1t-1fwo-worker3" "helm-expt-parity-vault-mqdxae1t-1fwo-worker2"]
+
+        Deleting Space "helm-expt-parity-vault-mqdxae1t-1fwo-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
+        --version 0.32.0 --namespace vault-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f
+      objectCount: 18
+      liveHelmManifestSHA256: c4fb1c0f792a629942487e72f7d6dd622017e6bbb6616f391c891c9f8f45075b
+      liveHelmManifestObjectCount: 18
+      namespace: vault-helm
+      runtime:
+        result: watch
+        workloads: 'deployment.apps/vault-agent-injector   1/1   1     1     3m18s
+
+          statefulset.apps/vault   0/3   3m18s'
+        pods: 'vault-0                                 0/1   Running   0     3m17s
+
+          vault-1                                 0/1   Running   0     3m17s
+
+          vault-2                                 0/1   Running   0     3m17s
+
+          vault-agent-injector-56474b787f-j76fq   1/1   Running   0     3m18s'
+        notReady:
+        - namespace: vault-helm
+          pod: vault-0
+          ready: 0/1
+          status: Running
+        - namespace: vault-helm
+          pod: vault-1
+          ready: 0/1
+          status: Running
+        - namespace: vault-helm
+          pod: vault-2
+          ready: 0/1
+          status: Running
+        ignoredJobPods: []
+        namespaces:
+        - vault-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - vault-helm
+          namespaceArtifacts:
+          - namespace: vault-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/events.txt
+            sha256: cb247e1993fc7e6ce7620fd49b9200d045e1a96e6f0162148556af43377ff4ee
+            bytes: 7280
+          - namespace: vault-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/workloads-describe.txt
+            sha256: 9d3822cce2d81971ad683cbaadf38d1792c896b0be75ba4c6c17b4e7e194a6a4
+            bytes: 6380
+          podArtifacts:
+          - namespace: vault-helm
+            pod: vault-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-0/describe.txt
+            sha256: 6bb186d0e99be21ef1cb558bd237d464f7c1d325ae41c1bdebe447bb4c123943
+            bytes: 5644
+          - namespace: vault-helm
+            pod: vault-0
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-0/logs.txt
+            sha256: e8c899b2dc64958ea3b61a1b0bf53649406320742f046a9058c0e02a21484668
+            bytes: 7341
+          - namespace: vault-helm
+            pod: vault-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-0/previous-logs.txt
+            sha256: 4ca1e06f3778dea4d0a603f3d71ecb4372dc25e1e0324395c4af8843da3184e9
+            bytes: 96
+          - namespace: vault-helm
+            pod: vault-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-1/describe.txt
+            sha256: 26d03429c97a2e6291b0085597eb497f4ab3f357ee03f15538973c21a1eb5d0f
+            bytes: 5638
+          - namespace: vault-helm
+            pod: vault-1
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-1/logs.txt
+            sha256: adc00bbe3f3e68b8f9acaa2a3cef1358ac5e1ef11e347689decb0e7b1eb5b4bb
+            bytes: 7186
+          - namespace: vault-helm
+            pod: vault-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-1/previous-logs.txt
+            sha256: 2206e981b63d8b5a236bf3cf6ba2b3a7dce8ce82ecea29feee6cc07d071ef542
+            bytes: 96
+          - namespace: vault-helm
+            pod: vault-2
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-2/describe.txt
+            sha256: 5cccd27fae933fa3e81f3e34fb708d2350a26a87ea6791a101a7cf669e330517
+            bytes: 5638
+          - namespace: vault-helm
+            pod: vault-2
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-2/logs.txt
+            sha256: 3d2e7da788267985a122b7792310f02230435b157dba3b09f5eee1e52268cffe
+            bytes: 7187
+          - namespace: vault-helm
+            pod: vault-2
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/vault-helm/vault-2/previous-logs.txt
+            sha256: 6d3c8e3559ce04fd7206f11bf5b79108daaf82d43db1be34b43e29b7141555b7
+            bytes: 96
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+        --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
+        --non-interactive --namespace vault-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 6e5bec3c2f906e5eef468300884cd69e3908159cc49d7e6b4f3bc8aadc9fae80
+      objectCount: 19
+      namespace: vault-apply
+      manifestNamespaces:
+      - vault
+      - vault-apply
+      runtimeNamespaces: &id001
+      - vault
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# vault
+
+          deployment.apps/vault-agent-injector   1/1   1     1     4m54s
+
+          statefulset.apps/vault   0/3   4m54s'
+        pods: '# vault
+
+          vault-0                                0/1   Running   0     4m53s
+
+          vault-1                                0/1   Running   0     4m53s
+
+          vault-2                                0/1   Running   0     4m53s
+
+          vault-agent-injector-8c76487db-hsc87   1/1   Running   0     4m54s'
+        notReady:
+        - namespace: vault
+          pod: vault-0
+          ready: 0/1
+          status: Running
+        - namespace: vault
+          pod: vault-1
+          ready: 0/1
+          status: Running
+        - namespace: vault
+          pod: vault-2
+          ready: 0/1
+          status: Running
+        diagnostics:
+          result: recorded
+          namespaces:
+          - vault
+          namespaceArtifacts:
+          - namespace: vault
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/events.txt
+            sha256: 656b8d2d299fb060d67ec82916c1883ecd41f9c9d04e71fa77a381424ab59857
+            bytes: 6861
+          - namespace: vault
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/workloads-describe.txt
+            sha256: ccad42252e4896470711d8d15db0bd4b1013ca9d7aaedb3caecf811bebc6c71d
+            bytes: 6141
+          podArtifacts:
+          - namespace: vault
+            pod: vault-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-0/describe.txt
+            sha256: bf78b1345ca893d729272c6be97c9044385c1dd9e7d23cc28f8c033ab4e41443
+            bytes: 5504
+          - namespace: vault
+            pod: vault-0
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-0/logs.txt
+            sha256: 1aef769b7aba8562db6a8c335deb9c0ce7ebf3d14ea880e678fefab19b503baa
+            bytes: 12611
+          - namespace: vault
+            pod: vault-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-0/previous-logs.txt
+            sha256: 4ca1e06f3778dea4d0a603f3d71ecb4372dc25e1e0324395c4af8843da3184e9
+            bytes: 96
+          - namespace: vault
+            pod: vault-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-1/describe.txt
+            sha256: c2615e883d7e6f87afc5f0daec8d8ec030b3848938a82b9299a10b2bc3366487
+            bytes: 5504
+          - namespace: vault
+            pod: vault-1
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-1/logs.txt
+            sha256: e4e99c3328b10767dda4e7e8702730f67d5c14954835365f6fc04c3acfd25333
+            bytes: 12767
+          - namespace: vault
+            pod: vault-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-1/previous-logs.txt
+            sha256: 2206e981b63d8b5a236bf3cf6ba2b3a7dce8ce82ecea29feee6cc07d071ef542
+            bytes: 96
+          - namespace: vault
+            pod: vault-2
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-2/describe.txt
+            sha256: d2a573d86e5c78f629e51df0e8fa0a8087adb4609a58abd9fb7506f1503057ec
+            bytes: 5504
+          - namespace: vault
+            pod: vault-2
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-2/logs.txt
+            sha256: f7dfaf4b8f2d2c04e88bfccbc85d986a53815a3674d4a487962a51be476b1d58
+            bytes: 12611
+          - namespace: vault
+            pod: vault-2
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/vault/vault-2/previous-logs.txt
+            sha256: 6d3c8e3559ce04fd7206f11bf5b79108daaf82d43db1be34b43e29b7141555b7
+            bytes: 96
+      cleanupBeforeOci:
+        namespaces:
+        - vault
+        - vault-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 4
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "vault-agent-injector-clusterrole"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vault-agent-injector-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "vault-server-binding" deleted
+
+            mutatingwebhookconfiguration.admissionregistration.k8s.io "vault-agent-injector-cfg"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-vault-mqdxae1t-1fwo-vault
+      controller: Argo CD OCI
+      app: vault-parity
+      manifestSHA256: f4fb9fd3d67118040304e32ac43883f7e7d36161e9ba334bd202320981f4b687
+      objectCount: 19
+      namespace: vault-oci
+      manifestNamespaces:
+      - vault
+      - vault-oci
+      runtimeNamespaces: &id002
+      - vault
+      ociRevision: sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: vault-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-vault-mqdxae1t-1fwo-vault
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+              targetRevision: latest
+          revision: sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:29:06Z'
+          status: Progressing
+        summary:
+          images:
+          - hashicorp/vault-k8s:1.7.2
+          - hashicorp/vault:1.21.2
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:29:02Z'
+          finishedAt: '2026-06-14T15:29:04Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 19
+          syncResultStatusCounts:
+            Synced: 19
+        history:
+        - id: 0
+          revision: sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+          deployedAt: '2026-06-14T15:29:04Z'
+          deployStartedAt: '2026-06-14T15:29:02Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-vault-mqdxae1t-1fwo-vault
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: vault
+          name: vault-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: vault-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault-active
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault-agent-injector-svc
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault-internal
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault-standby
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: vault
+          name: vault-ui
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: vault
+          name: vault
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: vault
+          name: vault-agent-injector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: vault-agent-injector-cfg
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: vault
+          name: vault-agent-injector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: vault
+          name: vault
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: vault
+          name: vault
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: vault-agent-injector-clusterrole
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vault-agent-injector-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: vault-server-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: vault
+          name: vault-discovery-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: vault
+          name: vault-discovery-rolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         vault-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-vault-mqdxae1t-1fwo-cluster:argoproj.io/Application:argocd/vault-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 480d4ea9-e92e-4fea-8d0c-ab65f54d2213\n              confighub.com/UnitSlug:\
+              \ vault-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-14T15:29:00Z\n\
+              \  Generation:          9\n  Resource Version:    4117\n  UID:     \
+              \            0288b38b-190c-4ebd-9b61-623c62d3fb88\nSpec:\n  Destination:\n\
+              \    Namespace:  vault-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-vault\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T15:29:06Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T15:29:02Z\n    Deployed At:        2026-06-14T15:29:04Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \    Source:\n      Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-vault\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:29:04Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \        Source:\n          Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-vault\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T15:29:02Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/vault-oci\
+              \ serverside-applied\n        Name:        vault-oci\n        Namespace:\
+              \   vault-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       policy\n        Hook\
+              \ Phase:  Running\n        Kind:        PodDisruptionBudget\n      \
+              \  Message:     poddisruptionbudget.policy/vault serverside-applied\n\
+              \        Name:        vault\n        Namespace:   vault\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ServiceAccount\n        Message:     serviceaccount/vault-agent-injector\
+              \ serverside-applied\n        Name:        vault-agent-injector\n  \
+              \      Namespace:   vault\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
+              \      Message:     serviceaccount/vault serverside-applied\n      \
+              \  Name:        vault\n        Namespace:   vault\n        Status: \
+              \     Synced\n        Sync Phase:  Sync\n        Version:     v1\n \
+              \       Group:       \n        Hook Phase:  Running\n        Kind: \
+              \       ConfigMap\n        Message:     configmap/vault-config serverside-applied\n\
+              \        Name:        vault-config\n        Namespace:   vault\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/vault-agent-injector-clusterrole\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch patch]\
+              \ APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/vault-agent-injector-clusterrole\
+              \ serverside-applied\n        Name:        vault-agent-injector-clusterrole\n\
+              \        Namespace:   vault-oci\n        Status:      Synced\n     \
+              \   Sync Phase:  Sync\n        Version:     v1\n        Group:     \
+              \  rbac.authorization.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/vault-agent-injector-binding\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:vault-agent-injector Namespace:vault}. clusterrolebinding.rbac.authorization.k8s.io/vault-agent-injector-binding\
+              \ serverside-applied\n        Name:        vault-agent-injector-binding\n\
+              \        Namespace:   vault-oci\n        Status:      Synced\n     \
+              \   Sync Phase:  Sync\n        Version:     v1\n        Group:     \
+              \  rbac.authorization.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/vault-server-binding\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:vault Namespace:vault}. clusterrolebinding.rbac.authorization.k8s.io/vault-server-binding\
+              \ serverside-applied\n        Name:        vault-server-binding\n  \
+              \      Namespace:   vault-oci\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        M"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              6m51s       Normal   OperationStarted     application/vault-parity   Initiated
+              automated sync to ''sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52''
+
+              6m51s       Normal   ResourceUpdated      application/vault-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/vault-parity   Updated
+              health status:  -> Healthy
+
+              6m49s       Normal   OperationCompleted   application/vault-parity   Sync
+              operation to sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+              succeeded
+
+              6m47s       Normal   ResourceUpdated      application/vault-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m47s       Normal   ResourceUpdated      application/vault-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 19
+              artifact:
+                path: argocd-core-child.json
+                sha256: e05d08b04d36cce03530eb4e3883b2371c4bd592dba3bde4005167ccca358c91
+                bytes: 20099
+              output: "{\n  \"metadata\": {\n    \"name\": \"vault-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"0288b38b-190c-4ebd-9b61-623c62d3fb88\"\
+                ,\n    \"resourceVersion\": \"4489\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-14T15:29:00Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster:argoproj.io/Application:argocd/vault-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"480d4ea9-e92e-4fea-8d0c-ab65f54d2213\",\n      \"confighub.com/UnitSlug\"\
+                : \"vault-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-14T15:29:00Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T15:36:03Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-vault-mqdxae1t-1fwo-vault\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"vault-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"vault\",\n        \"name\": \"vault-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                vault-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"vault\",\n        \"name\": \"vault\",\n \
+                \       \"status\": \"Synced\",\n        \"health\": {\n         \
+                \ \"status\": \"Healthy\"\n        }\n      },\n      {\n        \"\
+                version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\"\
+                : \"vault\",\n        \"name\": \"vault-active\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"Service\",\n        \"namespace\": \"vault\",\n\
+                \        \"name\": \"vault-agent-injector-svc\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"Service\",\n        \"namespace\": \"vault\",\n\
+                \        \"name\": \"vault-internal\",\n        \"status\": \"Synced\"\
+                ,\n        \"health\": {\n          \"status\": \"Healthy\"\n    \
+                \    }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Service\",\n        \"namespace\": \"vault\",\n        \"\
+                name\": \"vault-sta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 63ce20ec296a42ba904713c0c5525b62bc73d794d7c4eea1dead9f894ecf0f6a
+                bytes: 7087
+              output: "Name:               argocd/vault-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          vault-oci\nURL:                http://localhost:61122/applications/vault-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-vault\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \         STATUS  HEALTH   AGE   MESSAGE                         \
+                \                         REASON\nService/vault-standby          \
+                \                        Synced  Healthy  7m7s  service/vault-standby\
+                \ serverside-applied                 \nService/vault-ui          \
+                \                             Synced  Healthy  7m7s  service/vault-ui\
+                \ serverside-applied                      \nServiceAccount/vault \
+                \                                  Synced           7m7s  serviceaccount/vault\
+                \ serverside-applied                  \nDeployment/vault-agent-injector\
+                \                        Synced  Healthy  7m7s  deployment.apps/vault-agent-injector\
+                \ serverside-applied  \n└─ReplicaSet/vault-agent-injector-8c76487db\
+                \                    Healthy  7m7s                               \
+                \                            \n  └─Pod/vault-agent-injector-8c76487db-d7fzl\
+                \                   Healthy  7m7s                                \
+                \                           \nClusterRoleBinding/vault-agent-injector-binding\
+                \        Synced           7m7s                                   \
+                \                        \nRoleBinding/vault-discovery-rolebinding\
+                \                Synced           7m7s  rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding\
+                \ reconciled. reconciliation required create\n                   \
+                \                                    missing subjects added:\n   \
+                \                                                            {Kind:ServiceAccount\
+                \ APIGroup: Name:vault Namespace:vault}. rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding\
+                \ serverside-applied  \nService/vault-agent-injector-svc         \
+                \              Synced  Healthy                                   \
+                \                                                                \
+                \                                        7m7s  service/vault-agent-injector-svc\
+                \ serverside-applied     \nMutatingWebhookConfiguration/vault-agent-injector-cfg\
+                \  Synced                                                        \
+                \                                                                \
+                \                            7m7s                                \
+                \                          \nClusterRoleBinding/vault-server-binding\
+                \                Synced                                          \
+                \                                                                \
+                \                                          7m7s                  \
+                \                                        \nPodDisruptionBudget/vault\
+                \                              Synced  Healthy                   \
+                \                                                                \
+                \                                                        7m7s  poddisruptionbudget.policy/vault\
+                \ serverside-applied     PodDisruptionBudget has InsufficientPods\n\
+                ConfigMap/vault-config                                 Synced    \
+                \                                                                \
+                \                                                                \
+                \                7m7s  configmap/vault-config serverside-applied \
+                \              \nNamespace/vault-oci                             \
+                \       Synced                                                   \
+                \                                                                \
+                \                                 13m                            \
+                \                               \nService/vault-active           \
+                \                        Synced  Healthy                         \
+                \                                                                \
+                \                                                  7m7s  service/vault-active\
+                \ serverside-applied                 \nStatefulSet/vault         \
+                \                             Synced  Progressing                \
+                \                                                                \
+                \                                                       7m7s  statefulset.apps/vault\
+                \ serverside-applied               Waiting for 3 pods to be ready...\n\
+                ├─PersistentVolumeClaim/data-vault-0                           Healthy\
+                \                                                                \
+                \                                                                \
+                \           7m7s                                                 \
+                \         \n├─PersistentVolumeClaim/data-vault-1                 \
+                \          Healthy                                               \
+                \                                                                \
+                \                            7m6s                                \
+                \                          \n├─PersistentVolumeClaim/data-vault-2\
+                \                           Healthy                              \
+                \                                                                \
+                \                                             7m6s               \
+                \                                           \n├─Pod/vault-0      \
+                \                                            Progressing         \
+                \                                                                \
+                \                                                              7m6s\
+                \                                                          \n├─Pod/vault-1\
+                \                                                  Progressing   \
+                \                                                                \
+                \                                                                \
+                \    7m6s                                                        \
+                \  \n├─Pod/vault-2                                               \
+                \   Progressing                                                  \
+                \                                                                \
+                \                     7m6s                                       \
+                \                   \n└─ControllerRevision/vault-75dd57c8c4      \
+                \                                                                \
+                \                                                                \
+                \                                      7m7s                      \
+                \                                    \nClusterRole/vault-agent-injector-clusterrole\
+                \           Synced                                               \
+                \                                                                \
+                \                                     7m7s                       \
+                \                                   \nService/vault              \
+                \                            Synced  Healthy                     \
+                \                                                                \
+                \                                                      7m7s  service/vault\
+                \ serverside-applied                        \nService/vault-internal\
+                \                                 Synced  Healthy                \
+                \                                                                \
+                \                                                           7m7s \
+                \ service/vault-internal serverside-applied               \nServiceAccount/vault-agent-injector\
+                \                    Synced                                      \
+                \                                                                \
+                \                                              7m7s  serviceaccount/vault-agent-injector\
+                \ serverside-applied  \nRole/vault-discovery-role                \
+                \              Synced                                            \
+                \                                                                \
+                \                                        7m7s  role.rbac.authorization.k8s.io/vault-discovery-role\
+                \ reconciled. reconciliation required create\n                   \
+                \                                    missing rules added:\n      \
+                \                                                   {Verbs:[get watch\
+                \ list update patch] APIGroups:[] Resources:[pods] ResourceNames:[]\
+                \ NonResourceURLs:[]}. role.rbac.authorization.k8s.io/vault-discovery-role\
+                \ serverside-a"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              vault-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/vault-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"vault-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+              targetRevision: latest
+          revision: sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T15:13:58Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T15:28:59Z'
+          finishedAt: '2026-06-14T15:29:00Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+          deployedAt: '2026-06-14T15:29:00Z'
+          deployStartedAt: '2026-06-14T15:28:59Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-vault-mqdxae1t-1fwo-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: vault-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T15:13:49Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  4314\n  UID:        \
+              \       02c47d4d-5462-4004-bd14-edb50a8ceb44\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T15:13:58Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T15:28:59Z\n\
+              \    Deployed At:        2026-06-14T15:29:00Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \    Source:\n      Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T15:29:00Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \        Source:\n          Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T15:28:59Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/vault-parity serverside-applied\n\
+              \        Name:        vault-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \      Source:\n        Path:              ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T15:34:14Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       vault-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     22m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     22m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m12s  argocd-application-controller  Sync operation to sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\
+              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Updated
+              sync status:  -> Synced
+
+              22m         Normal   ResourceUpdated      application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Initiated
+              automated sync to ''sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m12s       Normal   OperationCompleted   application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Sync
+              operation to sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: ae05774752dcc674afd4e4106bd180fc69f0e9caf4d8784d4e46c1a898b5391f
+                bytes: 10608
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"02c47d4d-5462-4004-bd14-edb50a8ceb44\"\
+                ,\n    \"resourceVersion\": \"4521\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-06-14T15:13:49Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T15:13:49Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T15:36:21Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: b406a112a00674819d38cb3fcd9d5da96c0285342db6b57f7b53e3b7cd04b59f
+                bytes: 1110
+              output: "Name:               argocd/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61237/applications/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/helm-expt-parity-vault-mqdxae1t-1fwo-cluster  Synced \
+                \         22m    application.argoproj.io/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\
+                \ serverside-applied  \nApplication/vault-parity                 \
+                \                 Synced          7m31s  application.argoproj.io/vault-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-vault-mqdxae1t-1fwo-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              vault-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/vault-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:3844719696c64502361d3fc6e1f30999fb47e45667a69e99ce49374c0eb3be52\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-vault-mqdxae1t-1fwo-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"vault-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# vault
+
+          deployment.apps/vault-agent-injector   1/1   1     1     10m
+
+          statefulset.apps/vault   0/3   10m'
+        pods: '# vault
+
+          vault-0                                0/1   Running   0     10m
+
+          vault-1                                0/1   Running   0     10m
+
+          vault-2                                0/1   Running   0     10m
+
+          vault-agent-injector-8c76487db-d7fzl   1/1   Running   0     10m'
+        notReady:
+        - namespace: vault
+          pod: vault-0
+          ready: 0/1
+          status: Running
+        - namespace: vault
+          pod: vault-1
+          ready: 0/1
+          status: Running
+        - namespace: vault
+          pod: vault-2
+          ready: 0/1
+          status: Running
+        diagnostics:
+          result: recorded
+          namespaces:
+          - vault
+          namespaceArtifacts:
+          - namespace: vault
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/events.txt
+            sha256: b1c99f935eb39f71c7b5694fe08d53f3b9fa8d709f180a409dca68687c927c39
+            bytes: 6593
+          - namespace: vault
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/workloads-describe.txt
+            sha256: 2b0799ad1e2d9b0ca84a383207740393d9461722cae8b102eb11567da748e039
+            bytes: 6740
+          podArtifacts:
+          - namespace: vault
+            pod: vault-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-0/describe.txt
+            sha256: 27cf58c4d16bb90fbcf41d31be192d80b048e32331932cc68342fc78ec9019f3
+            bytes: 5483
+          - namespace: vault
+            pod: vault-0
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-0/logs.txt
+            sha256: 9804319b21925c4b987f3859ba6eb0bd2d6810b33e1863db4c7a517158e3c12a
+            bytes: 15499
+          - namespace: vault
+            pod: vault-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-0/previous-logs.txt
+            sha256: 4ca1e06f3778dea4d0a603f3d71ecb4372dc25e1e0324395c4af8843da3184e9
+            bytes: 96
+          - namespace: vault
+            pod: vault-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-1/describe.txt
+            sha256: d200fff4c4b1c06968d6386bf1f4a0d66644d47bd214c7f0a85c35d1f6035354
+            bytes: 5483
+          - namespace: vault
+            pod: vault-1
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-1/logs.txt
+            sha256: d5f7d4aefd15dce59e1a271b66cca0b9ef33f8003d7f79e6fc39c44bd15a0edf
+            bytes: 15499
+          - namespace: vault
+            pod: vault-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-1/previous-logs.txt
+            sha256: 2206e981b63d8b5a236bf3cf6ba2b3a7dce8ce82ecea29feee6cc07d071ef542
+            bytes: 96
+          - namespace: vault
+            pod: vault-2
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-2/describe.txt
+            sha256: 80d63ad10aa8fcc67ae058c2d0dbe67aa1e7c9e1169b056d80d1188f440c205f
+            bytes: 5485
+          - namespace: vault
+            pod: vault-2
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-2/logs.txt
+            sha256: 0a20cbe72578a322d43e10c9eeaaf946703e1f2a10c7145b1209c1ed50425450
+            bytes: 15499
+          - namespace: vault
+            pod: vault-2
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/vault/vault-2/previous-logs.txt
+            sha256: 6d3c8e3559ce04fd7206f11bf5b79108daaf82d43db1be34b43e29b7141555b7
+            bytes: 96
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||vault
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||vault
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||vault
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T15:13:49Z'
+    finishedAt: '2026-06-14T15:14:06Z'
+    elapsedSeconds: 17.257
+    timeoutSeconds: 900
+    command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
+      --version 0.32.0 --namespace vault-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T15:17:21Z'
+    finishedAt: '2026-06-14T15:17:22Z'
+    elapsedSeconds: 0.392
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+      --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
+      --non-interactive --namespace vault-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T15:17:22Z'
+    finishedAt: '2026-06-14T15:17:22Z'
+    elapsedSeconds: 0.19
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig
+      --context kind-helm-expt-parity-vault-mqdxae1t-1fwo apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/direct-apply-manifest.yaml
+    objectCount: 18
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-14T15:17:22Z'
+    finishedAt: '2026-06-14T15:22:26Z'
+    elapsedSeconds: 304.102
+    timeoutSeconds: 300
+    namespaces: vault
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T15:22:49Z'
+    finishedAt: '2026-06-14T15:22:49Z'
+    elapsedSeconds: 0.372
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+      --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
+      --non-interactive --namespace vault-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T15:22:49Z'
+    finishedAt: '2026-06-14T15:23:40Z'
+    elapsedSeconds: 51.1
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
+      --space helm-expt-parity-vault-mqdxae1t-1fwo-vault --target helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+    objectCount: 19
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T15:23:40Z'
+    finishedAt: '2026-06-14T15:23:41Z'
+    elapsedSeconds: 0.591
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-vault-mqdxae1t-1fwo-vault
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T15:23:41Z'
+    finishedAt: '2026-06-14T15:28:48Z'
+    elapsedSeconds: 307.231
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-vault-mqdxae1t-1fwo-vault --unit
+      <19 unit(s)> --wait --timeout 5m
+    unitCount: 19
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T15:28:48Z'
+    finishedAt: '2026-06-14T15:28:49Z'
+    elapsedSeconds: 1.011
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-vault-mqdxae1t-1fwo-cluster
+      vault-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/argo-application.json
+      --target helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T15:28:49Z'
+    finishedAt: '2026-06-14T15:28:50Z'
+    elapsedSeconds: 0.886
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-vault-mqdxae1t-1fwo-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-14T15:28:50Z'
+    finishedAt: '2026-06-14T15:35:53Z'
+    elapsedSeconds: 422.418
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-14T15:36:32Z'
+    finishedAt: '2026-06-14T15:39:34Z'
+    elapsedSeconds: 182.414
+    timeoutSeconds: 180
+    namespaces: vault
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-vault-mqdxae1t-1fwo\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-vault-mqdxae1t-1fwo\" ...\n • Ensuring node\
+      \ image (kindest/node:v1.35.0) \U0001F5BC  ...\n ✓ Ensuring node image (kindest/node:v1.35.0)\
+      \ \U0001F5BC\n • Preparing nodes \U0001F4E6 \U0001F4E6 \U0001F4E6 \U0001F4E6\
+      \   ...\n ✓ Preparing nodes \U0001F4E6 \U0001F4E6 \U0001F4E6 \U0001F4E6 \n •\
+      \ Writing configuration \U0001F4DC  ...\n ✓ Writing configuration \U0001F4DC\
+      \n • Starting control-plane \U0001F579️  ...\n ✓ Starting control-plane \U0001F579\
+      ️\n • Installing CNI \U0001F50C  ...\n ✓ Installing CNI \U0001F50C\n • Installing\
+      \ StorageClass \U0001F4BE  ...\n ✓ Installing StorageClass \U0001F4BE\n • Joining\
+      \ worker nodes \U0001F69C  ...\n ✓ Joining worker nodes \U0001F69C\nSet kubectl\
+      \ context to \"kind-helm-expt-parity-vault-mqdxae1t-1fwo\"\nYou can now use\
+      \ your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mqdxae1t-1fwo\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating nam"
+  - name: target-profile
+    result: pass
+    detail: 'kind-three-node: The proof target has at least three schedulable Kubernetes
+      nodes for bases with hard pod anti-affinity or quorum topology.'
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: watch
+    detail: "Release \"vault\" does not exist. Installing it now.\nNAME: vault\nLAST\
+      \ DEPLOYED: Sun Jun 14 16:13:50 2026\nNAMESPACE: vault-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nThank you for installing\
+      \ HashiCorp Vault!\n\nNow that you have deployed Vault, you should look over\
+      \ the docs on using\nVault with Kubernetes available here:\n\nhttps://developer.hashicorp.com/vault/docs\n\
+      \n\nYour release is named vault. To learn more about the release, try:\n\n \
+      \ $ helm status vault\n  $ helm get manifest vault"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# vault
+
+      deployment.apps/vault-agent-injector   1/1   1     1     4m54s
+
+      statefulset.apps/vault   0/3   4m54s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=4
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: regularHelm
+        result: pass
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubKubectlApply
+        result: pass
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        observedSchedulableNodes: 3
+        lane: configHubOciArgo
+        result: pass
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: vault
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: vault

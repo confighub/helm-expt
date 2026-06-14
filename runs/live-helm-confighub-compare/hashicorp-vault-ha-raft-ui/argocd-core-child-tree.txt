@@ -1,0 +1,47 @@
+Name:               argocd/vault-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          vault-oci
+URL:                http://localhost:61122/applications/vault-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-vault-mqdxae1t-1fwo-vault
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                              STATUS  HEALTH   AGE   MESSAGE                                                  REASON
+Service/vault-standby                                  Synced  Healthy  7m7s  service/vault-standby serverside-applied
+Service/vault-ui                                       Synced  Healthy  7m7s  service/vault-ui serverside-applied
+ServiceAccount/vault                                   Synced           7m7s  serviceaccount/vault serverside-applied
+Deployment/vault-agent-injector                        Synced  Healthy  7m7s  deployment.apps/vault-agent-injector serverside-applied
+└─ReplicaSet/vault-agent-injector-8c76487db                    Healthy  7m7s
+  └─Pod/vault-agent-injector-8c76487db-d7fzl                   Healthy  7m7s
+ClusterRoleBinding/vault-agent-injector-binding        Synced           7m7s
+RoleBinding/vault-discovery-rolebinding                Synced           7m7s  rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding reconciled. reconciliation required create
+                                                       missing subjects added:
+                                                               {Kind:ServiceAccount APIGroup: Name:vault Namespace:vault}. rolebinding.rbac.authorization.k8s.io/vault-discovery-rolebinding serverside-applied
+Service/vault-agent-injector-svc                       Synced  Healthy                                                                                                                                           7m7s  service/vault-agent-injector-svc serverside-applied
+MutatingWebhookConfiguration/vault-agent-injector-cfg  Synced                                                                                                                                                    7m7s
+ClusterRoleBinding/vault-server-binding                Synced                                                                                                                                                    7m7s
+PodDisruptionBudget/vault                              Synced  Healthy                                                                                                                                           7m7s  poddisruptionbudget.policy/vault serverside-applied     PodDisruptionBudget has InsufficientPods
+ConfigMap/vault-config                                 Synced                                                                                                                                                    7m7s  configmap/vault-config serverside-applied
+Namespace/vault-oci                                    Synced                                                                                                                                                    13m
+Service/vault-active                                   Synced  Healthy                                                                                                                                           7m7s  service/vault-active serverside-applied
+StatefulSet/vault                                      Synced  Progressing                                                                                                                                       7m7s  statefulset.apps/vault serverside-applied               Waiting for 3 pods to be ready...
+├─PersistentVolumeClaim/data-vault-0                           Healthy                                                                                                                                           7m7s
+├─PersistentVolumeClaim/data-vault-1                           Healthy                                                                                                                                           7m6s
+├─PersistentVolumeClaim/data-vault-2                           Healthy                                                                                                                                           7m6s
+├─Pod/vault-0                                                  Progressing                                                                                                                                       7m6s
+├─Pod/vault-1                                                  Progressing                                                                                                                                       7m6s
+├─Pod/vault-2                                                  Progressing                                                                                                                                       7m6s
+└─ControllerRevision/vault-75dd57c8c4                                                                                                                                                                            7m7s
+ClusterRole/vault-agent-injector-clusterrole           Synced                                                                                                                                                    7m7s
+Service/vault                                          Synced  Healthy                                                                                                                                           7m7s  service/vault serverside-applied
+Service/vault-internal                                 Synced  Healthy                                                                                                                                           7m7s  service/vault-internal serverside-applied
+ServiceAccount/vault-agent-injector                    Synced                                                                                                                                                    7m7s  serviceaccount/vault-agent-injector serverside-applied
+Role/vault-discovery-role                              Synced                                                                                                                                                    7m7s  role.rbac.authorization.k8s.io/vault-discovery-role reconciled. reconciliation required create
+                                                       missing rules added:
+                                                         {Verbs:[get watch list update patch] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/vault-discovery-role serverside-applied

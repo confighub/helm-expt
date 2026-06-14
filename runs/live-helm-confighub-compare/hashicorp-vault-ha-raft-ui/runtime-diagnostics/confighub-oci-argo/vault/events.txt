@@ -1,0 +1,41 @@
+LAST SEEN   TYPE      REASON                  OBJECT                                      MESSAGE
+10m         Normal    Scheduled               pod/vault-agent-injector-8c76487db-d7fzl    Successfully assigned vault/vault-agent-injector-8c76487db-d7fzl to helm-expt-parity-vault-mqdxae1t-1fwo-worker2
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Claim data-vault-0 Pod vault-0 in StatefulSet vault success
+10m         Normal    NoPods                  poddisruptionbudget/vault                   No matching pods found
+10m         Normal    ScalingReplicaSet       deployment/vault-agent-injector             Scaled up replica set vault-agent-injector-8c76487db from 0 to 1
+10m         Normal    SuccessfulCreate        replicaset/vault-agent-injector-8c76487db   Created pod: vault-agent-injector-8c76487db-d7fzl
+10m         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-0          waiting for first consumer to be created before binding
+10m         Normal    Started                 pod/vault-agent-injector-8c76487db-d7fzl    Container started
+10m         Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-0          Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10m         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-2          waiting for first consumer to be created before binding
+10m         Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-2          Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10m         Normal    Provisioning            persistentvolumeclaim/data-vault-2          External provisioner is provisioning volume for claim "vault/data-vault-2"
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Pod vault-1 in StatefulSet vault successful
+10m         Normal    Pulled                  pod/vault-agent-injector-8c76487db-d7fzl    Container image "hashicorp/vault-k8s:1.7.2" already present on machine and can be accessed by the pod
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Pod vault-2 in StatefulSet vault successful
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Claim data-vault-2 Pod vault-2 in StatefulSet vault success
+10m         Normal    Created                 pod/vault-agent-injector-8c76487db-d7fzl    Container created
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Claim data-vault-1 Pod vault-1 in StatefulSet vault success
+10m         Normal    ExternalProvisioning    persistentvolumeclaim/data-vault-1          Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10m         Normal    SuccessfulCreate        statefulset/vault                           Create Pod vault-0 in StatefulSet vault successful
+10m         Normal    Provisioning            persistentvolumeclaim/data-vault-1          External provisioner is provisioning volume for claim "vault/data-vault-1"
+10m         Normal    Provisioning            persistentvolumeclaim/data-vault-0          External provisioner is provisioning volume for claim "vault/data-vault-0"
+10m         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-vault-1          waiting for first consumer to be created before binding
+10m         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-0          Successfully provisioned volume pvc-06ae6337-7007-4e19-b48b-6b255f6be260
+10m         Normal    Scheduled               pod/vault-1                                 Successfully assigned vault/vault-1 to helm-expt-parity-vault-mqdxae1t-1fwo-worker
+10m         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-1          Successfully provisioned volume pvc-0980a4a2-46a2-4558-be69-01618c40b5fb
+10m         Normal    Scheduled               pod/vault-0                                 Successfully assigned vault/vault-0 to helm-expt-parity-vault-mqdxae1t-1fwo-worker3
+10m         Normal    Started                 pod/vault-0                                 Container started
+10m         Normal    Created                 pod/vault-1                                 Container created
+10m         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-vault-2          Successfully provisioned volume pvc-29820404-a29f-4a48-b670-84fa6e765000
+10m         Normal    Pulled                  pod/vault-0                                 Container image "hashicorp/vault:1.21.2" already present on machine and can be accessed by the pod
+10m         Normal    Created                 pod/vault-0                                 Container created
+10m         Normal    Scheduled               pod/vault-2                                 Successfully assigned vault/vault-2 to helm-expt-parity-vault-mqdxae1t-1fwo-worker2
+10m         Normal    Pulled                  pod/vault-1                                 Container image "hashicorp/vault:1.21.2" already present on machine and can be accessed by the pod
+10m         Normal    Started                 pod/vault-1                                 Container started
+10m         Normal    Pulled                  pod/vault-2                                 Container image "hashicorp/vault:1.21.2" already present on machine and can be accessed by the pod
+10m         Normal    Created                 pod/vault-2                                 Container created
+10m         Normal    Started                 pod/vault-2                                 Container started
+18s         Warning   Unhealthy               pod/vault-0                                 Readiness probe failed: Key                     Value...
+15s         Warning   Unhealthy               pod/vault-1                                 Readiness probe failed: Key                     Value...
+15s         Warning   Unhealthy               pod/vault-2                                 Readiness probe failed: Key                     Value...

@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeReview"
+metadata:
+  name: "vault-ha-raft-ui-runtime-watch"
+  chart: "hashicorp/vault"
+  version: "0.32.0"
+spec:
+  base: "ha-raft-ui"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with target profile kind-three-node"
+  receipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+  observedResult: "watch"
+  targetProfile:
+    name: "kind-three-node"
+    result: "pass"
+    observedSchedulableNodes: 3
+    provides:
+      - "three schedulable Kubernetes nodes for the HA raft StatefulSet"
+      - "target topology for a multi-pod Vault proof shape"
+  passed:
+    - "regular Helm install completed on the three-node target"
+    - "ConfigHub direct apply rendered and applied the same object meaning"
+    - "ConfigHub OCI/Argo synced the uploaded Units"
+    - "Helm-vs-ConfigHub semantic parity passed for the direct-apply leg"
+    - "Helm-vs-ConfigHub semantic parity passed for the OCI/Argo leg"
+    - "the proof target provided the required three schedulable nodes"
+  watch:
+    summary: "The Vault server pods are Running but not Ready in regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo because Vault has not been initialized/unsealed."
+    repeatedAcrossLegs:
+      - "regular Helm: vault-0, vault-1, vault-2 are 0/1 Running"
+      - "ConfigHub direct apply: vault-0, vault-1, vault-2 are 0/1 Running"
+      - "ConfigHub OCI/Argo: vault-0, vault-1, vault-2 are 0/1 Running"
+    diagnostics:
+      readinessProbe: "vault status -tls-skip-verify"
+      podLabel: "vault-sealed=true"
+      logEvidence:
+        - "core: security barrier not initialized"
+        - "core: seal configuration missing, not initialized"
+  operationTimings:
+    regularHelmInstallSeconds: 17.257
+    configHubDirectReadinessSeconds: 304.102
+    configHubOciUploadSeconds: 51.100
+    configHubOciUnitApplySeconds: 307.231
+    configHubOciUnitApplyUnitCount: 19
+    configHubOciArgoWaitSeconds: 422.418
+    configHubOciReadinessSeconds: 182.414
+  diagnosis:
+    summary: "This is a Vault lifecycle watch row, not a render parity defect."
+    interpretation: "The desired object set matched Helm semantically. The remaining work is the Vault operational lifecycle: initialize, unseal, and decide how that action is represented for a target."
+    targetShapeBoundary: "The base needs a Kubernetes target with enough schedulable nodes for HA raft. ConfigHub remains workerless from the target cluster's point of view."
+    lifecycleBoundary: "Initialization and unseal are not static Kubernetes objects. They should be modeled as an explicit post-apply operation, target prerequisite, operator workflow, or refused/managed-service boundary before this base is promoted as production-ready."
+    nextInvestigation:
+      - "Define the supported route for Vault init/unseal: manual operation, scripted post-apply action, external KMS auto-unseal, or managed-service boundary."
+      - "Add a lifecycle route/action packet once the supported route is chosen."
+      - "Rerun live parity after the route is modeled so readiness can move from watch to pass for the chosen target scope."
+  evidence:
+    regularHelmVault0Logs: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/runtime-diagnostics/regular-helm/vault-helm/vault-0/logs.txt"
+    regularHelmVault0Describe: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/runtime-diagnostics/regular-helm/vault-helm/vault-0/describe.txt"
+    configHubOciVault0Logs: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/runtime-diagnostics/confighub-oci-argo/vault/vault-0/logs.txt"
+    configHubOciVault0Describe: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/runtime-diagnostics/confighub-oci-argo/vault/vault-0/describe.txt"
+  notClaimed:
+    - "This row does not prove Vault HA production support."
+    - "This row does not prove Vault initialization, unseal, recovery, backup, seal migration, or upgrade policy."
+    - "This row does not prove that Argo CD aggregate health should be ignored in production."

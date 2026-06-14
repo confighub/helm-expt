@@ -1,0 +1,118 @@
+Name:             vault-2
+Namespace:        vault-helm
+Priority:         0
+Service Account:  vault
+Node:             helm-expt-parity-vault-mqdxae1t-1fwo-worker/192.168.97.4
+Start Time:       Sun, 14 Jun 2026 16:13:56 +0100
+Labels:           app.kubernetes.io/instance=vault
+                  app.kubernetes.io/name=vault
+                  apps.kubernetes.io/pod-index=2
+                  component=server
+                  controller-revision-hash=vault-69bf79d96d
+                  helm.sh/chart=vault-0.32.0
+                  statefulset.kubernetes.io/pod-name=vault-2
+                  vault-active=false
+                  vault-initialized=false
+                  vault-perf-standby=false
+                  vault-sealed=true
+                  vault-version=1.21.2
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.11
+IPs:
+  IP:           10.244.1.11
+Controlled By:  StatefulSet/vault
+Containers:
+  vault:
+    Container ID:  containerd://b6cb26ba30244f95a0a51ffd895bdfdad435e0eb364b6578903acb3579d82318
+    Image:         hashicorp/vault:1.21.2
+    Image ID:      docker.io/hashicorp/vault@sha256:eb0ba6836e8d4699b7a1e8ca70d8433f7b87dcd067e6d82dff237d3ed2600ea0
+    Ports:         8200/TCP (http), 8201/TCP (https-internal), 8202/TCP (http-rep)
+    Host Ports:    0/TCP (http), 0/TCP (https-internal), 0/TCP (http-rep)
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;
+      [ -n "${HOST_IP}" ] && sed -Ei "s|HOST_IP|${HOST_IP?}|g" /tmp/storageconfig.hcl;
+      [ -n "${POD_IP}" ] && sed -Ei "s|POD_IP|${POD_IP?}|g" /tmp/storageconfig.hcl;
+      [ -n "${HOSTNAME}" ] && sed -Ei "s|HOSTNAME|${HOSTNAME?}|g" /tmp/storageconfig.hcl;
+      [ -n "${API_ADDR}" ] && sed -Ei "s|API_ADDR|${API_ADDR?}|g" /tmp/storageconfig.hcl;
+      [ -n "${TRANSIT_ADDR}" ] && sed -Ei "s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g" /tmp/storageconfig.hcl;
+      [ -n "${RAFT_ADDR}" ] && sed -Ei "s|RAFT_ADDR|${RAFT_ADDR?}|g" /tmp/storageconfig.hcl;
+      /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl
+
+    State:          Running
+      Started:      Sun, 14 Jun 2026 16:15:04 +0100
+    Ready:          False
+    Restart Count:  0
+    Readiness:      exec [/bin/sh -ec vault status -tls-skip-verify] delay=5s timeout=3s period=5s #success=1 #failure=2
+    Environment:
+      HOST_IP:               (v1:status.hostIP)
+      POD_IP:                (v1:status.podIP)
+      VAULT_K8S_POD_NAME:   vault-2 (v1:metadata.name)
+      VAULT_K8S_NAMESPACE:  vault-helm (v1:metadata.namespace)
+      VAULT_ADDR:           http://127.0.0.1:8200
+      VAULT_API_ADDR:       http://$(POD_IP):8200
+      SKIP_CHOWN:           true
+      SKIP_SETCAP:          true
+      HOSTNAME:             vault-2 (v1:metadata.name)
+      VAULT_CLUSTER_ADDR:   https://$(HOSTNAME).vault-internal:8201
+      HOME:                 /home/vault
+    Mounts:
+      /home/vault from home (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jk9rk (ro)
+      /vault/config from config (rw)
+      /vault/data from data (rw)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  data-vault-2
+    ReadOnly:   false
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      vault-config
+    Optional:  false
+  home:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  kube-api-access-jk9rk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                 From               Message
+  ----     ------     ----                ----               -------
+  Normal   Scheduled  3m13s               default-scheduler  Successfully assigned vault-helm/vault-2 to helm-expt-parity-vault-mqdxae1t-1fwo-worker
+  Normal   Pulling    3m13s               kubelet            spec.containers{vault}: Pulling image "hashicorp/vault:1.21.2"
+  Normal   Pulled     2m5s                kubelet            spec.containers{vault}: Successfully pulled image "hashicorp/vault:1.21.2" in 1m7.384s (1m7.384s including waiting). Image size: 167253745 bytes.
+  Normal   Created    2m5s                kubelet            spec.containers{vault}: Container created
+  Normal   Started    2m5s                kubelet            spec.containers{vault}: Container started
+  Warning  Unhealthy  3s (x25 over 118s)  kubelet            spec.containers{vault}: Readiness probe failed: Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             false
+Sealed                  true
+Total Shares            0
+Threshold               0
+Unseal Progress         0/0
+Unseal Nonce            n/a
+Version                 1.21.2
+Build Date              2026-01-06T08:33:05Z
+Storage Type            raft
+Removed From Cluster    false
+HA Enabled              true

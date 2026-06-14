@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "vault" in pod "vault-1" not found
