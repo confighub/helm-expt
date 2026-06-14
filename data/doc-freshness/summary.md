@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-14 (commit `011cb7b3`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-14 (commit `2c81657c`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 164 |
+| Authored docs tracked | 165 |
 | Fresh (no linked source newer than the doc) | 14 |
 | **Review-due** | 33 |
-| No linked evidence sources (cannot auto-trigger) | 117 |
+| No linked evidence sources (cannot auto-trigger) | 118 |
 
 ## Review queue
 
@@ -140,6 +140,7 @@ into this freshness model.
 - [docs/planning/top20-full-proof-target.md](../../docs/planning/top20-full-proof-target.md)
 - [docs/planning/top500-matrix-refresh-review.md](../../docs/planning/top500-matrix-refresh-review.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
+- [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)
 - [docs/reference/catalog-doctrine.md](../../docs/reference/catalog-doctrine.md)
