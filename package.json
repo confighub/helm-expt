@@ -393,6 +393,8 @@
     "live-parity:verify": "node scripts/verify-live-parity-receipts.mjs",
     "live-parity:rerun-plan": "node scripts/generate-live-parity-rerun-plan.mjs --generate",
     "live-parity:rerun-plan:verify": "node scripts/generate-live-parity-rerun-plan.mjs --verify",
+    "live-matrix:burndown": "node scripts/generate-live-matrix-burndown.mjs --generate",
+    "live-matrix:burndown:verify": "node scripts/generate-live-matrix-burndown.mjs --verify",
     "gitops:health-residue": "node scripts/generate-gitops-health-residue.mjs --generate",
     "gitops:health-residue:verify": "node scripts/generate-gitops-health-residue.mjs --verify",
     "live-parity:top20": "node scripts/run-top20-live-parity.mjs --run",
