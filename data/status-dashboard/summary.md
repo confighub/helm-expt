@@ -199,7 +199,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | runtime-review | [recipes/hashicorp/consul/2.0.0/runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/runtime-review.yaml) |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime-review | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) |
 
 ### Local Live Non-Pass Triage
 
@@ -390,7 +390,7 @@ useful.
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| runtime-review | 1 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -399,7 +399,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
-| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | target-runtime: pod config/runtime errors (parity passed) |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
 
 
 Current two-cluster kind parity non-pass receipts:

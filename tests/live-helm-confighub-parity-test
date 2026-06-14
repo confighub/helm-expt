@@ -1253,7 +1253,17 @@ def ensure_tls_material(run_root: Path, dns_names: list[str] | None = None) -> t
     suffix = f"-{hashlib.sha256(chr(10).join(names).encode()).hexdigest()[:12]}" if names else ""
     cert = run_root / f"target-facts-tls{suffix}.crt"
     key = run_root / f"target-facts-tls{suffix}.key"
-    if not cert.exists() or not key.exists():
+    needs_generation = not cert.exists() or not key.exists()
+    if cert.exists():
+        # The live lane reuses run directories so receipts and diagnostic files
+        # stay inspectable. Generated target-fact certificates must not be reused
+        # after their validity window, otherwise reruns fail for the wrong reason.
+        rc, _out, _err = sh(["openssl", "x509", "-checkend", str(12 * 60 * 60), "-noout", "-in", str(cert)], timeout=30)
+        if rc != 0:
+            needs_generation = True
+    if needs_generation:
+        cert.unlink(missing_ok=True)
+        key.unlink(missing_ok=True)
         command = [
             "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
             "-keyout", str(key), "-out", str(cert), "-subj", f"/CN={names[0] if names else 'helm-expt.local'}",
@@ -1973,6 +1983,123 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     }
 
 
+def safe_filename(value: str) -> str:
+    return "".join(ch if ch.isalnum() or ch in ("-", "_", ".") else "-" for ch in value).strip("-") or "item"
+
+
+def diagnostic_artifact(run_root: Path, path: Path, text: str, limit: int = 20000) -> dict:
+    if len(text) > limit:
+        text = text[:limit] + f"\n\n[truncated at {limit} characters]\n"
+    sha = write_text(path, text)
+    return {
+        "path": str(path.relative_to(run_root)),
+        "sha256": sha,
+        "bytes": path.stat().st_size,
+    }
+
+
+def capture_runtime_diagnostics(
+    kubeconfig: Path,
+    context: str,
+    runtime: dict,
+    run_root: Path,
+    label: str,
+) -> dict:
+    if runtime.get("result") == "pass":
+        return {"result": "not-needed"}
+    namespaces = sorted(set(runtime.get("namespaces") or [item.get("namespace") for item in runtime.get("notReady", []) if item.get("namespace")]))
+    if not namespaces:
+        return {"result": "not-needed", "reason": "no runtime namespaces"}
+    output_dir = run_root / "runtime-diagnostics" / safe_filename(label)
+    namespace_artifacts = []
+    pod_artifacts = []
+    for namespace in namespaces:
+        namespace_dir = output_dir / safe_filename(namespace)
+        rc_events, events_out, events_err = kubectl(
+            ["-n", namespace, "get", "events", "--sort-by=.lastTimestamp"],
+            kubeconfig,
+            context,
+            timeout=60,
+        )
+        namespace_artifacts.append({
+            "namespace": namespace,
+            "kind": "events",
+            "result": "pass" if rc_events == 0 else "blocked",
+            **diagnostic_artifact(run_root, namespace_dir / "events.txt", events_out or events_err),
+        })
+        rc_workloads, workloads_out, workloads_err = kubectl(
+            ["-n", namespace, "describe", "deploy,statefulset,daemonset,job"],
+            kubeconfig,
+            context,
+            timeout=120,
+        )
+        namespace_artifacts.append({
+            "namespace": namespace,
+            "kind": "workload-describe",
+            "result": "pass" if rc_workloads == 0 else "blocked",
+            **diagnostic_artifact(run_root, namespace_dir / "workloads-describe.txt", workloads_out or workloads_err),
+        })
+    for item in runtime.get("notReady", []):
+        namespace = item.get("namespace") or (namespaces[0] if namespaces else "")
+        pod = item.get("pod")
+        if not namespace or not pod:
+            continue
+        pod_dir = output_dir / safe_filename(namespace) / safe_filename(pod)
+        rc_describe, describe_out, describe_err = kubectl(["-n", namespace, "describe", "pod", pod], kubeconfig, context, timeout=60)
+        pod_artifacts.append({
+            "namespace": namespace,
+            "pod": pod,
+            "kind": "pod-describe",
+            "result": "pass" if rc_describe == 0 else "blocked",
+            **diagnostic_artifact(run_root, pod_dir / "describe.txt", describe_out or describe_err),
+        })
+        rc_logs, logs_out, logs_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", "--tail=200"], kubeconfig, context, timeout=120)
+        pod_artifacts.append({
+            "namespace": namespace,
+            "pod": pod,
+            "kind": "pod-logs",
+            "result": "pass" if rc_logs == 0 else "blocked",
+            **diagnostic_artifact(run_root, pod_dir / "logs.txt", logs_out or logs_err),
+        })
+        rc_prev, prev_out, prev_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", "--previous", "--tail=200"], kubeconfig, context, timeout=120)
+        if rc_prev == 0 or prev_out or prev_err:
+            pod_artifacts.append({
+                "namespace": namespace,
+                "pod": pod,
+                "kind": "pod-previous-logs",
+                "result": "pass" if rc_prev == 0 else "blocked",
+                **diagnostic_artifact(run_root, pod_dir / "previous-logs.txt", prev_out or prev_err),
+            })
+    return {
+        "result": "recorded",
+        "namespaces": namespaces,
+        "namespaceArtifacts": namespace_artifacts,
+        "podArtifacts": pod_artifacts,
+    }
+
+
+def add_runtime_diagnostics(
+    kubeconfig: Path,
+    context: str,
+    runtime: dict,
+    run_root: Path,
+    label: str,
+    namespaces: list[str],
+) -> None:
+    if runtime.get("result") == "pass":
+        return
+    runtime.setdefault("namespaces", namespaces)
+    enriched = []
+    fallback_namespace = namespaces[0] if namespaces else ""
+    for item in runtime.get("notReady", []):
+        if item.get("namespace") or not fallback_namespace:
+            enriched.append(item)
+        else:
+            enriched.append({"namespace": fallback_namespace, **item})
+    runtime["notReady"] = enriched
+    runtime["diagnostics"] = capture_runtime_diagnostics(kubeconfig, context, runtime, run_root, label)
+
+
 def wait_for_pod_running(kubeconfig: Path, context: str, namespace: str, pod: str, timeout_seconds: int = 300) -> dict:
     deadline = time.monotonic() + timeout_seconds
     last = {"phase": "", "detail": ""}
@@ -2436,6 +2563,7 @@ def main() -> int:
         if helm_operations.get("operation") != "none":
             check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
         helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
+        add_runtime_diagnostics(kubeconfig, context, helm_runtime, run_root, "regular-helm", [helm_namespace])
         if get_rc != 0:
             helm_result = "blocked"
         elif rc != 0 and helm_wait_timeout(f"{helm_out}\n{helm_err}"):
@@ -2577,6 +2705,7 @@ def main() -> int:
             timeout_seconds=readiness_timeout(args.chart, args.base, 300),
             namespaces=",".join(apply_runtime_namespaces),
         )
+        add_runtime_diagnostics(kubeconfig, context, apply_runtime, run_root, "confighub-direct-apply", apply_runtime_namespaces)
         apply_result = "pass" if apply_operations["result"] == "pass" and apply_runtime["result"] == "pass" else "watch"
         apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
@@ -2755,6 +2884,7 @@ def main() -> int:
                 f"secrets={len(lifecycle_secrets.get('secrets', []))}",
             )
 
+        mark_stage("configHub-oci-upload")
         rc, upload_out, upload_err = timed_command("configHub-oci-upload", [
             "cub", "installer", "upload", "--work-dir", str(workdir),
             "--space", wspace, "--target", target,
@@ -2763,6 +2893,7 @@ def main() -> int:
             raise RuntimeError(f"installer upload failed: {(upload_err or upload_out)[:1000]}")
         workload_space_created = True
 
+        mark_stage("configHub-oci-unit-list")
         rc, units_out, units_err = timed_command("configHub-oci-unit-list", ["cub", "unit", "list", "--space", wspace], timeout=120)
         if rc != 0:
             raise RuntimeError(f"unit list failed: {(units_err or units_out)[:1000]}")
@@ -2900,6 +3031,7 @@ def main() -> int:
                 timeout_seconds=readiness_timeout(args.chart, args.base, 180),
                 namespaces=",".join(oci_runtime_namespaces),
             )
+            add_runtime_diagnostics(kubeconfig, context, oci_runtime, run_root, "confighub-oci-argo", oci_runtime_namespaces)
         oci_result = "pass" if oci_operations["result"] == "pass" and sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
         leg("configHubOciArgo",
             result=oci_result,
