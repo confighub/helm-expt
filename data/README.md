@@ -40,6 +40,7 @@ smallest generated surface that answers it.
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md)<br>[gitops-health-residue/summary.md](./gitops-health-residue/summary.md) |
+| I want large ConfigHub upload/apply/GitOps operations split into visible stages. | [large-config-operations/summary.md](./large-config-operations/summary.md)<br>[large-config-operations/operations.csv](./large-config-operations/operations.csv) |
 | I want to understand local live non-pass rows. | [local-live-triage/summary.md](./local-live-triage/summary.md)<br>[local-live-triage/triage.csv](./local-live-triage/triage.csv) |
 | I want hook, APIService, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[apiservice-coverage/summary.md](./apiservice-coverage/summary.md)<br>[apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want candidate routes for hook-bearing source charts. | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md)<br>[hook-route-candidates/candidates.csv](./hook-route-candidates/candidates.csv)<br>[hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) |
@@ -90,6 +91,7 @@ smallest generated surface that answers it.
 | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows. |
 | [live-parity-rerun-plan/summary.md](./live-parity-rerun-plan/summary.md) | Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command. |
 | [gitops-health-residue/summary.md](./gitops-health-residue/summary.md) | GitOps controller-health residue: rows where sync/workload evidence can pass while aggregate controller health still needs explanation. |
+| [large-config-operations/summary.md](./large-config-operations/summary.md) | Large ConfigHub operation funnel: 50+ object live rows split by runtime, GitOps, target facts, workload convergence, controller health, and missing progress evidence. |
 | [production-disposition/summary.md](./production-disposition/summary.md) | Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions. |
 | [production-disposition/dispositions.md](./production-disposition/dispositions.md) | Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules. |
 | [production-disposition/next-actions.csv](./production-disposition/next-actions.csv) | Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart. |
@@ -239,6 +241,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `hook-lifecycle-review` | [hook-lifecycle-review/summary.md](./hook-lifecycle-review/summary.md) | supporting generated evidence |
 | `hook-route-candidates` | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md) | candidate hook route plans before maintained lifecycle queue admission |
 | `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
+| `large-config-operations` | [large-config-operations/summary.md](./large-config-operations/summary.md) | large ConfigHub upload/apply/GitOps operation funnel and progress-evidence gaps |
 | `latest-top20-refresh` | [latest-top20-refresh/summary.md](./latest-top20-refresh/summary.md) | latest upstream chart-version refresh candidates |
 | `legacy-patch-review` | [legacy-patch-review/summary.md](./legacy-patch-review/summary.md) | older chart-version patch support review |
 | `lifecycle-boundary` | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | hook queue and hook-like lifecycle observation boundary |
@@ -295,7 +298,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 136 CSV files. Each row records the path, audience,
+It includes 137 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
