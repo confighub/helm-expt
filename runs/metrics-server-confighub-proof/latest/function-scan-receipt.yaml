@@ -17,45 +17,45 @@ spec:
     configHubUnitCount: 10
   unitRevisionBindings:
     -
-      slug: "namespace-kube-system"
-      headRevisionNum: 1
-      dataHash: "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251"
-    -
-      slug: "clusterrole-systemmetrics-server-aggregated-reader"
-      headRevisionNum: 2
-      dataHash: "f6eebb9be53987508b62a5df8cb2a874997e2c8c3ffa592b2cf65f264d75eda5"
-    -
       slug: "apiservice-v1beta1-metrics-k8s-io"
       headRevisionNum: 1
       dataHash: "4c3fb05ee9eed70136705b9ad3ddc9f1eef730a0380388c0a8d276e1b27a396b"
     -
-      slug: "deployment-kube-system-metrics-server"
+      slug: "clusterrolebinding-metrics-serversystemauth-delegator"
       headRevisionNum: 2
-      dataHash: "0e55f82c98c95aacad42ca879d556961c35263173f656afbb83e58c281c6de01"
+      dataHash: "dfbe6f8ceb61aa20186f90bc147b5d66ecd8b57e2b86d963767d2ded86e3efcf"
     -
       slug: "clusterrolebinding-systemmetrics-server"
       headRevisionNum: 2
       dataHash: "ad6f512e8c2207ce53763ebb36964c8a7f5a1e2c421792f1d007d1dd4f1d1303"
     -
+      slug: "clusterrole-systemmetrics-server"
+      headRevisionNum: 2
+      dataHash: "861bc6169896034ee0ad0838e0c5525b73d4d5eb8886016e5629a2d588cadfac"
+    -
+      slug: "clusterrole-systemmetrics-server-aggregated-reader"
+      headRevisionNum: 2
+      dataHash: "f6eebb9be53987508b62a5df8cb2a874997e2c8c3ffa592b2cf65f264d75eda5"
+    -
+      slug: "deployment-kube-system-metrics-server"
+      headRevisionNum: 2
+      dataHash: "0e55f82c98c95aacad42ca879d556961c35263173f656afbb83e58c281c6de01"
+    -
+      slug: "namespace-kube-system"
+      headRevisionNum: 1
+      dataHash: "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251"
+    -
       slug: "rolebinding-kube-system-metrics-server-auth-reader"
       headRevisionNum: 2
       dataHash: "3401b10b938a6360cd399c6884899be8e4f01865eed3f67e61cf8224abafd2e4"
-    -
-      slug: "service-kube-system-metrics-server"
-      headRevisionNum: 2
-      dataHash: "1b1e7b8cc5ceaaa156df6c4f04fbc4ad6f3234bb7d86b19533cc7b836b3db265"
     -
       slug: "serviceaccount-kube-system-metrics-server"
       headRevisionNum: 1
       dataHash: "5c495395c7c99ac3fac6e4bb6e72947f023c85ae8a0459e1694373460421a71e"
     -
-      slug: "clusterrole-systemmetrics-server"
+      slug: "service-kube-system-metrics-server"
       headRevisionNum: 2
-      dataHash: "861bc6169896034ee0ad0838e0c5525b73d4d5eb8886016e5629a2d588cadfac"
-    -
-      slug: "clusterrolebinding-metrics-serversystemauth-delegator"
-      headRevisionNum: 2
-      dataHash: "dfbe6f8ceb61aa20186f90bc147b5d66ecd8b57e2b86d963767d2ded86e3efcf"
+      dataHash: "1b1e7b8cc5ceaaa156df6c4f04fbc4ad6f3234bb7d86b19533cc7b836b3db265"
   validations:
     -
       function: "vet-format"

@@ -42,7 +42,12 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/metrics-server-default"
@@ -51,7 +56,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o .tmp/confighub-proof/metrics-server-archives/metrics-server-a.tgz"
-    sha256: "f1d3c6f4598bcb84fce4fe86d43edec0c3f511965d3b66febeed5884f572bbfa"
+    sha256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/metrics-server-default"
@@ -75,11 +80,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-metrics-server-confighub-proof (post-render):\n      Deployment/metrics-server [metrics-server] registry.k8s.io/metrics-server/metrics-server:v0.8.0"
   serverSideVariant:
-    command: "cub variant create staging helm-metrics-server-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-metrics-server-confighub-proof --environment Staging --region local --namespace kube-system --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-metrics-server-confighub-proof"
     downstreamSpace: "MetricsServer-staging"
     clonedUnitCount: 11
+    namespace: "kube-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "watch"
+    reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

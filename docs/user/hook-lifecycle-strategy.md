@@ -97,6 +97,33 @@ current model safely.
 
 ## Where To Look Per Chart
 
+The first place to look is the chart row in the master catalog matrix. The
+Hook column tells you whether the chart has hooks, whether a disposition exists,
+and whether the route has been observed. From there, follow the row links to
+the chart catalog, pain report, hook disposition, or lifecycle route receipt.
+
+For a user, the practical contract is:
+
+| What you see | What it means |
+| --- | --- |
+| `observed` | The hook or hook-like lifecycle step has a selected route and live evidence. Use the linked route and receipt for the supported target scope. |
+| `routed` | The route is known, such as preflight, post-apply Job, Argo hook, sync wave, ConfigHub check, or target prerequisite, but the route still needs fresh live evidence before a production claim. |
+| `per-target` | The right route depends on the target platform, policy, or operator choice. The catalog names the decision instead of guessing. |
+| `refused` or `blocked` | The public catalog does not run that hook automatically. The chart records why and what would be needed to support it. |
+
+If the route is a normal Kubernetes object, it can be delivered as a ConfigHub
+Unit with the rest of the desired state. If the route is an action, it must be
+set up as an explicit lifecycle operation: preflight, post-apply Job, Argo
+hook, Argo sync wave, ConfigHub function/check, operator action, or documented
+manual step. The catalog should make that route visible before OCI delivery, so
+the user is not surprised by behavior Helm would otherwise hide in an install
+or upgrade.
+
+The route is not considered production-supported until the row either has live
+evidence for the target scope or is explicitly marked per-target, refused, or
+blocked. A chart can have perfect render parity and still be incomplete if its
+hook route is only inventoried.
+
 For the current recipe corpus, use:
 
 ```text

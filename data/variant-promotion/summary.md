@@ -22,16 +22,16 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 187 |
+| available-needs-receipt | 183 |
 | missing-confighub-proof | 2 |
-| proven-with-watch | 3 |
+| proven-with-watch | 7 |
 
 Matrix values:
 
 | Matrix value | Rows |
 | --- | ---: |
-| todo | 189 |
-| watch | 3 |
+| todo | 185 |
+| watch | 7 |
 
 ## Watch Rows
 
@@ -41,12 +41,16 @@ resolved and the receipt reruns as pass.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 3 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
+| 7 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
 | `bitnami/nginx@24.0.2/http-clusterip` | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `bitnami/redis@25.5.3/default` | runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `external-secrets/external-secrets@2.5.0/default` | runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `ingress-nginx/ingress-nginx@4.15.1/internal-clusterip` | runs/ingress-nginx-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `jetstack/cert-manager@v1.20.2/crds-enabled` | runs/cert-manager-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `metrics-server/metrics-server@3.13.0/default` | runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `prometheus-community/kube-prometheus-stack@85.3.3/default` | runs/kube-prometheus-stack-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 
 ## First TODO Rows
