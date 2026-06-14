@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-14T09:17:49.398Z",
+  "generatedAt": "2026-06-14T09:22:40.934Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -13615,6 +13615,8 @@
       ],
       "route_requirements": "metadata database and migration state; values-conditional rendering",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13649,6 +13651,8 @@
       ],
       "route_requirements": "metadata database and migration state",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13679,6 +13683,8 @@
       ],
       "route_requirements": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13713,6 +13719,8 @@
       ],
       "route_requirements": "in-cluster brokers; values-conditional opt-in",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13747,6 +13755,8 @@
       ],
       "route_requirements": "in-cluster object store; optional existing credentials Secret; values-conditional opt-in",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13781,6 +13791,8 @@
       ],
       "route_requirements": "vendored object store and credentials when enabled",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13807,6 +13819,8 @@
       ],
       "route_requirements": "GKE Autopilot target class plus migration state",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13837,6 +13851,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13867,6 +13883,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13897,6 +13915,8 @@
       ],
       "route_requirements": "GitLab serious-chart prerequisites dominate; confirm supported base before routing",
       "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13931,6 +13951,8 @@
       ],
       "route_requirements": "none expected under default values; rendering under defaults unresolved; condition: if rendered",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13965,6 +13987,8 @@
       ],
       "route_requirements": "reachable database when not DB-less; values-conditional rendering",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -13995,6 +14019,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14025,6 +14051,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14059,6 +14087,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14089,6 +14119,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14119,6 +14151,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14149,6 +14183,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14179,6 +14215,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14213,6 +14251,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14247,6 +14287,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14281,6 +14323,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14311,6 +14355,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14341,6 +14387,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
@@ -14367,6 +14415,8 @@
       ],
       "route_requirements": "",
       "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"

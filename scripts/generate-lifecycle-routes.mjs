@@ -370,6 +370,28 @@ const CSV_HEADERS = [
 ];
 
 function buildJson(rows) {
+  const routes = rows.map((row) => ({
+    chart: row.chart,
+    version: row.version,
+    base_or_variant: row.base_or_variant,
+    quirk_class: row.quirk_class,
+    hook_phases: row.hook_phases,
+    source_disposition: row.source_disposition,
+    disposition: row.disposition,
+    route_name: row.route_name,
+    default_route: row.default_route,
+    alternatives: row._alternatives,
+    route_requirements: row.route_requirements,
+    execution_mode: row.execution_mode,
+    human_offramp: row.human_offramp,
+    agent_offramp: row.agent_offramp,
+    // Kept for compatibility with earlier readers; prefer the flat fields above.
+    offramp: { human: row.human_offramp, agent: row.agent_offramp },
+    live_status: row.live_status,
+    safe_as_automatic: row.safe_as_automatic === "yes",
+    evidence_or_next_action: row.evidence_or_next_action,
+  }));
+  validateJsonRoutes(routes);
   return `${JSON.stringify(
     {
       kind: "LifecycleRouteContract",
@@ -387,28 +409,31 @@ function buildJson(rows) {
         "No row is product-executes today: the installer does not auto-run lifecycle routes yet.",
         "refused is a deliberate final decision; unmapped/unfinished cases are todo with a next action.",
       ],
-      routes: rows.map((row) => ({
-        chart: row.chart,
-        version: row.version,
-        base_or_variant: row.base_or_variant,
-        quirk_class: row.quirk_class,
-        hook_phases: row.hook_phases,
-        source_disposition: row.source_disposition,
-        disposition: row.disposition,
-        route_name: row.route_name,
-        default_route: row.default_route,
-        alternatives: row._alternatives,
-        route_requirements: row.route_requirements,
-        execution_mode: row.execution_mode,
-        offramp: { human: row.human_offramp, agent: row.agent_offramp },
-        live_status: row.live_status,
-        safe_as_automatic: row.safe_as_automatic === "yes",
-        evidence_or_next_action: row.evidence_or_next_action,
-      })),
+      routes,
     },
     null,
     2,
   )}\n`;
+}
+
+function validateJsonRoutes(routes) {
+  for (const row of routes) {
+    const id = `${row.chart}@${row.version} ${row.quirk_class}/${row.route_name}`;
+    for (const field of [
+      "disposition",
+      "route_name",
+      "default_route",
+      "execution_mode",
+      "human_offramp",
+      "agent_offramp",
+      "live_status",
+      "evidence_or_next_action",
+    ]) {
+      check(row[field] !== undefined && row[field] !== "", `lifecycle route JSON ${id} missing ${field}`);
+    }
+    check(Array.isArray(row.alternatives), `lifecycle route JSON ${id} alternatives must be an array`);
+    check(row.safe_as_automatic === false || row.execution_mode === "product-executes", `lifecycle route JSON ${id} is automatic without product-executes`);
+  }
 }
 
 function countBy(rows, key) {
