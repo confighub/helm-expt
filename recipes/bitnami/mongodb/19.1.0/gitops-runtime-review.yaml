@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "mongodb-existing-secret-replicaset-statefulset-sync-watch"
+  chart: "bitnami/mongodb"
+  version: "19.1.0"
+spec:
+  base: "existing-secret-replicaset"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with staged mongodb-auth target Secret"
+  receipt: "runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "OutOfSync"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+    workloadRuntime: "pass"
+    targetFacts: "pass"
+    requiredSecret: "mongodb/mongodb-auth"
+  passed:
+    - "regular Helm reached readiness after staging the required mongodb-auth Secret"
+    - "ConfigHub direct apply reached readiness after staging the same Secret target fact"
+    - "ConfigHub OCI/Argo applied the rendered Units after staging the same Secret target fact"
+    - "ConfigHub OCI/Argo workloads reached readiness: mongodb StatefulSet 2/2 and mongodb-arbiter StatefulSet 1/1"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "Argo stayed OutOfSync/Healthy even though workload readiness and semantic parity passed."
+    observedResidue:
+      - "StatefulSet/mongodb-oci/mongodb: OutOfSync"
+      - "Argo sync operation succeeded and the workload StatefulSets reached readiness"
+    interpretation: "This is a GitOps StatefulSet drift/canonicalization watch row, not a target-secret, render parity, or runtime readiness defect."
+  diagnosis:
+    summary: "The existing-secret-replicaset base proves the target-fact secret route across Helm, ConfigHub direct apply, and ConfigHub OCI/Argo. The remaining product question is why Argo reports the primary StatefulSet OutOfSync after the workload is ready."
+    productBoundary: "A production claim for this base needs target-scoped decisions for secret delivery, replica topology, storage, backup, and StatefulSet drift under Argo server-side apply."
+    nextInvestigation:
+      - "Compare the live StatefulSet against the OCI desired object and identify the exact Argo diff."
+      - "Decide whether this StatefulSet residue needs a canonicalization profile, a field-ownership rule, or an operating-policy watch."
+      - "Keep secret delivery explicit: this base requires mongodb/mongodb-auth before apply; ConfigHub should not silently invent the credential."
+  evidence:
+    receipt: "runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml"
+    targetFactSummary: "The receipt records target-facts-regular-helm, target-facts-confighub-apply, and target-facts-confighub-oci as passing. The raw Secret manifests are not committed because they contain credential material, even though this proof rig uses dummy values."
+  notClaimed:
+    - "This row does not prove MongoDB production backup, restore, storage, or HA policy."
+    - "This row does not prove that Argo OutOfSync is harmless in production."
+    - "This row does not claim ConfigHub stores or generates the external mongodb-auth Secret."
