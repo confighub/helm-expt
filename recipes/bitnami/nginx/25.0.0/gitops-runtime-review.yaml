@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "nginx-existing-tls-ingress-argo-health-watch"
+  chart: "bitnami/nginx"
+  version: "25.0.0"
+spec:
+  base: "existing-tls-ingress"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with staged backend and ingress TLS Secrets, without an ingress controller/status address"
+  receipt: "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Progressing"
+    semanticParity: "pass"
+    workloadRuntime: "pass"
+    targetFacts: "pass"
+    requiredSecrets:
+      - "nginx/nginx-backend-tls"
+      - "nginx/nginx-ingress-tls"
+  passed:
+    - "regular Helm reached readiness after staging the required backend and ingress TLS Secrets"
+    - "ConfigHub direct apply reached readiness after staging the same TLS target facts"
+    - "ConfigHub OCI/Argo synced all seven rendered Units from the OCI source"
+    - "ConfigHub OCI/Argo workload runtime passed: the nginx Deployment reached 1/1 ready"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "Argo stayed Synced/Progressing even though the workload runtime and semantic parity passed."
+    observedResidue:
+      - "Application/nginx-parity: Synced/Progressing"
+      - "Ingress/nginx/nginx synced without a target-provided ingress status address"
+      - "The workload resources render into namespace nginx while the Argo destination namespace is nginx-oci"
+    interpretation: "This is an ingress target-shape and controller-health watch row, not a TLS Secret, render parity, or workload readiness defect."
+  diagnosis:
+    summary: "The existing-tls-ingress base proves the external TLS target-fact route across Helm, ConfigHub direct apply, and ConfigHub OCI/Argo. The same watch shape now appears on both 24.0.4 and 25.0.0, so the product question is target shape rather than a one-version render defect."
+    productBoundary: "A production claim for this base needs a target-scoped decision for ingress controller availability, ingress status expectations, TLS Secret delivery, and public endpoint verification."
+    nextInvestigation:
+      - "Rerun this base on a target profile with an ingress controller and confirm whether Argo health reaches Healthy."
+      - "If vanilla kind remains a supported proof target, decide whether the missing ingress status is an explicit watch policy rather than a failure."
+      - "Keep TLS delivery explicit: this base requires nginx-backend-tls and nginx-ingress-tls before apply; ConfigHub should not silently invent TLS material."
+  evidence:
+    receipt: "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml"
+    targetFactSummary: "The receipt records target-facts-regular-helm, target-facts-confighub-apply, and target-facts-confighub-oci as passing. The raw Secret manifests are not committed because they contain credential material, even though this proof rig uses dummy values."
+  notClaimed:
+    - "This row does not prove public TLS ingress reachability."
+    - "This row does not prove that a vanilla kind target supplies an ingress controller or status address."
+    - "This row does not claim ConfigHub stores or generates the external TLS Secrets."
