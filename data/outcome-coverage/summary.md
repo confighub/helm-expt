@@ -14,10 +14,10 @@ complete core lane rows:             91/192
 render parity rows:                  192/192
 in-ConfigHub proof rows:             190/192
 local live rows:                     139/192
-GitOps/OCI live pass rows:           99/192
-GitOps/OCI non-pass receipts:        9
-live Helm-vs-ConfigHub pass rows:    99/192
-live Helm-vs-ConfigHub non-pass receipts: 9
+GitOps/OCI live pass rows:           103/192
+GitOps/OCI non-pass receipts:        10
+live Helm-vs-ConfigHub pass rows:    103/192
+live Helm-vs-ConfigHub non-pass receipts: 10
 lifecycle observation rows:          10/10
 selected live parity receipts:       103 pass, 10 watch, 0 blocked
 two-cluster kind parity receipts:    73 pass, 1 watch, 0 blocked
