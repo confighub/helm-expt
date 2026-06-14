@@ -67,7 +67,7 @@ function categorize(name) {
   if (name.startsWith("pain-points") || name.startsWith("claims") || name.startsWith("blast-radius") || name.startsWith("edges") || name.startsWith("high-fanout") || name.startsWith("outcomes") || name.startsWith("attack-plan") || name.startsWith("next-ten")) return "evidence-workdown";
   if (name.startsWith("lane-tests:")) return "live-parity-gitops";
   if (name.startsWith("refresh:") || name.startsWith("legacy-patch:")) return "latest-version-refresh";
-  if (name.startsWith("installer:") || name.startsWith("receipts:") || name.startsWith("p0:") || name.startsWith("docs:") || name.startsWith("verify") || name.startsWith("variant:command-surface")) return "repo-integrity";
+  if (name.startsWith("installer:") || name.startsWith("receipts:") || name.startsWith("p0:") || name.startsWith("docs:") || name.startsWith("knowledge:") || name.startsWith("verify") || name.startsWith("variant:command-surface")) return "repo-integrity";
   if (name.startsWith("pilot:")) return "adversarial-live";
   if (name === "generate") return "catalog-data";
   return "other";
