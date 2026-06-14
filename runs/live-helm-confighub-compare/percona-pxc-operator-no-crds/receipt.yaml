@@ -1,0 +1,1019 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: percona-pxc-operator-1.19.1-no-crds-live-parity-20260605
+spec:
+  chart: percona/pxc-operator
+  version: 1.19.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-14T18:43:28Z'
+  package:
+    path: packages/percona/pxc-operator/1.19.1
+  recipe:
+    path: recipes/percona/pxc-operator/1.19.1
+  variantRevision: recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-pxcoperator-mqe4ua51-6g6
+    kubeContext: kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-pxcoperator-mqe4ua51-6g6 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-pxcoperator-mqe4ua51-6g6"...
+
+        Deleting cluster "helm-expt-parity-pxcoperator-mqe4ua51-6g6" ...
+
+        Deleted nodes: ["helm-expt-parity-pxcoperator-mqe4ua51-6g6-control-plane"]
+
+        Deleting Space "helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
+        --version 1.19.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488
+      objectCount: 4
+      liveHelmManifestSHA256: f0d76dbb5edb44146a219e8d4ae39afdba3e8deeaca08125ce4c3d73369024e3
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/pxc-operator   1/1   1     1     21s
+        pods: pxc-operator-7dbf87b567-ht2p4   1/1   Running   0     21s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 3cf1d6f487b7f0a328316a9de0b0612f350d4aa85f797e1e6869d1b0eb4b7a8b
+      objectCount: 5
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pxc-operator   1/1   1     1     10s'
+        pods: '# default
+
+          pxc-operator-5f59645bd-sndk6   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|pxc-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|pxc-operator
+          - rbac.authorization.k8s.io/v1|Role|default|pxc-operator
+          - v1|ServiceAccount|default|pxc-operator
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+      controller: Argo CD OCI
+      app: pxc-operator-parity
+      manifestSHA256: 0d4a8dfcc39ec88c53df1eb43534c1fd6f5e5bb4d4c365ad4c30dc084b291342
+      objectCount: 5
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci
+              targetRevision: latest
+          revision: sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T18:46:17Z'
+          status: Healthy
+        summary:
+          images:
+          - percona/percona-xtradb-cluster-operator:1.19.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T18:46:17Z'
+          finishedAt: '2026-06-14T18:46:19Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 5
+          syncResultStatusCounts:
+            Synced: 5
+        history:
+        - id: 0
+          revision: sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+          deployedAt: '2026-06-14T18:46:19Z'
+          deployStartedAt: '2026-06-14T18:46:17Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: pxc-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         pxc-operator-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster:argoproj.io/Application:argocd/pxc-operator-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 2a758fb7-88d8-4e37-861e-4a6490529ab5\n              confighub.com/UnitSlug:\
+              \ pxc-operator-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-14T18:46:15Z\n\
+              \  Generation:          7\n  Resource Version:    1120\n  UID:     \
+              \            00160bac-f5b7-44c6-a327-dce8fa786f49\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-14T18:46:17Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-14T18:46:17Z\n    Deployed At:        2026-06-14T18:46:19Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \    Source:\n      Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T18:46:19Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \        Source:\n          Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-14T18:46:17Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/pxc-operator serverside-applied\n        Name:  \
+              \      pxc-operator\n        Namespace:   default\n        Status: \
+              \     Synced\n        Sync Phase:  Sync\n        Version:     v1\n \
+              \       Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/pxc-operator\
+              \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/pxc-operator\
+              \ serverside-applied\n        Name:        pxc-operator\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/pxc-operator\
+              \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/pxc-operator\
+              \ serverside-applied\n        Name:        pxc-operator\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          percona/percona-xtradb-cluster-operator:1.19.1\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/pxc-operator\
+              \ serverside-applied\n        Name:        pxc-operator\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \      Source:\n        Path:              ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T18:46:19Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       ServiceAccount\n    Name:       pxc-operator\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       Deployment\n    Name:       pxc-operator\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      rbac.authorization.k8s.io\n    Kind:       Role\n \
+              \   Name:       pxc-operator\n    Namespace:  default\n    Status: \
+              \    Synced\n    Version:    v1\n    Group:      rbac.authorization.k8s.io\n\
+              \    Kind:       RoleBinding\n    Name:       pxc-operator\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n  Source Hydrator:\n\
+              \  Source Type:  Directory\n  Summary:\n    Images:\n      percona/percona-xtradb-cluster-operator:1.19.1\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:be9"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                            MESSAGE
+
+              9s          Normal   OperationStarted     application/pxc-operator-parity   Initiated
+              automated sync to ''sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614''
+
+              9s          Normal   ResourceUpdated      application/pxc-operator-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/pxc-operator-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/pxc-operator-parity   Sync
+              operation to sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+              succeeded
+
+              5s          Normal   ResourceUpdated      application/pxc-operator-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 5
+              artifact:
+                path: argocd-core-child.json
+                sha256: aec3b5d52028bf1ce15bd3a950adb3ce8cef5bccd8d4cd45d7cdaca11a9ff2dc
+                bytes: 10709
+              output: "{\n  \"metadata\": {\n    \"name\": \"pxc-operator-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"00160bac-f5b7-44c6-a327-dce8fa786f49\"\
+                ,\n    \"resourceVersion\": \"1148\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T18:46:15Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster:argoproj.io/Application:argocd/pxc-operator-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"2a758fb7-88d8-4e37-861e-4a6490529ab5\",\n      \"confighub.com/UnitSlug\"\
+                : \"pxc-operator-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T18:46:15Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-14T18:46:35Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"pxc-operator\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"pxc-operator\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"Role\",\n   \
+                \     \"namespace\": \"default\",\n        \"name\": \"pxc-operator\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n \
+                \       \"kind\": \"RoleBinding\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"pxc-operator\",\n        \"status\": \"Synced\"\
+                \n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\"\
+                ,\n "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 83646bc422a423cfc017b5ee807a52fb468c7eee8a209809d264e5f5c663e634
+                bytes: 1782
+              output: "Name:               argocd/pxc-operator-parity\nProject:  \
+                \          default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:54951/applications/pxc-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                  STATUS \
+                \ HEALTH   AGE  MESSAGE                                          \
+                \                                                                \
+                \                                                     REASON\nRole/pxc-operator\
+                \                          Synced           80s  role.rbac.authorization.k8s.io/pxc-operator\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/pxc-operator\
+                \ serverside-applied                \nRoleBinding/pxc-operator   \
+                \                Synced           80s  rolebinding.rbac.authorization.k8s.io/pxc-operator\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/pxc-operator\
+                \ serverside-applied  \nNamespace/default-oci                    \
+                \  Synced           64s                                          \
+                \                                                                \
+                \                                                              \n\
+                ServiceAccount/pxc-operator                Synced           80s  serviceaccount/pxc-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \           \nDeployment/pxc-operator                    Synced  Healthy\
+                \  80s  deployment.apps/pxc-operator serverside-applied          \
+                \                                                                \
+                \                                             \n\u251C\u2500Service/percona-xtradb-cluster-operator\
+                \          Healthy  78s                                          \
+                \                                                                \
+                \                                                              \n\u2514\
+                \u2500ReplicaSet/pxc-operator-5f59645bd                Healthy  80s\
+                \                                                                \
+                \                                                                \
+                \                                        \n  \u2514\u2500Pod/pxc-operator-5f59645bd-sndk6\
+                \               Healthy  80s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              pxc-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pxc-operator-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pxc-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci
+              targetRevision: latest
+          revision: sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-14T18:45:03Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-14T18:46:14Z'
+          finishedAt: '2026-06-14T18:46:15Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+          deployedAt: '2026-06-14T18:46:15Z'
+          deployStartedAt: '2026-06-14T18:46:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: pxc-operator-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-14T18:44:52Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1096\n  UID:         \
+              \      065d7eac-ac1d-47af-94e8-c8a587bf8e10\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-14T18:45:03Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-14T18:46:14Z\n\
+              \    Deployed At:        2026-06-14T18:46:15Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \    Source:\n      Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-14T18:46:15Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \        Source:\n          Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-14T18:46:14Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/pxc-operator-parity serverside-applied\n\
+              \        Name:        pxc-operator-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \      Source:\n        Path:              ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-14T18:46:15Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       pxc-operator-parity\n    Namespace:  argocd\n    Status:   \
+              \  Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:\
+              \  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     104s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     104s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  33s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614'\n\
+              \  Normal  ResourceUpdated     33s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  32s   argocd-application-controller  Sync operation to sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\
+              \ succeeded\n  Normal  ResourceUpdated     30s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                          MESSAGE
+
+              104s        Normal   ResourceUpdated      application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Updated
+              sync status:  -> Synced
+
+              104s        Normal   ResourceUpdated      application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Updated
+              health status:  -> Healthy
+
+              33s         Normal   OperationStarted     application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Initiated
+              automated sync to ''sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614''
+
+              33s         Normal   ResourceUpdated      application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              32s         Normal   OperationCompleted   application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Sync
+              operation to sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614
+              succeeded
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 718ec303d452f353b80aaaa7fc6f7873c00f0e213bbe7be76ab20a6765384292
+                bytes: 10713
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"065d7eac-ac1d-47af-94e8-c8a587bf8e10\"\
+                ,\n    \"resourceVersion\": \"1187\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-14T18:44:52Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-14T18:44:52Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-14T18:46:55Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.c"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 357209c93df31309d5ee10f260eeeb41144ef9d83044ba5c80263a690705062f
+                bytes: 1162
+              output: "Name:               argocd/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:55068/applications/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \             STATUS  HEALTH  AGE    MESSAGE                     \
+                \                                                                \
+                \  REASON\nApplication/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\
+                \  Synced          2m12s  application.argoproj.io/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\
+                \ serverside-applied  \nApplication/pxc-operator-parity          \
+                \                      Synced          49s    application.argoproj.io/pxc-operator-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              pxc-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pxc-operator-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:be975d25676b4a67ace33d047ad9143351d002237012fc8eae86fc0f17010614\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pxc-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pxc-operator   1/1   1     1     98s'
+        pods: '# default
+
+          pxc-operator-5f59645bd-sndk6   1/1   Running   0     98s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-14T18:44:52Z'
+    finishedAt: '2026-06-14T18:45:16Z'
+    elapsedSeconds: 23.353
+    timeoutSeconds: 900
+    command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
+      --version 1.19.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-14T18:45:26Z'
+    finishedAt: '2026-06-14T18:45:27Z'
+    elapsedSeconds: 0.363
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-14T18:45:27Z'
+    finishedAt: '2026-06-14T18:45:27Z'
+    elapsedSeconds: 0.084
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig
+      --context kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/direct-apply-manifest.yaml
+    objectCount: 4
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-14T18:45:27Z'
+    finishedAt: '2026-06-14T18:45:37Z'
+    elapsedSeconds: 10.237
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-14T18:45:42Z'
+    finishedAt: '2026-06-14T18:45:43Z'
+    elapsedSeconds: 0.251
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-14T18:45:43Z'
+    finishedAt: '2026-06-14T18:45:59Z'
+    elapsedSeconds: 16.573
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+      --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator --target helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci
+    objectCount: 5
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-14T18:45:59Z'
+    finishedAt: '2026-06-14T18:46:00Z'
+    elapsedSeconds: 0.602
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-14T18:46:00Z'
+    finishedAt: '2026-06-14T18:46:03Z'
+    elapsedSeconds: 3.574
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
+      --unit <5 unit(s)> --wait --timeout 5m
+    unitCount: 5
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-14T18:46:03Z'
+    finishedAt: '2026-06-14T18:46:05Z'
+    elapsedSeconds: 1.057
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
+      pxc-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/argo-application.json
+      --target helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-14T18:46:05Z'
+    finishedAt: '2026-06-14T18:46:06Z'
+    elapsedSeconds: 1.003
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-14T18:46:06Z'
+    finishedAt: '2026-06-14T18:46:26Z'
+    elapsedSeconds: 20.162
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-14T18:47:05Z'
+    finishedAt: '2026-06-14T18:47:05Z'
+    elapsedSeconds: 0.101
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-pxcoperator-mqe4ua51-6g6\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-pxcoperator-mqe4ua51-6g6\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pxc-operator\" does not exist. Installing it now.\nNAME: pxc-operator\n\
+      LAST DEPLOYED: Sun Jun 14 19:44:55 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
+      \ Operator for MySQL is deployed. \n\n  Check if operator Pod is running:\n\n\
+      \    kubectl get pods -l app.kubernetes.io/name=pxc-operator --namespace default-helm\n\
+      \n  Troubleshoot by checking the logs:\n\n    export POD=$(kubectl get pods\
+      \ -l app.kubernetes.io/name=pxc-operator --namespace default-helm --output name)\n\
+      \    kubectl logs $POD --namespace=default-helm\n\n2. Deploy the cluster with\
+      \ the following command:\n\n    helm install my-db percona/pxc-db --namespace=default-helm\n\
+      \nRead more in our documentation: https://docs.percona.com/percona-operator-for-mysql/pxc/"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pxc-operator   1/1   1     1     10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
