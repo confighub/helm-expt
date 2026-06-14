@@ -42,6 +42,7 @@ const productionSupportDecisionsPath = join(repoRoot, "data", "production-suppor
 const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
+const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -132,6 +133,7 @@ function buildSite(generatedAt) {
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
+  const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
@@ -265,6 +267,7 @@ function buildSite(generatedAt) {
     productionSupportDecisions,
     scanDisposition,
     highFanout,
+    lifecycleRoutes,
   };
   const chartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
@@ -1764,6 +1767,14 @@ function chartPageHtml(catalog, entry) {
     ["Live Helm-vs-ConfigHub", allBaseStatus(baseRows, "live_helm_vs_confighub_parity")],
     ["Two-cluster kind", allBaseStatus(baseRows, "two_cluster_kind_parity")],
   ];
+  const lifecycleRoutes = catalog.lifecycleRoutes.filter((row) => row.chart === entry.chart);
+  const lifecycleRows = lifecycleRoutes.map((row) => [
+    row.quirk_class,
+    row.route_name,
+    row.execution_mode,
+    (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "—",
+    row.safe_as_automatic ? "yes" : "no",
+  ]);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1825,6 +1836,17 @@ function chartPageHtml(catalog, entry) {
         ["Extension slots", extension?.surfaces || "none surfaced in chart facts"],
         ["Extension route", extension?.current_route || "no extension-slot route recorded"],
       ])}
+    </section>
+
+    <section aria-labelledby="lifecycle">
+      <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
+      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Full contract: <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      ${lifecycleRows.length
+        ? markdownLikeTable([
+            ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
+            ...lifecycleRows,
+          ])
+        : "<p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>"}
     </section>
 
     <section aria-labelledby="production">

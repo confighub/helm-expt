@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>prometheus-community/kube-prometheus-stack</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-14T07:49:34.831Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-14T08:20:05.279Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=kube-prometheus-stack&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for prometheus-community/kube-prometheus-stack@85.3.3.</p>
     <pre>cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</pre>
@@ -204,6 +204,21 @@
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
         <tbody><tr><td>Known quirks</td><td>hooks;crds;generated-secrets;existing-secret;webhooks;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Extension slots</td><td>raw/extra manifests; monitoring config; tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="lifecycle">
+      <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
+      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Full contract: <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <div class="card"><table>
+        <thead><tr><th>Behavior</th><th>Route</th><th>Who runs it</th><th>Off-ramps</th><th>Safe to automate?</th></tr></thead>
+        <tbody><tr><td>hook-delete-policy</td><td>preserve-cleanup-policy</td><td>target-owned</td><td>delete-on-uninstall, refuse</td><td>no</td></tr><tr><td>hook-phase</td><td>postsync-check-or-observation</td><td>user-executes</td><td>argocd-or-flux-lifecycle-hook, target-facts-or-preflight, refuse</td><td>no</td></tr><tr><td>hook-phase</td><td>preflight-or-presync</td><td>user-executes</td><td>argocd-or-flux-lifecycle-hook, target-facts-or-preflight, refuse</td><td>no</td></tr><tr><td>hook-phase</td><td>upgrade-action-with-receipt</td><td>user-executes</td><td>argocd-or-flux-lifecycle-hook, target-facts-or-preflight, refuse</td><td>no</td></tr><tr><td>hook-weight-ordering</td><td>preserve-ordering</td><td>target-owned</td><td>argocd-sync-waves, apply-order</td><td>no</td></tr><tr><td>target-facts</td><td>target-facts-or-preflight</td><td>user-executes</td><td>preflight-or-presync, refuse</td><td>no</td></tr><tr><td>webhook-readiness</td><td>webhook-readiness-observation</td><td>target-owned</td><td>postsync-check-or-observation</td><td>no</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
