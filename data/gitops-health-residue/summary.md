@@ -15,9 +15,9 @@ aggregate-progressing-with-blank-resource-health: 1
 
 ## Rows
 
-| Chart | Base | Result | Classification | Sync | Health | Resources | Blank health | Residue | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | aggregate-progressing-with-blank-resource-health | Synced | Progressing | 97 | 97 | 0 | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Record the target-scoped controller-health policy: Argo sync succeeded for all resources and workloads converged, but aggregate health remains Progressing because per-resource health is blank. |
+| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Blank health | Residue | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | aggregate-progressing-with-blank-resource-health | Synced/Progressing | Synced/Healthy | pass | 97 | 97 | 0 | [receipt](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | Decide the target-scoped controller-health policy: root Application is Healthy, child Application is Synced/Progressing, workloads converged, and the Argo core tree shows blank child-resource health. |
 
 ## How To Read This
 

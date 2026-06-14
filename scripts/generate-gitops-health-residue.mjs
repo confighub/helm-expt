@@ -48,8 +48,13 @@ function receiptRow(path) {
   if (!leg) return null;
 
   const appStatus = leg.argoStatus ?? {};
+  const rootStatus = leg.rootArgoStatus ?? {};
+  const argocdCore = appStatus.diagnostics?.argocdCore ?? {};
+  const rootArgocdCore = rootStatus.diagnostics?.argocdCore ?? {};
   const sync = appStatus.sync?.status ?? leg.sync ?? "";
   const health = appStatus.health?.status ?? leg.health ?? "";
+  const rootSync = rootStatus.sync?.status ?? "";
+  const rootHealth = rootStatus.health?.status ?? "";
   const operationPhase = appStatus.operationState?.phase ?? "";
   const syncResultStatusCounts = appStatus.operationState?.syncResultStatusCounts ?? {};
   const resources = Array.isArray(appStatus.resources) ? appStatus.resources : [];
@@ -76,7 +81,12 @@ function receiptRow(path) {
     receipt: relativeRepo(path),
     app_sync: sync,
     app_health: health,
+    root_app_sync: rootSync,
+    root_app_health: rootHealth,
     operation_phase: operationPhase,
+    argocd_core_result: argocdCore.result ?? "",
+    argocd_core_tree_result: argocdCore.tree?.result ?? "",
+    root_argocd_core_result: rootArgocdCore.result ?? "",
     conditions: conditions.length,
     resource_count: resources.length,
     resource_synced: resourceStatusCounts.Synced ?? 0,
@@ -89,7 +99,11 @@ function receiptRow(path) {
     resource_health_unknown: resourceHealthCounts.Unknown ?? 0,
     resource_health_blank: resourceHealthCounts.blank ?? 0,
     residue_count: healthResidueCount,
-    next_action: nextAction(classification, { allSyncResultResourcesSynced }),
+    next_action: nextAction(classification, {
+      allSyncResultResourcesSynced,
+      argocdCoreTreeCaptured: argocdCore.tree?.result === "pass",
+      rootApplicationHealthy: rootSync === "Synced" && rootHealth === "Healthy",
+    }),
   };
 }
 
@@ -109,7 +123,9 @@ function classify({ result, sync, health, operationPhase, resources, healthResid
 function nextAction(classification, evidence = {}) {
   const actions = {
     "aggregate-progressing-with-blank-resource-health":
-      evidence.allSyncResultResourcesSynced
+      evidence.allSyncResultResourcesSynced && evidence.argocdCoreTreeCaptured && evidence.rootApplicationHealthy
+        ? "Decide the target-scoped controller-health policy: root Application is Healthy, child Application is Synced/Progressing, workloads converged, and the Argo core tree shows blank child-resource health."
+        : evidence.allSyncResultResourcesSynced
         ? "Record the target-scoped controller-health policy: Argo sync succeeded for all resources and workloads converged, but aggregate health remains Progressing because per-resource health is blank."
         : "Capture Argo resource tree/controller-health detail on rerun, or record a target-scoped policy explaining why blank per-resource health can leave aggregate health Progressing.",
     "aggregate-progressing":
@@ -156,12 +172,12 @@ ${Object.entries(counts)
 
 ## Rows
 
-| Chart | Base | Result | Classification | Sync | Health | Resources | Blank health | Residue | Receipt | Next action |
-| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
+| Chart | Base | Result | Classification | Child App | Root App | Argo tree | Resources | Blank health | Residue | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 ${rows
   .map(
     (row) =>
-      `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.classification} | ${row.app_sync} | ${row.app_health} | ${row.resource_count} | ${row.resource_health_blank} | ${row.residue_count} | [receipt](../../${row.receipt}) | ${row.next_action} |`,
+      `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.classification} | ${row.app_sync}/${row.app_health} | ${row.root_app_sync || "-"}/${row.root_app_health || "-"} | ${row.argocd_core_tree_result || "-"} | ${row.resource_count} | ${row.resource_health_blank} | ${row.residue_count} | [receipt](../../${row.receipt}) | ${row.next_action} |`,
   )
   .join("\n")}
 
@@ -191,7 +207,12 @@ function toCsv(rows) {
     "receipt",
     "app_sync",
     "app_health",
+    "root_app_sync",
+    "root_app_health",
     "operation_phase",
+    "argocd_core_result",
+    "argocd_core_tree_result",
+    "root_argocd_core_result",
     "conditions",
     "resource_count",
     "resource_synced",
