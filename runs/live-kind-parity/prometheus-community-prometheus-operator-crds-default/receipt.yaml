@@ -1,0 +1,176 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: prometheus-community-prometheus-operator-crds-29.0.0-default-kind-parity-20260606
+spec:
+  chart: prometheus-community/prometheus-operator-crds
+  version: 29.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T20:33:45Z'
+  package:
+    path: packages/prometheus-community/prometheus-operator-crds/29.0.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-operator-crds/29.0.0
+  variantRevision: recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-promet-6596a-7ydd-helm
+    installerCluster: hx-promet-6596a-7ydd-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-promet-6596a-7ydd-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-promet-6596a-7ydd-helm" ...
+
+          Deleted nodes: ["hx-promet-6596a-7ydd-helm-control-plane"]'
+      - cluster: hx-promet-6596a-7ydd-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-promet-6596a-7ydd-installer" ...
+
+          Deleted nodes: ["hx-promet-6596a-7ydd-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus-operator-crds prometheus-operator-crds
+        --repo https://prometheus-community.github.io/helm-charts --version 29.0.0
+        --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4
+      objectCount: 10
+      liveHelmManifestSHA256: 32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-promet-6596a-7ydd-prometheus-operator-crds
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: f8d1240a2779ab859c5b0c7ffdd23c74c18ff47713aa8a402a00e17093f26ef4
+      objectCount: 11
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "prometheus-operator-crds" does not exist. Installing it now.
+
+      NAME: prometheus-operator-crds
+
+      LAST DEPLOYED: Mon Jun 15 21:34:36 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: ''
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
