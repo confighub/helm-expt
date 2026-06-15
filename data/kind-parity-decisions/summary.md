@@ -23,15 +23,16 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-9 non-pass rows: 5 watch, 4 blocked.
+10 non-pass rows: 5 watch, 5 blocked.
 4 are resolved by the **user** (stage a prerequisite or supply
-values); 3 need **catalog/model** work; the rest need a runtime or
+values); 4 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
 | `capability-profile-diff` | 2 |
 | `target-prerequisite-secret` | 2 |
+| `model-gap-render` | 1 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
@@ -40,8 +41,8 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `catalog` | 4 |
 | `user` | 4 |
-| `catalog` | 3 |
 | `needs readiness review` | 1 |
 | `needs runtime review` | 1 |
 
@@ -58,6 +59,7 @@ readiness review.
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
 | kyverno/kyverno-policies@3.8.0 | default | watch | readiness | needs readiness review | watch — objects match, readiness unconfirmed |
+| nats/nack@0.34.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 
 ## How To Read One Decision
 

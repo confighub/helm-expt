@@ -1,0 +1,196 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: nats-nack-0.34.0-default-kind-parity-20260606
+spec:
+  chart: nats/nack
+  version: 0.34.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-15T19:03:06Z'
+  package:
+    path: packages/nats/nack/0.34.0
+  recipe:
+    path: recipes/nats/nack/0.34.0
+  variantRevision: recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-nack-a53fd-zda0-helm
+    installerCluster: hx-nack-a53fd-zda0-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-nack-a53fd-zda0-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-nack-a53fd-zda0-helm" ...
+
+          Deleted nodes: ["hx-nack-a53fd-zda0-helm-control-plane"]'
+      - cluster: hx-nack-a53fd-zda0-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-nack-a53fd-zda0-installer" ...
+
+          Deleted nodes: ["hx-nack-a53fd-zda0-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install nack nack --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 0.34.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nats-nack-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9
+      objectCount: 10
+      liveHelmManifestSHA256: 2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d
+      liveHelmManifestObjectCount: 4
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/nack   1/1   1     1     6s'
+        pods: '# default
+
+          nack-6ff5f8749d-6k5xq   1/1   Running   0     6s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nack/0.34.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-nack-a53fd-zda0-nack
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 8bf034437180830d178f4b82a8045a2d863d8d982c29731a671145e499db3e1c
+      objectCount: 11
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/nack   1/1   1     1     10s'
+        pods: '# default
+
+          nack-6ff5f8749d-54jzc   1/1   Running   0     10s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 10
+      installerObjectCount: 4
+      missingFromInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||accounts.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||consumers.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||keyvalues.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||objectstores.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||streams.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||streamtemplates.jetstream.nats.io
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: a9b245eb4479307c6e66c155d517d2015d71b499ded4e617ccc863d8a85a7b82
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 4
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||accounts.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||consumers.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||keyvalues.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||objectstores.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||streams.jetstream.nats.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||streamtemplates.jetstream.nats.io
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: e2b1dd6fd9b661470ba8e40e8fa42111bd69715d24183a904d2fe2dc075e43cf
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=6 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: "Release \"nack\" does not exist. Installing it now.\nNAME: nack\nLAST\
+      \ DEPLOYED: Mon Jun 15 20:03:59 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nYou can\
+      \ find more information about running NATS JetStream Controller on\nKubernetes\
+      \ here:\n\n  https://github.com/nats-io/nack\n\nThanks for using NATS JetStream\
+      \ Controller!"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/nack   1/1   1     1     10s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['apiextensions.k8s.io/v1|CustomResourceDefinition||accounts.jetstream.nats.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||consumers.jetstream.nats.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||keyvalues.jetstream.nats.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||objectstores.jetstream.nats.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||streams.jetstream.nats.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||streamtemplates.jetstream.nats.io',
+      'v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
