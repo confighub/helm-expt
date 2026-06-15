@@ -1,0 +1,1105 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: nats-nack-0.34.0-default-live-parity-20260605
+spec:
+  chart: nats/nack
+  version: 0.34.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T04:05:00Z'
+  package:
+    path: packages/nats/nack/0.34.0
+  recipe:
+    path: recipes/nats/nack/0.34.0
+  variantRevision: recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-nack-mqeowfa3-xk7
+    kubeContext: kind-helm-expt-parity-nack-mqeowfa3-xk7
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-nack-mqeowfa3-xk7 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-nack-mqeowfa3-xk7"...
+
+        Deleting cluster "helm-expt-parity-nack-mqeowfa3-xk7" ...
+
+        Deleted nodes: ["helm-expt-parity-nack-mqeowfa3-xk7-control-plane"]
+
+        Deleting Space "helm-expt-parity-nack-mqeowfa3-xk7-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nack nack --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 0.34.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nack-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9
+      objectCount: 10
+      liveHelmManifestSHA256: faa5da903da70702a88fc9bf38eb388cd38ac4d1c6c36f6ed804e9e4562df354
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/nack   1/1   1     1     5s
+        pods: nack-6ff5f8749d-45zxk   1/1   Running   0     5s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nack/0.34.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nack-mqeowfa3-xk7-nack
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 44e416bb6e6d1e8d50e44f9382a7b70a33a7b5c019b3dcfc6bb5d7f926b578fd
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/nack   1/1   1     1     10s'
+        pods: '# default
+
+          nack-6ff5f8749d-mdz99   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 8
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "jetstream-controller-cluster-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "jetstream-controller-cluster-role-binding"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "accounts.jetstream.nats.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "consumers.jetstream.nats.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "keyvalues.jetstream.nats.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "objectstores.jetstream.nats.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "streams.jetstream.nats.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "streamtemplates.jetstream.nats.io"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|nack
+          - v1|ServiceAccount|default|jetstream-controller
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-nack-mqeowfa3-xk7-nack
+      controller: Argo CD OCI
+      app: nack-parity
+      manifestSHA256: 3a25707fcba21591f6164ffc3f1a5f2a13f3f4d6653947fc0b9a49b5f4d69d56
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nack-mqeowfa3-xk7-nack
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+              targetRevision: latest
+          revision: sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:07:58Z'
+          status: Healthy
+        summary:
+          images:
+          - natsio/jetstream-controller:0.23.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:07:58Z'
+          finishedAt: '2026-06-15T04:08:05Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+          deployedAt: '2026-06-15T04:08:05Z'
+          deployStartedAt: '2026-06-15T04:07:58Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-nack-mqeowfa3-xk7-nack
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: jetstream-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: accounts.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: consumers.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: keyvalues.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: objectstores.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: streams.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: streamtemplates.jetstream.nats.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: nack
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: jetstream-controller-cluster-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: jetstream-controller-cluster-role-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         nack-parity\nNamespace:    argocd\nLabels:    \
+              \   <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-nack-mqeowfa3-xk7-cluster:argoproj.io/Application:argocd/nack-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ db6670ec-c1c7-432b-91da-8346c4262204\n              confighub.com/UnitSlug:\
+              \ nack-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:       \
+              \  Application\nMetadata:\n  Creation Timestamp:  2026-06-15T04:07:56Z\n\
+              \  Generation:          8\n  Resource Version:    1168\n  UID:     \
+              \            71068041-28a0-4d89-9178-f4773bd46447\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-nack\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T04:07:58Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T04:07:58Z\n    Deployed At:        2026-06-15T04:08:05Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \    Source:\n      Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-nack\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:08:05Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \        Source:\n          Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-nack\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T04:07:58Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/jetstream-controller serverside-applied\n       \
+              \ Name:        jetstream-controller\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       apiextensions.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        CustomResourceDefinition\n        Message:\
+              \     customresourcedefinition.apiextensions.k8s.io/accounts.jetstream.nats.io\
+              \ serverside-applied\n        Name:        accounts.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/objectstores.jetstream.nats.io\
+              \ serverside-applied\n        Name:        objectstores.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/keyvalues.jetstream.nats.io\
+              \ serverside-applied\n        Name:        keyvalues.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/streamtemplates.jetstream.nats.io\
+              \ serverside-applied\n        Name:        streamtemplates.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/streams.jetstream.nats.io\
+              \ serverside-applied\n        Name:        streams.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/consumers.jetstream.nats.io\
+              \ serverside-applied\n        Name:        consumers.jetstream.nats.io\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/jetstream-controller-cluster-role\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[create update patch]\
+              \ APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get watch list] APIGroups:[] Resources:[secrets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
+              \ get list watch patch update delete] APIGrou"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                    MESSAGE
+
+              15s         Normal   OperationStarted     application/nack-parity   Initiated
+              automated sync to ''sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f''
+
+              15s         Normal   ResourceUpdated      application/nack-parity   Updated
+              sync status:  -> OutOfSync
+
+              15s         Normal   ResourceUpdated      application/nack-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/nack-parity   Sync
+              operation to sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/nack-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: 07838c2ff9b1d0be2d6945e59da2916c3a67bfafd5e96e1613258299bcc358f6
+                bytes: 15953
+              output: "{\n  \"metadata\": {\n    \"name\": \"nack-parity\",\n    \"\
+                namespace\": \"argocd\",\n    \"uid\": \"71068041-28a0-4d89-9178-f4773bd46447\"\
+                ,\n    \"resourceVersion\": \"1188\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T04:07:56Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-nack-mqeowfa3-xk7-cluster:argoproj.io/Application:argocd/nack-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"db6670ec-c1c7-432b-91da-8346c4262204\",\n      \"confighub.com/UnitSlug\"\
+                : \"nack-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T04:07:56Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T04:08:21Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-nack-mqeowfa3-xk7-nack\",\n\
+                \      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"jetstream-controller\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apiextensions.k8s.io\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"accounts.jetstream.nats.io\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                ,\n          \"message\": \"CRD is healthy\"\n        }\n      },\n\
+                \      {\n        \"group\": \"apiextensions.k8s.io\",\n        \"\
+                version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"consumers.jetstream.nats.io\",\n        \"\
+                status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\",\n          \"message\": \"CRD is healthy\"\n      \
+                \  }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"keyvalues.jetstream.nats.io\",\n        \"\
+                status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\",\n          \"message\": \"CRD is healthy\"\n      \
+                \  }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\":"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: df2d1d115ff3a6d76e48840a848a7851588f76d2cdce2acf3db84db0ed0c4a75
+                bytes: 2341
+              output: "Name:               argocd/nack-parity\nProject:          \
+                \  default\nServer:             https://kubernetes.default.svc\nNamespace:\
+                \          default-oci\nURL:                http://localhost:54835/applications/nack-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-nack\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH   AGE   MESSAGE                      \
+                \                           REASON\nCustomResourceDefinition/objectstores.jetstream.nats.io\
+                \       Synced  Healthy  26s                                     \
+                \                      CRD is healthy\nCustomResourceDefinition/streams.jetstream.nats.io\
+                \            Synced  Healthy  26s                                \
+                \                           CRD is healthy\nCustomResourceDefinition/streamtemplates.jetstream.nats.io\
+                \    Synced  Healthy  26s                                        \
+                \                   CRD is healthy\nClusterRoleBinding/jetstream-controller-cluster-role-binding\
+                \  Synced           26s                                          \
+                \                 \nNamespace/default-oci                        \
+                \                 Synced           85s                           \
+                \                                \nServiceAccount/jetstream-controller\
+                \                           Synced           101s  serviceaccount/jetstream-controller\
+                \ serverside-applied  \nCustomResourceDefinition/accounts.jetstream.nats.io\
+                \           Synced  Healthy  26s                                 \
+                \                          CRD is healthy\nCustomResourceDefinition/consumers.jetstream.nats.io\
+                \          Synced  Healthy  26s                                  \
+                \                         CRD is healthy\nDeployment/nack        \
+                \                                       Synced  Healthy  101s  deployment.apps/nack\
+                \ serverside-applied                 \n\u2514\u2500ReplicaSet/nack-6ff5f8749d\
+                \                                          Healthy  101s         \
+                \                                                 \n  \u2514\u2500\
+                Pod/nack-6ff5f8749d-mdz99                                        \
+                \ Healthy  101s                                                  \
+                \        \nClusterRole/jetstream-controller-cluster-role         \
+                \        Synced           26s                                    \
+                \                       \nCustomResourceDefinition/keyvalues.jetstream.nats.io\
+                \          Synced  Healthy  26s                                  \
+                \                         CRD is healthy"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-nack-mqeowfa3-xk7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              nack-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n\
+              \      \"stage\": \"healthy\",\n      \"message\": \"successfully synced\
+              \ (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/nack-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"nack-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-nack-mqeowfa3-xk7-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+              targetRevision: latest
+          revision: sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:06:45Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:07:53Z'
+          finishedAt: '2026-06-15T04:07:56Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+          deployedAt: '2026-06-15T04:07:56Z'
+          deployStartedAt: '2026-06-15T04:07:53Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-nack-mqeowfa3-xk7-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-nack-mqeowfa3-xk7-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: nack-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-nack-mqeowfa3-xk7-cluster\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-06-15T04:06:35Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1117\n  UID:         \
+              \      c7fc82c7-64f8-4434-8e61-653825ea688b\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T04:06:45Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T04:07:53Z\n\
+              \    Deployed At:        2026-06-15T04:07:56Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \    Source:\n      Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:07:56Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \        Source:\n          Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T04:07:53Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/nack-parity serverside-applied\n\
+              \        Name:        nack-parity\n        Namespace:   argocd\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-nack-mqeowfa3-xk7-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \      Source:\n        Path:              ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T04:07:56Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       nack-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     106s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     106s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  38s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f'\n\
+              \  Normal  ResourceUpdated     38s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  35s   argocd-application-controller  Sync operation to sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\
+              \ succeeded\n  Normal  ResourceUpdated     33s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                   MESSAGE
+
+              106s        Normal   ResourceUpdated      application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Updated
+              sync status:  -> Synced
+
+              106s        Normal   ResourceUpdated      application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Updated
+              health status:  -> Healthy
+
+              38s         Normal   OperationStarted     application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Initiated
+              automated sync to ''sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f''
+
+              38s         Normal   ResourceUpdated      application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              35s         Normal   OperationCompleted   application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Sync
+              operation to sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f
+              succeeded
+
+              33s         Normal   ResourceUpdated      application/helm-expt-parity-nack-mqeowfa3-xk7-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 7d3bd83a2b1757206e47dff0ce5604fcadc765acac78eb0eb7b2ae0068d47ad3
+                bytes: 10570
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c7fc82c7-64f8-4434-8e61-653825ea688b\"\
+                ,\n    \"resourceVersion\": \"1218\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T04:06:35Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\\\",\\\"namespace\\\"\
+                :\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-nack-mqeowfa3-xk7-cluster\\\",\\\"repoURL\\\"\
+                :\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:06:35Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T04:08:41Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 8f3f84a26d8c758edde33f7fb8ca7a8ef7776122d0e4165b8f528d191dd1be24
+                bytes: 1091
+              output: "Name:               argocd/helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54950/applications/helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \      STATUS  HEALTH  AGE    MESSAGE                            \
+                \                                                    REASON\nApplication/helm-expt-parity-nack-mqeowfa3-xk7-cluster\
+                \  Synced          2m15s  application.argoproj.io/helm-expt-parity-nack-mqeowfa3-xk7-cluster\
+                \ serverside-applied  \nApplication/nack-parity                  \
+                \               Synced          54s    application.argoproj.io/nack-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-nack-mqeowfa3-xk7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              nack-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n\
+              \      \"stage\": \"healthy\",\n      \"message\": \"successfully synced\
+              \ (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/nack-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:420031f175f35dd983911df2d2ffba20021dfe43ca6cb8f1fb68db61e945797f\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-nack-mqeowfa3-xk7-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"nack-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/nack   1/1   1     1     2m'
+        pods: '# default
+
+          nack-6ff5f8749d-mdz99   1/1   Running   0     2m'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T04:06:35Z'
+    finishedAt: '2026-06-15T04:06:43Z'
+    elapsedSeconds: 7.426
+    timeoutSeconds: 900
+    command: helm upgrade --install nack nack --repo https://nats-io.github.io/k8s/helm/charts/
+      --version 0.34.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nack-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T04:06:48Z'
+    finishedAt: '2026-06-15T04:06:49Z'
+    elapsedSeconds: 0.482
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nack/0.34.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nack-mqeowfa3-xk7-nack
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-15T04:06:49Z'
+    finishedAt: '2026-06-15T04:06:49Z'
+    elapsedSeconds: 0.083
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nack-mqeowfa3-xk7.kubeconfig
+      --context kind-helm-expt-parity-nack-mqeowfa3-xk7 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nack-default/confighub-rendered-crds.yaml
+    objectCount: 6
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T04:06:50Z'
+    finishedAt: '2026-06-15T04:06:50Z'
+    elapsedSeconds: 0.086
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nack-mqeowfa3-xk7.kubeconfig
+      --context kind-helm-expt-parity-nack-mqeowfa3-xk7 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nack-default/direct-apply-manifest.yaml
+    objectCount: 4
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T04:06:50Z'
+    finishedAt: '2026-06-15T04:07:00Z'
+    elapsedSeconds: 10.228
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T04:07:06Z'
+    finishedAt: '2026-06-15T04:07:06Z'
+    elapsedSeconds: 0.279
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nack/0.34.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nack-mqeowfa3-xk7-nack
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T04:07:06Z'
+    finishedAt: '2026-06-15T04:07:34Z'
+    elapsedSeconds: 27.727
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nack-mqeowfa3-xk7-nack
+      --space helm-expt-parity-nack-mqeowfa3-xk7-nack --target helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T04:07:34Z'
+    finishedAt: '2026-06-15T04:07:35Z'
+    elapsedSeconds: 0.548
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-nack-mqeowfa3-xk7-nack
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T04:07:35Z'
+    finishedAt: '2026-06-15T04:07:41Z'
+    elapsedSeconds: 5.805
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-nack-mqeowfa3-xk7-nack --unit
+      <11 unit(s)> --wait --timeout 5m
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T04:07:41Z'
+    finishedAt: '2026-06-15T04:07:42Z'
+    elapsedSeconds: 1.083
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-nack-mqeowfa3-xk7-cluster nack-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-nack-default/argo-application.json
+      --target helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T04:07:42Z'
+    finishedAt: '2026-06-15T04:07:43Z'
+    elapsedSeconds: 0.967
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-nack-mqeowfa3-xk7-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T04:07:43Z'
+    finishedAt: '2026-06-15T04:08:13Z'
+    elapsedSeconds: 30.215
+    timeoutSeconds: 420
+    waitedSeconds: 30
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T04:08:50Z'
+    finishedAt: '2026-06-15T04:08:50Z'
+    elapsedSeconds: 0.101
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-nack-mqeowfa3-xk7\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-nack-mqeowfa3-xk7.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-nack-mqeowfa3-xk7\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-nack-mqeowfa3-xk7\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nack-mqeowfa3-xk7\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nack-mqeowfa3-xk7.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nstatus: {}\nname"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"nack\" does not exist. Installing it now.\nNAME: nack\nLAST\
+      \ DEPLOYED: Mon Jun 15 05:06:38 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nYou can\
+      \ find more information about running NATS JetStream Controller on\nKubernetes\
+      \ here:\n\n  https://github.com/nats-io/nack\n\nThanks for using NATS JetStream\
+      \ Controller!"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/nack   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=8
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

@@ -1,0 +1,28 @@
+Name:               argocd/nack-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:54835/applications/nack-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqeowfa3-xk7-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-nack-mqeowfa3-xk7-nack
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                     STATUS  HEALTH   AGE   MESSAGE                                                 REASON
+CustomResourceDefinition/objectstores.jetstream.nats.io       Synced  Healthy  26s                                                           CRD is healthy
+CustomResourceDefinition/streams.jetstream.nats.io            Synced  Healthy  26s                                                           CRD is healthy
+CustomResourceDefinition/streamtemplates.jetstream.nats.io    Synced  Healthy  26s                                                           CRD is healthy
+ClusterRoleBinding/jetstream-controller-cluster-role-binding  Synced           26s
+Namespace/default-oci                                         Synced           85s
+ServiceAccount/jetstream-controller                           Synced           101s  serviceaccount/jetstream-controller serverside-applied
+CustomResourceDefinition/accounts.jetstream.nats.io           Synced  Healthy  26s                                                           CRD is healthy
+CustomResourceDefinition/consumers.jetstream.nats.io          Synced  Healthy  26s                                                           CRD is healthy
+Deployment/nack                                               Synced  Healthy  101s  deployment.apps/nack serverside-applied
+└─ReplicaSet/nack-6ff5f8749d                                          Healthy  101s
+  └─Pod/nack-6ff5f8749d-mdz99                                         Healthy  101s
+ClusterRole/jetstream-controller-cluster-role                 Synced           26s
+CustomResourceDefinition/keyvalues.jetstream.nats.io          Synced  Healthy  26s                                                           CRD is healthy
