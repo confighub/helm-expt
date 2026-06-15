@@ -266,6 +266,20 @@
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs missing",
       "receipt": "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
+    },
+    {
+      "chart": "velero/velero",
+      "version": "12.0.1",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "unknown",
+      "residue_category": "model-gap-render",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+      "reason": "manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io \"default\" is invalid: [spec.credential: Invalid value: \"null\": spec.credential in body must be of type object: \"null\", spec.provider: Invalid value: \"null\": spec.provider in body must be of type string: \"null\"]\nError from server (Invalid): VolumeSnapshotLocation.velero.io \"default\" is invalid: [spec.credential: Invalid value: \"null\": spec.credential in body must be of type object: \"null\", spec.provider: Invalid value: \"null\": spec.provider in body must be of type string: \"null\"]",
+      "receipt": "runs/live-kind-parity/velero-velero-default/receipt.yaml"
     }
   ]
 }

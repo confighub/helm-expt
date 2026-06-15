@@ -1,0 +1,169 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: velero-velero-12.0.1-default-kind-parity-20260606
+spec:
+  chart: velero/velero
+  version: 12.0.1
+  base: default
+  result: blocked
+  observedAt: '2026-06-15T22:58:58Z'
+  package:
+    path: packages/velero/velero/12.0.1
+  recipe:
+    path: recipes/velero/velero/12.0.1
+  variantRevision: recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-velero-0fdd4-epo4-helm
+    installerCluster: hx-velero-0fdd4-epo4-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-velero-0fdd4-epo4-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-velero-0fdd4-epo4-helm" ...
+
+          Deleted nodes: ["hx-velero-0fdd4-epo4-helm-control-plane"]'
+      - cluster: hx-velero-0fdd4-epo4-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-velero-0fdd4-epo4-installer" ...
+
+          Deleted nodes: ["hx-velero-0fdd4-epo4-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
+        --version 12.0.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/velero-velero-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b
+      objectCount: 23
+      liveHelmManifestSHA256: 490c2c740d0066b726c49e25095bb4c27215383fa7f3c9e8f799a755aefef315
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/velero   1/1   1     1     41s'
+        pods: '# default
+
+          velero-597c95894b-qfsmc   1/1   Running   0     41s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: BackupStorageLocation.velero.io "default" is invalid: [spec.provider:
+        Invalid value: "null": spec.provider in body must be of type string: "null",
+        spec.credential: Invalid value: "null": spec.credential in body must be of
+        type object: "null"]
+
+        VolumeSnapshotLocation.velero.io "default" is invalid: [spec.credential: Invalid
+        value: "null": spec.credential in body must be of type object: "null", spec.provider:
+        Invalid value: "null": spec.provider in body must be of type string: "null"]'
+      getManifestError: ''
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id002
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 23
+      installerObjectCount: 10
+      missingFromInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||backuprepositories.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||backups.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||backupstoragelocations.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||datadownloads.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||datauploads.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||deletebackuprequests.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||downloadrequests.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podvolumebackups.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podvolumerestores.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||restores.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||schedules.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||serverstatusrequests.velero.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||volumesnapshotlocations.velero.io
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id002
+      comparisonSHA256: d3a78af1a5afe3c47eb10e7782c242768145e3dd923215402e5cbdf3d69af711
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=13 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: BackupStorageLocation.velero.io "default" is invalid: [spec.provider:
+      Invalid value: "null": spec.provider in body must be of type string: "null",
+      spec.credential: Invalid value: "null": spec.credential in body must be of type
+      object: "null"]
+
+      VolumeSnapshotLocation.velero.io "default" is invalid: [spec.credential: Invalid
+      value: "null": spec.credential in body must be of type object: "null", spec.provider:
+      Invalid value: "null": spec.provider in body must be of type string: "null"]'
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io
+      "default" is invalid: [spec.credential: Invalid value: "null": spec.credential
+      in body must be of type object: "null", spec.provider: Invalid value: "null":
+      spec.provider in body must be of type string: "null"]
+
+      Error from server (Invalid): VolumeSnapshotLocation.velero.io "default" is invalid:
+      [spec.credential: Invalid value: "null": spec.credential in body must be of
+      type object: "null", spec.provider: Invalid value: "null": spec.provider in
+      body must be of type string: "null"]'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io
+      "default" is invalid: [spec.credential: Invalid value: "null": spec.credential
+      in body must be of type object: "null", spec.provider: Invalid value: "null":
+      spec.provider in body must be of type string: "null"]
+
+      Error from server (Invalid): VolumeSnapshotLocation.velero.io "default" is invalid:
+      [spec.credential: Invalid value: "null": spec.credential in body must be of
+      type object: "null", spec.provider: Invalid value: "null": spec.provider in
+      body must be of type string: "null"]'
