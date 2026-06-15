@@ -1,0 +1,368 @@
+{
+  "metadata": {
+    "name": "cert-manager-csi-driver-parity",
+    "namespace": "argocd",
+    "uid": "baca95c4-1257-4169-8ea8-3c5ebfcd3462",
+    "resourceVersion": "1163",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T03:06:55Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster:argoproj.io/Application:argocd/cert-manager-csi-driver-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "c12cd7f1-0216-48aa-bafa-bdd4bce4f3e8",
+      "confighub.com/UnitSlug": "cert-manager-csi-driver-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:06:55Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:07:13Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci",
+      "path": "./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "cert-manager-csi-driver",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default",
+        "name": "cert-manager-csi-driver",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-csi-driver",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-csi-driver",
+        "status": "Synced"
+      },
+      {
+        "group": "storage.k8s.io",
+        "version": "v1",
+        "kind": "CSIDriver",
+        "name": "csi.cert-manager.io",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci",
+          "path": "./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T03:07:01Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe",
+        "deployedAt": "2026-06-15T03:06:58Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci",
+          "path": "./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T03:06:56Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T03:07:06Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci",
+            "path": "./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "cert-manager-csi-driver",
+            "status": "Synced",
+            "message": "serviceaccount/cert-manager-csi-driver serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "cert-manager-csi-driver",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-csi-driver reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[watch create delete list] APIGroups:[cert-manager.io] Resources:[certificaterequests] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/cert-manager-csi-driver serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "cert-manager-csi-driver",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-csi-driver reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:cert-manager-csi-driver Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/cert-manager-csi-driver serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default",
+            "name": "cert-manager-csi-driver",
+            "status": "Synced",
+            "message": "daemonset.apps/cert-manager-csi-driver serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/jetstack/csi-node-driver-registrar:v2.16.0",
+              "quay.io/jetstack/livenessprobe:v2.18.0",
+              "quay.io/jetstack/cert-manager-csi-driver:v0.14.0"
+            ]
+          },
+          {
+            "group": "storage.k8s.io",
+            "version": "v1",
+            "kind": "CSIDriver",
+            "namespace": "default-oci",
+            "name": "csi.cert-manager.io",
+            "status": "Synced",
+            "message": "csidriver.storage.k8s.io/csi.cert-manager.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci",
+          "path": "./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T03:06:56Z",
+      "finishedAt": "2026-06-15T03:06:58Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/jetstack/cert-manager-csi-driver:v0.14.0",
+        "quay.io/jetstack/csi-node-driver-registrar:v2.16.0",
+        "quay.io/jetstack/livenessprobe:v2.18.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

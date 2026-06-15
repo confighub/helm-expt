@@ -1,0 +1,1049 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: jetstack-cert-manager-csi-driver-v0.14.0-default-live-parity-20260605
+spec:
+  chart: jetstack/cert-manager-csi-driver
+  version: v0.14.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T03:03:29Z'
+  package:
+    path: packages/jetstack/cert-manager-csi-driver/v0.14.0
+  recipe:
+    path: recipes/jetstack/cert-manager-csi-driver/v0.14.0
+  variantRevision: recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6
+    kubeContext: kind-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6"...
+
+        Deleting cluster "helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6" ...
+
+        Deleted nodes: ["helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-control-plane"]
+
+        Deleting Space "helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cert-manager-csi-driver cert-manager-csi-driver
+        --repo https://charts.jetstack.io --version v0.14.0 --namespace default-helm
+        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3
+      objectCount: 5
+      liveHelmManifestSHA256: 442eaa9c0e9ab206e4d2411de8bff762d31f7eaec5963f5df9bba8b29c75550e
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/cert-manager-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   20s
+        pods: cert-manager-csi-driver-f6pc7   3/3   Running   0     20s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager-csi-driver/v0.14.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: d5935161efebd02927b35f77bf0617476f12252c5018fc4412c631af87cd3c33
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/cert-manager-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   10s'
+        pods: '# default
+
+          cert-manager-csi-driver-t7hrg   3/3   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "cert-manager-csi-driver"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "cert-manager-csi-driver"
+            deleted
+
+            csidriver.storage.k8s.io "csi.cert-manager.io" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|cert-manager-csi-driver
+          - v1|ServiceAccount|default|cert-manager-csi-driver
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      controller: Argo CD OCI
+      app: cert-manager-csi-driver-parity
+      manifestSHA256: 0ea92621b3872031607825241b640b68d09953e1830ad45af8dc241cdff34019
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+              targetRevision: latest
+          revision: sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T03:07:01Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/jetstack/cert-manager-csi-driver:v0.14.0
+          - quay.io/jetstack/csi-node-driver-registrar:v2.16.0
+          - quay.io/jetstack/livenessprobe:v2.18.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:06:56Z'
+          finishedAt: '2026-06-15T03:06:58Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+          deployedAt: '2026-06-15T03:06:58Z'
+          deployStartedAt: '2026-06-15T03:06:56Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: cert-manager-csi-driver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: cert-manager-csi-driver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-csi-driver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-csi-driver
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: storage.k8s.io
+          kind: CSIDriver
+          namespace: ''
+          name: csi.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         cert-manager-csi-driver-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster:argoproj.io/Application:argocd/cert-manager-csi-driver-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ c12cd7f1-0216-48aa-bafa-bdd4bce4f3e8\n              confighub.com/UnitSlug:\
+              \ cert-manager-csi-driver-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T03:06:55Z\n\
+              \  Generation:          8\n  Resource Version:    1145\n  UID:     \
+              \            baca95c4-1257-4169-8ea8-3c5ebfcd3462\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T03:07:01Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T03:06:56Z\n    Deployed At:        2026-06-15T03:06:58Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \    Source:\n      Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:06:58Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \        Source:\n          Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T03:06:56Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/cert-manager-csi-driver serverside-applied\n    \
+              \    Name:        cert-manager-csi-driver\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/cert-manager-csi-driver\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[watch create delete list]\
+              \ APIGroups:[cert-manager.io] Resources:[certificaterequests] ResourceNames:[]\
+              \ NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/cert-manager-csi-driver\
+              \ serverside-applied\n        Name:        cert-manager-csi-driver\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/cert-manager-csi-driver\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:cert-manager-csi-driver Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/cert-manager-csi-driver\
+              \ serverside-applied\n        Name:        cert-manager-csi-driver\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apps\n        Hook Phase:  Running\n        Images:\n         \
+              \ quay.io/jetstack/csi-node-driver-registrar:v2.16.0\n          quay.io/jetstack/livenessprobe:v2.18.0\n\
+              \          quay.io/jetstack/cert-manager-csi-driver:v0.14.0\n      \
+              \  Kind:        DaemonSet\n        Message:     daemonset.apps/cert-manager-csi-driver\
+              \ serverside-applied\n        Name:        cert-manager-csi-driver\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       storage.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        CSIDriver\n    \
+              \    Message:     csidriver.storage.k8s.io/csi.cert-manager.io serverside-applied\n\
+              \        Name:        csi.cert-manager.io\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n      Revision:      sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \      Source:\n        Path:              ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T03:07:00Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                       MESSAGE
+
+              10s         Normal   OperationStarted     application/cert-manager-csi-driver-parity   Initiated
+              automated sync to ''sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe''
+
+              10s         Normal   ResourceUpdated      application/cert-manager-csi-driver-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/cert-manager-csi-driver-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/cert-manager-csi-driver-parity   Sync
+              operation to sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/cert-manager-csi-driver-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6s          Normal   ResourceUpdated      application/cert-manager-csi-driver-parity   Updated
+              health status: Healthy -> Progressing
+
+              5s          Normal   ResourceUpdated      application/cert-manager-csi-driver-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: 5aa48bbc448fcfd989384885132e3821e0c334cc5b309ce1aa247faa58d66503
+                bytes: 12107
+              output: "{\n  \"metadata\": {\n    \"name\": \"cert-manager-csi-driver-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"baca95c4-1257-4169-8ea8-3c5ebfcd3462\"\
+                ,\n    \"resourceVersion\": \"1163\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T03:06:55Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster:argoproj.io/Application:argocd/cert-manager-csi-driver-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"c12cd7f1-0216-48aa-bafa-bdd4bce4f3e8\",\n      \"confighub.com/UnitSlug\"\
+                : \"cert-manager-csi-driver-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T03:06:55Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T03:07:13Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"cert-manager-csi-driver\",\n        \"status\": \"\
+                Synced\"\n      },\n      {\n        \"group\": \"apps\",\n      \
+                \  \"version\": \"v1\",\n        \"kind\": \"DaemonSet\",\n      \
+                \  \"namespace\": \"default\",\n        \"name\": \"cert-manager-csi-driver\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRole\",\n        \"name\": \"\
+                cert-manager-csi-driver\",\n        \"status\": \"Synced\"\n     \
+                \ },\n      {\n        \"group\": \"rbac.authorization.k8s.io\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"ClusterRoleBinding\"\
+                ,\n        \"name\": \"cert-manager-csi-driver\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"storage.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"CSIDriver\",\n\
+                \        \"name\": \"csi.cert-manager.io\",\n        \"status\": \"\
+                Synced\"\n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\"\
+                ,\n      \"c"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 05ec5051522901753952ad4c47c05cb71064f29c9fa91d72cbe41ccd4fe4406a
+                bytes: 1547
+              output: "Name:               argocd/cert-manager-csi-driver-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:51396/applications/cert-manager-csi-driver-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \       STATUS  HEALTH   AGE  MESSAGE                            \
+                \                        REASON\nCSIDriver/csi.cert-manager.io   \
+                \                         Synced           24s                   \
+                \                                          \nNamespace/default-oci\
+                \                                    Synced           68s        \
+                \                                                     \nServiceAccount/cert-manager-csi-driver\
+                \                   Synced           84s  serviceaccount/cert-manager-csi-driver\
+                \ serverside-applied  \nDaemonSet/cert-manager-csi-driver        \
+                \                Synced  Healthy  84s  daemonset.apps/cert-manager-csi-driver\
+                \ serverside-applied  \n\u251C\u2500Pod/cert-manager-csi-driver-t7hrg\
+                \                              Healthy  84s                      \
+                \                                       \n\u2514\u2500ControllerRevision/cert-manager-csi-driver-59f5567dbd\
+                \                   84s                                          \
+                \                   \nClusterRole/cert-manager-csi-driver        \
+                \              Synced           24s                              \
+                \                               \nClusterRoleBinding/cert-manager-csi-driver\
+                \               Synced           24s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"cert-manager-csi-driver-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/cert-manager-csi-driver-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"cert-manager-csi-driver-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+              targetRevision: latest
+          revision: sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T03:05:00Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:06:53Z'
+          finishedAt: '2026-06-15T03:06:55Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+          deployedAt: '2026-06-15T03:06:55Z'
+          deployStartedAt: '2026-06-15T03:06:53Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: cert-manager-csi-driver-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T03:04:52Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1104\n  UID:         \
+              \      ab371772-c814-4ffd-9fa2-d0eb697833bc\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T03:05:00Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T03:06:53Z\n\
+              \    Deployed At:        2026-06-15T03:06:55Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \    Source:\n      Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:06:55Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \        Source:\n          Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T03:06:53Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/cert-manager-csi-driver-parity\
+              \ serverside-applied\n        Name:        cert-manager-csi-driver-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \      Source:\n        Path:              ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T03:06:55Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       cert-manager-csi-driver-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n \
+              \   Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m22s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m22s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  29s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe'\n\
+              \  Normal  ResourceUpdated     29s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  27s    argocd-application-controller  Sync operation to sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\
+              \ succeeded\n  Normal  ResourceUpdated     26s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                 MESSAGE
+
+              2m22s       Normal   ResourceUpdated      application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Updated
+              sync status:  -> Synced
+
+              2m22s       Normal   ResourceUpdated      application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Updated
+              health status:  -> Healthy
+
+              29s         Normal   OperationStarted     application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Initiated
+              automated sync to ''sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe''
+
+              29s         Normal   ResourceUpdated      application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              27s         Normal   OperationCompleted   application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Sync
+              operation to sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe
+              succeeded
+
+              26s         Normal   ResourceUpdated      application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: f2aac9157ac5ceee55d4945c1006e0411fa7e5e69a7b25025514de2b2b17b486
+                bytes: 10865
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ab371772-c814-4ffd-9fa2-d0eb697833bc\"\
+                ,\n    \"resourceVersion\": \"1191\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T03:04:52Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\\\",\\\
+                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T03:04:52Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T03:07:30Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \     "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 9cd1dc9053b3acf3a807e77ae97e7d8b74fe29fad16dc6b768a18dfacec17096
+                bytes: 1236
+              output: "Name:               argocd/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51513/applications/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                    STATUS  HEALTH  AGE    MESSAGE              \
+                \                                                                \
+                \                REASON\nApplication/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\
+                \  Synced          2m46s  application.argoproj.io/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\
+                \ serverside-applied  \nApplication/cert-manager-csi-driver-parity\
+                \                            Synced          43s    application.argoproj.io/cert-manager-csi-driver-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"cert-manager-csi-driver-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/cert-manager-csi-driver-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:bf3b18b1abb9135a8b7cef285d23c2bc1cd77c7338356f1d9630def48dd48bbe\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"cert-manager-csi-driver-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/cert-manager-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   101s'
+        pods: '# default
+
+          cert-manager-csi-driver-t7hrg   3/3   Running   2 (41s ago)   101s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T03:04:52Z'
+    finishedAt: '2026-06-15T03:05:15Z'
+    elapsedSeconds: 22.43
+    timeoutSeconds: 900
+    command: helm upgrade --install cert-manager-csi-driver cert-manager-csi-driver
+      --repo https://charts.jetstack.io --version v0.14.0 --namespace default-helm
+      --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T03:05:57Z'
+    finishedAt: '2026-06-15T03:05:58Z'
+    elapsedSeconds: 0.396
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager-csi-driver/v0.14.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T03:05:58Z'
+    finishedAt: '2026-06-15T03:05:58Z'
+    elapsedSeconds: 0.091
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6.kubeconfig
+      --context kind-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T03:05:58Z'
+    finishedAt: '2026-06-15T03:06:08Z'
+    elapsedSeconds: 10.223
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T03:06:13Z'
+    finishedAt: '2026-06-15T03:06:14Z'
+    elapsedSeconds: 0.252
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager-csi-driver/v0.14.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T03:06:14Z'
+    finishedAt: '2026-06-15T03:06:37Z'
+    elapsedSeconds: 22.898
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      --space helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      --target helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T03:06:37Z'
+    finishedAt: '2026-06-15T03:06:37Z'
+    elapsedSeconds: 0.676
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T03:06:37Z'
+    finishedAt: '2026-06-15T03:06:43Z'
+    elapsedSeconds: 5.98
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T03:06:43Z'
+    finishedAt: '2026-06-15T03:06:44Z'
+    elapsedSeconds: 0.971
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+      cert-manager-csi-driver-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/argo-application.json
+      --target helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T03:06:44Z'
+    finishedAt: '2026-06-15T03:06:45Z'
+    elapsedSeconds: 1.044
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T03:06:45Z'
+    finishedAt: '2026-06-15T03:07:06Z'
+    elapsedSeconds: 20.152
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T03:07:39Z'
+    finishedAt: '2026-06-15T03:07:39Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\""
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "cert-manager-csi-driver" does not exist. Installing it now.
+
+      NAME: cert-manager-csi-driver
+
+      LAST DEPLOYED: Mon Jun 15 04:04:54 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/cert-manager-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

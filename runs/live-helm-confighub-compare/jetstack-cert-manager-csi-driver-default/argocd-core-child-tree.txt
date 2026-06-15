@@ -1,0 +1,23 @@
+Name:               argocd/cert-manager-csi-driver-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:51396/applications/cert-manager-csi-driver-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cert-manager-csi-driver
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH   AGE  MESSAGE                                                    REASON
+CSIDriver/csi.cert-manager.io                            Synced           24s
+Namespace/default-oci                                    Synced           68s
+ServiceAccount/cert-manager-csi-driver                   Synced           84s  serviceaccount/cert-manager-csi-driver serverside-applied
+DaemonSet/cert-manager-csi-driver                        Synced  Healthy  84s  daemonset.apps/cert-manager-csi-driver serverside-applied
+├─Pod/cert-manager-csi-driver-t7hrg                              Healthy  84s
+└─ControllerRevision/cert-manager-csi-driver-59f5567dbd                   84s
+ClusterRole/cert-manager-csi-driver                      Synced           24s
+ClusterRoleBinding/cert-manager-csi-driver               Synced           24s
