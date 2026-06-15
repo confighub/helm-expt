@@ -72,13 +72,13 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 133/152 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 108/108 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 24/24 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 4/24 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 19/24 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 26/26 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 4/26 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 20/26 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 150 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 59 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 91 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 1/152 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | GitOps aggregate health residue rows | 20/152 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/152 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 1/108 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -192,8 +192,9 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
+| inspect-diff-first | 1 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 19 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 20 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
@@ -209,6 +210,7 @@ needs a support artifact or a direct receipt review before rerun.
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) |
+| bitnami/opensearch@2.0.10 | default | watch | gitops-runtime-review | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) |
 | fluent/fluentd@0.5.3 | default | watch | runtime-review | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) |
 | grafana/pyroscope@2.0.2 | default | watch | runtime-review | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) |
 | grafana/pyroscope@2.0.2 | no-crds | watch | runtime-review | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) |
@@ -223,6 +225,7 @@ needs a support artifact or a direct receipt review before rerun.
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime-review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | stage-prerequisite | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) |
+| bitnami/opensearch@2.0.10 | default | blocked | inspect-parity-diff | - |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | inspect-receipt | - |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | stage-prerequisite | - |
 | kedacore/keda@2.19.0 | no-crds | watch | stage-prerequisite | - |
@@ -414,15 +417,17 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
+| inspect-diff-first | 1 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 19 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 20 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
+| inspect-parity-diff | 1 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
 | stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
-| gitops-runtime-review | 14 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 15 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
 | runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 

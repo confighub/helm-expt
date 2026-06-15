@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 150 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 59 |
 | Two-cluster kind parity commands | 91 |
-| Watch/blocked/review rows | 46 |
-| Ready-to-run todo rows | 104 |
+| Watch/blocked/review rows | 47 |
+| Ready-to-run todo rows | 103 |
 
 ## By Work Type
 
@@ -39,16 +39,17 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 124 |
-| `watch` | 23 |
+| `todo` | 123 |
+| `watch` | 24 |
 
 ## By Run Readiness
 
 | Readiness | Rows |
 | --- | ---: |
+| `inspect-diff-first` | 1 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 104 |
+| `ready-to-run` | 103 |
 | `review-target-first` | 21 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -68,6 +69,7 @@ claim.
 | live-parity | bitnami/mongodb | 19.1.0 | existing-secret-replicaset | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/nginx | 24.0.4 | existing-tls-ingress | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/nginx | 25.0.0 | existing-tls-ingress | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts |
+| live-parity | bitnami/opensearch | 2.0.10 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | fluent/fluentd | 0.5.3 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | [runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml](../../runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
 | live-parity | grafana/pyroscope | 2.0.2 | default | G=watch;P=watch | target-runtime: ConfigHub workload not ready (parity passed) | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default |
 | live-parity | grafana/pyroscope | 2.0.2 | no-crds | G=watch;P=watch | target-runtime: ConfigHub workload not ready (parity passed) | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds |
@@ -82,7 +84,6 @@ claim.
 | live-parity | prometheus-community/prometheus | 29.9.0 | default | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml](../../runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default |
 | live-parity | traefik/traefik | 40.2.0 | no-crds | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds |
 | kind-parity | autoscaler/cluster-autoscaler | 9.57.0 | default | K=watch | two-cluster kind parity watch row needs review | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/autoscaler/cluster-autoscaler/9.57.0 --base default |
-| kind-parity | fairwinds-stable/vpa | 4.11.0 | default | K=watch | target-runtime: pod crash loop (parity passed) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/fairwinds-stable/vpa/4.11.0 --base default |
 
 ## Next Ready Live-Parity Commands
 
@@ -91,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/opensearch | 2.0.10 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default |
 | bitnami/opensearch | 2.0.10 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha |
 | elastic/filebeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
 | elastic/filebeat | 8.5.1 | node-or-cluster-collector | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
@@ -111,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.60.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default |
 | bitnami/apache | 11.4.29 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default |
+| bitnami/contour | 21.1.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default |
 
 ## Full Queue
 
