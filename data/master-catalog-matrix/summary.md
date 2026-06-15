@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 818 / 27 / 53 / 324 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 820 / 27 / 53 / 322 / 122 |
 | Variants with the complete core lane set | 91 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -160,7 +160,7 @@ when you want the user/product view with those columns visible.
 | `bitnami/postgresql@18.6.7` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 | `bitnami/postgresql@18.6.10` | existing-secret | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-|  | generated-passwords | — | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | generated-passwords | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `bitnami/postgresql@18.7.0` | existing-secret | — | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | generated-passwords | — | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |

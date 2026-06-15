@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 107
+pass: 108
 watch: 13
 blocked: 0
 not-started: 0
@@ -54,6 +54,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 7 | `prometheus-community/kube-prometheus-stack@86.1.0` | no-crds | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds-86-1-0/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.10` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-6-10/receipt.yaml |
+| 8 | `bitnami/postgresql@18.6.10` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords-18-6-10/receipt.yaml |
 | 9 | `bitnami/rabbitmq@16.0.14` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-rabbitmq-existing-secret/receipt.yaml |
 | 10 | `grafana/loki@7.0.0` | simple-scalable-minio | pass | - | runs/live-helm-confighub-compare/grafana-loki-simple-scalable-minio/receipt.yaml |
 | 11 | `longhorn/longhorn@1.11.2` | ui-ingress | pass | - | runs/live-helm-confighub-compare/longhorn-longhorn-ui-ingress/receipt.yaml |
