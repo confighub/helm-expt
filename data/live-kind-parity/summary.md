@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 79
+pass: 80
 watch: 1
 blocked: 2
-semantic parity pass: 80
+semantic parity pass: 81
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 1
 non-pass rows with related lifecycle evidence: 0
@@ -91,6 +91,7 @@ broader support claim.
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
+| `external-dns/external-dns@1.21.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-no-crds/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
