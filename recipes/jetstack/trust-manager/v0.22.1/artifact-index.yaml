@@ -68,7 +68,7 @@ spec:
     path: "packages/jetstack/trust-manager/v0.22.1"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e0f077d0158b34447fbc29a05f0cb94eb7d63127f8ac60d2a9806c54d5b4e9ce"
+    deterministicBundleSHA256: "b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -94,8 +94,50 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        requiredNamespaces:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cert-manager"
+            purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "trust-manager-tls"
+            namespace: "default"
+            purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
         name: "default"
         path: "packages/jetstack/trust-manager/v0.22.1/bases/default"
@@ -156,8 +198,59 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "bundles.trust.cert-manager.io"
+            purpose: "trust-manager CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        requiredNamespaces:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cert-manager"
+            purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "trust-manager-tls"
+            namespace: "default"
+            purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD bundles.trust.cert-manager.io; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
         name: "no-crds"
         path: "packages/jetstack/trust-manager/v0.22.1/bases/no-crds"

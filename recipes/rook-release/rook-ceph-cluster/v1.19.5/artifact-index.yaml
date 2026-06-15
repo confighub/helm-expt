@@ -64,7 +64,7 @@ spec:
     path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e5bdb9141875ddce5cbab0cea093bc513a447da0484dfa235fb61cedc0ce4b89"
+    deterministicBundleSHA256: "d9d5ab0731d9a46eb5131128d2ee144f0982728a17fdf9776c6cac2e2238c99d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
