@@ -68,6 +68,7 @@ rank,chart,version,variant,result,reason,receipt
 ,argo-cd/argo-rollouts,2.40.9,default,pass,,runs/live-helm-confighub-compare/argo-cd-argo-rollouts-default/receipt.yaml
 ,argo-cd/argo-rollouts,2.40.9,no-crds,pass,,runs/live-helm-confighub-compare/argo-cd-argo-rollouts-no-crds/receipt.yaml
 ,argo-cd/argo-workflows,1.0.14,controller-default-reviewed,pass,,runs/live-helm-confighub-compare/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml
+,argo-cd/argo-workflows,1.0.14,default,pass,,runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml
 ,argo-cd/argo-workflows,1.0.14,minimal-crds,pass,,runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml
 ,argo-cd/argocd-image-updater,1.2.2,default,pass,,runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/receipt.yaml
 ,autoscaler/cluster-autoscaler,9.57.0,controller-default-reviewed,pass,,runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml

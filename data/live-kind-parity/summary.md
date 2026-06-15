@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 100
+pass: 101
 watch: 5
 blocked: 1
-semantic parity pass: 105
+semantic parity pass: 106
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -66,6 +66,7 @@ broader support claim.
 | `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
 | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml |
+| `argo-cd/argo-workflows@1.0.14` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml |
 | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 | `argo-cd/argocd-image-updater@1.2.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml |
