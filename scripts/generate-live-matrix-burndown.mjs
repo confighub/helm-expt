@@ -167,6 +167,12 @@ as its spine and [../live-parity-rerun-plan/rerun-plan.csv](../live-parity-rerun
 for active watch-row details. It does not create evidence, change any status,
 or run Kubernetes. Run live commands serially.
 
+Do not compare this command count directly with the 99% cell frontier. This
+page is an execution queue: watch/review rows stay visible until reviewed, and
+one \`live-parity\` command covers both the G and P cells in the master matrix.
+For the cell-level completion count, use
+[../disposition-frontier/summary.md](../disposition-frontier/summary.md).
+
 ## Current Count
 
 | Metric | Rows |
