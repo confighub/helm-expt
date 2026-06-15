@@ -910,7 +910,7 @@ percona/pxc-operator@1.19.1,no-crds,in_confighub,C,pass,pass,no,,,
 percona/pxc-operator@1.19.1,no-crds,local_live,L,blocked,blocked,no,,,
 percona/pxc-operator@1.19.1,no-crds,gitops_oci_live,G,pass,pass,no,,,
 percona/pxc-operator@1.19.1,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-percona/pxc-operator@1.19.1,no-crds,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+percona/pxc-operator@1.19.1,no-crds,two_cluster_kind_parity,K,watch,watch,no,,,
 projectcalico/tigera-operator@v3.32.0,default,render_parity,R,pass,pass,no,,,
 projectcalico/tigera-operator@v3.32.0,default,in_confighub,C,pass,pass,no,,,
 projectcalico/tigera-operator@v3.32.0,default,local_live,L,blocked,blocked,no,,,
