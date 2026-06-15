@@ -1,0 +1,230 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-pyroscope-2.0.2-no-crds-kind-parity-20260606
+spec:
+  chart: grafana/pyroscope
+  version: 2.0.2
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-15T08:33:12Z'
+  package:
+    path: packages/grafana/pyroscope/2.0.2
+  recipe:
+    path: recipes/grafana/pyroscope/2.0.2
+  variantRevision: recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-pyrosc-a0f07-hbnm-helm
+    installerCluster: hx-pyrosc-a0f07-hbnm-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-pyrosc-a0f07-hbnm-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-pyrosc-a0f07-hbnm-helm" ...
+
+          Deleted nodes: ["hx-pyrosc-a0f07-hbnm-helm-control-plane"]'
+      - cluster: hx-pyrosc-a0f07-hbnm-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-pyrosc-a0f07-hbnm-installer" ...
+
+          Deleted nodes: ["hx-pyrosc-a0f07-hbnm-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts
+        --version 2.0.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-pyroscope-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086
+      objectCount: 17
+      liveHelmManifestSHA256: bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086
+      liveHelmManifestObjectCount: 17
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/pyroscope         1/1   90s
+
+          statefulset.apps/pyroscope-alloy   1/1   90s'
+        pods: '# default
+
+          pyroscope-0         1/1   Running   0     90s
+
+          pyroscope-alloy-0   2/2   Running   0     90s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pyrosc-a0f07-hbnm-pyroscope
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: de17f9f099f7e6423196b6b36afe09928c4e6e93eeb450063921de55463fab43
+      objectCount: 18
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/pyroscope         1/1   101s
+
+          statefulset.apps/pyroscope-alloy   1/1   101s'
+        pods: '# default
+
+          pyroscope-0         1/1   Running   0     101s
+
+          pyroscope-alloy-0   2/2   Running   0     101s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 17
+      installerObjectCount: 18
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "pyroscope" does not exist. Installing it now.
+
+      NAME: pyroscope
+
+      LAST DEPLOYED: Mon Jun 15 09:34:03 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Thanks for deploying Grafana Pyroscope.
+
+
+      # Pyroscope UI & Grafana
+
+
+      Pyroscope database comes with a built-in UI, to access it from your localhost
+      you can use:
+
+
+      ```
+
+      kubectl --namespace default port-forward svc/pyroscope 4040:4040
+
+      ```
+
+
+      You can also use Grafana to explore Pyroscope data.
+
+      For that, you''ll need to add the Pyroscope data source to your Grafana instance
+      and configure the query URL accordingly.
+
+      See https://grafana.com/docs/grafana/latest/datasources/grafana-pyroscope/ for
+      more details.
+
+
+      The in-cluster query URL for the data source in Grafana is:
+
+
+      ```
+
+      http://pyroscope.default.svc.cluster.local.:4040
+
+      ```
+
+
+      # Collecting profiles.
+
+
+
+      The Grafana Alloy has been installed to scrape and discover pprof profiles endpoint
+      via pod annotations.
+
+
+      As an example, to start collecting me'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/pyroscope         1/1   101s
+
+      statefulset.apps/pyroscope-alloy   1/1   101s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
