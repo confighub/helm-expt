@@ -1,0 +1,403 @@
+{
+  "metadata": {
+    "name": "filebeat-parity",
+    "namespace": "argocd",
+    "uid": "9684f906-eea7-49ca-bccc-472ea60dbde0",
+    "resourceVersion": "2912",
+    "generation": 11,
+    "creationTimestamp": "2026-06-15T14:37:05Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-filebeat-mqfat94m-1gyl-cluster:argoproj.io/Application:argocd/filebeat-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "6302c2fb-ae90-4cb2-b778-1588437d03cd",
+      "confighub.com/UnitSlug": "filebeat-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T14:37:05Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T14:44:06Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci",
+      "path": "./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "filebeat-filebeat-daemonset-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default-oci",
+        "name": "filebeat-filebeat",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default-oci",
+        "name": "filebeat-filebeat",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for daemon set \"filebeat-filebeat\" rollout to finish: 0 of 1 updated pods are available..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "filebeat-filebeat-cluster-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "filebeat-filebeat-cluster-role-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default-oci",
+        "name": "filebeat-filebeat-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default-oci",
+        "name": "filebeat-filebeat-role-binding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci",
+          "path": "./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T14:37:10Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c",
+        "deployedAt": "2026-06-15T14:37:09Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci",
+          "path": "./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T14:37:07Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T14:43:58Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci",
+            "path": "./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat",
+            "status": "Synced",
+            "message": "serviceaccount/filebeat-filebeat serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat-daemonset-config",
+            "status": "Synced",
+            "message": "configmap/filebeat-filebeat-daemonset-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat-cluster-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[namespaces nodes pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat-cluster-role-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:filebeat-filebeat Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat-role",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/filebeat-filebeat-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get create update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/filebeat-filebeat-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat-role-binding",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:filebeat-filebeat Namespace:default}. rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default-oci",
+            "name": "filebeat-filebeat",
+            "status": "Synced",
+            "message": "daemonset.apps/filebeat-filebeat serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.elastic.co/beats/filebeat:8.5.1"
+            ]
+          }
+        ],
+        "revision": "sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci",
+          "path": "./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T14:37:07Z",
+      "finishedAt": "2026-06-15T14:37:09Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.elastic.co/beats/filebeat:8.5.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

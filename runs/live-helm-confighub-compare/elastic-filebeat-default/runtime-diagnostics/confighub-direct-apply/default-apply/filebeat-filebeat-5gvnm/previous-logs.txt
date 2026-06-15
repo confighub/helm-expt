@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "filebeat" in pod "filebeat-filebeat-5gvnm" not found

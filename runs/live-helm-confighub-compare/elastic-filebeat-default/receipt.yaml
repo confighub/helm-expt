@@ -1,0 +1,1206 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-filebeat-8.5.1-default-live-parity-20260605
+spec:
+  chart: elastic/filebeat
+  version: 8.5.1
+  base: default
+  result: watch
+  observedAt: '2026-06-15T14:18:24Z'
+  package:
+    path: packages/elastic/filebeat/8.5.1
+  recipe:
+    path: recipes/elastic/filebeat/8.5.1
+  variantRevision: recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-filebeat-mqfat94m-1gyl
+    kubeContext: kind-helm-expt-parity-filebeat-mqfat94m-1gyl
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-filebeat-mqfat94m-1gyl --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-filebeat-mqfat94m-1gyl"...
+
+        Deleting cluster "helm-expt-parity-filebeat-mqfat94m-1gyl" ...
+
+        Deleted nodes: ["helm-expt-parity-filebeat-mqfat94m-1gyl-control-plane"]
+
+        Deleting Space "helm-expt-parity-filebeat-mqfat94m-1gyl-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install filebeat filebeat --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020
+      objectCount: 7
+      liveHelmManifestSHA256: 668a3e21de1f088c514489a4599c8c3a7dcce2f9dcd7a8fae83be03ea6944af2
+      liveHelmManifestObjectCount: 7
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: daemonset.apps/filebeat-filebeat   1     1     0     1     0     <none>   11m
+        pods: filebeat-filebeat-lw4h7   0/1   ContainerCreating   0     11m
+        notReady:
+        - namespace: default-helm
+          pod: filebeat-filebeat-lw4h7
+          ready: 0/1
+          status: ContainerCreating
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: fa03a757300876a91bdcadb0e712226141379b6a3dc046e7ff4fd27603f0b326
+            bytes: 557
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 71afc9d9600a253ffd35949d4cce18206c773d2f678930560a3621b85b44683b
+            bytes: 3520
+          podArtifacts:
+          - namespace: default-helm
+            pod: filebeat-filebeat-lw4h7
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/filebeat-filebeat-lw4h7/describe.txt
+            sha256: 138c608999e3d14320ce5f52c1692b92783a356e7c8077f989e17767ac9ec197
+            bytes: 4712
+          - namespace: default-helm
+            pod: filebeat-filebeat-lw4h7
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/filebeat-filebeat-lw4h7/logs.txt
+            sha256: 49c30f21389f7580212092b8c83ec93d474a49054eba10351ccfbc6a4c9a5a7a
+            bytes: 124
+          - namespace: default-helm
+            pod: filebeat-filebeat-lw4h7
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/filebeat-filebeat-lw4h7/previous-logs.txt
+            sha256: cb3280ae7d16448d614edf9e75cde3080e164a02d5f6ba7ef1419b0e7ac50b1b
+            bytes: 115
+      stderr: 'Error: resource DaemonSet/default-helm/filebeat-filebeat not ready.
+        status: InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: f22901c3cafef5122cbfd577de5bd9436fdafa077a7c81c182ac4ebfa205090b
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default-apply
+
+          daemonset.apps/filebeat-filebeat   1     1     0     1     0     <none>   4m54s'
+        pods: '# default-apply
+
+          filebeat-filebeat-5gvnm   0/1   ContainerCreating   0     4m54s'
+        notReady:
+        - namespace: default-apply
+          pod: filebeat-filebeat-5gvnm
+          ready: 0/1
+          status: ContainerCreating
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-apply
+          namespaceArtifacts:
+          - namespace: default-apply
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/events.txt
+            sha256: 5914414db03fb8afdfc47f60d68eefee79484723fe716651b52aa3c5d478b0b9
+            bytes: 796
+          - namespace: default-apply
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/workloads-describe.txt
+            sha256: f6e42ff7fbeb142c5221e81c1a623c92df45ff04c82d5a4fe3721941c793463b
+            bytes: 3580
+          podArtifacts:
+          - namespace: default-apply
+            pod: filebeat-filebeat-5gvnm
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/filebeat-filebeat-5gvnm/describe.txt
+            sha256: 8f297a5a49a514fb8e76bd1361fea7a491397eb32ae59eb5f34270a8b254ed66
+            bytes: 4714
+          - namespace: default-apply
+            pod: filebeat-filebeat-5gvnm
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/filebeat-filebeat-5gvnm/logs.txt
+            sha256: 46a60c36e7bce849ee9ca146bdb8009429248b94c30a69bf22bb49ee54f1d691
+            bytes: 124
+          - namespace: default-apply
+            pod: filebeat-filebeat-5gvnm
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/filebeat-filebeat-5gvnm/previous-logs.txt
+            sha256: 1e126c046d2528a5e2c030a3ea58e5be95664033f99e2e8229e7a7a0ed09cde7
+            bytes: 115
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "filebeat-filebeat-cluster-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "filebeat-filebeat-cluster-role-binding"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+      controller: Argo CD OCI
+      app: filebeat-parity
+      manifestSHA256: 55a8fecca9c64feb38113b773b37fd7a44e05a0cabe358fa7a9bcf689ec08060
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+              targetRevision: latest
+          revision: sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T14:37:10Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.elastic.co/beats/filebeat:8.5.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T14:37:07Z'
+          finishedAt: '2026-06-15T14:37:09Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 8
+          syncResultStatusCounts:
+            Synced: 8
+        history:
+        - id: 0
+          revision: sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+          deployedAt: '2026-06-15T14:37:09Z'
+          deployStartedAt: '2026-06-15T14:37:07Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: filebeat-filebeat-daemonset-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default-oci
+          name: filebeat-filebeat
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default-oci
+          name: filebeat-filebeat
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: filebeat-filebeat-cluster-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: filebeat-filebeat-cluster-role-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default-oci
+          name: filebeat-filebeat-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default-oci
+          name: filebeat-filebeat-role-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         filebeat-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-filebeat-mqfat94m-1gyl-cluster:argoproj.io/Application:argocd/filebeat-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 6302c2fb-ae90-4cb2-b778-1588437d03cd\n              confighub.com/UnitSlug:\
+              \ filebeat-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:   \
+              \      Application\nMetadata:\n  Creation Timestamp:  2026-06-15T14:37:05Z\n\
+              \  Generation:          10\n  Resource Version:    2743\n  UID:    \
+              \             9684f906-eea7-49ca-bccc-472ea60dbde0\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T14:37:10Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T14:37:07Z\n    Deployed At:        2026-06-15T14:37:09Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \    Source:\n      Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T14:37:09Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \        Source:\n          Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T14:37:07Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/filebeat-filebeat serverside-applied\n        Name:\
+              \        filebeat-filebeat\n        Namespace:   default-oci\n     \
+              \   Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/filebeat-filebeat-daemonset-config\
+              \ serverside-applied\n        Name:        filebeat-filebeat-daemonset-config\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[]\
+              \ Resources:[namespaces nodes pods] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[apps] Resources:[replicasets]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role\
+              \ serverside-applied\n        Name:        filebeat-filebeat-cluster-role\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role-binding\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:filebeat-filebeat Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/filebeat-filebeat-cluster-role-binding\
+              \ serverside-applied\n        Name:        filebeat-filebeat-cluster-role-binding\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/filebeat-filebeat-role\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get create update] APIGroups:[coordination.k8s.io]\
+              \ Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/filebeat-filebeat-role\
+              \ serverside-applied\n        Name:        filebeat-filebeat-role\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        RoleBinding\n        Message:     rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:filebeat-filebeat Namespace:default}. rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding\
+              \ serverside-app"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                        MESSAGE
+
+              6m51s       Normal   OperationStarted     application/filebeat-parity   Initiated
+              automated sync to ''sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c''
+
+              6m51s       Normal   ResourceUpdated      application/filebeat-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/filebeat-parity   Updated
+              health status:  -> Healthy
+
+              6m49s       Normal   OperationCompleted   application/filebeat-parity   Sync
+              operation to sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/filebeat-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m48s       Normal   ResourceUpdated      application/filebeat-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 8
+              artifact:
+                path: argocd-core-child.json
+                sha256: ad4c95563659413eb7d9306b43989c74164d0656ddaa7a9396b030707dab13a7
+                bytes: 13702
+              output: "{\n  \"metadata\": {\n    \"name\": \"filebeat-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"9684f906-eea7-49ca-bccc-472ea60dbde0\"\
+                ,\n    \"resourceVersion\": \"2912\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T14:37:05Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-filebeat-mqfat94m-1gyl-cluster:argoproj.io/Application:argocd/filebeat-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"6302c2fb-ae90-4cb2-b778-1588437d03cd\",\n      \"confighub.com/UnitSlug\"\
+                : \"filebeat-parity-app\"\n    },\n    \"managedFields\": [\n    \
+                \  {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T14:37:05Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T14:44:06Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"filebeat-filebeat-daemonset-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"filebeat-filebeat\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"DaemonSet\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"filebeat-filebeat\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for daemon set \\\"filebeat-filebeat\\\" rollout to finish: 0 of\
+                \ 1 updated pods are available...\"\n        }\n      },\n      {\n\
+                \        \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRole\",\n        \"name\": \"\
+                filebeat-filebeat-cluster-role\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRoleBinding\"\
+                ,\n        \"name\": \"filebeat-filebeat-cluster-role-binding\",\n\
+                \        \"stat"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 0b031eab3f9e979ca1324a23d038286201cd75c68ac93873c5441b35d3d9aa09
+                bytes: 3907
+              output: "Name:               argocd/filebeat-parity\nProject:      \
+                \      default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:53411/applications/filebeat-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \             STATUS  HEALTH  AGE   MESSAGE  REASON\nClusterRoleBinding/filebeat-filebeat-cluster-role-binding\
+                \  Synced          7m9s           \nRole/filebeat-filebeat-role  \
+                \                              Synced          7m9s  role.rbac.authorization.k8s.io/filebeat-filebeat-role\
+                \ reconciled. reconciliation required create\n                   \
+                \                                        missing rules added:\n  \
+                \                                                                \
+                \ {Verbs:[get create update] APIGroups:[coordination.k8s.io] Resources:[leases]\
+                \ ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/filebeat-filebeat-role\
+                \ serverside-applied  \nRoleBinding/filebeat-filebeat-role-binding\
+                \                 Synced                                         \
+                \                                                                \
+                \                                                                \
+                \                       7m9s  rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding\
+                \ reconciled. reconciliation required create\n                   \
+                \                                        missing subjects added:\n\
+                \                                                                \
+                \   {Kind:ServiceAccount APIGroup: Name:filebeat-filebeat Namespace:default}.\
+                \ rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding\
+                \ serverside-applied  \nConfigMap/filebeat-filebeat-daemonset-config\
+                \               Synced                                           \
+                \                                                                \
+                \                                                          7m9s  configmap/filebeat-filebeat-daemonset-config\
+                \ serverside-applied  \nNamespace/default-oci                    \
+                \                  Synced                                        \
+                \                                                                \
+                \                                                             8m2s\
+                \                                                                \
+                \   \nServiceAccount/filebeat-filebeat                           Synced\
+                \                                                                \
+                \                                                                \
+                \                                     7m9s  serviceaccount/filebeat-filebeat\
+                \ serverside-applied              \nDaemonSet/filebeat-filebeat  \
+                \                              Synced  Progressing               \
+                \                                                                \
+                \                                                                \
+                \         7m9s  daemonset.apps/filebeat-filebeat serverside-applied\
+                \              Waiting for daemon set \"filebeat-filebeat\" rollout\
+                \ to finish: 0 of 1 updated pods are available...\n\u251C\u2500Pod/filebeat-filebeat-jvnxw\
+                \                                      Progressing               \
+                \                                                                \
+                \                                                                \
+                \         7m9s                                                   \
+                \                \n\u2514\u2500ControllerRevision/filebeat-filebeat-864bf68b84\
+                \                                                                \
+                \                                                                \
+                \                                                     7m9s       \
+                \                                                            \nClusterRole/filebeat-filebeat-cluster-role\
+                \                 Synced                                         \
+                \                                                                \
+                \                                                            7m9s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"filebeat-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/filebeat-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"filebeat-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+              targetRevision: latest
+          revision: sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T14:19:58Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T14:37:03Z'
+          finishedAt: '2026-06-15T14:37:05Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+          deployedAt: '2026-06-15T14:37:05Z'
+          deployStartedAt: '2026-06-15T14:37:03Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: filebeat-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T14:19:49Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        15\n  Resource Version:  2735\n  UID:        \
+              \       e7ab8c11-2a38-4c10-a50c-b57b2d3104ff\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T14:19:58Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T14:37:03Z\n\
+              \    Deployed At:        2026-06-15T14:37:05Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \    Source:\n      Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T14:37:05Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \        Source:\n          Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T14:37:03Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/filebeat-parity serverside-applied\n\
+              \        Name:        filebeat-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \      Source:\n        Path:              ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T14:41:52Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       filebeat-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     24m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     24m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m15s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c'\n\
+              \  Normal  ResourceUpdated     7m15s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m13s  argocd-application-controller  Sync operation to sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\
+              \ succeeded\n  Normal  ResourceUpdated     7m11s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                        MESSAGE
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Updated
+              sync status:  -> Synced
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Updated
+              health status:  -> Healthy
+
+              7m15s       Normal   OperationStarted     application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Initiated
+              automated sync to ''sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c''
+
+              7m15s       Normal   ResourceUpdated      application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m13s       Normal   OperationCompleted   application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Sync
+              operation to sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c
+              succeeded
+
+              7m11s       Normal   ResourceUpdated      application/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 4230764d310d16151012196e4c3edc7f1a9924d4a75167518b18e5c9262e4641
+                bytes: 10668
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"e7ab8c11-2a38-4c10-a50c-b57b2d3104ff\"\
+                ,\n    \"resourceVersion\": \"2942\",\n    \"generation\": 16,\n \
+                \   \"creationTimestamp\": \"2026-06-15T14:19:49Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T14:19:49Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T14:44:26Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighu"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 2f417da06ac4fbf84f85535967c9cff08a373ec6a6f283c634f24acaf57f52b0
+                bytes: 1140
+              output: "Name:               argocd/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:53529/applications/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \           STATUS  HEALTH  AGE    MESSAGE                       \
+                \                                                              REASON\n\
+                Application/filebeat-parity                                  Synced\
+                \          7m31s  application.argoproj.io/filebeat-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\
+                \  Synced          24m    application.argoproj.io/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"filebeat-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/filebeat-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:28c65400d273b3970c2e9d2a5ee508631cbb99cd75d9c10efdd09f509cd11c2c\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"filebeat-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-filebeat-mqfat94m-1gyl-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default-oci
+
+          daemonset.apps/filebeat-filebeat   1     1     0     1     0     <none>   10m'
+        pods: '# default-oci
+
+          filebeat-filebeat-jvnxw   0/1   ContainerCreating   0     10m'
+        notReady:
+        - namespace: default-oci
+          pod: filebeat-filebeat-jvnxw
+          ready: 0/1
+          status: ContainerCreating
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-oci
+          namespaceArtifacts:
+          - namespace: default-oci
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/events.txt
+            sha256: d53e631bf2f080e02854ac3e6cd4a219adcec378e6b030f04ea8ba30dfb24cb6
+            bytes: 556
+          - namespace: default-oci
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/workloads-describe.txt
+            sha256: 2a97c1764a39d141becc84d285a9b568d5dfd832e1a0b1f5a4f47ed64d30d8fc
+            bytes: 3649
+          podArtifacts:
+          - namespace: default-oci
+            pod: filebeat-filebeat-jvnxw
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/filebeat-filebeat-jvnxw/describe.txt
+            sha256: eedc15bf7fe4c93b6fc4775cf6c0418d713ba86755760ad48627e8fab6467c23
+            bytes: 4704
+          - namespace: default-oci
+            pod: filebeat-filebeat-jvnxw
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/filebeat-filebeat-jvnxw/logs.txt
+            sha256: 7d0594e87cee0f5ca862a9b1cb7592a49e83fe9bf37662e8a1d57e88935c7058
+            bytes: 124
+          - namespace: default-oci
+            pod: filebeat-filebeat-jvnxw
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/filebeat-filebeat-jvnxw/previous-logs.txt
+            sha256: 3090bb2d2978b33b7e31f8b8f51fd27f85b8e76d00f95cdec77848b8746fbd71
+            bytes: 115
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-15T14:19:49Z'
+    finishedAt: '2026-06-15T14:27:52Z'
+    elapsedSeconds: 482.19
+    timeoutSeconds: 900
+    command: helm upgrade --install filebeat filebeat --repo https://helm.elastic.co
+      --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T14:31:00Z'
+    finishedAt: '2026-06-15T14:31:00Z'
+    elapsedSeconds: 0.545
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T14:31:01Z'
+    finishedAt: '2026-06-15T14:31:01Z'
+    elapsedSeconds: 0.118
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig
+      --context kind-helm-expt-parity-filebeat-mqfat94m-1gyl apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/direct-apply-manifest.yaml
+    objectCount: 7
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-15T14:31:01Z'
+    finishedAt: '2026-06-15T14:36:05Z'
+    elapsedSeconds: 303.95
+    timeoutSeconds: 300
+    namespaces: default-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T14:36:15Z'
+    finishedAt: '2026-06-15T14:36:16Z'
+    elapsedSeconds: 0.415
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T14:36:16Z'
+    finishedAt: '2026-06-15T14:36:48Z'
+    elapsedSeconds: 32.345
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+      --space helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat --target helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+    objectCount: 8
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T14:36:48Z'
+    finishedAt: '2026-06-15T14:36:49Z'
+    elapsedSeconds: 0.554
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T14:36:49Z'
+    finishedAt: '2026-06-15T14:36:53Z'
+    elapsedSeconds: 4.58
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+      --unit <8 unit(s)> --wait --timeout 5m
+    unitCount: 8
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T14:36:53Z'
+    finishedAt: '2026-06-15T14:36:54Z'
+    elapsedSeconds: 1.04
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
+      filebeat-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/argo-application.json
+      --target helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T14:36:54Z'
+    finishedAt: '2026-06-15T14:36:55Z'
+    elapsedSeconds: 1.048
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T14:36:55Z'
+    finishedAt: '2026-06-15T14:43:58Z'
+    elapsedSeconds: 422.336
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-15T14:44:36Z'
+    finishedAt: '2026-06-15T14:47:38Z'
+    elapsedSeconds: 182.419
+    timeoutSeconds: 180
+    namespaces: default-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-filebeat-mqfat94m-1gyl\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-filebeat-mqfat94m-1gyl\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-filebeat-mqfat94m-1gyl\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-filebeat-mqfat94m-1gyl\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource DaemonSet/default-helm/filebeat-filebeat not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default-apply
+
+      daemonset.apps/filebeat-filebeat   1     1     0     1     0     <none>   4m54s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
