@@ -1070,8 +1070,8 @@ sealed-secrets/sealed-secrets@2.18.6,default,two_cluster_kind_parity,K,pass,pass
 sealed-secrets/sealed-secrets@2.18.6,no-crds,render_parity,R,pass,pass,no,,,
 sealed-secrets/sealed-secrets@2.18.6,no-crds,in_confighub,C,pass,pass,no,,,
 sealed-secrets/sealed-secrets@2.18.6,no-crds,local_live,L,pass,pass,no,,,
-sealed-secrets/sealed-secrets@2.18.6,no-crds,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-sealed-secrets/sealed-secrets@2.18.6,no-crds,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+sealed-secrets/sealed-secrets@2.18.6,no-crds,gitops_oci_live,G,pass,pass,no,,,
+sealed-secrets/sealed-secrets@2.18.6,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 sealed-secrets/sealed-secrets@2.18.6,no-crds,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,default,render_parity,R,pass,pass,no,,,
 secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,default,in_confighub,C,pass,pass,no,,,

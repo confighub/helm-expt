@@ -1,0 +1,1103 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: sealed-secrets-sealed-secrets-2.18.6-no-crds-live-parity-20260605
+spec:
+  chart: sealed-secrets/sealed-secrets
+  version: 2.18.6
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-15T05:54:11Z'
+  package:
+    path: packages/sealed-secrets/sealed-secrets/2.18.6
+  recipe:
+    path: recipes/sealed-secrets/sealed-secrets/2.18.6
+  variantRevision: recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-sealedsecrets-mqesstcd-212i
+    kubeContext: kind-helm-expt-parity-sealedsecrets-mqesstcd-212i
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-sealedsecrets-mqesstcd-212i --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-sealedsecrets-mqesstcd-212i"...
+
+        Deleting cluster "helm-expt-parity-sealedsecrets-mqesstcd-212i" ...
+
+        Deleted nodes: ["helm-expt-parity-sealedsecrets-mqesstcd-212i-control-plane"]
+
+        Deleting Space "helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install sealed-secrets sealed-secrets --repo https://bitnami-labs.github.io/sealed-secrets
+        --version 2.18.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c
+      objectCount: 10
+      liveHelmManifestSHA256: 7e1b6e339eb52b5f40735abc5911a8fba5ecae94304c1747ae7c5bf6db084d6e
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/sealed-secrets   1/1   1     1     7s
+        pods: sealed-secrets-657974dfb4-sgmtf   1/1   Running   0     7s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 335515cbf77e4e581fd727bff2774fa6aaea46f06be7a2e8e7ffc8e2028bc9d4
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     10s'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-2h42t   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "secrets-unsealer" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "sealed-secrets" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|sealed-secrets
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|sealed-secrets-key-admin
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|sealed-secrets-service-proxier
+          - rbac.authorization.k8s.io/v1|Role|default|sealed-secrets-key-admin
+          - rbac.authorization.k8s.io/v1|Role|default|sealed-secrets-service-proxier
+          - v1|ServiceAccount|default|sealed-secrets
+          - v1|Service|default|sealed-secrets
+          - v1|Service|default|sealed-secrets-metrics
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+      controller: Argo CD OCI
+      app: sealed-secrets-parity
+      manifestSHA256: 9617d5df827c173666d7d50e5eb6c0bc6aee4edc2caf045d12d2b5d8e410920f
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci
+              targetRevision: latest
+          revision: sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T05:57:05Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/bitnami/sealed-secrets-controller:0.37.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T05:57:05Z'
+          finishedAt: '2026-06-15T05:57:07Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+          deployedAt: '2026-06-15T05:57:07Z'
+          deployStartedAt: '2026-06-15T05:57:05Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: sealed-secrets-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: secrets-unsealer
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: sealed-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: sealed-secrets-key-admin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: sealed-secrets-service-proxier
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: sealed-secrets-key-admin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: sealed-secrets-service-proxier
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         sealed-secrets-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster:argoproj.io/Application:argocd/sealed-secrets-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 0b3be9fe-0d95-4198-a2f2-40053199cc20\n              confighub.com/UnitSlug:\
+              \ sealed-secrets-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T05:57:03Z\n\
+              \  Generation:          8\n  Resource Version:    1196\n  UID:     \
+              \            275e9b77-2cae-4fe1-8af5-7df69413c382\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T05:57:05Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T05:57:05Z\n    Deployed At:        2026-06-15T05:57:07Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \    Source:\n      Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T05:57:07Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \        Source:\n          Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T05:57:05Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/sealed-secrets serverside-applied\n        Name:\
+              \        sealed-secrets\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/secrets-unsealer\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[bitnami.com]\
+              \ Resources:[sealedsecrets] ResourceNames:[] NonResourceURLs:[]}\n \
+              \                      {Verbs:[update] APIGroups:[bitnami.com] Resources:[sealedsecrets/status]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list create update delete watch] APIGroups:[] Resources:[secrets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
+              \ patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}.\
+              \ clusterrole.rbac.authorization.k8s.io/secrets-unsealer serverside-applied\n\
+              \        Name:        secrets-unsealer\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRoleBinding\n       \
+              \ Message:     clusterrolebinding.rbac.authorization.k8s.io/sealed-secrets\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:sealed-secrets Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/sealed-secrets\
+              \ serverside-applied\n        Name:        sealed-secrets\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
+              \     role.rbac.authorization.k8s.io/sealed-secrets-key-admin reconciled.\
+              \ reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-key-admin\
+              \ serverside-applied\n        Name:        sealed-secrets-key-admin\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
+              \     role.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+              \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+              \ serverside-applied\n        Name:        sealed-secrets-service-proxier\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+              \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-prox"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                              MESSAGE
+
+              9s          Normal   OperationStarted     application/sealed-secrets-parity   Initiated
+              automated sync to ''sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed''
+
+              9s          Normal   ResourceUpdated      application/sealed-secrets-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/sealed-secrets-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/sealed-secrets-parity   Sync
+              operation to sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/sealed-secrets-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: a55e055f5dd9ba62490fd5c4838c6b3dc41cc53fd04152931f733e07ee11fd05
+                bytes: 15581
+              output: "{\n  \"metadata\": {\n    \"name\": \"sealed-secrets-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"275e9b77-2cae-4fe1-8af5-7df69413c382\"\
+                ,\n    \"resourceVersion\": \"1212\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T05:57:03Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster:argoproj.io/Application:argocd/sealed-secrets-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"0b3be9fe-0d95-4198-a2f2-40053199cc20\",\n      \"confighub.com/UnitSlug\"\
+                : \"sealed-secrets-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T05:57:03Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T05:57:22Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"sealed-secrets\",\n        \"status\": \"Synced\",\n        \"\
+                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"sealed-secrets-metrics\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"sealed-secrets\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"sealed-secrets\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRole\",\n        \"name\": \"\
+                secrets-unsealer\",\n        \"status\": \"Synced\"\n      },\n  \
+                \    {\n        \"group\": \"rbac.authoriza"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 666eaca65d67729b292ef3894a9b8c26c4aec176ae3efb310cb549b9e243d9db
+                bytes: 2707
+              output: "Name:               argocd/sealed-secrets-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:61877/applications/sealed-secrets-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                   STATUS\
+                \  HEALTH   AGE   MESSAGE                                        \
+                \                                                                \
+                \                                                                \
+                \                           REASON\nService/sealed-secrets       \
+                \               Synced  Healthy  102s  service/sealed-secrets serverside-applied\
+                \                                                                \
+                \                                                                \
+                \                                 \nService/sealed-secrets-metrics\
+                \              Synced  Healthy  102s  service/sealed-secrets-metrics\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                            \nServiceAccount/sealed-secrets\
+                \               Synced           102s  serviceaccount/sealed-secrets\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                             \nDeployment/sealed-secrets\
+                \                   Synced  Healthy  102s  deployment.apps/sealed-secrets\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                            \n\u2514\u2500ReplicaSet/sealed-secrets-657974dfb4\
+                \              Healthy  102s                                     \
+                \                                                                \
+                \                                                                \
+                \                                       \n  \u2514\u2500Pod/sealed-secrets-657974dfb4-2h42t\
+                \             Healthy  102s                                      \
+                \                                                                \
+                \                                                                \
+                \                                      \nClusterRole/secrets-unsealer\
+                \                Synced           23s                            \
+                \                                                                \
+                \                                                                \
+                \                                                 \nRoleBinding/sealed-secrets-service-proxier\
+                \  Synced           102s  rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+                \ serverside-applied  \nClusterRoleBinding/sealed-secrets        \
+                \   Synced           23s                                         \
+                \                                                                \
+                \                                                                \
+                \                                    \nRole/sealed-secrets-key-admin\
+                \               Synced           102s  role.rbac.authorization.k8s.io/sealed-secrets-key-admin\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-key-admin\
+                \ serverside-applied                            \nRole/sealed-secrets-service-proxier\
+                \         Synced           102s  role.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-service-proxier\
+                \ serverside-applied                \nRoleBinding/sealed-secrets-key-admin\
+                \        Synced           102s  rolebinding.rbac.authorization.k8s.io/sealed-secrets-key-admin\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/sealed-secrets-key-admin\
+                \ serverside-applied              \nNamespace/default-oci        \
+                \               Synced           86s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              sealed-secrets-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/sealed-secrets-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"sealed-secrets-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci
+              targetRevision: latest
+          revision: sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T05:55:40Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T05:57:01Z'
+          finishedAt: '2026-06-15T05:57:03Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+          deployedAt: '2026-06-15T05:57:03Z'
+          deployStartedAt: '2026-06-15T05:57:01Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: sealed-secrets-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T05:55:32Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1156\n  UID:         \
+              \      b5b4e376-ff36-4954-b392-abafe0cc6b06\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T05:55:40Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T05:57:01Z\n\
+              \    Deployed At:        2026-06-15T05:57:03Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \    Source:\n      Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T05:57:03Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \        Source:\n          Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T05:57:01Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/sealed-secrets-parity serverside-applied\n\
+              \        Name:        sealed-secrets-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \      Source:\n        Path:              ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T05:57:03Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       sealed-secrets-parity\n    Namespace:  argocd\n    Status: \
+              \    Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     111s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     111s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  28s   argocd-application-controller  Sync operation to sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\
+              \ succeeded\n  Normal  ResourceUpdated     26s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                             MESSAGE
+
+              111s        Normal   ResourceUpdated      application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Updated
+              sync status:  -> Synced
+
+              111s        Normal   ResourceUpdated      application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Initiated
+              automated sync to ''sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              28s         Normal   OperationCompleted   application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Sync
+              operation to sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed
+              succeeded
+
+              26s         Normal   ResourceUpdated      application/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 7584f9ca1eb5dd63ec0a1d216b9a2959785d6a599fa9e356fb5a26f2545e8a10
+                bytes: 10770
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"b5b4e376-ff36-4954-b392-abafe0cc6b06\"\
+                ,\n    \"resourceVersion\": \"1237\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T05:55:32Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\\\",\\\"\
+                repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T05:55:32Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T05:57:38Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 76bb29cbb5281948cb028368a3f99a3ccd8e9c6b2946cb802336f26f229a6a26
+                bytes: 1191
+              output: "Name:               argocd/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61994/applications/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                STATUS  HEALTH  AGE    MESSAGE                  \
+                \                                                                \
+                \        REASON\nApplication/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\
+                \  Synced          2m15s  application.argoproj.io/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\
+                \ serverside-applied  \nApplication/sealed-secrets-parity        \
+                \                         Synced          44s    application.argoproj.io/sealed-secrets-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              sealed-secrets-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/sealed-secrets-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"sealed-secrets-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     2m'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-2h42t   1/1   Running   0     2m'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T05:55:32Z'
+    finishedAt: '2026-06-15T05:55:42Z'
+    elapsedSeconds: 9.376
+    timeoutSeconds: 900
+    command: helm upgrade --install sealed-secrets sealed-secrets --repo https://bitnami-labs.github.io/sealed-secrets
+      --version 2.18.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T05:55:47Z'
+    finishedAt: '2026-06-15T05:55:48Z'
+    elapsedSeconds: 0.365
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T05:55:48Z'
+    finishedAt: '2026-06-15T05:55:48Z'
+    elapsedSeconds: 0.141
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-sealedsecrets-mqesstcd-212i.kubeconfig
+      --context kind-helm-expt-parity-sealedsecrets-mqesstcd-212i apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-no-crds/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T05:55:48Z'
+    finishedAt: '2026-06-15T05:55:58Z'
+    elapsedSeconds: 10.22
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T05:56:04Z'
+    finishedAt: '2026-06-15T05:56:04Z'
+    elapsedSeconds: 0.261
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T05:56:04Z'
+    finishedAt: '2026-06-15T05:56:44Z'
+    elapsedSeconds: 39.981
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+      --space helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets --target
+      helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T05:56:44Z'
+    finishedAt: '2026-06-15T05:56:45Z'
+    elapsedSeconds: 0.598
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T05:56:45Z'
+    finishedAt: '2026-06-15T05:56:51Z'
+    elapsedSeconds: 6.665
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets
+      --unit <11 unit(s)> --wait --timeout 5m
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T05:56:51Z'
+    finishedAt: '2026-06-15T05:56:52Z'
+    elapsedSeconds: 1.044
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster
+      sealed-secrets-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-no-crds/argo-application.json
+      --target helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T05:56:52Z'
+    finishedAt: '2026-06-15T05:56:53Z'
+    elapsedSeconds: 1.06
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T05:56:53Z'
+    finishedAt: '2026-06-15T05:57:14Z'
+    elapsedSeconds: 20.156
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T05:57:48Z'
+    finishedAt: '2026-06-15T05:57:48Z'
+    elapsedSeconds: 0.094
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-sealedsecrets-mqesstcd-212i\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-sealedsecrets-mqesstcd-212i.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-sealedsecrets-mqesstcd-212i\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-sealedsecrets-mqesstcd-212i\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-sealedsecrets-mqesstcd-212i\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-sealedsecrets-mqesstcd-212i.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind:"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"sealed-secrets\" does not exist. Installing it now.\nNAME:\
+      \ sealed-secrets\nLAST DEPLOYED: Mon Jun 15 06:55:35 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n** Please be patient while the chart is being deployed **\n\nYou should\
+      \ now be able to create sealed secrets.\n\n1. Install the client-side tool (kubeseal)\
+      \ as explained in the docs below:\n\n    https://github.com/bitnami-labs/sealed-secrets#installation-from-source\n\
+      \n2. Create a sealed secret file running the command below:\n\n    kubectl create\
+      \ secret generic secret-name --dry-run=client --from-literal=foo=bar -o [json|yaml]\
+      \ | \\\n    kubeseal \\\n      --controller-name=sealed-secrets \\\n      --controller-namespace=default-helm\
+      \ \\\n      --format yaml > mysealedsecret.[json|yaml]\n\nThe file mysealedsecret.[json|yaml]\
+      \ is a commitable file.\n\nIf you would rather not need access to the cluster\
+      \ to generate the sealed secret you can run:\n\n    kubeseal \\\n      --controller-name=sea"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/sealed-secrets   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
