@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 14
+rows: 15
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 0
-watch: 14
-configHub-oci-live-comparison: 14
+watch: 15
+configHub-oci-live-comparison: 15
 two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
-runtime-or-watch-rows: 13
+runtime-or-watch-rows: 14
 ```
 
 ## Current Interpretation
@@ -37,6 +37,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `fluent/fluentd@0.5.3` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/pyroscope@2.0.2` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
+| `grafana/pyroscope@2.0.2` | no-crds | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/tempo@1.24.4` | s3-query-observability | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
@@ -50,7 +51,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 14 | 0 | 14 | 0 | 0 |
+| configHub-oci-live-comparison | 15 | 0 | 15 | 0 | 0 |
 | two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -77,7 +78,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | --- | ---: | --- |
 | gitops-runtime-review | 11 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 2 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 3 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -93,7 +94,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 13 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 14 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -136,6 +137,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `fluent/fluentd@0.5.3` | default | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/fluent/fluentd/0.5.3/runtime-review.yaml`](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default` |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | s3-query-observability | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml`](../../recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/tempo/1.24.4 --base s3-query-observability` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml`](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | ha-raft-ui | watch | operate-policy: Vault init/unseal readiness (parity passed) | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui` |

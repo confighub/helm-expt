@@ -1,0 +1,107 @@
+Name:             pyroscope-0
+Namespace:        default
+Priority:         0
+Service Account:  pyroscope
+Node:             helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane/192.168.97.2
+Start Time:       Mon, 15 Jun 2026 03:11:55 +0100
+Labels:           app.kubernetes.io/component=all
+                  app.kubernetes.io/instance=pyroscope
+                  app.kubernetes.io/name=pyroscope
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=pyroscope-84c4bcbb57
+                  name=pyroscope
+                  statefulset.kubernetes.io/pod-name=pyroscope-0
+Annotations:      checksum/config: 8a4f819897979ed0bc3d732a2380b919c0688ecafd39ceb238856b74223db8ab
+                  profiles.grafana.com/cpu.port_name: http2
+                  profiles.grafana.com/cpu.scrape: true
+                  profiles.grafana.com/goroutine.port_name: http2
+                  profiles.grafana.com/goroutine.scrape: true
+                  profiles.grafana.com/memory.port_name: http2
+                  profiles.grafana.com/memory.scrape: true
+                  profiles.grafana.com/service_git_ref: v2.0.2
+                  profiles.grafana.com/service_repository: https://github.com/grafana/pyroscope
+Status:           Running
+IP:               10.244.0.15
+IPs:
+  IP:           10.244.0.15
+Controlled By:  StatefulSet/pyroscope
+Containers:
+  pyroscope:
+    Container ID:  containerd://550ee1c595f36d132c2e69ed03efc7b721a2358300ed9bbfb8cbf1fee62b2cb8
+    Image:         grafana/pyroscope:2.0.2
+    Image ID:      docker.io/grafana/pyroscope@sha256:644515bfa06cb3779b8666514b1bab2295bd11f1e1a53834bd9584a43f77c4f5
+    Ports:         4040/TCP (http2), 7946/TCP (memberlist), 9095/TCP (grpc), 9099/TCP (raft)
+    Host Ports:    0/TCP (http2), 0/TCP (memberlist), 0/TCP (grpc), 0/TCP (raft)
+    Args:
+      -target=all
+      -self-profiling.disable-push=true
+      -server.http-listen-port=4040
+      -memberlist.cluster-label=default-pyroscope
+      -memberlist.join=dns+pyroscope-memberlist.default.svc.cluster.local.:7946
+      -config.file=/etc/pyroscope/config.yaml
+      -runtime-config.file=/etc/pyroscope/overrides/overrides.yaml
+      -log.level=debug
+      -query-backend.address=dns:///_grpc._tcp.pyroscope-headless.$(NAMESPACE_FQDN):9095
+      -metastore.address=kubernetes:///pyroscope-headless.$(NAMESPACE_FQDN):9095
+      -metastore.data-dir=./data-metastore/data
+      -metastore.raft.dir=./data-metastore/raft
+      -metastore.raft.snapshots-dir=./data-metastore/raft
+      -metastore.raft.bind-address=:9099
+      -metastore.raft.server-id=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)
+      -metastore.raft.advertise-address=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)
+      -metastore.raft.bootstrap-peers=dnssrvnoa+_raft._tcp.$(PYROSCOPE_METASTORE_SERVICE)
+      -architecture.storage=v2
+    State:          Running
+      Started:      Mon, 15 Jun 2026 03:11:55 +0100
+    Ready:          False
+    Restart Count:  0
+    Readiness:      http-get http://:http2/ready delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAME:                     pyroscope-0 (v1:metadata.name)
+      NAMESPACE_FQDN:               default.svc.cluster.local.
+      PYROSCOPE_METASTORE_SERVICE:  pyroscope-headless.default.svc.cluster.local.:9099
+    Mounts:
+      /data from data (rw)
+      /data-metastore from data (rw,path=".metastore")
+      /etc/pyroscope/config.yaml from config (rw,path="config.yaml")
+      /etc/pyroscope/overrides/ from overrides-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r69ss (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      pyroscope-config
+    Optional:  false
+  overrides-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      pyroscope-overrides-config
+    Optional:  false
+  data:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  kube-api-access-r69ss:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  21m                   default-scheduler  Successfully assigned default/pyroscope-0 to helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane
+  Normal   Pulled     21m                   kubelet            spec.containers{pyroscope}: Container image "grafana/pyroscope:2.0.2" already present on machine and can be accessed by the pod
+  Normal   Created    21m                   kubelet            spec.containers{pyroscope}: Container created
+  Normal   Started    21m                   kubelet            spec.containers{pyroscope}: Container started
+  Warning  Unhealthy  21m                   kubelet            spec.containers{pyroscope}: Readiness probe failed: HTTP probe failed with statuscode: 503
+  Warning  Unhealthy  107s (x130 over 21m)  kubelet            spec.containers{pyroscope}: Readiness probe failed: Get "http://10.244.0.15:4040/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

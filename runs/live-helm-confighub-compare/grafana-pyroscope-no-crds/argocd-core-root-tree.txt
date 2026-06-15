@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-pyroscope-mqekqpn0-adw-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:65404/applications/helm-expt-parity-pyroscope-mqekqpn0-adw-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqekqpn0-adw-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-pyroscope-mqekqpn0-adw-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                    STATUS  HEALTH  AGE    MESSAGE                                                                                     REASON
+Application/helm-expt-parity-pyroscope-mqekqpn0-adw-cluster  Synced          20m    application.argoproj.io/helm-expt-parity-pyroscope-mqekqpn0-adw-cluster serverside-applied
+Application/pyroscope-parity                                 Synced          7m32s  application.argoproj.io/pyroscope-parity serverside-applied
