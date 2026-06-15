@@ -1,0 +1,22 @@
+Name:               argocd/pgadmin4-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:61112/applications/pgadmin4-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                          STATUS  HEALTH   AGE   MESSAGE                                                      REASON
+Service/pgadmin4                   Synced  Healthy  100s  service/pgadmin4 serverside-applied
+Deployment/pgadmin4                Synced  Healthy  100s  deployment.apps/pgadmin4 serverside-applied
+└─ReplicaSet/pgadmin4-6d5b97559d           Healthy  100s
+  └─Pod/pgadmin4-6d5b97559d-dbcs2          Healthy  100s
+NetworkPolicy/pgadmin4             Synced           100s  networkpolicy.networking.k8s.io/pgadmin4 serverside-applied
+Namespace/default-oci              Synced           64s
+PersistentVolumeClaim/pgadmin4     Synced  Healthy  100s  persistentvolumeclaim/pgadmin4 serverside-applied

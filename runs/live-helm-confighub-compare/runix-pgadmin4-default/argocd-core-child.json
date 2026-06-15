@@ -1,0 +1,353 @@
+{
+  "metadata": {
+    "name": "pgadmin4-parity",
+    "namespace": "argocd",
+    "uid": "55e0a175-ca56-4f41-966f-5adee732752c",
+    "resourceVersion": "1198",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T05:44:09Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster:argoproj.io/Application:argocd/pgadmin4-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "912828fa-1941-4c61-9fdb-b7623223ed80",
+      "confighub.com/UnitSlug": "pgadmin4-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:44:09Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:44:27Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci",
+      "path": "./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "PersistentVolumeClaim",
+        "namespace": "default",
+        "name": "pgadmin4",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "pgadmin4",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "pgadmin4",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "pgadmin4",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci",
+          "path": "./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T05:44:10Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1",
+        "deployedAt": "2026-06-15T05:44:12Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci",
+          "path": "./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T05:44:10Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T05:44:20Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci",
+            "path": "./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "pgadmin4",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/pgadmin4 serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "PersistentVolumeClaim",
+            "namespace": "default",
+            "name": "pgadmin4",
+            "status": "Synced",
+            "message": "persistentvolumeclaim/pgadmin4 serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "pgadmin4",
+            "status": "Synced",
+            "message": "service/pgadmin4 serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "pgadmin4",
+            "status": "Synced",
+            "message": "deployment.apps/pgadmin4 serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/dpage/pgadmin4:9.13"
+            ]
+          }
+        ],
+        "revision": "sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci",
+          "path": "./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T05:44:10Z",
+      "finishedAt": "2026-06-15T05:44:12Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/dpage/pgadmin4:9.13"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

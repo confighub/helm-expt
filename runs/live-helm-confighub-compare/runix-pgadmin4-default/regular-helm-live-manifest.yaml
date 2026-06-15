@@ -1,0 +1,165 @@
+---
+# Source: pgadmin4/templates/networkpolicy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: pgadmin4
+  namespace: "default-helm"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: pgadmin4
+      app.kubernetes.io/instance: pgadmin4
+  ingress:
+  - ports:
+    - port: 80
+---
+# Source: pgadmin4/templates/auth-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgadmin4
+  namespace: "default-helm"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+type: Opaque
+data:
+  password: "U3VwZXJTZWNyZXQ="
+---
+# Source: pgadmin4/templates/pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pgadmin4
+  namespace: "default-helm"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+# Source: pgadmin4/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin4
+  namespace: "default-helm"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/instance: pgadmin4
+---
+# Source: pgadmin4/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin4
+  namespace: "default-helm"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pgadmin4
+      app.kubernetes.io/instance: pgadmin4
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pgadmin4
+        app.kubernetes.io/instance: pgadmin4
+      annotations:
+        checksum/secret: 9bc68ffb51a38e5418028b0eba90804dbeb136f99a8b8a4c329543ba249cbd31
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: pgadmin4
+          image: "docker.io/dpage/pgadmin4:9.13"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /misc/ping
+              scheme: HTTP
+            failureThreshold: 3
+            periodSeconds: 20
+            timeoutSeconds: 5
+          startupProbe:
+            httpGet:
+              port: http
+              path: /misc/ping
+              scheme: HTTP
+            failureThreshold: 18
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /misc/ping
+              scheme: HTTP
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 3
+          env:
+            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+              value: "False"
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: chart@domain.com
+            - name: PGADMIN_DEFAULT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin4
+                  key: password
+          volumeMounts:
+            - name: pgadmin-data
+              mountPath: /var/lib/pgadmin
+              subPath: ""
+          resources:
+            {}
+      volumes:
+        - name: pgadmin-data
+          persistentVolumeClaim:
+            claimName: pgadmin4
+      securityContext:
+        fsGroup: 5050
+        runAsGroup: 5050
+        runAsUser: 5050
