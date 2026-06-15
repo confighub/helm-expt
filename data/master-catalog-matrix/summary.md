@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 860 / 35 / 55 / 272 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 862 / 35 / 55 / 270 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -293,7 +293,7 @@ when you want the user/product view with those columns visible.
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ❌ | ❌ | ⬜ | ⬜ | local-live | ⬜ |
 | `runix/pgadmin4@1.62.0` | default | next80 | `tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | top20 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | sync-secret-rotation | top20 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `stakater/reloader@2.2.12` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

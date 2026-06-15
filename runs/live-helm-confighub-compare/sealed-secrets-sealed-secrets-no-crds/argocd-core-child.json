@@ -1,0 +1,464 @@
+{
+  "metadata": {
+    "name": "sealed-secrets-parity",
+    "namespace": "argocd",
+    "uid": "275e9b77-2cae-4fe1-8af5-7df69413c382",
+    "resourceVersion": "1212",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T05:57:03Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster:argoproj.io/Application:argocd/sealed-secrets-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "0b3be9fe-0d95-4198-a2f2-40053199cc20",
+      "confighub.com/UnitSlug": "sealed-secrets-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:57:03Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:57:22Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci",
+      "path": "./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "sealed-secrets",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "sealed-secrets-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "sealed-secrets",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "sealed-secrets",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "secrets-unsealer",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "sealed-secrets",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "sealed-secrets-key-admin",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "sealed-secrets-service-proxier",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "sealed-secrets-key-admin",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "sealed-secrets-service-proxier",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci",
+          "path": "./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T05:57:05Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed",
+        "deployedAt": "2026-06-15T05:57:07Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci",
+          "path": "./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T05:57:05Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T05:57:14Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci",
+            "path": "./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "sealed-secrets",
+            "status": "Synced",
+            "message": "serviceaccount/sealed-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "secrets-unsealer",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/secrets-unsealer reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[bitnami.com] Resources:[sealedsecrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[bitnami.com] Resources:[sealedsecrets/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list create update delete watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/secrets-unsealer serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "sealed-secrets",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/sealed-secrets reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:sealed-secrets Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/sealed-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "sealed-secrets-key-admin",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/sealed-secrets-key-admin reconciled. reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-key-admin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "sealed-secrets-service-proxier",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/sealed-secrets-service-proxier reconciled. reconciliation required update. role.rbac.authorization.k8s.io/sealed-secrets-service-proxier serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "sealed-secrets-service-proxier",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-proxier reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/sealed-secrets-service-proxier serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "sealed-secrets-key-admin",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/sealed-secrets-key-admin reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/sealed-secrets-key-admin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "sealed-secrets",
+            "status": "Synced",
+            "message": "service/sealed-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "sealed-secrets-metrics",
+            "status": "Synced",
+            "message": "service/sealed-secrets-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "sealed-secrets",
+            "status": "Synced",
+            "message": "deployment.apps/sealed-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/sealed-secrets-controller:0.37.0"
+            ]
+          }
+        ],
+        "revision": "sha256:ae421baacb17c599edac9e5e23a4ff9e8cb5c55d322c9daaf99ce657877563ed",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-sealedsecrets-mqesstcd-212i-cluster/oci",
+          "path": "./helm-expt-parity-sealedsecrets-mqesstcd-212i-sealed-secrets",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T05:57:05Z",
+      "finishedAt": "2026-06-15T05:57:07Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/bitnami/sealed-secrets-controller:0.37.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
