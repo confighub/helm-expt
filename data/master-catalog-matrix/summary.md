@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 840 / 33 / 53 / 296 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 842 / 33 / 53 / 294 / 122 |
 | Variants with the complete core lane set | 91 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -249,7 +249,7 @@ when you want the user/product view with those columns visible.
 |  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `metrics-server/metrics-server@3.13.0` | default | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | — | ✅ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |

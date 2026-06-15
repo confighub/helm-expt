@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-operator-mqenwnp9-1nj8-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:53337/applications/helm-expt-parity-operator-mqenwnp9-1nj8-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-operator-mqenwnp9-1nj8-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                    STATUS  HEALTH  AGE    MESSAGE                                                                                     REASON
+Application/helm-expt-parity-operator-mqenwnp9-1nj8-cluster  Synced          2m12s  application.argoproj.io/helm-expt-parity-operator-mqenwnp9-1nj8-cluster serverside-applied
+Application/operator-parity                                  Synced          53s    application.argoproj.io/operator-parity serverside-applied

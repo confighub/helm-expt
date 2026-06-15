@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 118
+pass: 119
 watch: 16
 blocked: 0
 not-started: 0
@@ -132,6 +132,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `kyverno/kyverno@3.8.1` | no-crds | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/receipt.yaml |
 |  | `kyverno/kyverno-policies@3.8.0` | default | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml |
 |  | `linkerd/linkerd-crds@1.8.0` | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml |
+|  | `minio-operator/operator@7.1.1` | default | pass | - | runs/live-helm-confighub-compare/minio-operator-operator-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | ha | pass | - | runs/live-helm-confighub-compare/nats-nats-ha/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |

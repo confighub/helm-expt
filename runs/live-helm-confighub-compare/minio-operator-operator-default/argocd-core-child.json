@@ -1,0 +1,432 @@
+{
+  "metadata": {
+    "name": "operator-parity",
+    "namespace": "argocd",
+    "uid": "44543c3f-a4e4-4e9f-bd63-03d7e41d852d",
+    "resourceVersion": "1220",
+    "generation": 8,
+    "creationTimestamp": "2026-06-15T03:39:54Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-operator-mqenwnp9-1nj8-cluster:argoproj.io/Application:argocd/operator-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "4e5b635c-f103-4b7d-b9f2-d922c8fc6947",
+      "confighub.com/UnitSlug": "operator-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:39:54Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:40:14Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci",
+      "path": "./helm-expt-parity-operator-mqenwnp9-1nj8-operator",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "operator",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "sts",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "minio-operator",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "policybindings.sts.min.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "tenants.minio.min.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "minio-operator",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "minio-operator-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "minio-operator-binding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci",
+          "path": "./helm-expt-parity-operator-mqenwnp9-1nj8-operator",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:9dea9ab9ea65ba8d6d880a533a9c0aa36ae2d93ede7e88c347486fabe0d5940d"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T03:39:56Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:9dea9ab9ea65ba8d6d880a533a9c0aa36ae2d93ede7e88c347486fabe0d5940d",
+        "deployedAt": "2026-06-15T03:39:57Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci",
+          "path": "./helm-expt-parity-operator-mqenwnp9-1nj8-operator",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T03:39:56Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T03:40:05Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:9dea9ab9ea65ba8d6d880a533a9c0aa36ae2d93ede7e88c347486fabe0d5940d",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci",
+            "path": "./helm-expt-parity-operator-mqenwnp9-1nj8-operator",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "minio-operator",
+            "status": "Synced",
+            "message": "serviceaccount/minio-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "policybindings.sts.min.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/policybindings.sts.min.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "tenants.minio.min.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/tenants.minio.min.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "minio-operator-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/minio-operator-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get update] APIGroups:[apiextensions.k8s.io] Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update list] APIGroups:[] Resources:[persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get watch list] APIGroups:[] Resources:[namespaces nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch create list delete deletecollection update patch] APIGroups:[] Resources:[pods services events configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch create update list delete deletecollection] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[] Resources:[serviceaccounts] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[rbac.authorization.k8s.io] Resources:[roles rolebindings] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get create list patch watch update delete] APIGroups:[apps] Resources:[statefulsets deployments deployments/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get create list patch watch update delete] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update create get delete list] APIGroups:[certificates.k8s.io] Resources:[certificatesigningrequests certificatesigningrequests/approval certificatesigningrequests/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[approve sign] APIGroups:[certificates.k8s.io] Resources:[signers] ResourceNames:[kubernetes.io/legacy-unknown kubernetes.io/kube-apiserver-client kubernetes.io/kubelet-serving beta.eks.amazonaws.com/app-serving] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authentication.k8s.io] Resources:[tokenreviews] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[*] APIGroups:[minio.min.io sts.min.io job.min.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[*] APIGroups:[min.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update list] APIGroups:[monitoring.coreos.com] Resources:[prometheuses prometheusagents] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update create] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update deletecollection] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/minio-operator-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "minio-operator-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/minio-operator-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:minio-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/minio-operator-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "sts",
+            "status": "Synced",
+            "message": "service/sts serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "operator",
+            "status": "Synced",
+            "message": "service/operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "minio-operator",
+            "status": "Synced",
+            "message": "deployment.apps/minio-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/minio/operator:v7.1.1"
+            ]
+          }
+        ],
+        "revision": "sha256:9dea9ab9ea65ba8d6d880a533a9c0aa36ae2d93ede7e88c347486fabe0d5940d",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-operator-mqenwnp9-1nj8-cluster/oci",
+          "path": "./helm-expt-parity-operator-mqenwnp9-1nj8-operator",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T03:39:56Z",
+      "finishedAt": "2026-06-15T03:39:57Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/minio/operator:v7.1.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
