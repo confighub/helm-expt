@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 105
 watch: 5
-blocked: 5
+blocked: 6
 semantic parity pass: 111
-semantic parity defects: 3
+semantic parity defects: 4
 non-pass rows where semantic parity passed: 6
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 3 |
+| parity: semantic object diff | 4 |
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | blocked: inspect receipt | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
@@ -151,6 +151,7 @@ broader support claim.
 | `nats/nack@0.34.0` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/nats-nack-default/receipt.yaml |
 | `nats/nack@0.34.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nack-no-crds/receipt.yaml |
 | `nats/nats@2.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nats-default/receipt.yaml |
+| `nats/nats@2.14.0` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/nats-nats-ha/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
