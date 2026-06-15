@@ -8,8 +8,6 @@ spec:
     -
       default: true
       description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
-      name: "default"
-      path: "bases/default"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -29,6 +27,8 @@ spec:
           name: "Namespace cert-manager"
           namespace: "cert-manager"
           suggestedSource: "kubectl create namespace cert-manager"
+      name: "default"
+      path: "bases/default"
     -
       description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
       externalRequires:

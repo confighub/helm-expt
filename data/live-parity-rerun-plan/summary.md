@@ -10,13 +10,13 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 25
+rows: 24
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 3
+blocked: 2
 watch: 22
 configHub-oci-live-comparison: 19
-two-cluster-kind-parity: 6
+two-cluster-kind-parity: 5
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
@@ -49,7 +49,6 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `prometheus-community/prometheus@29.9.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `traefik/traefik@40.2.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
-| `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
@@ -62,7 +61,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 19 | 0 | 18 | 1 | 0 |
-| two-cluster-kind-parity | 6 | 0 | 4 | 2 | 0 |
+| two-cluster-kind-parity | 5 | 0 | 4 | 1 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -87,7 +86,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | Next step | Rows | What to do |
 | --- | ---: | --- |
 | gitops-runtime-review | 14 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
+| inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
@@ -105,7 +104,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
+| inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 19 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
@@ -162,7 +161,6 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `prometheus-community/prometheus@29.9.0` | default | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml`](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml`](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
-| 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart argo-cd/argo-workflows --version 1.0.14 --base controller-default-reviewed` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |

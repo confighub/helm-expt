@@ -67,7 +67,7 @@ spec:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "4846574f337c453316cfbe8d1b281d8eea9c883e21d8c63ecd3fc8c17969586e"
+    deterministicBundleSHA256: "7c6a0b21ed4ee3f588cb396ce99b4bffb999251838950e6168cc2f1c22acd412"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,20 +101,28 @@ spec:
         requiredCRDs:
           -
             name: "clusterworkflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "cronworkflows.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowartifactgctasks.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workfloweventbindings.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflows.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtaskresults.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtasksets.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
       targetFactSummary: "required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io"
       packageBase:
         name: "default"
@@ -179,20 +187,28 @@ spec:
         requiredCRDs:
           -
             name: "clusterworkflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "cronworkflows.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowartifactgctasks.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workfloweventbindings.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflows.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtaskresults.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtasksets.argoproj.io"
+            sourceVariant: "minimal-crds"
           -
             name: "workflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
       targetFactSummary: "required CRD clusterworkflowtemplates.argoproj.io; required CRD cronworkflows.argoproj.io; required CRD workflowartifactgctasks.argoproj.io; required CRD workfloweventbindings.argoproj.io; required CRD workflows.argoproj.io; required CRD workflowtaskresults.argoproj.io; required CRD workflowtasksets.argoproj.io; required CRD workflowtemplates.argoproj.io"
       packageBase:
         name: "controller-default-reviewed"

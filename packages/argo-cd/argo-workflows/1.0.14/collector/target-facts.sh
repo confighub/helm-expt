@@ -86,13 +86,21 @@ targetFacts:
 
   requiredCRDs:
   - name: clusterworkflowtemplates.argoproj.io
+    sourceVariant: minimal-crds
   - name: cronworkflows.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowartifactgctasks.argoproj.io
+    sourceVariant: minimal-crds
   - name: workfloweventbindings.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflows.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtaskresults.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtasksets.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtemplates.argoproj.io
+    sourceVariant: minimal-crds
 
   requiredValues: []
 
@@ -126,13 +134,21 @@ targetFacts:
 
   requiredCRDs:
   - name: clusterworkflowtemplates.argoproj.io
+    sourceVariant: minimal-crds
   - name: cronworkflows.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowartifactgctasks.argoproj.io
+    sourceVariant: minimal-crds
   - name: workfloweventbindings.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflows.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtaskresults.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtasksets.argoproj.io
+    sourceVariant: minimal-crds
   - name: workflowtemplates.argoproj.io
+    sourceVariant: minimal-crds
 
   requiredValues: []
 

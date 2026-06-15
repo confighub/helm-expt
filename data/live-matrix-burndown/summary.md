@@ -20,35 +20,35 @@ For the cell-level completion count, use
 | Metric | Rows |
 | --- | ---: |
 | Matrix variant rows | 192 |
-| Variants needing at least one live command | 104 |
-| Live commands remaining | 154 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 61 |
-| Two-cluster kind parity commands | 93 |
-| Watch/blocked/review rows | 46 |
-| Ready-to-run todo rows | 108 |
+| Variants needing at least one live command | 103 |
+| Live commands remaining | 152 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 60 |
+| Two-cluster kind parity commands | 92 |
+| Watch/blocked/review rows | 45 |
+| Ready-to-run todo rows | 107 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 93 |
-| `live-parity` | 61 |
+| `kind-parity` | 92 |
+| `live-parity` | 60 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 3 |
-| `todo` | 128 |
+| `blocked` | 2 |
+| `todo` | 127 |
 | `watch` | 23 |
 
 ## By Run Readiness
 
 | Readiness | Rows |
 | --- | ---: |
-| `inspect-receipt-first` | 2 |
+| `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 108 |
+| `ready-to-run` | 107 |
 | `review-target-first` | 20 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -91,7 +91,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-workflows | 1.0.14 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed |
 | argo-cd/argo-workflows | 1.0.14 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base default |
 | bitnami/opensearch | 2.0.10 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default |
 | bitnami/opensearch | 2.0.10 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha |
@@ -111,6 +110,7 @@ generated priority. They are good candidates for a serial live block.
 | strimzi/strimzi-kafka-operator | 1.0.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds |
 | velero/velero | 12.0.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default |
 | velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.60.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default |
 
 ## Full Queue
 

@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 99
+pass: 100
 watch: 5
-blocked: 2
-semantic parity pass: 104
+blocked: 1
+semantic parity pass: 105
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| blocked: inspect receipt | 2 |
+| blocked: inspect receipt | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
 | target-prerequisite: required Secret missing (parity passed) | 1 |
@@ -65,7 +65,7 @@ broader support claim.
 | `argo-cd/argo-events@2.4.21` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
-| `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml |
+| `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml |
 | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 | `argo-cd/argocd-image-updater@1.2.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml |

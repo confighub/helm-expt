@@ -23,14 +23,13 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-7 non-pass rows: 5 watch, 2 blocked.
+6 non-pass rows: 5 watch, 1 blocked.
 3 are resolved by the **user** (stage a prerequisite or supply
-values); 2 need **catalog/model** work; the rest need a runtime or
+values); 1 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
-| `model-gap-render` | 1 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
@@ -41,7 +40,7 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `user` | 3 |
-| `catalog` | 2 |
+| `catalog` | 1 |
 | `needs readiness review` | 1 |
 | `needs runtime review` | 1 |
 
@@ -49,7 +48,6 @@ readiness review.
 
 | Chart | Base | Result | Residue | Who fixes it | Usable today |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | blocked | model-gap-render | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | model-gap-target-fact | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |

@@ -15,20 +15,6 @@
   "note": "A watch row is known evidence with a named residue — not a pass and not a failure. A blocked row did not reach parity; the decision names why and who owns the fix.",
   "decisions": [
     {
-      "chart": "argo-cd/argo-workflows",
-      "version": "1.0.14",
-      "base": "controller-default-reviewed",
-      "result": "blocked",
-      "semantic_parity": "unknown",
-      "residue_category": "model-gap-render",
-      "blocker_owner": "catalog",
-      "usable_today": "no — needs catalog work",
-      "user_decision": "Not usable on this base yet, and not a user action: a required CRD is missing from the base's rendered object set, so the run blocked before parity. Catalog/model work.",
-      "next_action": "Catalog work: render the required CRD in this base (or declare it a target prerequisite), then rerun.",
-      "reason": "required CRD clusterworkflowtemplates.argoproj.io not found in recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
-      "receipt": "runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml"
-    },
-    {
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "base": "controller-default-reviewed",
