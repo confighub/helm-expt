@@ -168,6 +168,20 @@
       "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
       "reason": "semantic object diff: 3 object(s) differ; objects=apps/v1|StatefulSet||nats; v1|ConfigMap||nats-config; v1|Service||nats-headless",
       "receipt": "runs/live-kind-parity/nats-nats-ha/receipt.yaml"
+    },
+    {
+      "chart": "nats/surveyor",
+      "version": "0.20.9",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod crash loop (parity passed)",
+      "receipt": "runs/live-kind-parity/nats-surveyor-default/receipt.yaml"
     }
   ]
 }
