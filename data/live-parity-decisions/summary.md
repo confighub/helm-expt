@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-25 non-pass rows: 24 watch, 1 blocked.
+26 non-pass rows: 25 watch, 1 blocked.
 1 are resolved by the **user** (stage a prerequisite); 0
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -33,15 +33,15 @@ passed — the residue is operational, not a config mismatch.
 
 | Residue category | Rows |
 | --- | ---: |
-| `gitops-runtime` | 16 |
-| `target-runtime` | 7 |
+| `gitops-runtime` | 14 |
+| `target-runtime` | 10 |
 | `operate-policy` | 1 |
 | `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `needs GitOps controller-health review` | 16 |
-| `needs runtime review` | 7 |
+| `needs GitOps controller-health review` | 14 |
+| `needs runtime review` | 10 |
 | `needs operate review` | 1 |
 | `user` | 1 |
 
@@ -54,8 +54,8 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| bitnami/opensearch@2.0.10 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| bitnami/opensearch@2.0.10 | ha | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| bitnami/opensearch@2.0.10 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| bitnami/opensearch@2.0.10 | ha | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
@@ -66,6 +66,7 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/terraform@1.1.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
+| istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

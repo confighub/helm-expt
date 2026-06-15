@@ -512,7 +512,8 @@ function classifyWatch(spec, target) {
     return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
   }
   if (target.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
-  if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff")) {
+  if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff") ||
+    text.includes("imagepullbackoff") || text.includes("errimagepull")) {
     return "target-runtime: pod config/runtime errors (parity passed)";
   }
   if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
