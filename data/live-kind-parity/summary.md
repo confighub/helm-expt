@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 91
+pass: 92
 watch: 3
 blocked: 2
-semantic parity pass: 94
+semantic parity pass: 95
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 0
@@ -117,6 +117,7 @@ broader support claim.
 | `grafana/rollout-operator@0.49.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
+| `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |

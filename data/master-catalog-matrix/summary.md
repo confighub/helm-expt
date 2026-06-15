@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 886 / 37 / 57 / 242 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 887 / 37 / 57 / 241 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -217,7 +217,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `grafana/tempo@1.24.4` | local-persistent | top20 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⚠️ | live-parity | superseded |
 |  | s3-query-observability | top20 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-| `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
+| `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `hashicorp/consul@2.0.0` | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
 | `hashicorp/terraform@1.1.2` | default | next80 | `crds` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
