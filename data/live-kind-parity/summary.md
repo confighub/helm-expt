@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 81
-watch: 1
+watch: 2
 blocked: 2
-semantic parity pass: 82
+semantic parity pass: 83
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 1
+non-pass rows where semantic parity passed: 2
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -34,6 +34,7 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | blocked: inspect receipt | 2 |
 | render-input: required Helm values missing (parity passed) | 1 |
+| target-runtime: pod crash loop (parity passed) | 1 |
 
 ## How To Read Non-Pass Rows
 
@@ -95,6 +96,7 @@ broader support claim.
 | `external-secrets/external-secrets@2.5.0` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
 | `fairwinds-stable/goldilocks@10.3.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fairwinds-stable-goldilocks-default/receipt.yaml |
+| `fairwinds-stable/vpa@4.11.0` | default | watch | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
 | `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
