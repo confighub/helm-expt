@@ -36,7 +36,7 @@ function buildReport() {
     const liveState = laneState([row.lane_gitops_oci_live, row.lane_live_dual_parity]);
     if (liveState.needsWork) workItems.push(liveParityWorkItem(row, liveState, activeReruns));
     const kindState = laneState([row.lane_two_cluster_kind]);
-    if (kindState.needsWork) workItems.push(kindParityWorkItem(row, kindState));
+    if (kindState.needsWork) workItems.push(kindParityWorkItem(row, kindState, activeReruns));
   }
   workItems.sort(compareWorkItems);
   const counts = countBy(workItems, "work_type");
@@ -48,9 +48,10 @@ function buildReport() {
 }
 
 function liveParityWorkItem(row, state, activeReruns) {
-  const active = activeReruns.get(rowKey(row)) ?? {};
-  const activeReason = active.reason || row.active_proof_reason || "";
-  const currentStatus = active.current_result || state.status;
+  const active = activeReruns.get(rerunKey(row, "configHub-oci-live-comparison")) ?? {};
+  const hasActiveRerun = Boolean(active.current_result || active.reason || active.rerun_command);
+  const activeReason = hasActiveRerun ? active.reason || "" : "";
+  const currentStatus = hasActiveRerun ? active.current_result || state.status : state.status;
   return {
     priority: priorityFor(row, "live-parity", { ...state, status: currentStatus }),
     work_type: "live-parity",
@@ -64,19 +65,24 @@ function liveParityWorkItem(row, state, activeReruns) {
     outcome_level: row.outcome_level,
     core_lanes_complete: row.core_lanes_complete,
     production_decision: row.production_decision,
-    run_readiness: active.rerun_readiness || row.active_proof_readiness || (currentStatus === "watch" || currentStatus === "blocked" ? "review-target-first" : "ready-to-run"),
+    run_readiness: hasActiveRerun && active.rerun_readiness
+      ? active.rerun_readiness
+      : (currentStatus === "watch" || currentStatus === "blocked" ? "review-target-first" : "ready-to-run"),
     reason: activeReason || reasonForMissing("GitOps/OCI live and live Helm-vs-ConfigHub parity", state.status),
-    next_step: active.next_step_type || row.active_proof_next_step || (currentStatus === "watch" ? "review-watch-receipt" : currentStatus === "blocked" ? "review-blocked-receipt" : "run-live-parity"),
-    command: active.rerun_command || row.active_proof_command || `npm run live-parity:run -- --recipe ${row.recipe_path} --base ${row.variant}`,
-    support_artifact: active.support_artifact || row.active_proof_support_artifact,
-    receipt: active.receipt || "",
+    next_step: hasActiveRerun && active.next_step_type
+      ? active.next_step_type
+      : (currentStatus === "watch" ? "review-watch-receipt" : currentStatus === "blocked" ? "review-blocked-receipt" : "run-live-parity"),
+    command: hasActiveRerun && active.rerun_command ? active.rerun_command : `npm run live-parity:run -- --recipe ${row.recipe_path} --base ${row.variant}`,
+    support_artifact: hasActiveRerun ? active.support_artifact || "" : "",
+    receipt: hasActiveRerun ? active.receipt || "" : "",
     recipe_path: row.recipe_path,
     variant_path: row.variant_path,
     row_key: rowKey(row),
   };
 }
 
-function kindParityWorkItem(row, state) {
+function kindParityWorkItem(row, state, activeReruns) {
+  const active = activeReruns.get(rerunKey(row, "two-cluster-kind-parity")) ?? {};
   const collision = kindReceiptCollision(row);
   if (collision) {
     return {
@@ -103,10 +109,13 @@ function kindParityWorkItem(row, state) {
       row_key: rowKey(row),
     };
   }
+  const receiptPath = kindReceiptPath(row);
+  const hasReceipt = existsSync(join(repoRoot, receiptPath));
+  const currentStatus = active.current_result || state.status;
   return {
-    priority: priorityFor(row, "kind-parity", state),
+    priority: priorityFor(row, "kind-parity", { ...state, status: currentStatus }),
     work_type: "kind-parity",
-    current_status: state.status,
+    current_status: currentStatus,
     lane_cells: `K=${row.lane_two_cluster_kind}`,
     chart: row.chart,
     version: row.version,
@@ -116,12 +125,20 @@ function kindParityWorkItem(row, state) {
     outcome_level: row.outcome_level,
     core_lanes_complete: row.core_lanes_complete,
     production_decision: row.production_decision,
-    run_readiness: state.status === "watch" ? "review-target-first" : "ready-to-run",
-    reason: state.status === "watch" ? "two-cluster kind parity watch row needs review" : "missing two-cluster kind parity receipt",
-    next_step: state.status === "watch" ? "review-kind-parity-watch" : "run-kind-parity",
-    command: `npm run kind-parity:run -- --recipe ${row.recipe_path} --base ${row.variant}`,
-    support_artifact: "",
-    receipt: "",
+    run_readiness: active.rerun_readiness || (currentStatus === "watch" || currentStatus === "blocked" ? "review-target-first" : "ready-to-run"),
+    reason: active.reason || (currentStatus === "watch"
+      ? "two-cluster kind parity watch row needs review"
+      : currentStatus === "blocked"
+        ? "two-cluster kind parity blocked or failed; inspect the recorded receipt before rerun"
+        : "missing two-cluster kind parity receipt"),
+    next_step: active.next_step_type || (currentStatus === "watch"
+      ? "review-kind-parity-watch"
+      : currentStatus === "blocked"
+        ? "review-kind-parity-blocker"
+        : "run-kind-parity"),
+    command: currentStatus === "blocked" ? "" : `npm run kind-parity:run -- --recipe ${row.recipe_path} --base ${row.variant}`,
+    support_artifact: active.support_artifact || (hasReceipt ? receiptPath : ""),
+    receipt: active.receipt || (hasReceipt ? receiptPath : ""),
     recipe_path: row.recipe_path,
     variant_path: row.variant_path,
     row_key: rowKey(row),
@@ -160,7 +177,7 @@ function laneState(values) {
   if (relevant.length === 0 || relevant.every((value) => value === "yes")) return { needsWork: false, status: "pass" };
   if (relevant.includes("watch")) return { needsWork: true, status: "watch" };
   if (relevant.includes("blocked")) return { needsWork: true, status: "blocked" };
-  if (relevant.includes("no")) return { needsWork: true, status: "no" };
+  if (relevant.includes("no")) return { needsWork: true, status: "blocked" };
   return { needsWork: true, status: "todo" };
 }
 
@@ -182,6 +199,10 @@ function workOrder(value) {
 
 function rowKey(row) {
   return `${row.chart}@${row.version}/${row.variant}`;
+}
+
+function rerunKey(row, lane) {
+  return `${lane}:${rowKey(row)}`;
 }
 
 function countBy(rows, key) {
@@ -314,7 +335,7 @@ function activeRerunMap() {
   const path = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
   if (!existsSync(path)) return new Map();
   const rows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
-  return new Map(rows.map((row) => [`${row.chart}@${row.version}/${row.base}`, row]));
+  return new Map(rows.map((row) => [`${row.lane}:${row.chart}@${row.version}/${row.base}`, row]));
 }
 
 function parseCsv(text) {

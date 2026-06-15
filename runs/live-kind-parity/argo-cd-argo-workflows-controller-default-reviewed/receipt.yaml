@@ -1,0 +1,56 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-workflows-1.0.14-controller-default-reviewed-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-workflows
+  version: 1.0.14
+  base: controller-default-reviewed
+  result: blocked
+  observedAt: '2026-06-15T06:40:25Z'
+  package:
+    path: packages/argo-cd/argo-workflows/1.0.14
+  recipe:
+    path: recipes/argo-cd/argo-workflows/1.0.14
+  variantRevision: recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-argowo-726a6-gaat-helm
+    installerCluster: hx-argowo-726a6-gaat-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-argowo-726a6-gaat-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-argowo-726a6-gaat-helm" ...
+
+          Deleted nodes: ["hx-argowo-726a6-gaat-helm-control-plane"]'
+      - cluster: hx-argowo-726a6-gaat-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-argowo-726a6-gaat-installer" ...
+
+          Deleted nodes: ["hx-argowo-726a6-gaat-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs: {}
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: failure
+    result: blocked
+    detail: required CRD clusterworkflowtemplates.argoproj.io not found in /Users/alexis/code/helm-expt/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml
+  failure:
+    message: required CRD clusterworkflowtemplates.argoproj.io not found in /Users/alexis/code/helm-expt/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml

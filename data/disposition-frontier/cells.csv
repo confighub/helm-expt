@@ -64,7 +64,7 @@ argo-cd/argo-workflows@1.0.14,controller-default-reviewed,in_confighub,C,pass,pa
 argo-cd/argo-workflows@1.0.14,controller-default-reviewed,local_live,L,blocked,blocked,no,,,
 argo-cd/argo-workflows@1.0.14,controller-default-reviewed,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing target-fact prerequisite),resolve the local-live prerequisite first; the live lanes inherit it,either
 argo-cd/argo-workflows@1.0.14,controller-default-reviewed,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing target-fact prerequisite),resolve the local-live prerequisite first; the live lanes inherit it,either
-argo-cd/argo-workflows@1.0.14,controller-default-reviewed,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing target-fact prerequisite),resolve the local-live prerequisite first; the live lanes inherit it,either
+argo-cd/argo-workflows@1.0.14,controller-default-reviewed,two_cluster_kind_parity,K,blocked,blocked,no,,,
 argo-cd/argo-workflows@1.0.14,default,render_parity,R,pass,pass,no,,,
 argo-cd/argo-workflows@1.0.14,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-workflows@1.0.14,default,local_live,L,blocked,blocked,no,,,
