@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 191 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 72 |
+| Live commands remaining | 190 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 71 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 18 |
-| Ready-to-run todo rows | 173 |
+| Ready-to-run todo rows | 172 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 72 |
+| `live-parity` | 71 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 173 |
+| `todo` | 172 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 173 |
+| `ready-to-run` | 172 |
 | `review-target-first` | 17 |
 
 ## Active Watch Rows
@@ -77,7 +77,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| nats/nack | 0.34.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base no-crds |
 | prometheus-community/kube-state-metrics | 7.4.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/kube-state-metrics/7.4.0 --base default |
 | prometheus-community/prometheus-blackbox-exporter | 11.10.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default |
 | prometheus-community/prometheus-node-exporter | 4.55.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-node-exporter/4.55.0 --base default |
@@ -97,6 +96,7 @@ generated priority. They are good candidates for a serial live block.
 | elastic/filebeat | 8.5.1 | node-or-cluster-collector | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
 | grafana/rollout-operator | 0.49.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base no-crds |
 | hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
+| hashicorp/terraform | 1.1.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
 
 ## Full Queue
 

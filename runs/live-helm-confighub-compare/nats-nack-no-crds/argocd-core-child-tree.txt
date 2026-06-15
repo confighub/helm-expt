@@ -1,0 +1,22 @@
+Name:               argocd/nack-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55336/applications/nack-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-nack-mqep4pjt-19pj-nack
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                     STATUS  HEALTH   AGE  MESSAGE                                                 REASON
+ClusterRole/jetstream-controller-cluster-role                 Synced           25s
+ClusterRoleBinding/jetstream-controller-cluster-role-binding  Synced           25s
+Namespace/default-oci                                         Synced           59s
+ServiceAccount/jetstream-controller                           Synced           75s  serviceaccount/jetstream-controller serverside-applied
+Deployment/nack                                               Synced  Healthy  75s  deployment.apps/nack serverside-applied
+└─ReplicaSet/nack-6ff5f8749d                                          Healthy  75s
+  └─Pod/nack-6ff5f8749d-nvgq2                                         Healthy  75s

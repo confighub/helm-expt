@@ -1,0 +1,346 @@
+{
+  "metadata": {
+    "name": "nack-parity",
+    "namespace": "argocd",
+    "uid": "66b165b6-63e7-42a3-a5df-3c9fe7d4203b",
+    "resourceVersion": "1059",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T04:13:31Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-nack-mqep4pjt-19pj-cluster:argoproj.io/Application:argocd/nack-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "92c7915d-d657-4f8f-9cc0-36c94574a6f7",
+      "confighub.com/UnitSlug": "nack-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:13:31Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:13:51Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci",
+      "path": "./helm-expt-parity-nack-mqep4pjt-19pj-nack",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "jetstream-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "nack",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "jetstream-controller-cluster-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "jetstream-controller-cluster-role-binding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci",
+          "path": "./helm-expt-parity-nack-mqep4pjt-19pj-nack",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:9d7bde63a6282e74e0c1504f0631de3ce1c3dca65262f7357a2c6c0122294b32"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T04:13:32Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:9d7bde63a6282e74e0c1504f0631de3ce1c3dca65262f7357a2c6c0122294b32",
+        "deployedAt": "2026-06-15T04:13:34Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci",
+          "path": "./helm-expt-parity-nack-mqep4pjt-19pj-nack",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:13:32Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:13:43Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:9d7bde63a6282e74e0c1504f0631de3ce1c3dca65262f7357a2c6c0122294b32",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci",
+            "path": "./helm-expt-parity-nack-mqep4pjt-19pj-nack",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "jetstream-controller",
+            "status": "Synced",
+            "message": "serviceaccount/jetstream-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "jetstream-controller-cluster-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/jetstream-controller-cluster-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create update patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list watch patch update delete] APIGroups:[jetstream.nats.io] Resources:[streams streams/status objectstores objectstores/status keyvalues keyvalues/status consumers consumers/status streamtemplates streamtemplates/status accounts accounts/status] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/jetstream-controller-cluster-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "jetstream-controller-cluster-role-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/jetstream-controller-cluster-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:jetstream-controller Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/jetstream-controller-cluster-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "nack",
+            "status": "Synced",
+            "message": "deployment.apps/nack serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "natsio/jetstream-controller:0.23.0"
+            ]
+          }
+        ],
+        "revision": "sha256:9d7bde63a6282e74e0c1504f0631de3ce1c3dca65262f7357a2c6c0122294b32",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci",
+          "path": "./helm-expt-parity-nack-mqep4pjt-19pj-nack",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:13:32Z",
+      "finishedAt": "2026-06-15T04:13:34Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "natsio/jetstream-controller:0.23.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
