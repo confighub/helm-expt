@@ -23,8 +23,8 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-23 non-pass rows: 9 watch, 14 blocked.
-8 are resolved by the **user** (stage a prerequisite or supply
+24 non-pass rows: 9 watch, 15 blocked.
+9 are resolved by the **user** (stage a prerequisite or supply
 values); 7 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
@@ -33,15 +33,15 @@ readiness review.
 | `target-runtime` | 7 |
 | `target-prerequisite-crds` | 5 |
 | `model-gap-render` | 4 |
+| `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
-| `target-prerequisite-secret` | 2 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `user` | 8 |
+| `user` | 9 |
 | `catalog` | 7 |
 | `needs runtime review` | 7 |
 | `needs readiness review` | 1 |
@@ -59,6 +59,7 @@ readiness review.
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | grafana/rollout-operator@0.49.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/terraform@1.1.2 | default | blocked | model-gap-render | catalog | no — needs catalog work |
+| hashicorp/terraform@1.1.2 | no-crds | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | istio/gateway@1.30.0 | controller-default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | istio/gateway@1.30.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
