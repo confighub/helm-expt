@@ -1,172 +1,172 @@
 doc,area,last_changed,linked_sources,status,days_behind,newer_sources,as_of_commit,as_of_date
-README.md,root,2026-06-13,9,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/README.md,docs,2026-06-14,15,review-due,1,data/master-catalog-matrix/matrix.html (2026-06-15); CATALOG.md (2026-06-15),ea8e116a,2026-06-15
-docs/corpus/known-adversarial-charts.md,corpus,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/corpus/kubara-customized-overlays.md,corpus,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/argo-cd/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/argo-cd/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/cert-manager/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/cert-manager/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/consul/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/consul/confighub-proof.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/external-secrets/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/external-secrets/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/grafana/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/grafana/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/ingress-nginx/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/ingress-nginx/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/kube-prometheus-stack/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/kube-prometheus-stack/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/loki/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/loki/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/longhorn/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/longhorn/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/metrics-server/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/metrics-server/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/mongodb/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/mongodb/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/mysql/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/mysql/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/nginx/confighub-proof-plan.md,demo,2026-05-29,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/nginx/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/nginx/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/postgresql/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/postgresql/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/prometheus/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/prometheus/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/rabbitmq/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/rabbitmq/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/demo-script.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/function-scan-lane.md,demo,2026-05-28,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/safe-ops-lane.md,demo,2026-05-28,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/redis/ux-acceptance.md,demo,2026-05-29,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/secrets-store-csi-driver/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/secrets-store-csi-driver/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/tempo/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/tempo/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/vault/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/demo/vault/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/agreed-execution-plan.md,planning,2026-06-11,3,review-due,4,data/outcome-coverage/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/blog-posts.md,planning,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/catalog-promotion-next-candidates.md,planning,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/catalog-promotion-review.md,planning,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/corpus-rationalization-plan.md,planning,2026-06-11,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/current-handover.md,planning,2026-06-13,28,review-due,2,data/outcome-coverage/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15); CATALOG.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/dedicated-website-plan.md,planning,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/helm-community-persona-plan.md,planning,2026-06-13,3,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/helm-community-persona-prd.md,planning,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/independent-review-brief.md,planning,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/issue-backlog.md,planning,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/large-machine-handover.md,planning,2026-06-11,1,review-due,4,data/outcome-coverage/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/large-machine-roadmap.md,planning,2026-06-11,1,fresh,,,ea8e116a,2026-06-15
-docs/planning/latest-top20-refresh-plan.md,planning,2026-06-10,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/legacy-patch-review.md,planning,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/maintenance-strategy.md,planning,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/next-20-tasks.md,planning,2026-06-13,4,review-due,2,data/outcome-coverage/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/next-execution-plan.md,planning,2026-06-13,8,review-due,2,data/outcome-coverage/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/planning/outside-user-test.md,planning,2026-06-10,1,review-due,4,data/top100-coverage/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/planning/per-chart-fact-sheet-spec.md,planning,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/pilot-adversarial-testing.md,planning,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/review-prompts.md,planning,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/robust-sceptic-plan.md,planning,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/serverless-verified-install-plan.md,planning,2026-06-10,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/top100-full-proof-target.md,planning,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/top20-full-proof-target.md,planning,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/top500-matrix-refresh-review.md,planning,2026-06-04,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/upgrade-story-plan.md,planning,2026-06-10,1,review-due,1,data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10),ea8e116a,2026-06-15
-docs/planning/verified-install-commercial-model.md,planning,2026-06-10,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/planning/where-does-my-hook-go.md,planning,2026-06-14,2,review-due,1,data/lifecycle-routes/routes.json (2026-06-14),ea8e116a,2026-06-15
-docs/reference/artifact-verifier-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/capability-profile-catalog.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/catalog-doctrine.md,reference,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/chart-recipe-manifest-flow.md,reference,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/complete-corresponding-model.md,reference,2026-06-11,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/confighub-promotion-mapping.md,reference,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/customization-algorithm.md,reference,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/customization-decision-tree.md,reference,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/derived-variant-live-proof.md,reference,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/direct-cub-helm-model.md,reference,2026-06-08,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/enterprise-parity-contract.md,reference,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/fork-vocabulary.md,reference,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/generated-fact-receipts.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/helm-community-persona-reference.md,reference,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/helm-import-contract.md,reference,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/helm-quirk-support-matrix.md,reference,2026-06-11,3,review-due,3,data/top100-user-readiness/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/reference/kube-prometheus-stack-serious-chart-review.md,reference,2026-06-11,2,fresh,,,ea8e116a,2026-06-15
-docs/reference/lane-test-doctrine.md,reference,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/master-catalog-matrix.md,reference,2026-06-12,10,review-due,3,data/master-catalog-matrix/matrix.csv (2026-06-15); data/master-catalog-matrix/matrix.html (2026-06-15); data/master-catalog-matrix/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/reference/observation-freshness-slo.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/per-chart-recipes.md,reference,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/proof-kit-migration.md,reference,2026-06-11,1,review-due,4,data/live-helm-confighub-compare/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/reference/quirk-coverage.md,reference,2026-06-11,3,review-due,2,data/quirk-coverage/coverage.csv (2026-06-13); data/quirk-coverage/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/reference/redis-default-variant-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-installer-package-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-local-e2e-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-local-scan-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-proof-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-reuse-existing-secret-variant-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/redis-variant-diff-spec.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/secret-lifecycle.md,reference,2026-06-13,3,review-due,1,data/secret-lifecycle/summary.md (2026-06-13); data/secret-lifecycle/variant-summary.csv (2026-06-13),ea8e116a,2026-06-15
-docs/reference/seven-stage-helm-lifecycle.md,reference,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/top100-user-readiness.md,reference,2026-06-12,9,review-due,4,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/top100-readiness/readiness.csv (2026-06-13); data/top100-readiness/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/reference/two-cluster-parity-harness.md,reference,2026-06-08,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/upgrade-rollback-receipts.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/variant-creation-artifact.md,reference,2026-06-04,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/variant-creator-verification.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/variant-promotion-model.md,reference,2026-06-14,1,fresh,,,ea8e116a,2026-06-15
-docs/reference/variant-promotion-worked-example.md,reference,2026-05-31,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/verification-properties.md,reference,2026-06-11,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/reference/what-hook-support-means.md,reference,2026-06-11,4,fresh,,,ea8e116a,2026-06-15
-docs/user/README.md,user,2026-06-14,1,fresh,,,ea8e116a,2026-06-15
-docs/user/adopting-existing-apps.md,user,2026-06-07,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/chain-of-proof.md,user,2026-06-11,1,review-due,1,data/webhook-cert-lifecycle/summary.md (2026-06-11),ea8e116a,2026-06-15
-docs/user/change-routing-before-oci.md,user,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/chart-hooks-what-happens.md,user,2026-06-14,3,fresh,,,ea8e116a,2026-06-15
-docs/user/choose-your-path.md,user,2026-06-11,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/choosing-commands.md,user,2026-06-13,2,fresh,,,ea8e116a,2026-06-15
-docs/user/creating-variants.md,user,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/cub-variant-command-surface.md,user,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/current-proof-status.md,user,2026-06-13,38,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/master-catalog-matrix/matrix.html (2026-06-15); data/outcome-coverage/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/user/custom-overlays.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/derived-variant-walkthrough.md,user,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/extension-slots.md,user,2026-06-11,2,fresh,,,ea8e116a,2026-06-15
-docs/user/first-run-walkthrough.md,user,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/generative-gitops-fit.md,user,2026-06-12,8,review-due,3,data/master-catalog-matrix/matrix.html (2026-06-15); data/chart-use-guide/summary.md (2026-06-13); data/outcome-evidence-contract/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/helm-pain-points.md,user,2026-06-10,6,review-due,5,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/variant-path-coverage/coverage-matrix.csv (2026-06-13); data/pain-point-coverage/pain-points.csv (2026-06-10),ea8e116a,2026-06-15
-docs/user/helm-upgrade-crash-example.md,user,2026-06-13,3,fresh,,,ea8e116a,2026-06-15
-docs/user/hook-lifecycle-strategy.md,user,2026-06-14,5,review-due,1,data/lifecycle-routes/routes.json (2026-06-14),ea8e116a,2026-06-15
-docs/user/how-the-harness-works.md,user,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/introduction-to-the-harness.md,user,2026-06-09,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/large-config-operations.md,user,2026-06-14,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/live-parity.md,user,2026-06-14,5,review-due,1,data/live-helm-confighub-compare/summary.md (2026-06-15); data/live-matrix-burndown/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/user/maintenance-sla.md,user,2026-06-11,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/nginx-configuration-files.md,user,2026-06-11,2,fresh,,,ea8e116a,2026-06-15
-docs/user/offering.md,user,2026-06-13,1,review-due,1,data/chart-use-guide/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/outcomes-and-tests.md,user,2026-06-11,32,review-due,4,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/outcome-coverage/chart-outcomes.csv (2026-06-15); data/outcome-coverage/summary.md (2026-06-15),ea8e116a,2026-06-15
-docs/user/product-support-tiers.md,user,2026-06-11,1,fresh,,,ea8e116a,2026-06-15
-docs/user/production-support-decisions.md,user,2026-06-11,6,review-due,2,data/production-disposition/next-actions.csv (2026-06-13); data/production-disposition/support-decision-contract.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/prometheus-high-fanout.md,user,2026-06-11,8,review-due,1,data/high-fanout-demo/prometheus-kps.csv (2026-06-12); data/high-fanout-demo/summary.md (2026-06-12); recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11),ea8e116a,2026-06-15
-docs/user/prometheus-overlay-promotion-example.md,user,2026-06-13,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/serious-chart-proof.md,user,2026-06-11,3,review-due,1,recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11),ea8e116a,2026-06-15
-docs/user/serious-charts.md,user,2026-06-11,4,review-due,2,data/hard-chart-production-packets/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/target-prerequisites.md,user,2026-06-12,6,review-due,3,data/master-catalog-matrix/summary.md (2026-06-15); data/live-kind-parity/summary.md (2026-06-13); packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13),ea8e116a,2026-06-15
-docs/user/top100-readiness.md,user,2026-06-10,14,review-due,5,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/top100-readiness/next80-queues.csv (2026-06-13); data/top100-readiness/next80-queues.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/top100-status.md,user,2026-06-12,4,review-due,1,data/top100-readiness/summary.md (2026-06-13); data/top20-base-readiness/start-here.md (2026-06-13); data/top100-user-readiness/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/try-now.md,user,2026-06-13,2,fresh,,,ea8e116a,2026-06-15
-docs/user/tutorial-sequence.md,user,2026-06-13,2,review-due,1,recipes/prometheus-community/prometheus/29.8.0/CATALOG.md (2026-06-14),ea8e116a,2026-06-15
-docs/user/ux-proposal-bulk-scan-patch-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-externaldns-custom-overlay-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-gitops-runtime-proof-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-prometheus-base-variant-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-prometheus-promotion-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-redis-quick-start-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/ux-proposal-redis-secret-modes-tutorial.md,user,2026-06-05,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/verification-lanes.md,user,2026-06-11,3,review-due,4,data/outcome-coverage/summary.md (2026-06-15); tests/npm-scripts.md (2026-06-12),ea8e116a,2026-06-15
-docs/user/verify-it-yourself.md,user,2026-06-13,1,review-due,1,data/live-kind-parity/summary.md (2026-06-13),ea8e116a,2026-06-15
-docs/user/what-we-refuse-to-claim.md,user,2026-06-10,2,review-due,1,data/live-e2e/cub-scout-watchlist.md (2026-06-11); data/live-e2e/normalization-rules.md (2026-06-10),ea8e116a,2026-06-15
-docs/user/what-you-get.md,user,2026-06-11,1,review-due,1,data/edge-recovery/summary.md (2026-06-12),ea8e116a,2026-06-15
-docs/user/why-synced-is-not-working.md,user,2026-06-10,0,no-linked-sources,,,ea8e116a,2026-06-15
-docs/user/why-this-does-not-collapse.md,user,2026-06-10,4,review-due,4,data/quirk-coverage/summary.md (2026-06-13); data/top100-coverage/summary.md (2026-06-13); data/live-e2e/cub-scout-watchlist.md (2026-06-11),ea8e116a,2026-06-15
-docs/user/why-this-exists.md,user,2026-06-12,0,no-linked-sources,,,ea8e116a,2026-06-15
+README.md,root,2026-06-13,9,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/README.md,docs,2026-06-14,15,review-due,1,data/master-catalog-matrix/matrix.html (2026-06-15); CATALOG.md (2026-06-15),1280a55d,2026-06-15
+docs/corpus/known-adversarial-charts.md,corpus,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/corpus/kubara-customized-overlays.md,corpus,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/argo-cd/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/argo-cd/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/cert-manager/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/cert-manager/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/consul/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/consul/confighub-proof.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/external-secrets/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/external-secrets/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/grafana/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/grafana/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/ingress-nginx/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/ingress-nginx/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/kube-prometheus-stack/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/kube-prometheus-stack/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/loki/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/loki/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/longhorn/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/longhorn/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/metrics-server/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/metrics-server/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/mongodb/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/mongodb/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/mysql/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/mysql/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/nginx/confighub-proof-plan.md,demo,2026-05-29,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/nginx/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/nginx/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/postgresql/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/postgresql/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/prometheus/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/prometheus/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/rabbitmq/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/rabbitmq/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/confighub-proof-transcript.md,demo,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/demo-script.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/function-scan-lane.md,demo,2026-05-28,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/safe-ops-lane.md,demo,2026-05-28,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/redis/ux-acceptance.md,demo,2026-05-29,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/secrets-store-csi-driver/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/secrets-store-csi-driver/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/tempo/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/tempo/confighub-proof.md,demo,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/vault/confighub-proof-transcript.md,demo,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/demo/vault/confighub-proof.md,demo,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/agreed-execution-plan.md,planning,2026-06-11,3,review-due,4,data/outcome-coverage/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/blog-posts.md,planning,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/catalog-promotion-next-candidates.md,planning,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/catalog-promotion-review.md,planning,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/corpus-rationalization-plan.md,planning,2026-06-11,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/current-handover.md,planning,2026-06-13,28,review-due,2,data/outcome-coverage/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15); CATALOG.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/dedicated-website-plan.md,planning,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/helm-community-persona-plan.md,planning,2026-06-13,3,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/helm-community-persona-prd.md,planning,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/independent-review-brief.md,planning,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/issue-backlog.md,planning,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/large-machine-handover.md,planning,2026-06-11,1,review-due,4,data/outcome-coverage/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/large-machine-roadmap.md,planning,2026-06-11,1,fresh,,,1280a55d,2026-06-15
+docs/planning/latest-top20-refresh-plan.md,planning,2026-06-10,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/legacy-patch-review.md,planning,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/maintenance-strategy.md,planning,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/next-20-tasks.md,planning,2026-06-13,4,review-due,2,data/outcome-coverage/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/next-execution-plan.md,planning,2026-06-13,8,review-due,2,data/outcome-coverage/summary.md (2026-06-15); data/status-dashboard/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/planning/outside-user-test.md,planning,2026-06-10,1,review-due,4,data/top100-coverage/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/planning/per-chart-fact-sheet-spec.md,planning,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/pilot-adversarial-testing.md,planning,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/review-prompts.md,planning,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/robust-sceptic-plan.md,planning,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/serverless-verified-install-plan.md,planning,2026-06-10,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/top100-full-proof-target.md,planning,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/top20-full-proof-target.md,planning,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/top500-matrix-refresh-review.md,planning,2026-06-04,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/upgrade-story-plan.md,planning,2026-06-10,1,review-due,1,data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10),1280a55d,2026-06-15
+docs/planning/verified-install-commercial-model.md,planning,2026-06-10,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/planning/where-does-my-hook-go.md,planning,2026-06-14,2,review-due,1,data/lifecycle-routes/routes.json (2026-06-14),1280a55d,2026-06-15
+docs/reference/artifact-verifier-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/capability-profile-catalog.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/catalog-doctrine.md,reference,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/chart-recipe-manifest-flow.md,reference,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/complete-corresponding-model.md,reference,2026-06-11,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/confighub-promotion-mapping.md,reference,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/customization-algorithm.md,reference,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/customization-decision-tree.md,reference,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/derived-variant-live-proof.md,reference,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/direct-cub-helm-model.md,reference,2026-06-08,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/enterprise-parity-contract.md,reference,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/fork-vocabulary.md,reference,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/generated-fact-receipts.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/helm-community-persona-reference.md,reference,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/helm-import-contract.md,reference,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/helm-quirk-support-matrix.md,reference,2026-06-11,3,review-due,3,data/top100-user-readiness/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/reference/kube-prometheus-stack-serious-chart-review.md,reference,2026-06-11,2,fresh,,,1280a55d,2026-06-15
+docs/reference/lane-test-doctrine.md,reference,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/master-catalog-matrix.md,reference,2026-06-12,10,review-due,3,data/master-catalog-matrix/matrix.csv (2026-06-15); data/master-catalog-matrix/matrix.html (2026-06-15); data/master-catalog-matrix/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/reference/observation-freshness-slo.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/per-chart-recipes.md,reference,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/proof-kit-migration.md,reference,2026-06-11,1,review-due,4,data/live-helm-confighub-compare/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/reference/quirk-coverage.md,reference,2026-06-11,3,review-due,2,data/quirk-coverage/coverage.csv (2026-06-13); data/quirk-coverage/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/reference/redis-default-variant-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-installer-package-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-local-e2e-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-local-scan-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-proof-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-reuse-existing-secret-variant-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/redis-variant-diff-spec.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/secret-lifecycle.md,reference,2026-06-13,3,review-due,1,data/secret-lifecycle/summary.md (2026-06-13); data/secret-lifecycle/variant-summary.csv (2026-06-13),1280a55d,2026-06-15
+docs/reference/seven-stage-helm-lifecycle.md,reference,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/top100-user-readiness.md,reference,2026-06-12,9,review-due,4,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/top100-readiness/readiness.csv (2026-06-13); data/top100-readiness/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/reference/two-cluster-parity-harness.md,reference,2026-06-08,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/upgrade-rollback-receipts.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/variant-creation-artifact.md,reference,2026-06-04,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/variant-creator-verification.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/variant-promotion-model.md,reference,2026-06-14,1,fresh,,,1280a55d,2026-06-15
+docs/reference/variant-promotion-worked-example.md,reference,2026-05-31,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/verification-properties.md,reference,2026-06-11,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/reference/what-hook-support-means.md,reference,2026-06-11,4,fresh,,,1280a55d,2026-06-15
+docs/user/README.md,user,2026-06-14,1,fresh,,,1280a55d,2026-06-15
+docs/user/adopting-existing-apps.md,user,2026-06-07,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/chain-of-proof.md,user,2026-06-11,1,review-due,1,data/webhook-cert-lifecycle/summary.md (2026-06-11),1280a55d,2026-06-15
+docs/user/change-routing-before-oci.md,user,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/chart-hooks-what-happens.md,user,2026-06-14,3,fresh,,,1280a55d,2026-06-15
+docs/user/choose-your-path.md,user,2026-06-11,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/choosing-commands.md,user,2026-06-13,2,fresh,,,1280a55d,2026-06-15
+docs/user/creating-variants.md,user,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/cub-variant-command-surface.md,user,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/current-proof-status.md,user,2026-06-13,38,review-due,2,data/live-helm-confighub-compare/summary.md (2026-06-15); data/master-catalog-matrix/matrix.html (2026-06-15); data/outcome-coverage/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/user/custom-overlays.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/derived-variant-walkthrough.md,user,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/extension-slots.md,user,2026-06-11,2,fresh,,,1280a55d,2026-06-15
+docs/user/first-run-walkthrough.md,user,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/generative-gitops-fit.md,user,2026-06-12,8,review-due,3,data/master-catalog-matrix/matrix.html (2026-06-15); data/chart-use-guide/summary.md (2026-06-13); data/outcome-evidence-contract/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/user/helm-pain-points.md,user,2026-06-10,6,review-due,5,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/variant-path-coverage/coverage-matrix.csv (2026-06-13); data/pain-point-coverage/pain-points.csv (2026-06-10),1280a55d,2026-06-15
+docs/user/helm-upgrade-crash-example.md,user,2026-06-13,3,fresh,,,1280a55d,2026-06-15
+docs/user/hook-lifecycle-strategy.md,user,2026-06-14,5,review-due,1,data/lifecycle-routes/routes.json (2026-06-14),1280a55d,2026-06-15
+docs/user/how-the-harness-works.md,user,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/introduction-to-the-harness.md,user,2026-06-09,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/large-config-operations.md,user,2026-06-14,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/live-parity.md,user,2026-06-14,5,review-due,1,data/live-helm-confighub-compare/summary.md (2026-06-15); data/live-matrix-burndown/summary.md (2026-06-15); data/live-parity-rerun-plan/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/user/maintenance-sla.md,user,2026-06-11,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/nginx-configuration-files.md,user,2026-06-11,2,fresh,,,1280a55d,2026-06-15
+docs/user/offering.md,user,2026-06-13,1,review-due,1,data/chart-use-guide/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/user/outcomes-and-tests.md,user,2026-06-11,32,review-due,4,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/outcome-coverage/chart-outcomes.csv (2026-06-15); data/outcome-coverage/summary.md (2026-06-15),1280a55d,2026-06-15
+docs/user/product-support-tiers.md,user,2026-06-11,1,fresh,,,1280a55d,2026-06-15
+docs/user/production-support-decisions.md,user,2026-06-11,6,review-due,2,data/production-disposition/next-actions.csv (2026-06-13); data/production-disposition/support-decision-contract.md (2026-06-13),1280a55d,2026-06-15
+docs/user/prometheus-high-fanout.md,user,2026-06-11,8,review-due,1,data/high-fanout-demo/prometheus-kps.csv (2026-06-12); data/high-fanout-demo/summary.md (2026-06-12); recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11),1280a55d,2026-06-15
+docs/user/prometheus-overlay-promotion-example.md,user,2026-06-13,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/serious-chart-proof.md,user,2026-06-11,3,review-due,1,recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11),1280a55d,2026-06-15
+docs/user/serious-charts.md,user,2026-06-11,4,review-due,2,data/hard-chart-production-packets/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/user/target-prerequisites.md,user,2026-06-12,6,review-due,4,data/master-catalog-matrix/summary.md (2026-06-15); data/live-kind-parity/summary.md (2026-06-13); packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13),1280a55d,2026-06-15
+docs/user/top100-readiness.md,user,2026-06-10,14,review-due,5,data/outcome-coverage/base-outcomes.csv (2026-06-15); data/top100-readiness/next80-queues.csv (2026-06-13); data/top100-readiness/next80-queues.md (2026-06-13),1280a55d,2026-06-15
+docs/user/top100-status.md,user,2026-06-12,4,review-due,1,data/top100-readiness/summary.md (2026-06-13); data/top20-base-readiness/start-here.md (2026-06-13); data/top100-user-readiness/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/user/try-now.md,user,2026-06-13,2,fresh,,,1280a55d,2026-06-15
+docs/user/tutorial-sequence.md,user,2026-06-13,2,review-due,1,recipes/prometheus-community/prometheus/29.8.0/CATALOG.md (2026-06-14),1280a55d,2026-06-15
+docs/user/ux-proposal-bulk-scan-patch-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-externaldns-custom-overlay-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-gitops-runtime-proof-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-prometheus-base-variant-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-prometheus-promotion-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-redis-quick-start-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/ux-proposal-redis-secret-modes-tutorial.md,user,2026-06-05,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/verification-lanes.md,user,2026-06-11,3,review-due,4,data/outcome-coverage/summary.md (2026-06-15); tests/npm-scripts.md (2026-06-12),1280a55d,2026-06-15
+docs/user/verify-it-yourself.md,user,2026-06-13,1,review-due,1,data/live-kind-parity/summary.md (2026-06-13),1280a55d,2026-06-15
+docs/user/what-we-refuse-to-claim.md,user,2026-06-10,2,review-due,1,data/live-e2e/cub-scout-watchlist.md (2026-06-11); data/live-e2e/normalization-rules.md (2026-06-10),1280a55d,2026-06-15
+docs/user/what-you-get.md,user,2026-06-11,1,review-due,1,data/edge-recovery/summary.md (2026-06-12),1280a55d,2026-06-15
+docs/user/why-synced-is-not-working.md,user,2026-06-10,0,no-linked-sources,,,1280a55d,2026-06-15
+docs/user/why-this-does-not-collapse.md,user,2026-06-10,4,review-due,4,data/quirk-coverage/summary.md (2026-06-13); data/top100-coverage/summary.md (2026-06-13); data/live-e2e/cub-scout-watchlist.md (2026-06-11),1280a55d,2026-06-15
+docs/user/why-this-exists.md,user,2026-06-12,0,no-linked-sources,,,1280a55d,2026-06-15
