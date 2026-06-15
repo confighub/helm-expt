@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:57018/applications/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                             STATUS  HEALTH  AGE   MESSAGE                                                                                              REASON
+Application/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster  Synced          106s  application.argoproj.io/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster serverside-applied
+Application/prometheus-node-exporter-parity                           Synced          49s   application.argoproj.io/prometheus-node-exporter-parity serverside-applied

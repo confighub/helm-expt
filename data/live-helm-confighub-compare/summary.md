@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 123
+pass: 124
 watch: 17
 blocked: 0
 not-started: 0
@@ -153,6 +153,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml |
 |  | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |
+|  | `prometheus-community/prometheus-node-exporter@4.55.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-default/receipt.yaml |
 |  | `prometheus-community/prometheus-operator-crds@29.0.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/receipt.yaml |
 |  | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | - | runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/receipt.yaml |
 |  | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml |
