@@ -18,7 +18,7 @@ or run Kubernetes. Run live commands serially.
 | Live commands remaining | 186 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 67 |
 | Two-cluster kind parity commands | 119 |
-| Watch/review rows | 18 |
+| Watch/blocked/review rows | 19 |
 | Ready-to-run todo rows | 167 |
 
 ## By Work Type
@@ -32,7 +32,8 @@ or run Kubernetes. Run live commands serially.
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 168 |
+| `blocked` | 1 |
+| `todo` | 167 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -43,7 +44,7 @@ or run Kubernetes. Run live commands serially.
 | `ready-to-run` | 167 |
 | `review-target-first` | 17 |
 
-## Active Watch Rows
+## Active Watch Or Blocked Rows
 
 These rows already have live evidence. Review the support artifact before
 rerunning; do not turn them green unless the new receipt proves the stronger
@@ -69,6 +70,7 @@ claim.
 | live-parity | prometheus-community/prometheus | 29.9.0 | default | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml](../../runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default |
 | live-parity | traefik/traefik | 40.2.0 | no-crds | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds |
 | kind-parity | autoscaler/cluster-autoscaler | 9.57.0 | default | K=watch | two-cluster kind parity watch row needs review |  |  | npm run kind-parity:run -- --recipe recipes/autoscaler/cluster-autoscaler/9.57.0 --base default |
+| live-parity | rook-release/rook-ceph-cluster | v1.19.5 | default | G=blocked;P=blocked | target-prerequisite: namespace missing (parity passed) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml](../../runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
 
 ## Next Ready Live-Parity Commands
 
@@ -77,7 +79,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| rook-release/rook-ceph-cluster | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
 | rook-release/rook-ceph | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph/v1.19.5 --base default |
 | runix/pgadmin4 | 1.62.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/runix/pgadmin4/1.62.0 --base default |
 | sealed-secrets/sealed-secrets | 2.18.6 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/sealed-secrets/sealed-secrets/2.18.6 --base no-crds |
@@ -97,6 +98,7 @@ generated priority. They are good candidates for a serial live block.
 | istio/gateway | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds |
+| jetstack/trust-manager | v0.22.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 
 ## Full Queue
 
