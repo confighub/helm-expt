@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 193 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 74 |
+| Live commands remaining | 192 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 73 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 17 |
-| Ready-to-run todo rows | 176 |
+| Ready-to-run todo rows | 175 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 74 |
+| `live-parity` | 73 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 176 |
+| `todo` | 175 |
 | `watch` | 17 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 176 |
+| `ready-to-run` | 175 |
 | `review-target-first` | 16 |
 
 ## Active Watch Rows
@@ -76,7 +76,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| minio-operator/operator | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default |
 | minio-operator/tenant | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default |
 | nats/nack | 0.34.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base default |
 | nats/nack | 0.34.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base no-crds |
@@ -96,6 +95,7 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/opensearch | 2.0.10 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default |
 | bitnami/opensearch | 2.0.10 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha |
 | elastic/filebeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
+| elastic/filebeat | 8.5.1 | node-or-cluster-collector | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
 
 ## Full Queue
 
