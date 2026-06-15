@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 114
+pass: 115
 watch: 6
 blocked: 11
-semantic parity pass: 124
+semantic parity pass: 125
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 10
 non-pass rows with related lifecycle evidence: 0
@@ -191,3 +191,4 @@ broader support claim.
 | `stakater/reloader@2.2.12` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml |
+| `vm/victoria-metrics-single@0.39.0` | default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default-reviewed/receipt.yaml |
