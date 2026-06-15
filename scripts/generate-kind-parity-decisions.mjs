@@ -85,10 +85,11 @@ const CATEGORIES = {
   },
 };
 
-function classify(reason, base, result) {
+function classify(reason, base, result, semanticParity) {
   const r = (reason ?? "").toLowerCase();
   if (/trafficdistribution|preferclose|service objects differ|capability profile/.test(r)) return "capability-profile-diff";
   if (/no target fact value generator/.test(r)) return "model-gap-target-fact";
+  if (semanticParity === "defect") return "model-gap-render";
   if (/not found in .*rendered|required crd .*not found/.test(r)) return "model-gap-render";
   if (/secret/.test(r)) return "target-prerequisite-secret";
   if (/crd/.test(r) && (/disabled|missing|no-crds/.test(r) || base.includes("no-crds"))) return "target-prerequisite-crds";
@@ -163,16 +164,22 @@ function authoritativeReason(row) {
     if (/semantic object diff/i.test(row.reason ?? "")) {
       const receiptText = readFileSync(abs, "utf8");
       const comparison = spec.semanticComparison?.helmVsCubInstallerApply ?? {};
+      const missing = comparison.missingFromInstaller ?? [];
+      const extra = comparison.extraInInstaller ?? [];
       const diffs = comparison.semanticDiffs ?? [];
-      const parts = [`semantic object diff: ${diffs.length} object(s) differ`];
+      const parts = [`semantic object parity issue: missing=${missing.length} extra=${extra.length} diffs=${diffs.length}`];
+      if (missing.length > 0) parts.push(`missing=${missing.slice(0, 6).join("; ")}`);
+      if (extra.length > 0) parts.push(`extra=${extra.slice(0, 6).join("; ")}`);
       if (diffs.length > 0) parts.push(`objects=${diffs.slice(0, 6).join("; ")}`);
       if (/trafficDistribution|PreferClose/.test(receiptText)) {
         parts.push("live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile");
       }
-      if (/ImagePullBackOff|ErrImagePull|not found/.test(receiptText)) {
+      if (/ImagePullBackOff|ErrImagePull|Failed to pull image|pull access denied/i.test(receiptText)) {
         const match = receiptText.match(/docker\.io\/[A-Za-z0-9._/-]+:[A-Za-z0-9._-]+/);
         parts.push(match ? `runtime also fails to pull ${match[0]}` : "runtime also hits image pull failure");
       }
+      const secretNames = [...new Set([...receiptText.matchAll(/secret "([^"]+)" not found/gi)].map((m) => m[1]))].sort();
+      if (secretNames.length > 0) parts.push(`runtime also requires Secret(s): ${secretNames.join(", ")}`);
       return parts.join("; ");
     }
     if (spec.failure?.message) return String(spec.failure.message);
@@ -213,7 +220,7 @@ function buildDecisions() {
   const rows = readSummaryRows().filter((row) => row.result && row.result !== "pass");
   const decisions = rows.map((row) => {
     const reason = normalizeReason(authoritativeReason(row));
-    const category = classify(reason, row.base, row.result);
+    const category = classify(reason, row.base, row.result, row.semantic_parity);
     const def = CATEGORIES[category];
     check(def !== undefined, `no decision template for category "${category}"`);
     return {
@@ -354,6 +361,10 @@ function checkInvariants(decisions) {
     check(!/^pass$/i.test(d.usable_today), `${d.chart}/${d.base}: a non-pass row must not be presented as pass`);
     if (d.result === "blocked") {
       check(d.reason && !/inspect receipt/i.test(d.reason), `${d.chart}/${d.base}: blocked row still has a generic "inspect receipt" reason`);
+    }
+    if (d.semantic_parity === "defect") {
+      check(d.blocker_owner === "catalog", `${d.chart}/${d.base}: semantic parity defect must stay catalog-owned`);
+      check(!/^watch/.test(d.usable_today), `${d.chart}/${d.base}: semantic parity defect must not be presented as watch-grade`);
     }
   }
 }
