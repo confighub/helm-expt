@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz"
-    sha256: "1143260bcdd759858c82e23bcbd8ccc8c32d669583332825ba9a0a3b59e3ff31"
+    sha256: "c47b2fef36ba4a4335808a7cfb0d9144d10aaa3274a276797a0497276dbbca29"
   package:
     name: "cloudnative-pg-cloudnative-pg"
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
@@ -41,7 +41,7 @@ spec:
         bytes: 5527
       -
         path: "installer.yaml"
-        sha256: "5090d8fce2d5095becfc9a9b5665d4c7a650e23146364292ffba1804d33cb66e"
+        sha256: "4284854eb13786cac53abd43858f5c06cbcb943021eed6e1e5a53111e344eeee"
         bytes: 2645
     version: "0.28.2"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 21
       semanticObjectMatches: "21/21"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"

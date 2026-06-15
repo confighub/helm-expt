@@ -11,4 +11,5 @@ spec:
   renderDelta: "crds.enabled=false"
   mergedValuesCaptured: false
   values:
-    {}
+    crds:
+      enabled: false

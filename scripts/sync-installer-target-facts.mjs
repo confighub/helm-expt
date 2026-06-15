@@ -172,6 +172,10 @@ function verifySetupFacts(packageRoot, variantName, targetFacts) {
       `${variantName} facts requiredObjectStores mismatch`,
     );
     check(
+      JSON.stringify(values.targetFacts?.requiredNamespaces ?? []) === JSON.stringify(targetFacts.requiredNamespaces ?? []),
+      `${variantName} facts requiredNamespaces mismatch`,
+    );
+    check(
       JSON.stringify(values.targetFacts?.requiredTopology ?? null) === JSON.stringify(targetFacts.requiredTopology ?? null),
       `${variantName} facts requiredTopology mismatch`,
     );
@@ -210,6 +214,14 @@ function externalRequiresFor(targetFacts) {
     })),
   );
   requirements.push(
+    ...(targetFacts.requiredNamespaces ?? []).map((namespace) => ({
+      kind: "ClusterFeature",
+      name: namespaceRequirementName(namespace),
+      namespace: namespace.name ?? "",
+      suggestedSource: namespace.suggestedSource ?? `kubectl create namespace ${namespace.name}`,
+    })),
+  );
+  requirements.push(
     ...(targetFacts.requiredObjectStores ?? []).map((store) => ({
       kind: "ClusterFeature",
       name: objectStoreRequirementName(store),
@@ -244,6 +256,10 @@ function objectStoreRequirementName(store) {
   return `S3-compatible object store ${store.namespace ?? "default"}/${store.name}`;
 }
 
+function namespaceRequirementName(namespace) {
+  return `Namespace ${namespace.name}`;
+}
+
 function topologyRequirementName(topology) {
   return `minimum schedulable nodes ${topology.minimumSchedulableNodes}`;
 }
@@ -252,6 +268,7 @@ function isGeneratedTargetFactRequire(item) {
   return item?.kind === "ClusterFeature" && typeof item.name === "string" && (
     item.name.startsWith("Secret ") ||
     item.name.startsWith("CRD ") ||
+    item.name.startsWith("Namespace ") ||
     item.name.startsWith("S3-compatible object store ") ||
     item.name.startsWith("minimum schedulable nodes ")
   );
@@ -262,9 +279,10 @@ function sameRequire(left, right) {
 }
 
 function collectorScript(bases, factsByVariant) {
+  const hasRequiredNamespaces = [...factsByVariant.values()].some((targetFacts) => (targetFacts.requiredNamespaces ?? []).length);
   const cases = bases
     .filter((base) => factsByVariant.has(base.name))
-    .map((base) => collectorCase(base.name, factsByVariant.get(base.name)))
+    .map((base) => collectorCase(base.name, factsByVariant.get(base.name), hasRequiredNamespaces))
     .join("\n");
   return `#!/bin/sh
 set -eu
@@ -279,6 +297,7 @@ targetFacts:
   requiredCRDs: []
   requiredValues: []
   requiredObjectStores: []
+${hasRequiredNamespaces ? "  requiredNamespaces: []\n" : ""}\
   requiredTopology: null
 targetFactChecks:
   base: "$base"
@@ -319,7 +338,19 @@ live_check_crd() {
     exit 1
   fi
 }
-
+${hasRequiredNamespaces ? `
+live_check_namespace() {
+  name="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl get namespace "$name" >/dev/null 2>&1; then
+    echo "required Namespace $name was not found" >&2
+    exit 1
+  fi
+}
+` : ""}
 live_check_min_schedulable_nodes() {
   required="$1"
   if ! command -v kubectl >/dev/null 2>&1; then
@@ -342,7 +373,7 @@ esac
 `;
 }
 
-function collectorCase(variantName, targetFacts) {
+function collectorCase(variantName, targetFacts, includeNamespaces) {
   const checks = (targetFacts.requiredSecrets ?? [])
     .flatMap((secret) =>
       (secret.keys ?? []).length
@@ -350,6 +381,11 @@ function collectorCase(variantName, targetFacts) {
         : [`      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ''`],
     )
     .concat((targetFacts.requiredCRDs ?? []).map((crd) => `      live_check_crd ${shellQuote(crd.name)}`))
+    .concat(
+      includeNamespaces
+        ? (targetFacts.requiredNamespaces ?? []).map((namespace) => `      live_check_namespace ${shellQuote(namespace.name)}`)
+        : [],
+    )
     .concat(
       targetFacts.requiredTopology?.minimumSchedulableNodes
         ? [`      live_check_min_schedulable_nodes ${shellQuote(targetFacts.requiredTopology.minimumSchedulableNodes)}`]
@@ -369,6 +405,7 @@ ${indentYaml({ requiredSecrets: targetFacts.requiredSecrets ?? [] }, 2)}
 ${indentYaml({ requiredCRDs: targetFacts.requiredCRDs ?? [] }, 2)}
 ${indentYaml({ requiredValues: targetFacts.requiredValues ?? [] }, 2)}
 ${indentYaml({ requiredObjectStores: targetFacts.requiredObjectStores ?? [] }, 2)}
+${includeNamespaces ? `${indentYaml({ requiredNamespaces: targetFacts.requiredNamespaces ?? [] }, 2)}\n` : ""}\
 ${indentYaml({ requiredTopology: targetFacts.requiredTopology ?? null }, 2)}
 targetFactChecks:
   base: "${variantName}"
