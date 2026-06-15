@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 149 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 91 |
-| Watch/blocked/review rows | 50 |
-| Ready-to-run todo rows | 99 |
+| Watch/blocked/review rows | 51 |
+| Ready-to-run todo rows | 98 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 119 |
-| `watch` | 27 |
+| `todo` | 118 |
+| `watch` | 28 |
 
 ## By Run Readiness
 
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 1 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 99 |
-| `review-target-first` | 24 |
+| `ready-to-run` | 98 |
+| `review-target-first` | 25 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -71,19 +71,19 @@ claim.
 | live-parity | bitnami/nginx | 25.0.0 | existing-tls-ingress | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-25-0-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/opensearch | 2.0.10 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/opensearch | 2.0.10 | ha | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts |
-| live-parity | elastic/filebeat | 8.5.1 | default | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) |  | [runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
-| live-parity | elastic/filebeat | 8.5.1 | node-or-cluster-collector | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) |  | [runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
+| live-parity | elastic/filebeat | 8.5.1 | default | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
+| live-parity | elastic/filebeat | 8.5.1 | node-or-cluster-collector | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
 | live-parity | fluent/fluentd | 0.5.3 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | [runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml](../../runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
 | live-parity | grafana/pyroscope | 2.0.2 | default | G=watch;P=watch | target-runtime: ConfigHub workload not ready (parity passed) | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default |
 | live-parity | grafana/pyroscope | 2.0.2 | no-crds | G=watch;P=watch | target-runtime: ConfigHub workload not ready (parity passed) | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds |
 | live-parity | grafana/tempo | 1.24.4 | s3-query-observability | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml](../../recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/tempo/1.24.4 --base s3-query-observability |
 | live-parity | hashicorp/consul | 2.0.0 | secure-mesh-existing-secrets | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node |
+| live-parity | hashicorp/terraform | 1.1.2 | default | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 | live-parity | hashicorp/vault | 0.32.0 | ha-raft-ui | G=watch;P=watch | operate-policy: Vault init/unseal readiness (parity passed) | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | [runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui |
 | live-parity | jetstack/trust-manager | v0.22.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) |  | [runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml](../../runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 | live-parity | kyverno/kyverno-policies | 3.8.0 | default | G=watch;P=watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml](../../runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
 | live-parity | linkerd/linkerd-crds | 1.8.0 | default | G=watch;P=watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](../../recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml](../../runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/linkerd/linkerd-crds/1.8.0 --base default |
 | live-parity | minio-operator/tenant | 7.1.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](../../recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/minio-operator-tenant-default/receipt.yaml](../../runs/live-helm-confighub-compare/minio-operator-tenant-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default |
-| live-parity | open-telemetry/opentelemetry-operator | 0.114.0 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml](../../recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml](../../runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base default |
 
 ## Next Ready Live-Parity Commands
 
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 | hashicorp/terraform | 1.1.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
 | istio/gateway | 1.30.0 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
 | istio/gateway | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/elasticsearch | 22.1.6 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default |
 | bitnami/elasticsearch | 22.1.6 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha |
 | bitnami/phpmyadmin | 20.0.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default |
+| bitnami/spark | 10.0.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default |
 
 ## Full Queue
 

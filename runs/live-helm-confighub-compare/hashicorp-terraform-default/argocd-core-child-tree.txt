@@ -1,0 +1,34 @@
+Name:               argocd/terraform-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:57289/applications/terraform-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                   STATUS  HEALTH       AGE    MESSAGE                                                                REASON
+CustomResourceDefinition/workspaces.app.terraform.io        Synced  Healthy      7m7s                                                                          CRD is healthy
+Deployment/terraform-terraform-sync-workspace               Synced  Progressing  7m51s  deployment.apps/terraform-terraform-sync-workspace serverside-applied  Waiting for rollout to finish: 0 out of 1 new replicas have been updated...
+└─ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd          Degraded     7m51s                                                                         pods "terraform-terraform-sync-workspace-67688dd4fd-" is forbidden: error looking up service account default/terraform-terraform-sync-workspace: serviceaccount "terraform-terraform-sync-workspace" not found
+Role/terraform-terraform-sync-workspace                     Synced               7m7s   role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace reconciled. reconciliation required create
+                                                            missing rules added:
+                                                                    {Verbs:[*] APIGroups:[] Resources:[pods services services/finalizers endpoints persistentvolumeclaims events configmaps secrets] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[*] APIGroups:[apps] Resources:[deployments daemonsets replicasets statefulsets] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[get create] APIGroups:[monitoring.coreos.com] Resources:[servicemonitors] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[update] APIGroups:[apps] Resources:[deployments/finalizers] ResourceNames:[terraform-k8s] NonResourceURLs:[]}
+                                                                    {Verbs:[get] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[get] APIGroups:[apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[*] APIGroups:[app.terraform.io] Resources:[* workspaces] ResourceNames:[] NonResourceURLs:[]}
+                                                                    {Verbs:[create get update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace serverside-applied
+RoleBinding/terraform-terraform-sync-workspace              Synced                                                                                                                                                                                                            7m7s  rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace reconciled. reconciliation required create
+                                                            missing subjects added:
+                                                                    {Kind:ServiceAccount APIGroup: Name:terraform-terraform-sync-workspace Namespace:default}. rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace serverside-applied
+Namespace/default-oci                                       Synced                                                                                                                                                                                          7m45s
+ServiceAccount/terraform-terraform-sync-workspace           Synced                                                                                                                                                                                          7m7s   serviceaccount/terraform-terraform-sync-workspace serverside-applied

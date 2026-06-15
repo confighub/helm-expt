@@ -427,7 +427,9 @@ function supportArtifactFor(row) {
   if (reason.startsWith("operate-policy:")) candidates.push("operating-policy.yaml");
   if (reason.startsWith("target-fit:")) candidates.push("target-topology.yaml", "operating-policy.yaml");
   if (reason.startsWith("gitops-runtime:")) candidates.push("gitops-runtime-review.yaml");
-  if (reason.startsWith("target-runtime:") || reason.startsWith("helm-runtime:")) candidates.push("runtime-review.yaml");
+  if (reason.startsWith("target-runtime:") || reason.startsWith("helm-runtime:")) {
+    candidates.push("runtime-review.yaml", "target-prerequisite-plan.yaml", "target-topology.yaml", "operating-policy.yaml");
+  }
   for (const candidate of candidates) {
     const absolutePath = join(repoRoot, recipePath, candidate);
     if (existsSync(absolutePath)) return `${recipePath}/${candidate}`;

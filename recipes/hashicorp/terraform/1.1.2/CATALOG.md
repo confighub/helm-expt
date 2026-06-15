@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/hashicorp/terraform/1.1.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/hashicorp/terraform/1.1.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/terraform/1.1.2/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/hashicorp/terraform/1.1.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/terraform/1.1.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/hashicorp/terraform/1.1.2](../../../../packages/hashicorp/terraform/1.1.2) |

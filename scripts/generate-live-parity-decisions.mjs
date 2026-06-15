@@ -88,11 +88,21 @@ function classify(reason, result) {
   return "target-runtime";
 }
 
-function supportArtifactPath(category, chart, version) {
+function supportArtifactCandidates(category) {
   const file = CATEGORIES[category]?.support_artifact;
-  if (!file) return "";
-  const rel = `recipes/${chart}/${version}/${file}`;
-  return existsSync(join(repoRoot, rel)) ? rel : "";
+  const candidates = file ? [file] : [];
+  if (category === "target-runtime") {
+    candidates.push("target-prerequisite-plan.yaml", "target-topology.yaml", "operating-policy.yaml");
+  }
+  return candidates;
+}
+
+function supportArtifactPath(category, chart, version) {
+  for (const file of supportArtifactCandidates(category)) {
+    const rel = `recipes/${chart}/${version}/${file}`;
+    if (existsSync(join(repoRoot, rel))) return rel;
+  }
+  return "";
 }
 
 // --- CSV parsing ----------------------------------------------------------
