@@ -1,0 +1,29 @@
+Name:               argocd/filebeat-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:53411/applications/filebeat-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                  STATUS  HEALTH  AGE   MESSAGE  REASON
+ClusterRoleBinding/filebeat-filebeat-cluster-role-binding  Synced          7m9s
+Role/filebeat-filebeat-role                                Synced          7m9s  role.rbac.authorization.k8s.io/filebeat-filebeat-role reconciled. reconciliation required create
+                                                           missing rules added:
+                                                                   {Verbs:[get create update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/filebeat-filebeat-role serverside-applied
+RoleBinding/filebeat-filebeat-role-binding                 Synced                                                                                                                                                                                                7m9s  rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding reconciled. reconciliation required create
+                                                           missing subjects added:
+                                                                   {Kind:ServiceAccount APIGroup: Name:filebeat-filebeat Namespace:default}. rolebinding.rbac.authorization.k8s.io/filebeat-filebeat-role-binding serverside-applied
+ConfigMap/filebeat-filebeat-daemonset-config               Synced                                                                                                                                                                     7m9s  configmap/filebeat-filebeat-daemonset-config serverside-applied
+Namespace/default-oci                                      Synced                                                                                                                                                                     8m2s
+ServiceAccount/filebeat-filebeat                           Synced                                                                                                                                                                     7m9s  serviceaccount/filebeat-filebeat serverside-applied
+DaemonSet/filebeat-filebeat                                Synced  Progressing                                                                                                                                                        7m9s  daemonset.apps/filebeat-filebeat serverside-applied              Waiting for daemon set "filebeat-filebeat" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/filebeat-filebeat-jvnxw                                      Progressing                                                                                                                                                        7m9s
+└─ControllerRevision/filebeat-filebeat-864bf68b84                                                                                                                                                                                     7m9s
+ClusterRole/filebeat-filebeat-cluster-role                 Synced                                                                                                                                                                     7m9s

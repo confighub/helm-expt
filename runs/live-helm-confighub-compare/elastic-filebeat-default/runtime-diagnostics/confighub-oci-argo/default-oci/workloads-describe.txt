@@ -1,0 +1,90 @@
+Name:           filebeat-filebeat
+Namespace:      default-oci
+Selector:       app=filebeat-filebeat,release=filebeat
+Node-Selector:  <none>
+Labels:         app=filebeat-filebeat
+                chart=filebeat-8.5.1
+                heritage=Helm
+                release=filebeat
+Annotations:    argocd.argoproj.io/tracking-id: filebeat-parity:apps/DaemonSet:default-oci/filebeat-filebeat
+                confighub.com/RevisionNum: 2
+                confighub.com/SpaceID: 65711ba1-71aa-47a3-ae4b-59b604105834
+                confighub.com/UnitSlug: daemonset-filebeat-filebeat
+                deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 1
+Current Number of Nodes Scheduled: 1
+Number of Nodes Scheduled with Up-to-date Pods: 1
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app=filebeat-filebeat
+                    chart=filebeat-8.5.1
+                    heritage=Helm
+                    release=filebeat
+  Annotations:      configChecksum: c88755a4c60c24e519a9ead083dd5eeadf884b224f64126bb9aae2ca30cd7ed
+  Service Account:  filebeat-filebeat
+  Containers:
+   filebeat:
+    Image:      docker.elastic.co/beats/filebeat:8.5.1
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      -e
+      -E
+      http.enabled=true
+    Limits:
+      cpu:     1
+      memory:  200Mi
+    Requests:
+      cpu:     100m
+      memory:  100Mi
+    Liveness:  exec [sh -c #!/usr/bin/env bash -e
+curl --fail 127.0.0.1:5066
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:  exec [sh -c #!/usr/bin/env bash -e
+filebeat test output
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAMESPACE:            (v1:metadata.namespace)
+      NODE_NAME:                (v1:spec.nodeName)
+      ELASTICSEARCH_USERNAME:  <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:  <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+    Mounts:
+      /usr/share/filebeat/certs/ from elasticsearch-master-certs (rw)
+      /usr/share/filebeat/data from data (rw)
+      /usr/share/filebeat/filebeat.yml from filebeat-config (ro,path="filebeat.yml")
+      /var/lib/docker/containers from varlibdockercontainers (ro)
+      /var/log from varlog (ro)
+      /var/run/docker.sock from varrundockersock (ro)
+  Volumes:
+   elasticsearch-master-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+   filebeat-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      filebeat-filebeat-daemonset-config
+    Optional:  false
+   data:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/filebeat-filebeat-default-data
+    HostPathType:  DirectoryOrCreate
+   varlibdockercontainers:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/docker/containers
+    HostPathType:  
+   varlog:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log
+    HostPathType:  
+   varrundockersock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/docker.sock
+    HostPathType:  
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  10m   daemonset-controller  Created pod: filebeat-filebeat-jvnxw

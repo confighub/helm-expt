@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 27
+rows: 28
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 3
-watch: 24
-configHub-oci-live-comparison: 21
+watch: 25
+configHub-oci-live-comparison: 22
 two-cluster-kind-parity: 6
 semantic-parity-defects: 1
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
-runtime-or-watch-rows: 21
+runtime-or-watch-rows: 22
 ```
 
 ## Current Interpretation
@@ -37,6 +37,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/opensearch@2.0.10` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/opensearch@2.0.10` | ha | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
+| `elastic/filebeat@8.5.1` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `fluent/fluentd@0.5.3` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/pyroscope@2.0.2` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/pyroscope@2.0.2` | no-crds | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
@@ -63,7 +64,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 21 | 0 | 20 | 1 | 0 |
+| configHub-oci-live-comparison | 22 | 0 | 21 | 1 | 0 |
 | two-cluster-kind-parity | 6 | 0 | 4 | 2 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -92,7 +93,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | inspect-parity-diff | 1 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 6 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -111,7 +112,7 @@ reasonable live rerun candidates.
 | inspect-diff-first | 1 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 21 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 22 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -154,6 +155,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml`](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | ha | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml`](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `elastic/filebeat@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | - | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `fluent/fluentd@0.5.3` | default | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/fluent/fluentd/0.5.3/runtime-review.yaml`](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds` |

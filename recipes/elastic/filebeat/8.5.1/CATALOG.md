@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/elastic/filebeat/8.5.1/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/elastic/filebeat/8.5.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/elastic/filebeat/8.5.1/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/elastic/filebeat/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/filebeat/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/elastic/filebeat/8.5.1](../../../../packages/elastic/filebeat/8.5.1) |

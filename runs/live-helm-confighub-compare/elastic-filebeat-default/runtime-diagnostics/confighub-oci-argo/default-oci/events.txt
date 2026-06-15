@@ -1,0 +1,4 @@
+LAST SEEN   TYPE      REASON             OBJECT                        MESSAGE
+10m         Normal    Scheduled          pod/filebeat-filebeat-jvnxw   Successfully assigned default-oci/filebeat-filebeat-jvnxw to helm-expt-parity-filebeat-mqfat94m-1gyl-control-plane
+10m         Normal    SuccessfulCreate   daemonset/filebeat-filebeat   Created pod: filebeat-filebeat-jvnxw
+14s         Warning   FailedMount        pod/filebeat-filebeat-jvnxw   MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

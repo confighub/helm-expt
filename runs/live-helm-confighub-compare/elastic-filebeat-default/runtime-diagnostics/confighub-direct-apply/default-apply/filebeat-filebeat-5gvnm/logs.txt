@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "filebeat" in pod "filebeat-filebeat-5gvnm" is waiting to start: ContainerCreating
