@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 203 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 84 |
+| Live commands remaining | 202 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 83 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 14 |
-| Ready-to-run todo rows | 189 |
+| Ready-to-run todo rows | 188 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 84 |
+| `live-parity` | 83 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 189 |
+| `todo` | 188 |
 | `watch` | 14 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 189 |
+| `ready-to-run` | 188 |
 | `review-target-first` | 13 |
 
 ## Active Watch Rows
@@ -73,7 +73,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/postgresql | 18.7.0 | existing-secret | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/postgresql/18.7.0 --base existing-secret |
 | bitnami/postgresql | 18.7.0 | generated-passwords | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/postgresql/18.7.0 --base generated-passwords |
 | bitnami/redis | 27.0.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/redis/27.0.0 --base default |
 | bitnami/redis | 27.0.0 | reuse-existing-secret | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/redis/27.0.0 --base reuse-existing-secret |
@@ -93,6 +92,7 @@ generated priority. They are good candidates for a serial live block.
 | prometheus-community/kube-state-metrics | 7.4.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/kube-state-metrics/7.4.0 --base default |
 | prometheus-community/prometheus-blackbox-exporter | 11.10.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default |
 | prometheus-community/prometheus-node-exporter | 4.55.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-node-exporter/4.55.0 --base default |
+| prometheus-community/prometheus-pushgateway | 3.6.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-pushgateway/3.6.0 --base default |
 
 ## Full Queue
 
