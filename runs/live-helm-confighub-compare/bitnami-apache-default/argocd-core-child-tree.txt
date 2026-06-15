@@ -1,0 +1,23 @@
+Name:               argocd/apache-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55020/applications/apache-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-apache-mqfq2b74-mtp-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-apache-mqfq2b74-mtp-apache
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Degraded
+
+KIND/NAME                       STATUS  HEALTH       AGE    MESSAGE                                                    REASON
+PodDisruptionBudget/apache      Synced  Healthy      12m    poddisruptionbudget.policy/apache serverside-applied       PodDisruptionBudget has InsufficientPods
+Namespace/default-oci           Synced               7m45s
+Service/apache                  Synced  Progressing  12m    service/apache serverside-applied
+ServiceAccount/apache           Synced               12m    serviceaccount/apache serverside-applied
+Deployment/apache               Synced  Degraded     12m    deployment.apps/apache serverside-applied                  Deployment "apache" exceeded its progress deadline
+└─ReplicaSet/apache-5fdf47cb6           Progressing  12m                                                               Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/apache-5fdf47cb6-57c52          Progressing  12m
+NetworkPolicy/apache            Synced               12m    networkpolicy.networking.k8s.io/apache serverside-applied

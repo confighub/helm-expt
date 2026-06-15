@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-apache-mqfq2b74-mtp-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:55135/applications/helm-expt-parity-apache-mqfq2b74-mtp-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-apache-mqfq2b74-mtp-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-apache-mqfq2b74-mtp-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                 STATUS  HEALTH  AGE    MESSAGE                                                                                  REASON
+Application/apache-parity                                 Synced          7m27s  application.argoproj.io/apache-parity serverside-applied
+Application/helm-expt-parity-apache-mqfq2b74-mtp-cluster  Synced          24m    application.argoproj.io/helm-expt-parity-apache-mqfq2b74-mtp-cluster serverside-applied
