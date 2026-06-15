@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "name": "prometheus-node-exporter-parity",
+    "namespace": "argocd",
+    "uid": "d0e286f0-d87f-4057-9519-1c72d9c06b1f",
+    "resourceVersion": "1061",
+    "generation": 8,
+    "creationTimestamp": "2026-06-15T04:31:04Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster:argoproj.io/Application:argocd/prometheus-node-exporter-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "423c6481-6ab3-4520-a8d9-65cca46f4945",
+      "confighub.com/UnitSlug": "prometheus-node-exporter-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:31:04Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:31:23Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci",
+      "path": "./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "prometheus-node-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "prometheus-node-exporter",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default",
+        "name": "prometheus-node-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci",
+          "path": "./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:c87b80166352ecffce777aab468587095cfb4acbdad636749c44e563a05c0312"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T04:31:06Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:c87b80166352ecffce777aab468587095cfb4acbdad636749c44e563a05c0312",
+        "deployedAt": "2026-06-15T04:31:07Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci",
+          "path": "./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:31:06Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:31:16Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:c87b80166352ecffce777aab468587095cfb4acbdad636749c44e563a05c0312",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci",
+            "path": "./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "prometheus-node-exporter",
+            "status": "Synced",
+            "message": "serviceaccount/prometheus-node-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "prometheus-node-exporter",
+            "status": "Synced",
+            "message": "service/prometheus-node-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default",
+            "name": "prometheus-node-exporter",
+            "status": "Synced",
+            "message": "daemonset.apps/prometheus-node-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/prometheus/node-exporter:v1.11.1"
+            ]
+          }
+        ],
+        "revision": "sha256:c87b80166352ecffce777aab468587095cfb4acbdad636749c44e563a05c0312",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci",
+          "path": "./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:31:06Z",
+      "finishedAt": "2026-06-15T04:31:07Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/prometheus/node-exporter:v1.11.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

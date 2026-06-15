@@ -1,0 +1,21 @@
+Name:               argocd/prometheus-node-exporter-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:56902/applications/prometheus-node-exporter-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusnod03147-mqepqvva-5ap-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-prometheusnod03147-mqepqvva-5ap-prometheus-node-exporter
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                 STATUS  HEALTH   AGE  MESSAGE                                                     REASON
+Namespace/default-oci                                     Synced           56s
+Service/prometheus-node-exporter                          Synced  Healthy  72s  service/prometheus-node-exporter serverside-applied
+ServiceAccount/prometheus-node-exporter                   Synced           72s  serviceaccount/prometheus-node-exporter serverside-applied
+DaemonSet/prometheus-node-exporter                        Synced  Healthy  72s  daemonset.apps/prometheus-node-exporter serverside-applied
+├─Pod/prometheus-node-exporter-bbcr2                              Healthy  72s
+└─ControllerRevision/prometheus-node-exporter-8545bd68c7                   72s
