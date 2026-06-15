@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 113
+pass: 114
 watch: 13
 blocked: 0
 not-started: 0
@@ -112,6 +112,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `fairwinds-stable/vpa@4.11.0` | default | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-default/receipt.yaml |
 |  | `fairwinds-stable/vpa@4.11.0` | no-crds | pass | - | runs/live-helm-confighub-compare/fairwinds-stable-vpa-no-crds/receipt.yaml |
 |  | `falcosecurity/falco@9.0.0` | default | pass | - | runs/live-helm-confighub-compare/falcosecurity-falco-default/receipt.yaml |
+|  | `falcosecurity/falcosidekick@0.13.1` | default | pass | - | runs/live-helm-confighub-compare/falcosecurity-falcosidekick-default/receipt.yaml |
 |  | `fluent/fluent-bit@0.57.6` | default | pass | - | runs/live-helm-confighub-compare/fluent-fluent-bit-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-no-crds/receipt.yaml |
