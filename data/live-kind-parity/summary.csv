@@ -87,6 +87,7 @@ kedacore/keda,2.19.0,no-crds,watch,pass,target-prerequisite: required Secret mis
 kyverno/kyverno-policies,3.8.0,default,watch,pass,watch: object parity passed; readiness needs review,,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml
 kyverno/kyverno,3.8.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml
 kyverno/kyverno,3.8.1,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/kyverno-kyverno-no-crds/receipt.yaml
+linkerd/linkerd-crds,1.8.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/linkerd-linkerd-crds-default/receipt.yaml
 longhorn/longhorn,1.11.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
 longhorn/longhorn,1.11.2,ui-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml
 metrics-server/metrics-server,3.13.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml

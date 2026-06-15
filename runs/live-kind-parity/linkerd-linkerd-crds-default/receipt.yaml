@@ -1,0 +1,166 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: linkerd-linkerd-crds-1.8.0-default-kind-parity-20260606
+spec:
+  chart: linkerd/linkerd-crds
+  version: 1.8.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T20:19:26Z'
+  package:
+    path: packages/linkerd/linkerd-crds/1.8.0
+  recipe:
+    path: recipes/linkerd/linkerd-crds/1.8.0
+  variantRevision: recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-linker-aceee-pjvi-helm
+    installerCluster: hx-linker-aceee-pjvi-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-linker-aceee-pjvi-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-linker-aceee-pjvi-helm" ...
+
+          Deleted nodes: ["hx-linker-aceee-pjvi-helm-control-plane"]'
+      - cluster: hx-linker-aceee-pjvi-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-linker-aceee-pjvi-installer" ...
+
+          Deleted nodes: ["hx-linker-aceee-pjvi-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
+        --version 1.8.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/linkerd-linkerd-crds-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b
+      objectCount: 8
+      liveHelmManifestSHA256: af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b
+      liveHelmManifestObjectCount: 8
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-linker-aceee-pjvi-linkerd-crds
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: b353efa3888e5177bc05c31c606fa68ec3bf37a73ada24291732c0345365e7d5
+      objectCount: 9
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 8
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 8
+      installerObjectCount: 9
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"linkerd-crds\" does not exist. Installing it now.\nNAME: linkerd-crds\n\
+      LAST DEPLOYED: Mon Jun 15 21:20:19 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe linkerd-crds\
+      \ chart was successfully installed \U0001F389\n\nTo complete the linkerd core\
+      \ installation, please now proceed to install the\nlinkerd-control-plane chart\
+      \ in the default namespace.\n\nLooking for more? Visit https://linkerd.io/2/getting-started/"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: ''
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
