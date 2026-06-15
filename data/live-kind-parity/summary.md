@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 92
+pass: 93
 watch: 3
 blocked: 2
-semantic parity pass: 95
+semantic parity pass: 96
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 0
@@ -126,6 +126,7 @@ broader support claim.
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
+| `jaegertracing/jaeger@4.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jaegertracing-jaeger-default/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
 | `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
