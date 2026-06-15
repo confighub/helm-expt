@@ -79,6 +79,75 @@ live_check_min_schedulable_nodes() {
 }
 
 case "$base" in
+  'default')
+    if [ "$check_mode" = "live" ]; then
+      live_check_secret 'default' 'trust-manager-tls' 'tls.crt'
+      live_check_secret 'default' 'trust-manager-tls' 'tls.key'
+      live_check_crd 'certificates.cert-manager.io'
+      live_check_crd 'issuers.cert-manager.io'
+      live_check_namespace 'cert-manager'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys:
+    - tls.crt
+    - tls.key
+    name: trust-manager-tls
+    namespace: default
+    purpose: trust-manager admission webhook TLS material normally produced by the rendered
+      cert-manager Certificate lifecycle
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: certificates.cert-manager.io
+    purpose: cert-manager Certificate CRD required by trust-manager certificate.yaml
+    sourcePath: ../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: issuers.cert-manager.io
+    purpose: cert-manager Issuer CRD required by trust-manager certificate.yaml
+    sourcePath: ../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
+    sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredNamespaces:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: cert-manager
+    purpose: trust-manager uses cert-manager as the default trust namespace and regular
+      Helm does not create it for this base
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "default"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
   'no-crds')
     if [ "$check_mode" = "live" ]; then
       live_check_secret 'default' 'trust-manager-tls' 'tls.crt'

@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 98
+pass: 99
 watch: 5
 blocked: 2
-semantic parity pass: 103
+semantic parity pass: 104
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -134,6 +134,7 @@ broader support claim.
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
+| `jetstack/trust-manager@v0.22.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-trust-manager-default/receipt.yaml |
 | `jetstack/trust-manager@v0.22.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-trust-manager-no-crds/receipt.yaml |
 | `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
 | `kedacore/keda@2.19.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |

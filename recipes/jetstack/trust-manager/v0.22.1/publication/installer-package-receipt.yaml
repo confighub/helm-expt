@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
-    sha256: "8d7597ed31d929c256329943a8883ad816a9bb1dd6cfd31268f18a0d4ae2daf3"
+    sha256: "50b9e26f2d7d747ad3f080cd6e70ed5079cab8e8a36b4acd0fec8ba4ac2ec6f9"
   package:
     name: "jetstack-trust-manager"
     path: "packages/jetstack/trust-manager/v0.22.1"
@@ -37,12 +37,12 @@ spec:
         bytes: 10563
       -
         path: "collector/target-facts.sh"
-        sha256: "3729621dd6ca343e38a23bf81bf0fe95a73bed48be34bb97329a89e08182adca"
-        bytes: 4394
+        sha256: "f93ead2d02e542877bf0fae177c6107ff50d24fb9da7618a7edeb23a280372f9"
+        bytes: 6419
       -
         path: "installer.yaml"
-        sha256: "d60a57fce383e92872e4f79dec2fe1e4abcc7267690c1670649b549a32ee7c7f"
-        bytes: 1646
+        sha256: "f3159decdbddf3fdf76306e8e6e55abdb81a37df5d9bc7abac43b9ae0d2bedcb"
+        bytes: 2468
     version: "v0.22.1"
   setupChecks:
     -
@@ -54,8 +54,8 @@ spec:
       helmReleaseObjectCount: 14
       semanticObjectMatches: "14/14"
       separatedSecretCount: 0
-      targetFactMode: "not-required"
-      targetFactsBound: false
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
       allowedCubOnlyObjects:
