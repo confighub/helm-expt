@@ -1,0 +1,28 @@
+Name:               argocd/fluentd-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:63839/applications/fluentd-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                  STATUS  HEALTH       AGE    MESSAGE                                                       REASON
+ConfigMap/fluentd-config-fluentd           Synced               7m9s   configmap/fluentd-config-fluentd serverside-applied
+ConfigMap/fluentd-main-fluentd             Synced               7m9s   configmap/fluentd-main-fluentd serverside-applied
+Namespace/default-oci                      Synced               8m11s
+ServiceAccount/fluentd                     Synced               7m9s   serviceaccount/fluentd serverside-applied
+ClusterRole/fluentd                        Synced               7m9s
+ClusterRoleBinding/fluentd                 Synced               7m9s
+ConfigMap/fluentd-prometheus-conf-fluentd  Synced               7m9s   configmap/fluentd-prometheus-conf-fluentd serverside-applied
+ConfigMap/fluentd-systemd-conf-fluentd     Synced               7m9s   configmap/fluentd-systemd-conf-fluentd serverside-applied
+ConfigMap/dashboard-fluentd-fluentd        Synced               13m    configmap/dashboard-fluentd-fluentd serverside-applied
+Service/fluentd                            Synced  Healthy      7m9s   service/fluentd serverside-applied
+DaemonSet/fluentd                          Synced  Progressing  7m9s   daemonset.apps/fluentd serverside-applied                     Waiting for daemon set "fluentd" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/fluentd-5vm66                                Degraded     7m9s                                                                 back-off 5m0s restarting failed container=fluentd pod=fluentd-5vm66_default-oci(a0349434-ff23-4992-9eb0-ff71f0fa4a59)
+└─ControllerRevision/fluentd-7b4b9c4995                         7m9s

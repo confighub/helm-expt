@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:63956/applications/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                   STATUS  HEALTH  AGE    MESSAGE                                                                                    REASON
+Application/fluentd-parity                                  Synced          7m32s  application.argoproj.io/fluentd-parity serverside-applied
+Application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster  Synced          14m    application.argoproj.io/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster serverside-applied

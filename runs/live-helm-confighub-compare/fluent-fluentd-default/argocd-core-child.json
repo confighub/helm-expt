@@ -1,0 +1,458 @@
+{
+  "metadata": {
+    "name": "fluentd-parity",
+    "namespace": "argocd",
+    "uid": "3488fe32-755c-4576-9cbe-f6638923600c",
+    "resourceVersion": "2227",
+    "generation": 11,
+    "creationTimestamp": "2026-06-15T01:49:13Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-fluentd-mqejr47p-1n1b-cluster:argoproj.io/Application:argocd/fluentd-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "2ba584e9-1e68-42bc-94b5-a9fe9f6dc8f0",
+      "confighub.com/UnitSlug": "fluentd-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T01:49:13Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T01:56:16Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci",
+      "path": "./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "fluentd-config-fluentd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "fluentd-main-fluentd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "fluentd-prometheus-conf-fluentd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "fluentd-systemd-conf-fluentd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "dashboard-fluentd-fluentd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default-oci",
+        "name": "fluentd",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default-oci",
+        "name": "fluentd",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default-oci",
+        "name": "fluentd",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for daemon set \"fluentd\" rollout to finish: 0 of 1 updated pods are available..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "fluentd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "fluentd",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci",
+          "path": "./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T01:49:18Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce",
+        "deployedAt": "2026-06-15T01:49:16Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci",
+          "path": "./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T01:49:14Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T01:56:07Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci",
+            "path": "./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default-oci",
+            "name": "fluentd",
+            "status": "Synced",
+            "message": "serviceaccount/fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "fluentd-prometheus-conf-fluentd",
+            "status": "Synced",
+            "message": "configmap/fluentd-prometheus-conf-fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "fluentd-config-fluentd",
+            "status": "Synced",
+            "message": "configmap/fluentd-config-fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "dashboard-fluentd-fluentd",
+            "status": "Synced",
+            "message": "configmap/dashboard-fluentd-fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "fluentd-systemd-conf-fluentd",
+            "status": "Synced",
+            "message": "configmap/fluentd-systemd-conf-fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "fluentd-main-fluentd",
+            "status": "Synced",
+            "message": "configmap/fluentd-main-fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "fluentd",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/fluentd reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[pods namespaces] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "fluentd",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/fluentd reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:fluentd Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default-oci",
+            "name": "fluentd",
+            "status": "Synced",
+            "message": "service/fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default-oci",
+            "name": "fluentd",
+            "status": "Synced",
+            "message": "daemonset.apps/fluentd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2"
+            ]
+          }
+        ],
+        "revision": "sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci",
+          "path": "./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T01:49:14Z",
+      "finishedAt": "2026-06-15T01:49:16Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,88 @@
+Name:             fluentd-8sgd4
+Namespace:        default-apply
+Priority:         0
+Service Account:  fluentd
+Node:             helm-expt-parity-fluentd-mqejr47p-1n1b-control-plane/192.168.97.2
+Start Time:       Mon, 15 Jun 2026 02:42:59 +0100
+Labels:           app.kubernetes.io/instance=fluentd
+                  app.kubernetes.io/name=fluentd
+                  controller-revision-hash=7b4b9c4995
+                  pod-template-generation=1
+Annotations:      checksum/config: b4148ec5962a6f33cbf0c5274b67acd2c4f76a206821154bb8af50565d96844a
+Status:           Running
+IP:               10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  DaemonSet/fluentd
+Containers:
+  fluentd:
+    Container ID:   containerd://5476311fbaac15e973bb906c9fcd2c00be435d1548358ca6e39f394325af3408
+    Image:          fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2
+    Image ID:       docker.io/fluent/fluentd-kubernetes-daemonset@sha256:b2676f28f64fa83d1aa1474210ac7f7b4e5248b28021c13b1274a0628742c6bd
+    Port:           24231/TCP (metrics)
+    Host Port:      0/TCP (metrics)
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Mon, 15 Jun 2026 02:45:52 +0100
+      Finished:     Mon, 15 Jun 2026 02:45:52 +0100
+    Ready:          False
+    Restart Count:  5
+    Liveness:       http-get http://:metrics/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:metrics/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      FLUENTD_CONF:  ../../../etc/fluent/fluent.conf
+    Mounts:
+      /etc/fluent from etcfluentd-main (rw)
+      /etc/fluent/config.d/ from etcfluentd-config (rw)
+      /var/lib/docker/containers from varlibdockercontainers (ro)
+      /var/log from varlog (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zx5ct (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  etcfluentd-main:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      fluentd-main-fluentd
+    Optional:  false
+  etcfluentd-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      fluentd-config-fluentd
+    Optional:  false
+  varlog:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log
+    HostPathType:
+  varlibdockercontainers:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/docker/containers
+    HostPathType:
+  kube-api-access-zx5ct:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  5m4s                  default-scheduler  Successfully assigned default-apply/fluentd-8sgd4 to helm-expt-parity-fluentd-mqejr47p-1n1b-control-plane
+  Normal   Pulled     2m11s (x6 over 5m4s)  kubelet            spec.containers{fluentd}: Container image "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2" already present on machine and can be accessed by the pod
+  Normal   Created    2m11s (x6 over 5m4s)  kubelet            spec.containers{fluentd}: Container created
+  Normal   Started    2m11s (x6 over 5m4s)  kubelet            spec.containers{fluentd}: Container started
+  Warning  BackOff    58s (x15 over 5m2s)   kubelet            spec.containers{fluentd}: Back-off restarting failed container fluentd in pod fluentd-8sgd4_default-apply(cee6be7f-f46b-429a-9555-abf7800c6ddf)

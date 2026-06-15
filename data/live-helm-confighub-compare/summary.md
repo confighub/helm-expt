@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 114
-watch: 13
+watch: 14
 blocked: 0
 not-started: 0
 ```
@@ -114,6 +114,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `falcosecurity/falco@9.0.0` | default | pass | - | runs/live-helm-confighub-compare/falcosecurity-falco-default/receipt.yaml |
 |  | `falcosecurity/falcosidekick@0.13.1` | default | pass | - | runs/live-helm-confighub-compare/falcosecurity-falcosidekick-default/receipt.yaml |
 |  | `fluent/fluent-bit@0.57.6` | default | pass | - | runs/live-helm-confighub-compare/fluent-fluent-bit-default/receipt.yaml |
+|  | `fluent/fluentd@0.5.3` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-no-crds/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | default | pass | - | runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml |

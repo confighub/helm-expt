@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeReview"
+metadata:
+  name: "fluentd-default-rbac-namespace-relocation-watch"
+  chart: "fluent/fluentd"
+  version: "0.5.3"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with ConfigHub direct-apply and OCI/Argo namespaces distinct from the chart default namespace"
+  receipt: "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "watch"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Progressing"
+    configHubOciRuntime: "watch"
+    semanticParity: "pass"
+  passed:
+    - "regular Helm reached runtime readiness"
+    - "ConfigHub direct apply rendered and applied the same object meaning"
+    - "ConfigHub OCI/Argo synced the uploaded Units"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "The ConfigHub direct-apply and OCI/Argo workloads crash-loop because the relocated Fluentd ServiceAccount is not the subject of the ClusterRoleBinding."
+    repeatedAcrossLegs:
+      - "ConfigHub direct apply: DaemonSet/fluentd pod in namespace default-apply is CrashLoopBackOff"
+      - "ConfigHub OCI/Argo: DaemonSet/fluentd pod in namespace default-oci is CrashLoopBackOff"
+    logEvidence:
+      - "default-apply: system:serviceaccount:default-apply:fluentd cannot list pods at cluster scope"
+      - "default-oci: system:serviceaccount:default-oci:fluentd cannot list namespaces and pods at cluster scope"
+    argoResidue:
+      - "Application/fluentd-parity: Synced/Progressing"
+      - "DaemonSet/default-oci/fluentd: Synced/Progressing"
+  diagnosis:
+    summary: "This is a namespace-relocation and authority-reference watch row, not a render parity defect."
+    interpretation: "Regular Helm rewrites the ClusterRoleBinding subject to the Helm release namespace and the workload passes. The ConfigHub live lanes relocate the ServiceAccount and DaemonSet into default-apply/default-oci, but the ClusterRoleBinding subject remains default, so the relocated ServiceAccount does not receive the ClusterRole."
+    productBoundary: "A production claim for this base needs an explicit decision for namespace relocation of ClusterRoleBinding subjects, or a no-relocation target namespace policy for this chart."
+    nextInvestigation:
+      - "Decide whether the namespace transformer should update ClusterRoleBinding subjects that reference relocated ServiceAccounts."
+      - "If the fix belongs in the recipe/package model, add an explicit authority-reference transformation for Fluentd."
+      - "Rerun live parity after the namespace/RBAC decision and replace this watch row only if runtime readiness passes."
+    issue: "https://github.com/confighub/helm-expt/issues/774"
+  evidence:
+    receipt: "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
+    directApplyLogs: "runs/live-helm-confighub-compare/fluent-fluentd-default/runtime-diagnostics/confighub-direct-apply/default-apply/fluentd-8sgd4/logs.txt"
+    directApplyDescribe: "runs/live-helm-confighub-compare/fluent-fluentd-default/runtime-diagnostics/confighub-direct-apply/default-apply/fluentd-8sgd4/describe.txt"
+    configHubOciLogs: "runs/live-helm-confighub-compare/fluent-fluentd-default/runtime-diagnostics/confighub-oci-argo/default-oci/fluentd-5vm66/logs.txt"
+    configHubOciDescribe: "runs/live-helm-confighub-compare/fluent-fluentd-default/runtime-diagnostics/confighub-oci-argo/default-oci/fluentd-5vm66/describe.txt"
+    argoCoreChildJson: "runs/live-helm-confighub-compare/fluent-fluentd-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/fluent-fluentd-default/argocd-core-child-tree.txt"
+  notClaimed:
+    - "This row does not prove Fluentd production support."
+    - "This row does not prove namespace relocation is safe for all authority-bearing references."
+    - "This row does not claim the Fluentd chart is broken under regular Helm."

@@ -1,0 +1,1188 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: fluent-fluentd-0.5.3-default-live-parity-20260605
+spec:
+  chart: fluent/fluentd
+  version: 0.5.3
+  base: default
+  result: watch
+  observedAt: '2026-06-15T01:40:55Z'
+  package:
+    path: packages/fluent/fluentd/0.5.3
+  recipe:
+    path: recipes/fluent/fluentd/0.5.3
+  variantRevision: recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-fluentd-mqejr47p-1n1b
+    kubeContext: kind-helm-expt-parity-fluentd-mqejr47p-1n1b
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-fluentd-mqejr47p-1n1b --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-fluentd-mqejr47p-1n1b"...
+
+        Deleting cluster "helm-expt-parity-fluentd-mqejr47p-1n1b" ...
+
+        Deleted nodes: ["helm-expt-parity-fluentd-mqejr47p-1n1b-control-plane"]
+
+        Deleting Space "helm-expt-parity-fluentd-mqejr47p-1n1b-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts
+        --version 0.5.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a
+      objectCount: 10
+      liveHelmManifestSHA256: 66c7d4e72ea7e861b0207c4f025c4c68ba3dada9f5d150a159427c3d3e48c705
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/fluentd   1     1     1     1     1     <none>   18s
+        pods: fluentd-pgfxw   1/1   Running   0     18s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: c2379d4c53c628a83ecc2f865f15ba6de90188d52252d744eb9650ee668fecd4
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default-apply
+
+          daemonset.apps/fluentd   1     1     0     1     0     <none>   4m54s'
+        pods: '# default-apply
+
+          fluentd-8sgd4   0/1   CrashLoopBackOff   5 (2m1s ago)   4m54s'
+        notReady:
+        - namespace: default-apply
+          pod: fluentd-8sgd4
+          ready: 0/1
+          status: CrashLoopBackOff
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-apply
+          namespaceArtifacts:
+          - namespace: default-apply
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/events.txt
+            sha256: 5aa4e16e299fdbf71feb471cacb80b877061e84a5f5253c243ef378c57fa77c8
+            bytes: 1065
+          - namespace: default-apply
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/workloads-describe.txt
+            sha256: b8b8d9adb8ee716df4dd78c3c8c0adf3f99c3dfd54a7d2514132f5e9750457ae
+            bytes: 2665
+          podArtifacts:
+          - namespace: default-apply
+            pod: fluentd-8sgd4
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/fluentd-8sgd4/describe.txt
+            sha256: dbf65fd797aaa65872d193ab30732823bcd67571e8482a736c4f8704bc15e679
+            bytes: 4561
+          - namespace: default-apply
+            pod: fluentd-8sgd4
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/fluentd-8sgd4/logs.txt
+            sha256: 1dadd37754f51dd4bcc0ec1f2ebe167b8bf59f3540c3e72f6cb6569ad981e4e1
+            bytes: 6830
+          - namespace: default-apply
+            pod: fluentd-8sgd4
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/fluentd-8sgd4/previous-logs.txt
+            sha256: 1dadd37754f51dd4bcc0ec1f2ebe167b8bf59f3540c3e72f6cb6569ad981e4e1
+            bytes: 6830
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "fluentd" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "fluentd" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - v1|ConfigMap|default|dashboard-fluentd-fluentd
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+      controller: Argo CD OCI
+      app: fluentd-parity
+      manifestSHA256: 3a1e2e21f0d01aaa3cff2e366002d870b013bef293a7d959b74747284fb65635
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+              targetRevision: latest
+          revision: sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T01:49:18Z'
+          status: Progressing
+        summary:
+          images:
+          - fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:49:14Z'
+          finishedAt: '2026-06-15T01:49:16Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+          deployedAt: '2026-06-15T01:49:16Z'
+          deployStartedAt: '2026-06-15T01:49:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: fluentd-config-fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: fluentd-main-fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: fluentd-prometheus-conf-fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: fluentd-systemd-conf-fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: dashboard-fluentd-fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default-oci
+          name: fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default-oci
+          name: fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: fluentd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         fluentd-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-fluentd-mqejr47p-1n1b-cluster:argoproj.io/Application:argocd/fluentd-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 2ba584e9-1e68-42bc-94b5-a9fe9f6dc8f0\n              confighub.com/UnitSlug:\
+              \ fluentd-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-15T01:49:13Z\n\
+              \  Generation:          10\n  Resource Version:    2114\n  UID:    \
+              \             3488fe32-755c-4576-9cbe-f6638923600c\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T01:49:18Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T01:49:14Z\n    Deployed At:        2026-06-15T01:49:16Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \    Source:\n      Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:49:16Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \        Source:\n          Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T01:49:14Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/fluentd serverside-applied\n        Name:       \
+              \ fluentd\n        Namespace:   default-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/fluentd-prometheus-conf-fluentd serverside-applied\n\
+              \        Name:        fluentd-prometheus-conf-fluentd\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/fluentd-config-fluentd\
+              \ serverside-applied\n        Name:        fluentd-config-fluentd\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/dashboard-fluentd-fluentd serverside-applied\n\
+              \        Name:        dashboard-fluentd-fluentd\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/fluentd-systemd-conf-fluentd\
+              \ serverside-applied\n        Name:        fluentd-systemd-conf-fluentd\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/fluentd-main-fluentd serverside-applied\n\
+              \        Name:        fluentd-main-fluentd\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/fluentd reconciled. reconciliation\
+              \ required create\n                     missing rules added:\n     \
+              \                  {Verbs:[get list watch] APIGroups:[] Resources:[pods\
+              \ namespaces] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/fluentd\
+              \ serverside-applied\n        Name:        fluentd\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
+              \        Message:     clusterrolebinding.rbac.authorization.k8s.io/fluentd\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:fluentd Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/fluentd\
+              \ serverside-applied\n        Name:        fluentd\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/fluentd\
+              \ serverside-applied\n        Name:        fluentd\n        Namespace:\
+              \   de"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6m52s       Normal   OperationStarted     application/fluentd-parity   Initiated
+              automated sync to ''sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce''
+
+              6m52s       Normal   ResourceUpdated      application/fluentd-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/fluentd-parity   Updated
+              health status:  -> Healthy
+
+              6m50s       Normal   OperationCompleted   application/fluentd-parity   Sync
+              operation to sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/fluentd-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m48s       Normal   ResourceUpdated      application/fluentd-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: 3b3c22db1126a91d08565cf8207791dde3261479c24ca39408954cd1c7dc172c
+                bytes: 14337
+              output: "{\n  \"metadata\": {\n    \"name\": \"fluentd-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"3488fe32-755c-4576-9cbe-f6638923600c\"\
+                ,\n    \"resourceVersion\": \"2227\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T01:49:13Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-fluentd-mqejr47p-1n1b-cluster:argoproj.io/Application:argocd/fluentd-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"2ba584e9-1e68-42bc-94b5-a9fe9f6dc8f0\",\n      \"confighub.com/UnitSlug\"\
+                : \"fluentd-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T01:49:13Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T01:56:16Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"fluentd-config-fluentd\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default-oci\",\n        \"name\": \"fluentd-main-fluentd\",\n\
+                \        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default-oci\",\n        \"name\": \"fluentd-prometheus-conf-fluentd\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default-oci\",\n        \"name\": \"fluentd-systemd-conf-fluentd\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"dashboard-fluentd-fluentd\",\n\
+                \        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default-oci\",\n        \"name\": \"fluentd\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 31fe9d42848692e94a1c81c6dbee223a669c06d1fc41d98a9feae1ad810219cf
+                bytes: 2336
+              output: "Name:               argocd/fluentd-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:63839/applications/fluentd-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                  STATUS\
+                \  HEALTH       AGE    MESSAGE                                   \
+                \                    REASON\nConfigMap/fluentd-config-fluentd    \
+                \       Synced               7m9s   configmap/fluentd-config-fluentd\
+                \ serverside-applied           \nConfigMap/fluentd-main-fluentd  \
+                \           Synced               7m9s   configmap/fluentd-main-fluentd\
+                \ serverside-applied             \nNamespace/default-oci         \
+                \             Synced               8m11s                         \
+                \                                       \nServiceAccount/fluentd \
+                \                    Synced               7m9s   serviceaccount/fluentd\
+                \ serverside-applied                     \nClusterRole/fluentd   \
+                \                     Synced               7m9s                  \
+                \                                               \nClusterRoleBinding/fluentd\
+                \                 Synced               7m9s                      \
+                \                                           \nConfigMap/fluentd-prometheus-conf-fluentd\
+                \  Synced               7m9s   configmap/fluentd-prometheus-conf-fluentd\
+                \ serverside-applied  \nConfigMap/fluentd-systemd-conf-fluentd   \
+                \  Synced               7m9s   configmap/fluentd-systemd-conf-fluentd\
+                \ serverside-applied     \nConfigMap/dashboard-fluentd-fluentd   \
+                \     Synced               13m    configmap/dashboard-fluentd-fluentd\
+                \ serverside-applied        \nService/fluentd                    \
+                \        Synced  Healthy      7m9s   service/fluentd serverside-applied\
+                \                            \nDaemonSet/fluentd                 \
+                \         Synced  Progressing  7m9s   daemonset.apps/fluentd serverside-applied\
+                \                     Waiting for daemon set \"fluentd\" rollout to\
+                \ finish: 0 of 1 updated pods are available...\n\u251C\u2500Pod/fluentd-5vm66\
+                \                                Degraded     7m9s               \
+                \                                                  back-off 5m0s restarting\
+                \ failed container=fluentd pod=fluentd-5vm66_default-oci(a0349434-ff23-4992-9eb0-ff71f0fa4a59)\n\
+                \u2514\u2500ControllerRevision/fluentd-7b4b9c4995                \
+                \         7m9s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"fluentd-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/fluentd-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"fluentd-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+              targetRevision: latest
+          revision: sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T01:42:38Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:49:11Z'
+          finishedAt: '2026-06-15T01:49:13Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+          deployedAt: '2026-06-15T01:49:13Z'
+          deployStartedAt: '2026-06-15T01:49:11Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: fluentd-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T01:42:27Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        12\n  Resource Version:  2080\n  UID:        \
+              \       54ab9ec6-94fd-4de1-9533-649f598089ff\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T01:42:38Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T01:49:11Z\n\
+              \    Deployed At:        2026-06-15T01:49:13Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \    Source:\n      Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:49:13Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \        Source:\n          Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T01:49:11Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/fluentd-parity serverside-applied\n\
+              \        Name:        fluentd-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \      Source:\n        Path:              ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T01:54:31Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       fluentd-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     13m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     13m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m14s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce'\n\
+              \  Normal  ResourceUpdated     7m14s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m12s  argocd-application-controller  Sync operation to sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\
+              \ succeeded\n  Normal  ResourceUpdated     7m11s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                       MESSAGE
+
+              13m         Normal   ResourceUpdated      application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Updated
+              sync status:  -> Synced
+
+              13m         Normal   ResourceUpdated      application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Updated
+              health status:  -> Healthy
+
+              7m14s       Normal   OperationStarted     application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Initiated
+              automated sync to ''sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce''
+
+              7m14s       Normal   ResourceUpdated      application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m12s       Normal   OperationCompleted   application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Sync
+              operation to sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce
+              succeeded
+
+              7m11s       Normal   ResourceUpdated      application/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 97530db0fac8b0ee2775c6689ca0f82af2034b52f7291e255ba565d98b752973
+                bytes: 10648
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"54ab9ec6-94fd-4de1-9533-649f598089ff\"\
+                ,\n    \"resourceVersion\": \"2255\",\n    \"generation\": 13,\n \
+                \   \"creationTimestamp\": \"2026-06-15T01:42:27Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T01:42:27Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T01:56:34Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.co"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 36227d4fcd4ebea7ab2bb3ec9f14cd9f547aa5844cd1fe75d9265f7270dfc29d
+                bytes: 1130
+              output: "Name:               argocd/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:63956/applications/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \          STATUS  HEALTH  AGE    MESSAGE                        \
+                \                                                            REASON\n\
+                Application/fluentd-parity                                  Synced\
+                \          7m32s  application.argoproj.io/fluentd-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\
+                \  Synced          14m    application.argoproj.io/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"fluentd-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/fluentd-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:eed997654a4afb6d99ca4cc068848b3e9bd0d20e8c3708455d9b5596f470e4ce\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"fluentd-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-fluentd-mqejr47p-1n1b-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default-oci
+
+          daemonset.apps/fluentd   1     1     0     1     0     <none>   10m'
+        pods: '# default-oci
+
+          fluentd-5vm66   0/1   CrashLoopBackOff   6 (4m47s ago)   10m'
+        notReady:
+        - namespace: default-oci
+          pod: fluentd-5vm66
+          ready: 0/1
+          status: CrashLoopBackOff
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-oci
+          namespaceArtifacts:
+          - namespace: default-oci
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/events.txt
+            sha256: 1a882b8ac9c6dd0382e375d93d8f4c9fd259567d30086a3d935e9f117607b9eb
+            bytes: 1044
+          - namespace: default-oci
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/workloads-describe.txt
+            sha256: e0b0c79e4686726309a345cf8dbbf39f9205e329e4ce965d3ef8de3a53688783
+            bytes: 2743
+          podArtifacts:
+          - namespace: default-oci
+            pod: fluentd-5vm66
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/fluentd-5vm66/describe.txt
+            sha256: 26bbac4f904246351185578b4e82796a40c34a520f6a8e6962cf32f5bf57d1eb
+            bytes: 4764
+          - namespace: default-oci
+            pod: fluentd-5vm66
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/fluentd-5vm66/logs.txt
+            sha256: 94f015f68345539b89fbc3113e2eb53be4b6aee81536f1bad632919a44632014
+            bytes: 10791
+          - namespace: default-oci
+            pod: fluentd-5vm66
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/fluentd-5vm66/previous-logs.txt
+            sha256: 94f015f68345539b89fbc3113e2eb53be4b6aee81536f1bad632919a44632014
+            bytes: 10791
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T01:42:27Z'
+    finishedAt: '2026-06-15T01:42:47Z'
+    elapsedSeconds: 20.564
+    timeoutSeconds: 900
+    command: helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts
+      --version 0.5.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T01:42:58Z'
+    finishedAt: '2026-06-15T01:42:58Z'
+    elapsedSeconds: 0.371
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T01:42:59Z'
+    finishedAt: '2026-06-15T01:42:59Z'
+    elapsedSeconds: 0.142
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig
+      --context kind-helm-expt-parity-fluentd-mqejr47p-1n1b apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-15T01:42:59Z'
+    finishedAt: '2026-06-15T01:48:03Z'
+    elapsedSeconds: 304.009
+    timeoutSeconds: 300
+    namespaces: default-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T01:48:14Z'
+    finishedAt: '2026-06-15T01:48:14Z'
+    elapsedSeconds: 0.425
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T01:48:14Z'
+    finishedAt: '2026-06-15T01:48:51Z'
+    elapsedSeconds: 36.772
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+      --space helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd --target helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T01:48:51Z'
+    finishedAt: '2026-06-15T01:48:51Z'
+    elapsedSeconds: 0.59
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T01:48:51Z'
+    finishedAt: '2026-06-15T01:49:01Z'
+    elapsedSeconds: 9.665
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
+      --unit <11 unit(s)> --wait --timeout 5m
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T01:49:01Z'
+    finishedAt: '2026-06-15T01:49:02Z'
+    elapsedSeconds: 1.341
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+      fluentd-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/argo-application.json
+      --target helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T01:49:02Z'
+    finishedAt: '2026-06-15T01:49:04Z'
+    elapsedSeconds: 1.133
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T01:49:04Z'
+    finishedAt: '2026-06-15T01:56:06Z'
+    elapsedSeconds: 422.569
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-15T01:56:46Z'
+    finishedAt: '2026-06-15T01:59:48Z'
+    elapsedSeconds: 182.382
+    timeoutSeconds: 180
+    namespaces: default-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-fluentd-mqejr47p-1n1b\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-fluentd-mqejr47p-1n1b\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-fluentd-mqejr47p-1n1b\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-fluentd-mqejr47p-1n1b\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "fluentd" does not exist. Installing it now.
+
+      NAME: fluentd
+
+      LAST DEPLOYED: Mon Jun 15 02:42:29 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      NOTES:
+
+      Get Fluentd build information by running these commands:
+
+
+      export POD_NAME=$(kubectl get pods --namespace default-helm -l "app.kubernetes.io/name=fluentd,app.kubernetes.io/instance=fluentd"
+      -o jsonpath="{.items[0].metadata.name}")
+
+      kubectl --namespace default-helm port-forward $POD_NAME 24231:24231
+
+      curl http://127.0.0.1:24231/metrics'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default-apply
+
+      daemonset.apps/fluentd   1     1     0     1     0     <none>   4m54s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

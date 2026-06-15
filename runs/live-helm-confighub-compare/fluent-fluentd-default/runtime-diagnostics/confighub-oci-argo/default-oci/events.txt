@@ -1,0 +1,8 @@
+LAST SEEN   TYPE      REASON             OBJECT              MESSAGE
+10m         Normal    Scheduled          pod/fluentd-5vm66   Successfully assigned default-oci/fluentd-5vm66 to helm-expt-parity-fluentd-mqejr47p-1n1b-control-plane
+10m         Normal    SuccessfulCreate   daemonset/fluentd   Created pod: fluentd-5vm66
+4m57s       Normal    Pulled             pod/fluentd-5vm66   Container image "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2" already present on machine and can be accessed by the pod
+4m57s       Normal    Created            pod/fluentd-5vm66   Container created
+4m57s       Normal    Started            pod/fluentd-5vm66   Container started
+4m57s       Warning   Unhealthy          pod/fluentd-5vm66   Readiness probe failed: Get "http://10.244.0.14:24231/metrics": dial tcp 10.244.0.14:24231: connect: connection refused
+73s         Warning   BackOff            pod/fluentd-5vm66   Back-off restarting failed container fluentd in pod fluentd-5vm66_default-oci(a0349434-ff23-4992-9eb0-ff71f0fa4a59)
