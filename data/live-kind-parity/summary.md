@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 75
+pass: 76
 watch: 1
 blocked: 2
-semantic parity pass: 76
+semantic parity pass: 77
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 1
 non-pass rows with related lifecycle evidence: 0
@@ -83,6 +83,7 @@ broader support claim.
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 | `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |
+| `crossplane-stable/crossplane@2.3.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/crossplane-stable-crossplane-default/receipt.yaml |
 | `descheduler/descheduler@0.36.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
