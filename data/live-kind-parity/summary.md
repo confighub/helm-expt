@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 106
+pass: 107
 watch: 6
 blocked: 7
-semantic parity pass: 114
+semantic parity pass: 115
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 8
 non-pass rows with related lifecycle evidence: 0
@@ -145,6 +145,7 @@ broader support claim.
 | `kedacore/keda@2.19.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml |
 | `kyverno/kyverno@3.8.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml |
+| `kyverno/kyverno@3.8.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/kyverno-kyverno-no-crds/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | ui-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |

@@ -1,0 +1,348 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: kyverno-kyverno-3.8.1-no-crds-kind-parity-20260606
+spec:
+  chart: kyverno/kyverno
+  version: 3.8.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-15T19:54:51Z'
+  package:
+    path: packages/kyverno/kyverno/3.8.1
+  recipe:
+    path: recipes/kyverno/kyverno/3.8.1
+  variantRevision: recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-kyvern-c0dc8-tx4s-helm
+    installerCluster: hx-kyvern-c0dc8-tx4s-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-kyvern-c0dc8-tx4s-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-kyvern-c0dc8-tx4s-helm" ...
+
+          Deleted nodes: ["hx-kyvern-c0dc8-tx4s-helm-control-plane"]'
+      - cluster: hx-kyvern-c0dc8-tx4s-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-kyvern-c0dc8-tx4s-installer" ...
+
+          Deleted nodes: ["hx-kyvern-c0dc8-tx4s-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kyverno kyverno --repo https://kyverno.github.io/kyverno/
+        --version 3.8.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227
+      objectCount: 47
+      liveHelmManifestSHA256: 5303194e8c7d0fc5c60d37918983bf0b5940479f34315a60fc16f022bca88c66
+      liveHelmManifestObjectCount: 47
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/kyverno-admission-controller    1/1   1     1     42s
+
+          deployment.apps/kyverno-background-controller   1/1   1     1     42s
+
+          deployment.apps/kyverno-cleanup-controller      1/1   1     1     42s
+
+          deployment.apps/kyverno-reports-controller      1/1   1     1     42s'
+        pods: '# default
+
+          kyverno-admission-controller-798db6b999-kpljv    1/1   Running   0     42s
+
+          kyverno-background-controller-57f7cb7c48-qlftn   1/1   Running   0     42s
+
+          kyverno-cleanup-controller-5f46cd89f7-gslfv      1/1   Running   0     42s
+
+          kyverno-reports-controller-dfdd969cd-qq4ds       1/1   Running   0     42s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno/3.8.1
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-kyvern-c0dc8-tx4s-kyverno
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 426d3860cce2553f2406c03e783f553203a8989a7ce020f27de3d07a4f9cd1db
+      objectCount: 48
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/kyverno-admission-controller    1/1   1     1     51s
+
+          deployment.apps/kyverno-background-controller   1/1   1     1     51s
+
+          deployment.apps/kyverno-cleanup-controller      1/1   1     1     51s
+
+          deployment.apps/kyverno-reports-controller      1/1   1     1     51s'
+        pods: '# default
+
+          kyverno-admission-controller-798db6b999-66ffb    1/1   Running   0     51s
+
+          kyverno-background-controller-57f7cb7c48-d29tq   1/1   Running   0     51s
+
+          kyverno-cleanup-controller-5f46cd89f7-k7lwc      1/1   Running   0     51s
+
+          kyverno-reports-controller-dfdd969cd-c2jcg       1/1   Running   0     51s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 47
+      installerObjectCount: 47
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 47
+      installerObjectCount: 48
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=22 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=22 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kyverno\" does not exist. Installing it now.\nNAME: kyverno\n\
+      LAST DEPLOYED: Mon Jun 15 20:57:04 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nChart version: 3.8.1\nKyverno\
+      \ version: v1.18.1\n\nThank you for installing kyverno! Your release is named\
+      \ kyverno.\n\nThe following components have been installed in your cluster:\n\
+      - Admission controller\n- Reports controller\n- Cleanup controller\n- Background\
+      \ controller\n\n\n\u26A0\uFE0F  WARNING: Setting the admission controller replica\
+      \ count below 2 means Kyverno is not running in high availability mode.\n\n\n\
+      \u26A0\uFE0F  WARNING: PolicyExceptions are disabled by default. To enable them,\
+      \ set '--enablePolicyException' to true.\n\n\U0001F4A1 Note: There is a trade-off\
+      \ when deciding which approach to take regarding Namespace exclusions. Please\
+      \ see the documentation at https://kyverno.io/docs/installation/#security-vs-operability\
+      \ to understand the risks."
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/kyverno-admission-controller    1/1   1     1     51s
+
+      deployment.apps/kyverno-background-controller   1/1   1     1     51s
+
+      deployment.apps/kyverno-cleanup-controller      1/1   1     1     51s
+
+      deployment.apps/kyverno-reports-controller      1/1   1     1     51s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clustercleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: globalcontextentries.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyexceptions.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: updaterequests.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: ephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: clusterpolicyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: deletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: generatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: imagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: mutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespaceddeletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedgeneratingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedimagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedmutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: namespacedvalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: policyexceptions.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: validatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: regularHelm
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clustercleanuppolicies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: globalcontextentries.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: policyexceptions.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: updaterequests.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: ephemeralreports.reports.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: clusterpolicyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: policyreports.wgpolicyk8s.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: deletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: generatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: imagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: mutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: namespaceddeletingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: namespacedgeneratingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: namespacedimagevalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: namespacedmutatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: namespacedvalidatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: policyexceptions.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: validatingpolicies.policies.kyverno.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

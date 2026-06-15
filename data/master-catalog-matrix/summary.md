@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 907 / 58 / 62 / 196 / 121 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 908 / 58 / 62 / 195 / 121 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -242,7 +242,7 @@ when you want the user/product view with those columns visible.
 | `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⚠️ | ⬜ | live-parity | ⬜ |
 | `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | — | ✅ | ✅ | ✅ | — | ⚠️ | ⚠️ | ⚠️ | ⬜ | local-live | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
