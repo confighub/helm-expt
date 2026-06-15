@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 190 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 71 |
+| Live commands remaining | 189 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 70 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 18 |
-| Ready-to-run todo rows | 172 |
+| Ready-to-run todo rows | 171 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 71 |
+| `live-parity` | 70 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 172 |
+| `todo` | 171 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 172 |
+| `ready-to-run` | 171 |
 | `review-target-first` | 17 |
 
 ## Active Watch Rows
@@ -77,7 +77,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| prometheus-community/kube-state-metrics | 7.4.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/kube-state-metrics/7.4.0 --base default |
 | prometheus-community/prometheus-blackbox-exporter | 11.10.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default |
 | prometheus-community/prometheus-node-exporter | 4.55.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-node-exporter/4.55.0 --base default |
 | prometheus-community/prometheus-pushgateway | 3.6.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-pushgateway/3.6.0 --base default |
@@ -97,6 +96,7 @@ generated priority. They are good candidates for a serial live block.
 | grafana/rollout-operator | 0.49.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base no-crds |
 | hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 | hashicorp/terraform | 1.1.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
+| istio/gateway | 1.30.0 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
 
 ## Full Queue
 
