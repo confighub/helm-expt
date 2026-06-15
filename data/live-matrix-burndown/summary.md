@@ -21,25 +21,25 @@ For the cell-level completion count, use
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 102 |
-| Live commands remaining | 150 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 59 |
+| Live commands remaining | 149 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 91 |
 | Watch/blocked/review rows | 50 |
-| Ready-to-run todo rows | 100 |
+| Ready-to-run todo rows | 99 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 91 |
-| `live-parity` | 59 |
+| `live-parity` | 58 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 120 |
+| `todo` | 119 |
 | `watch` | 27 |
 
 ## By Run Readiness
@@ -49,7 +49,7 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 1 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 100 |
+| `ready-to-run` | 99 |
 | `review-target-first` | 24 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| grafana/rollout-operator | 0.49.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base no-crds |
 | hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 | hashicorp/terraform | 1.1.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
 | istio/gateway | 1.30.0 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/contour | 21.1.4 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds |
 | bitnami/elasticsearch | 22.1.6 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default |
 | bitnami/elasticsearch | 22.1.6 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha |
+| bitnami/phpmyadmin | 20.0.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default |
 
 ## Full Queue
 

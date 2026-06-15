@@ -1,0 +1,488 @@
+{
+  "metadata": {
+    "name": "prometheus-parity",
+    "namespace": "argocd",
+    "uid": "e95e7145-285c-445a-9fda-2ee8c37a97d5",
+    "resourceVersion": "3144",
+    "generation": 38,
+    "creationTimestamp": "2026-06-14T21:16:59Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-prometheus-mqe9ydrc-geb-cluster:argoproj.io/Application:argocd/prometheus-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "98015c39-97eb-452c-8e0d-bdad7095e937",
+      "confighub.com/UnitSlug": "prometheus-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T21:16:59Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T21:24:02Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci",
+      "path": "./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "monitoring-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "monitoring",
+        "name": "prometheus-alertmanager",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "monitoring",
+        "name": "prometheus-server",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "monitoring-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "PersistentVolumeClaim",
+        "namespace": "monitoring",
+        "name": "prometheus-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-alertmanager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-alertmanager-headless",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-node-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-pushgateway",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-alertmanager",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-node-exporter",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-pushgateway",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-server",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-node-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "monitoring",
+        "name": "prometheus-kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "monitoring",
+        "name": "prometheus-prometheus-pushgateway",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "monitoring",
+        "name": "prometheus-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "monitoring",
+        "name": "prometheus-alertmanager",
+        "status": "OutOfSync",
+        "health": {
+          "status": "Healthy",
+          "message": "partitioned roll out complete: 1 new pods have been updated..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "prometheus-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "prometheus-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "prometheus-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "prometheus-server",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "OutOfSync",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci",
+          "path": "./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "monitoring-oci"
+        }
+      },
+      "revision": "sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-14T21:17:41Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96",
+        "deployedAt": "2026-06-14T21:17:03Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci",
+          "path": "./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T21:17:01Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T21:23:53Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96",
+          "prune": true,
+          "resources": [
+            {
+              "group": "apps",
+              "kind": "StatefulSet",
+              "name": "prometheus-alertmanager"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci",
+            "path": "./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 6
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "monitoring",
+            "name": "prometheus-alertmanager",
+            "status": "Synced",
+            "message": "statefulset.apps/prometheus-alertmanager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/prometheus/alertmanager:v0.32.1"
+            ]
+          }
+        ],
+        "revision": "sha256:a494dc320d0336c5307662b4e6313cd00fc1d30f63e46cee7db8fa2c21bd9b96",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci",
+          "path": "./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T21:21:24Z",
+      "finishedAt": "2026-06-14T21:21:26Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0",
+        "quay.io/prometheus/alertmanager:v0.32.1",
+        "quay.io/prometheus/node-exporter:v1.11.1",
+        "quay.io/prometheus/prometheus:v3.12.0",
+        "quay.io/prometheus/pushgateway:v1.11.2",
+        "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

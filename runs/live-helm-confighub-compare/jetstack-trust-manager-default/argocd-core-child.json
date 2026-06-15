@@ -1,0 +1,551 @@
+{
+  "metadata": {
+    "name": "trust-manager-parity",
+    "namespace": "argocd",
+    "uid": "65b46a33-80b9-4a8a-b87d-44d203961d31",
+    "resourceVersion": "2079",
+    "generation": 10,
+    "creationTimestamp": "2026-06-15T11:23:05Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-trustmanager-mqf4fet4-c29-cluster:argoproj.io/Application:argocd/trust-manager-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "6b6f0f50-51e9-4474-8134-5b7b575ebc00",
+      "confighub.com/UnitSlug": "trust-manager-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T11:23:05Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T11:30:08Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci",
+      "path": "./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "trust-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "trust-manager-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "bundles.trust.cert-manager.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "trust-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "cert-manager.io",
+        "version": "v1",
+        "kind": "Certificate",
+        "namespace": "default",
+        "name": "trust-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for certificate"
+        }
+      },
+      {
+        "group": "cert-manager.io",
+        "version": "v1",
+        "kind": "Issuer",
+        "namespace": "default",
+        "name": "trust-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Initializing issuer"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "cert-manager",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "trust-manager:leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "cert-manager",
+        "name": "trust-manager",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "trust-manager:leaderelection",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci",
+          "path": "./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:731c85de9b1d291fa17c854db070941d840e1ae11b3fce7d825953be1a381975"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T11:23:06Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:731c85de9b1d291fa17c854db070941d840e1ae11b3fce7d825953be1a381975",
+        "deployedAt": "2026-06-15T11:23:08Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci",
+          "path": "./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T11:23:06Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T11:29:58Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:731c85de9b1d291fa17c854db070941d840e1ae11b3fce7d825953be1a381975",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci",
+            "path": "./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "serviceaccount/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "bundles.trust.cert-manager.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/bundles.trust.cert-manager.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[trust.cert-manager.io] Resources:[bundles] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[trust.cert-manager.io] Resources:[bundles/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[patch] APIGroups:[trust.cert-manager.io] Resources:[bundles/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list create patch watch delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[ events.k8s.io] Resources:[events] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:trust-manager Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "cert-manager",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "trust-manager:leaderelection",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. role.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "trust-manager:leaderelection",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "cert-manager",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:trust-manager Namespace:default}. rolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "trust-manager-metrics",
+            "status": "Synced",
+            "message": "service/trust-manager-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "service/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "deployment.apps/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/jetstack/trust-manager:v0.22.1"
+            ]
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "default-oci",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "cert-manager.io",
+            "version": "v1",
+            "kind": "Certificate",
+            "namespace": "default",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "certificate.cert-manager.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "cert-manager.io",
+            "version": "v1",
+            "kind": "Issuer",
+            "namespace": "default",
+            "name": "trust-manager",
+            "status": "Synced",
+            "message": "issuer.cert-manager.io/trust-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:731c85de9b1d291fa17c854db070941d840e1ae11b3fce7d825953be1a381975",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci",
+          "path": "./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T11:23:06Z",
+      "finishedAt": "2026-06-15T11:23:08Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/jetstack/trust-manager:v0.22.1",
+        "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

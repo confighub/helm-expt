@@ -1,0 +1,24 @@
+Name:               argocd/nginx-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          nginx-oci
+URL:                http://localhost:55379/applications/nginx-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-nginx-mqeeq513-1aex-nginx
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                      STATUS  HEALTH       AGE    MESSAGE                                                   REASON
+Namespace/nginx-oci            Synced               7m51s
+Service/nginx                  Synced  Healthy      7m6s   service/nginx serverside-applied
+ServiceAccount/nginx           Synced               7m6s   serviceaccount/nginx serverside-applied
+Deployment/nginx               Synced  Healthy      7m6s   deployment.apps/nginx serverside-applied
+└─ReplicaSet/nginx-78b966456           Healthy      7m6s
+  └─Pod/nginx-78b966456-x4zv9          Healthy      7m6s
+Ingress/nginx                  Synced  Progressing  7m6s   ingress.networking.k8s.io/nginx serverside-applied
+NetworkPolicy/nginx            Synced               7m6s   networkpolicy.networking.k8s.io/nginx serverside-applied
+PodDisruptionBudget/nginx      Synced  Healthy      7m6s   poddisruptionbudget.policy/nginx serverside-applied       PodDisruptionBudget has SufficientPods

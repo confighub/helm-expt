@@ -1,0 +1,50 @@
+Name:               argocd/prometheus-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          monitoring-oci
+URL:                http://localhost:64684/applications/prometheus-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                            STATUS     HEALTH   AGE   MESSAGE                                                      REASON
+Service/prometheus-kube-state-metrics                                Synced     Healthy  7m8s
+ServiceAccount/prometheus-prometheus-node-exporter                   Synced              7m8s
+ClusterRole/prometheus-kube-state-metrics                            Synced              7m8s
+ConfigMap/prometheus-server                                          Synced              7m8s
+Namespace/monitoring-oci                                             Synced              13m
+Service/prometheus-alertmanager                                      Synced     Healthy  7m8s
+Service/prometheus-server                                            Synced     Healthy  7m8s
+ServiceAccount/prometheus-alertmanager                               Synced              7m8s
+ServiceAccount/prometheus-server                                     Synced              7m8s
+Deployment/prometheus-kube-state-metrics                             Synced     Healthy  7m8s
+└─ReplicaSet/prometheus-kube-state-metrics-68ff7c5cc5                           Healthy  7m8s
+  └─Pod/prometheus-kube-state-metrics-68ff7c5cc5-97w9l                          Healthy  7m8s
+StatefulSet/prometheus-alertmanager                                  OutOfSync  Healthy  7m8s  statefulset.apps/prometheus-alertmanager serverside-applied  partitioned roll out complete: 1 new pods have been updated...
+├─PersistentVolumeClaim/storage-prometheus-alertmanager-0                       Healthy  7m8s
+├─Pod/prometheus-alertmanager-0                                                 Healthy  7m8s
+└─ControllerRevision/prometheus-alertmanager-78c98476f7                                  7m8s
+PersistentVolumeClaim/prometheus-server                              Synced     Healthy  7m8s
+Service/prometheus-alertmanager-headless                             Synced     Healthy  7m8s
+Service/prometheus-prometheus-node-exporter                          Synced     Healthy  7m8s
+ServiceAccount/prometheus-prometheus-pushgateway                     Synced              7m8s
+DaemonSet/prometheus-prometheus-node-exporter                        Synced     Healthy  7m8s
+├─Pod/prometheus-prometheus-node-exporter-wm9kl                                 Healthy  7m8s
+└─ControllerRevision/prometheus-prometheus-node-exporter-5ff96cdcbd                      7m8s
+Deployment/prometheus-prometheus-pushgateway                         Synced     Healthy  7m8s
+└─ReplicaSet/prometheus-prometheus-pushgateway-75b8bf7c77                       Healthy  7m8s
+  └─Pod/prometheus-prometheus-pushgateway-75b8bf7c77-nvc7g                      Healthy  7m8s
+ClusterRole/prometheus-server                                        Synced              7m8s
+ClusterRoleBinding/prometheus-server                                 Synced              7m8s
+ConfigMap/prometheus-alertmanager                                    Synced              7m8s
+Service/prometheus-prometheus-pushgateway                            Synced     Healthy  7m8s
+ServiceAccount/prometheus-kube-state-metrics                         Synced              7m8s
+Deployment/prometheus-server                                         Synced     Healthy  7m8s
+└─ReplicaSet/prometheus-server-6cbdc8ffdf                                       Healthy  7m8s
+  └─Pod/prometheus-server-6cbdc8ffdf-pdr7s                                      Healthy  7m8s
+ClusterRoleBinding/prometheus-kube-state-metrics                     Synced              7m8s
