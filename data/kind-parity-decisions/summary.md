@@ -23,18 +23,18 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-13 non-pass rows: 6 watch, 7 blocked.
+15 non-pass rows: 6 watch, 9 blocked.
 5 are resolved by the **user** (stage a prerequisite or supply
 values); 5 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
+| `target-runtime` | 4 |
 | `capability-profile-diff` | 2 |
 | `model-gap-render` | 2 |
 | `target-prerequisite-crds` | 2 |
 | `target-prerequisite-secret` | 2 |
-| `target-runtime` | 2 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
@@ -43,7 +43,7 @@ readiness review.
 | --- | ---: |
 | `catalog` | 5 |
 | `user` | 5 |
-| `needs runtime review` | 2 |
+| `needs runtime review` | 4 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -57,6 +57,8 @@ readiness review.
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
+| istio/gateway@1.30.0 | controller-default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| istio/gateway@1.30.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
 | kyverno/kyverno-policies@3.8.0 | default | watch | readiness | needs readiness review | watch — objects match, readiness unconfirmed |
 | nats/nack@0.34.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
