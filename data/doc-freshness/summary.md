@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-15 (commit `0d5b5023`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-15 (commit `9f114783`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 172 |
-| Fresh (no linked source newer than the doc) | 13 |
-| **Review-due** | 38 |
+| Fresh (no linked source newer than the doc) | 14 |
+| **Review-due** | 37 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
 ## Review queue
@@ -51,7 +51,6 @@ most recently changed triggers.
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 3 | `data/master-catalog-matrix/matrix.csv (2026-06-15)`<br>`data/master-catalog-matrix/matrix.html (2026-06-15)`<br>`data/master-catalog-matrix/summary.md (2026-06-15)` |
 | [docs/user/verify-it-yourself.md](../../docs/user/verify-it-yourself.md) | user | 2026-06-13 | 3 | `data/live-kind-parity/summary.md (2026-06-15)` |
 | [README.md](../../README.md) | root | 2026-06-13 | 2 | `data/live-helm-confighub-compare/summary.md (2026-06-15)`<br>`data/status-dashboard/summary.md (2026-06-15)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-15)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-14 | 2 | `data/master-catalog-matrix/matrix.html (2026-06-15)`<br>`CATALOG.md (2026-06-15)` |
 | [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-13 | 2 | `data/outcome-coverage/summary.md (2026-06-15)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-15)`<br>`CATALOG.md (2026-06-15)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 2 | `data/live-helm-confighub-compare/summary.md (2026-06-15)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-15)`<br>`data/live-kind-parity/summary.md (2026-06-15)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-13 | 2 | `data/outcome-coverage/summary.md (2026-06-15)` |

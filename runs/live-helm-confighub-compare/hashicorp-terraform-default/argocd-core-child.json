@@ -1,0 +1,364 @@
+{
+  "metadata": {
+    "name": "terraform-parity",
+    "namespace": "argocd",
+    "uid": "7ab50ad3-3327-427f-8c6a-66e33c47cef7",
+    "resourceVersion": "2483",
+    "generation": 11,
+    "creationTimestamp": "2026-06-15T16:03:48Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster:argoproj.io/Application:argocd/terraform-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "44641d7d-389a-4318-a720-0e204523cf6d",
+      "confighub.com/UnitSlug": "terraform-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T16:03:48Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T16:10:50Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci",
+      "path": "./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default-oci",
+        "name": "terraform-terraform-sync-workspace",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "workspaces.app.terraform.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "terraform-terraform-sync-workspace",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 out of 1 new replicas have been updated..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default-oci",
+        "name": "terraform-terraform-sync-workspace",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default-oci",
+        "name": "terraform-terraform-sync-workspace",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci",
+          "path": "./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:e98cd8af9838c0ef27e7dddcada5e4259f2da3175804d4cabcdbb699af34e19d"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T16:03:50Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:e98cd8af9838c0ef27e7dddcada5e4259f2da3175804d4cabcdbb699af34e19d",
+        "deployedAt": "2026-06-15T16:03:51Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci",
+          "path": "./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T16:03:50Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T16:10:41Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:e98cd8af9838c0ef27e7dddcada5e4259f2da3175804d4cabcdbb699af34e19d",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci",
+            "path": "./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default-oci",
+            "name": "terraform-terraform-sync-workspace",
+            "status": "Synced",
+            "message": "serviceaccount/terraform-terraform-sync-workspace serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "workspaces.app.terraform.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/workspaces.app.terraform.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default-oci",
+            "name": "terraform-terraform-sync-workspace",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[*] APIGroups:[] Resources:[pods services services/finalizers endpoints persistentvolumeclaims events configmaps secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[*] APIGroups:[apps] Resources:[deployments daemonsets replicasets statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get create] APIGroups:[monitoring.coreos.com] Resources:[servicemonitors] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[apps] Resources:[deployments/finalizers] ResourceNames:[terraform-k8s] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[*] APIGroups:[app.terraform.io] Resources:[* workspaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default-oci",
+            "name": "terraform-terraform-sync-workspace",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:terraform-terraform-sync-workspace Namespace:default}. rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "terraform-terraform-sync-workspace",
+            "status": "Synced",
+            "message": "deployment.apps/terraform-terraform-sync-workspace serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "hashicorp/terraform-k8s:1.1.2"
+            ]
+          }
+        ],
+        "revision": "sha256:e98cd8af9838c0ef27e7dddcada5e4259f2da3175804d4cabcdbb699af34e19d",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqfe3ps6-1q0z-cluster/oci",
+          "path": "./helm-expt-parity-terraform-mqfe3ps6-1q0z-terraform",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T16:03:50Z",
+      "finishedAt": "2026-06-15T16:03:51Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
