@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: vpa-tls-secret
+    namespace: default
+  type: Opaque
+  stringData:
+    ca: helm-expt-password
+    cert: helm-expt-password
+    key: helm-expt-password
