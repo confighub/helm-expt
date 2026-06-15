@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 914 / 58 / 62 / 189 / 121 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 914 / 58 / 64 / 187 / 121 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -228,8 +228,8 @@ when you want the user/product view with those columns visible.
 | `ingress-nginx/ingress-nginx@4.15.1` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | internal-clusterip | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
-| `istio/gateway@1.30.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
-|  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `istio/gateway@1.30.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
+|  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 | `istio/istiod@1.30.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `jaegertracing/jaeger@4.8.0` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `jaegertracing/jaeger-operator@2.57.0` | default | next80 | `crds;webhooks` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |

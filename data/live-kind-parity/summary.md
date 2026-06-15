@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 113
 watch: 6
-blocked: 7
-semantic parity pass: 121
+blocked: 9
+semantic parity pass: 123
 semantic parity defects: 4
-non-pass rows where semantic parity passed: 8
+non-pass rows where semantic parity passed: 10
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -36,6 +36,7 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
+| target-runtime: pods pending (parity passed) | 2 |
 | blocked: inspect receipt | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
@@ -135,6 +136,8 @@ broader support claim.
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
+| `istio/gateway@1.30.0` | controller-default-reviewed | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-controller-default-reviewed/receipt.yaml |
+| `istio/gateway@1.30.0` | default | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-default/receipt.yaml |
 | `jaegertracing/jaeger@4.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jaegertracing-jaeger-default/receipt.yaml |
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
