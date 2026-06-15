@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 116
-watch: 7
+watch: 8
 blocked: 12
-semantic parity pass: 127
+semantic parity pass: 128
 semantic parity defects: 4
-non-pass rows where semantic parity passed: 11
+non-pass rows where semantic parity passed: 12
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -39,6 +39,7 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
+| helm-runtime: upstream not ready (parity passed) | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
@@ -170,6 +171,7 @@ broader support claim.
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
+| `percona/pxc-operator@1.19.1` | no-crds | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |

@@ -240,6 +240,20 @@
       "receipt": "runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml"
     },
     {
+      "chart": "percona/pxc-operator",
+      "version": "1.19.1",
+      "base": "no-crds",
+      "result": "watch",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "helm-runtime: upstream not ready (parity passed)",
+      "receipt": "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml"
+    },
+    {
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "base": "cluster-metrics-readonly",
