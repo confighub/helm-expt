@@ -1,0 +1,1347 @@
+{
+  "metadata": {
+    "name": "rook-ceph-parity",
+    "namespace": "argocd",
+    "uid": "237c3d4f-e5cf-4d4f-b740-32afce424ec8",
+    "resourceVersion": "3031",
+    "generation": 13,
+    "creationTimestamp": "2026-06-15T05:23:17Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-rookceph-mqera4ya-18v-cluster:argoproj.io/Application:argocd/rook-ceph-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "46d03c56-ce6c-4e9f-abd0-929dca7ef480",
+      "confighub.com/UnitSlug": "rook-ceph-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:23:17Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T05:23:46Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci",
+      "path": "./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "rook-ceph-operator-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-ctrlplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-nodeplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-controller-manager",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-nfs-ctrlplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-nfs-nodeplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-ctrlplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-nodeplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-ctrlplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-nodeplugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "objectstorage-provisioner",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-default",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-nvmeof",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-rgw",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-system",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-csi-cephfs-plugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-csi-cephfs-provisioner-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-csi-rbd-plugin-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-csi-rbd-provisioner-sa",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephblockpoolradosnamespaces.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephblockpools.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephbucketnotifications.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephbuckettopics.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephclients.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephclusters.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephconnections.csi.ceph.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephcosidrivers.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephfilesystemmirrors.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephfilesystems.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephfilesystemsubvolumegroups.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephnfses.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephnvmeofgateways.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephobjectrealms.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephobjectstores.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephobjectstoreusers.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephobjectzonegroups.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephobjectzones.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cephrbdmirrors.ceph.rook.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clientprofilemappings.csi.ceph.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clientprofiles.csi.ceph.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "drivers.csi.ceph.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "objectbucketclaims.objectbucket.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "objectbuckets.objectbucket.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "operatorconfigs.csi.ceph.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "ceph-csi-controller-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "rook-ceph-operator",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-cephconnection-viewer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-cephconnections-editor-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-cephfs-ctrlplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-cephfs-nodeplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-clientprofile-viewer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-clientprofilemapping-editor-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-clientprofilemapping-viewer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-clientprofiles-editor-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-driver-editor-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-driver-viewer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-manager-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-metrics-auth-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-metrics-reader",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nfs-ctrlplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nfs-nodeplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nvmeof-ctrlplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-nvmeof-nodeplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-operatorconfig-editor-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-operatorconfig-viewer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-rbd-ctrlplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ceph-csi-rbd-nodeplugin-cr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cephfs-csi-nodeplugin",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cephfs-external-provisioner-runner",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "objectstorage-provisioner-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rbd-csi-nodeplugin",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rbd-external-provisioner-runner",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-cluster-mgmt",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-global",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-mgr-cluster",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-mgr-system",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-object-bucket",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "rook-ceph-system",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-cephfs-ctrlplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-cephfs-nodeplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-manager-rolebinding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-metrics-auth-rolebinding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-nfs-ctrlplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-nfs-nodeplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-nvmeof-ctrlplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-nvmeof-nodeplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-rbd-ctrlplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ceph-csi-rbd-nodeplugin-crb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cephfs-csi-nodeplugin-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cephfs-csi-provisioner-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "objectstorage-provisioner-role-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rbd-csi-nodeplugin",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rbd-csi-provisioner-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-global",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-mgr-cluster",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-object-bucket",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-system",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-ctrlplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-nodeplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-leader-election-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-ctrlplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-nodeplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-ctrlplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-nodeplugin-r",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "cephfs-external-provisioner-cfg",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rbd-external-provisioner-cfg",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-system",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-ctrlplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-cephfs-nodeplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-leader-election-rolebinding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-ctrlplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-nvmeof-nodeplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-ctrlplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ceph-csi-rbd-nodeplugin-rb",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "cephfs-csi-provisioner-role-cfg",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rbd-csi-provisioner-role-cfg",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-cluster-mgmt",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-mgr-system",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-system",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci",
+          "path": "./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:1f0dafa290ab8be3c557e384278490012b2a7e843ed7c15cf48e319a580d5077"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T05:23:31Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:1f0dafa290ab8be3c557e384278490012b2a7e843ed7c15cf48e319a580d5077",
+        "deployedAt": "2026-06-15T05:23:23Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci",
+          "path": "./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T05:23:20Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T05:23:36Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:1f0dafa290ab8be3c557e384278490012b2a7e843ed7c15cf48e319a580d5077",
+          "prune": true,
+          "resources": [
+            {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "name": "drivers.csi.ceph.io"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci",
+            "path": "./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 1
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "drivers.csi.ceph.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/drivers.csi.ceph.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:1f0dafa290ab8be3c557e384278490012b2a7e843ed7c15cf48e319a580d5077",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci",
+          "path": "./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T05:23:27Z",
+      "finishedAt": "2026-06-15T05:23:29Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/rook/ceph:v1.19.5",
+        "quay.io/cephcsi/ceph-csi-operator:v0.6.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-rookceph-mqera4ya-18v-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:60050/applications/helm-expt-parity-rookceph-mqera4ya-18v-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-rookceph-mqera4ya-18v-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                   STATUS  HEALTH  AGE  MESSAGE                                                                                    REASON
+Application/helm-expt-parity-rookceph-mqera4ya-18v-cluster  Synced          11m  application.argoproj.io/helm-expt-parity-rookceph-mqera4ya-18v-cluster serverside-applied
+Application/rook-ceph-parity                                Synced          67s  application.argoproj.io/rook-ceph-parity serverside-applied

@@ -1,0 +1,154 @@
+Name:               argocd/rook-ceph-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:59928/applications/rook-ceph-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                            STATUS  HEALTH   AGE    MESSAGE  REASON
+ServiceAccount/ceph-csi-nvmeof-ctrlplugin-sa                         Synced           8m56s
+ServiceAccount/rook-ceph-nvmeof                                      Synced           8m56s
+ClusterRole/ceph-csi-clientprofilemapping-viewer-role                Synced           34s
+ClusterRole/ceph-csi-operatorconfig-editor-role                      Synced           34s
+ClusterRole/rook-ceph-mgr-system                                     Synced           34s
+ServiceAccount/ceph-csi-cephfs-nodeplugin-sa                         Synced           8m56s
+CustomResourceDefinition/objectbucketclaims.objectbucket.io          Synced  Healthy  35s             CRD is healthy
+ClusterRole/cephfs-external-provisioner-runner                       Synced           34s
+RoleBinding/ceph-csi-nvmeof-ctrlplugin-rb                            Synced           8m56s
+ServiceAccount/rook-csi-rbd-provisioner-sa                           Synced           8m56s
+CustomResourceDefinition/cephblockpoolradosnamespaces.ceph.rook.io   Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/cephfilesystemmirrors.ceph.rook.io          Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-driver-editor-role                              Synced           34s
+ClusterRole/ceph-csi-metrics-auth-role                               Synced           34s
+RoleBinding/rook-ceph-cluster-mgmt                                   Synced           8m56s
+ServiceAccount/ceph-csi-cephfs-ctrlplugin-sa                         Synced           8m56s
+Role/rbd-external-provisioner-cfg                                    Synced           8m56s
+Namespace/default-oci                                                Synced           8m7s
+ServiceAccount/ceph-csi-nfs-nodeplugin-sa                            Synced           8m56s
+CustomResourceDefinition/cephbucketnotifications.ceph.rook.io        Synced  Healthy  35s             CRD is healthy
+ClusterRole/cephfs-csi-nodeplugin                                    Synced           34s
+Role/cephfs-external-provisioner-cfg                                 Synced           8m56s
+ServiceAccount/rook-ceph-cmd-reporter                                Synced           8m56s
+ClusterRole/ceph-csi-driver-viewer-role                              Synced           34s
+ClusterRole/rook-ceph-system                                         Synced           34s
+RoleBinding/ceph-csi-cephfs-ctrlplugin-rb                            Synced           8m56s
+RoleBinding/ceph-csi-rbd-nodeplugin-rb                               Synced           8m56s
+ServiceAccount/ceph-csi-controller-manager                           Synced           8m56s
+ServiceAccount/ceph-csi-rbd-nodeplugin-sa                            Synced           8m56s
+ClusterRole/rbd-csi-nodeplugin                                       Synced           34s
+RoleBinding/cephfs-csi-provisioner-role-cfg                          Synced           8m56s
+ClusterRoleBinding/rook-ceph-global                                  Synced           34s
+Role/ceph-csi-nvmeof-nodeplugin-r                                    Synced           8m56s
+ClusterRole/ceph-csi-metrics-reader                                  Synced           34s
+ClusterRole/objectstorage-provisioner-role                           Synced           34s
+ClusterRoleBinding/rbd-csi-provisioner-role                          Synced           34s
+ServiceAccount/ceph-csi-nfs-ctrlplugin-sa                            Synced           8m56s
+CustomResourceDefinition/cephobjectstores.ceph.rook.io               Synced  Healthy  35s             CRD is healthy
+Role/rook-ceph-purge-osd                                             Synced           8m56s
+RoleBinding/ceph-csi-nvmeof-nodeplugin-rb                            Synced           8m56s
+RoleBinding/rook-ceph-system                                         Synced           8m56s
+ClusterRole/ceph-csi-rbd-nodeplugin-cr                               Synced           34s
+ClusterRoleBinding/objectstorage-provisioner-role-binding            Synced           34s
+Role/rook-ceph-system                                                Synced           8m56s
+ClusterRole/ceph-csi-clientprofilemapping-editor-role                Synced           34s
+ClusterRole/ceph-csi-nvmeof-ctrlplugin-cr                            Synced           34s
+ClusterRole/rook-ceph-osd                                            Synced           34s
+ClusterRoleBinding/ceph-csi-cephfs-nodeplugin-crb                    Synced           34s
+ClusterRoleBinding/rook-ceph-system                                  Synced           34s
+RoleBinding/ceph-csi-leader-election-rolebinding                     Synced           8m56s
+RoleBinding/ceph-csi-rbd-ctrlplugin-rb                               Synced           8m56s
+ClusterRole/ceph-csi-cephconnection-viewer-role                      Synced           34s
+ClusterRole/rbd-external-provisioner-runner                          Synced           34s
+ClusterRoleBinding/ceph-csi-nvmeof-ctrlplugin-crb                    Synced           34s
+ClusterRoleBinding/ceph-csi-manager-rolebinding                      Synced           34s
+ServiceAccount/rook-ceph-osd                                         Synced           8m56s
+ServiceAccount/rook-csi-cephfs-provisioner-sa                        Synced           8m56s
+CustomResourceDefinition/cephblockpools.ceph.rook.io                 Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/cephobjectstoreusers.ceph.rook.io           Synced  Healthy  35s             CRD is healthy
+ClusterRoleBinding/ceph-csi-nfs-ctrlplugin-crb                       Synced           34s
+CustomResourceDefinition/cephfilesystems.ceph.rook.io                Synced  Healthy  35s             CRD is healthy
+Role/ceph-csi-rbd-nodeplugin-r                                       Synced           8m56s
+CustomResourceDefinition/cephnfses.ceph.rook.io                      Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/cephnvmeofgateways.ceph.rook.io             Synced  Healthy  35s             CRD is healthy
+ClusterRoleBinding/ceph-csi-nfs-nodeplugin-crb                       Synced           34s
+ClusterRoleBinding/ceph-csi-rbd-ctrlplugin-crb                       Synced           34s
+ClusterRoleBinding/rook-ceph-object-bucket                           Synced           34s
+Role/ceph-csi-cephfs-ctrlplugin-r                                    Synced           8m56s
+Role/rook-ceph-osd                                                   Synced           8m56s
+CustomResourceDefinition/cephclients.ceph.rook.io                    Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-operatorconfig-viewer-role                      Synced           34s
+ClusterRole/ceph-csi-rbd-ctrlplugin-cr                               Synced           34s
+ClusterRoleBinding/cephfs-csi-nodeplugin-role                        Synced           34s
+RoleBinding/rook-ceph-cmd-reporter                                   Synced           8m56s
+Deployment/ceph-csi-controller-manager                               Synced  Healthy  8m56s
+└─ReplicaSet/ceph-csi-controller-manager-8bcc6877c                           Healthy  8m56s
+  └─Pod/ceph-csi-controller-manager-8bcc6877c-6dqzr                          Healthy  8m56s
+ClusterRole/ceph-csi-nfs-nodeplugin-cr                               Synced           34s
+RoleBinding/ceph-csi-cephfs-nodeplugin-rb                            Synced           8m56s
+ServiceAccount/rook-ceph-purge-osd                                   Synced           8m56s
+CustomResourceDefinition/cephrbdmirrors.ceph.rook.io                 Synced  Healthy  35s             CRD is healthy
+ClusterRole/rook-ceph-mgr-cluster                                    Synced           34s
+ClusterRoleBinding/rook-ceph-osd                                     Synced           34s
+Role/ceph-csi-leader-election-role                                   Synced           8m56s
+ClusterRoleBinding/ceph-csi-metrics-auth-rolebinding                 Synced           34s
+ClusterRole/ceph-csi-clientprofile-viewer-role                       Synced           34s
+Deployment/rook-ceph-operator                                        Synced  Healthy  8m56s
+├─ConfigMap/rook-ceph-csi-config                                                      8m55s
+└─ReplicaSet/rook-ceph-operator-64bb557454                                   Healthy  8m56s
+  └─Pod/rook-ceph-operator-64bb557454-f9d6n                                  Healthy  8m56s
+ServiceAccount/rook-ceph-mgr                                         Synced           8m56s
+ServiceAccount/rook-ceph-system                                      Synced           8m56s
+CustomResourceDefinition/cephcosidrivers.ceph.rook.io                Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/cephobjectzones.ceph.rook.io                Synced  Healthy  35s             CRD is healthy
+Role/ceph-csi-nvmeof-ctrlplugin-r                                    Synced           8m56s
+RoleBinding/rook-ceph-osd                                            Synced           8m56s
+ClusterRole/ceph-csi-cephfs-ctrlplugin-cr                            Synced           34s
+CustomResourceDefinition/cephclusters.ceph.rook.io                   Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/cephobjectzonegroups.ceph.rook.io           Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/clientprofilemappings.csi.ceph.io           Synced  Healthy  35s             CRD is healthy
+ServiceAccount/rook-ceph-default                                     Synced           8m56s
+CustomResourceDefinition/clientprofiles.csi.ceph.io                  Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/drivers.csi.ceph.io                         Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/objectbuckets.objectbucket.io               Synced  Healthy  35s             CRD is healthy
+ClusterRoleBinding/ceph-csi-nvmeof-nodeplugin-crb                    Synced           34s
+ServiceAccount/ceph-csi-nvmeof-nodeplugin-sa                         Synced           8m56s
+ServiceAccount/ceph-csi-rbd-ctrlplugin-sa                            Synced           8m56s
+ServiceAccount/rook-ceph-rgw                                         Synced           8m56s
+CustomResourceDefinition/cephconnections.csi.ceph.io                 Synced  Healthy  35s             CRD is healthy
+CustomResourceDefinition/operatorconfigs.csi.ceph.io                 Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-nfs-ctrlplugin-cr                               Synced           34s
+RoleBinding/rook-ceph-mgr-system                                     Synced           8m56s
+ConfigMap/rook-ceph-operator-config                                  Synced           8m56s
+ServiceAccount/objectstorage-provisioner                             Synced           8m56s
+CustomResourceDefinition/cephobjectrealms.ceph.rook.io               Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-cephfs-nodeplugin-cr                            Synced           34s
+CustomResourceDefinition/cephbuckettopics.ceph.rook.io               Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-nvmeof-nodeplugin-cr                            Synced           34s
+RoleBinding/rbd-csi-provisioner-role-cfg                             Synced           8m56s
+ServiceAccount/rook-csi-rbd-plugin-sa                                Synced           8m56s
+ClusterRole/rook-ceph-global                                         Synced           34s
+ClusterRoleBinding/ceph-csi-rbd-nodeplugin-crb                       Synced           34s
+RoleBinding/rook-ceph-mgr                                            Synced           8m56s
+ServiceAccount/rook-csi-cephfs-plugin-sa                             Synced           8m56s
+ClusterRole/rook-ceph-cluster-mgmt                                   Synced           34s
+ClusterRoleBinding/cephfs-csi-provisioner-role                       Synced           34s
+Role/rook-ceph-cmd-reporter                                          Synced           8m56s
+CustomResourceDefinition/cephfilesystemsubvolumegroups.ceph.rook.io  Synced  Healthy  35s             CRD is healthy
+ClusterRole/ceph-csi-clientprofiles-editor-role                      Synced           34s
+ClusterRole/ceph-csi-manager-role                                    Synced           34s
+ClusterRoleBinding/ceph-csi-cephfs-ctrlplugin-crb                    Synced           34s
+ClusterRoleBinding/rook-ceph-mgr-cluster                             Synced           34s
+Role/rook-ceph-mgr                                                   Synced           8m56s
+ClusterRole/ceph-csi-cephconnections-editor-role                     Synced           34s
+ClusterRole/rook-ceph-object-bucket                                  Synced           34s
+ClusterRoleBinding/rbd-csi-nodeplugin                                Synced           34s
+Role/ceph-csi-cephfs-nodeplugin-r                                    Synced           8m56s
+RoleBinding/rook-ceph-purge-osd                                      Synced           8m56s
+Role/ceph-csi-rbd-ctrlplugin-r                                       Synced           8m56s

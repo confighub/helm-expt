@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 125
+pass: 126
 watch: 17
 blocked: 1
 not-started: 0
@@ -156,6 +156,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `prometheus-community/prometheus-node-exporter@4.55.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-default/receipt.yaml |
 |  | `prometheus-community/prometheus-operator-crds@29.0.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/receipt.yaml |
 |  | `prometheus-community/prometheus-pushgateway@3.6.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/receipt.yaml |
+|  | `rook-release/rook-ceph@v1.19.5` | default | pass | - | runs/live-helm-confighub-compare/rook-release-rook-ceph-default/receipt.yaml |
 |  | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml |
 |  | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | - | runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/receipt.yaml |
 |  | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml |

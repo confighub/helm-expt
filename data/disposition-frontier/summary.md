@@ -19,15 +19,15 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1152
-recorded disposition:       816  (70.8%)
-+ derived blocked:          145
-= verified disposition:     961  (83.4%)
-genuine todo (named next):  191
+recorded disposition:       936  (81.3%)
++ derived blocked:          131
+= verified disposition:     1067  (92.6%)
+genuine todo (named next):  85
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 191 cells are not yet a
-non-todo verified disposition (16.6% of cells).
+**Distance to 99%:** 85 cells are not yet a
+non-todo verified disposition (7.4% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -37,8 +37,8 @@ Every one carries a named next action below — none is a silent gap.
 | R render_parity | 192 | 192 | 0 | 0 |
 | C in_confighub | 192 | 190 | 2 | 0 |
 | L local_live | 192 | 192 | 0 | 0 |
-| G gitops_oci_live | 192 | 134 | 58 | 0 |
-| P live_helm_vs_confighub_parity | 192 | 134 | 58 | 0 |
+| G gitops_oci_live | 192 | 187 | 5 | 0 |
+| P live_helm_vs_confighub_parity | 192 | 187 | 5 | 0 |
 | K two_cluster_kind_parity | 192 | 119 | 73 | 0 |
 
 ## The work to 99%, by next action
@@ -48,8 +48,8 @@ Each genuine `todo` cell, grouped by what closes it.
 | Cells | Next action |
 | --- | --- |
 | 73 | run the two-cluster kind parity lane |
-| 58 | run the ConfigHub OCI/Argo live lane |
-| 58 | run scripts/run-top20-live-parity.mjs for this row |
+| 5 | run the ConfigHub OCI/Argo live lane |
+| 5 | run scripts/run-top20-live-parity.mjs for this row |
 | 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-adapter@5.3.0 apiservice-v1-capability (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus@29.9.0 server-only-ephemeral (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 
