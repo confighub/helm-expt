@@ -1,0 +1,26 @@
+Name:               argocd/kubernetes-ingress-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:50252/applications/kubernetes-ingress-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                    STATUS  HEALTH   AGE  MESSAGE                                                REASON
+ClusterRoleBinding/kubernetes-ingress        Synced           27s
+ConfigMap/kubernetes-ingress                 Synced           96s  configmap/kubernetes-ingress serverside-applied
+Namespace/default-oci                        Synced           70s
+Service/kubernetes-ingress                   Synced  Healthy  96s  service/kubernetes-ingress serverside-applied
+ServiceAccount/kubernetes-ingress            Synced           96s  serviceaccount/kubernetes-ingress serverside-applied
+Deployment/kubernetes-ingress                Synced  Healthy  96s  deployment.apps/kubernetes-ingress serverside-applied
+└─ReplicaSet/kubernetes-ingress-796844dd4c           Healthy  96s
+  ├─Pod/kubernetes-ingress-796844dd4c-9x6q2          Healthy  96s
+  └─Pod/kubernetes-ingress-796844dd4c-dzv44          Healthy  96s
+IngressClass/haproxy                         Synced           27s
+ClusterRole/kubernetes-ingress               Synced           27s
