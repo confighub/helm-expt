@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 101
 watch: 5
-blocked: 2
+blocked: 3
 semantic parity pass: 106
-semantic parity defects: 1
+semantic parity defects: 2
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,8 +32,8 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
+| parity: semantic object diff | 2 |
 | blocked: inspect receipt | 1 |
-| parity: semantic object diff | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
 | target-prerequisite: required Secret missing (parity passed) | 1 |
@@ -82,6 +82,7 @@ broader support claim.
 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml |
 | `bitnami/nginx@24.0.2` | http-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml |
 | `bitnami/opensearch@2.0.10` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml |
+| `bitnami/opensearch@2.0.10` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml |
 | `bitnami/postgresql@18.6.7` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml |
 | `bitnami/postgresql@18.6.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml |
