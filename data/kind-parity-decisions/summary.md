@@ -23,15 +23,15 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-21 non-pass rows: 9 watch, 12 blocked.
-7 are resolved by the **user** (stage a prerequisite or supply
+22 non-pass rows: 9 watch, 13 blocked.
+8 are resolved by the **user** (stage a prerequisite or supply
 values); 6 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
 | `target-runtime` | 7 |
-| `target-prerequisite-crds` | 4 |
+| `target-prerequisite-crds` | 5 |
 | `model-gap-render` | 3 |
 | `capability-profile-diff` | 2 |
 | `target-prerequisite-secret` | 2 |
@@ -41,8 +41,8 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `user` | 8 |
 | `needs runtime review` | 7 |
-| `user` | 7 |
 | `catalog` | 6 |
 | `needs readiness review` | 1 |
 
@@ -71,6 +71,7 @@ readiness review.
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | velero/velero@12.0.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
+| velero/velero@12.0.1 | no-crds | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 
 ## How To Read One Decision
 

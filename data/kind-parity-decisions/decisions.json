@@ -308,6 +308,20 @@
       "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
       "reason": "manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io \"default\" is invalid: [spec.credential: Invalid value: \"null\": spec.credential in body must be of type object: \"null\", spec.provider: Invalid value: \"null\": spec.provider in body must be of type string: \"null\"]\nError from server (Invalid): VolumeSnapshotLocation.velero.io \"default\" is invalid: [spec.credential: Invalid value: \"null\": spec.credential in body must be of type object: \"null\", spec.provider: Invalid value: \"null\": spec.provider in body must be of type string: \"null\"]",
       "receipt": "runs/live-kind-parity/velero-velero-default/receipt.yaml"
+    },
+    {
+      "chart": "velero/velero",
+      "version": "12.0.1",
+      "base": "no-crds",
+      "result": "blocked",
+      "semantic_parity": "unknown",
+      "residue_category": "target-prerequisite-crds",
+      "blocker_owner": "user",
+      "usable_today": "yes, after staging CRDs",
+      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
+      "reason": "target-prerequisite: CRDs missing",
+      "receipt": "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"
     }
   ]
 }
