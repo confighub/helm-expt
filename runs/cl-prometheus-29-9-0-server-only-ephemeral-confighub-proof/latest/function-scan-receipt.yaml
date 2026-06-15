@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "cl-prometheus-29-9-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof"
+    selector: "Labels.Proof = 'cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.9.0"
+    packagePath: "packages/prometheus-community/prometheus/29.9.0"
+    variant: "server-only-ephemeral"
+    configHubUnitCount: 7
+  unitRevisionBindings:
+    -
+      slug: "deployment-monitoring-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "a2ebec213783c2d9cf3d39f7ddbf35ccbb92d4370474aa387eb260337c3f2e7f"
+    -
+      slug: "namespace-monitoring"
+      headRevisionNum: 1
+      dataHash: "8d1ab1f117e5da9a9a48cf3e7d437fbdf4f856188e15ec51287cb4fa0b0f3962"
+    -
+      slug: "clusterrole-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "752e8b09802d4d17e6a85bd2b5617ddbbfe682f159f80ab999945b705a16dddf"
+    -
+      slug: "clusterrolebinding-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "0e115a5499b4eaf2dc944959362fdf31170efffea675ea61383619f1c73c7a82"
+    -
+      slug: "configmap-monitoring-prometheus-server"
+      headRevisionNum: 1
+      dataHash: "c2c99e5d96006f5599905cf6711e75463964c83c0c63afab89de3118604dea5e"
+    -
+      slug: "service-monitoring-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "8540b335b39442e6f8a66f24979194607a57ff74e724f22f4bd5bb3d50b59fc1"
+    -
+      slug: "serviceaccount-monitoring-prometheus-server"
+      headRevisionNum: 1
+      dataHash: "c6c41e276de8e40b130248188e45a1e671f066eeb44ba180cdf9a98fc21a5c29"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 7
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

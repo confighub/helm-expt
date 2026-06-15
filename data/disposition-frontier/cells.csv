@@ -966,7 +966,7 @@ prometheus-community/kube-state-metrics@7.4.0,default,gitops_oci_live,G,pass,pas
 prometheus-community/kube-state-metrics@7.4.0,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 prometheus-community/kube-state-metrics@7.4.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-adapter@5.3.0 apiservice-v1-capability (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/prometheus-adapter@5.3.0,apiservice-v1-capability,live_helm_vs_confighub_parity,P,pass,pass,no,,,
@@ -1038,7 +1038,7 @@ prometheus-community/prometheus@29.9.0,default,gitops_oci_live,G,watch,watch,no,
 prometheus-community/prometheus@29.9.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 prometheus-community/prometheus@29.9.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 prometheus-community/prometheus@29.9.0,server-only-ephemeral,render_parity,R,pass,pass,no,,,
-prometheus-community/prometheus@29.9.0,server-only-ephemeral,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus@29.9.0 server-only-ephemeral (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus@29.9.0,server-only-ephemeral,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,server-only-ephemeral,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,server-only-ephemeral,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,server-only-ephemeral,live_helm_vs_confighub_parity,P,pass,pass,no,,,
