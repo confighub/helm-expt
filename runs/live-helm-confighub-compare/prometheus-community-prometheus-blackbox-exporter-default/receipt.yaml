@@ -1,0 +1,1013 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-blackbox-exporter-11.10.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus-blackbox-exporter
+  version: 11.10.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T04:22:21Z'
+  package:
+    path: packages/prometheus-community/prometheus-blackbox-exporter/11.10.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0
+  variantRevision: recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4
+    kubeContext: kind-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4"...
+
+        Deleting cluster "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4" ...
+
+        Deleted nodes: ["helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-control-plane"]
+
+        Deleting Space "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus-blackbox-exporter prometheus-blackbox-exporter
+        --repo https://prometheus-community.github.io/helm-charts --version 11.10.0
+        --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c
+      objectCount: 4
+      liveHelmManifestSHA256: 35ef4d0266322913832bb81c5c3b68836f9eea86ce585020b62c102185d04eb1
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/prometheus-blackbox-exporter   1/1   1     1     13s
+        pods: prometheus-blackbox-exporter-79775bd59c-p4thr   1/1   Running   0     13s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-blackbox-exporter/11.10.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: adeb777163718f7f23f5bffa99100bbd0738e18eeba73ac4cfe434a9229b49d5
+      objectCount: 5
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/prometheus-blackbox-exporter   1/1   1     1     10s'
+        pods: '# default
+
+          prometheus-blackbox-exporter-79775bd59c-tkvjb   1/1   Running   0     10s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|prometheus-blackbox-exporter
+          - v1|ConfigMap|default|prometheus-blackbox-exporter
+          - v1|ServiceAccount|default|prometheus-blackbox-exporter
+          - v1|Service|default|prometheus-blackbox-exporter
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      controller: Argo CD OCI
+      app: prometheus-blackbox-exporter-parity
+      manifestSHA256: cd6b54e46b805f56db40c028e572d2277a31ce56a75690971fdffb0d5340cdb1
+      objectCount: 5
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci
+              targetRevision: latest
+          revision: sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:24:34Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/prometheus/blackbox-exporter:v0.28.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:24:34Z'
+          finishedAt: '2026-06-15T04:24:35Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 5
+          syncResultStatusCounts:
+            Synced: 5
+        history:
+        - id: 0
+          revision: sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+          deployedAt: '2026-06-15T04:24:35Z'
+          deployStartedAt: '2026-06-15T04:24:34Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: prometheus-blackbox-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: prometheus-blackbox-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: prometheus-blackbox-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: prometheus-blackbox-exporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         prometheus-blackbox-exporter-parity\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster:argoproj.io/Application:argocd/prometheus-blackbox-exporter-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 34b258f2-70ab-41fd-93c8-c8e91ba22cc1\n              confighub.com/UnitSlug:\
+              \ prometheus-blackbox-exporter-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T04:24:32Z\n\
+              \  Generation:          8\n  Resource Version:    1043\n  UID:     \
+              \            8c91f616-00d2-4490-9136-a2945ba0be4e\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T04:24:34Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T04:24:34Z\n    Deployed At:        2026-06-15T04:24:35Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:24:35Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T04:24:34Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/prometheus-blackbox-exporter serverside-applied\n\
+              \        Name:        prometheus-blackbox-exporter\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/prometheus-blackbox-exporter\
+              \ serverside-applied\n        Name:        prometheus-blackbox-exporter\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        Service\n      \
+              \  Message:     service/prometheus-blackbox-exporter serverside-applied\n\
+              \        Name:        prometheus-blackbox-exporter\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          quay.io/prometheus/blackbox-exporter:v0.28.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/prometheus-blackbox-exporter\
+              \ serverside-applied\n        Name:        prometheus-blackbox-exporter\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n      Revision:      sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \      Source:\n        Path:              ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T04:24:37Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       prometheus-blackbox-exporter\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       prometheus-blackbox-exporter\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Kind:       ServiceAccount\n    Name:       prometheus-blackbox-exporter\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       Deployment\n    Name:       prometheus-blackbox-exporter\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Images:\n\
+              \      quay.io/prometheus/blackbox-exporter:v0.28.0\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  default-oci\n       \
+              \ Server:     https://kubernetes.default.svc\n      Source:\n      \
+              \  Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \        Target "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                            MESSAGE
+
+              9s          Normal   OperationStarted     application/prometheus-blackbox-exporter-parity   Initiated
+              automated sync to ''sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db''
+
+              8s          Normal   ResourceUpdated      application/prometheus-blackbox-exporter-parity   Updated
+              sync status:  -> OutOfSync
+
+              8s          Normal   ResourceUpdated      application/prometheus-blackbox-exporter-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/prometheus-blackbox-exporter-parity   Sync
+              operation to sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+              succeeded
+
+              5s          Normal   ResourceUpdated      application/prometheus-blackbox-exporter-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 5
+              artifact:
+                path: argocd-core-child.json
+                sha256: e8f517398a812d2e3c06ef914c55cc0a8835f99d1373eb93bc839901a3a0795c
+                bytes: 10800
+              output: "{\n  \"metadata\": {\n    \"name\": \"prometheus-blackbox-exporter-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"8c91f616-00d2-4490-9136-a2945ba0be4e\"\
+                ,\n    \"resourceVersion\": \"1060\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T04:24:32Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster:argoproj.io/Application:argocd/prometheus-blackbox-exporter-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"34b258f2-70ab-41fd-93c8-c8e91ba22cc1\",\n      \"confighub.com/UnitSlug\"\
+                : \"prometheus-blackbox-exporter-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:24:32Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T04:24:50Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"prometheus-blackbox-exporter\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"prometheus-blackbox-exporter\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"prometheus-blackbox-exporter\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"prometheus-blackbox-exporter\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      }\n    ],\n    \"sync\"\
+                : {\n      \"status\": \"Synced\",\n      \"comparedTo\": {\n    \
+                \    \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-par"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: c8c948133b41dd9bb2707d8876d3efc34ab46e57604a87be76bd867ef47dc95f
+                bytes: 1603
+              output: "Name:               argocd/prometheus-blackbox-exporter-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:56359/applications/prometheus-blackbox-exporter-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \     STATUS  HEALTH   AGE  MESSAGE                              \
+                \                            REASON\nConfigMap/prometheus-blackbox-exporter\
+                \                 Synced           81s  configmap/prometheus-blackbox-exporter\
+                \ serverside-applied        \nNamespace/default-oci              \
+                \                    Synced           66s                        \
+                \                                           \nService/prometheus-blackbox-exporter\
+                \                   Synced  Healthy  81s  service/prometheus-blackbox-exporter\
+                \ serverside-applied          \nServiceAccount/prometheus-blackbox-exporter\
+                \            Synced           81s  serviceaccount/prometheus-blackbox-exporter\
+                \ serverside-applied   \nDeployment/prometheus-blackbox-exporter \
+                \               Synced  Healthy  81s  deployment.apps/prometheus-blackbox-exporter\
+                \ serverside-applied  \n\u2514\u2500ReplicaSet/prometheus-blackbox-exporter-79775bd59c\
+                \           Healthy  81s                                         \
+                \                          \n  \u2514\u2500Pod/prometheus-blackbox-exporter-79775bd59c-tkvjb\
+                \          Healthy  81s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-blackbox-exporter-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/prometheus-blackbox-exporter-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n  \
+              \    \"lastAttemptedRevision\": \"sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-blackbox-exporter-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci
+              targetRevision: latest
+          revision: sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:23:31Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:24:30Z'
+          finishedAt: '2026-06-15T04:24:32Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+          deployedAt: '2026-06-15T04:24:32Z'
+          deployStartedAt: '2026-06-15T04:24:30Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: prometheus-blackbox-exporter-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T04:23:18Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1018\n  UID:         \
+              \      9e1483ef-df14-4ef4-99c8-cb05fde1512c\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T04:23:31Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T04:24:30Z\n\
+              \    Deployed At:        2026-06-15T04:24:32Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \    Source:\n      Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:24:32Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \        Source:\n          Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T04:24:30Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/prometheus-blackbox-exporter-parity\
+              \ serverside-applied\n        Name:        prometheus-blackbox-exporter-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \      Source:\n        Path:              ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T04:24:32Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       prometheus-blackbox-exporter-parity\n    Namespace:  argocd\n\
+              \    Status:     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n\
+              \  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n\
+              \      Destination:\n        Namespace:  argocd\n        Server:   \
+              \  https://kubernetes.default.svc\n      Source:\n        Path:    \
+              \         ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     90s   argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     90s   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  31s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db'\n\
+              \  Normal  ResourceUpdated     31s   argocd-application-controller \
+              \ Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s   argocd-application-controller  Sync operation to sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\
+              \ succeeded\n  Normal  ResourceUpdated     28s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
+
+              90s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Updated
+              sync status:  -> Unknown
+
+              90s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Updated
+              health status:  -> Healthy
+
+              31s         Normal   OperationStarted     application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Initiated
+              automated sync to ''sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db''
+
+              31s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Sync
+              operation to sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db
+              succeeded
+
+              28s         Normal   ResourceUpdated      application/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: aa8f4ac55e448a67d09996aa27fe9fdb72cbbdbac6e9dfcb67adc9e73f961661
+                bytes: 10897
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"9e1483ef-df14-4ef4-99c8-cb05fde1512c\"\
+                ,\n    \"resourceVersion\": \"1096\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T04:23:18Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\\\"\
+                ,\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:23:18Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T04:25:15Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \ "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 0785ea5dd8461d43127d3329992177cd1a1fea96ddbb6082082441620d5dc7a7
+                bytes: 1247
+              output: "Name:               argocd/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:56475/applications/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                     STATUS  HEALTH  AGE   MESSAGE              \
+                \                                                                \
+                \                 REASON\nApplication/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\
+                \  Synced          2m5s  application.argoproj.io/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\
+                \ serverside-applied  \nApplication/prometheus-blackbox-exporter-parity\
+                \                        Synced          51s   application.argoproj.io/prometheus-blackbox-exporter-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              prometheus-blackbox-exporter-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/prometheus-blackbox-exporter-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n  \
+              \    \"lastAttemptedRevision\": \"sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"prometheus-blackbox-exporter-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/prometheus-blackbox-exporter   1/1   1     1     103s'
+        pods: '# default
+
+          prometheus-blackbox-exporter-79775bd59c-tkvjb   1/1   Running   0     104s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T04:23:18Z'
+    finishedAt: '2026-06-15T04:23:33Z'
+    elapsedSeconds: 14.995
+    timeoutSeconds: 900
+    command: helm upgrade --install prometheus-blackbox-exporter prometheus-blackbox-exporter
+      --repo https://prometheus-community.github.io/helm-charts --version 11.10.0
+      --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T04:23:39Z'
+    finishedAt: '2026-06-15T04:23:39Z'
+    elapsedSeconds: 0.426
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-blackbox-exporter/11.10.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T04:23:40Z'
+    finishedAt: '2026-06-15T04:23:40Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4.kubeconfig
+      --context kind-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/direct-apply-manifest.yaml
+    objectCount: 4
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T04:23:40Z'
+    finishedAt: '2026-06-15T04:23:50Z'
+    elapsedSeconds: 10.223
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T04:23:55Z'
+    finishedAt: '2026-06-15T04:23:55Z'
+    elapsedSeconds: 0.256
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-blackbox-exporter/11.10.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T04:23:55Z'
+    finishedAt: '2026-06-15T04:24:15Z'
+    elapsedSeconds: 19.125
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      --space helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      --target helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci
+    objectCount: 5
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T04:24:15Z'
+    finishedAt: '2026-06-15T04:24:15Z'
+    elapsedSeconds: 0.533
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T04:24:15Z'
+    finishedAt: '2026-06-15T04:24:20Z'
+    elapsedSeconds: 4.525
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-prometheus-blackbox-exporter
+      --unit <5 unit(s)> --wait --timeout 5m
+    unitCount: 5
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T04:24:20Z'
+    finishedAt: '2026-06-15T04:24:21Z'
+    elapsedSeconds: 0.931
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster
+      prometheus-blackbox-exporter-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/argo-application.json
+      --target helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T04:24:21Z'
+    finishedAt: '2026-06-15T04:24:22Z'
+    elapsedSeconds: 1.025
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T04:24:22Z'
+    finishedAt: '2026-06-15T04:24:42Z'
+    elapsedSeconds: 20.13
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T04:25:23Z'
+    finishedAt: '2026-06-15T04:25:24Z'
+    elapsedSeconds: 0.108
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus-blackbox-exporter\" does not exist. Installing it\
+      \ now.\nNAME: prometheus-blackbox-exporter\nLAST DEPLOYED: Mon Jun 15 05:23:21\
+      \ 2026\nNAMESPACE: default-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION:\
+      \ Install complete\nTEST SUITE: None\nNOTES:\nSee https://github.com/prometheus/blackbox_exporter/\
+      \ for how to configure Prometheus and the Blackbox Exporter.\n\n1. Get the application\
+      \ URL by running these commands:\n  export POD_NAME=$(kubectl get pods --namespace\
+      \ default-helm -l \"app.kubernetes.io/name=prometheus-blackbox-exporter,app.kubernetes.io/instance=prometheus-blackbox-exporter\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  export CONTAINER_PORT=$(kubectl\
+      \ get pod --namespace default-helm $POD_NAME -o jsonpath=\"{.spec.containers[0].ports[0].containerPort}\"\
+      )\n  echo \"Visit http://127.0.0.1:8080 to use your application\"\n  kubectl\
+      \ --namespace default-helm port-forward $POD_NAME 8080:$CONTAINER_PORT"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/prometheus-blackbox-exporter   1/1   1     1     10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
