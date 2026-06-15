@@ -10,16 +10,16 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 39
+rows: 40
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 9
-watch: 30
+watch: 31
 configHub-oci-live-comparison: 28
-two-cluster-kind-parity: 11
+two-cluster-kind-parity: 12
 semantic-parity-defects: 4
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 4
+prerequisite-or-lifecycle-rows: 5
 runtime-or-watch-rows: 29
 ```
 
@@ -66,6 +66,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `elastic/filebeat@8.5.1` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `percona/pg-operator@3.0.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | Rerun once on a clean pair of vanilla kind clusters; if object parity remains clean, decide whether readiness should stay watch. | Do not change chart artifacts unless semantic parity or object readiness shows a real difference. |
 | `nats/surveyor@0.20.9` | default | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
@@ -76,7 +77,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 28 | 0 | 26 | 2 | 0 |
-| two-cluster-kind-parity | 11 | 0 | 4 | 7 | 0 |
+| two-cluster-kind-parity | 12 | 0 | 5 | 7 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -105,7 +106,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 15 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| stage-prerequisite | 5 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -122,7 +123,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 4 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 29 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -195,6 +196,7 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `elastic/filebeat@8.5.1` | default | blocked | target-prerequisite: required Secret missing (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `percona/pg-operator@3.0.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | default | watch | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `kyverno/kyverno-policies@3.8.0` | default | watch | watch: object parity passed; readiness needs review | - | `npm run kind-parity:run -- --chart kyverno/kyverno-policies --version 3.8.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `nats/surveyor@0.20.9` | default | blocked | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default` |

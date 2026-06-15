@@ -97,6 +97,7 @@ nats/surveyor,0.20.9,default,blocked,pass,target-runtime: pod crash loop (parity
 open-telemetry/opentelemetry-operator,0.114.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml
 open-telemetry/opentelemetry-operator,0.114.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml
 percona/pg-operator,3.0.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/percona-pg-operator-default/receipt.yaml
+percona/pg-operator,3.0.0,no-crds,watch,pass,target-prerequisite: CRDs disabled or missing (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml
 percona/psmdb-operator,1.22.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml
 percona/pxc-operator,1.19.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml
 prometheus-community/alertmanager,1.37.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml
