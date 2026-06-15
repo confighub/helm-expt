@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 13
+blocked: 14
 semantic parity pass: 129
-semantic parity defects: 4
+semantic parity defects: 5
 non-pass rows where semantic parity passed: 13
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 4 |
+| parity: semantic object diff | 5 |
 | target-prerequisite: CRDs missing | 3 |
 | blocked: inspect receipt | 2 |
 | helm-runtime: upstream not ready (parity passed) | 2 |
@@ -134,6 +134,7 @@ broader support claim.
 | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
+| `hashicorp/terraform@1.1.2` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | dev-mode | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |

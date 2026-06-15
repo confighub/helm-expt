@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 61 / 68 / 177 / 121 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 61 / 69 / 176 / 121 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -220,7 +220,7 @@ when you want the user/product view with those columns visible.
 | `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `hashicorp/consul@2.0.0` | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-| `hashicorp/terraform@1.1.2` | default | next80 | `crds` | — | — | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `hashicorp/terraform@1.1.2` | default | next80 | `crds` | — | — | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 |  | no-crds | next80 | `crds` | — | — | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `hashicorp/vault@0.32.0` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ❌ |

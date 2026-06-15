@@ -634,7 +634,7 @@ hashicorp/terraform@1.1.2,default,in_confighub,C,pass,pass,no,,,
 hashicorp/terraform@1.1.2,default,local_live,L,blocked,blocked,no,,,
 hashicorp/terraform@1.1.2,default,gitops_oci_live,G,watch,watch,no,,,
 hashicorp/terraform@1.1.2,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-hashicorp/terraform@1.1.2,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+hashicorp/terraform@1.1.2,default,two_cluster_kind_parity,K,blocked,blocked,no,,,
 hashicorp/terraform@1.1.2,no-crds,render_parity,R,pass,pass,no,,,
 hashicorp/terraform@1.1.2,no-crds,in_confighub,C,pass,pass,no,,,
 hashicorp/terraform@1.1.2,no-crds,local_live,L,blocked,blocked,no,,,
