@@ -1533,7 +1533,34 @@ def main() -> int:
         helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
         helm_api_services = wait_api_services(helm_kubeconfig, helm_context, api_service_refs(canonical_helm_manifest), timeout_seconds=wait_seconds)
         helm_runtime["apiServices"] = helm_api_services
-        helm_clean = rc == 0 and get_rc == 0 and helm_operations["result"] == "pass" and helm_api_services["result"] == "pass"
+        helm_render_live_comparison = semantic_compare(
+            canonical_helm_manifest,
+            helm_live_manifest,
+            [],
+            semantic_normalizations,
+        ) if helm_live_manifest else {
+            "result": "blocked",
+            "helmObjectCount": len(object_map(canonical_helm_manifest, semantic_normalizations)),
+            "installerObjectCount": 0,
+            "missingFromInstaller": sorted(object_map(canonical_helm_manifest, semantic_normalizations).keys())[:50],
+            "extraInInstaller": [],
+            "semanticDiffs": [],
+            "semanticNormalizations": semantic_normalizations,
+            "comparisonSHA256": sha256_text("missing-live-helm-manifest"),
+        }
+        receipt["spec"]["semanticComparison"]["regularHelmRenderVsLive"] = helm_render_live_comparison
+        check_item(
+            "regular-helm-render-live-parity",
+            helm_render_live_comparison["result"],
+            f"missing={len(helm_render_live_comparison['missingFromInstaller'])} extra={helm_render_live_comparison['extraInInstaller']} diffs={len(helm_render_live_comparison['semanticDiffs'])}",
+        )
+        helm_clean = (
+            rc == 0
+            and get_rc == 0
+            and helm_operations["result"] == "pass"
+            and helm_api_services["result"] == "pass"
+            and helm_render_live_comparison["result"] == "pass"
+        )
         helm_result = "pass" if helm_clean and helm_runtime["result"] == "pass" else ("watch" if helm_clean and helm_runtime["result"] == "watch" else "blocked")
         leg("regularHelm",
             result=helm_result,
@@ -1608,8 +1635,8 @@ def main() -> int:
                 "; ".join(f"{item['name']} available={item['available']} query={item['queryResult']}" for item in installer_api_services["items"]),
             )
 
-        helm_compare_manifest = helm_live_manifest if helm_required_values and helm_live_manifest else canonical_helm_manifest
-        if helm_required_values and helm_live_manifest:
+        helm_compare_manifest = helm_live_manifest if helm_live_manifest else canonical_helm_manifest
+        if helm_live_manifest:
             write_text(run_root / "regular-helm-compare-manifest.yaml", helm_compare_manifest)
         comparison = semantic_compare(
             helm_compare_manifest,
