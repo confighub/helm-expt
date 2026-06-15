@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 90
+pass: 91
 watch: 3
 blocked: 2
-semantic parity pass: 93
+semantic parity pass: 94
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 0
@@ -114,6 +114,7 @@ broader support claim.
 | `grafana/promtail@6.17.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-promtail-default/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml |
+| `grafana/rollout-operator@0.49.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
