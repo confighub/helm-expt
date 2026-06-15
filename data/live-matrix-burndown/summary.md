@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 154 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 61 |
 | Two-cluster kind parity commands | 93 |
-| Watch/blocked/review rows | 45 |
-| Ready-to-run todo rows | 109 |
+| Watch/blocked/review rows | 46 |
+| Ready-to-run todo rows | 108 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 129 |
-| `watch` | 22 |
+| `todo` | 128 |
+| `watch` | 23 |
 
 ## By Run Readiness
 
@@ -48,8 +48,8 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-receipt-first` | 2 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 109 |
-| `review-target-first` | 19 |
+| `ready-to-run` | 108 |
+| `review-target-first` | 20 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -74,6 +74,7 @@ claim.
 | live-parity | grafana/tempo | 1.24.4 | s3-query-observability | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml](../../recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-tempo-s3-query-observability/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/tempo/1.24.4 --base s3-query-observability |
 | live-parity | hashicorp/consul | 2.0.0 | secure-mesh-existing-secrets | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node |
 | live-parity | hashicorp/vault | 0.32.0 | ha-raft-ui | G=watch;P=watch | operate-policy: Vault init/unseal readiness (parity passed) | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | [runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui |
+| live-parity | jetstack/trust-manager | v0.22.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) |  | [runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml](../../runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 | live-parity | kyverno/kyverno-policies | 3.8.0 | default | G=watch;P=watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml](../../runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
 | live-parity | linkerd/linkerd-crds | 1.8.0 | default | G=watch;P=watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](../../recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml](../../runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/linkerd/linkerd-crds/1.8.0 --base default |
 | live-parity | minio-operator/tenant | 7.1.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](../../recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/minio-operator-tenant-default/receipt.yaml](../../runs/live-helm-confighub-compare/minio-operator-tenant-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default |
@@ -82,7 +83,6 @@ claim.
 | live-parity | traefik/traefik | 40.2.0 | no-crds | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds |
 | kind-parity | autoscaler/cluster-autoscaler | 9.57.0 | default | K=watch | two-cluster kind parity watch row needs review | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/autoscaler/cluster-autoscaler/9.57.0 --base default |
 | kind-parity | fairwinds-stable/vpa | 4.11.0 | default | K=watch | target-runtime: pod crash loop (parity passed) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/fairwinds-stable/vpa/4.11.0 --base default |
-| kind-parity | fairwinds-stable/vpa | 4.11.0 | no-crds | K=watch | target-prerequisite: CRDs disabled or missing (parity passed) | [runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml) | [runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/fairwinds-stable/vpa/4.11.0 --base no-crds |
 
 ## Next Ready Live-Parity Commands
 
@@ -104,13 +104,13 @@ generated priority. They are good candidates for a serial live block.
 | istio/gateway | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds |
-| jetstack/trust-manager | v0.22.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 | jetstack/trust-manager | v0.22.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds |
 | nats/surveyor | 0.20.9 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default |
 | nats/surveyor | 0.20.9 | default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed |
 | open-telemetry/opentelemetry-operator | 0.114.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds |
 | strimzi/strimzi-kafka-operator | 1.0.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds |
 | velero/velero | 12.0.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default |
+| velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
 
 ## Full Queue
 
