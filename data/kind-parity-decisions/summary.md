@@ -23,7 +23,7 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-11 non-pass rows: 5 watch, 6 blocked.
+12 non-pass rows: 5 watch, 7 blocked.
 4 are resolved by the **user** (stage a prerequisite or supply
 values); 5 need **catalog/model** work; the rest need a runtime or
 readiness review.
@@ -33,18 +33,18 @@ readiness review.
 | `capability-profile-diff` | 2 |
 | `model-gap-render` | 2 |
 | `target-prerequisite-secret` | 2 |
+| `target-runtime` | 2 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
 | `target-prerequisite-crds` | 1 |
-| `target-runtime` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog` | 5 |
 | `user` | 4 |
+| `needs runtime review` | 2 |
 | `needs readiness review` | 1 |
-| `needs runtime review` | 1 |
 
 ## Rows
 
@@ -61,6 +61,7 @@ readiness review.
 | kyverno/kyverno-policies@3.8.0 | default | watch | readiness | needs readiness review | watch — objects match, readiness unconfirmed |
 | nats/nack@0.34.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | nats/nats@2.14.0 | ha | blocked | model-gap-render | catalog | no — needs catalog work |
+| nats/surveyor@0.20.9 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 
 ## How To Read One Decision
 

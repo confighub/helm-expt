@@ -1,0 +1,512 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: nats-surveyor-0.20.9-default-kind-parity-20260606
+spec:
+  chart: nats/surveyor
+  version: 0.20.9
+  base: default
+  result: blocked
+  observedAt: '2026-06-15T19:32:49Z'
+  package:
+    path: packages/nats/surveyor/0.20.9
+  recipe:
+    path: recipes/nats/surveyor/0.20.9
+  variantRevision: recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-survey-d489c-1lc1-helm
+    installerCluster: hx-survey-d489c-1lc1-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-survey-d489c-1lc1-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-survey-d489c-1lc1-helm" ...
+
+          Deleted nodes: ["hx-survey-d489c-1lc1-helm-control-plane"]'
+      - cluster: hx-survey-d489c-1lc1-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-survey-d489c-1lc1-installer" ...
+
+          Deleted nodes: ["hx-survey-d489c-1lc1-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 0.20.9 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nats-surveyor-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
+      objectCount: 3
+      liveHelmManifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
+      liveHelmManifestObjectCount: 3
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/surveyor   0/1   1     0     8m'
+        pods: '# default
+
+          surveyor-c4759d87-cj8xg   0/1   CrashLoopBackOff   6 (2m4s ago)   8m'
+        notReady:
+        - namespace: default
+          pod: surveyor-c4759d87-cj8xg
+          ready: 0/1
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: surveyor-c4759d87-cj8xg
+          result: blocked
+          detailHead: "Name:             surveyor-c4759d87-cj8xg\nNamespace:     \
+            \   default\nPriority:         0\nService Account:  surveyor\nNode:  \
+            \           hx-survey-d489c-1lc1-helm-control-plane/192.168.97.2\nStart\
+            \ Time:       Mon, 15 Jun 2026 20:33:40 +0100\nLabels:           app.kubernetes.io/instance=surveyor\n\
+            \                  app.kubernetes.io/managed-by=Helm\n               \
+            \   app.kubernetes.io/name=surveyor\n                  app.kubernetes.io/version=0.9.9\n\
+            \                  helm.sh/chart=surveyor-0.20.9\n                  pod-template-hash=c4759d87\n\
+            Annotations:      <none>\nStatus:           Running\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  ReplicaSet/surveyor-c4759d87\n\
+            Containers:\n  surveyor:\n    Container ID:  containerd://6db388dcb78b1c6057f9e6fbe2b18094204f8b383eafa7581d6728db525a0396\n\
+            \    Image:         natsio/nats-surveyor:0.9.9\n    Image ID:      docker.io/natsio/nats-surveyor@sha256:104a3e938b2311b3773a7e07a2a80c4f252c3b46cf3cc6ef4856f55c3c8705c6\n\
+            \    Port:          7777/TCP (http)\n    Host Port:     0/TCP (http)\n\
+            \    Args:\n      -p\n      7777\n      -s=nats://nats:4222\n      --timeout=3s\n\
+            \      -c=1\n    State:          Waiting\n      Reason:       CrashLoopBackOff\n\
+            \    Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    1\n      Started:      Mon, 15 Jun 2026 20:39:36 +0100\n  \
+            \    Finished:     Mon, 15 Jun 2026 20:39:36 +0100\n    Ready:       \
+            \   False\n    Restart Count:  6\n    Liveness:       http-get http://:http/healthz\
+            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
+            \      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1\
+            \ #failure=3\n    Environment:    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-rjjxr (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-rjjxr:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \      From               Message\n  ----     ------     ----        \
+            \          ----               -------\n  Normal   Scheduled  8m      \
+            \              default-scheduler  Successfully assigned default/surveyor-c4759d87-cj8xg\
+            \ to hx-survey-d489c-1lc1-helm-control-plane\n  Normal   Pulling    7m59s\
+            \                 kubelet            spec.containers{surveyor}: Pulling\
+            \ image \"natsio/nats-surveyor:0.9.9\"\n  Normal   Pulled     7m54s  \
+            \   "
+          detailTail: "28db525a0396\n    Image:         natsio/nats-surveyor:0.9.9\n\
+            \    Image ID:      docker.io/natsio/nats-surveyor@sha256:104a3e938b2311b3773a7e07a2a80c4f252c3b46cf3cc6ef4856f55c3c8705c6\n\
+            \    Port:          7777/TCP (http)\n    Host Port:     0/TCP (http)\n\
+            \    Args:\n      -p\n      7777\n      -s=nats://nats:4222\n      --timeout=3s\n\
+            \      -c=1\n    State:          Waiting\n      Reason:       CrashLoopBackOff\n\
+            \    Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    1\n      Started:      Mon, 15 Jun 2026 20:39:36 +0100\n  \
+            \    Finished:     Mon, 15 Jun 2026 20:39:36 +0100\n    Ready:       \
+            \   False\n    Restart Count:  6\n    Liveness:       http-get http://:http/healthz\
+            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
+            \      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1\
+            \ #failure=3\n    Environment:    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-rjjxr (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-rjjxr:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \      From               Message\n  ----     ------     ----        \
+            \          ----               -------\n  Normal   Scheduled  8m      \
+            \              default-scheduler  Successfully assigned default/surveyor-c4759d87-cj8xg\
+            \ to hx-survey-d489c-1lc1-helm-control-plane\n  Normal   Pulling    7m59s\
+            \                 kubelet            spec.containers{surveyor}: Pulling\
+            \ image \"natsio/nats-surveyor:0.9.9\"\n  Normal   Pulled     7m54s  \
+            \               kubelet            spec.containers{surveyor}: Successfully\
+            \ pulled image \"natsio/nats-surveyor:0.9.9\" in 5.035s (5.035s including\
+            \ waiting). Image size: 15728539 bytes.\n  Normal   Created    2m4s (x7\
+            \ over 7m54s)  kubelet            spec.containers{surveyor}: Container\
+            \ created\n  Normal   Started    2m4s (x7 over 7m54s)  kubelet       \
+            \     spec.containers{surveyor}: Container started\n  Normal   Pulled\
+            \     2m4s (x6 over 7m54s)  kubelet            spec.containers{surveyor}:\
+            \ Container image \"natsio/nats-surveyor:0.9.9\" already present on machine\
+            \ and can be accessed by the pod\n  Warning  BackOff    47s (x22 over\
+            \ 7m53s)  kubelet            spec.containers{surveyor}: Back-off restarting\
+            \ failed container surveyor in pod surveyor-c4759d87-cj8xg_default(d7bc5b32-9082-4efe-bb17-4751680feced)"
+          logsHead: "Error: couldn't start surveyor: dial tcp: lookup nats on 10.96.0.10:53:\
+            \ no such host\nUsage:\n  nats-surveyor [flags]\n\nFlags:\n  -s, --servers\
+            \ string                      NATS Cluster url(s) (NATS_SURVEYOR_SERVERS)\
+            \ (default \"nats://127.0.0.1:4222\")\n  -c, --count int             \
+            \              Expected number of servers (-1 for undefined). (NATS_SURVEYOR_COUNT)\
+            \ (default 1)\n      --timeout duration                    Polling timeout\
+            \ (NATS_SURVEYOR_TIMEOUT) (default 3s)\n      --server-discovery-timeout\
+            \ duration   Maximum wait time between responses from servers during server\
+            \ discovery.\n                                            Use in conjunction\
+            \ with -count=-1. (NATS_SURVEYOR_SERVER_DISCOVERY_TIMEOUT) (default 500ms)\n\
+            \      --creds string                        Credentials File (NATS_SURVEYOR_CREDS)\n\
+            \      --nkey string                         Nkey Seed File (NATS_SURVEYOR_NKEY)\n\
+            \      --jwt string                          User JWT. Use in conjunction\
+            \ with --seed (NATS_SURVEYOR_JWT)\n      --seed string               \
+            \          Private key (nkey seed). Use in conjunction with --jwt (NATS_SURVEYOR_SEED)\n\
+            \      --user string                         NATS user name or token (NATS_SURVEYOR_USER)\n\
+            \      --password string                     NATS user password (NATS_SURVEYOR_PASSWORD)\n\
+            \      --token-file string                   Path to a file with a bearer\
+            \ token (NATS_SURVEYOR_TOKEN_FILE)\n      --tlscert string           \
+            \           Client certificate file for NATS connections. (NATS_SURVEYOR_TLSCERT)\n\
+            \      --tlskey string                       Client private key for NATS\
+            \ connections. (NATS_SURVEYOR_TLSKEY)\n      --tlscacert string      \
+            \              Client certificate CA on NATS connections. (NATS_SURVEYOR_TLSCACERT)\n\
+            \      --tlsfirst                            Whether to use TLS First\
+            \ connections. (NATS_SURVEYOR_TLSFIRST)\n  -p, --port int            \
+            \                Port to listen on. (NATS_SURVEYOR_PORT) (default 7777)\n\
+            \  -a, --addr string                         Network host to listen on.\
+            \ (NATS_SURVEYOR_ADDR) (default \"0.0.0.0\")\n      --http-tlscert string\
+            \                 Server certificate file (Enables HTTPS). (NATS_SURVEYOR_HTTP_TLSCERT)\n\
+            \      --http-tlskey string                  Private key for server certificate\
+            \ (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSKEY)\n      --http-tlscacert\
+            \ string               Client certificate CA for verification (used with\
+            \ HTTPS). (NATS_SURVEYOR_HTTP_TLSCACERT)\n      --http-user string   \
+            \                 Enable basic auth and set user name for HTTP scrapes.\
+            \ (NATS_SURVEYOR_HTTP_USER)\n      --http-pass string                \
+            \    Set the password for HTTP scrapes. NATS bcrypt supported. (NATS_SURVEYOR_HTTP_PASS)\n\
+            \      --prefix string                       Replace the default prefix\
+            \ for all the metrics. (NATS_SURVEYOR_PREFIX)\n      --observe string\
+            \                      Listen for observation statistics based on config\
+            \ files in a directory. (NATS_SURVEYOR_OBSERVE)\n      --jetstream string\
+            \                    Listen for JetStream Advisorie"
+          logsTail: " (default \"0.0.0.0\")\n      --http-tlscert string         \
+            \        Server certificate file (Enables HTTPS). (NATS_SURVEYOR_HTTP_TLSCERT)\n\
+            \      --http-tlskey string                  Private key for server certificate\
+            \ (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSKEY)\n      --http-tlscacert\
+            \ string               Client certificate CA for verification (used with\
+            \ HTTPS). (NATS_SURVEYOR_HTTP_TLSCACERT)\n      --http-user string   \
+            \                 Enable basic auth and set user name for HTTP scrapes.\
+            \ (NATS_SURVEYOR_HTTP_USER)\n      --http-pass string                \
+            \    Set the password for HTTP scrapes. NATS bcrypt supported. (NATS_SURVEYOR_HTTP_PASS)\n\
+            \      --prefix string                       Replace the default prefix\
+            \ for all the metrics. (NATS_SURVEYOR_PREFIX)\n      --observe string\
+            \                      Listen for observation statistics based on config\
+            \ files in a directory. (NATS_SURVEYOR_OBSERVE)\n      --jetstream string\
+            \                    Listen for JetStream Advisories based on config files\
+            \ in a directory. (NATS_SURVEYOR_JETSTREAM)\n      --accounts        \
+            \                    Export per-account metrics (NATS_SURVEYOR_ACCOUNTS)\n\
+            \      --accounts-detailed                   Export granular per-account\
+            \ bytes and message metrics (NATS_SURVEYOR_ACCOUNTS_DETAILED)\n      --gatewayz\
+            \                            Export gateway metrics (NATS_SURVEYOR_GATEWAYZ)\n\
+            \      --raftz                               Export metalayer Raft group\
+            \ metrics from raftz endpoint (NATS_SURVEYOR_RAFTZ)\n      --jsz jsz \
+            \                            Export jsz metrics, one of: all|streams|consumers\
+            \ (NATS_SURVEYOR_JSZ) (default <unknown>)\n      --jsz-limit int     \
+            \                  Limit the number of returned account jsz metrics (NATS_SURVEYOR_JSZ_LIMIT)\
+            \ (default 1024)\n      --jsz-leaders-only                    Fetch jsz\
+            \ metrics from stream and consumer leaders only (NATS_SURVEYOR_JSZ_LEADERS_ONLY)\n\
+            \      --jsz-filter jsz-filter               Fetch selected jsz metrics\
+            \ only(comma separated list). Metrics: stream_total_messages,stream_total_bytes,stream_first_seq,stream_last_seq,stream_consumer_count,stream_subject_count,consumer_delivered_consumer_seq,consumer_delivered_stream_seq,consumer_ack_floor_consumer_seq,consumer_ack_floor_stream_seq,consumer_num_ack_pending,consumer_num_pending,consumer_num_redelivered,consumer_num_waiting\
+            \ (NATS_SURVEYOR_JSZ_FILTER) (default [])\n      --sys-req-prefix string\
+            \               Subject prefix for system requests ($SYS.REQ) (NATS_SURVEYOR_SYS_REQ_PREFIX)\
+            \ (default \"$SYS.REQ\")\n      --pprof                              \
+            \ Enable unauthenticated pprof endpoint at /debug/pprof/ (NATS_SURVEYOR_PPROF)\n\
+            \      --log-level string                    Log level, one of: trace|debug|info|warn|error|fatal|panic\
+            \ (NATS_SURVEYOR_LOG_LEVEL) (default \"info\")\n      --config string\
+            \                       config file (default is ./nats-surveyor.yaml)\n\
+            \  -h, --help                                help for nats-surveyor\n\
+            \  -v, --version                             version for nats-surveyor"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource Deployment/default/surveyor not ready. status: InProgress,
+        message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-survey-d489c-1lc1-surveyor
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 769aa4da3985b6754f5251a838c2365903d6bbd7635bbd00d1b91a0a4382829f
+      objectCount: 4
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/surveyor   0/1   1     0     10s'
+        pods: '# default
+
+          surveyor-c4759d87-ccdbh   0/1   CrashLoopBackOff   1 (4s ago)   10s'
+        notReady:
+        - namespace: default
+          pod: surveyor-c4759d87-ccdbh
+          ready: 0/1
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: surveyor-c4759d87-ccdbh
+          result: blocked
+          detailHead: "Name:             surveyor-c4759d87-ccdbh\nNamespace:     \
+            \   default\nPriority:         0\nService Account:  surveyor\nNode:  \
+            \           hx-survey-d489c-1lc1-installer-control-plane/192.168.97.3\n\
+            Start Time:       Mon, 15 Jun 2026 20:41:41 +0100\nLabels:           app.kubernetes.io/instance=surveyor\n\
+            \                  app.kubernetes.io/managed-by=Helm\n               \
+            \   app.kubernetes.io/name=surveyor\n                  app.kubernetes.io/version=0.9.9\n\
+            \                  helm.sh/chart=surveyor-0.20.9\n                  pod-template-hash=c4759d87\n\
+            Annotations:      <none>\nStatus:           Running\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  ReplicaSet/surveyor-c4759d87\n\
+            Containers:\n  surveyor:\n    Container ID:  containerd://69ceb957431515743faefad1ba3653b95a4f0754ce19cf7a89f5232f14d59e7a\n\
+            \    Image:         natsio/nats-surveyor:0.9.9\n    Image ID:      docker.io/natsio/nats-surveyor@sha256:104a3e938b2311b3773a7e07a2a80c4f252c3b46cf3cc6ef4856f55c3c8705c6\n\
+            \    Port:          7777/TCP (http)\n    Host Port:     0/TCP (http)\n\
+            \    Args:\n      -p\n      7777\n      -s=nats://nats:4222\n      --timeout=3s\n\
+            \      -c=1\n    State:          Waiting\n      Reason:       CrashLoopBackOff\n\
+            \    Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    1\n      Started:      Mon, 15 Jun 2026 20:41:47 +0100\n  \
+            \    Finished:     Mon, 15 Jun 2026 20:41:47 +0100\n    Ready:       \
+            \   False\n    Restart Count:  1\n    Liveness:       http-get http://:http/healthz\
+            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
+            \      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1\
+            \ #failure=3\n    Environment:    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-ncqmh (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-ncqmh:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \ From               Message\n  ----     ------     ----             ----\
+            \               -------\n  Normal   Scheduled  10s              default-scheduler\
+            \  Successfully assigned default/surveyor-c4759d87-ccdbh to hx-survey-d489c-1lc1-installer-control-plane\n\
+            \  Normal   Pulling    9s               kubelet            spec.containers{surveyor}:\
+            \ Pulling image \"natsio/nats-surveyor:0.9.9\"\n  Normal   Pulled    \
+            \ 5s               kub"
+          detailTail: "15743faefad1ba3653b95a4f0754ce19cf7a89f5232f14d59e7a\n    Image:\
+            \         natsio/nats-surveyor:0.9.9\n    Image ID:      docker.io/natsio/nats-surveyor@sha256:104a3e938b2311b3773a7e07a2a80c4f252c3b46cf3cc6ef4856f55c3c8705c6\n\
+            \    Port:          7777/TCP (http)\n    Host Port:     0/TCP (http)\n\
+            \    Args:\n      -p\n      7777\n      -s=nats://nats:4222\n      --timeout=3s\n\
+            \      -c=1\n    State:          Waiting\n      Reason:       CrashLoopBackOff\n\
+            \    Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    1\n      Started:      Mon, 15 Jun 2026 20:41:47 +0100\n  \
+            \    Finished:     Mon, 15 Jun 2026 20:41:47 +0100\n    Ready:       \
+            \   False\n    Restart Count:  1\n    Liveness:       http-get http://:http/healthz\
+            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
+            \      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1\
+            \ #failure=3\n    Environment:    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-ncqmh (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-ncqmh:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \ From               Message\n  ----     ------     ----             ----\
+            \               -------\n  Normal   Scheduled  10s              default-scheduler\
+            \  Successfully assigned default/surveyor-c4759d87-ccdbh to hx-survey-d489c-1lc1-installer-control-plane\n\
+            \  Normal   Pulling    9s               kubelet            spec.containers{surveyor}:\
+            \ Pulling image \"natsio/nats-surveyor:0.9.9\"\n  Normal   Pulled    \
+            \ 5s               kubelet            spec.containers{surveyor}: Successfully\
+            \ pulled image \"natsio/nats-surveyor:0.9.9\" in 4.312s (4.312s including\
+            \ waiting). Image size: 15728539 bytes.\n  Normal   Created    4s (x2\
+            \ over 5s)  kubelet            spec.containers{surveyor}: Container created\n\
+            \  Normal   Started    4s (x2 over 5s)  kubelet            spec.containers{surveyor}:\
+            \ Container started\n  Normal   Pulled     4s               kubelet  \
+            \          spec.containers{surveyor}: Container image \"natsio/nats-surveyor:0.9.9\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  BackOff    2s (x2 over 3s)  kubelet            spec.containers{surveyor}:\
+            \ Back-off restarting failed container surveyor in pod surveyor-c4759d87-ccdbh_default(f9508e61-e5f1-4abb-9da0-0a1095db718d)"
+          logsHead: "Error: couldn't start surveyor: dial tcp: lookup nats on 10.96.0.10:53:\
+            \ no such host\nUsage:\n  nats-surveyor [flags]\n\nFlags:\n  -s, --servers\
+            \ string                      NATS Cluster url(s) (NATS_SURVEYOR_SERVERS)\
+            \ (default \"nats://127.0.0.1:4222\")\n  -c, --count int             \
+            \              Expected number of servers (-1 for undefined). (NATS_SURVEYOR_COUNT)\
+            \ (default 1)\n      --timeout duration                    Polling timeout\
+            \ (NATS_SURVEYOR_TIMEOUT) (default 3s)\n      --server-discovery-timeout\
+            \ duration   Maximum wait time between responses from servers during server\
+            \ discovery.\n                                            Use in conjunction\
+            \ with -count=-1. (NATS_SURVEYOR_SERVER_DISCOVERY_TIMEOUT) (default 500ms)\n\
+            \      --creds string                        Credentials File (NATS_SURVEYOR_CREDS)\n\
+            \      --nkey string                         Nkey Seed File (NATS_SURVEYOR_NKEY)\n\
+            \      --jwt string                          User JWT. Use in conjunction\
+            \ with --seed (NATS_SURVEYOR_JWT)\n      --seed string               \
+            \          Private key (nkey seed). Use in conjunction with --jwt (NATS_SURVEYOR_SEED)\n\
+            \      --user string                         NATS user name or token (NATS_SURVEYOR_USER)\n\
+            \      --password string                     NATS user password (NATS_SURVEYOR_PASSWORD)\n\
+            \      --token-file string                   Path to a file with a bearer\
+            \ token (NATS_SURVEYOR_TOKEN_FILE)\n      --tlscert string           \
+            \           Client certificate file for NATS connections. (NATS_SURVEYOR_TLSCERT)\n\
+            \      --tlskey string                       Client private key for NATS\
+            \ connections. (NATS_SURVEYOR_TLSKEY)\n      --tlscacert string      \
+            \              Client certificate CA on NATS connections. (NATS_SURVEYOR_TLSCACERT)\n\
+            \      --tlsfirst                            Whether to use TLS First\
+            \ connections. (NATS_SURVEYOR_TLSFIRST)\n  -p, --port int            \
+            \                Port to listen on. (NATS_SURVEYOR_PORT) (default 7777)\n\
+            \  -a, --addr string                         Network host to listen on.\
+            \ (NATS_SURVEYOR_ADDR) (default \"0.0.0.0\")\n      --http-tlscert string\
+            \                 Server certificate file (Enables HTTPS). (NATS_SURVEYOR_HTTP_TLSCERT)\n\
+            \      --http-tlskey string                  Private key for server certificate\
+            \ (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSKEY)\n      --http-tlscacert\
+            \ string               Client certificate CA for verification (used with\
+            \ HTTPS). (NATS_SURVEYOR_HTTP_TLSCACERT)\n      --http-user string   \
+            \                 Enable basic auth and set user name for HTTP scrapes.\
+            \ (NATS_SURVEYOR_HTTP_USER)\n      --http-pass string                \
+            \    Set the password for HTTP scrapes. NATS bcrypt supported. (NATS_SURVEYOR_HTTP_PASS)\n\
+            \      --prefix string                       Replace the default prefix\
+            \ for all the metrics. (NATS_SURVEYOR_PREFIX)\n      --observe string\
+            \                      Listen for observation statistics based on config\
+            \ files in a directory. (NATS_SURVEYOR_OBSERVE)\n      --jetstream string\
+            \                    Listen for JetStream Advisorie"
+          logsTail: " (default \"0.0.0.0\")\n      --http-tlscert string         \
+            \        Server certificate file (Enables HTTPS). (NATS_SURVEYOR_HTTP_TLSCERT)\n\
+            \      --http-tlskey string                  Private key for server certificate\
+            \ (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSKEY)\n      --http-tlscacert\
+            \ string               Client certificate CA for verification (used with\
+            \ HTTPS). (NATS_SURVEYOR_HTTP_TLSCACERT)\n      --http-user string   \
+            \                 Enable basic auth and set user name for HTTP scrapes.\
+            \ (NATS_SURVEYOR_HTTP_USER)\n      --http-pass string                \
+            \    Set the password for HTTP scrapes. NATS bcrypt supported. (NATS_SURVEYOR_HTTP_PASS)\n\
+            \      --prefix string                       Replace the default prefix\
+            \ for all the metrics. (NATS_SURVEYOR_PREFIX)\n      --observe string\
+            \                      Listen for observation statistics based on config\
+            \ files in a directory. (NATS_SURVEYOR_OBSERVE)\n      --jetstream string\
+            \                    Listen for JetStream Advisories based on config files\
+            \ in a directory. (NATS_SURVEYOR_JETSTREAM)\n      --accounts        \
+            \                    Export per-account metrics (NATS_SURVEYOR_ACCOUNTS)\n\
+            \      --accounts-detailed                   Export granular per-account\
+            \ bytes and message metrics (NATS_SURVEYOR_ACCOUNTS_DETAILED)\n      --gatewayz\
+            \                            Export gateway metrics (NATS_SURVEYOR_GATEWAYZ)\n\
+            \      --raftz                               Export metalayer Raft group\
+            \ metrics from raftz endpoint (NATS_SURVEYOR_RAFTZ)\n      --jsz jsz \
+            \                            Export jsz metrics, one of: all|streams|consumers\
+            \ (NATS_SURVEYOR_JSZ) (default <unknown>)\n      --jsz-limit int     \
+            \                  Limit the number of returned account jsz metrics (NATS_SURVEYOR_JSZ_LIMIT)\
+            \ (default 1024)\n      --jsz-leaders-only                    Fetch jsz\
+            \ metrics from stream and consumer leaders only (NATS_SURVEYOR_JSZ_LEADERS_ONLY)\n\
+            \      --jsz-filter jsz-filter               Fetch selected jsz metrics\
+            \ only(comma separated list). Metrics: stream_total_messages,stream_total_bytes,stream_first_seq,stream_last_seq,stream_consumer_count,stream_subject_count,consumer_delivered_consumer_seq,consumer_delivered_stream_seq,consumer_ack_floor_consumer_seq,consumer_ack_floor_stream_seq,consumer_num_ack_pending,consumer_num_pending,consumer_num_redelivered,consumer_num_waiting\
+            \ (NATS_SURVEYOR_JSZ_FILTER) (default [])\n      --sys-req-prefix string\
+            \               Subject prefix for system requests ($SYS.REQ) (NATS_SURVEYOR_SYS_REQ_PREFIX)\
+            \ (default \"$SYS.REQ\")\n      --pprof                              \
+            \ Enable unauthenticated pprof endpoint at /debug/pprof/ (NATS_SURVEYOR_PPROF)\n\
+            \      --log-level string                    Log level, one of: trace|debug|info|warn|error|fatal|panic\
+            \ (NATS_SURVEYOR_LOG_LEVEL) (default \"info\")\n      --config string\
+            \                       config file (default is ./nats-surveyor.yaml)\n\
+            \  -h, --help                                help for nats-surveyor\n\
+            \  -v, --version                             version for nats-surveyor"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 3
+      installerObjectCount: 3
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 3
+      installerObjectCount: 4
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/default/surveyor not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/surveyor   0/1   1     0     10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
