@@ -65,7 +65,7 @@ The `Start Base Status` column uses the same generated readiness labels.
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | start-here | live-helm-vs-confighub-parity | - | default, admission-disabled, internal-clusterip | [packages/ingress-nginx/ingress-nginx/4.15.1](packages/ingress-nginx/ingress-nginx/4.15.1) | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
 | jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | [packages/jetstack/cert-manager/v1.20.2](packages/jetstack/cert-manager/v1.20.2) | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
 | external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | [packages/external-secrets/external-secrets/2.5.0](packages/external-secrets/external-secrets/2.5.0) | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
-| argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
+| argo-cd/argo-cd@9.5.15 | default | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
 | bitnami/postgresql@18.6.7 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/rabbitmq/16.0.14](packages/bitnami/rabbitmq/16.0.14) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, no-crds | [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3) | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
@@ -336,7 +336,7 @@ Receipts: [per-chart receipts](recipes/external-secrets/external-secrets/2.5.0/C
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
@@ -355,7 +355,7 @@ Variants:
 ##### default (recommended first)
 
 When to use: argo-cd default variant rendered from argo-cd/argo-cd@9.5.15
-Readiness: start-here
+Readiness: render-only
 Namespace: argocd
 Target facts: required Secret argocd/argocd-redis keys auth
 Package base: [packages/argo-cd/argo-cd/9.5.15/bases/default](packages/argo-cd/argo-cd/9.5.15/bases/default)
@@ -1009,7 +1009,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 ##### secure-mesh-existing-secrets
 
 When to use: consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0
-Readiness: try-with-proof
+Readiness: runtime-watch
 Namespace: consul
 Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token; topology minSchedulableNodes=3
 Package base: [packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets](packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets)
@@ -1059,21 +1059,21 @@ need catalog promotion review before support is claimed.
 | autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
-| bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
-| bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
-| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
+| bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
+| bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
+| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
 | bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
 | bitnami/mongodb@19.0.9 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
 | bitnami/mongodb@19.1.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
 | bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
 | bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
 | bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
-| bitnami/phpmyadmin@20.0.0 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
+| bitnami/phpmyadmin@20.0.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
 | bitnami/postgresql@18.6.10 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
 | bitnami/postgresql@18.7.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
 | bitnami/redis@27.0.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
-| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
-| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
+| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
+| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
 | coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
@@ -1081,9 +1081,9 @@ need catalog promotion review before support is claimed.
 | dex/dex@0.24.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
 | elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
 | elastic/filebeat@8.5.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
-| elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
+| elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
 | elastic/logstash@8.5.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
-| elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
+| elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
 | external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
 | fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
 | fairwinds-stable/vpa@4.11.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md) |

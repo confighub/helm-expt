@@ -1,0 +1,1174 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: kyverno-kyverno-policies-3.8.0-default-live-parity-20260605
+spec:
+  chart: kyverno/kyverno-policies
+  version: 3.8.0
+  base: default
+  result: watch
+  observedAt: '2026-06-15T03:17:48Z'
+  package:
+    path: packages/kyverno/kyverno-policies/3.8.0
+  recipe:
+    path: recipes/kyverno/kyverno-policies/3.8.0
+  variantRevision: recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kyvernopolicies-mqen7pms-mwk
+    kubeContext: kind-helm-expt-parity-kyvernopolicies-mqen7pms-mwk
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kyvernopolicies-mqen7pms-mwk --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kyvernopolicies-mqen7pms-mwk"...
+
+        Deleting cluster "helm-expt-parity-kyvernopolicies-mqen7pms-mwk" ...
+
+        Deleted nodes: ["helm-expt-parity-kyvernopolicies-mqen7pms-mwk-control-plane"]
+
+        Deleting Space "helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kyverno-policies kyverno-policies --repo https://kyverno.github.io/kyverno/
+        --version 3.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9
+      objectCount: 11
+      liveHelmManifestSHA256: 7f79ca326149f6e7b25f553ae0e3e1e0f5e8266b33fac25a3fd47dc5db591083
+      liveHelmManifestObjectCount: 11
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          ClusterPolicy: 11
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 351655aac575fee8d60cc23a7170cd5d9915c89876dfa658747251beeb3c0256
+      objectCount: 12
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          ClusterPolicy: 11
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 11
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterpolicy.kyverno.io "disallow-capabilities" deleted
+
+            clusterpolicy.kyverno.io "disallow-host-namespaces" deleted
+
+            clusterpolicy.kyverno.io "disallow-host-path" deleted
+
+            clusterpolicy.kyverno.io "disallow-host-ports" deleted
+
+            clusterpolicy.kyverno.io "disallow-host-process" deleted
+
+            clusterpolicy.kyverno.io "disallow-privileged-containers" deleted
+
+            clusterpolicy.kyverno.io "disallow-proc-mount" deleted
+
+            clusterpolicy.kyverno.io "disallow-selinux" deleted
+
+            clusterpolicy.kyverno.io "restrict-apparmor-profiles" deleted
+
+            clusterpolicy.kyverno.io "restrict-seccomp" deleted
+
+            clusterpolicy.kyverno.io "restrict-sysctls" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+      controller: Argo CD OCI
+      app: kyverno-policies-parity
+      manifestSHA256: 98ef537b7f702ebf070866c1a21b46e0b35d47bb7aa6c9832a76890480e3d477
+      objectCount: 12
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: []
+      ociRevision: sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+              targetRevision: latest
+          revision: sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+          status: OutOfSync
+        health:
+          lastTransitionTime: '2026-06-15T03:20:21Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:24:45Z'
+          finishedAt: '2026-06-15T03:24:47Z'
+          operationSyncResourceCount: 11
+          operationSyncResources:
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-host-process
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-privileged-containers
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: restrict-seccomp
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-proc-mount
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-selinux
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: restrict-apparmor-profiles
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: restrict-sysctls
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-capabilities
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-host-namespaces
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-host-path
+          - group: kyverno.io
+            kind: ClusterPolicy
+            namespace: ''
+            name: disallow-host-ports
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+          deployedAt: '2026-06-15T03:20:24Z'
+          deployStartedAt: '2026-06-15T03:20:21Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-capabilities
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-host-namespaces
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-host-path
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-host-ports
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-host-process
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-privileged-containers
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-proc-mount
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: disallow-selinux
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: restrict-apparmor-profiles
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: restrict-seccomp
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: kyverno.io
+          kind: ClusterPolicy
+          namespace: ''
+          name: restrict-sysctls
+          status: OutOfSync
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kyverno-policies-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster:argoproj.io/Application:argocd/kyverno-policies-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ cf59b89c-f82d-4355-8f72-fe76268c797b\n              confighub.com/UnitSlug:\
+              \ kyverno-policies-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T03:20:19Z\n\
+              \  Generation:          39\n  Resource Version:    1628\n  UID:    \
+              \             50fffc37-7be5-49c8-8906-2fa4cdcd35b1\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T03:20:21Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T03:20:21Z\n    Deployed At:        2026-06-15T03:20:24Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:24:47Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Auto\
+              \ Heal Attempts Count:  6\n        Prune:                     true\n\
+              \        Resources:\n          Group:   kyverno.io\n          Kind:\
+              \    ClusterPolicy\n          Name:    disallow-host-process\n     \
+              \     Group:   kyverno.io\n          Kind:    ClusterPolicy\n      \
+              \    Name:    disallow-privileged-containers\n          Group:   kyverno.io\n\
+              \          Kind:    ClusterPolicy\n          Name:    restrict-seccomp\n\
+              \          Group:   kyverno.io\n          Kind:    ClusterPolicy\n \
+              \         Name:    disallow-proc-mount\n          Group:   kyverno.io\n\
+              \          Kind:    ClusterPolicy\n          Name:    disallow-selinux\n\
+              \          Group:   kyverno.io\n          Kind:    ClusterPolicy\n \
+              \         Name:    restrict-apparmor-profiles\n          Group:   kyverno.io\n\
+              \          Kind:    ClusterPolicy\n          Name:    restrict-sysctls\n\
+              \          Group:   kyverno.io\n          Kind:    ClusterPolicy\n \
+              \         Name:    disallow-capabilities\n          Group:   kyverno.io\n\
+              \          Kind:    ClusterPolicy\n          Name:    disallow-host-namespaces\n\
+              \          Group:   kyverno.io\n          Kind:    ClusterPolicy\n \
+              \         Name:    disallow-host-path\n          Group:   kyverno.io\n\
+              \          Kind:    ClusterPolicy\n          Name:    disallow-host-ports\n\
+              \        Revision:  sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T03:24:45Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       kyverno.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterPolicy\n        Message:   \
+              \  clusterpolicy.kyverno.io/disallow-capabilities serverside-applied\n\
+              \        Name:        disallow-capabilities\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       kyverno.io\n        Hook Phase:  Running\n\
+              \        Kind:        ClusterPolicy\n        Message:     clusterpolicy.kyverno.io/disallow-host-namespaces\
+              \ serverside-applied\n        Name:        disallow-host-namespaces\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    kyverno.io\n        Hook Phase:  Running\n        Kind:       \
+              \ ClusterPolicy\n        Message:     clusterpolicy.kyverno.io/restrict-seccomp\
+              \ serverside-applied\n        Name:        restrict-seccomp\n      \
+              \  Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       kyverno.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterPolicy\n\
+              \        Message:     clusterpolicy.kyverno.io/disallow-host-process\
+              \ serverside-applied\n        Name:        disallow-host-process\n \
+              \       Namespace:   default-oci\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   kyverno.io\n        Hook Phase:  Running\n        Kind:        ClusterPolicy\n\
+              \        Message:     clusterpolicy.kyverno.io/disallow-selinux serverside-applied\n\
+              \        Name:        disallow-selinux\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       kyverno.io\n        Hook Phase:  Running\n\
+              \        Kind:        ClusterPolicy\n        Message:     clusterpolicy.kyverno.io/disallow-host-path\
+              \ serverside-applied\n        Name:        disallow-host-path\n    \
+              \    Namespace:   default-oci\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       kyverno.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterPolicy\n\
+              \        Message:     clusterpolicy.kyverno.io/disallow-proc-mount serverside-applied\n\
+              \        Name:       "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                MESSAGE
+
+              6m49s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              6m49s       Normal   ResourceUpdated      application/kyverno-policies-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m49s       Normal   ResourceUpdated      application/kyverno-policies-parity   Updated
+              health status:  -> Healthy
+
+              6m46s       Normal   OperationCompleted   application/kyverno-policies-parity   Sync
+              operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              6m43s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              6m41s       Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              6m37s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              6m35s       Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              6m28s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              6m26s       Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              6m7s        Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              6m5s        Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              5m10s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              5m8s        Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              2m25s       Normal   OperationStarted     application/kyverno-policies-parity   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              2m23s       Normal   OperationCompleted   application/kyverno-policies-parity   Partial
+              sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: OutOfSync
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 12
+              artifact:
+                path: argocd-core-child.json
+                sha256: 3ce56d5f7ddd084bf06131950dfe73d63661769c073411c4f4327ab9ec3a6282
+                bytes: 15825
+              output: "{\n  \"metadata\": {\n    \"name\": \"kyverno-policies-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"50fffc37-7be5-49c8-8906-2fa4cdcd35b1\"\
+                ,\n    \"resourceVersion\": \"1660\",\n    \"generation\": 40,\n \
+                \   \"creationTimestamp\": \"2026-06-15T03:20:19Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster:argoproj.io/Application:argocd/kyverno-policies-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"cf59b89c-f82d-4355-8f72-fe76268c797b\",\n      \"confighub.com/UnitSlug\"\
+                : \"kyverno-policies-parity-app\"\n    },\n    \"managedFields\":\
+                \ [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T03:20:19Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T03:27:19Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:autoHealAttemptsCount\"\
+                : {},\n                  \"f:prune\": {},\n                  \"f:resources\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"kyverno.io\",\n        \"\
+                version\": \"v1\",\n        \"kind\": \"ClusterPolicy\",\n       \
+                \ \"name\": \"disallow-capabilities\",\n        \"status\": \"OutOfSync\"\
+                \n      },\n      {\n        \"group\": \"kyverno.io\",\n        \"\
+                version\": \"v1\",\n        \"kind\": \"ClusterPolicy\",\n       \
+                \ \"name\": \"disallow-host-namespaces\",\n        \"status\": \"\
+                OutOfSync\"\n      },\n      {\n        \"group\": \"kyverno.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterPolicy\"\
+                ,\n        \"name\": \"disallow-host-path\",\n        \"status\":\
+                \ \"OutOfSync\"\n      },\n      {\n        \"group\": \"kyverno.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterPolicy\"\
+                ,\n        \"name\": \"disallow-host-ports\",\n        \"status\"\
+                : \"OutOfSync\"\n      },\n      {\n        \"group\": \"kyverno.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterPolicy\"\
+                ,\n        \"name\": \"disallow-host-process\",\n        \"status\"\
+                : \"OutOfSync\"\n      },\n      {\n        \"group\": \"kyverno.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterPolicy\"\
+                ,\n        \"name\": \"disallow-privileged-containers\",\n       \
+                \ \"status\": \"OutOfSync\"\n   "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 755f95f71487338f89acb6d54073f8a7c89f2779e662078a0a91b30f3df73ef8
+                bytes: 1559
+              output: "Name:               argocd/kyverno-policies-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:52466/applications/kyverno-policies-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        OutOfSync from latest (sha256:)\nHealth Status:\
+                \      Healthy\n\nKIND/NAME                                     STATUS\
+                \     HEALTH  AGE    MESSAGE  REASON\nNamespace/default-oci      \
+                \                   Synced             7m56s           \nClusterPolicy/disallow-capabilities\
+                \           OutOfSync          7m3s            \nClusterPolicy/disallow-proc-mount\
+                \             OutOfSync          7m3s            \nClusterPolicy/disallow-selinux\
+                \                OutOfSync          7m3s            \nClusterPolicy/restrict-sysctls\
+                \                OutOfSync          7m3s            \nClusterPolicy/disallow-host-namespaces\
+                \        OutOfSync          7m3s            \nClusterPolicy/disallow-host-path\
+                \              OutOfSync          7m3s            \nClusterPolicy/disallow-host-ports\
+                \             OutOfSync          7m3s            \nClusterPolicy/disallow-host-process\
+                \           OutOfSync          7m3s            \nClusterPolicy/disallow-privileged-containers\
+                \  OutOfSync          7m3s            \nClusterPolicy/restrict-apparmor-profiles\
+                \      OutOfSync          7m3s            \nClusterPolicy/restrict-seccomp\
+                \                OutOfSync          7m3s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kyverno-policies-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": false,\n      \"stage\": \"sync\",\n      \"message\":\
+              \ \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kyverno-policies-parity\",\n      \"syncStatus\"\
+              : \"OutOfSync\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kyverno-policies-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+              targetRevision: latest
+          revision: sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T03:19:26Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:20:18Z'
+          finishedAt: '2026-06-15T03:20:20Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+          deployedAt: '2026-06-15T03:20:20Z'
+          deployStartedAt: '2026-06-15T03:20:18Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kyverno-policies-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T03:19:13Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1513\n  UID:        \
+              \       2ec5daf7-ef23-4bed-9fb2-20aecb7893a9\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T03:19:26Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T03:20:18Z\n\
+              \    Deployed At:        2026-06-15T03:20:20Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:20:20Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T03:20:18Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/kyverno-policies-parity\
+              \ serverside-applied\n        Name:        kyverno-policies-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T03:25:26Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       kyverno-policies-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     8m2s   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     8m2s   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m10s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53'\n\
+              \  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m8s   argocd-application-controller  Sync operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\
+              \ succeeded\n  Normal  ResourceUpdated     7m7s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                              MESSAGE
+
+              8m2s        Normal   ResourceUpdated      application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Updated
+              sync status:  -> Synced
+
+              8m2s        Normal   ResourceUpdated      application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Updated
+              health status:  -> Healthy
+
+              7m10s       Normal   OperationStarted     application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Initiated
+              automated sync to ''sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53''
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m8s        Normal   OperationCompleted   application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Sync
+              operation to sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53
+              succeeded
+
+              7m7s        Normal   ResourceUpdated      application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 1340aaf367a97167d382c7c042d3bc81d7f14c5fa0363078ffc933f1ce78ee55
+                bytes: 10794
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2ec5daf7-ef23-4bed-9fb2-20aecb7893a9\"\
+                ,\n    \"resourceVersion\": \"1686\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-15T03:19:13Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\\\",\\\"\
+                repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T03:19:13Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T03:27:36Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\":"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 02ed7af9032ec23519e15a08b1b86d528c5b4fc16565ae05656181f6a8d9f267
+                bytes: 1202
+              output: "Name:               argocd/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:52584/applications/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                 STATUS  HEALTH  AGE    MESSAGE                 \
+                \                                                                \
+                \          REASON\nApplication/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\
+                \  Synced          8m31s  application.argoproj.io/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\
+                \ serverside-applied  \nApplication/kyverno-policies-parity      \
+                \                          Synced          7m25s  application.argoproj.io/kyverno-policies-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kyverno-policies-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": false,\n      \"stage\": \"sync\",\n      \"message\":\
+              \ \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kyverno-policies-parity\",\n      \"syncStatus\"\
+              : \"OutOfSync\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kyverno-policies-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          ClusterPolicy: 11
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 11
+      configHubObjectCount: 12
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T03:19:15Z'
+    finishedAt: '2026-06-15T03:19:17Z'
+    elapsedSeconds: 1.784
+    timeoutSeconds: 900
+    command: helm upgrade --install kyverno-policies kyverno-policies --repo https://kyverno.github.io/kyverno/
+      --version 3.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T03:19:23Z'
+    finishedAt: '2026-06-15T03:19:23Z'
+    elapsedSeconds: 0.409
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T03:19:25Z'
+    finishedAt: '2026-06-15T03:19:25Z'
+    elapsedSeconds: 0.067
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kyvernopolicies-mqen7pms-mwk.kubeconfig
+      --context kind-helm-expt-parity-kyvernopolicies-mqen7pms-mwk apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/direct-apply-manifest.yaml
+    objectCount: 11
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T03:19:25Z'
+    finishedAt: '2026-06-15T03:19:26Z'
+    elapsedSeconds: 0.011
+    timeoutSeconds: 300
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T03:19:31Z'
+    finishedAt: '2026-06-15T03:19:31Z'
+    elapsedSeconds: 0.27
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T03:19:34Z'
+    finishedAt: '2026-06-15T03:19:57Z'
+    elapsedSeconds: 23.594
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+      --space helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies --target
+      helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+    objectCount: 12
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T03:19:57Z'
+    finishedAt: '2026-06-15T03:19:58Z'
+    elapsedSeconds: 0.617
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T03:19:58Z'
+    finishedAt: '2026-06-15T03:20:06Z'
+    elapsedSeconds: 7.888
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+      --unit <12 unit(s)> --wait --timeout 5m
+    unitCount: 12
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T03:20:06Z'
+    finishedAt: '2026-06-15T03:20:07Z'
+    elapsedSeconds: 0.992
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+      kyverno-policies-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/argo-application.json
+      --target helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T03:20:07Z'
+    finishedAt: '2026-06-15T03:20:08Z'
+    elapsedSeconds: 1.137
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T03:20:08Z'
+    finishedAt: '2026-06-15T03:27:10Z'
+    elapsedSeconds: 422.536
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: OutOfSync
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T03:27:45Z'
+    finishedAt: '2026-06-15T03:27:45Z'
+    elapsedSeconds: 0.013
+    timeoutSeconds: 180
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kyvernopolicies-mqen7pms-mwk.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kyvernopolicies-mqen7pms-mwk\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kyvernopolicies-mqen7pms-mwk\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kyvernopolicies-mqen7pms-mwk\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kyvernopolicies-mqen7pms-mwk.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kyverno-policies\" does not exist. Installing it now.\nNAME:\
+      \ kyverno-policies\nLAST DEPLOYED: Mon Jun 15 04:19:17 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nThank you for installing kyverno-policies 3.8.0 \U0001F600\n\nWe have\
+      \ installed the \"baseline\" profile of Pod Security Standards and set them\
+      \ in Audit mode.\n\nVisit https://kyverno.io/policies/ to find more sample policies."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: ''
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=11
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: kyverno/kyverno@3.8.1/default
+        lane: regularHelm
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: kyverno/kyverno@3.8.1/default
+        lane: configHubKubectlApply
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: kyverno/kyverno@3.8.1/default
+        lane: configHubOciArgo
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "kyverno-policies-default-clusterpolicy-sync-watch"
+  chart: "kyverno/kyverno-policies"
+  version: "3.8.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with the Kyverno ClusterPolicy CRD staged from kyverno/kyverno"
+  receipt: "runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "OutOfSync"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+  passed:
+    - "the required clusterpolicies.kyverno.io CRD was declared as a target fact and staged before apply"
+    - "regular Helm installed the ClusterPolicy objects once the CRD existed"
+    - "ConfigHub direct apply installed the same ClusterPolicy objects"
+    - "ConfigHub OCI/Argo applied the ClusterPolicy objects"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "Argo stayed OutOfSync/Healthy even though the ClusterPolicy objects were applied and the sync operation reported success."
+    observedResidue:
+      - "Application/argocd/kyverno-policies-parity: OutOfSync/Healthy after 420 seconds"
+      - "all 11 ClusterPolicy resources remained OutOfSync in Argo's resource tree"
+      - "Argo repeatedly ran partial sync operations that reported success"
+    interpretation: "This is a GitOps controller drift/watch row for Kyverno policy resources, not a render parity or target-fact defect."
+  diagnosis:
+    summary: "The chart is not standalone: it depends on the Kyverno API from the kyverno controller chart. After that prerequisite is explicit and staged, the remaining gap is Argo's handling of the ClusterPolicy resources."
+    productBoundary: "A production claim for this base needs a target-scoped decision about Kyverno controller ownership and Argo sync semantics for ClusterPolicy resources."
+    nextInvestigation:
+      - "Compare the live ClusterPolicy resources against the OCI desired objects to identify the fields Argo marks OutOfSync."
+      - "Decide whether a Kyverno-specific Argo ignore difference or canonicalization profile is appropriate."
+      - "Prefer a platform target that installs and owns the Kyverno controller before applying kyverno-policies."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not claim kyverno-policies is standalone on a bare cluster."
+    - "This row does not claim Argo OutOfSync is harmless in production."
+    - "This row does not prove Kyverno controller production ownership, admission behavior, or policy enforcement outcomes."

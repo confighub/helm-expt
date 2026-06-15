@@ -4,13 +4,16 @@ metadata:
   name: "kyverno-kyverno-policies-3-8-0"
 spec:
   chart:
-    repository: "kyverno"
     name: "kyverno-policies"
+    repository: "kyverno"
     version: "3.8.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/kyverno/kyverno-policies/3.8.0 -o <tmp>/kyverno-kyverno-policies-3-8-0.tgz"
+    sha256: "7cb83a112a030aa3d8d50f86980314308818bcd12fbe0ed0b30f965a729c2b0d"
   package:
-    path: "packages/kyverno/kyverno-policies/3.8.0"
     name: "kyverno-kyverno-policies"
-    version: "3.8.0"
+    path: "packages/kyverno/kyverno-policies/3.8.0"
     sourceFiles:
       -
         path: "README.md"
@@ -25,21 +28,24 @@ spec:
         sha256: "e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
         bytes: 23932
       -
+        path: "collector/target-facts.sh"
+        sha256: "252dfdedf59f2131721a2261222f91fa0a2f07c1c80d66218fa4f616b61edf25"
+        bytes: 2539
+      -
         path: "installer.yaml"
-        sha256: "4e71bfdf132d62a98218d4be3d658b56c8f6041acf21899b1b6906772e2f4b6b"
-        bytes: 325
-  deterministicBundle:
-    command: "cub installer package packages/kyverno/kyverno-policies/3.8.0 -o <tmp>/kyverno-kyverno-policies-3-8-0.tgz"
-    sha256: "579a286684a64a6fc737f08913b47b1963e2ee87049881a214fa05e742b2a46e"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "93f561b2732eed2064aa28fd1315d372ceb4b7e317ee2a476352d239ff34e235"
+        bytes: 686
+    version: "3.8.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 11
-      cubInstallObjectCountIncludingSupport: 12
-      semanticObjectMatches: "11/11"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
