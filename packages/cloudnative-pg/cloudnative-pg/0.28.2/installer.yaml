@@ -12,8 +12,6 @@ spec:
       path: "bases/default"
     -
       description: "cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -60,6 +58,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD subscriptions.postgresql.cnpg.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

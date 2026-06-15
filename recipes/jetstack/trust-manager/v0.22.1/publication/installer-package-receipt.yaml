@@ -4,17 +4,16 @@ metadata:
   name: "jetstack-trust-manager-v0-22-1"
 spec:
   chart:
-    repository: "jetstack"
     name: "trust-manager"
+    repository: "jetstack"
     version: "v0.22.1"
   deterministicBundle:
-    command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
-    sha256: "e0f077d0158b34447fbc29a05f0cb94eb7d63127f8ac60d2a9806c54d5b4e9ce"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
+    sha256: "8d7597ed31d929c256329943a8883ad816a9bb1dd6cfd31268f18a0d4ae2daf3"
   package:
-    path: "packages/jetstack/trust-manager/v0.22.1"
     name: "jetstack-trust-manager"
-    version: "v0.22.1"
+    path: "packages/jetstack/trust-manager/v0.22.1"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
         bytes: 10563
       -
+        path: "collector/target-facts.sh"
+        sha256: "3729621dd6ca343e38a23bf81bf0fe95a73bed48be34bb97329a89e08182adca"
+        bytes: 4394
+      -
         path: "installer.yaml"
-        sha256: "404748d51d8850f9ce258833010e6ee4c8fc68974326ee79753aca216f790fc6"
-        bytes: 484
+        sha256: "d60a57fce383e92872e4f79dec2fe1e4abcc7267690c1670649b549a32ee7c7f"
+        bytes: 1646
+    version: "v0.22.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 14
       semanticObjectMatches: "14/14"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 13
-      cubInstallObjectCountIncludingSupport: 14
-      semanticObjectMatches: "13/13"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 14
+      helmReleaseObjectCount: 13
+      semanticObjectMatches: "13/13"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

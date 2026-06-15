@@ -647,6 +647,14 @@ def target_fact_object_stores(variant: dict, lane: str) -> list[dict]:
     ]
 
 
+def target_fact_namespaces(variant: dict, lane: str) -> list[dict]:
+    return [
+        namespace
+        for namespace in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredNamespaces") or [])
+        if target_fact_applies(namespace, lane)
+    ]
+
+
 def minio_object_store_docs(store: dict, fallback_namespace: str) -> list[dict]:
     namespace = store.get("namespace") or fallback_namespace
     name = store.get("name") or "object-store"
@@ -736,12 +744,14 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
     ]
     crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, run_root, lane)
     required_object_stores = target_fact_object_stores(variant, lane)
-    if not required_secrets and not crd_docs and not required_object_stores:
-        return {"result": "pass", "stagedSecrets": [], "stagedCRDs": [], "stagedObjectStores": []}
+    required_namespaces = target_fact_namespaces(variant, lane)
+    if not required_secrets and not crd_docs and not required_object_stores and not required_namespaces:
+        return {"result": "pass", "stagedSecrets": [], "stagedCRDs": [], "stagedObjectStores": [], "stagedNamespaces": []}
     secret_docs = []
-    namespaces = set()
+    namespaces = {namespace.get("name") for namespace in required_namespaces if namespace.get("name")}
     staged_secrets = []
     staged_object_stores = []
+    staged_namespaces = []
     object_store_docs = []
     for secret in required_secrets:
         namespace = secret.get("namespace") or fallback_namespace
@@ -795,6 +805,8 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
         namespace_path = run_root / f"target-facts-{label}-{namespace}-namespace.yaml"
         write_yaml(namespace_path, namespace_yaml)
         kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
+        if any(item.get("name") == namespace for item in required_namespaces):
+            staged_namespaces.append({"name": namespace, "lane": lane})
     target_facts_path = run_root / f"target-facts-{label}.yaml"
     if secret_docs:
         write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
@@ -823,6 +835,7 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
         "stagedSecrets": staged_secrets,
         "stagedCRDs": staged_crds,
         "stagedObjectStores": staged_object_stores,
+        "stagedNamespaces": staged_namespaces,
         "path": str(target_facts_path),
     }
 
@@ -1555,8 +1568,8 @@ def main() -> int:
             "cubInstallerApply": installer_target_facts,
             "requiredValues": helm_required_values + installer_required_values,
         }
-        check_item("target-facts-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))}")
-        check_item("target-facts-installer", installer_target_facts["result"], f"secrets={len(installer_target_facts.get('stagedSecrets', []))} crds={len(installer_target_facts.get('stagedCRDs', []))}")
+        check_item("target-facts-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))} namespaces={len(helm_target_facts.get('stagedNamespaces', []))}")
+        check_item("target-facts-installer", installer_target_facts["result"], f"secrets={len(installer_target_facts.get('stagedSecrets', []))} crds={len(installer_target_facts.get('stagedCRDs', []))} namespaces={len(installer_target_facts.get('stagedNamespaces', []))}")
 
         if workdir.exists():
             shutil.rmtree(workdir)

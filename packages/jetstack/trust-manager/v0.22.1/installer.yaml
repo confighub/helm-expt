@@ -11,6 +11,34 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/trust-manager-tls keys tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD bundles.trust.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "Namespace cert-manager"
+          namespace: "cert-manager"
+          suggestedSource: "kubectl create namespace cert-manager"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
