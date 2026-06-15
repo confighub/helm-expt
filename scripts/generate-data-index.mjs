@@ -82,6 +82,7 @@ function readme(rows) {
     ["I want to know which operating skill/playbook applies to a chart.", "data/chart-skills/summary.md; data/chart-skills/skills.csv; data/chart-skills/skills.json"],
     ["I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.", "data/lifecycle-route-actions/summary.md; data/lifecycle-route-actions/actions.csv; data/lifecycle-route-actions/actions.json"],
     ["I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/kind-parity-decisions/summary.md; data/kind-parity-decisions/decisions.csv; data/kind-parity-decisions/decisions.json"],
+    ["I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/live-parity-decisions/summary.md; data/live-parity-decisions/decisions.csv; data/live-parity-decisions/decisions.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -348,6 +349,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-skills/")) return "user/front-door";
   if (path.startsWith("data/lifecycle-route-actions/")) return "user/front-door";
   if (path.startsWith("data/kind-parity-decisions/")) return "user/front-door";
+  if (path.startsWith("data/live-parity-decisions/")) return "user/front-door";
   if (path.startsWith("data/webhook-cert-lifecycle/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
@@ -420,6 +422,7 @@ function roleFor(path) {
   if (path === "data/chart-skills/skills.csv") return "one row per chart: which docs/skills/ operating playbooks apply (advisory), the top skill, and the matched chart-fact signals";
   if (path === "data/lifecycle-route-actions/actions.csv") return "one row per hook/lifecycle route projected into an action packet: lifecycle phase, action kind, disposition, required target facts, evidence required, and whether the product runs it automatically (false today)";
   if (path === "data/kind-parity-decisions/decisions.csv") return "one row per non-pass two-cluster kind-parity row: residue category, who fixes it (user/catalog/review), whether it is usable today, plain user decision, and next action";
+  if (path === "data/live-parity-decisions/decisions.csv") return "one row per non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) row: residue category, who fixes it, whether it is usable today, plain user decision, next action, and support artifact";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -486,6 +489,7 @@ function familyRole(family) {
     "chart-skills": "advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why",
     "lifecycle-route-actions": "hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag",
     "kind-parity-decisions": "product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action",
+    "live-parity-decisions": "product-readable decisions for non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) rows: residue category, who owns the fix, usable-today answer, next action, and support artifact",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -597,6 +601,7 @@ function commandMap() {
     "chart-skills": { generate: "npm run chart-skills", verify: "npm run chart-skills:verify" },
     "lifecycle-route-actions": { generate: "npm run lifecycle:route-actions", verify: "npm run lifecycle:route-actions:verify" },
     "kind-parity-decisions": { generate: "npm run kind-parity:decisions", verify: "npm run kind-parity:decisions:verify" },
+    "live-parity-decisions": { generate: "npm run live-parity:decisions", verify: "npm run live-parity:decisions:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
