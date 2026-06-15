@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 101
 watch: 5
-blocked: 3
-semantic parity pass: 106
+blocked: 4
+semantic parity pass: 107
 semantic parity defects: 2
-non-pass rows where semantic parity passed: 5
+non-pass rows where semantic parity passed: 6
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -33,10 +33,10 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 2 |
+| target-prerequisite: required Secret missing (parity passed) | 2 |
 | blocked: inspect receipt | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
-| target-prerequisite: required Secret missing (parity passed) | 1 |
 | target-runtime: pod crash loop (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
 
@@ -97,6 +97,7 @@ broader support claim.
 | `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml |
+| `elastic/filebeat@8.5.1` | default | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-filebeat-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-ha/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml |
