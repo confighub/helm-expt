@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 826 / 27 / 53 / 316 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 828 / 27 / 53 / 314 / 122 |
 | Variants with the complete core lane set | 91 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -168,7 +168,7 @@ when you want the user/product view with those columns visible.
 | `bitnami/redis@25.5.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `bitnami/redis@27.0.0` | default | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-|  | reuse-existing-secret | — | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | reuse-existing-secret | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `bitnami/spark@10.0.3` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/zookeeper@13.8.7` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
