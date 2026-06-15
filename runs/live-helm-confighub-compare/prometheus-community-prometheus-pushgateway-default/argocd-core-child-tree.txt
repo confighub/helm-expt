@@ -1,0 +1,21 @@
+Name:               argocd/prometheus-pushgateway-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:57446/applications/prometheus-pushgateway-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                        STATUS  HEALTH   AGE  MESSAGE                                                    REASON
+ServiceAccount/prometheus-pushgateway            Synced           87s  serviceaccount/prometheus-pushgateway serverside-applied
+Deployment/prometheus-pushgateway                Synced  Healthy  87s  deployment.apps/prometheus-pushgateway serverside-applied
+└─ReplicaSet/prometheus-pushgateway-7495d7b7d6           Healthy  87s
+  └─Pod/prometheus-pushgateway-7495d7b7d6-574bn          Healthy  87s
+Namespace/default-oci                            Synced           61s
+Service/prometheus-pushgateway                   Synced  Healthy  87s  service/prometheus-pushgateway serverside-applied

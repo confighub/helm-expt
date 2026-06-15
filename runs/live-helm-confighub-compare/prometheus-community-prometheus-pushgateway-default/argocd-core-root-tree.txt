@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:57561/applications/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                             STATUS  HEALTH  AGE   MESSAGE                                                                                              REASON
+Application/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster  Synced          2m7s  application.argoproj.io/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster serverside-applied
+Application/prometheus-pushgateway-parity                             Synced          45s   application.argoproj.io/prometheus-pushgateway-parity serverside-applied
