@@ -1,0 +1,326 @@
+{
+  "metadata": {
+    "name": "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+    "namespace": "argocd",
+    "uid": "9e1483ef-df14-4ef4-99c8-cb05fde1512c",
+    "resourceVersion": "1096",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T04:23:18Z",
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+    },
+    "finalizers": [
+      "resources-finalizer.argocd.argoproj.io"
+    ],
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:23:18Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:kubectl.kubernetes.io/last-applied-configuration": {}
+            },
+            "f:finalizers": {
+              "v:\"resources-finalizer.argocd.argoproj.io\"": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          },
+          "f:status": {
+            "f:controllerNamespace": {},
+            "f:health": {
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:operationState": {
+              "f:operation": {
+                "f:initiatedBy": {
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  "f:revision": {},
+                  "f:source": {
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:startedAt": {}
+            },
+            "f:resourceHealthSource": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              "f:comparedTo": {
+                "f:destination": {
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:25:15Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci",
+      "path": "./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "argocd"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "ServerSideApply.ForceConflicts=true",
+        "RespectIgnoreDifferences=true",
+        "CreateNamespace=false"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+        "status": "Synced"
+      },
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "prometheus-blackbox-exporter-parity",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci",
+          "path": "./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "argocd"
+        }
+      },
+      "revision": "sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T04:23:31Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db",
+        "deployedAt": "2026-06-15T04:24:32Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci",
+          "path": "./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:24:30Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:25:02Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db",
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci",
+            "path": "./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "ServerSideApply.ForceConflicts=true",
+            "RespectIgnoreDifferences=true",
+            "CreateNamespace=false"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "prometheus-blackbox-exporter-parity",
+            "status": "Synced",
+            "message": "application.argoproj.io/prometheus-blackbox-exporter-parity serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+            "status": "Synced",
+            "message": "application.argoproj.io/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:217035a52981e303e4b04924922baa6a1a221d3620f2704431c10afe68e850db",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster/oci",
+          "path": "./helm-expt-parity-prometheusbla2c9f1-mqepiq9d-1xk4-cluster",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:24:30Z",
+      "finishedAt": "2026-06-15T04:24:32Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

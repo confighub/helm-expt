@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 189 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 70 |
+| Live commands remaining | 188 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 69 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 18 |
-| Ready-to-run todo rows | 171 |
+| Ready-to-run todo rows | 170 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 70 |
+| `live-parity` | 69 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 171 |
+| `todo` | 170 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 171 |
+| `ready-to-run` | 170 |
 | `review-target-first` | 17 |
 
 ## Active Watch Rows
@@ -77,7 +77,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| prometheus-community/prometheus-blackbox-exporter | 11.10.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default |
 | prometheus-community/prometheus-node-exporter | 4.55.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-node-exporter/4.55.0 --base default |
 | prometheus-community/prometheus-pushgateway | 3.6.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-pushgateway/3.6.0 --base default |
 | rook-release/rook-ceph-cluster | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
@@ -97,6 +96,7 @@ generated priority. They are good candidates for a serial live block.
 | hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 | hashicorp/terraform | 1.1.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
 | istio/gateway | 1.30.0 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
+| istio/gateway | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
 
 ## Full Queue
 
