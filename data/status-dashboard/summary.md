@@ -54,8 +54,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 139/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 105/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 105/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 106/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 106/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 73/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 74/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 91/192 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -70,16 +70,16 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 105/118 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 106/119 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 74/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 13/13 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 1/13 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 12/13 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live matrix commands remaining | 206 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | live matrix GitOps/OCI parity commands remaining | 87 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | live matrix commands remaining | 205 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | live matrix GitOps/OCI parity commands remaining | 86 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 119 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 1/118 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/118 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 1/119 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/119 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -374,8 +374,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 190 | 0 | 2 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 105 | 13 | 74 | 192 |
-| live Helm-vs-ConfigHub parity | 105 | 13 | 74 | 192 |
+| GitOps/OCI live | 106 | 13 | 73 | 192 |
+| live Helm-vs-ConfigHub parity | 106 | 13 | 73 | 192 |
 | two-cluster kind parity | 73 | 1 | 0 | 74 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -385,7 +385,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/118
+ConfigHub/OCI live comparison: 0/119
 two-cluster kind parity:       0/74
 ~~~
 
