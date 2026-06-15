@@ -1,0 +1,202 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/version: 1.6.42
+    helm.sh/chart: memcached-8.5.5
+  name: memcached
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: memcached
+      app.kubernetes.io/name: memcached
+  strategy:
+    rollingUpdate: {}
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations: null
+      labels:
+        app.kubernetes.io/instance: memcached
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: memcached
+        app.kubernetes.io/version: 1.6.42
+        helm.sh/chart: memcached-8.5.5
+    spec:
+      affinity:
+        nodeAffinity: null
+        podAffinity: null
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: memcached
+                    app.kubernetes.io/name: memcached
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: MEMCACHED_PORT_NUMBER
+              value: "11211"
+            - name: OPENSSL_FIPS
+              value: "yes"
+          image: registry-1.docker.io/bitnami/memcached:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - pgrep
+                - memcached
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: memcached
+          ports:
+            - containerPort: 11211
+              name: memcache
+          readinessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: memcache
+            timeoutSeconds: 3
+          resources:
+            limits:
+              cpu: 150m
+              ephemeral-storage: 2Gi
+              memory: 192Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 50Mi
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /opt/bitnami/memcached/conf
+              name: empty-dir
+              subPath: app-conf-dir
+            - mountPath: /tmp
+              name: empty-dir
+              subPath: tmp-dir
+      enableServiceLinks: true
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      serviceAccountName: memcached
+      volumes:
+        - emptyDir: {}
+          name: empty-dir
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/version: 1.6.42
+    helm.sh/chart: memcached-8.5.5
+  name: memcached
+  namespace: default
+spec:
+  egress:
+    - {}
+  ingress:
+    - ports:
+        - port: 11211
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: memcached
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: memcached
+      app.kubernetes.io/version: 1.6.42
+      helm.sh/chart: memcached-8.5.5
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/version: 1.6.42
+    helm.sh/chart: memcached-8.5.5
+  name: memcached
+  namespace: default
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: memcached
+      app.kubernetes.io/name: memcached
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/version: 1.6.42
+    helm.sh/chart: memcached-8.5.5
+  name: memcached
+  namespace: default
+spec:
+  ports:
+    - name: memcache
+      nodePort: null
+      port: 11211
+      targetPort: memcache
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/name: memcached
+  sessionAffinity: null
+  type: ClusterIP
+---
+apiVersion: v1
+automountServiceAccountToken: false
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: memcached
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/version: 1.6.42
+    helm.sh/chart: memcached-8.5.5
+  name: memcached
+  namespace: default

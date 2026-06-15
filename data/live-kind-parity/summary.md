@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 74
+pass: 75
 watch: 1
 blocked: 2
-semantic parity pass: 75
+semantic parity pass: 76
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 1
 non-pass rows with related lifecycle evidence: 0
@@ -68,6 +68,7 @@ broader support claim.
 | `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | render-input: required Helm values missing (parity passed) |  | semantic parity passed; required render inputs need a modeled base | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+| `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
