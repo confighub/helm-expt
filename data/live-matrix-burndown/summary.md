@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 149 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 91 |
-| Watch/blocked/review rows | 53 |
-| Ready-to-run todo rows | 96 |
+| Watch/blocked/review rows | 54 |
+| Ready-to-run todo rows | 95 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 116 |
-| `watch` | 30 |
+| `todo` | 115 |
+| `watch` | 31 |
 
 ## By Run Readiness
 
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 1 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 96 |
-| `review-target-first` | 27 |
+| `ready-to-run` | 95 |
+| `review-target-first` | 28 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -82,8 +82,8 @@ claim.
 | live-parity | hashicorp/terraform | 1.1.2 | no-crds | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds |
 | live-parity | hashicorp/vault | 0.32.0 | ha-raft-ui | G=watch;P=watch | operate-policy: Vault init/unseal readiness (parity passed) | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | [runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui |
 | live-parity | istio/gateway | 1.30.0 | controller-default-reviewed | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml](../../runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml) | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
+| live-parity | istio/gateway | 1.30.0 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml](../../runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
 | live-parity | jetstack/trust-manager | v0.22.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) |  | [runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml](../../runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
-| live-parity | kyverno/kyverno-policies | 3.8.0 | default | G=watch;P=watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml](../../runs/live-helm-confighub-compare/kyverno-kyverno-policies-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
 
 ## Next Ready Live-Parity Commands
 
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| istio/gateway | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default |
 | jaegertracing/jaeger-operator | 2.57.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds |
 | jetstack/trust-manager | v0.22.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/spark | 10.0.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default |
 | bitnami/spark | 10.0.3 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha |
 | bitnami/zookeeper | 13.8.7 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default |
+| bitnami/zookeeper | 13.8.7 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha |
 
 ## Full Queue
 

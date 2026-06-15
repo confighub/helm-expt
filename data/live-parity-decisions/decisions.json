@@ -265,6 +265,20 @@
       "receipt": "runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml"
     },
     {
+      "chart": "istio/gateway",
+      "version": "1.30.0",
+      "variant": "default",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod config/runtime errors (parity passed)",
+      "support_artifact": "recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml",
+      "receipt": "runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml"
+    },
+    {
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "variant": "default",
