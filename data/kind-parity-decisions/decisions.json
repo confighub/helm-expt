@@ -140,6 +140,20 @@
       "next_action": "Confirm workload readiness on the target and record the result.",
       "reason": "watch: object parity passed; readiness needs review",
       "receipt": "runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml"
+    },
+    {
+      "chart": "nats/nack",
+      "version": "0.34.0",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "defect",
+      "residue_category": "model-gap-render",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+      "reason": "semantic object diff: 0 object(s) differ",
+      "receipt": "runs/live-kind-parity/nats-nack-default/receipt.yaml"
     }
   ]
 }

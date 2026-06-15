@@ -56,8 +56,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 134/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 134/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 102/111 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 108/111 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 102/112 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 108/112 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 120/192 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 37/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 1/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -71,16 +71,16 @@ Which detailed CSV should I open next?
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/161 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 111/111 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 35/35 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 5/35 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 27/35 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | two-cluster kind parity receipts | 112/112 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 36/36 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 5/36 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 27/36 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 148 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 58 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 90 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | GitOps aggregate health residue rows | 27/161 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/161 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 2/111 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 3/112 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -192,7 +192,7 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| inspect-diff-first | 2 | Inspect the semantic diff before another rerun. |
+| inspect-diff-first | 3 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 27 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
@@ -234,6 +234,7 @@ needs a support artifact or a direct receipt review before rerun.
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | stage-prerequisite | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) |
 | bitnami/opensearch@2.0.10 | default | blocked | inspect-parity-diff | - |
 | bitnami/opensearch@2.0.10 | ha | blocked | inspect-parity-diff | - |
+| nats/nack@0.34.0 | default | blocked | inspect-parity-diff | - |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | inspect-receipt | - |
 | elastic/filebeat@8.5.1 | default | blocked | stage-prerequisite | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | stage-prerequisite | - |
@@ -400,7 +401,7 @@ first.
 | local live | 139 | 53 | 0 | 192 |
 | GitOps/OCI live | 134 | 27 | 31 | 192 |
 | live Helm-vs-ConfigHub parity | 134 | 27 | 31 | 192 |
-| two-cluster kind parity | 102 | 9 | 0 | 111 |
+| two-cluster kind parity | 102 | 10 | 0 | 112 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -410,7 +411,7 @@ Current semantic parity defect receipts:
 
 ~~~text
 ConfigHub/OCI live comparison: 0/161
-two-cluster kind parity:       2/111
+two-cluster kind parity:       3/112
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -426,14 +427,14 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 2 | Inspect the semantic diff before another rerun. |
+| inspect-diff-first | 3 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 27 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-parity-diff | 2 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
+| inspect-parity-diff | 3 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
 | stage-prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | gitops-runtime-review | 14 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
@@ -489,6 +490,7 @@ Current two-cluster kind parity non-pass receipts:
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite: required Secret missing (parity passed) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | watch: object parity passed; readiness needs review |
+| nats/nack@0.34.0 | default | blocked | parity: semantic object diff |
 
 
 ## Production Disposition Boundary
