@@ -4,17 +4,16 @@ metadata:
   name: "cloudnative-pg-cloudnative-pg-0-28-2"
 spec:
   chart:
-    repository: "cloudnative-pg"
     name: "cloudnative-pg"
+    repository: "cloudnative-pg"
     version: "0.28.2"
   deterministicBundle:
-    command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz"
-    sha256: "a3460212e4810a3fb20b55146bdbd6ebb499b3ed0e05c6f3bd7242baa0c7a7ec"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz"
+    sha256: "1143260bcdd759858c82e23bcbd8ccc8c32d669583332825ba9a0a3b59e3ff31"
   package:
-    path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     name: "cloudnative-pg-cloudnative-pg"
-    version: "0.28.2"
+    path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
         bytes: 42409
       -
+        path: "collector/target-facts.sh"
+        sha256: "93535bfac5efc121fdae35c67624a4798fe6935870fd5d92cfd3a0a9336a57e1"
+        bytes: 5527
+      -
         path: "installer.yaml"
-        sha256: "9781bf07d9817c72e299bcb6da98893cc7d2d63a0324058d8a3e9c0493dc35b3"
-        bytes: 516
+        sha256: "5090d8fce2d5095becfc9a9b5665d4c7a650e23146364292ffba1804d33cb66e"
+        bytes: 2645
+    version: "0.28.2"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "21/21"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 11
-      cubInstallObjectCountIncludingSupport: 12
-      semanticObjectMatches: "11/11"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

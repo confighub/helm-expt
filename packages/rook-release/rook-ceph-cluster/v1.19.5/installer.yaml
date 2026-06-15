@@ -8,8 +8,6 @@ spec:
     -
       default: true
       description: "rook-release/rook-ceph-cluster default variant rendered from rook-release/rook-ceph-cluster@v1.19.5"
-      name: "default"
-      path: "bases/default"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -31,6 +29,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD cephobjectstores.ceph.rook.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "default"
+      path: "bases/default"
   collector:
     command: "/bin/sh"
     args:

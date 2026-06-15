@@ -434,7 +434,51 @@ DNS.4 = metrics-server.kube-system.svc.cluster.local
     return cert.read_text(), key.read_text()
 
 
+def ensure_cnpg_webhook_tls_material(run_root: Path) -> tuple[str, str]:
+    cert = run_root / "cnpg-webhook-target-facts-tls.crt"
+    key = run_root / "cnpg-webhook-target-facts-tls.key"
+    config = run_root / "cnpg-webhook-target-facts-openssl.cnf"
+    key_needs_refresh = not key.exists() or "BEGIN EC PRIVATE KEY" not in key.read_text(errors="ignore")[:120]
+    if cert_needs_refresh(cert, key) or key_needs_refresh:
+        cert.unlink(missing_ok=True)
+        key.unlink(missing_ok=True)
+        config.write_text("""[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+CN = cnpg-webhook-service.default.svc
+
+[v3_req]
+basicConstraints = critical,CA:FALSE
+keyUsage = critical,digitalSignature,keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = cnpg-webhook-service
+DNS.2 = cnpg-webhook-service.default
+DNS.3 = cnpg-webhook-service.default.svc
+DNS.4 = cnpg-webhook-service.default.svc.cluster.local
+""")
+        rc, out, err = sh(["openssl", "ecparam", "-name", "prime256v1", "-genkey", "-noout", "-out", str(key)], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"CloudNativePG target fact key generation failed: {(err or out)[:1000]}")
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-new", "-key", str(key),
+            "-out", str(cert), "-days", "1", "-config", str(config),
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"CloudNativePG target fact certificate generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if secret_name == "cnpg-webhook-cert" and key in ("cert", "tls.crt", "ca.crt"):
+        return ensure_cnpg_webhook_tls_material(run_root)[0]
+    if secret_name == "cnpg-webhook-cert" and key in ("key", "tls.key"):
+        return ensure_cnpg_webhook_tls_material(run_root)[1]
     if secret_name == "vpa-tls-certs" and key in ("ca", "cert"):
         return ensure_tls_material(run_root)[0]
     if secret_name == "vpa-tls-certs" and key == "key":
@@ -818,11 +862,20 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             timeout=60,
         )
         detail = describe if rc_describe == 0 else describe_err
+        rc_logs, logs, logs_err = kubectl(
+            ["-n", namespace, "logs", item["pod"], "--all-containers", "--tail=80"],
+            kubeconfig,
+            context,
+            timeout=60,
+        )
+        log_detail = logs if rc_logs == 0 else logs_err
         diagnostic = {
             "pod": item["pod"],
             "result": "pass" if rc_describe == 0 else "blocked",
             "detailHead": detail[:3000],
             "detailTail": detail[-3000:],
+            "logsHead": log_detail[:3000],
+            "logsTail": log_detail[-3000:],
         }
         missing_secret = missing_required_secret(detail)
         if missing_secret:

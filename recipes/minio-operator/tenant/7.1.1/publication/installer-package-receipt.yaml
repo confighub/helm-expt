@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7-1-1.tgz"
-    sha256: "2d06312b902e7504cacf6b5e16bba80d747f61540be75012a85b30b717cae944"
+    sha256: "410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019"
   package:
     name: "minio-operator-tenant"
     path: "packages/minio-operator/tenant/7.1.1"
@@ -33,7 +33,7 @@ spec:
         bytes: 2506
       -
         path: "installer.yaml"
-        sha256: "01ba6e88f8136ad5c7110d65a0f7e98bc9216444339217c1b338fd6694211905"
+        sha256: "977afbefeeb9d8c513e7b70fc402d10a4754582018cb3c933e90b3d2c818ef15"
         bytes: 671
     version: "7.1.1"
   setupChecks:
@@ -46,6 +46,6 @@ spec:
       helmReleaseObjectCount: 2
       semanticObjectMatches: "2/2"
       separatedSecretCount: 1
-      variant: "default"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
