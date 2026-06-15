@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 95
+pass: 96
 watch: 5
 blocked: 2
-semantic parity pass: 100
+semantic parity pass: 101
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -147,6 +147,7 @@ broader support claim.
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
+| `prometheus-community/alertmanager@1.37.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | `prometheus-community/kube-state-metrics@7.4.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-state-metrics-cluster-metrics-readonly/receipt.yaml |
