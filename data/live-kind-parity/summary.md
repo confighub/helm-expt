@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 12
+blocked: 13
 semantic parity pass: 129
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 13
@@ -33,10 +33,10 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 4 |
+| target-prerequisite: CRDs missing | 3 |
 | blocked: inspect receipt | 2 |
 | helm-runtime: upstream not ready (parity passed) | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
-| target-prerequisite: CRDs missing | 2 |
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
@@ -197,5 +197,6 @@ broader support claim.
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
 | `velero/velero@12.0.1` | default | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/velero-velero-default/receipt.yaml |
+| `velero/velero@12.0.1` | no-crds | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/velero-velero-no-crds/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default-reviewed/receipt.yaml |

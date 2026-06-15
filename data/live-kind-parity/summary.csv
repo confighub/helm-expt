@@ -134,5 +134,6 @@ stakater/reloader,2.2.12,default,pass,pass,,,live parity passed,runs/live-kind-p
 strimzi/strimzi-kafka-operator,1.0.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml
 strimzi/strimzi-kafka-operator,1.0.0,no-crds,watch,pass,helm-runtime: upstream not ready (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml
 velero/velero,12.0.1,default,blocked,unknown,blocked: inspect receipt,,inspect receipt,runs/live-kind-parity/velero-velero-default/receipt.yaml
+velero/velero,12.0.1,no-crds,blocked,unknown,target-prerequisite: CRDs missing,,inspect receipt,runs/live-kind-parity/velero-velero-no-crds/receipt.yaml
 vm/victoria-metrics-single,0.39.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml
 vm/victoria-metrics-single,0.39.0,default-reviewed,pass,pass,,,live parity passed,runs/live-kind-parity/vm-victoria-metrics-single-default-reviewed/receipt.yaml

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-15 (commit `aae9abcd`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-15 (commit `546ca0eb`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -36,10 +36,10 @@ most recently changed triggers.
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 6 | `data/outcome-coverage/base-outcomes.csv (2026-06-15)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-06-13)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
+| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 6 | `data/outcome-coverage/base-outcomes.csv (2026-06-15)`<br>`data/top100-readiness/next80-queues.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.md (2026-06-13)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 5 | `data/outcome-coverage/summary.md (2026-06-15)`<br>`data/status-dashboard/summary.md (2026-06-15)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-15)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 5 | `data/outcome-coverage/summary.md (2026-06-15)` |
 | [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 5 | `data/outcome-coverage/base-outcomes.csv (2026-06-15)`<br>`data/outcome-coverage/chart-outcomes.csv (2026-06-15)`<br>`data/outcome-coverage/summary.md (2026-06-15)` |
-| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 5 | `data/outcome-coverage/base-outcomes.csv (2026-06-15)`<br>`data/top100-readiness/next80-queues.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.md (2026-06-13)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 5 | `data/outcome-coverage/summary.md (2026-06-15)`<br>`tests/npm-scripts.md (2026-06-12)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-10 | 4 | `data/top100-coverage/summary.md (2026-06-13)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 4 | `data/master-catalog-matrix/matrix.csv (2026-06-15)`<br>`data/master-catalog-matrix/matrix.html (2026-06-15)`<br>`data/master-catalog-matrix/summary.md (2026-06-15)` |
