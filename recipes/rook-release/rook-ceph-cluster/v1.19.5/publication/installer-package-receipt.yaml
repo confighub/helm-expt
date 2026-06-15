@@ -4,13 +4,16 @@ metadata:
   name: "rook-release-rook-ceph-cluster-v1-19-5"
 spec:
   chart:
-    repository: "rook-release"
     name: "rook-ceph-cluster"
+    repository: "rook-release"
     version: "v1.19.5"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
+    sha256: "e5bdb9141875ddce5cbab0cea093bc513a447da0484dfa235fb61cedc0ce4b89"
   package:
-    path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
     name: "rook-release-rook-ceph-cluster"
-    version: "v1.19.5"
+    path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
     sourceFiles:
       -
         path: "README.md"
@@ -25,21 +28,24 @@ spec:
         sha256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
         bytes: 22705
       -
+        path: "collector/target-facts.sh"
+        sha256: "e1374893f30ec486c656cc5bcbded1d4f62895b6ed4071d6f0a859a52aa81878"
+        bytes: 4235
+      -
         path: "installer.yaml"
-        sha256: "5d86ed7c28c79b098fad17dd19ac26b2d8cf26cf9410846c946b5278497a6492"
-        bytes: 347
-  deterministicBundle:
-    command: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
-    sha256: "d05b8045a23ebd2fdab186de3485c7eed5a40e6c6b7c66b44de14c8c35209176"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "afabb55db6b8e314142126ce62ce9357476a02a3a7f86bb1c3f23a033fd2a113"
+        bytes: 1361
+    version: "v1.19.5"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 27
-      cubInstallObjectCountIncludingSupport: 28
-      semanticObjectMatches: "27/27"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 28
+      helmReleaseObjectCount: 27
+      semanticObjectMatches: "27/27"
+      separatedSecretCount: 0
+      variant: "default"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

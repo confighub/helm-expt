@@ -17,3 +17,55 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "cephblockpools.ceph.rook.io"
+        sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+        purpose: "Rook Ceph cluster base creates CephBlockPool resources"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "cephclusters.ceph.rook.io"
+        sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+        purpose: "Rook Ceph cluster base creates CephCluster resources"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "cephfilesystems.ceph.rook.io"
+        sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+        purpose: "Rook Ceph cluster base creates CephFilesystem resources"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+        sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+        purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "cephobjectstores.ceph.rook.io"
+        sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+        purpose: "Rook Ceph cluster base creates CephObjectStore resources"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

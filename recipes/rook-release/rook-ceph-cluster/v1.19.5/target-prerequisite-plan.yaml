@@ -1,0 +1,77 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1.19.5"
+  chart: "rook-release/rook-ceph-cluster"
+  version: "v1.19.5"
+spec:
+  summary: "The default base renders Ceph custom resources and RBAC. It is only target-ready when the Rook Ceph operator CRDs, the rook-ceph support namespace, and an operator/controller stack are present for the target scope."
+  bases:
+    default:
+      status: "target-prerequisite-needed"
+      currentProofLimit: "The live parity run now stages the five Ceph CRDs as installer-native target facts. ConfigHub direct apply and ConfigHub OCI/Argo apply the rendered resources with semantic parity, but regular Helm still blocks on the missing rook-ceph namespace and the Argo leg remains Progressing because no Rook operator controller reconciles the Ceph custom resources on this proof target."
+      requiredBeforeApply:
+        -
+          kind: "CRD"
+          name: "cephblockpools.ceph.rook.io"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "modeled-as-target-fact"
+          purpose: "Target must accept CephBlockPool resources before this base is applied."
+        -
+          kind: "CRD"
+          name: "cephclusters.ceph.rook.io"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "modeled-as-target-fact"
+          purpose: "Target must accept CephCluster resources before this base is applied."
+        -
+          kind: "CRD"
+          name: "cephfilesystems.ceph.rook.io"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "modeled-as-target-fact"
+          purpose: "Target must accept CephFilesystem resources before this base is applied."
+        -
+          kind: "CRD"
+          name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "modeled-as-target-fact"
+          purpose: "Target must accept CephFilesystemSubVolumeGroup resources before this base is applied."
+        -
+          kind: "CRD"
+          name: "cephobjectstores.ceph.rook.io"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "modeled-as-target-fact"
+          purpose: "Target must accept CephObjectStore resources before this base is applied."
+        -
+          kind: "Namespace"
+          name: "rook-ceph"
+          status: "modeled-as-prerequisite"
+          purpose: "The chart renders a RoleBinding in rook-ceph. Plain Helm blocks if that namespace does not already exist."
+      requiredBeforeObserve:
+        -
+          kind: "Controller"
+          name: "rook-ceph-operator"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          status: "stack-prerequisite"
+          purpose: "The Ceph custom resources can be created without the operator, but useful runtime readiness requires the operator to reconcile CephCluster, CephBlockPool, CephFilesystem, and CephObjectStore."
+        -
+          kind: "StorageTarget"
+          name: "ceph-storage-target"
+          status: "target-scope-decision"
+          purpose: "A production claim must define the storage devices, storage classes, monitor placement, and data-safety policy for the target."
+      mustObserve:
+        - "Ceph CRDs are present before apply."
+        - "Namespace rook-ceph exists before plain Helm apply."
+        - "CephCluster reaches a target-approved ready state after the operator is installed."
+        - "StorageClass objects are accepted and backed by the intended Ceph cluster."
+        - "Argo aggregate health is either Healthy or the remaining Progressing resource is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "namespace-preflight-receipt"
+        - "operator-reconciliation-receipt"
+        - "storage-policy-receipt"
+  notProvenBy:
+    - "render parity alone"
+    - "CRD admission alone"
+    - "a Ceph custom resource created without the Rook operator controller"
+    - "a one-node proof target with no storage topology decision"
+    - "Argo Synced while the Ceph resources remain unreconciled"

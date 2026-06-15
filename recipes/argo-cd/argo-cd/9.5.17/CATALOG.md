@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/argo-cd/argo-cd/9.5.17/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/argo-cd/argo-cd/9.5.17/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argo-cd/9.5.17/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/argo-cd/argo-cd/9.5.17/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-cd/9.5.17/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/argo-cd/argo-cd/9.5.17](../../../../packages/argo-cd/argo-cd/9.5.17) |

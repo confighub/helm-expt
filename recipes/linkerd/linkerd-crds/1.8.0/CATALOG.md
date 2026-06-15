@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/linkerd/linkerd-crds/1.8.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/linkerd/linkerd-crds/1.8.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/linkerd/linkerd-crds/1.8.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/linkerd/linkerd-crds/1.8.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/linkerd/linkerd-crds/1.8.0](../../../../packages/linkerd/linkerd-crds/1.8.0) |
