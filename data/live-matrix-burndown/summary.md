@@ -21,25 +21,25 @@ For the cell-level completion count, use
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 185 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 66 |
+| Live commands remaining | 184 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 65 |
 | Two-cluster kind parity commands | 119 |
 | Watch/blocked/review rows | 19 |
-| Ready-to-run todo rows | 166 |
+| Ready-to-run todo rows | 165 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 66 |
+| `live-parity` | 65 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 1 |
-| `todo` | 166 |
+| `todo` | 165 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -47,7 +47,7 @@ For the cell-level completion count, use
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 2 |
-| `ready-to-run` | 166 |
+| `ready-to-run` | 165 |
 | `review-target-first` | 17 |
 
 ## Active Watch Or Blocked Rows
@@ -85,7 +85,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| runix/pgadmin4 | 1.62.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/runix/pgadmin4/1.62.0 --base default |
 | sealed-secrets/sealed-secrets | 2.18.6 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/sealed-secrets/sealed-secrets/2.18.6 --base no-crds |
 | stakater/reloader | 2.2.12 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/stakater/reloader/2.2.12 --base default |
 | vm/victoria-logs-single | 0.12.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/vm/victoria-logs-single/0.12.5 --base default |
@@ -105,6 +104,7 @@ generated priority. They are good candidates for a serial live block.
 | jaegertracing/jaeger-operator | 2.57.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds |
 | jetstack/trust-manager | v0.22.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 | jetstack/trust-manager | v0.22.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds |
+| nats/surveyor | 0.20.9 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default |
 
 ## Full Queue
 

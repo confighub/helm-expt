@@ -1,0 +1,1011 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: runix-pgadmin4-1.62.0-default-live-parity-20260605
+spec:
+  chart: runix/pgadmin4
+  version: 1.62.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T05:41:05Z'
+  package:
+    path: packages/runix/pgadmin4/1.62.0
+  recipe:
+    path: recipes/runix/pgadmin4/1.62.0
+  variantRevision: recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-pgadmin4-mqesbz7w-1ags
+    kubeContext: kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-pgadmin4-mqesbz7w-1ags --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-pgadmin4-mqesbz7w-1ags"...
+
+        Deleting cluster "helm-expt-parity-pgadmin4-mqesbz7w-1ags" ...
+
+        Deleted nodes: ["helm-expt-parity-pgadmin4-mqesbz7w-1ags-control-plane"]
+
+        Deleting Space "helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
+        --version 1.62.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565
+      objectCount: 5
+      liveHelmManifestSHA256: cdab05900bd31d56730687fed114f6d57d136fe957c6b5c4a5f17552af8f7218
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/pgadmin4   1/1   1     1     44s
+        pods: pgadmin4-74948b6c5b-wqt9z   1/1   Running   0     44s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 35062aa6448aae320668b02895fdf8c7adac56396f47a4db7c49211654f4ef77
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pgadmin4   1/1   1     1     31s'
+        pods: '# default
+
+          pgadmin4-6d5b97559d-dbcs2   1/1   Running   0     31s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|pgadmin4
+          - networking.k8s.io/v1|NetworkPolicy|default|pgadmin4
+          - v1|PersistentVolumeClaim|default|pgadmin4
+          - v1|Secret|default|pgadmin4
+          - v1|Service|default|pgadmin4
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+      controller: Argo CD OCI
+      app: pgadmin4-parity
+      manifestSHA256: 400c1b64fce21e87a66b7a7b42afd48ad7555752e6d1036aac8a1d319f020273
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-pgadmin4.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+              targetRevision: latest
+          revision: sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T05:44:10Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/dpage/pgadmin4:9.13
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T05:44:10Z'
+          finishedAt: '2026-06-15T05:44:12Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 5
+          syncResultStatusCounts:
+            Synced: 5
+        history:
+        - id: 0
+          revision: sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+          deployedAt: '2026-06-15T05:44:12Z'
+          deployStartedAt: '2026-06-15T05:44:10Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: PersistentVolumeClaim
+          namespace: default
+          name: pgadmin4
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: pgadmin4
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: pgadmin4
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: pgadmin4
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         pgadmin4-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster:argoproj.io/Application:argocd/pgadmin4-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 912828fa-1941-4c61-9fdb-b7623223ed80\n              confighub.com/UnitSlug:\
+              \ pgadmin4-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:   \
+              \      Application\nMetadata:\n  Creation Timestamp:  2026-06-15T05:44:09Z\n\
+              \  Generation:          8\n  Resource Version:    1180\n  UID:     \
+              \            55e0a175-ca56-4f41-966f-5adee732752c\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T05:44:10Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T05:44:10Z\n    Deployed At:        2026-06-15T05:44:12Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \    Source:\n      Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T05:44:12Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \        Source:\n          Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T05:44:10Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/pgadmin4 serverside-applied\n\
+              \        Name:        pgadmin4\n        Namespace:   default\n     \
+              \   Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        PersistentVolumeClaim\n        Message:     persistentvolumeclaim/pgadmin4\
+              \ serverside-applied\n        Name:        pgadmin4\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/pgadmin4\
+              \ serverside-applied\n        Name:        pgadmin4\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          docker.io/dpage/pgadmin4:9.13\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/pgadmin4\
+              \ serverside-applied\n        Name:        pgadmin4\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \      Source:\n        Path:              ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T05:44:13Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       PersistentVolumeClaim\n    Name:       pgadmin4\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Kind:       Service\n    Name:       pgadmin4\n    Namespace: \
+              \ default\n    Status:     Synced\n    Version:    v1\n    Group:  \
+              \    apps\n    Kind:       Deployment\n    Name:       pgadmin4\n  \
+              \  Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      networking.k8s.io\n    Kind:       NetworkPolicy\n\
+              \    Name:       pgadmin4\n    Namespace:  default\n    Status:    \
+              \ Synced\n    Version:    v1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n    Images:\n      docker.io/dpage/pgadmin4:9.13\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  default-oci\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  OperationStarted    9s    argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631ca"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                        MESSAGE
+
+              9s          Normal   OperationStarted     application/pgadmin4-parity   Initiated
+              automated sync to ''sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1''
+
+              9s          Normal   ResourceUpdated      application/pgadmin4-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/pgadmin4-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/pgadmin4-parity   Sync
+              operation to sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/pgadmin4-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 5
+              artifact:
+                path: argocd-core-child.json
+                sha256: 38e5c2d7e11c086f7f36d3ec889ccae0b77dcf61a064f49ccc08d756940f34c6
+                bytes: 10427
+              output: "{\n  \"metadata\": {\n    \"name\": \"pgadmin4-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"55e0a175-ca56-4f41-966f-5adee732752c\"\
+                ,\n    \"resourceVersion\": \"1198\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T05:44:09Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster:argoproj.io/Application:argocd/pgadmin4-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"912828fa-1941-4c61-9fdb-b7623223ed80\",\n      \"confighub.com/UnitSlug\"\
+                : \"pgadmin4-parity-app\"\n    },\n    \"managedFields\": [\n    \
+                \  {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T05:44:09Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T05:44:27Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"PersistentVolumeClaim\",\n        \"namespace\": \"default\",\n\
+                \        \"name\": \"pgadmin4\",\n        \"status\": \"Synced\",\n\
+                \        \"health\": {\n          \"status\": \"Healthy\"\n      \
+                \  }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Service\",\n        \"namespace\": \"default\",\n      \
+                \  \"name\": \"pgadmin4\",\n        \"status\": \"Synced\",\n    \
+                \    \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"pgadmin4\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"networking.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"NetworkPolicy\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"pgadmin4\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \"Synced\",\n      \"comparedTo\": {\n    \
+                \    \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-p"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 4df32a98b45cd1b604dc078653afaefd05c05a0bf22969adfef0ae67b9d4fd25
+                bytes: 1315
+              output: "Name:               argocd/pgadmin4-parity\nProject:      \
+                \      default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:61112/applications/pgadmin4-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                          STATUS  HEALTH \
+                \  AGE   MESSAGE                                                 \
+                \     REASON\nService/pgadmin4                   Synced  Healthy \
+                \ 100s  service/pgadmin4 serverside-applied                      \
+                \    \nDeployment/pgadmin4                Synced  Healthy  100s  deployment.apps/pgadmin4\
+                \ serverside-applied                  \n\u2514\u2500ReplicaSet/pgadmin4-6d5b97559d\
+                \           Healthy  100s                                        \
+                \                       \n  \u2514\u2500Pod/pgadmin4-6d5b97559d-dbcs2\
+                \          Healthy  100s                                         \
+                \                      \nNetworkPolicy/pgadmin4             Synced\
+                \           100s  networkpolicy.networking.k8s.io/pgadmin4 serverside-applied\
+                \  \nNamespace/default-oci              Synced           64s     \
+                \                                                           \nPersistentVolumeClaim/pgadmin4\
+                \     Synced  Healthy  100s  persistentvolumeclaim/pgadmin4 serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              pgadmin4-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pgadmin4-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pgadmin4-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+              targetRevision: latest
+          revision: sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T05:42:11Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T05:44:07Z'
+          finishedAt: '2026-06-15T05:44:09Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+          deployedAt: '2026-06-15T05:44:09Z'
+          deployStartedAt: '2026-06-15T05:44:07Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: pgadmin4-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T05:42:02Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1154\n  UID:         \
+              \      ab1bdcab-aff8-42d0-93bf-e233d3b9308d\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T05:42:11Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T05:44:07Z\n\
+              \    Deployed At:        2026-06-15T05:44:09Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \    Source:\n      Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T05:44:09Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \        Source:\n          Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T05:44:07Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/pgadmin4-parity serverside-applied\n\
+              \        Name:        pgadmin4-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \      Source:\n        Path:              ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T05:44:09Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       pgadmin4-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m28s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     2m28s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  32s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1'\n\
+              \  Normal  ResourceUpdated     32s    argocd-application-controller\
+              \  Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  30s    argocd-application-controller  Sync operation to sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\
+              \ succeeded\n  Normal  ResourceUpdated     29s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                        MESSAGE
+
+              2m28s       Normal   ResourceUpdated      application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Updated
+              sync status:  -> Unknown
+
+              2m28s       Normal   ResourceUpdated      application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Updated
+              health status:  -> Healthy
+
+              32s         Normal   OperationStarted     application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Initiated
+              automated sync to ''sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1''
+
+              32s         Normal   ResourceUpdated      application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              30s         Normal   OperationCompleted   application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Sync
+              operation to sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1
+              succeeded
+
+              29s         Normal   ResourceUpdated      application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 99cf08053c80e21f963801cde57f47553bc67266b11bde5ff1f684a900634161
+                bytes: 10667
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ab1bdcab-aff8-42d0-93bf-e233d3b9308d\"\
+                ,\n    \"resourceVersion\": \"1227\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T05:42:02Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T05:42:02Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T05:44:46Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: b934d16f9c383eb9208f75e2d79735daa8cd2ffe0f52475f44e1ef293bd8b6bc
+                bytes: 1140
+              output: "Name:               argocd/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61228/applications/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \           STATUS  HEALTH  AGE    MESSAGE                       \
+                \                                                              REASON\n\
+                Application/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster  Synced\
+                \          2m52s  application.argoproj.io/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\
+                \ serverside-applied  \nApplication/pgadmin4-parity              \
+                \                    Synced          45s    application.argoproj.io/pgadmin4-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              pgadmin4-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/pgadmin4-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e3c66eb44dbe43a8681e15178761b4e40186f07631cabc6d6295155f44556ed1\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"pgadmin4-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pgadmin4   1/1   1     1     117s'
+        pods: '# default
+
+          pgadmin4-6d5b97559d-dbcs2   1/1   Running   0     117s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T05:42:02Z'
+    finishedAt: '2026-06-15T05:42:48Z'
+    elapsedSeconds: 46.222
+    timeoutSeconds: 900
+    command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
+      --version 1.62.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T05:42:58Z'
+    finishedAt: '2026-06-15T05:42:58Z'
+    elapsedSeconds: 0.334
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T05:42:58Z'
+    finishedAt: '2026-06-15T05:42:58Z'
+    elapsedSeconds: 0.128
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig
+      --context kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T05:42:58Z'
+    finishedAt: '2026-06-15T05:43:29Z'
+    elapsedSeconds: 30.445
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T05:43:34Z'
+    finishedAt: '2026-06-15T05:43:34Z'
+    elapsedSeconds: 0.275
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T05:43:35Z'
+    finishedAt: '2026-06-15T05:43:53Z'
+    elapsedSeconds: 18.472
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+      --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4 --target helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T05:43:53Z'
+    finishedAt: '2026-06-15T05:43:54Z'
+    elapsedSeconds: 0.611
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T05:43:54Z'
+    finishedAt: '2026-06-15T05:43:57Z'
+    elapsedSeconds: 3.241
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
+      --unit <5 unit(s)> --wait --timeout 5m
+    unitCount: 5
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T05:43:57Z'
+    finishedAt: '2026-06-15T05:43:58Z'
+    elapsedSeconds: 1.041
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
+      pgadmin4-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/argo-application.json
+      --target helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T05:43:58Z'
+    finishedAt: '2026-06-15T05:43:59Z'
+    elapsedSeconds: 1.008
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T05:43:59Z'
+    finishedAt: '2026-06-15T05:44:19Z'
+    elapsedSeconds: 20.152
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T05:44:55Z'
+    finishedAt: '2026-06-15T05:44:55Z'
+    elapsedSeconds: 0.098
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-pgadmin4-mqesbz7w-1ags\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-pgadmin4-mqesbz7w-1ags\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pgadmin4\" does not exist. Installing it now.\nNAME: pgadmin4\n\
+      LAST DEPLOYED: Mon Jun 15 06:42:04 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nCHART NAME: pgadmin4\nCHART\
+      \ VERSION: 1.62.0\nAPP VERSION: 9.13\n\n\nSECURITY WARNING: 'env.password' is\
+      \ set to the default 'SuperSecret' and no 'existingSecret' is set.\nThis is\
+      \ insecure. Set a strong password or use an existingSecret.\n\n1. Get the application\
+      \ URL by running these commands:\n  export POD_NAME=$(kubectl get pods --namespace\
+      \ default-helm -l \"app.kubernetes.io/name=pgadmin4,app.kubernetes.io/instance=pgadmin4\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  echo \"Visit http://127.0.0.1:8080\
+      \ to use your application\"\n  kubectl port-forward $POD_NAME 8080:80"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pgadmin4   1/1   1     1     31s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

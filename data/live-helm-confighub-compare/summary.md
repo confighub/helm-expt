@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 126
+pass: 127
 watch: 17
 blocked: 1
 not-started: 0
@@ -158,6 +158,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `prometheus-community/prometheus-pushgateway@3.6.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/receipt.yaml |
 |  | `rook-release/rook-ceph@v1.19.5` | default | pass | - | runs/live-helm-confighub-compare/rook-release-rook-ceph-default/receipt.yaml |
 |  | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml |
+|  | `runix/pgadmin4@1.62.0` | default | pass | - | runs/live-helm-confighub-compare/runix-pgadmin4-default/receipt.yaml |
 |  | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | - | runs/live-helm-confighub-compare/sealed-secrets-sealed-secrets-default/receipt.yaml |
 |  | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml |
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
