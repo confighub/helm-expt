@@ -1,0 +1,1193 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: istio-gateway-1.30.0-default-live-parity-20260605
+spec:
+  chart: istio/gateway
+  version: 1.30.0
+  base: default
+  result: watch
+  observedAt: '2026-06-15T17:36:24Z'
+  package:
+    path: packages/istio/gateway/1.30.0
+  recipe:
+    path: recipes/istio/gateway/1.30.0
+  variantRevision: recipes/istio/gateway/1.30.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-gateway-mqfhvw46-1af2
+    kubeContext: kind-helm-expt-parity-gateway-mqfhvw46-1af2
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-gateway-mqfhvw46-1af2 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-gateway-mqfhvw46-1af2"...
+
+        Deleting cluster "helm-expt-parity-gateway-mqfhvw46-1af2" ...
+
+        Deleted nodes: ["helm-expt-parity-gateway-mqfhvw46-1af2-control-plane"]
+
+        Deleting Space "helm-expt-parity-gateway-mqfhvw46-1af2-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install gateway gateway --repo https://istio-release.storage.googleapis.com/charts
+        --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc
+      objectCount: 6
+      liveHelmManifestSHA256: 18a76c5c6adecdc012dbc64eea3537e7bb6cd706a77e3de980cc6db23d06c475
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/gateway   0/1   1     0     11m
+        pods: gateway-7c598dffd4-gpwdx   0/1   ImagePullBackOff   0     11m
+        notReady:
+        - namespace: default-helm
+          pod: gateway-7c598dffd4-gpwdx
+          ready: 0/1
+          status: ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: f806adc0df153fdbb516ba3a5f235ad6cfeade9fbb56622bc46b26c9f79f52b1
+            bytes: 2043
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: c333c83f6b4d3504064627691ab0c69e2528ca1ded2eb360a28bf30948db8a7e
+            bytes: 2701
+          podArtifacts:
+          - namespace: default-helm
+            pod: gateway-7c598dffd4-gpwdx
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/gateway-7c598dffd4-gpwdx/describe.txt
+            sha256: 559e293f39768f23f16424c9e9f3248e071bd3e58339490fcc7b349845f53ac3
+            bytes: 3602
+          - namespace: default-helm
+            pod: gateway-7c598dffd4-gpwdx
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/gateway-7c598dffd4-gpwdx/logs.txt
+            sha256: 77381376013363cb279d7cf4274aa3dcb7ae3b2cde179e703ffe77e4c5b72c56
+            bytes: 143
+          - namespace: default-helm
+            pod: gateway-7c598dffd4-gpwdx
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/gateway-7c598dffd4-gpwdx/previous-logs.txt
+            sha256: d9b13b26f0980d5920f01e51f1a3433db2f04e47a7eb975f242695f320f3b9bd
+            bytes: 119
+      stderr: 'Error: resource Deployment/default-helm/gateway not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 525106a6db3b07b517860d5c69fd83c1c464311ad89dd54b923240f6b0b1ca5e
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/gateway   0/1   1     0     4m54s'
+        pods: '# default
+
+          gateway-7c598dffd4-k8x7w   0/1   ImagePullBackOff   0     4m54s'
+        notReady:
+        - namespace: default
+          pod: gateway-7c598dffd4-k8x7w
+          ready: 0/1
+          status: ImagePullBackOff
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 9ed85b9bc6d706dfb1b3d860a63550458a0559d1be12acdd675d23452712da2d
+            bytes: 4062
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 274b8fdf99ff71d15efe5aaf6de8b99e6e6e6db40cd4e53ef81353302819acb4
+            bytes: 2561
+          podArtifacts:
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/gateway-7c598dffd4-k8x7w/describe.txt
+            sha256: 1e0176e25aa2b1d70262a536b3620fd2f7ce637bfd8c4cd1e3131fd98043650b
+            bytes: 3592
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/gateway-7c598dffd4-k8x7w/logs.txt
+            sha256: d1928b081372be06d0e28107da22bf5cf5fab9b5737397a0873765bb88796314
+            bytes: 143
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/gateway-7c598dffd4-k8x7w/previous-logs.txt
+            sha256: 085713bcda616a94a087a7f211caf25188036477f8a48d145ab5285eab24c2c0
+            bytes: 119
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|gateway
+          - autoscaling/v2|HorizontalPodAutoscaler|default|gateway
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|gateway
+          - rbac.authorization.k8s.io/v1|Role|default|gateway
+          - v1|ServiceAccount|default|gateway
+          - v1|Service|default|gateway
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+      controller: Argo CD OCI
+      app: gateway-parity
+      manifestSHA256: 3b268f3d7e871cc08b3924ed58b7b14dd0609d3560990dd44165e22ef2abebc7
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+      sync: Synced
+      health: Degraded
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci
+              targetRevision: latest
+          revision: sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T17:59:03Z'
+          status: Degraded
+        summary:
+          images:
+          - auto
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T17:54:59Z'
+          finishedAt: '2026-06-15T17:55:01Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+          deployedAt: '2026-06-15T17:55:01Z'
+          deployStartedAt: '2026-06-15T17:54:59Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: autoscaling
+          kind: HorizontalPodAutoscaler
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: gateway
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         gateway-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-gateway-mqfhvw46-1af2-cluster:argoproj.io/Application:argocd/gateway-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ d8659615-2681-48ba-b038-ac0eefe9edc8\n              confighub.com/UnitSlug:\
+              \ gateway-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-15T17:54:57Z\n\
+              \  Generation:          11\n  Resource Version:    2884\n  UID:    \
+              \             04620da8-458d-4818-bc81-9d66c25088c8\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T17:59:03Z\n\
+              \    Status:                Degraded\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T17:54:59Z\n    Deployed At:        2026-06-15T17:55:01Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \    Source:\n      Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T17:55:01Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \        Source:\n          Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T17:54:59Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/gateway serverside-applied\n        Name:       \
+              \ gateway\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/gateway\
+              \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/gateway\
+              \ serverside-applied\n        Name:        gateway\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/gateway reconciled.\
+              \ reconciliation required update. rolebinding.rbac.authorization.k8s.io/gateway\
+              \ serverside-applied\n        Name:        gateway\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/gateway\
+              \ serverside-applied\n        Name:        gateway\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          auto\n        Kind:        Deployment\n\
+              \        Message:     deployment.apps/gateway serverside-applied\n \
+              \       Name:        gateway\n        Namespace:   default\n       \
+              \ Status:      Synced\n        Sync Phase:  Sync\n        Version: \
+              \    v1\n        Group:       autoscaling\n        Hook Phase:  Running\n\
+              \        Kind:        HorizontalPodAutoscaler\n        Message:    \
+              \ horizontalpodautoscaler.autoscaling/gateway serverside-applied\n \
+              \       Name:        gateway\n        Namespace:   default\n       \
+              \ Status:      Synced\n        Sync Phase:  Sync\n        Version: \
+              \    v2\n      Revision:      sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \      Source:\n        Path:              ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T17:59:39Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       gateway\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Kind:  \
+              \     ServiceAccount\n    Name:       gateway\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apps\n\
+              \    Kind:       Deployment\n    Name:       gateway\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Group: \
+              \     autoscaling\n    Kind:       HorizontalPodAutoscaler\n    Name:\
+              \       gateway\n    Namespace:  default\n    Status:     Synced\n \
+              \   Version:    v2\n    Group:      rbac.authorization.k8s.io\n    Kind:\
+              \       Role\n    Name:       gateway\n    Namespace:  default\n   \
+              \ Status:     Synced\n    Version: "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6m52s       Normal   OperationStarted     application/gateway-parity   Initiated
+              automated sync to ''sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3''
+
+              6m52s       Normal   ResourceUpdated      application/gateway-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/gateway-parity   Updated
+              health status:  -> Progressing
+
+              6m50s       Normal   OperationCompleted   application/gateway-parity   Sync
+              operation to sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/gateway-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              2m48s       Normal   ResourceUpdated      application/gateway-parity   Updated
+              health status: Progressing -> Degraded'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Degraded
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: 4946c5be378342906996fd8771fbe17bc0bb714a4486602094c8576d5aff81d3
+                bytes: 11864
+              output: "{\n  \"metadata\": {\n    \"name\": \"gateway-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"04620da8-458d-4818-bc81-9d66c25088c8\"\
+                ,\n    \"resourceVersion\": \"3064\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-15T17:54:57Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-gateway-mqfhvw46-1af2-cluster:argoproj.io/Application:argocd/gateway-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"d8659615-2681-48ba-b038-ac0eefe9edc8\",\n      \"confighub.com/UnitSlug\"\
+                : \"gateway-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T17:54:57Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T18:01:58Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"gateway\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Progressing\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"gateway\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"gateway\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Degraded\",\n          \"message\": \"Deployment\
+                \ \\\"gateway\\\" exceeded its progress deadline\"\n        }\n  \
+                \    },\n      {\n        \"group\": \"autoscaling\",\n        \"\
+                version\": \"v2\",\n        \"kind\": \"HorizontalPodAutoscaler\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"gateway\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"the HPA controller\
+                \ was able to get the target's current scale\"\n        }\n      },\n\
+                \      {\n        \"group\": \"rbac.authorization.k8s.io\",\n    \
+                \    \"version\": \"v1\",\n       "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 2bc1b4952de768b832b89e329386fb0e6361e9f6ccd2da9e1ac176daf272518f
+                bytes: 2862
+              output: "Name:               argocd/gateway-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:61659/applications/gateway-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-gateway\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Degraded\n\nKIND/NAME                         STATUS  HEALTH \
+                \      AGE    MESSAGE                                            \
+                \                                                                \
+                \                                         REASON\nHorizontalPodAutoscaler/gateway\
+                \   Synced  Healthy      13m    horizontalpodautoscaler.autoscaling/gateway\
+                \ serverside-applied                                             \
+                \                                                 the HPA controller\
+                \ was able to get the target's current scale\nRole/gateway       \
+                \               Synced               13m    role.rbac.authorization.k8s.io/gateway\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/gateway\
+                \ serverside-applied                \nRoleBinding/gateway        \
+                \       Synced               13m    rolebinding.rbac.authorization.k8s.io/gateway\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/gateway\
+                \ serverside-applied  \nNamespace/default-oci             Synced \
+                \              7m58s                                             \
+                \                                                                \
+                \                                                 \nService/gateway\
+                \                   Synced  Progressing  13m    service/gateway serverside-applied\
+                \                                                                \
+                \                                                          \nServiceAccount/gateway\
+                \            Synced               13m    serviceaccount/gateway serverside-applied\
+                \                                                                \
+                \                                                   \nDeployment/gateway\
+                \                Synced  Degraded     13m    deployment.apps/gateway\
+                \ serverside-applied                                             \
+                \                                                                \
+                \     Deployment \"gateway\" exceeded its progress deadline\n\u2514\
+                \u2500ReplicaSet/gateway-7c598dffd4           Progressing  13m   \
+                \                                                                \
+                \                                                                \
+                \                             Waiting for rollout to finish: 0 out\
+                \ of 1 new replicas are available...\n  \u2514\u2500Pod/gateway-7c598dffd4-k8x7w\
+                \          Degraded     13m                                      \
+                \                                                                \
+                \                                                          Back-off\
+                \ pulling image \"auto\": ErrImagePull: failed to pull and unpack\
+                \ image \"docker.io/library/auto:latest\": failed to resolve reference\
+                \ \"docker.io/library/auto:latest\": pull access denied, repository\
+                \ does not exist or may require authorization: server message: insufficient_scope:\
+                \ authorization failed"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"gateway-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"apply\",\n      \"reason\": \"Degraded\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/gateway-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\",\n \
+              \     \"lastAttemptedRevision\": \"sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-gateway-mqfhvw46-1af2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"gateway-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-gateway-mqfhvw46-1af2-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci
+              targetRevision: latest
+          revision: sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T17:37:56Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T17:54:56Z'
+          finishedAt: '2026-06-15T17:54:57Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+          deployedAt: '2026-06-15T17:54:57Z'
+          deployStartedAt: '2026-06-15T17:54:56Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: gateway-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-gateway-mqfhvw46-1af2-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T17:37:48Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        16\n  Resource Version:  3077\n  UID:        \
+              \       2b4273e5-824f-48e7-9a73-e66a5c527ecc\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T17:37:56Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T17:54:56Z\n\
+              \    Deployed At:        2026-06-15T17:54:57Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \    Source:\n      Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T17:54:57Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \        Source:\n          Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T17:54:56Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/gateway-parity serverside-applied\n\
+              \        Name:        gateway-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \      Source:\n        Path:              ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T18:02:04Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       gateway-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     24m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     24m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m12s  argocd-application-controller  Sync operation to sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\
+              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                       MESSAGE
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Updated
+              sync status:  -> Synced
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Initiated
+              automated sync to ''sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m12s       Normal   OperationCompleted   application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Sync
+              operation to sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: d688bd12bf11c0f27a79444fbaa11610823b9e000d14e36494afe73260229b81
+                bytes: 10648
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-gateway-mqfhvw46-1af2-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2b4273e5-824f-48e7-9a73-e66a5c527ecc\"\
+                ,\n    \"resourceVersion\": \"3095\",\n    \"generation\": 17,\n \
+                \   \"creationTimestamp\": \"2026-06-15T17:37:48Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-gateway-mqfhvw46-1af2-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T17:37:48Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T18:02:19Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.co"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 801828c26139522d4bc2f245ad3294da28caca45a4946395ba5a72b72bc1b4fd
+                bytes: 1130
+              output: "Name:               argocd/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61778/applications/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-gateway-mqfhvw46-1af2-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \          STATUS  HEALTH  AGE    MESSAGE                        \
+                \                                                            REASON\n\
+                Application/helm-expt-parity-gateway-mqfhvw46-1af2-cluster  Synced\
+                \          24m    application.argoproj.io/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\
+                \ serverside-applied  \nApplication/gateway-parity               \
+                \                   Synced          7m31s  application.argoproj.io/gateway-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"gateway-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"apply\",\n      \"reason\": \"Degraded\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/gateway-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\",\n \
+              \     \"lastAttemptedRevision\": \"sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-gateway-mqfhvw46-1af2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-gateway-mqfhvw46-1af2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:476a7f811a6db79b31482d3544adc36a82dd8e61cbc13ecb6540a160c99e35b3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"gateway-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-gateway-mqfhvw46-1af2-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/gateway   0/1   1     0     16m'
+        pods: '# default
+
+          gateway-7c598dffd4-k8x7w   0/1   ErrImagePull   0     16m'
+        notReady:
+        - namespace: default
+          pod: gateway-7c598dffd4-k8x7w
+          ready: 0/1
+          status: ErrImagePull
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: 61c9f03b73ab68d182033027f6bf7643bf3f5afc161838e37211df2ba239d9e8
+            bytes: 4062
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: d3db426e2221115f1edef5afff76f7cd8b3e5ad37138f0f7ec35afed92fbb2f9
+            bytes: 2883
+          podArtifacts:
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/gateway-7c598dffd4-k8x7w/describe.txt
+            sha256: a126b2633aa562b93dceef664b21d6b84bdf4bfd58b93381da9e7b6839d48e7c
+            bytes: 3584
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/gateway-7c598dffd4-k8x7w/logs.txt
+            sha256: d1928b081372be06d0e28107da22bf5cf5fab9b5737397a0873765bb88796314
+            bytes: 143
+          - namespace: default
+            pod: gateway-7c598dffd4-k8x7w
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/gateway-7c598dffd4-k8x7w/previous-logs.txt
+            sha256: 085713bcda616a94a087a7f211caf25188036477f8a48d145ab5285eab24c2c0
+            bytes: 119
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-15T17:37:48Z'
+    finishedAt: '2026-06-15T17:45:51Z'
+    elapsedSeconds: 482.468
+    timeoutSeconds: 900
+    command: helm upgrade --install gateway gateway --repo https://istio-release.storage.googleapis.com/charts
+      --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T17:48:59Z'
+    finishedAt: '2026-06-15T17:48:59Z'
+    elapsedSeconds: 0.485
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T17:49:00Z'
+    finishedAt: '2026-06-15T17:49:00Z'
+    elapsedSeconds: 0.12
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig
+      --context kind-helm-expt-parity-gateway-mqfhvw46-1af2 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-15T17:49:00Z'
+    finishedAt: '2026-06-15T17:54:04Z'
+    elapsedSeconds: 304.046
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T17:54:09Z'
+    finishedAt: '2026-06-15T17:54:10Z'
+    elapsedSeconds: 0.402
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T17:54:10Z'
+    finishedAt: '2026-06-15T17:54:35Z'
+    elapsedSeconds: 25.542
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+      --space helm-expt-parity-gateway-mqfhvw46-1af2-gateway --target helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci
+    objectCount: 7
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T17:54:35Z'
+    finishedAt: '2026-06-15T17:54:37Z'
+    elapsedSeconds: 1.128
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T17:54:37Z'
+    finishedAt: '2026-06-15T17:54:46Z'
+    elapsedSeconds: 9.458
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-gateway-mqfhvw46-1af2-gateway
+      --unit <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T17:54:46Z'
+    finishedAt: '2026-06-15T17:54:47Z'
+    elapsedSeconds: 0.929
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-gateway-mqfhvw46-1af2-cluster
+      gateway-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/argo-application.json
+      --target helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T17:54:47Z'
+    finishedAt: '2026-06-15T17:54:48Z'
+    elapsedSeconds: 1.093
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-gateway-mqfhvw46-1af2-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T17:54:48Z'
+    finishedAt: '2026-06-15T18:01:51Z'
+    elapsedSeconds: 422.428
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Degraded
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-15T18:02:29Z'
+    finishedAt: '2026-06-15T18:05:31Z'
+    elapsedSeconds: 182.394
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-gateway-mqfhvw46-1af2\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-gateway-mqfhvw46-1af2\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-gateway-mqfhvw46-1af2\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-gateway-mqfhvw46-1af2\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/gateway not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/gateway   0/1   1     0     4m54s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Degraded after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-26 non-pass rows: 25 watch, 1 blocked.
+27 non-pass rows: 26 watch, 1 blocked.
 1 are resolved by the **user** (stage a prerequisite); 0
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,14 +34,14 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 14 |
-| `target-runtime` | 10 |
+| `target-runtime` | 11 |
 | `operate-policy` | 1 |
 | `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 14 |
-| `needs runtime review` | 10 |
+| `needs runtime review` | 11 |
 | `needs operate review` | 1 |
 | `user` | 1 |
 
@@ -67,6 +67,7 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| istio/gateway@1.30.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
