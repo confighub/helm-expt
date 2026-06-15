@@ -1,0 +1,159 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-promtail-6.17.1-default-kind-parity-20260606
+spec:
+  chart: grafana/promtail
+  version: 6.17.1
+  base: default
+  result: pass
+  observedAt: '2026-06-15T08:18:50Z'
+  package:
+    path: packages/grafana/promtail/6.17.1
+  recipe:
+    path: recipes/grafana/promtail/6.17.1
+  variantRevision: recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-promta-cd252-yuob-helm
+    installerCluster: hx-promta-cd252-yuob-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-promta-cd252-yuob-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-promta-cd252-yuob-helm" ...
+
+          Deleted nodes: ["hx-promta-cd252-yuob-helm-control-plane"]'
+      - cluster: hx-promta-cd252-yuob-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-promta-cd252-yuob-installer" ...
+
+          Deleted nodes: ["hx-promta-cd252-yuob-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install promtail promtail --repo https://grafana.github.io/helm-charts
+        --version 6.17.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-promtail-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35
+      objectCount: 5
+      liveHelmManifestSHA256: d3807c3dedc419d3b8e4868172de40acc38a1f6611c681ad6937eaa5ce6a0d99
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/promtail   1     1     1     1     1     <none>   22s'
+        pods: '# default
+
+          promtail-cnv25   1/1   Running   0     22s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/promtail/6.17.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-promta-cd252-yuob-promtail
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: df9cc0533ab846ce1751620f477e97673f43281397f118fa19aee158dd78ba62
+      objectCount: 6
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/promtail   1     1     1     1     1     <none>   31s'
+        pods: '# default
+
+          promtail-6pgft   1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/promtail   1     1     1     1     1     <none>   31s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
