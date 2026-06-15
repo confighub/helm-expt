@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:52584/applications/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                          STATUS  HEALTH  AGE    MESSAGE                                                                                           REASON
+Application/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster  Synced          8m31s  application.argoproj.io/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster serverside-applied
+Application/kyverno-policies-parity                                Synced          7m25s  application.argoproj.io/kyverno-policies-parity serverside-applied

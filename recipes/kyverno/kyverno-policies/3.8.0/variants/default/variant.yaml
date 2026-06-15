@@ -17,3 +17,15 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "clusterpolicies.kyverno.io"
+        sourcePath: "../../kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "kyverno/kyverno@3.8.1/default"
+        purpose: "Kyverno ClusterPolicy CRD required before kyverno-policies ClusterPolicy objects can be applied"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

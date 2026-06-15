@@ -1,0 +1,27 @@
+Name:               argocd/kyverno-policies-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:52466/applications/kyverno-policies-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                     STATUS     HEALTH  AGE    MESSAGE  REASON
+Namespace/default-oci                         Synced             7m56s
+ClusterPolicy/disallow-capabilities           OutOfSync          7m3s
+ClusterPolicy/disallow-proc-mount             OutOfSync          7m3s
+ClusterPolicy/disallow-selinux                OutOfSync          7m3s
+ClusterPolicy/restrict-sysctls                OutOfSync          7m3s
+ClusterPolicy/disallow-host-namespaces        OutOfSync          7m3s
+ClusterPolicy/disallow-host-path              OutOfSync          7m3s
+ClusterPolicy/disallow-host-ports             OutOfSync          7m3s
+ClusterPolicy/disallow-host-process           OutOfSync          7m3s
+ClusterPolicy/disallow-privileged-containers  OutOfSync          7m3s
+ClusterPolicy/restrict-apparmor-profiles      OutOfSync          7m3s
+ClusterPolicy/restrict-seccomp                OutOfSync          7m3s

@@ -1,0 +1,507 @@
+{
+  "metadata": {
+    "name": "kyverno-policies-parity",
+    "namespace": "argocd",
+    "uid": "50fffc37-7be5-49c8-8906-2fa4cdcd35b1",
+    "resourceVersion": "1660",
+    "generation": 40,
+    "creationTimestamp": "2026-06-15T03:20:19Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster:argoproj.io/Application:argocd/kyverno-policies-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "cf59b89c-f82d-4355-8f72-fe76268c797b",
+      "confighub.com/UnitSlug": "kyverno-policies-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:20:19Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:27:19Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci",
+      "path": "./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-capabilities",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-host-namespaces",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-host-path",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-host-ports",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-host-process",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-privileged-containers",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-proc-mount",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "disallow-selinux",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "restrict-apparmor-profiles",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "restrict-seccomp",
+        "status": "OutOfSync"
+      },
+      {
+        "group": "kyverno.io",
+        "version": "v1",
+        "kind": "ClusterPolicy",
+        "name": "restrict-sysctls",
+        "status": "OutOfSync"
+      }
+    ],
+    "sync": {
+      "status": "OutOfSync",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci",
+          "path": "./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T03:20:21Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53",
+        "deployedAt": "2026-06-15T03:20:24Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci",
+          "path": "./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T03:20:21Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T03:27:11Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53",
+          "prune": true,
+          "resources": [
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-host-process"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-privileged-containers"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "restrict-seccomp"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-proc-mount"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-selinux"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "restrict-apparmor-profiles"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "restrict-sysctls"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-capabilities"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-host-namespaces"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-host-path"
+            },
+            {
+              "group": "kyverno.io",
+              "kind": "ClusterPolicy",
+              "name": "disallow-host-ports"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci",
+            "path": "./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 6
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-capabilities",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-capabilities serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-host-namespaces",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-host-namespaces serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "restrict-seccomp",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/restrict-seccomp serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-host-process",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-host-process serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-selinux",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-selinux serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-host-path",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-host-path serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-proc-mount",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-proc-mount serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-privileged-containers",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-privileged-containers serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "disallow-host-ports",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/disallow-host-ports serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "restrict-sysctls",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/restrict-sysctls serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "kyverno.io",
+            "version": "v1",
+            "kind": "ClusterPolicy",
+            "namespace": "default-oci",
+            "name": "restrict-apparmor-profiles",
+            "status": "Synced",
+            "message": "clusterpolicy.kyverno.io/restrict-apparmor-profiles serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:dbcdc6147889b1981919b310e0cfdfae8c89b8d22fd6ac507bab27b5491b2b53",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kyvernopolicies-mqen7pms-mwk-cluster/oci",
+          "path": "./helm-expt-parity-kyvernopolicies-mqen7pms-mwk-kyverno-policies",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T03:24:45Z",
+      "finishedAt": "2026-06-15T03:24:47Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
