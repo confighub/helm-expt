@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 110
+pass: 111
 watch: 13
 blocked: 0
 not-started: 0
@@ -40,6 +40,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 18 | `bitnami/nginx@24.0.2` | http-clusterip | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml |
 | 19 | `grafana/tempo@1.24.4` | local-persistent | pass | - | runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml |
 | 20 | `hashicorp/consul@2.0.0` | default-control-plane | pass | - | runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml |
+| 1 | `bitnami/redis@27.0.0` | default | pass | - | runs/live-helm-confighub-compare/bitnami-redis-default-27-0-0/receipt.yaml |
 | 1 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | 2 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | - | runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | - | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
