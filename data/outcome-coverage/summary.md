@@ -15,11 +15,11 @@ render parity rows:                  192/192
 in-ConfigHub proof rows:             192/192
 local live rows:                     139/192
 GitOps/OCI live pass rows:           134/192
-GitOps/OCI non-pass receipts:        24
+GitOps/OCI non-pass receipts:        25
 live Helm-vs-ConfigHub pass rows:    134/192
-live Helm-vs-ConfigHub non-pass receipts: 24
+live Helm-vs-ConfigHub non-pass receipts: 25
 lifecycle observation rows:          10/10
-selected live parity receipts:       134 pass, 23 watch, 1 blocked
+selected live parity receipts:       134 pass, 24 watch, 1 blocked
 two-cluster kind parity receipts:    101 pass, 5 watch, 2 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5

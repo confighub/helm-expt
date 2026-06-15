@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-24 non-pass rows: 23 watch, 1 blocked.
+25 non-pass rows: 24 watch, 1 blocked.
 1 are resolved by the **user** (stage a prerequisite); 0
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,14 +34,14 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
-| `target-runtime` | 6 |
+| `target-runtime` | 7 |
 | `operate-policy` | 1 |
 | `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
-| `needs runtime review` | 6 |
+| `needs runtime review` | 7 |
 | `needs operate review` | 1 |
 | `user` | 1 |
 
@@ -64,6 +64,7 @@ passed — the residue is operational, not a config mismatch.
 | grafana/tempo@1.24.4 | s3-query-observability | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | hashicorp/terraform@1.1.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

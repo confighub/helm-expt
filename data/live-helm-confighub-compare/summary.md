@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 134
-watch: 23
+watch: 24
 blocked: 1
 not-started: 0
 ```
@@ -132,6 +132,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `grafana/rollout-operator@0.49.0` | no-crds | pass | - | runs/live-helm-confighub-compare/grafana-rollout-operator-no-crds/receipt.yaml |
 |  | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | - | runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/receipt.yaml |
 |  | `hashicorp/terraform@1.1.2` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml |
+|  | `hashicorp/terraform@1.1.2` | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
 |  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml |
