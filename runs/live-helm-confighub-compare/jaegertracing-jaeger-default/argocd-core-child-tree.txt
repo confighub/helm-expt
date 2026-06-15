@@ -1,0 +1,21 @@
+Name:               argocd/jaeger-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:50767/applications/jaeger-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-jaeger-mqemeb8x-1sy7-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-jaeger-mqemeb8x-1sy7-jaeger
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                        STATUS  HEALTH   AGE  MESSAGE                                    REASON
+Namespace/default-oci            Synced           59s
+Service/jaeger                   Synced  Healthy  26s  service/jaeger serverside-applied
+ServiceAccount/jaeger            Synced           26s  serviceaccount/jaeger serverside-applied
+Deployment/jaeger                Synced  Healthy  26s  deployment.apps/jaeger serverside-applied
+└─ReplicaSet/jaeger-5949c474b5           Healthy  26s
+  └─Pod/jaeger-5949c474b5-7ktx7          Healthy  26s
