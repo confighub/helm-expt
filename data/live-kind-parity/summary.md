@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 115
+pass: 116
 watch: 7
 blocked: 12
-semantic parity pass: 126
+semantic parity pass: 127
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 11
 non-pass rows with related lifecycle evidence: 0
@@ -168,6 +168,7 @@ broader support claim.
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
 | `percona/pg-operator@3.0.0` | no-crds | watch | pass | target-prerequisite: CRDs disabled or missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |
+| `percona/psmdb-operator@1.22.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml |
