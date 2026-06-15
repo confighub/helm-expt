@@ -4,13 +4,16 @@ metadata:
   name: "minio-operator-tenant-7-1-1"
 spec:
   chart:
-    repository: "minio-operator"
     name: "tenant"
+    repository: "minio-operator"
     version: "7.1.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7-1-1.tgz"
+    sha256: "2d06312b902e7504cacf6b5e16bba80d747f61540be75012a85b30b717cae944"
   package:
-    path: "packages/minio-operator/tenant/7.1.1"
     name: "minio-operator-tenant"
-    version: "7.1.1"
+    path: "packages/minio-operator/tenant/7.1.1"
     sourceFiles:
       -
         path: "README.md"
@@ -25,21 +28,24 @@ spec:
         sha256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
         bytes: 1881
       -
+        path: "collector/target-facts.sh"
+        sha256: "b5b3eadba1d5b8033bf222a994178978489037bec7d3c7411ed90aee98de2248"
+        bytes: 2506
+      -
         path: "installer.yaml"
-        sha256: "e60eae75deadf079d0effc57fe65ea470f550c85d558c855bcb438cd37f28ee2"
-        bytes: 316
-  deterministicBundle:
-    command: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7-1-1.tgz"
-    sha256: "7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "01ba6e88f8136ad5c7110d65a0f7e98bc9216444339217c1b338fd6694211905"
+        bytes: 671
+    version: "7.1.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 2
-      cubInstallObjectCountIncludingSupport: 3
-      semanticObjectMatches: "2/2"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 3
+      helmReleaseObjectCount: 2
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 1
+      variant: "default"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

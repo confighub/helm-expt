@@ -1,0 +1,976 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: minio-operator-tenant-7.1.1-default-live-parity-20260605
+spec:
+  chart: minio-operator/tenant
+  version: 7.1.1
+  base: default
+  result: watch
+  observedAt: '2026-06-15T03:48:46Z'
+  package:
+    path: packages/minio-operator/tenant/7.1.1
+  recipe:
+    path: recipes/minio-operator/tenant/7.1.1
+  variantRevision: recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-tenant-mqeobjfe-703
+    kubeContext: kind-helm-expt-parity-tenant-mqeobjfe-703
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-tenant-mqeobjfe-703 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-tenant-mqeobjfe-703"...
+
+        Deleting cluster "helm-expt-parity-tenant-mqeobjfe-703" ...
+
+        Deleted nodes: ["helm-expt-parity-tenant-mqeobjfe-703-control-plane"]
+
+        Deleting Space "helm-expt-parity-tenant-mqeobjfe-703-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install tenant tenant --repo https://operator.min.io
+        --version 7.1.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/minio-operator-tenant-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a
+      objectCount: 2
+      liveHelmManifestSHA256: 4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a
+      liveHelmManifestObjectCount: 2
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          Secret: 1
+          Tenant: 1
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/minio-operator/tenant/7.1.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tenant-mqeobjfe-703-tenant
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 10b335c9b5d763a168b4df057c4de2312320d696c210d6e521dc51ae8477b662
+      objectCount: 3
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          Tenant: 1
+          Secret: 1
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-tenant-mqeobjfe-703-tenant
+      controller: Argo CD OCI
+      app: tenant-parity
+      manifestSHA256: 3c265296e7a221328f8a8991daf8560fa557b509ba5a8f91bdf1ad4a52aa9400
+      objectCount: 3
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: []
+      ociRevision: sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+      sync: Synced
+      health: Progressing
+      separatedSecrets:
+      - secret-myminio-env-configuration.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-tenant-mqeobjfe-703-tenant
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+              targetRevision: latest
+          revision: sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T03:51:02Z'
+          status: Progressing
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:50:59Z'
+          finishedAt: '2026-06-15T03:51:00Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+          deployedAt: '2026-06-15T03:51:00Z'
+          deployStartedAt: '2026-06-15T03:50:59Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-tenant-mqeobjfe-703-tenant
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: minio.min.io
+          kind: Tenant
+          namespace: default-oci
+          name: myminio
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         tenant-parity\nNamespace:    argocd\nLabels:  \
+              \     <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-tenant-mqeobjfe-703-cluster:argoproj.io/Application:argocd/tenant-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 1f9544d6-1c21-4327-9bdb-05befdaf5740\n              confighub.com/UnitSlug:\
+              \ tenant-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:     \
+              \    Application\nMetadata:\n  Creation Timestamp:  2026-06-15T03:50:57Z\n\
+              \  Generation:          8\n  Resource Version:    1220\n  UID:     \
+              \            21ca11ec-0ac6-48bd-9841-98e4395c23f6\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T03:51:02Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T03:50:59Z\n    Deployed At:        2026-06-15T03:51:00Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \    Source:\n      Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:51:00Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \        Source:\n          Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T03:50:59Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       minio.min.io\n      \
+              \  Hook Phase:  Running\n        Kind:        Tenant\n        Message:\
+              \     tenant.minio.min.io/myminio serverside-applied\n        Name:\
+              \        myminio\n        Namespace:   default-oci\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v2\n\
+              \      Revision:      sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \      Source:\n        Path:              ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T03:54:14Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Group:      minio.min.io\n    Kind:       Tenant\n    Name:\
+              \       myminio\n    Namespace:  default-oci\n    Status:     Synced\n\
+              \    Version:    v2\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    6m45s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76'\n\
+              \  Normal  ResourceUpdated     6m45s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  6m45s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  6m44s  argocd-application-controller\
+              \  Sync operation to sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\
+              \ succeeded\n  Normal  ResourceUpdated     6m42s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  ResourceUpdated\
+              \     6m42s  argocd-application-controller  Updated health status: Healthy\
+              \ -> Progressing"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                      MESSAGE
+
+              6m45s       Normal   OperationStarted     application/tenant-parity   Initiated
+              automated sync to ''sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76''
+
+              6m45s       Normal   ResourceUpdated      application/tenant-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m45s       Normal   ResourceUpdated      application/tenant-parity   Updated
+              health status:  -> Healthy
+
+              6m44s       Normal   OperationCompleted   application/tenant-parity   Sync
+              operation to sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+              succeeded
+
+              6m42s       Normal   ResourceUpdated      application/tenant-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m42s       Normal   ResourceUpdated      application/tenant-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-child.json
+                sha256: 7a4fb65a9395ba354d301d106735a5b069e549b2dbe6f77a40df59e1a368b49a
+                bytes: 8488
+              output: "{\n  \"metadata\": {\n    \"name\": \"tenant-parity\",\n  \
+                \  \"namespace\": \"argocd\",\n    \"uid\": \"21ca11ec-0ac6-48bd-9841-98e4395c23f6\"\
+                ,\n    \"resourceVersion\": \"1501\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T03:50:57Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-tenant-mqeobjfe-703-cluster:argoproj.io/Application:argocd/tenant-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"1f9544d6-1c21-4327-9bdb-05befdaf5740\",\n      \"confighub.com/UnitSlug\"\
+                : \"tenant-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T03:50:57Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T03:57:52Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-tenant-mqeobjfe-703-tenant\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"minio.min.io\",\n      \
+                \  \"version\": \"v2\",\n        \"kind\": \"Tenant\",\n        \"\
+                namespace\": \"default-oci\",\n        \"name\": \"myminio\",\n  \
+                \      \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Progressing\",\n          \"message\": \"No status info\
+                \ available\"\n        }\n      }\n    ],\n    \"sync\": {\n     \
+                \ \"status\": \"Synced\",\n      \"comparedTo\": {\n        \"source\"\
+                : {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-tenant-mqeobjfe-703-tenant\"\
+                ,\n          \"targetRevision\": \"latest\"\n        },\n        \"\
+                destination\": {\n          \"server\": \"https://kubernetes.default.svc\"\
+                ,\n          \"namespace\": \"default-oci\"\n        }\n      },\n\
+                \      \"revision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+                \n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n\
+                \      \"lastTransitionTime\": \"2026-06-15T03:51:02Z\"\n    },\n\
+                \    \"history\": [\n      {\n        \"revision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+                ,\n        \"deployedAt\": \"2026-06-15T03:51:00Z\",\n        \"id\"\
+                : 0,\n        \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/t"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: fd53c97d06a80decf6c6ccd192f1a3fa9bada1984a4421c81d39673630eafde0
+                bytes: 861
+              output: "Name:               argocd/tenant-parity\nProject:        \
+                \    default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:54148/applications/tenant-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME              STATUS  HEALTH       AGE\
+                \    MESSAGE                                         REASON\nNamespace/default-oci\
+                \  Synced               7m38s                                    \
+                \              \nTenant/myminio         Synced  Progressing  7m1s\
+                \   tenant.minio.min.io/myminio serverside-applied  No status info\
+                \ available"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tenant-mqeobjfe-703-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tenant-mqeobjfe-703-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tenant-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/tenant-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tenant-mqeobjfe-703-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tenant-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-tenant-mqeobjfe-703-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+              targetRevision: latest
+          revision: sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T03:50:17Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T03:50:55Z'
+          finishedAt: '2026-06-15T03:50:57Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+          deployedAt: '2026-06-15T03:50:57Z'
+          deployStartedAt: '2026-06-15T03:50:55Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-tenant-mqeobjfe-703-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-tenant-mqeobjfe-703-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: tenant-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T03:50:08Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1400\n  UID:        \
+              \       3d6ff45f-fb88-4015-8452-e9c2be040887\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T03:50:17Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T03:50:55Z\n\
+              \    Deployed At:        2026-06-15T03:50:57Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \    Source:\n      Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T03:50:57Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \        Source:\n          Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T03:50:55Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/tenant-parity serverside-applied\n\
+              \        Name:        tenant-parity\n        Namespace:   argocd\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-tenant-mqeobjfe-703-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \      Source:\n        Path:              ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T03:56:31Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       tenant-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     7m45s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     7m45s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m7s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76'\n\
+              \  Normal  ResourceUpdated     7m7s   argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m5s   argocd-application-controller  Sync operation to sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\
+              \ succeeded\n  Normal  ResourceUpdated     7m3s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              7m45s       Normal   ResourceUpdated      application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Updated
+              sync status:  -> Synced
+
+              7m45s       Normal   ResourceUpdated      application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Updated
+              health status:  -> Healthy
+
+              7m7s        Normal   OperationStarted     application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Initiated
+              automated sync to ''sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76''
+
+              7m7s        Normal   ResourceUpdated      application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m5s        Normal   OperationCompleted   application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Sync
+              operation to sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76
+              succeeded
+
+              7m3s        Normal   ResourceUpdated      application/helm-expt-parity-tenant-mqeobjfe-703-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: af91845cdc4e39cf6aca1ef98d1cbbda994ed97416e2d84c53f0ee5daad58e02
+                bytes: 10611
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-tenant-mqeobjfe-703-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"3d6ff45f-fb88-4015-8452-e9c2be040887\"\
+                ,\n    \"resourceVersion\": \"1529\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T03:50:08Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-tenant-mqeobjfe-703-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-tenant-mqeobjfe-703-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T03:50:08Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T03:58:11Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 1a51f778e2b39d8b8dd7e8929badb7eeed15ffba26f7dcad61b16dbcf4fae9e8
+                bytes: 1111
+              output: "Name:               argocd/helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54265/applications/helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/helm-expt-parity-tenant-mqeobjfe-703-cluster  Synced \
+                \         8m13s  application.argoproj.io/helm-expt-parity-tenant-mqeobjfe-703-cluster\
+                \ serverside-applied  \nApplication/tenant-parity                \
+                \                 Synced          7m24s  application.argoproj.io/tenant-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tenant-mqeobjfe-703-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tenant-mqeobjfe-703-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tenant-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/tenant-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tenant-mqeobjfe-703-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tenant-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          Tenant: 1
+          Secret: 1
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T03:50:08Z'
+    finishedAt: '2026-06-15T03:50:11Z'
+    elapsedSeconds: 2.121
+    timeoutSeconds: 900
+    command: helm upgrade --install tenant tenant --repo https://operator.min.io --version
+      7.1.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/minio-operator-tenant-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T03:50:16Z'
+    finishedAt: '2026-06-15T03:50:16Z'
+    elapsedSeconds: 0.241
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/minio-operator/tenant/7.1.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tenant-mqeobjfe-703-tenant
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T03:50:17Z'
+    finishedAt: '2026-06-15T03:50:17Z'
+    elapsedSeconds: 0.073
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tenant-mqeobjfe-703.kubeconfig
+      --context kind-helm-expt-parity-tenant-mqeobjfe-703 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/minio-operator-tenant-default/direct-apply-manifest.yaml
+    objectCount: 2
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T03:50:17Z'
+    finishedAt: '2026-06-15T03:50:17Z'
+    elapsedSeconds: 0.001
+    timeoutSeconds: 300
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T03:50:22Z'
+    finishedAt: '2026-06-15T03:50:22Z'
+    elapsedSeconds: 0.356
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/minio-operator/tenant/7.1.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tenant-mqeobjfe-703-tenant
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T03:50:23Z'
+    finishedAt: '2026-06-15T03:50:36Z'
+    elapsedSeconds: 13.298
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tenant-mqeobjfe-703-tenant
+      --space helm-expt-parity-tenant-mqeobjfe-703-tenant --target helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+    objectCount: 3
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T03:50:36Z'
+    finishedAt: '2026-06-15T03:50:37Z'
+    elapsedSeconds: 0.555
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-tenant-mqeobjfe-703-tenant
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T03:50:37Z'
+    finishedAt: '2026-06-15T03:50:38Z'
+    elapsedSeconds: 1.366
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-tenant-mqeobjfe-703-tenant --unit
+      <2 unit(s)> --wait --timeout 5m
+    unitCount: 2
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T03:50:38Z'
+    finishedAt: '2026-06-15T03:50:40Z'
+    elapsedSeconds: 1.982
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-tenant-mqeobjfe-703-cluster
+      tenant-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/minio-operator-tenant-default/argo-application.json
+      --target helm-expt-parity-tenant-mqeobjfe-703-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T03:50:40Z'
+    finishedAt: '2026-06-15T03:50:42Z'
+    elapsedSeconds: 1.364
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-tenant-mqeobjfe-703-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T03:50:42Z'
+    finishedAt: '2026-06-15T03:57:44Z'
+    elapsedSeconds: 422.468
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T03:58:21Z'
+    finishedAt: '2026-06-15T03:58:21Z'
+    elapsedSeconds: 0.001
+    timeoutSeconds: 180
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-tenant-mqeobjfe-703\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-tenant-mqeobjfe-703.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-tenant-mqeobjfe-703\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-tenant-mqeobjfe-703\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tenant-mqeobjfe-703\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tenant-mqeobjfe-703.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argoc"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "tenant" does not exist. Installing it now.
+
+      NAME: tenant
+
+      LAST DEPLOYED: Mon Jun 15 04:50:10 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: ''
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=1 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: tenants.minio.min.io
+        sourceVariant: minio-operator/operator@7.1.1/default
+        lane: regularHelm
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: tenants.minio.min.io
+        sourceVariant: minio-operator/operator@7.1.1/default
+        lane: configHubKubectlApply
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: tenants.minio.min.io
+        sourceVariant: minio-operator/operator@7.1.1/default
+        lane: configHubOciArgo
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

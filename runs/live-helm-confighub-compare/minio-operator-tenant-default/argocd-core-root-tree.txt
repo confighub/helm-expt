@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-tenant-mqeobjfe-703-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:54265/applications/helm-expt-parity-tenant-mqeobjfe-703-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-tenant-mqeobjfe-703-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                 STATUS  HEALTH  AGE    MESSAGE                                                                                  REASON
+Application/helm-expt-parity-tenant-mqeobjfe-703-cluster  Synced          8m13s  application.argoproj.io/helm-expt-parity-tenant-mqeobjfe-703-cluster serverside-applied
+Application/tenant-parity                                 Synced          7m24s  application.argoproj.io/tenant-parity serverside-applied

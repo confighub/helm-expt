@@ -6,7 +6,17 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
+      name: "default"
+      path: "bases/default"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD tenants.minio.min.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

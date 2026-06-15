@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "name": "tenant-parity",
+    "namespace": "argocd",
+    "uid": "21ca11ec-0ac6-48bd-9841-98e4395c23f6",
+    "resourceVersion": "1501",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T03:50:57Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-tenant-mqeobjfe-703-cluster:argoproj.io/Application:argocd/tenant-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "1f9544d6-1c21-4327-9bdb-05befdaf5740",
+      "confighub.com/UnitSlug": "tenant-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:50:57Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T03:57:52Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci",
+      "path": "./helm-expt-parity-tenant-mqeobjfe-703-tenant",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "group": "minio.min.io",
+        "version": "v2",
+        "kind": "Tenant",
+        "namespace": "default-oci",
+        "name": "myminio",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "No status info available"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci",
+          "path": "./helm-expt-parity-tenant-mqeobjfe-703-tenant",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T03:51:02Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76",
+        "deployedAt": "2026-06-15T03:51:00Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci",
+          "path": "./helm-expt-parity-tenant-mqeobjfe-703-tenant",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T03:50:59Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T03:57:45Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci",
+            "path": "./helm-expt-parity-tenant-mqeobjfe-703-tenant",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "minio.min.io",
+            "version": "v2",
+            "kind": "Tenant",
+            "namespace": "default-oci",
+            "name": "myminio",
+            "status": "Synced",
+            "message": "tenant.minio.min.io/myminio serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:e7d6c02e933aa492f266e717224905a8dd5bad5ed14da0409732060edbe87b76",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci",
+          "path": "./helm-expt-parity-tenant-mqeobjfe-703-tenant",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T03:50:59Z",
+      "finishedAt": "2026-06-15T03:51:00Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
