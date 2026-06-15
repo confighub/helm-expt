@@ -1,0 +1,48 @@
+2026-06-15 01:45:52 +0000 [info]: init supervisor logger path=nil rotate_age=nil rotate_size=nil
+2026-06-15 01:45:52 +0000 [info]: parsing config file is succeeded path="/fluentd/etc/../../../etc/fluent/fluent.conf"
+2026-06-15 01:45:52 +0000 [info]: gem 'fluentd' version '1.17.1'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-concat' version '2.5.0'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-dedot_filter' version '1.0.0'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-detect-exceptions' version '0.0.15'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-elasticsearch' version '5.2.5'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-grok-parser' version '2.6.2'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-json-in-json-2' version '1.0.2'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-kubernetes_metadata_filter' version '3.5.1'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-multi-format-parser' version '1.0.0'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-parser-cri' version '0.1.1'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-prometheus' version '2.1.0'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-record-modifier' version '2.1.1'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-rewrite-tag-filter' version '2.4.0'
+2026-06-15 01:45:52 +0000 [info]: gem 'fluent-plugin-systemd' version '1.1.0'
+2026-06-15 01:45:52 +0000 [warn]: [filter_kube_metadata] !! The environment variable 'K8S_NODE_NAME' is not set to the node name which can affect the API server and watch efficiency !!
+#<Thread:0x0000ffff9a1d8b08 run> terminated with exception (report_on_exception is true):
+/fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:120:in `rescue in start_pod_watch': start_pod_watch: Exception encountered setting up pod watch from Kubernetes API v1 endpoint https://10.96.0.1:443/api: pods is forbidden: User "system:serviceaccount:default-apply:fluentd" cannot list resource "pods" in API group "" at the cluster scope ({"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"pods is forbidden: User \"system:serviceaccount:default-apply:fluentd\" cannot list resource \"pods\" in API group \"\" at the cluster scope","reason":"Forbidden","details":{"kind":"pods"},"code":403} (Fluent::ConfigError)
+)
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:111:in `start_pod_watch'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:32:in `set_up_pod_thread'
+/fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:130:in `rescue in handle_exception': pods is forbidden: User "system:serviceaccount:default-apply:fluentd" cannot list resource "pods" in API group "" at the cluster scope (Kubeclient::HttpError)
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:120:in `handle_exception'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:355:in `get_entities'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:229:in `block (2 levels) in define_entity_methods'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:101:in `method_missing'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:135:in `get_pods_and_start_watcher'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:112:in `start_pod_watch'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:32:in `set_up_pod_thread'
+/fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/abstract_response.rb:249:in `exception_with_response': 403 Forbidden (RestClient::Forbidden)
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/abstract_response.rb:129:in `return!'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/request.rb:836:in `process_result'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/request.rb:743:in `block in transmit'
+	from /usr/local/lib/ruby/3.2.0/net/http.rb:1570:in `start'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/request.rb:727:in `transmit'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/request.rb:163:in `execute'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/request.rb:63:in `execute'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/rest-client-2.1.0/lib/restclient/resource.rb:51:in `get'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:357:in `block in get_entities'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:121:in `handle_exception'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:355:in `get_entities'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:229:in `block (2 levels) in define_entity_methods'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/kubeclient-4.12.0/lib/kubeclient/common.rb:101:in `method_missing'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:135:in `get_pods_and_start_watcher'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:112:in `start_pod_watch'
+	from /fluentd/vendor/bundle/ruby/3.2.0/gems/fluent-plugin-kubernetes_metadata_filter-3.5.1/lib/fluent/plugin/kubernetes_metadata_watch_pods.rb:32:in `set_up_pod_thread'
+2026-06-15 01:45:52 +0000 [error]: config error file="/fluentd/etc/../../../etc/fluent/fluent.conf" error_class=Fluent::ConfigError error="start_pod_watch: Exception encountered setting up pod watch from Kubernetes API v1 endpoint https://10.96.0.1:443/api: pods is forbidden: User \"system:serviceaccount:default-apply:fluentd\" cannot list resource \"pods\" in API group \"\" at the cluster scope ({\"kind\":\"Status\",\"apiVersion\":\"v1\",\"metadata\":{},\"status\":\"Failure\",\"message\":\"pods is forbidden: User \\\"system:serviceaccount:default-apply:fluentd\\\" cannot list resource \\\"pods\\\" in API group \\\"\\\" at the cluster scope\",\"reason\":\"Forbidden\",\"details\":{\"kind\":\"pods\"},\"code\":403}\n)"

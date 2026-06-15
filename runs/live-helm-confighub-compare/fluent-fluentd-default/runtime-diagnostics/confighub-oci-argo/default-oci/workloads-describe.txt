@@ -1,0 +1,62 @@
+Name:           fluentd
+Namespace:      default-oci
+Selector:       app.kubernetes.io/instance=fluentd,app.kubernetes.io/name=fluentd
+Node-Selector:  <none>
+Labels:         app.kubernetes.io/instance=fluentd
+                app.kubernetes.io/managed-by=Helm
+                app.kubernetes.io/name=fluentd
+                app.kubernetes.io/version=v1.17.1
+                helm.sh/chart=fluentd-0.5.3
+Annotations:    argocd.argoproj.io/tracking-id: fluentd-parity:apps/DaemonSet:default-oci/fluentd
+                confighub.com/RevisionNum: 2
+                confighub.com/SpaceID: d352966f-ccdd-435a-b745-c1bf8edbaad8
+                confighub.com/UnitSlug: daemonset-fluentd
+                deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 1
+Current Number of Nodes Scheduled: 1
+Number of Nodes Scheduled with Up-to-date Pods: 1
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/instance=fluentd
+                    app.kubernetes.io/name=fluentd
+  Annotations:      checksum/config: b4148ec5962a6f33cbf0c5274b67acd2c4f76a206821154bb8af50565d96844a
+  Service Account:  fluentd
+  Containers:
+   fluentd:
+    Image:      fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2
+    Port:       24231/TCP (metrics)
+    Host Port:  0/TCP (metrics)
+    Liveness:   http-get http://:metrics/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:metrics/metrics delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      FLUENTD_CONF:  ../../../etc/fluent/fluent.conf
+    Mounts:
+      /etc/fluent from etcfluentd-main (rw)
+      /etc/fluent/config.d/ from etcfluentd-config (rw)
+      /var/lib/docker/containers from varlibdockercontainers (ro)
+      /var/log from varlog (rw)
+  Volumes:
+   etcfluentd-main:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      fluentd-main-fluentd
+    Optional:  false
+   etcfluentd-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      fluentd-config-fluentd
+    Optional:  false
+   varlog:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log
+    HostPathType:
+   varlibdockercontainers:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/docker/containers
+    HostPathType:
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                  Message
+  ----    ------            ----  ----                  -------
+  Normal  SuccessfulCreate  10m   daemonset-controller  Created pod: fluentd-5vm66
