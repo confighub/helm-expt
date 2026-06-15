@@ -23,14 +23,14 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-7 non-pass rows: 5 watch, 2 blocked.
+8 non-pass rows: 5 watch, 3 blocked.
 3 are resolved by the **user** (stage a prerequisite or supply
-values); 2 need **catalog/model** work; the rest need a runtime or
+values); 3 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
-| `capability-profile-diff` | 1 |
+| `capability-profile-diff` | 2 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
@@ -40,8 +40,8 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `catalog` | 3 |
 | `user` | 3 |
-| `catalog` | 2 |
 | `needs readiness review` | 1 |
 | `needs runtime review` | 1 |
 
@@ -52,6 +52,7 @@ readiness review.
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | model-gap-target-fact | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
+| bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
