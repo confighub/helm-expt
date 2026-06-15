@@ -1,0 +1,1086 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: hashicorp-terraform-1.1.2-no-crds-live-parity-20260605
+spec:
+  chart: hashicorp/terraform
+  version: 1.1.2
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-15T16:25:33Z'
+  package:
+    path: packages/hashicorp/terraform/1.1.2
+  recipe:
+    path: recipes/hashicorp/terraform/1.1.2
+  variantRevision: recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-terraform-mqffcrbf-14g1
+    kubeContext: kind-helm-expt-parity-terraform-mqffcrbf-14g1
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-terraform-mqffcrbf-14g1 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-terraform-mqffcrbf-14g1"...
+
+        Deleting cluster "helm-expt-parity-terraform-mqffcrbf-14g1" ...
+
+        Deleted nodes: ["helm-expt-parity-terraform-mqffcrbf-14g1-control-plane"]
+
+        Deleting Space "helm-expt-parity-terraform-mqffcrbf-14g1-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
+        --version 1.1.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a
+      objectCount: 4
+      liveHelmManifestSHA256: 295bf59bb3f2696280525a3ef1502efc3707039d852193b28cc43d168c6628b5
+      liveHelmManifestObjectCount: 4
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/terraform-terraform-sync-workspace   0/1   1     0     11m
+        pods: terraform-terraform-sync-workspace-575b4c57c9-r4bft   0/1   ContainerCreating   0     11m
+        notReady:
+        - namespace: default-helm
+          pod: terraform-terraform-sync-workspace-575b4c57c9-r4bft
+          ready: 0/1
+          status: ContainerCreating
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 4861276bd83c7c23b8f58cbdbbfe394601d931fad0de021d579a543a67ed1144
+            bytes: 1076
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: d43a6fc298d2489b9b21c6602ea4f73cdcfe9dc62b1af3611b0f695db2b280ee
+            bytes: 2766
+          podArtifacts:
+          - namespace: default-helm
+            pod: terraform-terraform-sync-workspace-575b4c57c9-r4bft
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/terraform-terraform-sync-workspace-575b4c57c9-r4bft/describe.txt
+            sha256: a0ca1906e45f97f54330191b12ae0e5ea8a7e732356b00213e0b842741a0bf8d
+            bytes: 3431
+          - namespace: default-helm
+            pod: terraform-terraform-sync-workspace-575b4c57c9-r4bft
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/terraform-terraform-sync-workspace-575b4c57c9-r4bft/logs.txt
+            sha256: e1df4104f0140d8b1bd2aa170ce4b9a80567bd8ed280ee68587c1c0f440c85a7
+            bytes: 168
+          - namespace: default-helm
+            pod: terraform-terraform-sync-workspace-575b4c57c9-r4bft
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/terraform-terraform-sync-workspace-575b4c57c9-r4bft/previous-logs.txt
+            sha256: 5be610e5c242f6c9e5907226e3431d8e3fb8a9fa6ea934dc338338f5f7276b65
+            bytes: 159
+      stderr: 'Error: resource Deployment/default-helm/terraform-terraform-sync-workspace
+        not ready. status: InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 48b2aa85d6eaaa5f633e4db3d461b21b856217f990b8b7e9873dcd80576fce24
+      objectCount: 5
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/terraform-terraform-sync-workspace   0/1   0     0     0s'
+        pods: '# default'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|terraform-terraform-sync-workspace
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+      controller: Argo CD OCI
+      app: terraform-parity
+      manifestSHA256: 3a0900241dc53476b8f995517137ca7df62ab7849093cfbb0119e024be6ee1f7
+      objectCount: 5
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci
+              targetRevision: latest
+          revision: sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T16:38:53Z'
+          status: Progressing
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T16:38:53Z'
+          finishedAt: '2026-06-15T16:38:55Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 5
+          syncResultStatusCounts:
+            Synced: 5
+        history:
+        - id: 0
+          revision: sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+          deployedAt: '2026-06-15T16:38:55Z'
+          deployStartedAt: '2026-06-15T16:38:53Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default-oci
+          name: terraform-terraform-sync-workspace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: terraform-terraform-sync-workspace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default-oci
+          name: terraform-terraform-sync-workspace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default-oci
+          name: terraform-terraform-sync-workspace
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         terraform-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-terraform-mqffcrbf-14g1-cluster:argoproj.io/Application:argocd/terraform-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 12607f04-b2db-4fb5-98e8-6ec601a3c3a9\n              confighub.com/UnitSlug:\
+              \ terraform-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:  \
+              \       Application\nMetadata:\n  Creation Timestamp:  2026-06-15T16:38:52Z\n\
+              \  Generation:          10\n  Resource Version:    2420\n  UID:    \
+              \             83be7434-13ad-49f9-99af-23252775b893\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T16:38:53Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T16:38:53Z\n    Deployed At:        2026-06-15T16:38:55Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \    Source:\n      Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T16:38:55Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \        Source:\n          Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T16:38:53Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/terraform-terraform-sync-workspace serverside-applied\n\
+              \        Name:        terraform-terraform-sync-workspace\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
+              \     role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[*] APIGroups:[] Resources:[pods\
+              \ services services/finalizers endpoints persistentvolumeclaims events\
+              \ configmaps secrets] ResourceNames:[] NonResourceURLs:[]}\n       \
+              \                {Verbs:[get update patch] APIGroups:[] Resources:[configmaps/status]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[*]\
+              \ APIGroups:[apps] Resources:[deployments daemonsets replicasets statefulsets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ create] APIGroups:[monitoring.coreos.com] Resources:[servicemonitors]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[update]\
+              \ APIGroups:[apps] Resources:[deployments/finalizers] ResourceNames:[terraform-k8s]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[get] APIGroups:[]\
+              \ Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n          \
+              \             {Verbs:[get] APIGroups:[apps] Resources:[replicasets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[*]\
+              \ APIGroups:[app.terraform.io] Resources:[* workspaces] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[create get update]\
+              \ APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[]\
+              \ NonResourceURLs:[]}. role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+              \ serverside-applied\n        Name:        terraform-terraform-sync-workspace\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        RoleBinding\n        Message:     rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:terraform-terraform-sync-workspace Namespace:default}. rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+              \ serverside-applied\n        Name:        terraform-terraform-sync-workspace\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apps\n        Hook Phase:  Running\n        Images:\n         \
+              \ hashicorp/terraform-k8s:1.1.2\n        Kind:        Deployment\n \
+              \       Message:     deployment.apps/terraform-terraform-sync-workspace\
+              \ serverside-applied\n        Name:        terraform-terraform-sync-workspace\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n      Revision:      sha256:03d46b6e74"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                         MESSAGE
+
+              6m51s       Normal   OperationStarted     application/terraform-parity   Initiated
+              automated sync to ''sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838''
+
+              6m51s       Normal   ResourceUpdated      application/terraform-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/terraform-parity   Updated
+              health status:  -> Progressing
+
+              6m49s       Normal   OperationCompleted   application/terraform-parity   Sync
+              operation to sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/terraform-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 5
+              artifact:
+                path: argocd-core-child.json
+                sha256: ba194bbfddaf3f65ca890e27b4b7a204dc43e2afb3cc0dd368780fc074306ef1
+                bytes: 12158
+              output: "{\n  \"metadata\": {\n    \"name\": \"terraform-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"83be7434-13ad-49f9-99af-23252775b893\"\
+                ,\n    \"resourceVersion\": \"2464\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T16:38:52Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster:argoproj.io/Application:argocd/terraform-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"12607f04-b2db-4fb5-98e8-6ec601a3c3a9\",\n      \"confighub.com/UnitSlug\"\
+                : \"terraform-parity-app\"\n    },\n    \"managedFields\": [\n   \
+                \   {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T16:38:52Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T16:45:54Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-terraform-mqffcrbf-14g1-terraform\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default-oci\",\n \
+                \       \"name\": \"terraform-terraform-sync-workspace\",\n      \
+                \  \"status\": \"Synced\"\n      },\n      {\n        \"group\": \"\
+                apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"terraform-terraform-sync-workspace\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for rollout to finish: 0 out of 1 new replicas have been updated...\"\
+                \n        }\n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"Role\",\n   \
+                \     \"namespace\": \"default-oci\",\n        \"name\": \"terraform-terraform-sync-workspace\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n \
+                \       \"kind\": \"RoleBinding\",\n        \"namespace\": \"default-oci\"\
+                ,\n        \"name\": \"terraform-terraform-sync-workspace\",\n   \
+                \     \"status\": \"Synced\"\n      }\n    ],\n    \"sync\": {\n \
+                \     \"status\": \"Synced\",\n      \"comparedTo\": {\n        \"\
+                source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b48d5a4c0866d216f84efc3edc0f9673c1c803d26ef58ea142e7d049f5f9d3ff
+                bytes: 4509
+              output: "Name:               argocd/terraform-parity\nProject:     \
+                \       default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:58503/applications/terraform-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-terraform\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \              STATUS  HEALTH       AGE    MESSAGE               \
+                \                                                 REASON\nServiceAccount/terraform-terraform-sync-workspace\
+                \           Synced               7m7s   serviceaccount/terraform-terraform-sync-workspace\
+                \ serverside-applied   \nDeployment/terraform-terraform-sync-workspace\
+                \               Synced  Progressing  7m54s  deployment.apps/terraform-terraform-sync-workspace\
+                \ serverside-applied  Waiting for rollout to finish: 0 out of 1 new\
+                \ replicas have been updated...\n\u2514\u2500ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd\
+                \          Degraded     7m54s                                    \
+                \                                     pods \"terraform-terraform-sync-workspace-67688dd4fd-\"\
+                \ is forbidden: error looking up service account default/terraform-terraform-sync-workspace:\
+                \ serviceaccount \"terraform-terraform-sync-workspace\" not found\n\
+                Role/terraform-terraform-sync-workspace                     Synced\
+                \               7m7s   role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+                \ reconciled. reconciliation required create\n                   \
+                \                                         missing rules added:\n \
+                \                                                                \
+                \   {Verbs:[*] APIGroups:[] Resources:[pods services services/finalizers\
+                \ endpoints persistentvolumeclaims events configmaps secrets] ResourceNames:[]\
+                \ NonResourceURLs:[]}\n                                          \
+                \                          {Verbs:[get update patch] APIGroups:[]\
+                \ Resources:[configmaps/status] ResourceNames:[] NonResourceURLs:[]}\n\
+                \                                                                \
+                \    {Verbs:[*] APIGroups:[apps] Resources:[deployments daemonsets\
+                \ replicasets statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\
+                \                                                                \
+                \    {Verbs:[get create] APIGroups:[monitoring.coreos.com] Resources:[servicemonitors]\
+                \ ResourceNames:[] NonResourceURLs:[]}\n                         \
+                \                                           {Verbs:[update] APIGroups:[apps]\
+                \ Resources:[deployments/finalizers] ResourceNames:[terraform-k8s]\
+                \ NonResourceURLs:[]}\n                                          \
+                \                          {Verbs:[get] APIGroups:[] Resources:[pods]\
+                \ ResourceNames:[] NonResourceURLs:[]}\n                         \
+                \                                           {Verbs:[get] APIGroups:[apps]\
+                \ Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n \
+                \                                                                \
+                \   {Verbs:[*] APIGroups:[app.terraform.io] Resources:[* workspaces]\
+                \ ResourceNames:[] NonResourceURLs:[]}\n                         \
+                \                                           {Verbs:[create get update]\
+                \ APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[]\
+                \ NonResourceURLs:[]}. role.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+                \ serverside-applied  \nRoleBinding/terraform-terraform-sync-workspace\
+                \              Synced                                            \
+                \                                                                \
+                \                                                                \
+                \                                7m7s  rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+                \ reconciled. reconciliation required create\n                   \
+                \                                         missing subjects added:\n\
+                \                                                                \
+                \    {Kind:ServiceAccount APIGroup: Name:terraform-terraform-sync-workspace\
+                \ Namespace:default}. rolebinding.rbac.authorization.k8s.io/terraform-terraform-sync-workspace\
+                \ serverside-applied  \nNamespace/default-oci                    \
+                \                   Synced                                       \
+                \                                                                \
+                \                                                                \
+                \                   7m48s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              terraform-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/terraform-parity\",\n    \
+              \  \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"terraform-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci
+              targetRevision: latest
+          revision: sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T16:27:06Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T16:38:50Z'
+          finishedAt: '2026-06-15T16:38:52Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+          deployedAt: '2026-06-15T16:38:52Z'
+          deployStartedAt: '2026-06-15T16:38:50Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-terraform-mqffcrbf-14g1-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: terraform-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T16:26:58Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  2383\n  UID:        \
+              \       5cb6516f-5a27-4824-a84e-0e88584d76e4\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T16:27:06Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T16:38:50Z\n\
+              \    Deployed At:        2026-06-15T16:38:52Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \    Source:\n      Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T16:38:52Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \        Source:\n          Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T16:38:50Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/terraform-parity serverside-applied\n\
+              \        Name:        terraform-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \      Source:\n        Path:              ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T16:44:51Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       terraform-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     18m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     18m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m13s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838'\n\
+              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\
+              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Updated
+              sync status:  -> Synced
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Updated
+              health status:  -> Healthy
+
+              7m13s       Normal   OperationStarted     application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Initiated
+              automated sync to ''sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838''
+
+              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Sync
+              operation to sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: b2432d80f4e436ae92704dc81253a6c325af52543fc99d0e1879045e5f6bb123
+                bytes: 10688
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"5cb6516f-5a27-4824-a84e-0e88584d76e4\"\
+                ,\n    \"resourceVersion\": \"2489\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-06-15T16:26:58Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T16:26:58Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T16:46:10Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 350cd709788b8719afcf5f1cdc4441e21f0a243be036b0f1abcae701e7e46ae9
+                bytes: 1150
+              output: "Name:               argocd/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:58618/applications/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-terraform-mqffcrbf-14g1-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/helm-expt-parity-terraform-mqffcrbf-14g1-cluster  Synced\
+                \          19m    application.argoproj.io/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\
+                \ serverside-applied  \nApplication/terraform-parity             \
+                \                     Synced          7m27s  application.argoproj.io/terraform-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-terraform-mqffcrbf-14g1-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              terraform-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/terraform-parity\",\n    \
+              \  \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:03d46b6e748b31b7cbaea7406bd59787fc6e68e7b31820d3aa7b52335a034838\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-terraform-mqffcrbf-14g1-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"terraform-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/terraform-terraform-sync-workspace   0/1   0     0     8m11s'
+        pods: '# default'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 4
+      configHubObjectCount: 5
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-15T16:26:58Z'
+    finishedAt: '2026-06-15T16:35:00Z'
+    elapsedSeconds: 481.715
+    timeoutSeconds: 900
+    command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
+      --version 1.1.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T16:38:08Z'
+    finishedAt: '2026-06-15T16:38:08Z'
+    elapsedSeconds: 0.414
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T16:38:08Z'
+    finishedAt: '2026-06-15T16:38:08Z'
+    elapsedSeconds: 0.087
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig
+      --context kind-helm-expt-parity-terraform-mqffcrbf-14g1 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/direct-apply-manifest.yaml
+    objectCount: 4
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T16:38:08Z'
+    finishedAt: '2026-06-15T16:38:09Z'
+    elapsedSeconds: 0.165
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T16:38:14Z'
+    finishedAt: '2026-06-15T16:38:14Z'
+    elapsedSeconds: 0.258
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T16:38:14Z'
+    finishedAt: '2026-06-15T16:38:36Z'
+    elapsedSeconds: 22.156
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+      --space helm-expt-parity-terraform-mqffcrbf-14g1-terraform --target helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci
+    objectCount: 5
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T16:38:36Z'
+    finishedAt: '2026-06-15T16:38:37Z'
+    elapsedSeconds: 0.544
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T16:38:37Z'
+    finishedAt: '2026-06-15T16:38:40Z'
+    elapsedSeconds: 2.822
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-terraform-mqffcrbf-14g1-terraform
+      --unit <5 unit(s)> --wait --timeout 5m
+    unitCount: 5
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T16:38:40Z'
+    finishedAt: '2026-06-15T16:38:41Z'
+    elapsedSeconds: 1.004
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-terraform-mqffcrbf-14g1-cluster
+      terraform-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/argo-application.json
+      --target helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T16:38:41Z'
+    finishedAt: '2026-06-15T16:38:42Z'
+    elapsedSeconds: 1.006
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-terraform-mqffcrbf-14g1-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T16:38:42Z'
+    finishedAt: '2026-06-15T16:45:44Z'
+    elapsedSeconds: 422.525
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T16:46:19Z'
+    finishedAt: '2026-06-15T16:46:19Z'
+    elapsedSeconds: 0.101
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-terraform-mqffcrbf-14g1\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-terraform-mqffcrbf-14g1\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-terraform-mqffcrbf-14g1\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-terraform-mqffcrbf-14g1\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreatin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/terraform-terraform-sync-workspace
+      not ready. status: InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/terraform-terraform-sync-workspace   0/1   0     0     0s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

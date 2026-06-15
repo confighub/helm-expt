@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "TargetPrerequisitePlan"
 metadata:
-  name: "hashicorp-terraform-1.1.2-default-target-prerequisites"
+  name: "hashicorp-terraform-1.1.2-target-prerequisites"
   chart: "hashicorp/terraform"
   version: "1.1.2"
 spec:
-  summary: "The Terraform default base preserves the chart's rendered object semantics, but the live run shows that a usable target needs explicit Terraform Cloud credentials/secrets and a namespace decision. Regular Helm waits on missing Secrets named terraformrc and workspacesecrets. The ConfigHub OCI/Argo leg syncs the same object set, but the chart pins the Deployment to namespace default while ServiceAccount/RBAC are installed into the requested namespace, leaving Argo Progressing."
+  summary: "The Terraform bases preserve the chart's rendered object semantics, but the live runs show that a usable target needs explicit Terraform Cloud credentials/secrets and a namespace decision. Regular Helm waits on missing Secrets named terraformrc and workspacesecrets. The ConfigHub OCI/Argo leg syncs the same object set, but the chart pins the Deployment to namespace default while ServiceAccount/RBAC are installed into the requested namespace, leaving Argo Progressing."
   bases:
     default:
       status: "target-prerequisite-and-namespace-decision-needed"
@@ -40,13 +40,48 @@ spec:
         - "namespace-routing-receipt"
         - "deployment-readiness-receipt"
         - "gitops-health-receipt"
+    no-crds:
+      status: "target-prerequisite-and-namespace-decision-needed"
+      currentProofLimit: "The no-crds live parity receipt proves the same target/runtime limit as default while removing the chart CRD from the rendered object set. Semantic object parity still passes for ConfigHub direct apply and ConfigHub OCI/Argo. It does not prove a healthy workload. Regular Helm is watch because the pod cannot mount terraformrc and workspacesecrets. The OCI/Argo leg is watch because Argo syncs successfully but the Deployment remains Progressing after the ServiceAccount is created in default-oci while the Deployment is still in default."
+      requiredBeforeApply:
+        -
+          kind: "Secret"
+          name: "terraformrc"
+          namespace: "release namespace"
+          status: "target-prerequisite"
+          purpose: "Mounted at /etc/terraform so terraform-k8s can read Terraform CLI configuration."
+        -
+          kind: "Secret"
+          name: "workspacesecrets"
+          namespace: "release namespace"
+          status: "target-prerequisite"
+          purpose: "Mounted at /tmp/secrets for Terraform workspace sensitive variables."
+      requiredBeforeObserve:
+        -
+          kind: "NamespaceDecision"
+          name: "terraform-workload-namespace"
+          status: "target-scope-decision"
+          purpose: "The chart pins the Deployment to namespace default. A production-ready base must either keep all dependent ServiceAccount/RBAC/Secrets in default or rerender a base that places the whole workload in the intended namespace."
+      mustObserve:
+        - "Secret terraformrc exists in the same namespace as the Terraform Deployment before the Deployment is expected to become ready."
+        - "Secret workspacesecrets exists in the same namespace as the Terraform Deployment before the Deployment is expected to become ready."
+        - "ServiceAccount terraform-terraform-sync-workspace exists in the same namespace as the Terraform Deployment."
+        - "The Deployment terraform-terraform-sync-workspace reaches Available=True."
+        - "Argo aggregate health becomes Healthy, or any remaining Progressing condition is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "namespace-routing-receipt"
+        - "deployment-readiness-receipt"
+        - "gitops-health-receipt"
   evidence:
     liveParityReceipt: "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+    additionalReceipts:
+      - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
     regularHelmEvent: "MountVolume.SetUp failed for volume terraformrc: Secret terraformrc not found; MountVolume.SetUp failed for volume sensitivevars: Secret workspacesecrets not found"
     configHubOciEvent: "ReplicaSet degraded: pods are forbidden because serviceaccount default/terraform-terraform-sync-workspace is not found"
     semanticParity: "pass for Helm vs ConfigHub direct apply and Helm vs ConfigHub OCI/Argo"
   nextInvestigation:
-    - "Decide whether the public catalog should expose default as a Terraform Cloud-attached operator base requiring the two target Secrets."
+    - "Decide whether the public catalog should expose these bases as Terraform Cloud-attached operator bases requiring the two target Secrets."
     - "Decide whether a safer first-run base should disable the workspace sync Deployment or rerender all namespaced objects into a single requested namespace."
     - "Add target facts for terraformrc and workspacesecrets if this base remains catalog-supported."
     - "Add a namespace-routing check so the Deployment, ServiceAccount, Role, RoleBinding, and required Secrets are in the same namespace before OCI/GitOps support is claimed."

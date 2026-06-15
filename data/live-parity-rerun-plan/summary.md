@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 30
+rows: 31
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 3
-watch: 27
-configHub-oci-live-comparison: 24
+watch: 28
+configHub-oci-live-comparison: 25
 two-cluster-kind-parity: 6
 semantic-parity-defects: 1
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
-runtime-or-watch-rows: 24
+runtime-or-watch-rows: 25
 ```
 
 ## Current Interpretation
@@ -45,6 +45,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `grafana/tempo@1.24.4` | s3-query-observability | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `hashicorp/terraform@1.1.2` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
+| `hashicorp/terraform@1.1.2` | no-crds | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `jetstack/trust-manager@v0.22.1` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
@@ -66,7 +67,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 24 | 0 | 23 | 1 | 0 |
+| configHub-oci-live-comparison | 25 | 0 | 24 | 1 | 0 |
 | two-cluster-kind-parity | 6 | 0 | 4 | 2 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -95,7 +96,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | inspect-parity-diff | 1 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 8 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 9 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -114,7 +115,7 @@ reasonable live rerun candidates.
 | inspect-diff-first | 1 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 24 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 25 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -165,6 +166,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | s3-query-observability | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml`](../../recipes/grafana/tempo/1.24.4/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/tempo/1.24.4 --base s3-query-observability` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml`](../../recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `hashicorp/terraform@1.1.2` | default | watch | target-runtime: pod ContainerCreating (parity passed) | [`recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml`](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default` |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `hashicorp/terraform@1.1.2` | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) | [`recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml`](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds` |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | ha-raft-ui | watch | operate-policy: Vault init/unseal readiness (parity passed) | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | - | `npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `kyverno/kyverno-policies@3.8.0` | default | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | [`recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml`](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default` |
