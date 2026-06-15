@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "filebeat" in pod "filebeat-filebeat-wtvs4" not found

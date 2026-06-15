@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "filebeat" in pod "filebeat-filebeat-wtvs4" is waiting to start: ContainerCreating

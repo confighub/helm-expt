@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 133
-watch: 21
+watch: 22
 blocked: 1
 not-started: 0
 ```
@@ -108,6 +108,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |
 |  | `elastic/filebeat@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml |
+|  | `elastic/filebeat@8.5.1` | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | ha | pass | - | runs/live-helm-confighub-compare/elastic-logstash-ha/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | default | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml |

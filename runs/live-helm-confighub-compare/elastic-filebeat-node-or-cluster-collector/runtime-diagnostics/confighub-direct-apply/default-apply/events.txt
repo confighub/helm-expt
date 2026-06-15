@@ -1,0 +1,5 @@
+LAST SEEN   TYPE      REASON             OBJECT                        MESSAGE
+5m4s        Normal    Scheduled          pod/filebeat-filebeat-wtvs4   Successfully assigned default-apply/filebeat-filebeat-wtvs4 to helm-expt-parity-filebeat-mqfc8opn-qzo-control-plane
+5m4s        Warning   FailedCreate       daemonset/filebeat-filebeat   Error creating: pods "filebeat-filebeat-" is forbidden: error looking up service account default-apply/filebeat-filebeat: serviceaccount "filebeat-filebeat" not found
+5m4s        Normal    SuccessfulCreate   daemonset/filebeat-filebeat   Created pod: filebeat-filebeat-wtvs4
+54s         Warning   FailedMount        pod/filebeat-filebeat-wtvs4   MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found
