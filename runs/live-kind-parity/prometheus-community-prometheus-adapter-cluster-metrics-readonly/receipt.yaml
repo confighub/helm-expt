@@ -1,0 +1,158 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: prometheus-community-prometheus-adapter-5.3.0-cluster-metrics-readonly-kind-parity-20260606
+spec:
+  chart: prometheus-community/prometheus-adapter
+  version: 5.3.0
+  base: cluster-metrics-readonly
+  result: blocked
+  observedAt: '2026-06-15T21:05:27Z'
+  package:
+    path: packages/prometheus-community/prometheus-adapter/5.3.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-adapter/5.3.0
+  variantRevision: recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-promet-3797c-cpsa-helm
+    installerCluster: hx-promet-3797c-cpsa-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-promet-3797c-cpsa-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-promet-3797c-cpsa-helm" ...
+
+          Deleted nodes: ["hx-promet-3797c-cpsa-helm-control-plane"]'
+      - cluster: hx-promet-3797c-cpsa-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-promet-3797c-cpsa-installer" ...
+
+          Deleted nodes: ["hx-promet-3797c-cpsa-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install prometheus-adapter prometheus-adapter --repo
+        https://prometheus-community.github.io/helm-charts --version 5.3.0 --namespace
+        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-adapter-cluster-metrics-readonly/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a
+      objectCount: 11
+      liveHelmManifestSHA256: 02caaa4c2aecefbc1d4d65c230528faee6d181eca28c94163efb8669064b12c1
+      liveHelmManifestObjectCount: 11
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/prometheus-adapter   1/1   1     1     37s'
+        pods: '# default
+
+          prometheus-adapter-5fb6dd6776-2k26w   1/1   Running   0     37s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items:
+          - name: v1beta1.custom.metrics.k8s.io
+            group: custom.metrics.k8s.io
+            version: v1beta1
+            queryPath: /apis/custom.metrics.k8s.io/v1beta1
+            result: pass
+            available: true
+            conditionStatus: 'True'
+            conditionReason: Passed
+            conditionMessage: all checks passed
+            queryResult: pass
+            querySHA256: a206ba2df69acb3ed3c5323acc01574c09e14286c8a643419fffc538ec127250
+            queryError: ''
+      stderr: ''
+      getManifestError: ''
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id002
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 11
+      installerObjectCount: 11
+      missingFromInstaller:
+      - apiregistration.k8s.io/v1beta1|APIService||v1beta1.custom.metrics.k8s.io
+      extraInInstaller:
+      - apiregistration.k8s.io/v1|APIService||v1beta1.custom.metrics.k8s.io
+      semanticDiffs: []
+      semanticNormalizations: *id002
+      comparisonSHA256: 931d4bd11730c948924320f00feb1a56384bb8ef0b2d7dc0cfc7873b7defbc5c
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=1 extra=['apiregistration.k8s.io/v1|APIService||v1beta1.custom.metrics.k8s.io']
+      diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: "Release \"prometheus-adapter\" does not exist. Installing it now.\nNAME:\
+      \ prometheus-adapter\nLAST DEPLOYED: Mon Jun 15 22:06:17 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nprometheus-adapter has been deployed.\nIn a few minutes you should be\
+      \ able to list metrics using the following command(s):\n\n  kubectl get --raw\
+      \ /apis/custom.metrics.k8s.io/v1beta1"
+  - name: regular-helm-apiservice-aggregation
+    result: pass
+    detail: v1beta1.custom.metrics.k8s.io available=True query=pass
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
+      namespace: "" from "/tmp/helm-expt-kind-parity-hx-promet-3797c-cpsa-prometheus-adapter/out/manifests/apiservice-v1beta1-custom-metrics-k8s-io.yaml":
+      no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
+      namespace: "" from "/tmp/helm-expt-kind-parity-hx-promet-3797c-cpsa-prometheus-adapter/out/manifests/apiservice-v1beta1-custom-metrics-k8s-io.yaml":
+      no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
+
+      ensure CRDs are installed first'
