@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "live-matrix-burndown");
@@ -77,6 +77,32 @@ function liveParityWorkItem(row, state, activeReruns) {
 }
 
 function kindParityWorkItem(row, state) {
+  const collision = kindReceiptCollision(row);
+  if (collision) {
+    return {
+      priority: priorityFor(row, "kind-parity", { ...state, status: "blocked" }),
+      work_type: "kind-parity",
+      current_status: state.status,
+      lane_cells: `K=${row.lane_two_cluster_kind}`,
+      chart: row.chart,
+      version: row.version,
+      base: row.variant,
+      catalog_tier: row.catalog_tier || "uncategorized",
+      adoption_bucket: row.adoption_bucket,
+      outcome_level: row.outcome_level,
+      core_lanes_complete: row.core_lanes_complete,
+      production_decision: row.production_decision,
+      run_readiness: "model-or-stage-first",
+      reason: `kind parity receipt path collision: ${collision.receiptPath} currently records ${collision.chart}@${collision.version}/${collision.base}`,
+      next_step: "fix-kind-parity-receipt-slug-before-rerun",
+      command: "",
+      support_artifact: collision.receiptPath,
+      receipt: collision.receiptPath,
+      recipe_path: row.recipe_path,
+      variant_path: row.variant_path,
+      row_key: rowKey(row),
+    };
+  }
   return {
     priority: priorityFor(row, "kind-parity", state),
     work_type: "kind-parity",
@@ -100,6 +126,24 @@ function kindParityWorkItem(row, state) {
     variant_path: row.variant_path,
     row_key: rowKey(row),
   };
+}
+
+function kindReceiptCollision(row) {
+  const receiptPath = kindReceiptPath(row);
+  if (!existsSync(join(repoRoot, receiptPath))) return null;
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const spec = receipt?.spec ?? {};
+  if (spec.chart === row.chart && spec.version === row.version && spec.base === row.variant) return null;
+  return {
+    receiptPath,
+    chart: spec.chart || "unknown-chart",
+    version: spec.version || "unknown-version",
+    base: spec.base || "unknown-base",
+  };
+}
+
+function kindReceiptPath(row) {
+  return `runs/live-kind-parity/${row.chart.replaceAll("/", "-")}-${row.variant}/receipt.yaml`;
 }
 
 function priorityFor(row, workType, state) {
@@ -196,6 +240,10 @@ ${tableFromMap(report.byStatus, "Status")}
 ## By Run Readiness
 
 ${tableFromMap(report.byReadiness, "Readiness")}
+
+Rows marked \`model-or-stage-first\` are not safe copy-paste commands yet. For
+example, a two-cluster kind row may need a versioned receipt path before rerun
+so it does not overwrite an existing receipt for a different chart version.
 
 ## Active Watch Or Blocked Rows
 

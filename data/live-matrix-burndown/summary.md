@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 182 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 64 |
 | Two-cluster kind parity commands | 118 |
-| Watch/blocked/review rows | 19 |
-| Ready-to-run todo rows | 163 |
+| Watch/blocked/review rows | 39 |
+| Ready-to-run todo rows | 143 |
 
 ## By Work Type
 
@@ -46,9 +46,13 @@ For the cell-level completion count, use
 
 | Readiness | Rows |
 | --- | ---: |
-| `model-or-stage-first` | 2 |
-| `ready-to-run` | 163 |
+| `model-or-stage-first` | 22 |
+| `ready-to-run` | 143 |
 | `review-target-first` | 17 |
+
+Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
+example, a two-cluster kind row may need a versioned receipt path before rerun
+so it does not overwrite an existing receipt for a different chart version.
 
 ## Active Watch Or Blocked Rows
 
@@ -76,6 +80,7 @@ claim.
 | live-parity | prometheus-community/prometheus | 29.9.0 | default | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml](../../runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default |
 | live-parity | traefik/traefik | 40.2.0 | no-crds | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds |
 | kind-parity | autoscaler/cluster-autoscaler | 9.57.0 | default | K=watch | two-cluster kind parity watch row needs review |  |  | npm run kind-parity:run -- --recipe recipes/autoscaler/cluster-autoscaler/9.57.0 --base default |
+| kind-parity | argo-cd/argo-cd | 9.5.15 | default | K=todo | kind parity receipt path collision: runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml currently records argo-cd/argo-cd@9.5.17/default | [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) | [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) |  |
 | live-parity | rook-release/rook-ceph-cluster | v1.19.5 | default | G=blocked;P=blocked | target-prerequisite: namespace missing (parity passed) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml](../../runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
 
 ## Next Ready Live-Parity Commands
