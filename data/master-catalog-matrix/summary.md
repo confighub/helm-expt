@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 900 / 41 / 56 / 225 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 900 / 41 / 57 / 224 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -154,7 +154,7 @@ when you want the user/product view with those columns visible.
 |  | http-clusterip | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `bitnami/nginx@25.0.0` | existing-tls-ingress | — | — | — | — | ✅ | ✅ | ✅ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | local-live | ⬜ |
 |  | http-clusterip | — | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-| `bitnami/opensearch@2.0.10` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `bitnami/opensearch@2.0.10` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 |  | ha | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/phpmyadmin@20.0.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/postgresql@18.6.7` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
