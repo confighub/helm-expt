@@ -114,6 +114,20 @@
       "receipt": "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml"
     },
     {
+      "chart": "grafana/rollout-operator",
+      "version": "0.49.0",
+      "base": "no-crds",
+      "result": "watch",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: installer-applied workload not ready at observation cutoff (parity passed)",
+      "receipt": "runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml"
+    },
+    {
       "chart": "istio/gateway",
       "version": "1.30.0",
       "base": "controller-default-reviewed",

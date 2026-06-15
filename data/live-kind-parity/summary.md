@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 115
-watch: 6
+watch: 7
 blocked: 11
-semantic parity pass: 125
+semantic parity pass: 126
 semantic parity defects: 4
-non-pass rows where semantic parity passed: 10
+non-pass rows where semantic parity passed: 11
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -40,6 +40,7 @@ data/live-parity-rerun-plan/summary.md
 | target-runtime: pods pending (parity passed) | 2 |
 | blocked: inspect receipt | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
+| target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
@@ -126,6 +127,7 @@ broader support claim.
 | `grafana/pyroscope@2.0.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml |
 | `grafana/rollout-operator@0.49.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml |
+| `grafana/rollout-operator@0.49.0` | no-crds | watch | pass | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
