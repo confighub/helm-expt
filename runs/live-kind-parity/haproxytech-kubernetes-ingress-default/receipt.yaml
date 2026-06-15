@@ -1,0 +1,176 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: haproxytech-kubernetes-ingress-1.52.0-default-kind-parity-20260606
+spec:
+  chart: haproxytech/kubernetes-ingress
+  version: 1.52.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T08:56:24Z'
+  package:
+    path: packages/haproxytech/kubernetes-ingress/1.52.0
+  recipe:
+    path: recipes/haproxytech/kubernetes-ingress/1.52.0
+  variantRevision: recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-kubern-dba61-b5wq-helm
+    installerCluster: hx-kubern-dba61-b5wq-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-kubern-dba61-b5wq-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-kubern-dba61-b5wq-helm" ...
+
+          Deleted nodes: ["hx-kubern-dba61-b5wq-helm-control-plane"]'
+      - cluster: hx-kubern-dba61-b5wq-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-kubern-dba61-b5wq-installer" ...
+
+          Deleted nodes: ["hx-kubern-dba61-b5wq-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo
+        https://haproxytech.github.io/helm-charts --version 1.52.0 --namespace default
+        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544
+      objectCount: 7
+      liveHelmManifestSHA256: 884f955caef98f492a70e02ed328299d221b338297a62d5e16b10a19dcb34852
+      liveHelmManifestObjectCount: 7
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/kubernetes-ingress   2/2   2     2     30s'
+        pods: '# default
+
+          kubernetes-ingress-796844dd4c-fxxpg   1/1   Running   0     30s
+
+          kubernetes-ingress-796844dd4c-khmxs   1/1   Running   0     30s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubern-dba61-b5wq-kubernetes-ingress
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: ebc7d7a931d85a09b3731955609fb614ab2250d298ed2b5be686b1034a57c4c8
+      objectCount: 8
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/kubernetes-ingress   2/2   2     2     30s'
+        pods: '# default
+
+          kubernetes-ingress-796844dd4c-m8dnw   1/1   Running   0     30s
+
+          kubernetes-ingress-796844dd4c-nrnk8   1/1   Running   0     30s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kubernetes-ingress\" does not exist. Installing it now.\nNAME:\
+      \ kubernetes-ingress\nLAST DEPLOYED: Mon Jun 15 09:57:16 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nHAProxy Kubernetes Ingress Controller has been successfully installed.\n\
+      \nController image deployed is: \"docker.io/haproxytech/kubernetes-ingress:3.2.9\"\
+      .\nYour controller is of a \"Deployment\" kind. Your controller service is running\
+      \ as a \"NodePort\" type.\nRBAC authorization is enabled.\nController ingress.class\
+      \ is set to \"haproxy\" so make sure to use same annotation for\nIngress resource.\n\
+      \nService ports mapped are:\n  - name: admin\n    containerPort: 6060\n    protocol:\
+      \ TCP\n  - name: http\n    containerPort: 8080\n    protocol: TCP\n  - name:\
+      \ https\n    containerPort: 8443\n    protocol: TCP\n  - name: stat\n    containerPort:\
+      \ 1024\n    protocol: TCP\n  - name: quic\n    containerPort: 8443\n    protocol:\
+      \ UDP\n\nNode IP can be found with:\n  $ kubectl --namespace default get nodes"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/kubernetes-ingress   2/2   2     2     30s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
