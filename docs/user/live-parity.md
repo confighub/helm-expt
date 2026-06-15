@@ -21,6 +21,22 @@ The two-cluster lane includes all top-20 bases plus a selected next80 expansion
 set. The selected live Helm-vs-ConfigHub lane focuses on rows where ConfigHub
 delivery through OCI/Argo also matters.
 
+## Workerless GitOps Boundary
+
+The ConfigHub OCI/Argo lane is workerless from the target cluster's point of
+view. ConfigHub stores Units, publishes the OCI artifact, and records evidence.
+The in-cluster reconciler is Argo CD or Flux. There is no ConfigHub worker or
+agent installed into the workload cluster for this path.
+
+In a live parity run, local `cub` commands and the test harness drive the proof:
+they upload Units, publish or apply the desired state, and collect receipts.
+That is the test driver, not a resident cluster worker. Argo CD then pulls the
+ConfigHub OCI artifact and Kubernetes runs the workload.
+
+Some rows still need target profiles such as ingress, load balancer support, or
+three schedulable nodes. Those profiles describe the cluster shape required by
+the chart. They are not ConfigHub worker requirements.
+
 | Lane | Report | What it means |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | [summary](../../data/live-helm-confighub-compare/summary.md) | Selected top-20 and nearby rows compare regular Helm against ConfigHub direct apply and ConfigHub OCI/Argo delivery paths. |
