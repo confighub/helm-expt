@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 20
+rows: 21
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 3
-watch: 17
+watch: 18
 configHub-oci-live-comparison: 18
-two-cluster-kind-parity: 2
+two-cluster-kind-parity: 3
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 1
-runtime-or-watch-rows: 16
+runtime-or-watch-rows: 17
 ```
 
 ## Current Interpretation
@@ -50,6 +50,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
+| `fairwinds-stable/vpa@4.11.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 
 
 ## Lane Breakdown
@@ -57,7 +58,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 18 | 0 | 17 | 1 | 0 |
-| two-cluster-kind-parity | 2 | 0 | 0 | 2 | 0 |
+| two-cluster-kind-parity | 3 | 0 | 1 | 2 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -84,7 +85,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | gitops-runtime-review | 13 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 3 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 4 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -102,7 +103,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 16 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 17 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -158,6 +159,7 @@ faithful to the locked chart/version without changing the recipe.
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart argo-cd/argo-workflows --version 1.0.14 --base controller-default-reviewed` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | default | watch | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
 
 
 
