@@ -1,0 +1,384 @@
+{
+  "metadata": {
+    "name": "reloader-parity",
+    "namespace": "argocd",
+    "uid": "85cddd47-7b1b-4815-9da6-5ebce41f27c3",
+    "resourceVersion": "1097",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T06:13:12Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-reloader-mqetdx9v-pgq-cluster:argoproj.io/Application:argocd/reloader-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "aaa24154-65f4-4ae0-ab21-e51227901481",
+      "confighub.com/UnitSlug": "reloader-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T06:13:12Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T06:13:29Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci",
+      "path": "./helm-expt-parity-reloader-mqetdx9v-pgq-reloader",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "reloader-reloader",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "reloader-reloader",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "reloader-reloader-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "reloader-reloader-role-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "reloader-reloader-metadata-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "reloader-reloader-metadata-role-binding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci",
+          "path": "./helm-expt-parity-reloader-mqetdx9v-pgq-reloader",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:611eddd43f10ff9cea15ae322110e1cc193568245129a4fea89215f66694f6b7"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T06:13:14Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:611eddd43f10ff9cea15ae322110e1cc193568245129a4fea89215f66694f6b7",
+        "deployedAt": "2026-06-15T06:13:15Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci",
+          "path": "./helm-expt-parity-reloader-mqetdx9v-pgq-reloader",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T06:13:14Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T06:13:21Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:611eddd43f10ff9cea15ae322110e1cc193568245129a4fea89215f66694f6b7",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci",
+            "path": "./helm-expt-parity-reloader-mqetdx9v-pgq-reloader",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "reloader-reloader",
+            "status": "Synced",
+            "message": "serviceaccount/reloader-reloader serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "reloader-reloader-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/reloader-reloader-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[list get watch] APIGroups:[] Resources:[secrets configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list get update patch] APIGroups:[apps] Resources:[deployments daemonsets statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list get] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete list get] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/reloader-reloader-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "reloader-reloader-role-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/reloader-reloader-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:reloader-reloader Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/reloader-reloader-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "reloader-reloader-metadata-role",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/reloader-reloader-metadata-role reconciled. reconciliation required update. role.rbac.authorization.k8s.io/reloader-reloader-metadata-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "reloader-reloader-metadata-role-binding",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/reloader-reloader-metadata-role-binding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/reloader-reloader-metadata-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "reloader-reloader",
+            "status": "Synced",
+            "message": "deployment.apps/reloader-reloader serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/stakater/reloader:v1.4.17"
+            ]
+          }
+        ],
+        "revision": "sha256:611eddd43f10ff9cea15ae322110e1cc193568245129a4fea89215f66694f6b7",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci",
+          "path": "./helm-expt-parity-reloader-mqetdx9v-pgq-reloader",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T06:13:14Z",
+      "finishedAt": "2026-06-15T06:13:15Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/stakater/reloader:v1.4.17"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
