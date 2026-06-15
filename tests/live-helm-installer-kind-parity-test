@@ -292,7 +292,7 @@ def workload_namespaces(text: str, fallback: str) -> list[str]:
         namespace = (doc.get("metadata") or {}).get("namespace")
         if isinstance(namespace, str) and namespace:
             namespaces.add(namespace)
-    return sorted(namespaces) or [fallback]
+    return sorted(namespaces)
 
 
 def protected_namespace(namespace: str) -> bool:
@@ -983,6 +983,15 @@ def pod_status_is_terminal_blocker(status: str) -> bool:
 
 
 def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeout_seconds: int = 300) -> dict:
+    if not namespaces:
+        return {
+            "result": "pass",
+            "namespaces": [],
+            "workloads": "",
+            "pods": "",
+            "notReady": [],
+            "diagnostics": [],
+        }
     start = time.monotonic()
     deadline = start + timeout_seconds
     last = {}
