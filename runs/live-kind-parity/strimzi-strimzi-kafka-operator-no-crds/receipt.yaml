@@ -1,0 +1,346 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: strimzi-strimzi-kafka-operator-1.0.0-no-crds-kind-parity-20260606
+spec:
+  chart: strimzi/strimzi-kafka-operator
+  version: 1.0.0
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-15T23:19:34Z'
+  package:
+    path: packages/strimzi/strimzi-kafka-operator/1.0.0
+  recipe:
+    path: recipes/strimzi/strimzi-kafka-operator/1.0.0
+  variantRevision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-strimz-421c3-57du-helm
+    installerCluster: hx-strimz-421c3-57du-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-strimz-421c3-57du-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-strimz-421c3-57du-helm" ...
+
+          Deleted nodes: ["hx-strimz-421c3-57du-helm-control-plane"]'
+      - cluster: hx-strimz-421c3-57du-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-strimz-421c3-57du-installer" ...
+
+          Deleted nodes: ["hx-strimz-421c3-57du-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install strimzi-kafka-operator strimzi-kafka-operator
+        --repo https://strimzi.io/charts/ --version 1.0.0 --namespace default --create-namespace
+        --values /Users/alexis/code/helm-expt/runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d
+      objectCount: 17
+      liveHelmManifestSHA256: 96d5d0996c494944daf4cf99660c26c3efc10fa7057c3ff7634911c3f6bca882
+      liveHelmManifestObjectCount: 17
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-k6gm2   1/1   Running   0     61s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-strimz-421c3-57du-strimzi-kafka-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 8411ac788e8c6a50870c2814c8a2af2ffb01115275cf523680f630641113cc63
+      objectCount: 18
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   0/1   1     0     41s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-pbcwl   0/1   Error   1 (12s ago)   41s'
+        notReady:
+        - namespace: default
+          pod: strimzi-cluster-operator-57856f5f9b-pbcwl
+          ready: 0/1
+          status: Error
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: strimzi-cluster-operator-57856f5f9b-pbcwl
+          result: blocked
+          detailHead: "Name:             strimzi-cluster-operator-57856f5f9b-pbcwl\n\
+            Namespace:        default\nPriority:         0\nService Account:  strimzi-cluster-operator\n\
+            Node:             hx-strimz-421c3-57du-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 00:21:31 +0100\nLabels:           name=strimzi-cluster-operator\n\
+            \                  pod-template-hash=57856f5f9b\n                  strimzi.io/kind=cluster-operator\n\
+            Annotations:      <none>\nStatus:           Running\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  ReplicaSet/strimzi-cluster-operator-57856f5f9b\n\
+            Containers:\n  strimzi-cluster-operator:\n    Container ID:  containerd://01aa34f5a935fda2df535b19cd044fbbb43b6861facfb95745f5a95ff8d70a15\n\
+            \    Image:         quay.io/strimzi/operator:1.0.0\n    Image ID:    \
+            \  quay.io/strimzi/operator@sha256:fe09836e37ed891a5931292701ec7c81ccb3b0b26599f7d2326ea4af891247aa\n\
+            \    Port:          8080/TCP (http)\n    Host Port:     0/TCP (http)\n\
+            \    Args:\n      /opt/strimzi/bin/cluster_operator_run.sh\n    State:\
+            \          Terminated\n      Reason:       Error\n      Exit Code:   \
+            \ 1\n      Started:      Tue, 16 Jun 2026 00:22:02 +0100\n      Finished:\
+            \     Tue, 16 Jun 2026 00:22:04 +0100\n    Last State:     Terminated\n\
+            \      Reason:       Error\n      Exit Code:    1\n      Started:    \
+            \  Tue, 16 Jun 2026 00:21:59 +0100\n      Finished:     Tue, 16 Jun 2026\
+            \ 00:22:00 +0100\n    Ready:          False\n    Restart Count:  1\n \
+            \   Limits:\n      cpu:     1\n      memory:  384Mi\n    Requests:\n \
+            \     cpu:      200m\n      memory:   384Mi\n    Liveness:   http-get\
+            \ http://:http/healthy delay=10s timeout=1s period=30s #success=1 #failure=3\n\
+            \    Readiness:  http-get http://:http/ready delay=10s timeout=1s period=30s\
+            \ #success=1 #failure=3\n    Environment:\n      STRIMZI_NAMESPACE:  \
+            \                      default (v1:metadata.namespace)\n      STRIMZI_FULL_RECONCILIATION_INTERVAL_MS:\
+            \  120000\n      STRIMZI_OPERATION_TIMEOUT_MS:             300000\n  \
+            \    STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE:     quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n\
+            \      STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE:     quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n\
+            \      STRIMZI_KAFKA_IMAGES:                     4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0\n\
+            \                                                4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1\n\
+            \                                                4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2\n\
+            \                                                4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n\
+            \                                                \n      STRIMZI_KAFKA_CONNECT_IMAGES:\
+            \             4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0\n        \
+            \                                        4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1\n\
+            \                                                4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2\n\
+            \                                                4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0\n\
+            \                                                \n      STRIMZI_KAFKA_MIRRO"
+          detailTail: "_FEATURE_GATES:                    \n      STRIMZI_LEADER_ELECTION_ENABLED:\
+            \          true\n      STRIMZI_LEADER_ELECTION_LEASE_NAME:       strimzi-cluster-operator\n\
+            \      STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE:  default (v1:metadata.namespace)\n\
+            \      STRIMZI_LEADER_ELECTION_IDENTITY:         strimzi-cluster-operator-57856f5f9b-pbcwl\
+            \ (v1:metadata.name)\n    Mounts:\n      /opt/strimzi/custom-config/ from\
+            \ co-config-volume (rw)\n      /tmp from strimzi-tmp (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-wxd4t (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  strimzi-tmp:\n    Type:       EmptyDir (a temporary directory that\
+            \ shares a pod's lifetime)\n    Medium:     Memory\n    SizeLimit:  1Mi\n\
+            \  co-config-volume:\n    Type:      ConfigMap (a volume populated by\
+            \ a ConfigMap)\n    Name:      strimzi-cluster-operator\n    Optional:\
+            \  false\n  kube-api-access-wxd4t:\n    Type:                    Projected\
+            \ (a volume that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \   From               Message\n  ----     ------     ----           \
+            \    ----               -------\n  Normal   Scheduled  41s           \
+            \     default-scheduler  Successfully assigned default/strimzi-cluster-operator-57856f5f9b-pbcwl\
+            \ to hx-strimz-421c3-57du-installer-control-plane\n  Normal   Pulling\
+            \    41s                kubelet            spec.containers{strimzi-cluster-operator}:\
+            \ Pulling image \"quay.io/strimzi/operator:1.0.0\"\n  Normal   Pulled\
+            \     14s                kubelet            spec.containers{strimzi-cluster-operator}:\
+            \ Successfully pulled image \"quay.io/strimzi/operator:1.0.0\" in 27.151s\
+            \ (27.151s including waiting). Image size: 230623313 bytes.\n  Normal\
+            \   Created    10s (x2 over 14s)  kubelet            spec.containers{strimzi-cluster-operator}:\
+            \ Container created\n  Normal   Started    10s (x2 over 13s)  kubelet\
+            \            spec.containers{strimzi-cluster-operator}: Container started\n\
+            \  Normal   Pulled     10s                kubelet            spec.containers{strimzi-cluster-operator}:\
+            \ Container image \"quay.io/strimzi/operator:1.0.0\" already present on\
+            \ machine and can be accessed by the pod\n  Warning  BackOff    7s   \
+            \              kubelet            spec.containers{strimzi-cluster-operator}:\
+            \ Back-off restarting failed container strimzi-cluster-operator in pod\
+            \ strimzi-cluster-operator-57856f5f9b-pbcwl_default(b5657411-5abd-4c07-8590-353ec96fa7e5)"
+          logsHead: "at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2179)\n\
+            \tat io.fabric8.kubernetes.client.jdkhttp.JdkHttpClientImpl.lambda$buildWebSocketDirect$5(JdkHttpClientImpl.java:331)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:614)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:844)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482)\n\
+            \tat java.base/java.lang.Thread.run(Thread.java:1583)\n\tSuppressed: java.lang.Throwable:\
+            \ waiting here\n\t\tat io.fabric8.kubernetes.client.utils.Utils.waitUntilReady(Utils.java:175)\n\
+            \t\tat io.fabric8.kubernetes.client.utils.Utils.waitUntilReadyOrFail(Utils.java:186)\n\
+            \t\tat io.fabric8.kubernetes.client.dsl.internal.BaseOperation.watch(BaseOperation.java:654)\n\
+            \t\tat io.fabric8.kubernetes.client.dsl.internal.BaseOperation.watch(BaseOperation.java:641)\n\
+            \t\tat io.strimzi.operator.cluster.operator.resource.kubernetes.AbstractWatchableNamespacedResourceOperator.watch(AbstractWatchableNamespacedResourceOperator.java:82)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.ReconnectingWatcher.createWatch(ReconnectingWatcher.java:69)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.ReconnectingWatcher.<init>(ReconnectingWatcher.java:49)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.AbstractOperator.lambda$createWatch$22(AbstractOperator.java:505)\n\
+            \t\tat io.vertx.core.impl.ExecuteBlocking$1.execute(ExecuteBlocking.java:36)\n\
+            \t\tat io.vertx.core.impl.WorkerTask.run(WorkerTask.java:57)\n\t\tat io.vertx.core.impl.TaskQueue.run(TaskQueue.java:80)\n\
+            \t\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)\n\
+            \t\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)\n\
+            \t\tat io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)\n\
+            \t\t... 1 more\n2026-06-15 23:22:03 ERROR Main:95 - Unable to start operator\
+            \ for 1 or more namespace\nio.fabric8.kubernetes.client.KubernetesClientException:\
+            \ Received 404 on websocket. Failure executing: GET at: https://10.96.0.1:443/apis/kafka.strimzi.io/v1/namespaces/default/kafkas?allowWatchBookmarks=true&watch=true.\
+            \ Message: Not Found.\n\tat io.fabric8.kubernetes.client.dsl.internal.OperationSupport.requestFailure(OperationSupport.java:642)\n\
+            \tat io.fabric8.kubernetes.client.dsl.internal.WatchConnectionManager.lambda$start$3(WatchConnectionManager.java:86)\n\
+            \tat java.base/java.util.concurren"
+          logsTail: "ompletableFuture.java:510)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2179)\n\
+            \tat io.fabric8.kubernetes.client.jdkhttp.JdkHttpClientImpl.lambda$buildWebSocketDirect$5(JdkHttpClientImpl.java:331)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:614)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:844)\n\
+            \tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482)\n\
+            \tat java.base/java.lang.Thread.run(Thread.java:1583)\n\tSuppressed: java.lang.Throwable:\
+            \ waiting here\n\t\tat io.fabric8.kubernetes.client.utils.Utils.waitUntilReady(Utils.java:175)\n\
+            \t\tat io.fabric8.kubernetes.client.utils.Utils.waitUntilReadyOrFail(Utils.java:186)\n\
+            \t\tat io.fabric8.kubernetes.client.dsl.internal.BaseOperation.watch(BaseOperation.java:654)\n\
+            \t\tat io.fabric8.kubernetes.client.dsl.internal.BaseOperation.watch(BaseOperation.java:641)\n\
+            \t\tat io.strimzi.operator.cluster.operator.resource.kubernetes.AbstractWatchableNamespacedResourceOperator.watch(AbstractWatchableNamespacedResourceOperator.java:82)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.ReconnectingWatcher.createWatch(ReconnectingWatcher.java:69)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.ReconnectingWatcher.<init>(ReconnectingWatcher.java:49)\n\
+            \t\tat io.strimzi.operator.cluster.operator.assembly.AbstractOperator.lambda$createWatch$22(AbstractOperator.java:505)\n\
+            \t\tat io.vertx.core.impl.ExecuteBlocking$1.execute(ExecuteBlocking.java:36)\n\
+            \t\tat io.vertx.core.impl.WorkerTask.run(WorkerTask.java:57)\n\t\tat io.vertx.core.impl.TaskQueue.run(TaskQueue.java:80)\n\
+            \t\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)\n\
+            \t\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)\n\
+            \t\tat io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)\n\
+            \t\t... 1 more\n2026-06-15 23:22:03 INFO  ShutdownHook:35 - Shutdown hook\
+            \ started\n2026-06-15 23:22:03 INFO  LeaderElectionManager:82 - Stopping\
+            \ the Leader Elector\n2026-06-15 23:22:03 INFO  LeaderElectionManager:121\
+            \ - The new leader is null\n2026-06-15 23:22:03 INFO  LeaderElectionManager:112\
+            \ - Stopped being a leader\n2026-06-15 23:22:03 INFO  Main:249 - Stopped\
+            \ being a leader during a shutdown\n2026-06-15 23:22:03 INFO  LeaderElectionManager:86\
+            \ - Waiting for Leader Elector to stop\n2026-06-15 23:22:03 INFO  LeaderElectionManager:94\
+            \ - Leader Elector stopped\n2026-06-15 23:22:03 INFO  ShutdownHook:60\
+            \ - Shutting down Vert.x\n2026-06-15 23:22:03 INFO  ShutdownHook:79 -\
+            \ Shutdown of Vert.x is complete\n2026-06-15 23:22:03 INFO  ShutdownHook:41\
+            \ - Shutdown hook completed"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 17
+      installerObjectCount: 17
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 17
+      installerObjectCount: 18
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "strimzi-kafka-operator" does not exist. Installing it now.
+
+      NAME: strimzi-kafka-operator
+
+      LAST DEPLOYED: Tue Jun 16 00:20:29 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Thank you for installing strimzi-kafka-operator-1.0.0
+
+
+      To create a Kafka cluster refer to the following documentation.
+
+
+      https://strimzi.io/docs/operators/latest/deploying.html#deploying-cluster-operator-helm-chart-str'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/strimzi-cluster-operator   0/1   1     0     41s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

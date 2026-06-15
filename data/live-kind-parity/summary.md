@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 116
-watch: 8
+watch: 9
 blocked: 12
-semantic parity pass: 128
+semantic parity pass: 129
 semantic parity defects: 4
-non-pass rows where semantic parity passed: 12
+non-pass rows where semantic parity passed: 13
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -34,12 +34,12 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | parity: semantic object diff | 4 |
 | blocked: inspect receipt | 2 |
+| helm-runtime: upstream not ready (parity passed) | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-prerequisite: CRDs missing | 2 |
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
-| helm-runtime: upstream not ready (parity passed) | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
@@ -195,6 +195,7 @@ broader support claim.
 | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-controller-default-reviewed/receipt.yaml |
 | `stakater/reloader@2.2.12` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
+| `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
 | `velero/velero@12.0.1` | default | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/velero-velero-default/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default-reviewed/receipt.yaml |

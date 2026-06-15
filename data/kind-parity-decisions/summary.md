@@ -23,14 +23,14 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-20 non-pass rows: 8 watch, 12 blocked.
+21 non-pass rows: 9 watch, 12 blocked.
 7 are resolved by the **user** (stage a prerequisite or supply
 values); 6 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
-| `target-runtime` | 6 |
+| `target-runtime` | 7 |
 | `target-prerequisite-crds` | 4 |
 | `model-gap-render` | 3 |
 | `capability-profile-diff` | 2 |
@@ -41,9 +41,9 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `needs runtime review` | 7 |
 | `user` | 7 |
 | `catalog` | 6 |
-| `needs runtime review` | 6 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -69,6 +69,7 @@ readiness review.
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
+| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | velero/velero@12.0.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 
 ## How To Read One Decision
