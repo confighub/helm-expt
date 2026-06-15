@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 103
+pass: 104
 watch: 5
 blocked: 5
-semantic parity pass: 109
+semantic parity pass: 110
 semantic parity defects: 3
 non-pass rows where semantic parity passed: 6
 non-pass rows with related lifecycle evidence: 0
@@ -164,6 +164,7 @@ broader support claim.
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |
+| `prometheus-community/prometheus-node-exporter@4.55.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-node-exporter-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml |
