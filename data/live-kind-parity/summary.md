@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 94
-watch: 3
+watch: 4
 blocked: 2
-semantic parity pass: 97
+semantic parity pass: 98
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 3
+non-pass rows where semantic parity passed: 4
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -35,6 +35,7 @@ data/live-parity-rerun-plan/summary.md
 | blocked: inspect receipt | 2 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
+| target-prerequisite: required Secret missing (parity passed) | 1 |
 | target-runtime: pod crash loop (parity passed) | 1 |
 
 ## How To Read Non-Pass Rows
@@ -131,6 +132,7 @@ broader support claim.
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
 | `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
+| `kedacore/keda@2.19.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | ui-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
