@@ -1,0 +1,664 @@
+{
+  "metadata": {
+    "name": "opensearch-parity",
+    "namespace": "argocd",
+    "uid": "2ccacfa9-b336-45e6-bd89-9be133895d64",
+    "resourceVersion": "5177",
+    "generation": 11,
+    "creationTimestamp": "2026-06-15T13:57:50Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster:argoproj.io/Application:argocd/opensearch-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "7a037eaf-cae7-4c8f-abf8-f2528f469744",
+      "confighub.com/UnitSlug": "opensearch-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T13:57:50Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T14:04:52Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster/oci",
+      "path": "./helm-expt-parity-opensearch-mqf97nxg-1hz1-opensearch",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opensearch",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opensearch-coordinating-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opensearch-data-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opensearch-ingest-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opensearch-master-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "opensearch-coordinating",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "opensearch-data",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 3 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "opensearch-ingest",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "opensearch-master",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 3 pods to be ready..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "opensearch-coordinating",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "opensearch-dashboards",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "opensearch-data",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "opensearch-ingest",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "opensearch-master",
+        "status": "Synced"
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "opensearch-coordinating",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "opensearch-data",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "opensearch-ingest",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "opensearch-master",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster/oci",
+          "path": "./helm-expt-parity-opensearch-mqf97nxg-1hz1-opensearch",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:b30a8c2485912ca0fbbf935c63f9e1f54adbd9e9e46314c858ebba9591f1758a"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T13:57:52Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:b30a8c2485912ca0fbbf935c63f9e1f54adbd9e9e46314c858ebba9591f1758a",
+        "deployedAt": "2026-06-15T13:57:54Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster/oci",
+          "path": "./helm-expt-parity-opensearch-mqf97nxg-1hz1-opensearch",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T13:57:52Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T14:04:44Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:b30a8c2485912ca0fbbf935c63f9e1f54adbd9e9e46314c858ebba9591f1758a",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster/oci",
+            "path": "./helm-expt-parity-opensearch-mqf97nxg-1hz1-opensearch",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "opensearch-dashboards",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/opensearch-dashboards serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "opensearch-coordinating",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/opensearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "opensearch-master",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/opensearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "opensearch-ingest",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/opensearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "opensearch-data",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/opensearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "opensearch-ingest",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/opensearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "opensearch-master",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/opensearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "opensearch-coordinating",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/opensearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "opensearch-data",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/opensearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opensearch-coordinating-hl",
+            "status": "Synced",
+            "message": "service/opensearch-coordinating-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opensearch-master-hl",
+            "status": "Synced",
+            "message": "service/opensearch-master-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opensearch-ingest-hl",
+            "status": "Synced",
+            "message": "service/opensearch-ingest-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opensearch",
+            "status": "Synced",
+            "message": "service/opensearch serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opensearch-data-hl",
+            "status": "Synced",
+            "message": "service/opensearch-data-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "opensearch-master",
+            "status": "Synced",
+            "message": "statefulset.apps/opensearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "opensearch-data",
+            "status": "Synced",
+            "message": "statefulset.apps/opensearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "opensearch-coordinating",
+            "status": "Synced",
+            "message": "statefulset.apps/opensearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "opensearch-ingest",
+            "status": "Synced",
+            "message": "statefulset.apps/opensearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+            ]
+          }
+        ],
+        "revision": "sha256:b30a8c2485912ca0fbbf935c63f9e1f54adbd9e9e46314c858ebba9591f1758a",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf97nxg-1hz1-cluster/oci",
+          "path": "./helm-expt-parity-opensearch-mqf97nxg-1hz1-opensearch",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T13:57:52Z",
+      "finishedAt": "2026-06-15T13:57:54Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/bitnami/opensearch:3.2.0-debian-12-r0",
+        "docker.io/bitnami/os-shell:12-debian-12-r51"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

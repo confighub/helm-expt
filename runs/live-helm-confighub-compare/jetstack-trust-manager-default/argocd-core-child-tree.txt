@@ -1,0 +1,36 @@
+Name:               argocd/trust-manager-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:59169/applications/trust-manager-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqf4fet4-c29-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-trustmanager-mqf4fet4-c29-trust-manager
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                               STATUS  HEALTH       AGE    MESSAGE                                                                                                                                                                                               REASON
+ClusterRole/trust-manager                               Synced               7m10s
+ValidatingWebhookConfiguration/trust-manager            Synced               7m10s
+CustomResourceDefinition/bundles.trust.cert-manager.io  Synced  Healthy      7m10s                                                                                                                                                                                                        CRD is healthy
+Deployment/trust-manager                                Synced  Healthy      8m45s  deployment.apps/trust-manager serverside-applied
+└─ReplicaSet/trust-manager-6db9f66446                           Healthy      8m45s
+  └─Pod/trust-manager-6db9f66446-wz6rm                          Healthy      8m45s
+Service/trust-manager-metrics                           Synced  Healthy      8m45s  service/trust-manager-metrics serverside-applied
+Issuer/trust-manager                                    Synced  Progressing  8m45s  issuer.cert-manager.io/trust-manager serverside-applied                                                                                                                                               Initializing issuer
+ClusterRoleBinding/trust-manager                        Synced               7m10s
+RoleBinding/trust-manager:leaderelection                Synced               8m45s  rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
+Role/trust-manager                                      Synced               7m10s  role.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create
+                                                        missing rules added:
+                                                                {Verbs:[get list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/trust-manager serverside-applied
+Role/trust-manager:leaderelection                       Synced                                                                                                                                                                  8m45s  role.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. role.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
+RoleBinding/trust-manager                               Synced                                                                                                                                                                  7m10s  rolebinding.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create
+                                                        missing subjects added:
+                                                                {Kind:ServiceAccount APIGroup: Name:trust-manager Namespace:default}. rolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied
+Namespace/default-oci                                   Synced                                                                                                                                                8m23s
+Service/trust-manager                                   Synced  Healthy                                                                                                                                       8m45s  service/trust-manager serverside-applied
+ServiceAccount/trust-manager                            Synced                                                                                                                                                8m45s  serviceaccount/trust-manager serverside-applied
+Certificate/trust-manager                               Synced  Progressing                                                                                                                                   8m45s  certificate.cert-manager.io/trust-manager serverside-applied  Waiting for certificate

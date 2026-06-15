@@ -1,0 +1,33 @@
+Name:               argocd/mongodb-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          mongodb-oci
+URL:                http://localhost:51913/applications/mongodb-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqec9nnj-s2o-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-mongodb-mqec9nnj-s2o-mongodb
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                        STATUS     HEALTH   AGE    MESSAGE                                      REASON
+Namespace/mongodb-oci                            Synced              13m
+Service/mongodb-arbiter-headless                 Synced     Healthy  7m4s
+ServiceAccount/mongodb                           Synced              7m5s
+StatefulSet/mongodb                              OutOfSync  Healthy  7m4s   statefulset.apps/mongodb serverside-applied  statefulset rolling update complete 2 pods at revision mongodb-6c8b6cb5c8...
+├─PersistentVolumeClaim/datadir-mongodb-0                   Healthy  7m4s
+├─PersistentVolumeClaim/datadir-mongodb-1                   Healthy  6m47s
+├─Pod/mongodb-0                                             Healthy  7m4s
+├─Pod/mongodb-1                                             Healthy  6m47s
+└─ControllerRevision/mongodb-6c8b6cb5c8                              7m4s
+StatefulSet/mongodb-arbiter                      Synced     Healthy  7m4s                                                statefulset rolling update complete 1 pods at revision mongodb-arbiter-74558f5558...
+├─Pod/mongodb-arbiter-0                                     Healthy  7m4s
+└─ControllerRevision/mongodb-arbiter-74558f5558                      7m4s
+NetworkPolicy/mongodb                            Synced              7m5s
+ConfigMap/mongodb-common-scripts                 Synced              7m5s
+ConfigMap/mongodb-scripts                        Synced              7m5s
+Service/mongodb-headless                         Synced     Healthy  7m4s
+PodDisruptionBudget/mongodb                      Synced     Healthy  7m5s                                                PodDisruptionBudget has SufficientPods
+PodDisruptionBudget/mongodb-arbiter              Synced     Healthy  7m5s                                                PodDisruptionBudget has SufficientPods

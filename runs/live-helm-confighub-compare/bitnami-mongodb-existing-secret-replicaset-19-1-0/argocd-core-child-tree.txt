@@ -1,0 +1,33 @@
+Name:               argocd/mongodb-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          mongodb-oci
+URL:                http://localhost:53923/applications/mongodb-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                       STATUS     HEALTH   AGE    MESSAGE                                      REASON
+Service/mongodb-headless                        Synced     Healthy  7m6s
+NetworkPolicy/mongodb                           Synced              7m7s
+PodDisruptionBudget/mongodb                     Synced     Healthy  7m7s                                                PodDisruptionBudget has SufficientPods
+PodDisruptionBudget/mongodb-arbiter             Synced     Healthy  7m7s                                                PodDisruptionBudget has SufficientPods
+ConfigMap/mongodb-common-scripts                Synced              7m7s
+Namespace/mongodb-oci                           Synced              13m
+Service/mongodb-arbiter-headless                Synced     Healthy  7m6s
+ServiceAccount/mongodb                          Synced              7m7s
+StatefulSet/mongodb                             OutOfSync  Healthy  7m6s   statefulset.apps/mongodb serverside-applied  statefulset rolling update complete 2 pods at revision mongodb-594485b878...
+├─PersistentVolumeClaim/datadir-mongodb-0                  Healthy  7m6s
+├─PersistentVolumeClaim/datadir-mongodb-1                  Healthy  6m47s
+├─Pod/mongodb-0                                            Healthy  7m6s
+├─Pod/mongodb-1                                            Healthy  6m47s
+└─ControllerRevision/mongodb-594485b878                             7m6s
+StatefulSet/mongodb-arbiter                     Synced     Healthy  7m6s                                                statefulset rolling update complete 1 pods at revision mongodb-arbiter-8f6dc7754...
+├─Pod/mongodb-arbiter-0                                    Healthy  7m6s
+└─ControllerRevision/mongodb-arbiter-8f6dc7754                      7m6s
+ConfigMap/mongodb-scripts                       Synced              7m7s

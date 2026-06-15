@@ -1,0 +1,358 @@
+{
+  "metadata": {
+    "name": "linkerd-crds-parity",
+    "namespace": "argocd",
+    "uid": "c20b8210-f06e-4159-aeee-4cd7331a0997",
+    "resourceVersion": "1729",
+    "generation": 39,
+    "creationTimestamp": "2026-06-14T20:12:54Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster:argoproj.io/Application:argocd/linkerd-crds-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "8c52a0e6-346d-4d9e-9b5c-18be50a41639",
+      "confighub.com/UnitSlug": "linkerd-crds-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T20:12:54Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T20:19:55Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci",
+      "path": "./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "authorizationpolicies.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "httproutes.gateway.networking.k8s.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "httproutes.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "meshtlsauthentications.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "networkauthentications.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "serverauthorizations.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "servers.policy.linkerd.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "serviceprofiles.linkerd.io",
+        "status": "OutOfSync",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      }
+    ],
+    "sync": {
+      "status": "OutOfSync",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci",
+          "path": "./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-14T20:12:56Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207",
+        "deployedAt": "2026-06-14T20:12:58Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci",
+          "path": "./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T20:12:56Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T20:19:47Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207",
+          "prune": true,
+          "resources": [
+            {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "name": "serviceprofiles.linkerd.io"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci",
+            "path": "./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 6
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "default-oci",
+            "name": "serviceprofiles.linkerd.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/serviceprofiles.linkerd.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:0b890d39a825333feb879e49096bd53f28585222ac7275760fc191c460efb207",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci",
+          "path": "./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T20:17:18Z",
+      "finishedAt": "2026-06-14T20:17:20Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,31 @@
+Name:               argocd/rollout-operator-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55956/applications/rollout-operator-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqfdidcg-1y0-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-rolloutoperator-mqfdidcg-1y0-rollout-operator
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                       STATUS  HEALTH   AGE   MESSAGE                                                                                                                                                                                                               REASON
+RoleBinding/rollout-operator-webhook-rolebinding                Synced           2m2s  rolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-rolebinding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-rolebinding serverside-applied
+ServiceAccount/rollout-operator                                 Synced           2m2s  serviceaccount/rollout-operator serverside-applied
+MutatingWebhookConfiguration/prepare-downscale-default          Synced           26s
+ValidatingWebhookConfiguration/no-downscale-default             Synced           26s
+ValidatingWebhookConfiguration/zpdb-validation-default          Synced           26s
+ClusterRoleBinding/rollout-operator-webhook-clusterrolebinding  Synced           26s
+Role/rollout-operator                                           Synced           2m2s  role.rbac.authorization.k8s.io/rollout-operator reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rollout-operator serverside-applied
+Namespace/default-oci                                           Synced           96s
+Service/rollout-operator                                        Synced  Healthy  2m2s  service/rollout-operator serverside-applied
+ValidatingWebhookConfiguration/pod-eviction-default             Synced           26s
+Deployment/rollout-operator                                     Synced  Healthy  2m2s  deployment.apps/rollout-operator serverside-applied
+└─ReplicaSet/rollout-operator-5f688cdb68                                Healthy  2m2s
+  └─Pod/rollout-operator-5f688cdb68-lrkkv                               Healthy  2m2s
+ClusterRole/rollout-operator-webhook-clusterrole                Synced           26s
+Role/rollout-operator-webhook-role                              Synced           2m2s  role.rbac.authorization.k8s.io/rollout-operator-webhook-role reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rollout-operator-webhook-role serverside-applied
+RoleBinding/rollout-operator                                    Synced           2m2s  rolebinding.rbac.authorization.k8s.io/rollout-operator reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rollout-operator serverside-applied

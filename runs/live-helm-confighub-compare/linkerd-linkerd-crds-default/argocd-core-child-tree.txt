@@ -1,0 +1,24 @@
+Name:               argocd/linkerd-crds-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:60466/applications/linkerd-crds-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                          STATUS     HEALTH   AGE   MESSAGE  REASON
+CustomResourceDefinition/serverauthorizations.policy.linkerd.io    Synced     Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/servers.policy.linkerd.io                 Synced     Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/serviceprofiles.linkerd.io                OutOfSync  Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/authorizationpolicies.policy.linkerd.io   Synced     Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/meshtlsauthentications.policy.linkerd.io  Synced     Healthy  7m7s           CRD is healthy
+Namespace/default-oci                                              Synced              8m6s
+CustomResourceDefinition/httproutes.gateway.networking.k8s.io      Synced     Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/httproutes.policy.linkerd.io              Synced     Healthy  7m7s           CRD is healthy
+CustomResourceDefinition/networkauthentications.policy.linkerd.io  Synced     Healthy  7m7s           CRD is healthy

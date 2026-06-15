@@ -1,0 +1,50 @@
+Name:               argocd/opensearch-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:49681/applications/opensearch-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqf7iyqi-1s4s-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opensearch-mqf7iyqi-1s4s-opensearch
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                STATUS  HEALTH       AGE  MESSAGE                                                                     REASON
+StatefulSet/opensearch-master                            Synced  Progressing  19m  statefulset.apps/opensearch-master serverside-applied                       Waiting for 2 pods to be ready...
+├─PersistentVolumeClaim/data-opensearch-master-0                 Healthy      19m
+├─PersistentVolumeClaim/data-opensearch-master-1                 Healthy      19m
+├─Pod/opensearch-master-0                                        Progressing  19m
+├─Pod/opensearch-master-1                                        Progressing  19m
+└─ControllerRevision/opensearch-master-68584ccf54                             19m
+Service/opensearch                                       Synced  Healthy      19m  service/opensearch serverside-applied
+StatefulSet/opensearch-coordinating                      Synced  Progressing  19m  statefulset.apps/opensearch-coordinating serverside-applied                 Waiting for 2 pods to be ready...
+├─Pod/opensearch-coordinating-0                                  Progressing  19m
+├─Pod/opensearch-coordinating-1                                  Progressing  19m
+└─ControllerRevision/opensearch-coordinating-85d599fbcf                       19m
+StatefulSet/opensearch-data                              Synced  Progressing  19m  statefulset.apps/opensearch-data serverside-applied                         Waiting for 2 pods to be ready...
+├─PersistentVolumeClaim/data-opensearch-data-0                   Healthy      19m
+├─PersistentVolumeClaim/data-opensearch-data-1                   Healthy      19m
+├─Pod/opensearch-data-0                                          Progressing  19m
+├─Pod/opensearch-data-1                                          Progressing  19m
+└─ControllerRevision/opensearch-data-5df5df6c55                               19m
+NetworkPolicy/opensearch-coordinating                    Synced               19m  networkpolicy.networking.k8s.io/opensearch-coordinating serverside-applied
+NetworkPolicy/opensearch-dashboards                      Synced               19m  networkpolicy.networking.k8s.io/opensearch-dashboards serverside-applied
+NetworkPolicy/opensearch-ingest                          Synced               19m  networkpolicy.networking.k8s.io/opensearch-ingest serverside-applied
+NetworkPolicy/opensearch-master                          Synced               19m  networkpolicy.networking.k8s.io/opensearch-master serverside-applied
+PodDisruptionBudget/opensearch-data                      Synced  Healthy      19m  poddisruptionbudget.policy/opensearch-data serverside-applied               PodDisruptionBudget has InsufficientPods
+Namespace/default-oci                                    Synced               14m
+Service/opensearch-coordinating-hl                       Synced  Healthy      19m  service/opensearch-coordinating-hl serverside-applied
+Service/opensearch-data-hl                               Synced  Healthy      19m  service/opensearch-data-hl serverside-applied
+Service/opensearch-master-hl                             Synced  Healthy      19m  service/opensearch-master-hl serverside-applied
+StatefulSet/opensearch-ingest                            Synced  Progressing  19m  statefulset.apps/opensearch-ingest serverside-applied                       Waiting for 2 pods to be ready...
+├─Pod/opensearch-ingest-0                                        Progressing  19m
+├─Pod/opensearch-ingest-1                                        Progressing  19m
+└─ControllerRevision/opensearch-ingest-6878bf9cf5                             19m
+NetworkPolicy/opensearch-data                            Synced               19m  networkpolicy.networking.k8s.io/opensearch-data serverside-applied
+PodDisruptionBudget/opensearch-ingest                    Synced  Healthy      19m  poddisruptionbudget.policy/opensearch-ingest serverside-applied             PodDisruptionBudget has InsufficientPods
+PodDisruptionBudget/opensearch-master                    Synced  Healthy      19m  poddisruptionbudget.policy/opensearch-master serverside-applied             PodDisruptionBudget has InsufficientPods
+Service/opensearch-ingest-hl                             Synced  Healthy      19m  service/opensearch-ingest-hl serverside-applied
+PodDisruptionBudget/opensearch-coordinating              Synced  Healthy      19m  poddisruptionbudget.policy/opensearch-coordinating serverside-applied       PodDisruptionBudget has InsufficientPods

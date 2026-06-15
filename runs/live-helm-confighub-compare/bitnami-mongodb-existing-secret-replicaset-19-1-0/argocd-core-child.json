@@ -1,0 +1,377 @@
+{
+  "metadata": {
+    "name": "mongodb-parity",
+    "namespace": "argocd",
+    "uid": "80835059-c1f3-4e16-a03a-e10ddd31f13b",
+    "resourceVersion": "2909",
+    "generation": 39,
+    "creationTimestamp": "2026-06-14T22:59:56Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-mongodb-mqedlsmg-6um-cluster:argoproj.io/Application:argocd/mongodb-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "d25ba895-bea8-413c-8395-b92f30fa66f7",
+      "confighub.com/UnitSlug": "mongodb-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T22:59:56Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-14T23:06:57Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci",
+      "path": "./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "mongodb-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-common-scripts",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-scripts",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "mongodb-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-arbiter-headless",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-headless",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "mongodb-oci",
+        "name": "mongodb",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "mongodb-oci",
+        "name": "mongodb",
+        "status": "OutOfSync",
+        "health": {
+          "status": "Healthy",
+          "message": "statefulset rolling update complete 2 pods at revision mongodb-594485b878..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-arbiter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "statefulset rolling update complete 1 pods at revision mongodb-arbiter-8f6dc7754..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "mongodb-oci",
+        "name": "mongodb",
+        "status": "Synced"
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "mongodb-oci",
+        "name": "mongodb",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has SufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "mongodb-oci",
+        "name": "mongodb-arbiter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has SufficientPods"
+        }
+      }
+    ],
+    "sync": {
+      "status": "OutOfSync",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci",
+          "path": "./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "mongodb-oci"
+        }
+      },
+      "revision": "sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-14T23:00:58Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c",
+        "deployedAt": "2026-06-14T23:00:00Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci",
+          "path": "./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-14T22:59:58Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-14T23:06:50Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c",
+          "prune": true,
+          "resources": [
+            {
+              "group": "apps",
+              "kind": "StatefulSet",
+              "name": "mongodb"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci",
+            "path": "./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 6
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "mongodb-oci",
+            "name": "mongodb",
+            "status": "Synced",
+            "message": "statefulset.apps/mongodb serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+            ]
+          }
+        ],
+        "revision": "sha256:485368401cee08318416dcfe08fed7ae52a94095fe0e2671b57f0001c7224a0c",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-mongodb-mqedlsmg-6um-cluster/oci",
+          "path": "./helm-expt-parity-mongodb-mqedlsmg-6um-mongodb",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-14T23:04:32Z",
+      "finishedAt": "2026-06-14T23:04:34Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
