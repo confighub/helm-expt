@@ -1,0 +1,1077 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: falcosecurity-falco-9.0.0-default-live-parity-20260605
+spec:
+  chart: falcosecurity/falco
+  version: 9.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T01:26:46Z'
+  package:
+    path: packages/falcosecurity/falco/9.0.0
+  recipe:
+    path: recipes/falcosecurity/falco/9.0.0
+  variantRevision: recipes/falcosecurity/falco/9.0.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-falco-mqej8x5c-10h4
+    kubeContext: kind-helm-expt-parity-falco-mqej8x5c-10h4
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-falco-mqej8x5c-10h4 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-falco-mqej8x5c-10h4"...
+
+        Deleting cluster "helm-expt-parity-falco-mqej8x5c-10h4" ...
+
+        Deleted nodes: ["helm-expt-parity-falco-mqej8x5c-10h4-control-plane"]
+
+        Deleting Space "helm-expt-parity-falco-mqej8x5c-10h4-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install falco falco --repo https://falcosecurity.github.io/charts
+        --version 9.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/falcosecurity-falco-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648
+      objectCount: 6
+      liveHelmManifestSHA256: d0d7fd9443ae1ea060a59b0e1a96393f0922dc23ea15b9998b86fa7cf8f6e7d6
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: daemonset.apps/falco   1     1     1     1     1     <none>   81s
+        pods: falco-rm6c6   2/2   Running   0     81s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/falcosecurity/falco/9.0.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-falco-mqej8x5c-10h4-falco
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: a3749a2de469d7afdf67cfa789ee5bcc04f9b1a34fdaab7e90621379d9873db8
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/falco   1     1     1     1     1     <none>   20s'
+        pods: '# default
+
+          falco-24x5r   2/2   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|falco
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|falco
+          - rbac.authorization.k8s.io/v1|Role|default|falco
+          - v1|ConfigMap|default|falco
+          - v1|ConfigMap|default|falco-falcoctl
+          - v1|ServiceAccount|default|falco
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-falco-mqej8x5c-10h4-falco
+      controller: Argo CD OCI
+      app: falco-parity
+      manifestSHA256: 9b3f2ba6f65d46ba1256bc84e84363183f6bbe7abfc6df7b0e898b1c0a3e33f6
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-falco-mqej8x5c-10h4-falco
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci
+              targetRevision: latest
+          revision: sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T01:30:29Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/falcosecurity/falco-driver-loader:0.44.0
+          - docker.io/falcosecurity/falco:0.44.0
+          - docker.io/falcosecurity/falcoctl:0.13.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:30:29Z'
+          finishedAt: '2026-06-15T01:30:31Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+          deployedAt: '2026-06-15T01:30:31Z'
+          deployStartedAt: '2026-06-15T01:30:29Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-falco-mqej8x5c-10h4-falco
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: falco
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: falco-falcoctl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: falco
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: falco
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: falco
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: falco
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         falco-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-falco-mqej8x5c-10h4-cluster:argoproj.io/Application:argocd/falco-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ cb4c4905-2e3c-4875-94a8-e24aa2602919\n              confighub.com/UnitSlug:\
+              \ falco-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-15T01:30:25Z\n\
+              \  Generation:          7\n  Resource Version:    1170\n  UID:     \
+              \            ccf0fd83-8dac-4ecc-8a9f-428e72738562\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-falco\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T01:30:29Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T01:30:29Z\n    Deployed At:        2026-06-15T01:30:31Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \    Source:\n      Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-falco\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:30:31Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \        Source:\n          Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-falco\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T01:30:29Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/falco serverside-applied\n        Name:        falco\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ConfigMap\n    \
+              \    Message:     configmap/falco-falcoctl serverside-applied\n    \
+              \    Name:        falco-falcoctl\n        Namespace:   default\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/falco serverside-applied\n\
+              \        Name:        falco\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/falco\
+              \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/falco\
+              \ serverside-applied\n        Name:        falco\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/falco reconciled.\
+              \ reconciliation required update. rolebinding.rbac.authorization.k8s.io/falco\
+              \ serverside-applied\n        Name:        falco\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          docker.io/falcosecurity/falco:0.44.0\n\
+              \          docker.io/falcosecurity/falcoctl:0.13.0\n        Kind:  \
+              \      DaemonSet\n        Message:     daemonset.apps/falco serverside-applied\n\
+              \        Name:        falco\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \      Revision:      sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \      Source:\n        Path:              ./helm-expt-parity-falco-mqej8x5c-10h4-falco\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T01:30:31Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       falco\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Kind:       ConfigMap\n    Name:       falco-falcoctl\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \    Kind:       Namespace\n    Name:       default-oci\n    Status:\
+              \     Synced\n    Version:    v1\n    Kind:       ServiceAccount\n \
+              \   Name:       falco\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Group:      apps\n    Kind:       DaemonSet\n\
+              \    Name:       falco\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Group:      rbac.authorization.k8s.io\n   \
+              \ Kind:       Role\n    Name:       falco\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      rbac.authorization.k8s.io\n\
+              \    K"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              5s          Normal   OperationStarted     application/falco-parity   Initiated
+              automated sync to ''sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b''
+
+              5s          Normal   ResourceUpdated      application/falco-parity   Updated
+              sync status:  -> OutOfSync
+
+              5s          Normal   ResourceUpdated      application/falco-parity   Updated
+              health status:  -> Healthy
+
+              3s          Normal   OperationCompleted   application/falco-parity   Sync
+              operation to sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+              succeeded
+
+              1s          Normal   ResourceUpdated      application/falco-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: 45812df4e916c5aa8b82f74a0c1a412dc316492961560e195bede5cce2ed427b
+                bytes: 11660
+              output: "{\n  \"metadata\": {\n    \"name\": \"falco-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"ccf0fd83-8dac-4ecc-8a9f-428e72738562\"\
+                ,\n    \"resourceVersion\": \"1184\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T01:30:25Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-falco-mqej8x5c-10h4-cluster:argoproj.io/Application:argocd/falco-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"cb4c4905-2e3c-4875-94a8-e24aa2602919\",\n      \"confighub.com/UnitSlug\"\
+                : \"falco-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T01:30:25Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T01:30:42Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-falco-mqej8x5c-10h4-falco\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"falco\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"falco-falcoctl\",\n        \"\
+                status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"falco\",\n        \"status\":\
+                \ \"Synced\"\n      },\n      {\n        \"group\": \"apps\",\n  \
+                \      \"version\": \"v1\",\n        \"kind\": \"DaemonSet\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"falco\",\n\
+                \        \"status\": \"Synced\",\n        \"health\": {\n        \
+                \  \"status\": \"Healthy\"\n        }\n      },\n      {\n       \
+                \ \"group\": \"rbac.authorization.k8s.io\",\n        \"version\":\
+                \ \"v1\",\n        \"kind\": \"Role\",\n        \"namespace\": \"\
+                default\",\n        \"name\": \"falco\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"RoleBinding\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"falco\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 9ea08bd476744943ec2693c317b4d27bfaded8b7e4b0f9da4104b1023808acb2
+                bytes: 1795
+              output: "Name:               argocd/falco-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:62335/applications/falco-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-falco\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                              STATUS  HEALTH\
+                \   AGE  MESSAGE                                                 \
+                \                                                                \
+                \                                REASON\nRole/falco              \
+                \               Synced           94s  role.rbac.authorization.k8s.io/falco\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/falco\
+                \ serverside-applied                \nRoleBinding/falco          \
+                \            Synced           94s  rolebinding.rbac.authorization.k8s.io/falco\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/falco\
+                \ serverside-applied  \nConfigMap/falco                        Synced\
+                \           94s  configmap/falco serverside-applied              \
+                \                                                                \
+                \                                        \nConfigMap/falco-falcoctl\
+                \               Synced           94s  configmap/falco-falcoctl serverside-applied\
+                \                                                                \
+                \                                             \nNamespace/default-oci\
+                \                  Synced           68s                          \
+                \                                                                \
+                \                                                                \n\
+                ServiceAccount/falco                   Synced           94s  serviceaccount/falco\
+                \ serverside-applied                                             \
+                \                                                                \
+                \    \nDaemonSet/falco                        Synced  Healthy  94s\
+                \  daemonset.apps/falco serverside-applied                       \
+                \                                                                \
+                \                          \n\u251C\u2500Pod/falco-24x5r         \
+                \                     Healthy  94s                               \
+                \                                                                \
+                \                                                           \n\u2514\
+                \u2500ControllerRevision/falco-6865bc64fd                   94s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"falco-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/falco-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-falco-mqej8x5c-10h4-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-falco-mqej8x5c-10h4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"falco-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-falco-mqej8x5c-10h4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-falco-mqej8x5c-10h4-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci
+              targetRevision: latest
+          revision: sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T01:27:47Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:30:23Z'
+          finishedAt: '2026-06-15T01:30:25Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+          deployedAt: '2026-06-15T01:30:25Z'
+          deployStartedAt: '2026-06-15T01:30:23Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-falco-mqej8x5c-10h4-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: falco-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-falco-mqej8x5c-10h4-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T01:27:41Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        9\n  Resource Version:  1152\n  UID:         \
+              \      5f459ddf-55f4-4a4d-8d22-91b9b15be9c0\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T01:27:47Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T01:30:23Z\n\
+              \    Deployed At:        2026-06-15T01:30:25Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \    Source:\n      Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:30:25Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \        Source:\n          Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T01:30:23Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/falco-parity serverside-applied\n\
+              \        Name:        falco-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-falco-mqej8x5c-10h4-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \      Source:\n        Path:              ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T01:30:28Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       falco-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     3m5s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     3m5s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  29s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b'\n\
+              \  Normal  ResourceUpdated     29s   argocd-application-controller \
+              \ Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  27s   argocd-application-controller  Sync operation to sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\
+              \ succeeded\n  Normal  ResourceUpdated     24s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              3m5s        Normal   ResourceUpdated      application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Updated
+              sync status:  -> Unknown
+
+              3m5s        Normal   ResourceUpdated      application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Updated
+              health status:  -> Healthy
+
+              29s         Normal   OperationStarted     application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Initiated
+              automated sync to ''sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b''
+
+              29s         Normal   ResourceUpdated      application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              27s         Normal   OperationCompleted   application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Sync
+              operation to sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b
+              succeeded
+
+              24s         Normal   ResourceUpdated      application/helm-expt-parity-falco-mqej8x5c-10h4-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: cd74be5100dafd457258445dceb6cb3182b048e00b717855b4746911612302ec
+                bytes: 10608
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-falco-mqej8x5c-10h4-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"5f459ddf-55f4-4a4d-8d22-91b9b15be9c0\"\
+                ,\n    \"resourceVersion\": \"1211\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-15T01:27:41Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-falco-mqej8x5c-10h4-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-falco-mqej8x5c-10h4-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T01:27:41Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T01:31:00Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 6eced4c8d9c280283f7882c344cf245d254679a3c066f74c8f304ef652e44ccb
+                bytes: 1110
+              output: "Name:               argocd/helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:62451/applications/helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-falco-mqej8x5c-10h4-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/falco-parity                                  Synced \
+                \         44s    application.argoproj.io/falco-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-falco-mqej8x5c-10h4-cluster\
+                \  Synced          3m28s  application.argoproj.io/helm-expt-parity-falco-mqej8x5c-10h4-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"falco-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/falco-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-falco-mqej8x5c-10h4-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-falco-mqej8x5c-10h4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d1e3468198b2195ebe624ddd980c1b276b24b499c2ba8aac6190608310d47b9b\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"falco-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-falco-mqej8x5c-10h4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/falco   1     1     1     1     1     <none>   113s'
+        pods: '# default
+
+          falco-24x5r   2/2   Running   0     113s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T01:27:41Z'
+    finishedAt: '2026-06-15T01:29:06Z'
+    elapsedSeconds: 84.393
+    timeoutSeconds: 900
+    command: helm upgrade --install falco falco --repo https://falcosecurity.github.io/charts
+      --version 9.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/falcosecurity-falco-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T01:29:16Z'
+    finishedAt: '2026-06-15T01:29:17Z'
+    elapsedSeconds: 0.53
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/falcosecurity/falco/9.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-falco-mqej8x5c-10h4-falco
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T01:29:17Z'
+    finishedAt: '2026-06-15T01:29:17Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-falco-mqej8x5c-10h4.kubeconfig
+      --context kind-helm-expt-parity-falco-mqej8x5c-10h4 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/falcosecurity-falco-default/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T01:29:17Z'
+    finishedAt: '2026-06-15T01:29:37Z'
+    elapsedSeconds: 20.323
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T01:29:43Z'
+    finishedAt: '2026-06-15T01:29:43Z'
+    elapsedSeconds: 0.263
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/falcosecurity/falco/9.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-falco-mqej8x5c-10h4-falco
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T01:29:43Z'
+    finishedAt: '2026-06-15T01:30:06Z'
+    elapsedSeconds: 23.193
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-falco-mqej8x5c-10h4-falco
+      --space helm-expt-parity-falco-mqej8x5c-10h4-falco --target helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci
+    objectCount: 7
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T01:30:06Z'
+    finishedAt: '2026-06-15T01:30:07Z'
+    elapsedSeconds: 0.535
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-falco-mqej8x5c-10h4-falco
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T01:30:07Z'
+    finishedAt: '2026-06-15T01:30:11Z'
+    elapsedSeconds: 4.572
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-falco-mqej8x5c-10h4-falco --unit
+      <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T01:30:11Z'
+    finishedAt: '2026-06-15T01:30:12Z'
+    elapsedSeconds: 0.962
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-falco-mqej8x5c-10h4-cluster
+      falco-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/falcosecurity-falco-default/argo-application.json
+      --target helm-expt-parity-falco-mqej8x5c-10h4-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T01:30:12Z'
+    finishedAt: '2026-06-15T01:30:14Z'
+    elapsedSeconds: 1.162
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-falco-mqej8x5c-10h4-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T01:30:14Z'
+    finishedAt: '2026-06-15T01:30:34Z'
+    elapsedSeconds: 20.126
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T01:31:10Z'
+    finishedAt: '2026-06-15T01:31:10Z'
+    elapsedSeconds: 0.166
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-falco-mqej8x5c-10h4\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-falco-mqej8x5c-10h4.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-falco-mqej8x5c-10h4\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-falco-mqej8x5c-10h4\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-falco-mqej8x5c-10h4\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-falco-mqej8x5c-10h4.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argoc"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "falco" does not exist. Installing it now.
+
+      NAME: falco
+
+      LAST DEPLOYED: Mon Jun 15 02:27:44 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Falco agents are spinning up on each node in your cluster. After a few
+
+      seconds, they are going to start monitoring your containers looking for
+
+      security issues.
+
+
+      TIP:
+
+      You can easily forward Falco events to Slack, Kafka, AWS Lambda and more with
+      falcosidekick.
+
+      Full list of outputs: https://github.com/falcosecurity/charts/tree/master/charts/falcosidekick.
+
+      You can enable its deployment with `--set falcosidekick.enabled=true` or in
+      your values.yaml.
+
+      See: https://github.com/falcosecurity/charts/blob/master/charts/falcosidekick/values.yaml
+      for configuration values.'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/falco   1     1     1     1     1     <none>   20s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
