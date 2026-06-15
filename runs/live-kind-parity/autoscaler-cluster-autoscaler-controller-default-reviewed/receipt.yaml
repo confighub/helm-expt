@@ -1,0 +1,46 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: autoscaler-cluster-autoscaler-9.57.0-controller-default-reviewed-kind-parity-20260606
+spec:
+  chart: autoscaler/cluster-autoscaler
+  version: 9.57.0
+  base: controller-default-reviewed
+  result: blocked
+  observedAt: '2026-06-15T06:49:21Z'
+  package:
+    path: packages/autoscaler/cluster-autoscaler/9.57.0
+  recipe:
+    path: recipes/autoscaler/cluster-autoscaler/9.57.0
+  variantRevision: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-cluste-7c6e9-rrrd-helm
+    installerCluster: hx-cluste-7c6e9-rrrd-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-cluste-7c6e9-rrrd-helm
+        leg: helm
+        result: pass
+        detail: Deleting cluster "hx-cluste-7c6e9-rrrd-helm" ...
+      - cluster: hx-cluste-7c6e9-rrrd-installer
+        leg: installer
+        result: pass
+        detail: Deleting cluster "hx-cluste-7c6e9-rrrd-installer" ...
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs: {}
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  checks:
+  - name: failure
+    result: blocked
+    detail: no target fact value generator for autoDiscovery.clusterName
+  failure:
+    message: no target fact value generator for autoDiscovery.clusterName

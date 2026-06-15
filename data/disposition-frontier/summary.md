@@ -19,15 +19,15 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1152
-recorded disposition:       950  (82.5%)
+recorded disposition:       951  (82.6%)
 + derived blocked:          130
-= verified disposition:     1080  (93.8%)
-genuine todo (named next):  72
+= verified disposition:     1081  (93.8%)
+genuine todo (named next):  71
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 72 cells are not yet a
-non-todo verified disposition (6.3% of cells).
+**Distance to 99%:** 71 cells are not yet a
+non-todo verified disposition (6.2% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -39,7 +39,7 @@ Every one carries a named next action below — none is a silent gap.
 | L local_live | 192 | 192 | 0 | 0 |
 | G gitops_oci_live | 192 | 192 | 0 | 0 |
 | P live_helm_vs_confighub_parity | 192 | 192 | 0 | 0 |
-| K two_cluster_kind_parity | 192 | 120 | 72 | 0 |
+| K two_cluster_kind_parity | 192 | 121 | 71 | 0 |
 
 ## The work to 99%, by next action
 
@@ -47,7 +47,7 @@ Each genuine `todo` cell, grouped by what closes it.
 
 | Cells | Next action |
 | --- | --- |
-| 72 | run the two-cluster kind parity lane |
+| 71 | run the two-cluster kind parity lane |
 
 ## Rules (so the derivation is auditable)
 
