@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 111
+pass: 113
 watch: 6
 blocked: 7
-semantic parity pass: 119
+semantic parity pass: 121
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 8
 non-pass rows with related lifecycle evidence: 0
@@ -181,4 +181,6 @@ broader support claim.
 | `sealed-secrets/sealed-secrets@2.18.6` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-no-crds/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml |
+| `stakater/reloader@2.2.12` | controller-default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-controller-default-reviewed/receipt.yaml |
+| `stakater/reloader@2.2.12` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
