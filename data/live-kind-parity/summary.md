@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 83
+pass: 84
 watch: 3
 blocked: 2
-semantic parity pass: 86
+semantic parity pass: 87
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 0
@@ -101,6 +101,7 @@ broader support claim.
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | pass | target-prerequisite: CRDs disabled or missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml |
 | `falcosecurity/falco@9.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/falcosecurity-falco-default/receipt.yaml |
 | `falcosecurity/falcosidekick@0.13.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/falcosecurity-falcosidekick-default/receipt.yaml |
+| `fluent/fluent-bit@0.57.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fluent-fluent-bit-default/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
 | `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
