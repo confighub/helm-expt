@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 897 / 41 / 56 / 228 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 900 / 41 / 56 / 225 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -125,7 +125,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `argo-cd/argo-rollouts@2.40.9` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `argo-cd/argo-workflows@1.0.14` | default | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `argo-cd/argo-workflows@1.0.14` | default | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | controller-default-reviewed | next80 | — | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | minimal-crds | next80 | — | 1 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |

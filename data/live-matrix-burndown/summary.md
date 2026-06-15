@@ -20,26 +20,26 @@ For the cell-level completion count, use
 | Metric | Rows |
 | --- | ---: |
 | Matrix variant rows | 192 |
-| Variants needing at least one live command | 103 |
-| Live commands remaining | 152 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 60 |
-| Two-cluster kind parity commands | 92 |
+| Variants needing at least one live command | 102 |
+| Live commands remaining | 150 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 59 |
+| Two-cluster kind parity commands | 91 |
 | Watch/blocked/review rows | 45 |
-| Ready-to-run todo rows | 107 |
+| Ready-to-run todo rows | 105 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 92 |
-| `live-parity` | 60 |
+| `kind-parity` | 91 |
+| `live-parity` | 59 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 2 |
-| `todo` | 127 |
+| `todo` | 125 |
 | `watch` | 23 |
 
 ## By Run Readiness
@@ -48,7 +48,7 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 24 |
-| `ready-to-run` | 107 |
+| `ready-to-run` | 105 |
 | `review-target-first` | 20 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -91,7 +91,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-workflows | 1.0.14 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base default |
 | bitnami/opensearch | 2.0.10 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default |
 | bitnami/opensearch | 2.0.10 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha |
 | elastic/filebeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
@@ -111,6 +110,7 @@ generated priority. They are good candidates for a serial live block.
 | velero/velero | 12.0.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default |
 | velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.60.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default |
+| bitnami/apache | 11.4.29 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default |
 
 ## Full Queue
 
