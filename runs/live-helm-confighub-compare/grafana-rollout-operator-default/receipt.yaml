@@ -1,0 +1,1233 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-rollout-operator-0.49.0-default-live-parity-20260605
+spec:
+  chart: grafana/rollout-operator
+  version: 0.49.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T02:41:11Z'
+  package:
+    path: packages/grafana/rollout-operator/0.49.0
+  recipe:
+    path: recipes/grafana/rollout-operator/0.49.0
+  variantRevision: recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-rolloutoperator-mqelwmtx-16l7
+    kubeContext: kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-rolloutoperator-mqelwmtx-16l7 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-rolloutoperator-mqelwmtx-16l7"...
+
+        Deleting cluster "helm-expt-parity-rolloutoperator-mqelwmtx-16l7" ...
+
+        Deleted nodes: ["helm-expt-parity-rolloutoperator-mqelwmtx-16l7-control-plane"]
+
+        Deleting Space "helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
+        --version 0.49.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763
+      objectCount: 15
+      liveHelmManifestSHA256: 10e0d97eaca1936a6b1ce2dce8d95c023a9479b11850ee65a62aa2dcc7f8d2ea
+      liveHelmManifestObjectCount: 13
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/rollout-operator   1/1   1     1     28s
+        pods: rollout-operator-64df8d6dd7-5cmjn   1/1   Running   0     28s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: cd243e170d52f992108579d801cec58cfd1ee98d236dedf880cb7e4ac00532ac
+      objectCount: 16
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/rollout-operator   1/1   1     0     20s'
+        pods: '# default
+
+          rollout-operator-5f688cdb68-8s4kt   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 8
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "rollout-operator-webhook-clusterrole"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "rollout-operator-webhook-clusterrolebinding"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "replicatemplates.rollout-operator.grafana.com"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+            deleted
+
+            mutatingwebhookconfiguration.admissionregistration.k8s.io "prepare-downscale-default"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "no-downscale-default"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "pod-eviction-default"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "zpdb-validation-default"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|rollout-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rollout-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rollout-operator-webhook-rolebinding
+          - rbac.authorization.k8s.io/v1|Role|default|rollout-operator
+          - rbac.authorization.k8s.io/v1|Role|default|rollout-operator-webhook-role
+          - v1|ServiceAccount|default|rollout-operator
+          - v1|Service|default|rollout-operator
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+      controller: Argo CD OCI
+      app: rollout-operator-parity
+      manifestSHA256: 5ef116598da000b8786f785b2cca06164e13c1fd982069a4ad9ed5f66d36087c
+      objectCount: 16
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci
+              targetRevision: latest
+          revision: sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T02:44:56Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/grafana/rollout-operator:v0.36.2
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T02:44:56Z'
+          finishedAt: '2026-06-15T02:44:58Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 16
+          syncResultStatusCounts:
+            Synced: 16
+        history:
+        - id: 0
+          revision: sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+          deployedAt: '2026-06-15T02:44:58Z'
+          deployStartedAt: '2026-06-15T02:44:56Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: rollout-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rollout-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: prepare-downscale-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: no-downscale-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: pod-eviction-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: zpdb-validation-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: replicatemplates.rollout-operator.grafana.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: rollout-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: rollout-operator-webhook-clusterrole
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: rollout-operator-webhook-clusterrolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rollout-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rollout-operator-webhook-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rollout-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rollout-operator-webhook-rolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         rollout-operator-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster:argoproj.io/Application:argocd/rollout-operator-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 0a647ce0-69c5-477f-8ab7-cf734e5fd4f3\n              confighub.com/UnitSlug:\
+              \ rollout-operator-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T02:44:55Z\n\
+              \  Generation:          8\n  Resource Version:    1263\n  UID:     \
+              \            910f46e9-d222-4f20-9e00-6441e73e7dc8\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T02:44:56Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T02:44:56Z\n    Deployed At:        2026-06-15T02:44:58Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \    Source:\n      Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T02:44:58Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \        Source:\n          Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T02:44:56Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/rollout-operator serverside-applied\n        Name:\
+              \        rollout-operator\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       apiextensions.k8s.io\n        Hook Phase:  Running\n\
+              \        Kind:        CustomResourceDefinition\n        Message:   \
+              \  customresourcedefinition.apiextensions.k8s.io/zoneawarepoddisruptionbudgets.rollout-operator.grafana.com\
+              \ serverside-applied\n        Name:        zoneawarepoddisruptionbudgets.rollout-operator.grafana.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/replicatemplates.rollout-operator.grafana.com\
+              \ serverside-applied\n        Name:        replicatemplates.rollout-operator.grafana.com\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/rollout-operator-webhook-clusterrole\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[list patch watch] APIGroups:[admissionregistration.k8s.io]\
+              \ Resources:[validatingwebhookconfigurations mutatingwebhookconfigurations]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/rollout-operator-webhook-clusterrole\
+              \ serverside-applied\n        Name:        rollout-operator-webhook-clusterrole\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-clusterrolebinding\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:rollout-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-clusterrolebinding\
+              \ serverside-applied\n        Name:        rollout-operator-webhook-clusterrolebinding\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/rollout-operator\
+              \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rollout-operator\
+              \ serverside-applied\n        Name:        rollout-operator\n      \
+              \  Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s."
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                MESSAGE
+
+              10s         Normal   OperationStarted     application/rollout-operator-parity   Initiated
+              automated sync to ''sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87''
+
+              10s         Normal   ResourceUpdated      application/rollout-operator-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/rollout-operator-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/rollout-operator-parity   Sync
+              operation to sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+              succeeded
+
+              7s          Normal   ResourceUpdated      application/rollout-operator-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 16
+              artifact:
+                path: argocd-core-child.json
+                sha256: 00bbf63f635c44b612572fd6d29978dafe214e0e3d107b0533deaf4ac4f26227
+                bytes: 19309
+              output: "{\n  \"metadata\": {\n    \"name\": \"rollout-operator-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"910f46e9-d222-4f20-9e00-6441e73e7dc8\"\
+                ,\n    \"resourceVersion\": \"1285\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T02:44:55Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster:argoproj.io/Application:argocd/rollout-operator-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"0a647ce0-69c5-477f-8ab7-cf734e5fd4f3\",\n      \"confighub.com/UnitSlug\"\
+                : \"rollout-operator-parity-app\"\n    },\n    \"managedFields\":\
+                \ [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T02:44:55Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T02:45:16Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"rollout-operator\",\n        \"status\": \"Synced\",\n       \
+                \ \"health\": {\n          \"status\": \"Healthy\"\n        }\n  \
+                \    },\n      {\n        \"version\": \"v1\",\n        \"kind\":\
+                \ \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"rollout-operator\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"MutatingWebhookConfiguration\"\
+                ,\n        \"name\": \"prepare-downscale-default\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\"\
+                ,\n        \"name\": \"no-downscale-default\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\"\
+                ,\n        \"name\": \"pod-eviction-default\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n  "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 526016c3cf462b52310f24c7730f7bf3866008503d9122bf364319a1f45392cc
+                bytes: 4240
+              output: "Name:               argocd/rollout-operator-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:49695/applications/rollout-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                                   STATUS  HEALTH   AGE    MESSAGE\
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \               REASON\nNamespace/default-oci                    \
+                \                                            Synced           105s\
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                         \nMutatingWebhookConfiguration/prepare-downscale-default\
+                \                               Synced           26s             \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \             \nValidatingWebhookConfiguration/pod-eviction-default\
+                \                                  Synced           26s          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                \nCustomResourceDefinition/replicatemplates.rollout-operator.grafana.com\
+                \               Synced  Healthy  26s                             \
+                \                                                                \
+                \                                                                \
+                \                                                             CRD\
+                \ is healthy\nClusterRoleBinding/rollout-operator-webhook-clusterrolebinding\
+                \                       Synced           26s                     \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \     \nRole/rollout-operator-webhook-role                       \
+                \                            Synced           2m11s  role.rbac.authorization.k8s.io/rollout-operator-webhook-role\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rollout-operator-webhook-role\
+                \ serverside-applied                              \nRoleBinding/rollout-operator-webhook-rolebinding\
+                \                                     Synced           2m11s  rolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-rolebinding\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rollout-operator-webhook-rolebinding\
+                \ serverside-applied  \nServiceAccount/rollout-operator          \
+                \                                            Synced           2m11s\
+                \  serviceaccount/rollout-operator serverside-applied            \
+                \                                                                \
+                \                                                                \
+                \                        \nValidatingWebhookConfiguration/no-downscale-default\
+                \                                  Synced           26s          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                \nCustomResourceDefinition/zoneawarepoddisruptionbudgets.rollout-operator.grafana.com\
+                \  Synced  Healthy  26s                                          \
+                \                                                                \
+                \                                                                \
+                \                                                CRD is healthy\n\
+                Deployment/rollout-operator                                      \
+                \                    Synced  Healthy  2m11s  deployment.apps/rollout-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                      \n\u2514\u2500\
+                ReplicaSet/rollout-operator-5f688cdb68                           \
+                \                          Healthy  2m11s                        \
+                \                                                                \
+                \                                                                \
+                \                                                                \n\
+                \  \u2514\u2500Pod/rollout-operator-5f688cdb68-8s4kt             \
+                \                                       Healthy  2m11s           \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \             \nRole/rollout-operator                            \
+                \                                    Synced           2m11s  role.rbac.authorization.k8s.io/rollout-operator\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rollout-operator\
+                \ serverside-applied                                             \
+                \           \nService/rollout-operator                           \
+                \                                  Synced  Healthy  2m11s  service/rollout-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                              \n\
+                RoleBinding/rollout-operator                                     \
+                \                    Synced           2m11s  rolebinding.rbac.authorization.k8s.io/rollout-operator\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rollout-operator\
+                \ serverside-applied                                          \nValidatingWebhookConfiguration/zpdb-validation-default\
+                \                               Synced           26s             \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \             \nClusterRole/rollout-operator-webhook-clusterrole \
+                \                                    Synced           26s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\",\n    \
+              \  \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              rollout-operator-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/rollout-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"rollout-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci
+              targetRevision: latest
+          revision: sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T02:42:46Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T02:44:53Z'
+          finishedAt: '2026-06-15T02:44:55Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+          deployedAt: '2026-06-15T02:44:55Z'
+          deployStartedAt: '2026-06-15T02:44:53Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: rollout-operator-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T02:42:37Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1212\n  UID:         \
+              \      6f956f1f-19da-46db-b041-db9eebb020b1\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T02:42:46Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T02:44:53Z\n\
+              \    Deployed At:        2026-06-15T02:44:55Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \    Source:\n      Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T02:44:55Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \        Source:\n          Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T02:44:53Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/rollout-operator-parity\
+              \ serverside-applied\n        Name:        rollout-operator-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \      Source:\n        Path:              ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T02:44:55Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       rollout-operator-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     2m39s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m39s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  32s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87'\n\
+              \  Normal  ResourceUpdated     32s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  30s    argocd-application-controller  Sync operation to sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\
+              \ succeeded\n  Normal  ResourceUpdated     29s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                               MESSAGE
+
+              2m39s       Normal   ResourceUpdated      application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Updated
+              sync status:  -> Synced
+
+              2m39s       Normal   ResourceUpdated      application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Updated
+              health status:  -> Healthy
+
+              32s         Normal   OperationStarted     application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Initiated
+              automated sync to ''sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87''
+
+              32s         Normal   ResourceUpdated      application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              30s         Normal   OperationCompleted   application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Sync
+              operation to sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87
+              succeeded
+
+              29s         Normal   ResourceUpdated      application/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 70bebcf3177be995d9d1559d0706343d05bcc3ebac0368d32adbc4af98d38f08
+                bytes: 10810
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"6f956f1f-19da-46db-b041-db9eebb020b1\"\
+                ,\n    \"resourceVersion\": \"1312\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T02:42:37Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\\\",\\\"\
+                repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T02:42:37Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T02:45:32Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoUR"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 02a18e78b04289d2a58429d0ede30088bcd8ee6792df7813f0e8f9f316bc117c
+                bytes: 1208
+              output: "Name:               argocd/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:49811/applications/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                  STATUS  HEALTH  AGE   MESSAGE                 \
+                \                                                                \
+                \           REASON\nApplication/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\
+                \  Synced          3m4s  application.argoproj.io/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\
+                \ serverside-applied  \nApplication/rollout-operator-parity      \
+                \                           Synced          46s   application.argoproj.io/rollout-operator-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\",\n    \
+              \  \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              rollout-operator-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/rollout-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:8ca30603e57086adba81b42c70448b949931989fb2e3655bcb535797da7b4d87\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"rollout-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/rollout-operator   1/1   1     1     2m28s'
+        pods: '# default
+
+          rollout-operator-5f688cdb68-8s4kt   1/1   Running   0     2m28s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 15
+      configHubObjectCount: 16
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 15
+      configHubObjectCount: 16
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T02:42:37Z'
+    finishedAt: '2026-06-15T02:43:07Z'
+    elapsedSeconds: 29.866
+    timeoutSeconds: 900
+    command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
+      --version 0.49.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T02:43:12Z'
+    finishedAt: '2026-06-15T02:43:13Z'
+    elapsedSeconds: 0.371
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-15T02:43:13Z'
+    finishedAt: '2026-06-15T02:43:13Z'
+    elapsedSeconds: 0.049
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
+      --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/confighub-rendered-crds.yaml
+    objectCount: 2
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T02:43:13Z'
+    finishedAt: '2026-06-15T02:43:13Z'
+    elapsedSeconds: 0.169
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
+      --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/direct-apply-manifest.yaml
+    objectCount: 13
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T02:43:13Z'
+    finishedAt: '2026-06-15T02:43:34Z'
+    elapsedSeconds: 20.368
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T02:43:39Z'
+    finishedAt: '2026-06-15T02:43:39Z'
+    elapsedSeconds: 0.26
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T02:43:39Z'
+    finishedAt: '2026-06-15T02:44:29Z'
+    elapsedSeconds: 49.269
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+      --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator --target
+      helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci
+    objectCount: 16
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T02:44:29Z'
+    finishedAt: '2026-06-15T02:44:29Z'
+    elapsedSeconds: 0.594
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T02:44:29Z'
+    finishedAt: '2026-06-15T02:44:43Z'
+    elapsedSeconds: 13.982
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
+      --unit <16 unit(s)> --wait --timeout 5m
+    unitCount: 16
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T02:44:43Z'
+    finishedAt: '2026-06-15T02:44:44Z'
+    elapsedSeconds: 1.091
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
+      rollout-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/argo-application.json
+      --target helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T02:44:44Z'
+    finishedAt: '2026-06-15T02:44:45Z'
+    elapsedSeconds: 0.992
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T02:44:45Z'
+    finishedAt: '2026-06-15T02:45:06Z'
+    elapsedSeconds: 20.15
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T02:45:41Z'
+    finishedAt: '2026-06-15T02:45:41Z'
+    elapsedSeconds: 0.096
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "rollout-operator" does not exist. Installing it now.
+
+      NAME: rollout-operator
+
+      LAST DEPLOYED: Mon Jun 15 03:42:39 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Repo : https://github.com/grafana/rollout-operator
+
+
+      Validation:
+
+
+      Check the logs of the pod and ensure messages for reconcilliation of the statefulsets
+      are present.
+
+      ```
+
+      kubectl logs -n default-helm -l app.kubernetes.io/instance=rollout-operator,app.kubernetes.io/name=rollout-operator
+
+      ```
+
+      Example log line:
+
+      level=debug ts=2022-04-20T13:59:52.783051541Z msg="reconciling StatefulSet"
+      statefulset=mimir-store-gateway-zone-a'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/rollout-operator   1/1   1     0     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=8
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
