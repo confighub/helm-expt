@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 85
+pass: 86
 watch: 3
 blocked: 2
-semantic parity pass: 88
+semantic parity pass: 89
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 0
@@ -104,6 +104,7 @@ broader support claim.
 | `fluent/fluent-bit@0.57.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fluent-fluent-bit-default/receipt.yaml |
 | `fluent/fluentd@0.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fluent-fluentd-default/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
+| `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-no-crds/receipt.yaml |
 | `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | `grafana/grafana@10.5.15` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
