@@ -16,3 +16,107 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "backups.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "clusterimagecatalogs.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "clusters.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "databases.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "failoverquorums.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "imagecatalogs.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "poolers.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "publications.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "scheduledbackups.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "subscriptions.postgresql.cnpg.io"
+        sourceVariant: "default"
+        purpose: "CloudNativePG CRD managed outside this no-crds base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "cnpg-webhook-cert"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

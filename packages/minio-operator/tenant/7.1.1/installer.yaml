@@ -8,13 +8,13 @@ spec:
     -
       default: true
       description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
-      name: "default"
-      path: "bases/default"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "CRD tenants.minio.min.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "default"
+      path: "bases/default"
   collector:
     command: "/bin/sh"
     args:

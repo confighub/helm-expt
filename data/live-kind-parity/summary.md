@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 96
+pass: 97
 watch: 5
 blocked: 2
-semantic parity pass: 101
+semantic parity pass: 102
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -86,6 +86,7 @@ broader support claim.
 | `bitnami/redis@25.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 | `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |
 | `crossplane-stable/crossplane@2.3.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/crossplane-stable-crossplane-default/receipt.yaml |
 | `descheduler/descheduler@0.36.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml |
