@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/bitnami/opensearch/2.0.10/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/opensearch/2.0.10/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/opensearch/2.0.10/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/bitnami/opensearch/2.0.10/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/opensearch/2.0.10](../../../../packages/bitnami/opensearch/2.0.10) |

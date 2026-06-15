@@ -10,22 +10,22 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 24
+rows: 26
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 2
-watch: 22
-configHub-oci-live-comparison: 19
-two-cluster-kind-parity: 5
-semantic-parity-defects: 0
+blocked: 3
+watch: 23
+configHub-oci-live-comparison: 20
+two-cluster-kind-parity: 6
+semantic-parity-defects: 1
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
-runtime-or-watch-rows: 19
+runtime-or-watch-rows: 20
 ```
 
 ## Current Interpretation
 
-No current row says ConfigHub and Helm produced different Kubernetes object meaning. The rows below are the active work queue for stronger live
+1 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
 claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.
 
 | Chart | Base | Current | Meaning | Next action |
@@ -35,6 +35,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/mongodb@19.1.0` | existing-secret-replicaset | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/nginx@24.0.4` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
+| `bitnami/opensearch@2.0.10` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `fluent/fluentd@0.5.3` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/pyroscope@2.0.2` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `grafana/pyroscope@2.0.2` | no-crds | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
@@ -49,6 +50,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `prometheus-community/prometheus@29.9.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `traefik/traefik@40.2.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
+| `bitnami/opensearch@2.0.10` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
@@ -60,8 +62,8 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 19 | 0 | 18 | 1 | 0 |
-| two-cluster-kind-parity | 5 | 0 | 4 | 1 | 0 |
+| configHub-oci-live-comparison | 20 | 0 | 19 | 1 | 0 |
+| two-cluster-kind-parity | 6 | 0 | 4 | 2 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -85,7 +87,8 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| gitops-runtime-review | 14 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 15 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| inspect-parity-diff | 1 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
@@ -104,9 +107,10 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
+| inspect-diff-first | 1 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 19 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 20 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -147,6 +151,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/mongodb@19.1.0` | existing-secret-replicaset | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml`](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@24.0.4` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml`](../../recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `fluent/fluentd@0.5.3` | default | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/fluent/fluentd/0.5.3/runtime-review.yaml`](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/pyroscope@2.0.2` | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) | [`recipes/grafana/pyroscope/2.0.2/runtime-review.yaml`](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds` |
@@ -161,6 +166,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `prometheus-community/prometheus@29.9.0` | default | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml`](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml`](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
