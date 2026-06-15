@@ -1,0 +1,30 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                       MESSAGE
+8m8s        Normal    Starting                  node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane
+8m21s       Normal    Starting                  node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Starting kubelet.
+8m21s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasSufficientMemory
+8m21s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasNoDiskPressure
+8m21s       Normal    NodeHasSufficientPID      node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasSufficientPID
+8m21s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Updated Node Allocatable limit across pods
+8m16s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Updated Node Allocatable limit across pods
+8m16s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasSufficientMemory
+8m16s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasNoDiskPressure
+8m16s       Normal    NodeHasSufficientPID      node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeHasSufficientPID
+8m16s       Normal    Starting                  node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Starting kubelet.
+8m10s       Normal    RegisteredNode            node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane event: Registered Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane in Controller
+7m58s       Normal    NodeReady                 node/helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane   Node helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane status is now: NodeReady
+5m4s        Normal    Pulled                    pod/pyroscope-0                                              Container image "grafana/pyroscope:2.0.2" already present on machine and can be accessed by the pod
+5m4s        Normal    Pulled                    pod/pyroscope-alloy-0                                        Container image "quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0" already present on machine and can be accessed by the pod
+5m4s        Normal    Created                   pod/pyroscope-0                                              Container created
+5m4s        Normal    Started                   pod/pyroscope-0                                              Container started
+5m4s        Normal    SuccessfulCreate          statefulset/pyroscope                                        Create Pod pyroscope-0 in StatefulSet pyroscope successful
+5m4s        Normal    NoPods                    poddisruptionbudget/pyroscope                                No matching pods found
+5m4s        Normal    Scheduled                 pod/pyroscope-alloy-0                                        Successfully assigned default/pyroscope-alloy-0 to helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane
+5m4s        Normal    Pulled                    pod/pyroscope-alloy-0                                        Container image "docker.io/grafana/alloy:v1.12.2" already present on machine and can be accessed by the pod
+5m4s        Normal    Created                   pod/pyroscope-alloy-0                                        Container created
+5m4s        Normal    Started                   pod/pyroscope-alloy-0                                        Container started
+5m4s        Normal    Scheduled                 pod/pyroscope-0                                              Successfully assigned default/pyroscope-0 to helm-expt-parity-pyroscope-mqekqpn0-adw-control-plane
+5m4s        Normal    Created                   pod/pyroscope-alloy-0                                        Container created
+5m4s        Normal    Started                   pod/pyroscope-alloy-0                                        Container started
+5m4s        Normal    SuccessfulCreate          statefulset/pyroscope-alloy                                  Create Pod pyroscope-alloy-0 in StatefulSet pyroscope-alloy successful
+5m2s        Warning   Unhealthy                 pod/pyroscope-0                                              Readiness probe failed: HTTP probe failed with statuscode: 503
+89s         Warning   Unhealthy                 pod/pyroscope-0                                              Readiness probe failed: Get "http://10.244.0.15:4040/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

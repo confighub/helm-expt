@@ -6,6 +6,10 @@ metadata:
   version: "2.0.2"
 spec:
   base: "default"
+  alsoObservedBases:
+    - base: "no-crds"
+      receipt: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
+      observedResult: "watch"
   controller: "Argo CD"
   targetShape: "kind proof rig"
   receipt: "runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml"
@@ -23,7 +27,7 @@ spec:
     - "ConfigHub OCI/Argo synced the uploaded Units"
     - "semantic object parity passed for direct apply and OCI/Argo"
   watch:
-    summary: "The ConfigHub-applied Pyroscope pod stayed Running but not Ready while the regular Helm leg became Ready."
+    summary: "The ConfigHub-applied Pyroscope pod stayed Running but not Ready while the regular Helm leg became Ready. This has now been observed for both default and no-crds."
     observedRuntime:
       - "ConfigHub direct apply: pyroscope-0 is 0/1 Running after the readiness wait"
       - "ConfigHub OCI/Argo: pyroscope-0 is 0/1 Running after the readiness wait"
@@ -37,11 +41,17 @@ spec:
     summary: "This is a runtime namespace-relocation watch row, not a render parity defect."
     interpretation: "The default package preserves chart-internal namespace references to default. In the live parity rig, regular Helm installs into default-helm and rewrites those references consistently, while the installer output creates the target Namespace object but does not relocate every namespace-sensitive value inside the rendered chart output."
     productBoundary: "A supported non-default-namespace Pyroscope base needs an explicit namespace relocation path, or this base should be advertised only for the namespace shape it actually proves."
+    issue: "https://github.com/confighub/helm-expt/issues/96"
     nextInvestigation:
       - "Decide whether Pyroscope default should be supported only in namespace default, or whether a new namespace-aware base should be generated."
       - "If namespace relocation is supported, verify service DNS, StatefulSet environment, Role/RoleBinding namespaces, and generated Alloy configuration all move together."
       - "Rerun live parity after the namespace route is modeled."
   evidence:
+    noCrdsReceipt: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
+    noCrdsConfigHubDirectLogs: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/logs.txt"
+    noCrdsConfigHubDirectDescribe: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/describe.txt"
+    noCrdsConfigHubOciLogs: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/logs.txt"
+    noCrdsConfigHubOciDescribe: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/describe.txt"
     configHubDirectLogs: "runs/live-helm-confighub-compare/grafana-pyroscope-default/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/logs.txt"
     configHubDirectDescribe: "runs/live-helm-confighub-compare/grafana-pyroscope-default/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/describe.txt"
     configHubOciLogs: "runs/live-helm-confighub-compare/grafana-pyroscope-default/runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/logs.txt"
