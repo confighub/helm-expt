@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "name": "prometheus-pushgateway-parity",
+    "namespace": "argocd",
+    "uid": "db052e49-00a4-49a6-bac5-f94a8a63b45b",
+    "resourceVersion": "1151",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T04:37:05Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster:argoproj.io/Application:argocd/prometheus-pushgateway-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "0790f385-67b0-44f6-997f-ccb87e0f87a8",
+      "confighub.com/UnitSlug": "prometheus-pushgateway-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:37:05Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:37:25Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci",
+      "path": "./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "prometheus-pushgateway",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "prometheus-pushgateway",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "prometheus-pushgateway",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci",
+          "path": "./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:1648ed783eb3aa4a50889d5bdd778452f5c2e4ff1e4efdf2b45540b6e5dc9bd3"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T04:37:07Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:1648ed783eb3aa4a50889d5bdd778452f5c2e4ff1e4efdf2b45540b6e5dc9bd3",
+        "deployedAt": "2026-06-15T04:37:09Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci",
+          "path": "./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:37:07Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:37:17Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:1648ed783eb3aa4a50889d5bdd778452f5c2e4ff1e4efdf2b45540b6e5dc9bd3",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci",
+            "path": "./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "prometheus-pushgateway",
+            "status": "Synced",
+            "message": "serviceaccount/prometheus-pushgateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "prometheus-pushgateway",
+            "status": "Synced",
+            "message": "service/prometheus-pushgateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "prometheus-pushgateway",
+            "status": "Synced",
+            "message": "deployment.apps/prometheus-pushgateway serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/prometheus/pushgateway:v1.11.2"
+            ]
+          }
+        ],
+        "revision": "sha256:1648ed783eb3aa4a50889d5bdd778452f5c2e4ff1e4efdf2b45540b6e5dc9bd3",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci",
+          "path": "./helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:37:07Z",
+      "finishedAt": "2026-06-15T04:37:09Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/prometheus/pushgateway:v1.11.2"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
