@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-nack-mqep4pjt-19pj-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:55451/applications/helm-expt-parity-nack-mqep4pjt-19pj-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-nack-mqep4pjt-19pj-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-nack-mqep4pjt-19pj-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH  AGE   MESSAGE                                                                                 REASON
+Application/helm-expt-parity-nack-mqep4pjt-19pj-cluster  Synced          113s  application.argoproj.io/helm-expt-parity-nack-mqep4pjt-19pj-cluster serverside-applied
+Application/nack-parity                                  Synced          45s   application.argoproj.io/nack-parity serverside-applied
