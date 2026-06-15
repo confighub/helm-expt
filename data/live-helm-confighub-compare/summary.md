@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 133
-watch: 18
+watch: 20
 blocked: 1
 not-started: 0
 ```
@@ -97,6 +97,8 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 |  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | ha | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |
