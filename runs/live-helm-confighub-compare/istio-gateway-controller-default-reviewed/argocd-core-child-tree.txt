@@ -1,0 +1,24 @@
+Name:               argocd/gateway-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:59909/applications/gateway-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gateway-mqfgbbpg-g4v-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-gateway-mqfgbbpg-g4v-gateway
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Degraded
+
+KIND/NAME                         STATUS  HEALTH       AGE    MESSAGE                                                                                                                                                     REASON
+Service/gateway                   Synced  Progressing  13m    service/gateway serverside-applied
+ServiceAccount/gateway            Synced               13m    serviceaccount/gateway serverside-applied
+Deployment/gateway                Synced  Degraded     13m    deployment.apps/gateway serverside-applied                                                                                                                  Deployment "gateway" exceeded its progress deadline
+└─ReplicaSet/gateway-7c598dffd4           Progressing  13m                                                                                                                                                                Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/gateway-7c598dffd4-vp9dp          Degraded     13m                                                                                                                                                                Back-off pulling image "auto": ErrImagePull: failed to pull and unpack image "docker.io/library/auto:latest": failed to resolve reference "docker.io/library/auto:latest": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+HorizontalPodAutoscaler/gateway   Synced  Healthy      13m    horizontalpodautoscaler.autoscaling/gateway serverside-applied                                                                                              the HPA controller was able to get the target's current scale
+Role/gateway                      Synced               13m    role.rbac.authorization.k8s.io/gateway reconciled. reconciliation required update. role.rbac.authorization.k8s.io/gateway serverside-applied
+RoleBinding/gateway               Synced               13m    rolebinding.rbac.authorization.k8s.io/gateway reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/gateway serverside-applied
+Namespace/default-oci             Synced               7m55s

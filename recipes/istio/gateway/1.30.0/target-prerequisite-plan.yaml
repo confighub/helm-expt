@@ -1,0 +1,62 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "istio-gateway-1.30.0-target-prerequisites"
+  chart: "istio/gateway"
+  version: "1.30.0"
+spec:
+  summary: "The Istio gateway controller-default-reviewed base preserves the chart's rendered object semantics, but the live run shows that a usable target is not just any Kubernetes cluster. The rendered gateway Deployment uses image auto and expects Istio control-plane injection or an equivalent image-resolution path. The Service is LoadBalancer, so a vanilla kind target leaves EXTERNAL-IP pending unless a load balancer profile is installed. The HPA also expects metrics.k8s.io. ConfigHub preserves the same semantics; the row stays watch until these target facts or a different first-run base are chosen."
+  bases:
+    controller-default-reviewed:
+      status: "target-prerequisite-and-topology-decision-needed"
+      currentProofLimit: "The live parity receipt shows semantic object parity for ConfigHub direct apply and ConfigHub OCI/Argo. It does not prove a healthy gateway. Regular Helm and ConfigHub direct apply both produce a gateway pod with image auto that enters ImagePullBackOff on a vanilla kind target. The OCI/Argo leg syncs successfully but remains Degraded/Progressing. The run also shows a LoadBalancer Service with no external IP and HPA metrics unavailable."
+      requiredBeforeApply:
+        -
+          kind: "IstioControlPlane"
+          name: "istiod-or-equivalent"
+          namespace: "target scope"
+          status: "target-prerequisite"
+          purpose: "The gateway chart uses image auto and sidecar/gateway injection metadata. A target must provide Istio control-plane behavior that resolves the gateway image, or the base must be rerendered with an explicit image that does not require that injection path."
+        -
+          kind: "LoadBalancerProfile"
+          name: "kind-loadbalancer-or-cloud-lb"
+          namespace: "cluster"
+          status: "target-topology"
+          purpose: "The chart renders a LoadBalancer Service. A vanilla kind target leaves the external IP pending unless a load balancer implementation such as MetalLB is installed, or the base is rerendered to a different Service type."
+      requiredBeforeObserve:
+        -
+          kind: "NamespaceDecision"
+          name: "gateway-workload-namespace"
+          status: "target-scope-decision"
+          purpose: "The current ConfigHub OCI path installs support objects into the requested namespace while the gateway workload is still observed in default. A supported target scope must keep ServiceAccount/RBAC/Deployment together or rerender the base for the intended namespace."
+        -
+          kind: "MetricsAPI"
+          name: "metrics.k8s.io"
+          status: "target-prerequisite"
+          purpose: "The HPA reports unknown CPU metrics when metrics.k8s.io is absent. This is not required for object parity, but it is required before treating HPA behavior as production-observed."
+      mustObserve:
+        - "The gateway pod runs with a concrete, pullable image rather than image auto being pulled as docker.io/library/auto:latest."
+        - "ServiceAccount gateway exists in the same namespace as the gateway Deployment."
+        - "The gateway Service has the expected LoadBalancer or deliberately chosen non-LoadBalancer behavior for the target scope."
+        - "The Deployment gateway reaches Available=True."
+        - "Argo aggregate health becomes Healthy, or any remaining Degraded/Progressing condition is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "namespace-routing-receipt"
+        - "load-balancer-profile-receipt"
+        - "deployment-readiness-receipt"
+        - "gitops-health-receipt"
+  evidence:
+    liveParityReceipt: "runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml"
+    regularHelmEvent: "Failed to pull image auto: docker.io/library/auto:latest does not exist or requires authorization"
+    configHubOciEvent: "Argo child Application Synced/Degraded; gateway Deployment Progressing with image auto and namespace/service-account residue"
+    semanticParity: "pass for Helm vs ConfigHub direct apply and Helm vs ConfigHub OCI/Argo"
+  nextInvestigation:
+    - "Decide whether the public catalog should expose this base only for targets with an Istio control plane already installed."
+    - "Decide whether a safer first-run base should rerender an explicit gateway image and a non-LoadBalancer Service type for vanilla kind demos."
+    - "Add target facts for Istio control-plane/image resolution, LoadBalancer capability, and metrics.k8s.io if this base remains catalog-supported."
+    - "Add a namespace-routing check so Deployment, ServiceAccount, Role, RoleBinding, Service, and HPA are installed into the same intended namespace before OCI/GitOps support is claimed."
+  notProvenBy:
+    - "render parity alone"
+    - "ConfigHub OCI upload alone"
+    - "Argo Synced while the child Application remains Degraded or Progressing"

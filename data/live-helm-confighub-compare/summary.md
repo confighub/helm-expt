@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 134
-watch: 24
+watch: 25
 blocked: 1
 not-started: 0
 ```
@@ -97,8 +97,8 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 |  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
-|  | `bitnami/opensearch@2.0.10` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
-|  | `bitnami/opensearch@2.0.10` | ha | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | ha | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |
@@ -133,6 +133,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | - | runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/receipt.yaml |
 |  | `hashicorp/terraform@1.1.2` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml |
 |  | `hashicorp/terraform@1.1.2` | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml |
+|  | `istio/gateway@1.30.0` | controller-default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
 |  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml |
