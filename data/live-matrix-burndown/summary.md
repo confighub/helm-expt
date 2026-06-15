@@ -21,25 +21,25 @@ For the cell-level completion count, use
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 124 |
-| Live commands remaining | 182 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 64 |
+| Live commands remaining | 181 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 63 |
 | Two-cluster kind parity commands | 118 |
 | Watch/blocked/review rows | 39 |
-| Ready-to-run todo rows | 143 |
+| Ready-to-run todo rows | 142 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 118 |
-| `live-parity` | 64 |
+| `live-parity` | 63 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 1 |
-| `todo` | 163 |
+| `todo` | 162 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -47,7 +47,7 @@ For the cell-level completion count, use
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 22 |
-| `ready-to-run` | 143 |
+| `ready-to-run` | 142 |
 | `review-target-first` | 17 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -90,7 +90,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| stakater/reloader | 2.2.12 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/stakater/reloader/2.2.12 --base default |
 | vm/victoria-logs-single | 0.12.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/vm/victoria-logs-single/0.12.5 --base default |
 | vm/victoria-metrics-single | 0.39.0 | default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/vm/victoria-metrics-single/0.39.0 --base default-reviewed |
 | argo-cd/argo-workflows | 1.0.14 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed |
@@ -110,6 +109,7 @@ generated priority. They are good candidates for a serial live block.
 | jetstack/trust-manager | v0.22.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds |
 | nats/surveyor | 0.20.9 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default |
 | nats/surveyor | 0.20.9 | default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed |
+| open-telemetry/opentelemetry-operator | 0.114.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds |
 
 ## Full Queue
 

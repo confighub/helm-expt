@@ -1094,8 +1094,8 @@ stakater/reloader@2.2.12,controller-default-reviewed,two_cluster_kind_parity,K,m
 stakater/reloader@2.2.12,default,render_parity,R,pass,pass,no,,,
 stakater/reloader@2.2.12,default,in_confighub,C,pass,pass,no,,,
 stakater/reloader@2.2.12,default,local_live,L,pass,pass,no,,,
-stakater/reloader@2.2.12,default,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-stakater/reloader@2.2.12,default,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+stakater/reloader@2.2.12,default,gitops_oci_live,G,pass,pass,no,,,
+stakater/reloader@2.2.12,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 stakater/reloader@2.2.12,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 strimzi/strimzi-kafka-operator@1.0.0,default,render_parity,R,pass,pass,no,,,
 strimzi/strimzi-kafka-operator@1.0.0,default,in_confighub,C,pass,pass,no,,,

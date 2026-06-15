@@ -1,0 +1,24 @@
+Name:               argocd/reloader-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:62761/applications/reloader-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-reloader-mqetdx9v-pgq-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-reloader-mqetdx9v-pgq-reloader
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                            STATUS  HEALTH   AGE  MESSAGE                                                                                                                                                                                                                     REASON
+Namespace/default-oci                                Synced           69s
+ServiceAccount/reloader-reloader                     Synced           95s  serviceaccount/reloader-reloader serverside-applied
+Deployment/reloader-reloader                         Synced  Healthy  95s  deployment.apps/reloader-reloader serverside-applied
+└─ReplicaSet/reloader-reloader-78b4cc9c8b                    Healthy  95s
+  └─Pod/reloader-reloader-78b4cc9c8b-v5w5k                   Healthy  95s
+ClusterRole/reloader-reloader-role                   Synced           22s
+ClusterRoleBinding/reloader-reloader-role-binding    Synced           22s
+Role/reloader-reloader-metadata-role                 Synced           95s  role.rbac.authorization.k8s.io/reloader-reloader-metadata-role reconciled. reconciliation required update. role.rbac.authorization.k8s.io/reloader-reloader-metadata-role serverside-applied
+RoleBinding/reloader-reloader-metadata-role-binding  Synced           95s  rolebinding.rbac.authorization.k8s.io/reloader-reloader-metadata-role-binding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/reloader-reloader-metadata-role-binding serverside-applied
