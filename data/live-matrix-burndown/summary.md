@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 172 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 61 |
 | Two-cluster kind parity commands | 111 |
-| Watch/blocked/review rows | 42 |
-| Ready-to-run todo rows | 130 |
+| Watch/blocked/review rows | 43 |
+| Ready-to-run todo rows | 129 |
 
 ## By Work Type
 
@@ -39,16 +39,16 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 3 |
-| `todo` | 150 |
-| `watch` | 19 |
+| `todo` | 149 |
+| `watch` | 20 |
 
 ## By Run Readiness
 
 | Readiness | Rows |
 | --- | ---: |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 22 |
-| `ready-to-run` | 130 |
+| `model-or-stage-first` | 23 |
+| `ready-to-run` | 129 |
 | `review-target-first` | 18 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -82,7 +82,7 @@ claim.
 | live-parity | traefik/traefik | 40.2.0 | no-crds | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds |
 | kind-parity | autoscaler/cluster-autoscaler | 9.57.0 | default | K=watch | two-cluster kind parity watch row needs review | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | [runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml](../../runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/autoscaler/cluster-autoscaler/9.57.0 --base default |
 | kind-parity | fairwinds-stable/vpa | 4.11.0 | default | K=watch | target-runtime: pod crash loop (parity passed) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | [runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/fairwinds-stable/vpa/4.11.0 --base default |
-| kind-parity | argo-cd/argo-cd | 9.5.15 | default | K=todo | kind parity receipt path collision: runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml currently records argo-cd/argo-cd@9.5.17/default | [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) | [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) |  |
+| kind-parity | fairwinds-stable/vpa | 4.11.0 | no-crds | K=watch | target-prerequisite: CRDs disabled or missing (parity passed) | [runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml) | [runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml](../../runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml) | npm run kind-parity:run -- --recipe recipes/fairwinds-stable/vpa/4.11.0 --base no-crds |
 
 ## Next Ready Live-Parity Commands
 

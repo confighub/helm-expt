@@ -1,0 +1,295 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: fairwinds-stable-vpa-4.11.0-no-crds-kind-parity-20260606
+spec:
+  chart: fairwinds-stable/vpa
+  version: 4.11.0
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-15T07:32:14Z'
+  package:
+    path: packages/fairwinds-stable/vpa/4.11.0
+  recipe:
+    path: recipes/fairwinds-stable/vpa/4.11.0
+  variantRevision: recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-vpa-04dd1-awyr-helm
+    installerCluster: hx-vpa-04dd1-awyr-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-vpa-04dd1-awyr-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-vpa-04dd1-awyr-helm" ...
+
+          Deleted nodes: ["hx-vpa-04dd1-awyr-helm-control-plane"]'
+      - cluster: hx-vpa-04dd1-awyr-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-vpa-04dd1-awyr-installer" ...
+
+          Deleted nodes: ["hx-vpa-04dd1-awyr-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install vpa vpa --repo https://charts.fairwinds.com/stable
+        --version 4.11.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187
+      objectCount: 26
+      liveHelmManifestSHA256: 97ad026566062368213d318f78fcd937e171ee6786c883a40715c297e7e9eb5a
+      liveHelmManifestObjectCount: 26
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/vpa-admission-controller   1/1   1     1     13s
+
+          deployment.apps/vpa-recommender            1/1   1     1     13s
+
+          deployment.apps/vpa-updater                1/1   1     1     13s'
+        pods: '# default
+
+          vpa-admission-controller-5894d5d68b-njmkp   1/1   Running   0     13s
+
+          vpa-recommender-6f8f7c9979-bqdbh            1/1   Running   0     13s
+
+          vpa-updater-5478968bdf-4hjtk                1/1   Running   0     13s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/vpa/4.11.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-vpa-04dd1-awyr-vpa
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 3096e754bb7829f615f0daab81c04cfb3b5ff1c05545ad757cfb03d8a6422b23
+      objectCount: 27
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/vpa-admission-controller   0/1   1     0     10s
+
+          deployment.apps/vpa-recommender            1/1   1     1     10s
+
+          deployment.apps/vpa-updater                1/1   1     1     10s'
+        pods: '# default
+
+          vpa-admission-controller-5894d5d68b-xn4pp   0/1   CrashLoopBackOff   1 (4s
+          ago)   11s
+
+          vpa-recommender-6f8f7c9979-2s279            1/1   Running            0            11s
+
+          vpa-updater-5478968bdf-n2xln                1/1   Running            0            11s'
+        notReady:
+        - namespace: default
+          pod: vpa-admission-controller-5894d5d68b-xn4pp
+          ready: 0/1
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: vpa-admission-controller-5894d5d68b-xn4pp
+          result: blocked
+          detailHead: "Name:             vpa-admission-controller-5894d5d68b-xn4pp\n\
+            Namespace:        default\nPriority:         0\nService Account:  vpa-admission-controller\n\
+            Node:             hx-vpa-04dd1-awyr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Mon, 15 Jun 2026 08:33:30 +0100\nLabels:           app.kubernetes.io/component=admission-controller\n\
+            \                  app.kubernetes.io/instance=vpa\n                  app.kubernetes.io/name=vpa\n\
+            \                  pod-template-hash=5894d5d68b\nAnnotations:      <none>\n\
+            Status:           Running\nSeccompProfile:   RuntimeDefault\nIP:     \
+            \          10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:\
+            \  ReplicaSet/vpa-admission-controller-5894d5d68b\nContainers:\n  vpa:\n\
+            \    Container ID:  containerd://d61b26d4e4aa6841bbb378d4df397bd8b25bb1892e8d4577d59fc1b5a839e0aa\n\
+            \    Image:         registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n\
+            \    Image ID:      registry.k8s.io/autoscaling/vpa-admission-controller@sha256:80e487edff0202b657afccac35db68c06e964cb8568c75bdfe1f6363e69a0781\n\
+            \    Ports:         8000/TCP (http), 8944/TCP (metrics)\n    Host Ports:\
+            \    0/TCP (http), 0/TCP (metrics)\n    Args:\n      --register-webhook=false\n\
+            \      --webhook-service=vpa-webhook\n      --client-ca-file=/etc/tls-certs/ca\n\
+            \      --tls-cert-file=/etc/tls-certs/cert\n      --tls-private-key=/etc/tls-certs/key\n\
+            \    State:          Waiting\n      Reason:       CrashLoopBackOff\n \
+            \   Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    255\n      Started:      Mon, 15 Jun 2026 08:33:37 +0100\n\
+            \      Finished:     Mon, 15 Jun 2026 08:33:37 +0100\n    Ready:     \
+            \     False\n    Restart Count:  1\n    Requests:\n      cpu:      50m\n\
+            \      memory:   200Mi\n    Liveness:   http-get http://:metrics/health-check\
+            \ delay=0s timeout=3s period=5s #success=1 #failure=6\n    Readiness:\
+            \  http-get http://:metrics/health-check delay=0s timeout=3s period=5s\
+            \ #success=1 #failure=120\n    Environment:\n      NAMESPACE:  default\
+            \ (v1:metadata.namespace)\n    Mounts:\n      /etc/tls-certs from tls-certs\
+            \ (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-thmrm\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  tls-certs:\n    Type:        Secret\
+            \ (a volume populated by a Secret)\n    SecretName:  vpa-tls-secret\n\
+            \    Optional:    false\n  kube-api-access-thmrm:\n    Type:         \
+            \           Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   Burstable\nNode-Selectors:\
+            \              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvent"
+          detailTail: "     Waiting\n      Reason:       CrashLoopBackOff\n    Last\
+            \ State:     Terminated\n      Reason:       Error\n      Exit Code: \
+            \   255\n      Started:      Mon, 15 Jun 2026 08:33:37 +0100\n      Finished:\
+            \     Mon, 15 Jun 2026 08:33:37 +0100\n    Ready:          False\n   \
+            \ Restart Count:  1\n    Requests:\n      cpu:      50m\n      memory:\
+            \   200Mi\n    Liveness:   http-get http://:metrics/health-check delay=0s\
+            \ timeout=3s period=5s #success=1 #failure=6\n    Readiness:  http-get\
+            \ http://:metrics/health-check delay=0s timeout=3s period=5s #success=1\
+            \ #failure=120\n    Environment:\n      NAMESPACE:  default (v1:metadata.namespace)\n\
+            \    Mounts:\n      /etc/tls-certs from tls-certs (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-thmrm (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
+            \                True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  tls-certs:\n    Type:        Secret (a volume populated by a Secret)\n\
+            \    SecretName:  vpa-tls-secret\n    Optional:    false\n  kube-api-access-thmrm:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \  From               Message\n  ----     ------     ----            \
+            \  ----               -------\n  Normal   Scheduled  11s             \
+            \  default-scheduler  Successfully assigned default/vpa-admission-controller-5894d5d68b-xn4pp\
+            \ to hx-vpa-04dd1-awyr-installer-control-plane\n  Normal   Pulled    \
+            \ 8s                kubelet            spec.containers{vpa}: Successfully\
+            \ pulled image \"registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\"\
+            \ in 2.104s (2.104s including waiting). Image size: 9388436 bytes.\n \
+            \ Normal   Pulling    7s (x2 over 10s)  kubelet            spec.containers{vpa}:\
+            \ Pulling image \"registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\"\
+            \n  Normal   Created    4s (x2 over 8s)   kubelet            spec.containers{vpa}:\
+            \ Container created\n  Normal   Started    4s (x2 over 8s)   kubelet \
+            \           spec.containers{vpa}: Container started\n  Normal   Pulled\
+            \     4s                kubelet            spec.containers{vpa}: Successfully\
+            \ pulled image \"registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\"\
+            \ in 237ms (3.312s including waiting). Image size: 9388436 bytes.\n  Warning\
+            \  BackOff    0s (x3 over 3s)   kubelet            spec.containers{vpa}:\
+            \ Back-off restarting failed container vpa in pod vpa-admission-controller-5894d5d68b-xn4pp_default(47a62e79-f8fd-4197-9bc1-db1923e46fdf)"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 26
+      installerObjectCount: 27
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=2
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=1 crds=2
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"vpa\" does not exist. Installing it now.\nNAME: vpa\nLAST DEPLOYED:\
+      \ Mon Jun 15 08:33:08 2026\nNAMESPACE: default\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nNOTES:\nCongratulations on installing the\
+      \ Vertical Pod Autoscaler!\n\nComponents Installed:\n  - recommender\n  - updater\n\
+      \  - admission-controller\n\nTo verify functionality, you can try running 'helm\
+      \ -n default test vpa'"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/vpa-admission-controller   0/1   1     0     10s
+
+      deployment.apps/vpa-recommender            1/1   1     1     10s
+
+      deployment.apps/vpa-updater                1/1   1     1     10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: verticalpodautoscalers.autoscaling.k8s.io
+        sourceVariant: default
+        lane: regularHelm
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-no-crds/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: vpa-tls-secret
+        keys:
+        - ca
+        - cert
+        - key
+        lane: cubInstallerApply
+      stagedCRDs:
+      - name: verticalpodautoscalercheckpoints.autoscaling.k8s.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: verticalpodautoscalers.autoscaling.k8s.io
+        sourceVariant: default
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-no-crds/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
