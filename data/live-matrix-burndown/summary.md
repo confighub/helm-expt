@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 137 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 79 |
-| Watch/blocked/review rows | 65 |
-| Ready-to-run todo rows | 72 |
+| Watch/blocked/review rows | 66 |
+| Ready-to-run todo rows | 71 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 13 |
-| `todo` | 92 |
-| `watch` | 32 |
+| `todo` | 91 |
+| `watch` | 33 |
 
 ## By Run Readiness
 
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 4 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 28 |
-| `ready-to-run` | 72 |
-| `review-target-first` | 32 |
+| `ready-to-run` | 71 |
+| `review-target-first` | 33 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -65,6 +65,7 @@ claim.
 | Work Type | Chart | Version | Base | Lane Cells | Reason | Support Artifact | Receipt | Command |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | live-parity | argo-cd/argo-cd | 9.5.17 | default | G=watch;P=watch | gitops-runtime: child Argo Application not materialized (parity passed) | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml](../../runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml) | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.17 --base default |
+| live-parity | bitnami/apache | 11.4.29 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) |  | [runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/mongodb | 19.0.9 | existing-secret-replicaset | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.9 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/mongodb | 19.1.0 | existing-secret-replicaset | G=watch;P=watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-1-0/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/nginx | 24.0.4 | existing-tls-ingress | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) | [runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts |
@@ -83,7 +84,6 @@ claim.
 | live-parity | hashicorp/vault | 0.32.0 | ha-raft-ui | G=watch;P=watch | operate-policy: Vault init/unseal readiness (parity passed) | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | [runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml](../../runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml) | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui |
 | live-parity | istio/gateway | 1.30.0 | controller-default-reviewed | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml](../../runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml) | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed |
 | live-parity | istio/gateway | 1.30.0 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml](../../runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default |
-| live-parity | jetstack/trust-manager | v0.22.1 | default | G=watch;P=watch | gitops-runtime: Argo health Progressing (parity passed) |  | [runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml](../../runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default |
 
 ## Next Ready Live-Parity Commands
 
@@ -101,7 +101,6 @@ generated priority. They are good candidates for a serial live block.
 | velero/velero | 12.0.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default |
 | velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.60.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default |
-| bitnami/apache | 11.4.29 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default |
 | bitnami/contour | 21.1.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default |
 | bitnami/contour | 21.1.4 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds |
 | bitnami/elasticsearch | 22.1.6 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/zookeeper | 13.8.7 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default |
 | bitnami/zookeeper | 13.8.7 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha |
 | dex/dex | 0.24.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default |
+| elastic/kibana | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default |
 
 ## Full Queue
 
