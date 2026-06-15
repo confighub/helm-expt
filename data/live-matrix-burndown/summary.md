@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 194 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 75 |
+| Live commands remaining | 193 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 74 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 16 |
-| Ready-to-run todo rows | 178 |
+| Ready-to-run todo rows | 177 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 75 |
+| `live-parity` | 74 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 178 |
+| `todo` | 177 |
 | `watch` | 16 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 178 |
+| `ready-to-run` | 177 |
 | `review-target-first` | 15 |
 
 ## Active Watch Rows
@@ -75,7 +75,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| jetstack/cert-manager-csi-driver | v0.14.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager-csi-driver/v0.14.0 --base default |
 | kyverno/kyverno-policies | 3.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
 | minio-operator/operator | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default |
 | minio-operator/tenant | 7.1.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default |
@@ -95,6 +94,7 @@ generated priority. They are good candidates for a serial live block.
 | argo-cd/argo-workflows | 1.0.14 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed |
 | argo-cd/argo-workflows | 1.0.14 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base default |
 | bitnami/opensearch | 2.0.10 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default |
+| bitnami/opensearch | 2.0.10 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha |
 
 ## Full Queue
 

@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 117
+pass: 118
 watch: 15
 blocked: 0
 not-started: 0
@@ -125,6 +125,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `grafana/rollout-operator@0.49.0` | default | pass | - | runs/live-helm-confighub-compare/grafana-rollout-operator-default/receipt.yaml |
 |  | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | - | runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
+|  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |

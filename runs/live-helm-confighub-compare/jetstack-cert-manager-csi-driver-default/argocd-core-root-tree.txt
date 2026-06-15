@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:51513/applications/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                             STATUS  HEALTH  AGE    MESSAGE                                                                                              REASON
+Application/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster  Synced          2m46s  application.argoproj.io/helm-expt-parity-certmanagercsb40bd-mqempb7u-4f6-cluster serverside-applied
+Application/cert-manager-csi-driver-parity                            Synced          43s    application.argoproj.io/cert-manager-csi-driver-parity serverside-applied
