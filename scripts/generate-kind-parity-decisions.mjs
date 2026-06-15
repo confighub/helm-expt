@@ -5,8 +5,8 @@
 // Classifies the committed NON-PASS two-cluster kind-parity (K-lane) rows into
 // product-readable decisions: for each watch/blocked row, what it means for a
 // Helm user, who has to fix it (user vs catalog), whether the chart/base is
-// usable today, and the exact next action — resolving the "inspect receipt"
-// blocked rows by reading the committed receipt.
+// usable today, and the exact next action — resolving generic blocked rows by
+// reading the committed receipt.
 //
 // Read-only over committed evidence: data/live-kind-parity/summary.csv and the
 // runs/live-kind-parity/*/receipt.yaml receipts. It does NOT run live, touch
@@ -74,13 +74,20 @@ const CATEGORIES = {
   "model-gap-render": {
     blocker_owner: "catalog",
     usable_today: "no — needs catalog work",
-    decision: "Not usable on this base yet, and not a user action: a required CRD is missing from the base's rendered object set, so the run blocked before parity. Catalog/model work.",
-    next_action: "Catalog work: render the required CRD in this base (or declare it a target prerequisite), then rerun.",
+    decision: "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+    next_action: "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+  },
+  "capability-profile-diff": {
+    blocker_owner: "catalog",
+    usable_today: "no — needs catalog work",
+    decision: "Not usable on this base yet, and not a user action: live Helm rendered fields that the packaged installer render did not, because the live cluster capability profile changed the object set. Catalog/model work.",
+    next_action: "Catalog work: model the required Kubernetes capability/profile field, update the base or semantic contract, then rerun.",
   },
 };
 
 function classify(reason, base, result) {
   const r = (reason ?? "").toLowerCase();
+  if (/trafficdistribution|preferclose|service objects differ|capability profile/.test(r)) return "capability-profile-diff";
   if (/no target fact value generator/.test(r)) return "model-gap-target-fact";
   if (/not found in .*rendered|required crd .*not found/.test(r)) return "model-gap-render";
   if (/secret/.test(r)) return "target-prerequisite-secret";
@@ -146,13 +153,28 @@ function readSummaryRows() {
 // Authoritative reason for a blocked row whose summary reason is generic
 // ("inspect receipt") — read it from the committed receipt.
 function authoritativeReason(row) {
-  const generic = !row.reason || /inspect receipt/i.test(row.reason);
+  const generic = !row.reason || /inspect receipt|semantic object diff/i.test(row.reason);
   if (!generic) return row.reason;
   const abs = row.receipt ? join(repoRoot, row.receipt) : "";
   if (!abs || !existsSync(abs)) return row.reason || "blocked (receipt missing)";
   try {
     const doc = readYaml(abs);
     const spec = doc?.spec ?? {};
+    if (/semantic object diff/i.test(row.reason ?? "")) {
+      const receiptText = readFileSync(abs, "utf8");
+      const comparison = spec.semanticComparison?.helmVsCubInstallerApply ?? {};
+      const diffs = comparison.semanticDiffs ?? [];
+      const parts = [`semantic object diff: ${diffs.length} object(s) differ`];
+      if (diffs.length > 0) parts.push(`objects=${diffs.slice(0, 6).join("; ")}`);
+      if (/trafficDistribution|PreferClose/.test(receiptText)) {
+        parts.push("live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile");
+      }
+      if (/ImagePullBackOff|ErrImagePull|not found/.test(receiptText)) {
+        const match = receiptText.match(/docker\.io\/[A-Za-z0-9._/-]+:[A-Za-z0-9._-]+/);
+        parts.push(match ? `runtime also fails to pull ${match[0]}` : "runtime also hits image pull failure");
+      }
+      return parts.join("; ");
+    }
     if (spec.failure?.message) return String(spec.failure.message);
     const blockedCheck = (spec.checks ?? []).find((c) => c.result === "blocked" && c.detail);
     if (blockedCheck) return String(blockedCheck.detail);
@@ -273,7 +295,7 @@ This classifies the committed **non-pass** two-cluster kind-parity (K-lane) rows
 into product-readable decisions: for each \`watch\`/\`blocked\` row, what it means
 for a Helm user, **who has to fix it** (you vs the catalog), whether the
 chart/base is **usable today**, and the exact next action. It reads the
-committed receipts, so the two "inspect receipt" blocked rows get a real reason.
+committed receipts, so generic blocked rows get a real reason.
 
 Source: [${SUMMARY_CSV}](../live-kind-parity/summary.md) (read-only). Forms:
 [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).

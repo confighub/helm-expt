@@ -10,7 +10,8 @@
     "target-runtime",
     "readiness",
     "model-gap-target-fact",
-    "model-gap-render"
+    "model-gap-render",
+    "capability-profile-diff"
   ],
   "note": "A watch row is known evidence with a named residue — not a pass and not a failure. A blocked row did not reach parity; the decision names why and who owns the fix.",
   "decisions": [
@@ -41,6 +42,20 @@
       "next_action": "Provide the required values in the base/variant, then the row can move to pass.",
       "reason": "render-input: required Helm values missing (parity passed)",
       "receipt": "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/opensearch",
+      "version": "2.0.10",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "defect",
+      "residue_category": "capability-profile-diff",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: live Helm rendered fields that the packaged installer render did not, because the live cluster capability profile changed the object set. Catalog/model work.",
+      "next_action": "Catalog work: model the required Kubernetes capability/profile field, update the base or semantic contract, then rerun.",
+      "reason": "semantic object diff: 4 object(s) differ; objects=v1|Service|default|opensearch-coordinating-hl; v1|Service|default|opensearch-data-hl; v1|Service|default|opensearch-ingest-hl; v1|Service|default|opensearch-master-hl; live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile; runtime also fails to pull docker.io/bitnami/os-shell:12-debian-12-r51",
+      "receipt": "runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml"
     },
     {
       "chart": "fairwinds-stable/vpa",
