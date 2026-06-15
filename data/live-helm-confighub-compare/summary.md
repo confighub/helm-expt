@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 114
+pass: 115
 watch: 15
 blocked: 0
 not-started: 0
@@ -122,6 +122,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 |  | `grafana/promtail@6.17.1` | default | pass | - | runs/live-helm-confighub-compare/grafana-promtail-default/receipt.yaml |
 |  | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml |
 |  | `grafana/pyroscope@2.0.2` | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml |
+|  | `grafana/rollout-operator@0.49.0` | default | pass | - | runs/live-helm-confighub-compare/grafana-rollout-operator-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |
