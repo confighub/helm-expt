@@ -38,6 +38,7 @@ descheduler/descheduler,0.36.0,default,pass,pass,,,live parity passed,runs/live-
 elastic/eck-operator,3.4.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml
 elastic/eck-operator,3.4.0,ha,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml
 elastic/eck-operator,3.4.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml
+elastic/filebeat,8.5.1,default,blocked,pass,target-prerequisite: required Secret missing (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/elastic-filebeat-default/receipt.yaml
 elastic/logstash,8.5.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-logstash-default/receipt.yaml
 elastic/logstash,8.5.1,ha,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-logstash-ha/receipt.yaml
 external-dns/external-dns,1.21.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml
