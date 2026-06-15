@@ -1,14 +1,19 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "GitOpsRuntimeReview"
 metadata:
-  name: "opensearch-default-image-pull-watch"
+  name: "opensearch-image-pull-watch"
   chart: "bitnami/opensearch"
   version: "2.0.10"
 spec:
   base: "default"
+  coveredBases:
+    - "default"
+    - "ha"
   controller: "Argo CD"
   targetShape: "kind proof rig with ConfigHub OCI source and local-path storage"
   receipt: "runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml"
+  additionalReceipts:
+    ha: "runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml"
   relatedKindParityReceipt: "runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml"
   observedResult: "watch"
   currentSummary:
@@ -19,6 +24,7 @@ spec:
     semanticParityDirectApply: "pass"
     semanticParityOciArgo: "pass"
     runtimeResidue: "OpenSearch pods cannot pull docker.io/bitnami/os-shell:12-debian-12-r51"
+    haRuntimeResidue: "The ha base reaches the same image-pull boundary across regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo."
   passed:
     - "regular Helm rendered and applied the OpenSearch object set"
     - "ConfigHub direct apply rendered and applied the same object set"
@@ -27,6 +33,7 @@ spec:
     - "Helm-vs-ConfigHub semantic parity passed for direct apply"
     - "Helm-vs-ConfigHub semantic parity passed for OCI/Argo"
     - "PVCs were created and bound for the default storage shape"
+    - "the ha base also passed Helm-vs-ConfigHub semantic parity for direct apply and OCI/Argo, with only the expected namespace object extra"
   watch:
     summary: "All three live legs reached the same runtime boundary: OpenSearch StatefulSet pods stay in Init:ImagePullBackOff because the chart references a Bitnami init image that is no longer pullable."
     observedResidue:
@@ -34,7 +41,26 @@ spec:
       - "ConfigHub direct apply: opensearch StatefulSets remain 0/2 with Init:ImagePullBackOff"
       - "ConfigHub OCI/Argo: Application Synced but Progressing while opensearch StatefulSets remain 0/2"
       - "failing image: docker.io/bitnami/os-shell:12-debian-12-r51"
+      - "ha base: OpenSearch StatefulSets remain 0/2 or 0/3 across regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo with the same init image pull failure"
     interpretation: "This is a runtime dependency and catalog support decision, not a ConfigHub delivery failure. The OCI path delivered the desired objects, but the upstream image reference is no longer a viable runtime dependency."
+  baseReviews:
+    default:
+      receipt: "runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml"
+      result: "watch"
+      semanticParityDirectApply: "pass"
+      semanticParityOciArgo: "pass"
+      argoSync: "Synced"
+      argoHealth: "Progressing"
+      runtimeResidue: "StatefulSets remain 0/2 because the init image cannot be pulled."
+    ha:
+      receipt: "runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml"
+      result: "watch"
+      semanticParityDirectApply: "pass"
+      semanticParityOciArgo: "pass"
+      argoSync: "Synced"
+      argoHealth: "Progressing"
+      runtimeResidue: "StatefulSets remain 0/2 or 0/3 because the same init image cannot be pulled."
+      semanticComparison: "regular Helm has 18 Kubernetes objects; ConfigHub direct apply and OCI/Argo have those objects plus the allowed Namespace object."
   kindParityContext:
     summary: "The two-cluster kind parity receipt also found a stricter live capability-profile issue for the same base."
     semanticResidue:
@@ -43,7 +69,7 @@ spec:
       - "Kubernetes warned that PreferClose is deprecated in favor of PreferSameZone"
     interpretation: "Before presenting this base as supported, the catalog must decide whether to model the target capability profile, normalize this field, or pin a render profile that intentionally excludes it."
   diagnosis:
-    summary: "OpenSearch default is not ready as a public easy-use base. It proves the ConfigHub delivery path can carry the chart, but it also proves that stale upstream image references and capability-profile fields need catalog treatment."
+    summary: "OpenSearch default and ha are not ready as public easy-use bases. They prove the ConfigHub delivery path can carry the chart, but they also prove that stale upstream image references and capability-profile fields need catalog treatment."
     productBoundary: "A production or first-run claim needs current image references, image digests or overrides, and an explicit Kubernetes capability/profile decision for Service trafficDistribution."
     nextInvestigation:
       - "Choose a supported OpenSearch base with current/pullable image references or explicit image override inputs."
@@ -51,6 +77,7 @@ spec:
       - "Rerun both two-cluster kind parity and ConfigHub OCI live parity after the catalog/model fix."
   evidence:
     receipt: "runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml"
+    haReceipt: "runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml"
     diagnosticNote: "The live run collected Argo core JSON/tree and runtime diagnostics while the cluster was active; the committed receipt records the durable result and residue."
   relatedIssue: "https://github.com/confighub/helm-expt/issues/838"
   notClaimed:
