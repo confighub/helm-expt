@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 200 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 81 |
+| Live commands remaining | 199 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 80 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 14 |
-| Ready-to-run todo rows | 186 |
+| Ready-to-run todo rows | 185 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 81 |
+| `live-parity` | 80 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 186 |
+| `todo` | 185 |
 | `watch` | 14 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 186 |
+| `ready-to-run` | 185 |
 | `review-target-first` | 13 |
 
 ## Active Watch Rows
@@ -73,7 +73,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/redis | 27.0.0 | reuse-existing-secret | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/redis/27.0.0 --base reuse-existing-secret |
 | falcosecurity/falco | 9.0.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/falcosecurity/falco/9.0.0 --base default |
 | falcosecurity/falcosidekick | 0.13.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/falcosecurity/falcosidekick/0.13.1 --base default |
 | fluent/fluentd | 0.5.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
@@ -93,6 +92,7 @@ generated priority. They are good candidates for a serial live block.
 | prometheus-community/prometheus-pushgateway | 3.6.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-pushgateway/3.6.0 --base default |
 | rook-release/rook-ceph-cluster | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
 | rook-release/rook-ceph | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph/v1.19.5 --base default |
+| runix/pgadmin4 | 1.62.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/runix/pgadmin4/1.62.0 --base default |
 
 ## Full Queue
 
