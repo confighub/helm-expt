@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 129
+pass: 130
 watch: 17
 blocked: 1
 not-started: 0
@@ -166,4 +166,5 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | default | pass | - | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml |
+|  | `vm/victoria-logs-single@0.12.5` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-logs-single-default/receipt.yaml |
 |  | `vm/victoria-metrics-single@0.39.0` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/receipt.yaml |
