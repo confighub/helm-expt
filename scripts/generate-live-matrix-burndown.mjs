@@ -50,11 +50,12 @@ function buildReport() {
 function liveParityWorkItem(row, state, activeReruns) {
   const active = activeReruns.get(rowKey(row)) ?? {};
   const activeReason = active.reason || row.active_proof_reason || "";
+  const currentStatus = active.current_result || state.status;
   return {
-    priority: priorityFor(row, "live-parity", state),
+    priority: priorityFor(row, "live-parity", { ...state, status: currentStatus }),
     work_type: "live-parity",
-    current_status: state.status,
-    lane_cells: `G=${row.lane_gitops_oci_live};P=${row.lane_live_dual_parity}`,
+    current_status: currentStatus,
+    lane_cells: active.current_result ? `G=${active.current_result};P=${active.current_result}` : `G=${row.lane_gitops_oci_live};P=${row.lane_live_dual_parity}`,
     chart: row.chart,
     version: row.version,
     base: row.variant,
@@ -63,9 +64,9 @@ function liveParityWorkItem(row, state, activeReruns) {
     outcome_level: row.outcome_level,
     core_lanes_complete: row.core_lanes_complete,
     production_decision: row.production_decision,
-    run_readiness: active.rerun_readiness || row.active_proof_readiness || (state.status === "watch" ? "review-target-first" : "ready-to-run"),
+    run_readiness: active.rerun_readiness || row.active_proof_readiness || (currentStatus === "watch" || currentStatus === "blocked" ? "review-target-first" : "ready-to-run"),
     reason: activeReason || reasonForMissing("GitOps/OCI live and live Helm-vs-ConfigHub parity", state.status),
-    next_step: active.next_step_type || row.active_proof_next_step || (state.status === "watch" ? "review-watch-receipt" : "run-live-parity"),
+    next_step: active.next_step_type || row.active_proof_next_step || (currentStatus === "watch" ? "review-watch-receipt" : currentStatus === "blocked" ? "review-blocked-receipt" : "run-live-parity"),
     command: active.rerun_command || row.active_proof_command || `npm run live-parity:run -- --recipe ${row.recipe_path} --base ${row.variant}`,
     support_artifact: active.support_artifact || row.active_proof_support_artifact,
     receipt: active.receipt || "",
@@ -151,10 +152,10 @@ function countBy(rows, key) {
 function summary(report) {
   const live = report.workItems.filter((row) => row.work_type === "live-parity");
   const kind = report.workItems.filter((row) => row.work_type === "kind-parity");
-  const watch = report.workItems.filter((row) => row.current_status === "watch");
+  const reviewRows = report.workItems.filter((row) => row.current_status === "watch" || row.current_status === "blocked" || row.run_readiness !== "ready-to-run");
   const ready = report.workItems.filter((row) => row.run_readiness === "ready-to-run");
-  const nextLive = report.workItems.filter((row) => row.work_type === "live-parity" && row.current_status !== "watch").slice(0, 20);
-  const activeWatch = watch.slice(0, 20);
+  const nextLive = report.workItems.filter((row) => row.work_type === "live-parity" && row.run_readiness === "ready-to-run").slice(0, 20);
+  const activeReview = reviewRows.slice(0, 20);
   return `# Live Matrix Burn-Down
 
 This generated queue answers a narrow operational question: how many live
@@ -175,7 +176,7 @@ or run Kubernetes. Run live commands serially.
 | Live commands remaining | ${report.workItems.length} |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | ${live.length} |
 | Two-cluster kind parity commands | ${kind.length} |
-| Watch/review rows | ${watch.length} |
+| Watch/blocked/review rows | ${reviewRows.length} |
 | Ready-to-run todo rows | ${ready.length} |
 
 ## By Work Type
@@ -190,13 +191,13 @@ ${tableFromMap(report.byStatus, "Status")}
 
 ${tableFromMap(report.byReadiness, "Readiness")}
 
-## Active Watch Rows
+## Active Watch Or Blocked Rows
 
 These rows already have live evidence. Review the support artifact before
 rerunning; do not turn them green unless the new receipt proves the stronger
 claim.
 
-${table(activeWatch, ["work_type", "chart", "version", "base", "lane_cells", "reason", "support_artifact", "receipt", "command"])}
+${table(activeReview, ["work_type", "chart", "version", "base", "lane_cells", "reason", "support_artifact", "receipt", "command"])}
 
 ## Next Ready Live-Parity Commands
 

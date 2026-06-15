@@ -70,7 +70,7 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 125/142 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 125/143 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 74/74 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 18/18 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 2/18 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
@@ -78,8 +78,8 @@ Which detailed CSV should I open next?
 | live evidence | live matrix commands remaining | 186 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 67 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 119 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 1/142 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/142 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 1/143 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/143 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/74 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -379,8 +379,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 190 | 0 | 2 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 125 | 17 | 50 | 192 |
-| live Helm-vs-ConfigHub parity | 125 | 17 | 50 | 192 |
+| GitOps/OCI live | 125 | 18 | 49 | 192 |
+| live Helm-vs-ConfigHub parity | 125 | 18 | 49 | 192 |
 | two-cluster kind parity | 73 | 1 | 0 | 74 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -390,7 +390,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/142
+ConfigHub/OCI live comparison: 0/143
 two-cluster kind parity:       0/74
 ~~~
 
@@ -440,6 +440,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
+| rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite: namespace missing (parity passed) |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) |
 
 
