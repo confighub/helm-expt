@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 113
 watch: 6
-blocked: 9
+blocked: 11
 semantic parity pass: 123
 semantic parity defects: 4
 non-pass rows where semantic parity passed: 10
@@ -34,6 +34,7 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | parity: semantic object diff | 4 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
+| target-prerequisite: CRDs missing | 2 |
 | target-prerequisite: required Secret missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
@@ -173,6 +174,8 @@ broader support claim.
 | `prometheus-community/kube-state-metrics@7.4.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-state-metrics-cluster-metrics-readonly/receipt.yaml |
 | `prometheus-community/kube-state-metrics@7.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-state-metrics-default/receipt.yaml |
 | `prometheus-community/prometheus-adapter@5.3.0` | apiservice-v1-capability | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-adapter-apiservice-v1-capability/receipt.yaml |
+| `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml |
+| `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |

@@ -10,16 +10,16 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 42
+rows: 44
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 11
+blocked: 13
 watch: 31
 configHub-oci-live-comparison: 28
-two-cluster-kind-parity: 14
+two-cluster-kind-parity: 16
 semantic-parity-defects: 4
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 5
+prerequisite-or-lifecycle-rows: 7
 runtime-or-watch-rows: 31
 ```
 
@@ -67,6 +67,8 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `percona/pg-operator@3.0.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `istio/gateway@1.30.0` | default | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
@@ -79,7 +81,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 28 | 0 | 26 | 2 | 0 |
-| two-cluster-kind-parity | 14 | 0 | 5 | 9 | 0 |
+| two-cluster-kind-parity | 16 | 0 | 5 | 11 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -108,7 +110,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 17 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 5 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| stage-prerequisite | 7 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -125,7 +127,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 4 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 8 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 31 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -199,6 +201,8 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `percona/pg-operator@3.0.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | target-prerequisite: CRDs missing | - | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base cluster-metrics-readonly` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | target-prerequisite: CRDs missing | - | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | default | watch | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | target-runtime: pods pending (parity passed) | [`recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base controller-default-reviewed` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | default | blocked | target-runtime: pods pending (parity passed) | [`recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base default` |
