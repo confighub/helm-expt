@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 94
+pass: 95
 watch: 5
 blocked: 2
-semantic parity pass: 99
+semantic parity pass: 100
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
@@ -93,6 +93,7 @@ broader support claim.
 | `elastic/eck-operator@3.4.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
+| `elastic/logstash@8.5.1` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-ha/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-no-crds/receipt.yaml |

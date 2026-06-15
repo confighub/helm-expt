@@ -1,0 +1,189 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: elastic-logstash-8.5.1-ha-kind-parity-20260606
+spec:
+  chart: elastic/logstash
+  version: 8.5.1
+  base: ha
+  result: pass
+  observedAt: '2026-06-15T09:58:18Z'
+  package:
+    path: packages/elastic/logstash/8.5.1
+  recipe:
+    path: recipes/elastic/logstash/8.5.1
+  variantRevision: recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-logsta-27556-irh8-helm
+    installerCluster: hx-logsta-27556-irh8-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-logsta-27556-irh8-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-logsta-27556-irh8-helm" ...
+
+          Deleted nodes: ["hx-logsta-27556-irh8-helm-worker2" "hx-logsta-27556-irh8-helm-worker"
+          "hx-logsta-27556-irh8-helm-worker3" "hx-logsta-27556-irh8-helm-control-plane"]'
+      - cluster: hx-logsta-27556-irh8-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-logsta-27556-irh8-installer" ...
+
+          Deleted nodes: ["hx-logsta-27556-irh8-installer-control-plane" "hx-logsta-27556-irh8-installer-worker3"
+          "hx-logsta-27556-irh8-installer-worker2" "hx-logsta-27556-irh8-installer-worker"]'
+    targetTopology:
+      minimumSchedulableNodes: 3
+      purpose: Logstash HA renders three replicas with required pod anti-affinity
+        across kubernetes.io/hostname.
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/elastic-logstash-ha/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70
+      objectCount: 3
+      liveHelmManifestSHA256: d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70
+      liveHelmManifestObjectCount: 3
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/logstash-logstash   3/3   3m52s'
+        pods: '# default
+
+          logstash-logstash-0   1/1   Running   0     3m53s
+
+          logstash-logstash-1   1/1   Running   0     3m53s
+
+          logstash-logstash-2   1/1   Running   0     3m53s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+        --base ha --work-dir /tmp/helm-expt-kind-parity-hx-logsta-27556-irh8-logstash
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 8d1e0651ea5d03c4c628c9461f54c6bbd2331a10ffaa8b5ca2f1526be388bbef
+      objectCount: 4
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/logstash-logstash   3/3   4m5s'
+        pods: '# default
+
+          logstash-logstash-0   1/1   Running   0     4m5s
+
+          logstash-logstash-1   1/1   Running   0     4m5s
+
+          logstash-logstash-2   1/1   Running   0     4m5s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 3
+      installerObjectCount: 3
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 3
+      installerObjectCount: 4
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: 'helm kind cluster created
+
+      minimumSchedulableNodes=3'
+  - name: kind-create-installer
+    result: pass
+    detail: 'installer kind cluster created
+
+      minimumSchedulableNodes=3'
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"logstash\" does not exist. Installing it now.\nNAME: logstash\n\
+      LAST DEPLOYED: Mon Jun 15 10:59:13 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Watch\
+      \ all cluster members come up.\n  $ kubectl get pods --namespace=default -l\
+      \ app=logstash-logstash -w"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/logstash-logstash   3/3   4m5s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
