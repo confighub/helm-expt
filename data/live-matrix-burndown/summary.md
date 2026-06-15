@@ -20,18 +20,18 @@ For the cell-level completion count, use
 | Metric | Rows |
 | --- | ---: |
 | Matrix variant rows | 192 |
-| Variants needing at least one live command | 102 |
-| Live commands remaining | 149 |
+| Variants needing at least one live command | 101 |
+| Live commands remaining | 148 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
-| Two-cluster kind parity commands | 91 |
+| Two-cluster kind parity commands | 90 |
 | Watch/blocked/review rows | 56 |
-| Ready-to-run todo rows | 93 |
+| Ready-to-run todo rows | 92 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 91 |
+| `kind-parity` | 90 |
 | `live-parity` | 58 |
 
 ## By Current Status
@@ -39,7 +39,7 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 5 |
-| `todo` | 113 |
+| `todo` | 112 |
 | `watch` | 31 |
 
 ## By Run Readiness
@@ -49,7 +49,7 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 2 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 25 |
-| `ready-to-run` | 93 |
+| `ready-to-run` | 92 |
 | `review-target-first` | 28 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
