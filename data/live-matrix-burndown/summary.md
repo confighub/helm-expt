@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 192 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 73 |
+| Live commands remaining | 191 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 72 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 18 |
-| Ready-to-run todo rows | 174 |
+| Ready-to-run todo rows | 173 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 73 |
+| `live-parity` | 72 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 174 |
+| `todo` | 173 |
 | `watch` | 18 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 174 |
+| `ready-to-run` | 173 |
 | `review-target-first` | 17 |
 
 ## Active Watch Rows
@@ -77,7 +77,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| nats/nack | 0.34.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base default |
 | nats/nack | 0.34.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/nack/0.34.0 --base no-crds |
 | prometheus-community/kube-state-metrics | 7.4.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/kube-state-metrics/7.4.0 --base default |
 | prometheus-community/prometheus-blackbox-exporter | 11.10.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default |
@@ -97,6 +96,7 @@ generated priority. They are good candidates for a serial live block.
 | elastic/filebeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
 | elastic/filebeat | 8.5.1 | node-or-cluster-collector | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
 | grafana/rollout-operator | 0.49.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/rollout-operator/0.49.0 --base no-crds |
+| hashicorp/terraform | 1.1.2 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default |
 
 ## Full Queue
 
