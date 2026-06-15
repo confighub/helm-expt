@@ -72,6 +72,7 @@ haproxytech/kubernetes-ingress,1.52.0,default,pass,pass,,,live parity passed,run
 hashicorp/consul,2.0.0,default-control-plane,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
 hashicorp/consul,2.0.0,secure-mesh-existing-secrets,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
 hashicorp/terraform,1.1.2,default,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml
+hashicorp/terraform,1.1.2,no-crds,blocked,pass,target-prerequisite: required Secret missing (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml
 hashicorp/vault,0.32.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-vault-default/receipt.yaml
 hashicorp/vault,0.32.0,dev-mode,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml
 hashicorp/vault,0.32.0,ha-raft-ui,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml

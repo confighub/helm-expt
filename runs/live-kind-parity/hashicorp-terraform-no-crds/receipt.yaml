@@ -1,0 +1,378 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: hashicorp-terraform-1.1.2-no-crds-kind-parity-20260606
+spec:
+  chart: hashicorp/terraform
+  version: 1.1.2
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-15T23:48:20Z'
+  package:
+    path: packages/hashicorp/terraform/1.1.2
+  recipe:
+    path: recipes/hashicorp/terraform/1.1.2
+  variantRevision: recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-terraf-0d41b-66oo-helm
+    installerCluster: hx-terraf-0d41b-66oo-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-terraf-0d41b-66oo-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-terraf-0d41b-66oo-helm" ...
+
+          Deleted nodes: ["hx-terraf-0d41b-66oo-helm-control-plane"]'
+      - cluster: hx-terraf-0d41b-66oo-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-terraf-0d41b-66oo-installer" ...
+
+          Deleted nodes: ["hx-terraf-0d41b-66oo-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
+        --version 1.1.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-terraform-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a
+      objectCount: 4
+      liveHelmManifestSHA256: 7e8196c15043b1334a145aecfe8e440dd403ef870e07111fe3aa5daca60e57b1
+      liveHelmManifestObjectCount: 4
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/terraform-terraform-sync-workspace   0/1   1     0     8m'
+        pods: '# default
+
+          terraform-terraform-sync-workspace-67688dd4fd-spgdw   0/1   ContainerCreating   0     8m'
+        notReady:
+        - namespace: default
+          pod: terraform-terraform-sync-workspace-67688dd4fd-spgdw
+          ready: 0/1
+          status: ContainerCreating
+          blockedReason: missing-required-secret
+          missingSecret: workspacesecrets
+        diagnostics:
+        - namespace: default
+          pod: terraform-terraform-sync-workspace-67688dd4fd-spgdw
+          result: blocked
+          detailHead: "Name:             terraform-terraform-sync-workspace-67688dd4fd-spgdw\n\
+            Namespace:        default\nPriority:         0\nService Account:  terraform-terraform-sync-workspace\n\
+            Node:             hx-terraf-0d41b-66oo-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 00:49:09 +0100\nLabels:           app=terraform\n\
+            \                  chart=terraform-helm\n                  component=sync-workspace\n\
+            \                  pod-template-hash=67688dd4fd\n                  release=terraform\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  \nIPs:              <none>\nControlled By:    ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd\n\
+            Containers:\n  terraform-sync-workspace:\n    Container ID:  \n    Image:\
+            \         hashicorp/terraform-k8s:1.1.2\n    Image ID:      \n    Port:\
+            \          <none>\n    Host Port:     <none>\n    Command:\n      /bin/terraform-k8s\n\
+            \    Args:\n      --enable-leader-election\n      --k8s-watch-namespace=default\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
+            \  http-get http://:8383/metrics delay=30s timeout=5s period=5s #success=1\
+            \ #failure=3\n    Readiness:      http-get http://:8383/metrics delay=10s\
+            \ timeout=5s period=5s #success=1 #failure=5\n    Environment:\n     \
+            \ POD_NAME:            terraform-terraform-sync-workspace-67688dd4fd-spgdw\
+            \ (v1:metadata.name)\n      OPERATOR_NAME:       terraform-k8s\n     \
+            \ TF_VERSION:          latest\n      TF_CLI_CONFIG_FILE:  /etc/terraform/.terraformrc\n\
+            \      TF_URL:              \n    Mounts:\n      /etc/terraform from terraformrc\
+            \ (ro)\n      /tmp/secrets from sensitivevars (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-4rcgg (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  terraformrc:\n    Type:        Secret (a volume populated by a Secret)\n\
+            \    SecretName:  terraformrc\n    Optional:    false\n  sensitivevars:\n\
+            \    Type:        Secret (a volume populated by a Secret)\n    SecretName:\
+            \  workspacesecrets\n    Optional:    false\n  kube-api-access-4rcgg:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
+            \      From               Message\n  ----     ------       ----      \
+            \          ----               -------\n  Normal   Scheduled    8m    \
+            \              default-scheduler  Successfully assigned default/terrafo"
+          detailTail: "nt=sync-workspace\n                  pod-template-hash=67688dd4fd\n\
+            \                  release=terraform\nAnnotations:      <none>\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd\nContainers:\n\
+            \  terraform-sync-workspace:\n    Container ID:  \n    Image:        \
+            \ hashicorp/terraform-k8s:1.1.2\n    Image ID:      \n    Port:      \
+            \    <none>\n    Host Port:     <none>\n    Command:\n      /bin/terraform-k8s\n\
+            \    Args:\n      --enable-leader-election\n      --k8s-watch-namespace=default\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
+            \  http-get http://:8383/metrics delay=30s timeout=5s period=5s #success=1\
+            \ #failure=3\n    Readiness:      http-get http://:8383/metrics delay=10s\
+            \ timeout=5s period=5s #success=1 #failure=5\n    Environment:\n     \
+            \ POD_NAME:            terraform-terraform-sync-workspace-67688dd4fd-spgdw\
+            \ (v1:metadata.name)\n      OPERATOR_NAME:       terraform-k8s\n     \
+            \ TF_VERSION:          latest\n      TF_CLI_CONFIG_FILE:  /etc/terraform/.terraformrc\n\
+            \      TF_URL:              \n    Mounts:\n      /etc/terraform from terraformrc\
+            \ (ro)\n      /tmp/secrets from sensitivevars (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-4rcgg (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  terraformrc:\n    Type:        Secret (a volume populated by a Secret)\n\
+            \    SecretName:  terraformrc\n    Optional:    false\n  sensitivevars:\n\
+            \    Type:        Secret (a volume populated by a Secret)\n    SecretName:\
+            \  workspacesecrets\n    Optional:    false\n  kube-api-access-4rcgg:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
+            \      From               Message\n  ----     ------       ----      \
+            \          ----               -------\n  Normal   Scheduled    8m    \
+            \              default-scheduler  Successfully assigned default/terraform-terraform-sync-workspace-67688dd4fd-spgdw\
+            \ to hx-terraf-0d41b-66oo-helm-control-plane\n  Warning  FailedMount \
+            \ 108s (x11 over 8m)  kubelet            MountVolume.SetUp failed for\
+            \ volume \"sensitivevars\" : secret \"workspacesecrets\" not found\n \
+            \ Warning  FailedMount  108s (x11 over 8m)  kubelet            MountVolume.SetUp\
+            \ failed for volume \"terraformrc\" : secret \"terraformrc\" not found"
+          logsHead: 'Error from server (BadRequest): container "terraform-sync-workspace"
+            in pod "terraform-terraform-sync-workspace-67688dd4fd-spgdw" is waiting
+            to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "terraform-sync-workspace"
+            in pod "terraform-terraform-sync-workspace-67688dd4fd-spgdw" is waiting
+            to start: ContainerCreating'
+          blockedReason: missing-required-secret
+          missingSecret: workspacesecrets
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource Deployment/default/terraform-terraform-sync-workspace
+        not ready. status: InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-terraf-0d41b-66oo-terraform
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 2d337b26518d3ec96a309b2b5ab1164da8d0fd23ec80fd42be51f00f20152526
+      objectCount: 5
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/terraform-terraform-sync-workspace   0/1   1     0     10s'
+        pods: '# default
+
+          terraform-terraform-sync-workspace-67688dd4fd-qfg6x   0/1   ContainerCreating   0     10s'
+        notReady:
+        - namespace: default
+          pod: terraform-terraform-sync-workspace-67688dd4fd-qfg6x
+          ready: 0/1
+          status: ContainerCreating
+          blockedReason: missing-required-secret
+          missingSecret: terraformrc
+        diagnostics:
+        - namespace: default
+          pod: terraform-terraform-sync-workspace-67688dd4fd-qfg6x
+          result: blocked
+          detailHead: "Name:             terraform-terraform-sync-workspace-67688dd4fd-qfg6x\n\
+            Namespace:        default\nPriority:         0\nService Account:  terraform-terraform-sync-workspace\n\
+            Node:             hx-terraf-0d41b-66oo-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 00:57:10 +0100\nLabels:           app=terraform\n\
+            \                  chart=terraform-helm\n                  component=sync-workspace\n\
+            \                  pod-template-hash=67688dd4fd\n                  release=terraform\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  \nIPs:              <none>\nControlled By:    ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd\n\
+            Containers:\n  terraform-sync-workspace:\n    Container ID:  \n    Image:\
+            \         hashicorp/terraform-k8s:1.1.2\n    Image ID:      \n    Port:\
+            \          <none>\n    Host Port:     <none>\n    Command:\n      /bin/terraform-k8s\n\
+            \    Args:\n      --enable-leader-election\n      --k8s-watch-namespace=default\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
+            \  http-get http://:8383/metrics delay=30s timeout=5s period=5s #success=1\
+            \ #failure=3\n    Readiness:      http-get http://:8383/metrics delay=10s\
+            \ timeout=5s period=5s #success=1 #failure=5\n    Environment:\n     \
+            \ POD_NAME:            terraform-terraform-sync-workspace-67688dd4fd-qfg6x\
+            \ (v1:metadata.name)\n      OPERATOR_NAME:       terraform-k8s\n     \
+            \ TF_VERSION:          latest\n      TF_CLI_CONFIG_FILE:  /etc/terraform/.terraformrc\n\
+            \      TF_URL:              \n    Mounts:\n      /etc/terraform from terraformrc\
+            \ (ro)\n      /tmp/secrets from sensitivevars (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-k959s (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  terraformrc:\n    Type:        Secret (a volume populated by a Secret)\n\
+            \    SecretName:  terraformrc\n    Optional:    false\n  sensitivevars:\n\
+            \    Type:        Secret (a volume populated by a Secret)\n    SecretName:\
+            \  workspacesecrets\n    Optional:    false\n  kube-api-access-k959s:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
+            \    From               Message\n  ----     ------       ----        \
+            \      ----               -------\n  Normal   Scheduled    10s       \
+            \        default-scheduler  Successfully assigned default/terrafor"
+          detailTail: "mponent=sync-workspace\n                  pod-template-hash=67688dd4fd\n\
+            \                  release=terraform\nAnnotations:      <none>\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    ReplicaSet/terraform-terraform-sync-workspace-67688dd4fd\nContainers:\n\
+            \  terraform-sync-workspace:\n    Container ID:  \n    Image:        \
+            \ hashicorp/terraform-k8s:1.1.2\n    Image ID:      \n    Port:      \
+            \    <none>\n    Host Port:     <none>\n    Command:\n      /bin/terraform-k8s\n\
+            \    Args:\n      --enable-leader-election\n      --k8s-watch-namespace=default\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Liveness:     \
+            \  http-get http://:8383/metrics delay=30s timeout=5s period=5s #success=1\
+            \ #failure=3\n    Readiness:      http-get http://:8383/metrics delay=10s\
+            \ timeout=5s period=5s #success=1 #failure=5\n    Environment:\n     \
+            \ POD_NAME:            terraform-terraform-sync-workspace-67688dd4fd-qfg6x\
+            \ (v1:metadata.name)\n      OPERATOR_NAME:       terraform-k8s\n     \
+            \ TF_VERSION:          latest\n      TF_CLI_CONFIG_FILE:  /etc/terraform/.terraformrc\n\
+            \      TF_URL:              \n    Mounts:\n      /etc/terraform from terraformrc\
+            \ (ro)\n      /tmp/secrets from sensitivevars (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-k959s (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  terraformrc:\n    Type:        Secret (a volume populated by a Secret)\n\
+            \    SecretName:  terraformrc\n    Optional:    false\n  sensitivevars:\n\
+            \    Type:        Secret (a volume populated by a Secret)\n    SecretName:\
+            \  workspacesecrets\n    Optional:    false\n  kube-api-access-k959s:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        BestEffort\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
+            \    From               Message\n  ----     ------       ----        \
+            \      ----               -------\n  Normal   Scheduled    10s       \
+            \        default-scheduler  Successfully assigned default/terraform-terraform-sync-workspace-67688dd4fd-qfg6x\
+            \ to hx-terraf-0d41b-66oo-installer-control-plane\n  Warning  FailedMount\
+            \  2s (x5 over 10s)  kubelet            MountVolume.SetUp failed for volume\
+            \ \"terraformrc\" : secret \"terraformrc\" not found\n  Warning  FailedMount\
+            \  2s (x5 over 10s)  kubelet            MountVolume.SetUp failed for volume\
+            \ \"sensitivevars\" : secret \"workspacesecrets\" not found"
+          logsHead: 'Error from server (BadRequest): container "terraform-sync-workspace"
+            in pod "terraform-terraform-sync-workspace-67688dd4fd-qfg6x" is waiting
+            to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "terraform-sync-workspace"
+            in pod "terraform-terraform-sync-workspace-67688dd4fd-qfg6x" is waiting
+            to start: ContainerCreating'
+          blockedReason: missing-required-secret
+          missingSecret: terraformrc
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 4
+      installerObjectCount: 4
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 4
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/default/terraform-terraform-sync-workspace
+      not ready. status: InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/terraform-terraform-sync-workspace   0/1   1     0     10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
