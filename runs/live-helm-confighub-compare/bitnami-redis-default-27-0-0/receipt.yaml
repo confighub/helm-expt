@@ -1,0 +1,1158 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-redis-27.0.0-default-live-parity-20260605
+spec:
+  chart: bitnami/redis
+  version: 27.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T00:55:37Z'
+  package:
+    path: packages/bitnami/redis/27.0.0
+  recipe:
+    path: recipes/bitnami/redis/27.0.0
+  variantRevision: recipes/bitnami/redis/27.0.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-redis-mqei4uwv-aj8
+    kubeContext: kind-helm-expt-parity-redis-mqei4uwv-aj8
+    namespace: redis
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: redis-helm
+      configHubKubectlApply: redis-apply
+      configHubOciArgo: redis-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-redis-mqei4uwv-aj8 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-redis-mqei4uwv-aj8"...
+
+        Deleting cluster "helm-expt-parity-redis-mqei4uwv-aj8" ...
+
+        Deleted nodes: ["helm-expt-parity-redis-mqei4uwv-aj8-control-plane"]
+
+        Deleting Space "helm-expt-parity-redis-mqei4uwv-aj8-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install redis redis --repo https://charts.bitnami.com/bitnami
+        --version 27.0.0 --namespace redis-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-default-27-0-0/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0
+      objectCount: 14
+      liveHelmManifestSHA256: 6694e295ed2cddf8ac58501a972e7a9f1dbf562d193ae282f581bd537b8ef321
+      liveHelmManifestObjectCount: 14
+      namespace: redis-helm
+      runtime:
+        result: pass
+        workloads: 'statefulset.apps/redis-master     1/1   85s
+
+          statefulset.apps/redis-replicas   3/3   85s'
+        pods: 'redis-master-0     1/1   Running   0     85s
+
+          redis-replicas-0   1/1   Running   0     85s
+
+          redis-replicas-1   1/1   Running   0     50s
+
+          redis-replicas-2   1/1   Running   0     25s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/redis/27.0.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqei4uwv-aj8-redis
+        --non-interactive --namespace redis-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 31bf7b7c953b5e74228137829071030476907dcac8e9590434cbcbb92ba50716
+      objectCount: 15
+      namespace: redis-apply
+      manifestNamespaces:
+      - redis
+      - redis-apply
+      runtimeNamespaces: &id001
+      - redis
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   81s
+
+          statefulset.apps/redis-replicas   3/3   81s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     81s
+
+          redis-replicas-0   1/1   Running   0     81s
+
+          redis-replicas-1   1/1   Running   0     51s
+
+          redis-replicas-2   1/1   Running   0     28s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - redis
+        - redis-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-redis-mqei4uwv-aj8-redis
+      controller: Argo CD OCI
+      app: redis-parity
+      manifestSHA256: a1b39d8b176424403b5d83dec8b02c24803c50a260f78827846f50076ce65667
+      objectCount: 15
+      namespace: redis-oci
+      manifestNamespaces:
+      - redis
+      - redis-oci
+      runtimeNamespaces: &id002
+      - redis
+      ociRevision: sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-redis-redis.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: redis-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-redis-mqei4uwv-aj8-redis
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci
+              targetRevision: latest
+          revision: sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T01:08:10Z'
+          status: Healthy
+        summary:
+          images:
+          - registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:06:42Z'
+          finishedAt: '2026-06-15T01:06:43Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 14
+          syncResultStatusCounts:
+            Synced: 14
+        history:
+        - id: 0
+          revision: sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+          deployedAt: '2026-06-15T01:06:43Z'
+          deployStartedAt: '2026-06-15T01:06:42Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-redis-mqei4uwv-aj8-redis
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: redis
+          name: redis-configuration
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: redis
+          name: redis-health
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: redis
+          name: redis-scripts
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: redis-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: redis
+          name: redis-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: redis
+          name: redis-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: redis
+          name: redis-replicas
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: redis
+          name: redis-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: redis
+          name: redis-replica
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: redis
+          name: redis-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: redis
+          name: redis-replicas
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: redis
+          name: redis
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: redis
+          name: redis-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: redis
+          name: redis-replicas
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         redis-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-redis-mqei4uwv-aj8-cluster:argoproj.io/Application:argocd/redis-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 6e4c86aa-155c-4bc5-9687-3a5e2c0bfa19\n              confighub.com/UnitSlug:\
+              \ redis-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-15T01:06:40Z\n\
+              \  Generation:          9\n  Resource Version:    2761\n  UID:     \
+              \            c9a16a59-ef55-4627-a359-3e6370eb0ead\nSpec:\n  Destination:\n\
+              \    Namespace:  redis-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-redis\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T01:08:10Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T01:06:42Z\n    Deployed At:        2026-06-15T01:06:43Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \    Source:\n      Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-redis\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:06:43Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \        Source:\n          Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-redis\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T01:06:42Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/redis-oci\
+              \ serverside-applied\n        Name:        redis-oci\n        Namespace:\
+              \   redis-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/redis serverside-applied\n\
+              \        Name:        redis\n        Namespace:   redis\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       policy\n        Hook Phase:  Running\n       \
+              \ Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/redis-master\
+              \ serverside-applied\n        Name:        redis-master\n        Namespace:\
+              \   redis\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       policy\n        Hook\
+              \ Phase:  Running\n        Kind:        PodDisruptionBudget\n      \
+              \  Message:     poddisruptionbudget.policy/redis-replicas serverside-applied\n\
+              \        Name:        redis-replicas\n        Namespace:   redis\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/redis-master\
+              \ serverside-applied\n        Name:        redis-master\n        Namespace:\
+              \   redis\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/redis-replica serverside-applied\n        Name: \
+              \       redis-replica\n        Namespace:   redis\n        Status: \
+              \     Synced\n        Sync Phase:  Sync\n        Version:     v1\n \
+              \       Group:       \n        Hook Phase:  Running\n        Kind: \
+              \       ConfigMap\n        Message:     configmap/redis-scripts serverside-applied\n\
+              \        Name:        redis-scripts\n        Namespace:   redis\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/redis-health\
+              \ serverside-applied\n        Name:        redis-health\n        Namespace:\
+              \   redis\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/redis-configuration\
+              \ serverside-applied\n        Name:        redis-configuration\n   \
+              \     Namespace:   redis\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        Service\n        Message:\
+              \     service/redis-headless serverside-applied\n        Name:     \
+              \   redis-headless\n        Namespace:   redis\n        Status:    \
+              \  Synced\n        Sync Phase:  Sync\n        Version:     v1\n    \
+              \    Group:       \n        Hook Phase:  Running\n        Kind:    \
+              \    Service\n        Message:     service/redis-master serverside-applied\n\
+              \        Name:        redis-master\n        Namespace:   redis\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        Service\n        Message:     service/redis-replicas\
+              \ serverside-applied\n        Name:        redis-replicas\n        Namespace:\
+              \   redis\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              97s         Normal   OperationStarted     application/redis-parity   Initiated
+              automated sync to ''sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123''
+
+              96s         Normal   ResourceUpdated      application/redis-parity   Updated
+              sync status:  -> OutOfSync
+
+              96s         Normal   ResourceUpdated      application/redis-parity   Updated
+              health status:  -> Healthy
+
+              95s         Normal   OperationCompleted   application/redis-parity   Sync
+              operation to sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+              succeeded
+
+              93s         Normal   ResourceUpdated      application/redis-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              93s         Normal   ResourceUpdated      application/redis-parity   Updated
+              health status: Healthy -> Progressing
+
+              8s          Normal   ResourceUpdated      application/redis-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 14
+              artifact:
+                path: argocd-core-child.json
+                sha256: d9fb988289410a2288c73022c4f509cf27060823d6098caae84d414fb0985c7e
+                bytes: 16064
+              output: "{\n  \"metadata\": {\n    \"name\": \"redis-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"c9a16a59-ef55-4627-a359-3e6370eb0ead\"\
+                ,\n    \"resourceVersion\": \"2785\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-15T01:06:40Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-redis-mqei4uwv-aj8-cluster:argoproj.io/Application:argocd/redis-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"6e4c86aa-155c-4bc5-9687-3a5e2c0bfa19\",\n      \"confighub.com/UnitSlug\"\
+                : \"redis-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T01:06:40Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T01:08:26Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-redis-mqei4uwv-aj8-redis\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"redis-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"redis\",\n        \"name\": \"redis-configuration\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"redis\",\n        \"name\": \"redis-health\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"ConfigMap\",\n        \"namespace\": \"redis\"\
+                ,\n        \"name\": \"redis-scripts\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Namespace\",\n        \"name\": \"redis-oci\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"Service\",\n        \"namespace\": \"redis\",\n\
+                \        \"name\": \"redis-headless\",\n        \"status\": \"Synced\"\
+                ,\n        \"health\": {\n          \"status\": \"Healthy\"\n    \
+                \    }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Service\",\n        \"namespace\": \"redis\",\n        \"\
+                name\": \"redis-master\",\n        \"status\": \"Synced\",\n     \
+                \   \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"redis\",\n        \"name\"\
+                : \"redis-replicas\",\n        \"status\": \"Synced\",\n        \"\
+                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
+                \      {\n     "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: df422312a223a564deb6c06cb15852aa0aeca746ce53a366e3ecf30f59b62db9
+                bytes: 3480
+              output: "Name:               argocd/redis-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          redis-oci\nURL:                http://localhost:60944/applications/redis-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-redis\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \   STATUS  HEALTH   AGE    MESSAGE                              \
+                \                         REASON\nConfigMap/redis-scripts        \
+                \                      Synced           112s   configmap/redis-scripts\
+                \ serverside-applied                    \nNamespace/redis-oci    \
+                \                              Synced           8m10s            \
+                \                                                    \nService/redis-headless\
+                \                               Synced  Healthy  112s   service/redis-headless\
+                \ serverside-applied                     \nNetworkPolicy/redis   \
+                \                               Synced           112s   networkpolicy.networking.k8s.io/redis\
+                \ serverside-applied      \nPodDisruptionBudget/redis-replicas   \
+                \                Synced  Healthy  112s   poddisruptionbudget.policy/redis-replicas\
+                \ serverside-applied  PodDisruptionBudget has SufficientPods\nConfigMap/redis-configuration\
+                \                        Synced           112s   configmap/redis-configuration\
+                \ serverside-applied              \nService/redis-master         \
+                \                        Synced  Healthy  112s   service/redis-master\
+                \ serverside-applied                       \nService/redis-replicas\
+                \                               Synced  Healthy  112s   service/redis-replicas\
+                \ serverside-applied                     \nServiceAccount/redis-master\
+                \                          Synced           112s   serviceaccount/redis-master\
+                \ serverside-applied                \nServiceAccount/redis-replica\
+                \                         Synced           112s   serviceaccount/redis-replica\
+                \ serverside-applied               \nStatefulSet/redis-master    \
+                \                         Synced  Healthy  112s   statefulset.apps/redis-master\
+                \ serverside-applied              statefulset rolling update complete\
+                \ 1 pods at revision redis-master-59d9685dbd...\n\u251C\u2500PersistentVolumeClaim/redis-data-redis-master-0\
+                \            Healthy  112s                                       \
+                \                          \n\u251C\u2500Pod/redis-master-0      \
+                \                                   Healthy  112s                \
+                \                                                 \n\u2514\u2500ControllerRevision/redis-master-59d9685dbd\
+                \                          112s                                  \
+                \                               \nStatefulSet/redis-replicas     \
+                \                      Synced  Healthy  112s   statefulset.apps/redis-replicas\
+                \ serverside-applied            statefulset rolling update complete\
+                \ 3 pods at revision redis-replicas-9fb448d57...\n\u251C\u2500PersistentVolumeClaim/redis-data-redis-replicas-0\
+                \          Healthy  112s                                         \
+                \                        \n\u251C\u2500PersistentVolumeClaim/redis-data-redis-replicas-1\
+                \          Healthy  81s                                          \
+                \                        \n\u251C\u2500PersistentVolumeClaim/redis-data-redis-replicas-2\
+                \          Healthy  57s                                          \
+                \                        \n\u251C\u2500Pod/redis-replicas-0      \
+                \                                 Healthy  112s                  \
+                \                                               \n\u251C\u2500Pod/redis-replicas-1\
+                \                                       Healthy  81s             \
+                \                                                     \n\u251C\u2500\
+                Pod/redis-replicas-2                                       Healthy\
+                \  57s                                                           \
+                \       \n\u2514\u2500ControllerRevision/redis-replicas-9fb448d57\
+                \                         112s                                   \
+                \                              \nPodDisruptionBudget/redis-master\
+                \                     Synced  Healthy  112s   poddisruptionbudget.policy/redis-master\
+                \ serverside-applied    PodDisruptionBudget has SufficientPods\nConfigMap/redis-health\
+                \                               Synced           112s   configmap/redis-health\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-redis-mqei4uwv-aj8-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              redis-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/redis-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"redis-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-redis-mqei4uwv-aj8-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci
+              targetRevision: latest
+          revision: sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T00:57:09Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T01:06:38Z'
+          finishedAt: '2026-06-15T01:06:40Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+          deployedAt: '2026-06-15T01:06:40Z'
+          deployStartedAt: '2026-06-15T01:06:38Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-redis-mqei4uwv-aj8-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-redis-mqei4uwv-aj8-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: redis-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-redis-mqei4uwv-aj8-cluster\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-06-15T00:56:59Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  2418\n  UID:        \
+              \       51699fec-359a-4fcf-91b5-c8b2fe6d3465\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T00:57:09Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T01:06:38Z\n\
+              \    Deployed At:        2026-06-15T01:06:40Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \    Source:\n      Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T01:06:40Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \        Source:\n          Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T01:06:38Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-redis-mqei4uwv-aj8-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/redis-parity serverside-applied\n\
+              \        Name:        redis-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n      Revision:      sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \      Source:\n        Path:              ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T01:06:40Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       redis-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     11m   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     11m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  117s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123'\n\
+              \  Normal  ResourceUpdated     117s  argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  115s  argocd-application-controller  Sync operation to sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\
+              \ succeeded\n  Normal  ResourceUpdated     114s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                    MESSAGE
+
+              11m         Normal   ResourceUpdated      application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Updated
+              sync status:  -> Synced
+
+              11m         Normal   ResourceUpdated      application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Updated
+              health status:  -> Healthy
+
+              117s        Normal   OperationStarted     application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Initiated
+              automated sync to ''sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123''
+
+              117s        Normal   ResourceUpdated      application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              115s        Normal   OperationCompleted   application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Sync
+              operation to sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123
+              succeeded
+
+              114s        Normal   ResourceUpdated      application/helm-expt-parity-redis-mqei4uwv-aj8-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 49c510e17cb02e9ca0160c0397c50ee05b0cbe7401df60b851402b87fc923914
+                bytes: 10591
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"51699fec-359a-4fcf-91b5-c8b2fe6d3465\"\
+                ,\n    \"resourceVersion\": \"2811\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T00:56:59Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\\\",\\\"namespace\\\"\
+                :\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-redis-mqei4uwv-aj8-cluster\\\",\\\"repoURL\\\"\
+                :\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T00:56:59Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T01:08:44Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: c7895779aac7d15ad74e31f613aa2c587d28eb71ee827e1c3602c6f1b91505dd
+                bytes: 1101
+              output: "Name:               argocd/helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:61059/applications/helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-redis-mqei4uwv-aj8-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \       STATUS  HEALTH  AGE    MESSAGE                           \
+                \                                                      REASON\nApplication/helm-expt-parity-redis-mqei4uwv-aj8-cluster\
+                \  Synced          11m    application.argoproj.io/helm-expt-parity-redis-mqei4uwv-aj8-cluster\
+                \ serverside-applied  \nApplication/redis-parity                 \
+                \                Synced          2m12s  application.argoproj.io/redis-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-redis-mqei4uwv-aj8-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              redis-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/redis-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c89763102c89daa5798061e5764b895789ba1a400de6a5fb77157105bc6a123\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-redis-mqei4uwv-aj8-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"redis-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   2m10s
+
+          statefulset.apps/redis-replicas   3/3   2m10s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     2m10s
+
+          redis-replicas-0   1/1   Running   0     2m10s
+
+          redis-replicas-1   1/1   Running   0     99s
+
+          redis-replicas-2   1/1   Running   0     75s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||redis
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||redis
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: ea112fb4d1279713ea885f9b52c41480a34915c12262f81e8d31ba6f624ca9fa
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||redis
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: ea112fb4d1279713ea885f9b52c41480a34915c12262f81e8d31ba6f624ca9fa
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T00:56:59Z'
+    finishedAt: '2026-06-15T00:58:31Z'
+    elapsedSeconds: 91.759
+    timeoutSeconds: 900
+    command: helm upgrade --install redis redis --repo https://charts.bitnami.com/bitnami
+      --version 27.0.0 --namespace redis-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-default-27-0-0/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T00:58:42Z'
+    finishedAt: '2026-06-15T00:58:42Z'
+    elapsedSeconds: 0.427
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/redis/27.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqei4uwv-aj8-redis
+      --non-interactive --namespace redis-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T00:58:43Z'
+    finishedAt: '2026-06-15T00:58:43Z'
+    elapsedSeconds: 0.185
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqei4uwv-aj8.kubeconfig
+      --context kind-helm-expt-parity-redis-mqei4uwv-aj8 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-default-27-0-0/direct-apply-manifest.yaml
+    objectCount: 14
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T00:58:43Z'
+    finishedAt: '2026-06-15T01:00:04Z'
+    elapsedSeconds: 81.149
+    timeoutSeconds: 300
+    namespaces: redis
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T01:00:25Z'
+    finishedAt: '2026-06-15T01:00:25Z'
+    elapsedSeconds: 0.318
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/redis/27.0.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqei4uwv-aj8-redis
+      --non-interactive --namespace redis-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T01:00:25Z'
+    finishedAt: '2026-06-15T01:01:15Z'
+    elapsedSeconds: 49.549
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqei4uwv-aj8-redis
+      --space helm-expt-parity-redis-mqei4uwv-aj8-redis --target helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci
+    objectCount: 15
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T01:01:15Z'
+    finishedAt: '2026-06-15T01:01:15Z'
+    elapsedSeconds: 0.71
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-redis-mqei4uwv-aj8-redis
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T01:01:15Z'
+    finishedAt: '2026-06-15T01:06:25Z'
+    elapsedSeconds: 309.126
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-redis-mqei4uwv-aj8-redis --unit
+      <14 unit(s)> --wait --timeout 5m
+    unitCount: 14
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T01:06:25Z'
+    finishedAt: '2026-06-15T01:06:26Z'
+    elapsedSeconds: 1.266
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-redis-mqei4uwv-aj8-cluster redis-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-default-27-0-0/argo-application.json
+      --target helm-expt-parity-redis-mqei4uwv-aj8-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T01:06:26Z'
+    finishedAt: '2026-06-15T01:06:27Z'
+    elapsedSeconds: 1.599
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-redis-mqei4uwv-aj8-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T01:06:28Z'
+    finishedAt: '2026-06-15T01:08:18Z'
+    elapsedSeconds: 110.64
+    timeoutSeconds: 420
+    waitedSeconds: 110
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T01:08:53Z'
+    finishedAt: '2026-06-15T01:08:53Z'
+    elapsedSeconds: 0.111
+    timeoutSeconds: 180
+    namespaces: redis
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-redis-mqei4uwv-aj8\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqei4uwv-aj8.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-redis-mqei4uwv-aj8\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-redis-mqei4uwv-aj8\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-redis-mqei4uwv-aj8\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqei4uwv-aj8.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
+      spec: {}\nsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"redis\" does not exist. Installing it now.\nNAME: redis\nLAST\
+      \ DEPLOYED: Mon Jun 15 01:57:05 2026\nNAMESPACE: redis-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: redis\nCHART VERSION: 27.0.0\nAPP VERSION: 8.8.0\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nRedis(R) can\
+      \ be accessed on the following DNS names from within your cluster:\n\n    redis-master.redis-helm.svc.cluster.local\
+      \ for read/write operations (port 6379)\n    redis-replicas.redis-helm.svc.cluster.local\
+      \ for read-only operations (port 6379)\n\nTo get your password run:\n\n    export\
+      \ REDIS_PASSWORD=$(kubectl get secret --namespace redis-helm redis -o jsonpath=\"\
+      {.data.redis-password}\" | "
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# redis
+
+      statefulset.apps/redis-master     1/1   81s
+
+      statefulset.apps/redis-replicas   3/3   81s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 110s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: redis
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: redis
