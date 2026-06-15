@@ -56,6 +56,7 @@ grafana/grafana,10.5.15,generated-passwords,pass,pass,,,live parity passed,runs/
 grafana/loki,7.0.0,simple-scalable-minio,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml
 grafana/loki,7.0.0,single-binary-filesystem,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml
 grafana/promtail,6.17.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-promtail-default/receipt.yaml
+grafana/pyroscope,2.0.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml
 grafana/tempo,1.24.4,local-persistent,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml
 grafana/tempo,1.24.4,s3-query-observability,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml
 hashicorp/consul,2.0.0,default-control-plane,pass,pass,,,live parity passed,runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
