@@ -17,3 +17,47 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredNamespaces:
+      -
+        name: "cert-manager"
+        purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+    requiredCRDs:
+      -
+        name: "certificates.cert-manager.io"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "issuers.cert-manager.io"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "trust-manager-tls"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

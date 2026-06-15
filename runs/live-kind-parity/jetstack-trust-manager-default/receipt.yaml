@@ -1,0 +1,215 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: jetstack-trust-manager-v0.22.1-default-kind-parity-20260606
+spec:
+  chart: jetstack/trust-manager
+  version: v0.22.1
+  base: default
+  result: pass
+  observedAt: '2026-06-15T11:11:07Z'
+  package:
+    path: packages/jetstack/trust-manager/v0.22.1
+  recipe:
+    path: recipes/jetstack/trust-manager/v0.22.1
+  variantRevision: recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-trustm-d5d01-4ejh-helm
+    installerCluster: hx-trustm-d5d01-4ejh-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-trustm-d5d01-4ejh-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-trustm-d5d01-4ejh-helm" ...
+
+          Deleted nodes: ["hx-trustm-d5d01-4ejh-helm-control-plane"]'
+      - cluster: hx-trustm-d5d01-4ejh-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-trustm-d5d01-4ejh-installer" ...
+
+          Deleted nodes: ["hx-trustm-d5d01-4ejh-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
+        --version v0.22.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683
+      objectCount: 14
+      liveHelmManifestSHA256: 683e9a5843663fbe5fa2e604a86332966b52b32a0f7e9c03096ddda6176c9c20
+      liveHelmManifestObjectCount: 14
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/trust-manager   1/1   1     1     10s'
+        pods: '# default
+
+          trust-manager-6db9f66446-nlgfd   1/1   Running   0     10s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-trustm-d5d01-4ejh-trust-manager
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 065507110a8f540c0b459e39a917566653d6d7fc6ffb7e6755cdd52a70b7f1a2
+      objectCount: 15
+      manifestNamespaces:
+      - cert-manager
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/trust-manager   1/1   1     1     20s'
+        pods: '# default
+
+          trust-manager-6db9f66446-v2fcz   1/1   Running   0     20s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 14
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 15
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=1 crds=2 namespaces=1
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=1 crds=2 namespaces=1
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"trust-manager\" does not exist. Installing it now.\nNAME: trust-manager\n\
+      LAST DEPLOYED: Mon Jun 15 12:12:02 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\u26A0\
+      \uFE0F  WARNING: Consider increasing the Helm value `replicaCount` to 2 if you\
+      \ require high availability.\n\u26A0\uFE0F  WARNING: Consider setting the Helm\
+      \ value `podDisruptionBudget.enabled` to true if you require high availability.\n\
+      \ntrust-manager v0.22.1 has been deployed successfully!\nYour installation includes\
+      \ a default CA package, using the following\ndefault CA package image:\n\n:\n\
+      \nIt's imperative that you keep the default CA package image up to date.\nTo\
+      \ find out more about securely running trust-manager and to get started\nwith\
+      \ creating your first bundle, check out the documentation on the\ncert-manager\
+      \ website:\n\nhttps://cert-manager.io/docs/projects/trust-manager/"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/trust-manager   1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: trust-manager-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+      stagedCRDs:
+      - name: certificates.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: regularHelm
+      - name: issuers.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: regularHelm
+      stagedObjectStores: []
+      stagedNamespaces:
+      - name: cert-manager
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: default
+        name: trust-manager-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: cubInstallerApply
+      stagedCRDs:
+      - name: certificates.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: cubInstallerApply
+      - name: issuers.cert-manager.io
+        sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      stagedNamespaces:
+      - name: cert-manager
+        lane: cubInstallerApply
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
