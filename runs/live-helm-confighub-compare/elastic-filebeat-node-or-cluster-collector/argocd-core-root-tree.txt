@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-filebeat-mqfc8opn-qzo-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:55172/applications/helm-expt-parity-filebeat-mqfc8opn-qzo-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-filebeat-mqfc8opn-qzo-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-filebeat-mqfc8opn-qzo-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                   STATUS  HEALTH  AGE    MESSAGE                                                                                    REASON
+Application/filebeat-parity                                 Synced          7m36s  application.argoproj.io/filebeat-parity serverside-applied
+Application/helm-expt-parity-filebeat-mqfc8opn-qzo-cluster  Synced          24m    application.argoproj.io/helm-expt-parity-filebeat-mqfc8opn-qzo-cluster serverside-applied

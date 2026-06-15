@@ -5,7 +5,7 @@ metadata:
   chart: "elastic/filebeat"
   version: "8.5.1"
 spec:
-  summary: "The default Filebeat base renders a DaemonSet that mounts an Elasticsearch TLS Secret named elasticsearch-master-certs. The chart can be delivered by Helm and by ConfigHub with semantic parity, but the workload cannot start on a target where that Secret is absent."
+  summary: "The Filebeat bases currently render the same DaemonSet shape: it mounts an Elasticsearch TLS Secret named elasticsearch-master-certs and reads Elasticsearch credentials from elasticsearch-master-credentials. The chart can be delivered by Helm and by ConfigHub with semantic parity, but the workload cannot start on a target where those Elasticsearch prerequisites are absent."
   bases:
     default:
       status: "target-prerequisite-needed"
@@ -17,6 +17,12 @@ spec:
           namespace: "release namespace"
           status: "target-prerequisite"
           purpose: "The Filebeat DaemonSet mounts this Secret before the container can start."
+        -
+          kind: "Secret"
+          name: "elasticsearch-master-credentials"
+          namespace: "release namespace"
+          status: "target-prerequisite"
+          purpose: "The Filebeat container reads username/password keys from this Secret."
       requiredBeforeObserve:
         -
           kind: "ElasticsearchEndpoint"
@@ -25,7 +31,39 @@ spec:
           purpose: "The base assumes Filebeat is shipping to an Elasticsearch-compatible target with matching TLS material."
       mustObserve:
         - "Secret elasticsearch-master-certs exists in each live leg namespace before the DaemonSet is expected to become ready."
+        - "Secret elasticsearch-master-credentials exists in each live leg namespace with username and password keys before the DaemonSet is expected to pass readiness."
         - "Filebeat DaemonSet pods leave ContainerCreating and report ready after the Secret is present."
+        - "Argo aggregate health becomes Healthy, or any remaining Progressing condition is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "daemonset-readiness-receipt"
+        - "gitops-health-receipt"
+    node-or-cluster-collector:
+      status: "target-prerequisite-needed"
+      currentProofLimit: "This base is currently an alias of the default render. Its live parity receipt shows the same result as default: regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo all reach ContainerCreating because Secret elasticsearch-master-certs is absent. ConfigHub semantic parity passes; the missing Elasticsearch material is a target prerequisite or proof that this alias is not yet a safer first-run base."
+      requiredBeforeApply:
+        -
+          kind: "Secret"
+          name: "elasticsearch-master-certs"
+          namespace: "release namespace"
+          status: "target-prerequisite"
+          purpose: "The Filebeat DaemonSet mounts this Secret before the container can start."
+        -
+          kind: "Secret"
+          name: "elasticsearch-master-credentials"
+          namespace: "release namespace"
+          status: "target-prerequisite"
+          purpose: "The Filebeat container reads username/password keys from this Secret."
+      requiredBeforeObserve:
+        -
+          kind: "ElasticsearchEndpoint"
+          name: "elasticsearch-master"
+          status: "target-scope-decision"
+          purpose: "The base assumes Filebeat is shipping to an Elasticsearch-compatible target with matching TLS material."
+      mustObserve:
+        - "Secret elasticsearch-master-certs exists in each live leg namespace before the DaemonSet is expected to become ready."
+        - "Secret elasticsearch-master-credentials exists in each live leg namespace with username and password keys before the DaemonSet is expected to pass readiness."
+        - "Filebeat DaemonSet pods leave ContainerCreating and report ready after both Secrets are present."
         - "Argo aggregate health becomes Healthy, or any remaining Progressing condition is explicitly accepted for the target scope."
       requiredReceipts:
         - "target-fact-receipt"
@@ -33,13 +71,16 @@ spec:
         - "gitops-health-receipt"
   evidence:
     liveParityReceipt: "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml"
+    additionalReceipts:
+      - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
     regularHelmEvent: "MountVolume.SetUp failed for volume elasticsearch-master-certs: Secret elasticsearch-master-certs not found"
     configHubDirectEvent: "MountVolume.SetUp failed for volume elasticsearch-master-certs: Secret elasticsearch-master-certs not found"
     configHubOciEvent: "MountVolume.SetUp failed for volume elasticsearch-master-certs: Secret elasticsearch-master-certs not found"
   nextInvestigation:
     - "Decide whether the public catalog should expose this base only as an Elasticsearch-attached collector base requiring a staged TLS Secret."
     - "Add an install-checks or target-facts entry for elasticsearch-master-certs if this base remains catalog-supported."
-    - "Consider a safer first-run base that disables or replaces the Elasticsearch TLS mount for demo targets."
+    - "Add an install-checks or target-facts entry for elasticsearch-master-credentials if this base remains catalog-supported."
+    - "Replace the alias with a safer first-run base that disables or replaces the Elasticsearch TLS mount for demo targets, or rename the base so users understand it is Elasticsearch-attached."
   notProvenBy:
     - "render parity alone"
     - "Argo Synced while the DaemonSet remains Progressing"

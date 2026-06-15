@@ -410,8 +410,8 @@ elastic/filebeat@8.5.1,default,two_cluster_kind_parity,K,missing,blocked,yes,ups
 elastic/filebeat@8.5.1,node-or-cluster-collector,render_parity,R,pass,pass,no,,,
 elastic/filebeat@8.5.1,node-or-cluster-collector,in_confighub,C,pass,pass,no,,,
 elastic/filebeat@8.5.1,node-or-cluster-collector,local_live,L,blocked,blocked,no,,,
-elastic/filebeat@8.5.1,node-or-cluster-collector,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-elastic/filebeat@8.5.1,node-or-cluster-collector,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+elastic/filebeat@8.5.1,node-or-cluster-collector,gitops_oci_live,G,watch,watch,no,,,
+elastic/filebeat@8.5.1,node-or-cluster-collector,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 elastic/filebeat@8.5.1,node-or-cluster-collector,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 elastic/kibana@8.5.1,default,render_parity,R,pass,pass,no,,,
 elastic/kibana@8.5.1,default,in_confighub,C,pass,pass,no,,,

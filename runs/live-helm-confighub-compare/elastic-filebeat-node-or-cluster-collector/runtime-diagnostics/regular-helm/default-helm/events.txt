@@ -1,0 +1,4 @@
+LAST SEEN   TYPE      REASON             OBJECT                        MESSAGE
+11m         Normal    Scheduled          pod/filebeat-filebeat-znchl   Successfully assigned default-helm/filebeat-filebeat-znchl to helm-expt-parity-filebeat-mqfc8opn-qzo-control-plane
+11m         Normal    SuccessfulCreate   daemonset/filebeat-filebeat   Created pod: filebeat-filebeat-znchl
+46s         Warning   FailedMount        pod/filebeat-filebeat-znchl   MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

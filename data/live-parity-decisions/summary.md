@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-22 non-pass rows: 21 watch, 1 blocked.
+23 non-pass rows: 22 watch, 1 blocked.
 1 are resolved by the **user** (stage a prerequisite); 0
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,14 +34,14 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
-| `target-runtime` | 4 |
+| `target-runtime` | 5 |
 | `operate-policy` | 1 |
 | `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
-| `needs runtime review` | 4 |
+| `needs runtime review` | 5 |
 | `needs operate review` | 1 |
 | `user` | 1 |
 
@@ -57,6 +57,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/opensearch@2.0.10 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/opensearch@2.0.10 | ha | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |

@@ -1,0 +1,4 @@
+LAST SEEN   TYPE      REASON             OBJECT                        MESSAGE
+10m         Normal    Scheduled          pod/filebeat-filebeat-vl4pg   Successfully assigned default-oci/filebeat-filebeat-vl4pg to helm-expt-parity-filebeat-mqfc8opn-qzo-control-plane
+10m         Normal    SuccessfulCreate   daemonset/filebeat-filebeat   Created pod: filebeat-filebeat-vl4pg
+20s         Warning   FailedMount        pod/filebeat-filebeat-vl4pg   MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

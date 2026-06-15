@@ -125,6 +125,20 @@
       "receipt": "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml"
     },
     {
+      "chart": "elastic/filebeat",
+      "version": "8.5.1",
+      "variant": "node-or-cluster-collector",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod ContainerCreating (parity passed)",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+    },
+    {
       "chart": "fluent/fluentd",
       "version": "0.5.3",
       "variant": "default",
