@@ -586,7 +586,7 @@ grafana/pyroscope@2.0.2,no-crds,in_confighub,C,pass,pass,no,,,
 grafana/pyroscope@2.0.2,no-crds,local_live,L,pass,pass,no,,,
 grafana/pyroscope@2.0.2,no-crds,gitops_oci_live,G,watch,watch,no,,,
 grafana/pyroscope@2.0.2,no-crds,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-grafana/pyroscope@2.0.2,no-crds,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+grafana/pyroscope@2.0.2,no-crds,two_cluster_kind_parity,K,pass,pass,no,,,
 grafana/rollout-operator@0.49.0,default,render_parity,R,pass,pass,no,,,
 grafana/rollout-operator@0.49.0,default,in_confighub,C,pass,pass,no,,,
 grafana/rollout-operator@0.49.0,default,local_live,L,pass,pass,no,,,
