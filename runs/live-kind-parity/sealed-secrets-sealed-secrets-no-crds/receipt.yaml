@@ -1,0 +1,169 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: sealed-secrets-sealed-secrets-2.18.6-no-crds-kind-parity-20260606
+spec:
+  chart: sealed-secrets/sealed-secrets
+  version: 2.18.6
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-15T06:03:06Z'
+  package:
+    path: packages/sealed-secrets/sealed-secrets/2.18.6
+  recipe:
+    path: recipes/sealed-secrets/sealed-secrets/2.18.6
+  variantRevision: recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-sealed-5d52e-4af5-helm
+    installerCluster: hx-sealed-5d52e-4af5-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-sealed-5d52e-4af5-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-sealed-5d52e-4af5-helm" ...
+
+          Deleted nodes: ["hx-sealed-5d52e-4af5-helm-control-plane"]'
+      - cluster: hx-sealed-5d52e-4af5-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-sealed-5d52e-4af5-installer" ...
+
+          Deleted nodes: ["hx-sealed-5d52e-4af5-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install sealed-secrets sealed-secrets --repo https://bitnami-labs.github.io/sealed-secrets
+        --version 2.18.6 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/sealed-secrets-sealed-secrets-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c
+      objectCount: 10
+      liveHelmManifestSHA256: 8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     8s'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-q7bxl   1/1   Running   0     9s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-sealed-5d52e-4af5-sealed-secrets
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: d2247cfd2a23a544589c143f7dfcb68ca5146c00687a6ef89d8cda7e74565a54
+      objectCount: 11
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/sealed-secrets   1/1   1     1     10s'
+        pods: '# default
+
+          sealed-secrets-657974dfb4-dfxkt   1/1   Running   0     10s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"sealed-secrets\" does not exist. Installing it now.\nNAME:\
+      \ sealed-secrets\nLAST DEPLOYED: Mon Jun 15 07:03:58 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n** Please be patient while the chart is being deployed **\n\nYou should\
+      \ now be able to create sealed secrets.\n\n1. Install the client-side tool (kubeseal)\
+      \ as explained in the docs below:\n\n    https://github.com/bitnami-labs/sealed-secrets#installation-from-source\n\
+      \n2. Create a sealed secret file running the command below:\n\n    kubectl create\
+      \ secret generic secret-name --dry-run=client --from-literal=foo=bar -o [json|yaml]\
+      \ | \\\n    kubeseal \\\n      --controller-name=sealed-secrets \\\n      --controller-namespace=default\
+      \ \\\n      --format yaml > mysealedsecret.[json|yaml]\n\nThe file mysealedsecret.[json|yaml]\
+      \ is a commitable file.\n\nIf you would rather not need access to the cluster\
+      \ to generate the sealed secret you can run:\n\n    kubeseal \\\n      --controller-name=sealed-secret"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/sealed-secrets   1/1   1     1     10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
