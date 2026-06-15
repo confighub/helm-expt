@@ -1,0 +1,195 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: falcosecurity-falco-9.0.0-default-kind-parity-20260606
+spec:
+  chart: falcosecurity/falco
+  version: 9.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T07:36:33Z'
+  package:
+    path: packages/falcosecurity/falco/9.0.0
+  recipe:
+    path: recipes/falcosecurity/falco/9.0.0
+  variantRevision: recipes/falcosecurity/falco/9.0.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-falco-2d69f-gha6-helm
+    installerCluster: hx-falco-2d69f-gha6-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-falco-2d69f-gha6-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-falco-2d69f-gha6-helm" ...
+
+          Deleted nodes: ["hx-falco-2d69f-gha6-helm-control-plane"]'
+      - cluster: hx-falco-2d69f-gha6-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-falco-2d69f-gha6-installer" ...
+
+          Deleted nodes: ["hx-falco-2d69f-gha6-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install falco falco --repo https://falcosecurity.github.io/charts
+        --version 9.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/falcosecurity-falco-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648
+      objectCount: 6
+      liveHelmManifestSHA256: ce03c0baf0beaaee9136c780a4d3b00718b96c86c1e8a0347b28e0f8d549a02c
+      liveHelmManifestObjectCount: 6
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          daemonset.apps/falco   1     1     1     1     1     <none>   75s'
+        pods: '# default
+
+          falco-v56sj   2/2   Running   0     75s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/falcosecurity/falco/9.0.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-falco-2d69f-gha6-falco
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: c5ea1fb5767bd40257fe4ed007cd391d6ed1a4bf13c4f7ee2510a31c9c73442b
+      objectCount: 7
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          daemonset.apps/falco   1     1     1     1     1     <none>   81s'
+        pods: '# default
+
+          falco-nsfks   2/2   Running   0     82s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "falco" does not exist. Installing it now.
+
+      NAME: falco
+
+      LAST DEPLOYED: Mon Jun 15 08:37:24 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Falco agents are spinning up on each node in your cluster. After a few
+
+      seconds, they are going to start monitoring your containers looking for
+
+      security issues.
+
+
+      TIP:
+
+      You can easily forward Falco events to Slack, Kafka, AWS Lambda and more with
+      falcosidekick.
+
+      Full list of outputs: https://github.com/falcosecurity/charts/tree/master/charts/falcosidekick.
+
+      You can enable its deployment with `--set falcosidekick.enabled=true` or in
+      your values.yaml.
+
+      See: https://github.com/falcosecurity/charts/blob/master/charts/falcosidekick/values.yaml
+      for configuration values.'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      daemonset.apps/falco   1     1     1     1     1     <none>   81s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
