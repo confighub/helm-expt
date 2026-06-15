@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 23
+rows: 24
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 3
-watch: 20
+watch: 21
 configHub-oci-live-comparison: 18
-two-cluster-kind-parity: 5
+two-cluster-kind-parity: 6
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
-runtime-or-watch-rows: 17
+runtime-or-watch-rows: 18
 ```
 
 ## Current Interpretation
@@ -53,6 +53,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
+| `kyverno/kyverno-policies@3.8.0` | default | watch | Rerun once on a clean pair of vanilla kind clusters; if object parity remains clean, decide whether readiness should stay watch. | Do not change chart artifacts unless semantic parity or object readiness shows a real difference. |
 
 
 ## Lane Breakdown
@@ -60,7 +61,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 18 | 0 | 17 | 1 | 0 |
-| two-cluster-kind-parity | 5 | 0 | 3 | 2 | 0 |
+| two-cluster-kind-parity | 6 | 0 | 4 | 2 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -87,7 +88,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | gitops-runtime-review | 13 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 4 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -105,7 +106,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 17 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 18 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -164,6 +165,7 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | default | watch | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `kyverno/kyverno-policies@3.8.0` | default | watch | watch: object parity passed; readiness needs review | - | `npm run kind-parity:run -- --chart kyverno/kyverno-policies --version 3.8.0 --base default` |
 
 
 

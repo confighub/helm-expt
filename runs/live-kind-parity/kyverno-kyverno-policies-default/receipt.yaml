@@ -1,0 +1,162 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: kyverno-kyverno-policies-3.8.0-default-kind-parity-20260606
+spec:
+  chart: kyverno/kyverno-policies
+  version: 3.8.0
+  base: default
+  result: watch
+  observedAt: '2026-06-15T09:26:06Z'
+  package:
+    path: packages/kyverno/kyverno-policies/3.8.0
+  recipe:
+    path: recipes/kyverno/kyverno-policies/3.8.0
+  variantRevision: recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-kyvern-792e5-dcni-helm
+    installerCluster: hx-kyvern-792e5-dcni-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-kyvern-792e5-dcni-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-kyvern-792e5-dcni-helm" ...
+
+          Deleted nodes: ["hx-kyvern-792e5-dcni-helm-control-plane"]'
+      - cluster: hx-kyvern-792e5-dcni-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-kyvern-792e5-dcni-installer" ...
+
+          Deleted nodes: ["hx-kyvern-792e5-dcni-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install kyverno-policies kyverno-policies --repo https://kyverno.github.io/kyverno/
+        --version 3.8.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9
+      objectCount: 11
+      liveHelmManifestSHA256: 7f79ca326149f6e7b25f553ae0e3e1e0f5e8266b33fac25a3fd47dc5db591083
+      liveHelmManifestObjectCount: 11
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default'
+        pods: '# default'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-kyvern-792e5-dcni-kyverno-policies
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: c4daa1959baa789f1e3b3a8fe5c8e9ddc9d29bf5eedc0eb7782e9b356228189b
+      objectCount: 12
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default'
+        pods: '# default'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 11
+      installerObjectCount: 12
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=1
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=1
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: watch
+    detail: "Release \"kyverno-policies\" does not exist. Installing it now.\nNAME:\
+      \ kyverno-policies\nLAST DEPLOYED: Mon Jun 15 10:27:01 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nThank you for installing kyverno-policies 3.8.0 \U0001F600\n\nWe have\
+      \ installed the \"baseline\" profile of Pod Security Standards and set them\
+      \ in Audit mode.\n\nVisit https://kyverno.io/policies/ to find more sample policies."
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# default'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: kyverno/kyverno@3.8.1/default
+        lane: regularHelm
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: clusterpolicies.kyverno.io
+        sourceVariant: kyverno/kyverno@3.8.1/default
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
