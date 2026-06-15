@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 196 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 77 |
+| Live commands remaining | 195 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 76 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 16 |
-| Ready-to-run todo rows | 180 |
+| Ready-to-run todo rows | 179 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 77 |
+| `live-parity` | 76 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 180 |
+| `todo` | 179 |
 | `watch` | 16 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 180 |
+| `ready-to-run` | 179 |
 | `review-target-first` | 15 |
 
 ## Active Watch Rows
@@ -75,7 +75,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| haproxytech/kubernetes-ingress | 1.52.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/haproxytech/kubernetes-ingress/1.52.0 --base default |
 | jaegertracing/jaeger | 4.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger/4.8.0 --base default |
 | jetstack/cert-manager-csi-driver | v0.14.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager-csi-driver/v0.14.0 --base default |
 | kyverno/kyverno-policies | 3.8.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default |
@@ -95,6 +94,7 @@ generated priority. They are good candidates for a serial live block.
 | vm/victoria-logs-single | 0.12.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/vm/victoria-logs-single/0.12.5 --base default |
 | vm/victoria-metrics-single | 0.39.0 | default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/vm/victoria-metrics-single/0.39.0 --base default-reviewed |
 | argo-cd/argo-workflows | 1.0.14 | controller-default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed |
+| argo-cd/argo-workflows | 1.0.14 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-workflows/1.0.14 --base default |
 
 ## Full Queue
 

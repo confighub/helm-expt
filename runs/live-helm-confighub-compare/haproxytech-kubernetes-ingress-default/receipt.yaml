@@ -1,0 +1,1063 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: haproxytech-kubernetes-ingress-1.52.0-default-live-parity-20260605
+spec:
+  chart: haproxytech/kubernetes-ingress
+  version: 1.52.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T02:48:44Z'
+  package:
+    path: packages/haproxytech/kubernetes-ingress/1.52.0
+  recipe:
+    path: recipes/haproxytech/kubernetes-ingress/1.52.0
+  variantRevision: recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kubernetesingress-mqem6bzu-1i32
+    kubeContext: kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kubernetesingress-mqem6bzu-1i32
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kubernetesingress-mqem6bzu-1i32"...
+
+        Deleting cluster "helm-expt-parity-kubernetesingress-mqem6bzu-1i32" ...
+
+        Deleted nodes: ["helm-expt-parity-kubernetesingress-mqem6bzu-1i32-control-plane"]
+
+        Deleting Space "helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo
+        https://haproxytech.github.io/helm-charts --version 1.52.0 --namespace default-helm
+        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544
+      objectCount: 7
+      liveHelmManifestSHA256: 9814afad982cbd014640b821c633f7d84f75822bb5541721596961cad8b5c577
+      liveHelmManifestObjectCount: 7
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/kubernetes-ingress   2/2   2     2     30s
+        pods: 'kubernetes-ingress-65c9784c78-jwjqr   1/1   Running   0     30s
+
+          kubernetes-ingress-65c9784c78-wmnrl   1/1   Running   0     30s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 44754900d2bb9801fe5610e6005d1edf5e55017a2ce942abd09bcd8302f71f5d
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/kubernetes-ingress   2/2   2     2     21s'
+        pods: '# default
+
+          kubernetes-ingress-796844dd4c-9x6q2   1/1   Running   0     21s
+
+          kubernetes-ingress-796844dd4c-dzv44   1/1   Running   0     21s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "kubernetes-ingress" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kubernetes-ingress" deleted
+
+            ingressclass.networking.k8s.io "haproxy" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|kubernetes-ingress
+          - v1|ConfigMap|default|kubernetes-ingress
+          - v1|ServiceAccount|default|kubernetes-ingress
+          - v1|Service|default|kubernetes-ingress
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      controller: Argo CD OCI
+      app: kubernetes-ingress-parity
+      manifestSHA256: 2a801c15af1fd40ee659ff699ecabe4d5fedf41b4b7ee6c153a9ea1000385384
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+              targetRevision: latest
+          revision: sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T02:51:55Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/haproxytech/kubernetes-ingress:3.2.9
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T02:51:55Z'
+          finishedAt: '2026-06-15T02:51:57Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 8
+          syncResultStatusCounts:
+            Synced: 8
+        history:
+        - id: 0
+          revision: sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+          deployedAt: '2026-06-15T02:51:57Z'
+          deployStartedAt: '2026-06-15T02:51:55Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: IngressClass
+          namespace: ''
+          name: haproxy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kubernetes-ingress
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kubernetes-ingress-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster:argoproj.io/Application:argocd/kubernetes-ingress-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 3a4cf833-514a-4d44-a155-e9cfb667e408\n              confighub.com/UnitSlug:\
+              \ kubernetes-ingress-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T02:51:54Z\n\
+              \  Generation:          8\n  Resource Version:    1303\n  UID:     \
+              \            2d04880c-d4fd-45e3-9872-e0521b8c9846\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T02:51:55Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T02:51:55Z\n    Deployed At:        2026-06-15T02:51:57Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T02:51:57Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T02:51:55Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/kubernetes-ingress serverside-applied\n        Name:\
+              \        kubernetes-ingress\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ConfigMap\n        Message:     configmap/kubernetes-ingress\
+              \ serverside-applied\n        Name:        kubernetes-ingress\n    \
+              \    Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/kubernetes-ingress\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[]\
+              \ Resources:[configmaps endpoints nodes pods services namespaces events\
+              \ serviceaccounts] ResourceNames:[] NonResourceURLs:[]}\n          \
+              \             {Verbs:[get list watch] APIGroups:[extensions networking.k8s.io]\
+              \ Resources:[ingresses ingresses/status ingressclasses] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[update] APIGroups:[extensions\
+              \ networking.k8s.io] Resources:[ingresses/status] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch create patch update]\
+              \ APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[discovery.k8s.io]\
+              \ Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch update] APIGroups:[core.haproxy.org]\
+              \ Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n             \
+              \          {Verbs:[get list watch update] APIGroups:[ingress.v1.haproxy.org\
+              \ ingress.v1.haproxy.com ingress.v3.haproxy.org ingress.v3.haproxy.com]\
+              \ Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n             \
+              \          {Verbs:[get list watch create update patch delete] APIGroups:[apiextensions.k8s.io]\
+              \ Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[apps] Resources:[replicasets\
+              \ deployments daemonsets] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/kubernetes-ingress\
+              \ serverside-applied\n        Name:        kubernetes-ingress\n    \
+              \    Namespace:   default-oci\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
+              \        Message:     clusterrolebinding.rbac.authorization.k8s.io/kubernetes-ingress\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:kubernetes-ingress Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/kubernetes-ingress\
+              \ serverside-applied\n        Name:        kubernetes-ingress\n   "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                  MESSAGE
+
+              8s          Normal   OperationStarted     application/kubernetes-ingress-parity   Initiated
+              automated sync to ''sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe''
+
+              8s          Normal   ResourceUpdated      application/kubernetes-ingress-parity   Updated
+              sync status:  -> OutOfSync
+
+              8s          Normal   ResourceUpdated      application/kubernetes-ingress-parity   Updated
+              health status:  -> Healthy
+
+              6s          Normal   OperationCompleted   application/kubernetes-ingress-parity   Sync
+              operation to sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+              succeeded
+
+              5s          Normal   ResourceUpdated      application/kubernetes-ingress-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 8
+              artifact:
+                path: argocd-core-child.json
+                sha256: 20d9647e618ae6b108f6a4a8b2c656fe510b95fb6e6b991bbe7cb7daee4195ac
+                bytes: 14017
+              output: "{\n  \"metadata\": {\n    \"name\": \"kubernetes-ingress-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2d04880c-d4fd-45e3-9872-e0521b8c9846\"\
+                ,\n    \"resourceVersion\": \"1322\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T02:51:54Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster:argoproj.io/Application:argocd/kubernetes-ingress-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"3a4cf833-514a-4d44-a155-e9cfb667e408\",\n      \"confighub.com/UnitSlug\"\
+                : \"kubernetes-ingress-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T02:51:54Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T02:52:12Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"kubernetes-ingress\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"kubernetes-ingress\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"kubernetes-ingress\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"kubernetes-ingress\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"networking.k8s.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"IngressClass\",\n        \"name\": \"haproxy\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 950cc6f19a3478ad21840acd734fd71eaf1149ed549c1f9fb983bdde6d3679a2
+                bytes: 1709
+              output: "Name:               argocd/kubernetes-ingress-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:50252/applications/kubernetes-ingress-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                    STATUS\
+                \  HEALTH   AGE  MESSAGE                                         \
+                \       REASON\nClusterRoleBinding/kubernetes-ingress        Synced\
+                \           27s                                                  \
+                \       \nConfigMap/kubernetes-ingress                 Synced    \
+                \       96s  configmap/kubernetes-ingress serverside-applied     \
+                \   \nNamespace/default-oci                        Synced        \
+                \   70s                                                         \n\
+                Service/kubernetes-ingress                   Synced  Healthy  96s\
+                \  service/kubernetes-ingress serverside-applied          \nServiceAccount/kubernetes-ingress\
+                \            Synced           96s  serviceaccount/kubernetes-ingress\
+                \ serverside-applied   \nDeployment/kubernetes-ingress           \
+                \     Synced  Healthy  96s  deployment.apps/kubernetes-ingress serverside-applied\
+                \  \n\u2514\u2500ReplicaSet/kubernetes-ingress-796844dd4c        \
+                \   Healthy  96s                                                 \
+                \        \n  \u251C\u2500Pod/kubernetes-ingress-796844dd4c-9x6q2 \
+                \         Healthy  96s                                           \
+                \              \n  \u2514\u2500Pod/kubernetes-ingress-796844dd4c-dzv44\
+                \          Healthy  96s                                          \
+                \               \nIngressClass/haproxy                         Synced\
+                \           27s                                                  \
+                \       \nClusterRole/kubernetes-ingress               Synced    \
+                \       27s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kubernetes-ingress-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kubernetes-ingress-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kubernetes-ingress-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+              targetRevision: latest
+          revision: sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T02:50:18Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T02:51:52Z'
+          finishedAt: '2026-06-15T02:51:54Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+          deployedAt: '2026-06-15T02:51:54Z'
+          deployStartedAt: '2026-06-15T02:51:52Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kubernetes-ingress-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T02:50:09Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1278\n  UID:         \
+              \      974abf1e-fa40-4691-a2ee-b8abbdd6aadc\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T02:50:18Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T02:51:52Z\n\
+              \    Deployed At:        2026-06-15T02:51:54Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T02:51:54Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T02:51:52Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/kubernetes-ingress-parity\
+              \ serverside-applied\n        Name:        kubernetes-ingress-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T02:51:54Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       kubernetes-ingress-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     2m7s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     2m7s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  33s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe'\n\
+              \  Normal  ResourceUpdated     33s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  31s   argocd-application-controller  Sync operation to sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\
+              \ succeeded\n  Normal  ResourceUpdated     30s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                 MESSAGE
+
+              2m7s        Normal   ResourceUpdated      application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Updated
+              sync status:  -> Synced
+
+              2m7s        Normal   ResourceUpdated      application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Updated
+              health status:  -> Healthy
+
+              33s         Normal   OperationStarted     application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Initiated
+              automated sync to ''sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe''
+
+              33s         Normal   ResourceUpdated      application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              31s         Normal   OperationCompleted   application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Sync
+              operation to sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe
+              succeeded
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 2963c030016fb83c421fe6d6abefcb3f14c024701a1bcd357c8b66bc5acf86c6
+                bytes: 10850
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"974abf1e-fa40-4691-a2ee-b8abbdd6aadc\"\
+                ,\n    \"resourceVersion\": \"1355\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T02:50:09Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\\\",\\\
+                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T02:50:09Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T02:52:35Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \     "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 1a21c0ec3c53b4cc4ab1b4c2f1a8b1d4addd295fc9b8616f64785ccd1994928d
+                bytes: 1231
+              output: "Name:               argocd/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:50368/applications/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                    STATUS  HEALTH  AGE    MESSAGE              \
+                \                                                                \
+                \                REASON\nApplication/kubernetes-ingress-parity   \
+                \                              Synced          50s    application.argoproj.io/kubernetes-ingress-parity\
+                \ serverside-applied                                 \nApplication/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\
+                \  Synced          2m35s  application.argoproj.io/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\",\n  \
+              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kubernetes-ingress-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kubernetes-ingress-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:c6d6c846b8ac7d0e6cd6fb3aef962a85adc146d1efcb55a07f89622bff39b7fe\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kubernetes-ingress-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/kubernetes-ingress   2/2   2     2     116s'
+        pods: '# default
+
+          kubernetes-ingress-796844dd4c-9x6q2   1/1   Running   0     116s
+
+          kubernetes-ingress-796844dd4c-dzv44   1/1   Running   0     116s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T02:50:09Z'
+    finishedAt: '2026-06-15T02:50:42Z'
+    elapsedSeconds: 33.433
+    timeoutSeconds: 900
+    command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo https://haproxytech.github.io/helm-charts
+      --version 1.52.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T02:50:48Z'
+    finishedAt: '2026-06-15T02:50:48Z'
+    elapsedSeconds: 0.356
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T02:50:48Z'
+    finishedAt: '2026-06-15T02:50:48Z'
+    elapsedSeconds: 0.152
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig
+      --context kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/direct-apply-manifest.yaml
+    objectCount: 7
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T02:50:48Z'
+    finishedAt: '2026-06-15T02:51:09Z'
+    elapsedSeconds: 20.369
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T02:51:14Z'
+    finishedAt: '2026-06-15T02:51:14Z'
+    elapsedSeconds: 0.246
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T02:51:14Z'
+    finishedAt: '2026-06-15T02:51:35Z'
+    elapsedSeconds: 21.057
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      --target helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci
+    objectCount: 8
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T02:51:35Z'
+    finishedAt: '2026-06-15T02:51:36Z'
+    elapsedSeconds: 0.579
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T02:51:36Z'
+    finishedAt: '2026-06-15T02:51:40Z'
+    elapsedSeconds: 4.194
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
+      --unit <8 unit(s)> --wait --timeout 5m
+    unitCount: 8
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T02:51:40Z'
+    finishedAt: '2026-06-15T02:51:41Z'
+    elapsedSeconds: 0.911
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
+      kubernetes-ingress-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/argo-application.json
+      --target helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T02:51:41Z'
+    finishedAt: '2026-06-15T02:51:43Z'
+    elapsedSeconds: 1.552
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T02:51:43Z'
+    finishedAt: '2026-06-15T02:52:03Z'
+    elapsedSeconds: 20.147
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T02:52:44Z'
+    finishedAt: '2026-06-15T02:52:44Z'
+    elapsedSeconds: 0.104
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind."
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kubernetes-ingress\" does not exist. Installing it now.\nNAME:\
+      \ kubernetes-ingress\nLAST DEPLOYED: Mon Jun 15 03:50:11 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nHAProxy Kubernetes Ingress Controller has been successfully installed.\n\
+      \nController image deployed is: \"docker.io/haproxytech/kubernetes-ingress:3.2.9\"\
+      .\nYour controller is of a \"Deployment\" kind. Your controller service is running\
+      \ as a \"NodePort\" type.\nRBAC authorization is enabled.\nController ingress.class\
+      \ is set to \"haproxy\" so make sure to use same annotation for\nIngress resource.\n\
+      \nService ports mapped are:\n  - name: admin\n    containerPort: 6060\n    protocol:\
+      \ TCP\n  - name: http\n    containerPort: 8080\n    protocol: TCP\n  - name:\
+      \ https\n    containerPort: 8443\n    protocol: TCP\n  - name: stat\n    containerPort:\
+      \ 1024\n    protocol: TCP\n  - name: quic\n    containerPort: 8443\n    protocol:\
+      \ UDP\n\nNode IP can be found with:\n  $ kubectl --namespace default-helm"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/kubernetes-ingress   2/2   2     2     21s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
