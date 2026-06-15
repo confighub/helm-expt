@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "name": "victoria-metrics-single-parity",
+    "namespace": "argocd",
+    "uid": "7d6513df-a9f8-41d3-9abc-1fe54309a2fb",
+    "resourceVersion": "1581",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T06:37:16Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster:argoproj.io/Application:argocd/victoria-metrics-single-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "326d32ef-8b25-4ae3-91c1-827613089b2c",
+      "confighub.com/UnitSlug": "victoria-metrics-single-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T06:37:16Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T06:37:35Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster/oci",
+      "path": "./helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-victoria-metrics-single",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "victoria-metrics-single-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "victoria-metrics-single-server",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "victoria-metrics-single-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "partitioned roll out complete: 1 new pods have been updated..."
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster/oci",
+          "path": "./helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-victoria-metrics-single",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:eff8250c6b7075c067c762de9afce849a3163a3e868198a1e956d4067750c6aa"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T06:37:17Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:eff8250c6b7075c067c762de9afce849a3163a3e868198a1e956d4067750c6aa",
+        "deployedAt": "2026-06-15T06:37:19Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster/oci",
+          "path": "./helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-victoria-metrics-single",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T06:37:17Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T06:37:27Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:eff8250c6b7075c067c762de9afce849a3163a3e868198a1e956d4067750c6aa",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster/oci",
+            "path": "./helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-victoria-metrics-single",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "victoria-metrics-single-server",
+            "status": "Synced",
+            "message": "serviceaccount/victoria-metrics-single-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "victoria-metrics-single-server",
+            "status": "Synced",
+            "message": "service/victoria-metrics-single-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "victoria-metrics-single-server",
+            "status": "Synced",
+            "message": "statefulset.apps/victoria-metrics-single-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "victoriametrics/victoria-metrics:v1.144.0"
+            ]
+          }
+        ],
+        "revision": "sha256:eff8250c6b7075c067c762de9afce849a3163a3e868198a1e956d4067750c6aa",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-cluster/oci",
+          "path": "./helm-expt-parity-victoriametri752f4-mqeu1m4j-1eqk-victoria-metrics-single",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T06:37:17Z",
+      "finishedAt": "2026-06-15T06:37:19Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "victoriametrics/victoria-metrics:v1.144.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
