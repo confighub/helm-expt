@@ -50,6 +50,7 @@ fluent/fluentd,0.5.3,default,pass,pass,,,live parity passed,runs/live-kind-parit
 gatekeeper/gatekeeper,3.22.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml
 gatekeeper/gatekeeper,3.22.2,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/gatekeeper-gatekeeper-no-crds/receipt.yaml
 grafana/alloy,1.8.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-alloy-default/receipt.yaml
+grafana/alloy,1.8.2,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-alloy-no-crds/receipt.yaml
 grafana/grafana,10.5.15,existing-secret-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
 grafana/grafana,10.5.15,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
 grafana/loki,7.0.0,simple-scalable-minio,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml
