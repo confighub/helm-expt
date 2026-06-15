@@ -1,0 +1,367 @@
+{
+  "metadata": {
+    "name": "kube-state-metrics-parity",
+    "namespace": "argocd",
+    "uid": "c04ddb20-7a13-4837-b569-4915c64a300b",
+    "resourceVersion": "1121",
+    "generation": 9,
+    "creationTimestamp": "2026-06-15T04:19:15Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster:argoproj.io/Application:argocd/kube-state-metrics-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "d6d99f21-5c72-4361-9afd-4be612591d42",
+      "confighub.com/UnitSlug": "kube-state-metrics-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:19:15Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:19:34Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci",
+      "path": "./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-state-metrics",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci",
+          "path": "./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-15T04:19:17Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5",
+        "deployedAt": "2026-06-15T04:19:19Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci",
+          "path": "./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:19:17Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:19:27Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci",
+            "path": "./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "kube-state-metrics",
+            "status": "Synced",
+            "message": "serviceaccount/kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "kube-state-metrics",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-state-metrics reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[list watch] APIGroups:[certificates.k8s.io] Resources:[certificatesigningrequests] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[daemonsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[networking.k8s.io] Resources:[ingresses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[limitranges] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[networking.k8s.io] Resources:[networkpolicies] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[replicationcontrollers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[resourcequotas] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[admissionregistration.k8s.io] Resources:[validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[storage.k8s.io] Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "kube-state-metrics",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-state-metrics reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:kube-state-metrics Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "kube-state-metrics",
+            "status": "Synced",
+            "message": "service/kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "kube-state-metrics",
+            "status": "Synced",
+            "message": "deployment.apps/kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+            ]
+          }
+        ],
+        "revision": "sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci",
+          "path": "./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:19:17Z",
+      "finishedAt": "2026-06-15T04:19:19Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,23 @@
+Name:               argocd/kube-state-metrics-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55859/applications/kube-state-metrics-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                   STATUS  HEALTH   AGE  MESSAGE                                                REASON
+Namespace/default-oci                       Synced           64s
+Service/kube-state-metrics                  Synced  Healthy  90s  service/kube-state-metrics serverside-applied
+ServiceAccount/kube-state-metrics           Synced           90s  serviceaccount/kube-state-metrics serverside-applied
+Deployment/kube-state-metrics               Synced  Healthy  90s  deployment.apps/kube-state-metrics serverside-applied
+└─ReplicaSet/kube-state-metrics-7d4775494           Healthy  90s
+  └─Pod/kube-state-metrics-7d4775494-htgf2          Healthy  90s
+ClusterRole/kube-state-metrics              Synced           25s
+ClusterRoleBinding/kube-state-metrics       Synced           25s

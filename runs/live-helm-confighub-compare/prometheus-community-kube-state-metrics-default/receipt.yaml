@@ -1,0 +1,1055 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-kube-state-metrics-7.4.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/kube-state-metrics
+  version: 7.4.0
+  base: default
+  result: pass
+  observedAt: '2026-06-15T04:16:25Z'
+  package:
+    path: packages/prometheus-community/kube-state-metrics/7.4.0
+  recipe:
+    path: recipes/prometheus-community/kube-state-metrics/7.4.0
+  variantRevision: recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr
+    kubeContext: kind-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr"...
+
+        Deleting cluster "helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr" ...
+
+        Deleted nodes: ["helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-control-plane"]
+
+        Deleting Space "helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kube-state-metrics kube-state-metrics --repo
+        https://prometheus-community.github.io/helm-charts --version 7.4.0 --namespace
+        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc
+      objectCount: 5
+      liveHelmManifestSHA256: 2e31cce2024524a5cd986f580a5d849d7e3923b81ab1ecf9265fe2efdd0a05f9
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/kube-state-metrics   1/1   1     1     16s
+        pods: kube-state-metrics-7d4775494-vdgct   1/1   Running   0     15s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-state-metrics/7.4.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8971c186cbf95039d6a49e977a35a655a1db4bc1b9583bf3d0ab142fd5b0d3d4
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/kube-state-metrics   1/1   1     1     20s'
+        pods: '# default
+
+          kube-state-metrics-7d4775494-htgf2   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "kube-state-metrics" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "kube-state-metrics" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|kube-state-metrics
+          - v1|ServiceAccount|default|kube-state-metrics
+          - v1|Service|default|kube-state-metrics
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+      controller: Argo CD OCI
+      app: kube-state-metrics-parity
+      manifestSHA256: 8363796cb1200aa2b5616f39b027eaef86a4294e54cb74c5f0291a321082e471
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+              targetRevision: latest
+          revision: sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:19:17Z'
+          status: Healthy
+        summary:
+          images:
+          - registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:19:17Z'
+          finishedAt: '2026-06-15T04:19:19Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+          deployedAt: '2026-06-15T04:19:19Z'
+          deployStartedAt: '2026-06-15T04:19:17Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kube-state-metrics-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster:argoproj.io/Application:argocd/kube-state-metrics-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ d6d99f21-5c72-4361-9afd-4be612591d42\n              confighub.com/UnitSlug:\
+              \ kube-state-metrics-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T04:19:15Z\n\
+              \  Generation:          8\n  Resource Version:    1104\n  UID:     \
+              \            c04ddb20-7a13-4837-b569-4915c64a300b\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T04:19:17Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T04:19:17Z\n    Deployed At:        2026-06-15T04:19:19Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:19:19Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T04:19:17Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/kube-state-metrics serverside-applied\n        Name:\
+              \        kube-state-metrics\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/kube-state-metrics\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[list watch] APIGroups:[certificates.k8s.io]\
+              \ Resources:[certificatesigningrequests] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[configmaps]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[apps] Resources:[daemonsets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[apps] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[discovery.k8s.io]\
+              \ Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[autoscaling]\
+              \ Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[networking.k8s.io]\
+              \ Resources:[ingresses] ResourceNames:[] NonResourceURLs:[]}\n     \
+              \                  {Verbs:[list watch] APIGroups:[batch] Resources:[jobs]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[list watch] APIGroups:[]\
+              \ Resources:[limitranges] ResourceNames:[] NonResourceURLs:[]}\n   \
+              \                    {Verbs:[list watch] APIGroups:[admissionregistration.k8s.io]\
+              \ Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[namespaces]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[networking.k8s.io] Resources:[networkpolicies] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[list watch] APIGroups:[]\
+              \ Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n         \
+              \              {Verbs:[list watch] APIGroups:[] Resources:[persistentvolumeclaims]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[list watch] APIGroups:[policy]\
+              \ Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[pods]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[apps] Resources:[replicasets] R"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                  MESSAGE
+
+              10s         Normal   OperationStarted     application/kube-state-metrics-parity   Initiated
+              automated sync to ''sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5''
+
+              10s         Normal   ResourceUpdated      application/kube-state-metrics-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/kube-state-metrics-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/kube-state-metrics-parity   Sync
+              operation to sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/kube-state-metrics-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: 2440d8cf4cf8d55ebbb113cba7c76e14adc9044cc07ad965d52137e7ab6f13d0
+                bytes: 14724
+              output: "{\n  \"metadata\": {\n    \"name\": \"kube-state-metrics-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c04ddb20-7a13-4837-b569-4915c64a300b\"\
+                ,\n    \"resourceVersion\": \"1121\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T04:19:15Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster:argoproj.io/Application:argocd/kube-state-metrics-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"d6d99f21-5c72-4361-9afd-4be612591d42\",\n      \"confighub.com/UnitSlug\"\
+                : \"kube-state-metrics-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:19:15Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T04:19:34Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"kube-state-metrics\",\n        \"status\": \"Synced\",\n     \
+                \   \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"kube-state-metrics\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"kube-state-metrics\",\n      \
+                \  \"status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\"\n        }\n      },\n      {\n        \"group\": \"\
+                rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n     \
+                \   \"kind\": \"ClusterRole\",\n        \"name\": \"kube-state-metrics\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.authorization.k8s.io\",\n        \"version\": \"v1\",\n \
+                \       \"kind\": \"ClusterRoleBinding\",\n        \"name\": \"kube-state-metrics\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \"Sync"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 60552cb2176c2a72d2607e5c8b260ef8df44b45cd7830cda60f0850cd76437a1
+                bytes: 1447
+              output: "Name:               argocd/kube-state-metrics-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:55859/applications/kube-state-metrics-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                   STATUS\
+                \  HEALTH   AGE  MESSAGE                                         \
+                \       REASON\nNamespace/default-oci                       Synced\
+                \           64s                                                  \
+                \       \nService/kube-state-metrics                  Synced  Healthy\
+                \  90s  service/kube-state-metrics serverside-applied          \n\
+                ServiceAccount/kube-state-metrics           Synced           90s \
+                \ serviceaccount/kube-state-metrics serverside-applied   \nDeployment/kube-state-metrics\
+                \               Synced  Healthy  90s  deployment.apps/kube-state-metrics\
+                \ serverside-applied  \n\u2514\u2500ReplicaSet/kube-state-metrics-7d4775494\
+                \           Healthy  90s                                         \
+                \                \n  \u2514\u2500Pod/kube-state-metrics-7d4775494-htgf2\
+                \          Healthy  90s                                          \
+                \               \nClusterRole/kube-state-metrics              Synced\
+                \           25s                                                  \
+                \       \nClusterRoleBinding/kube-state-metrics       Synced     \
+                \      25s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\",\n   \
+              \   \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kube-state-metrics-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kube-state-metrics-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kube-state-metrics-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+              targetRevision: latest
+          revision: sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:17:59Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:19:14Z'
+          finishedAt: '2026-06-15T04:19:15Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+          deployedAt: '2026-06-15T04:19:15Z'
+          deployStartedAt: '2026-06-15T04:19:14Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kube-state-metrics-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T04:17:51Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        9\n  Resource Version:  1082\n  UID:         \
+              \      26d57b67-83df-4aa9-9f2f-34ce3f813afe\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T04:17:59Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T04:19:14Z\n\
+              \    Deployed At:        2026-06-15T04:19:15Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:19:15Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T04:19:14Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/kube-state-metrics-parity\
+              \ serverside-applied\n        Name:        kube-state-metrics-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T04:19:17Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       kube-state-metrics-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     106s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     106s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  31s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5'\n\
+              \  Normal  ResourceUpdated     31s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  30s   argocd-application-controller  Sync operation to sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\
+              \ succeeded\n  Normal  ResourceUpdated     28s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                MESSAGE
+
+              106s        Normal   ResourceUpdated      application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Updated
+              sync status:  -> Synced
+
+              106s        Normal   ResourceUpdated      application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Updated
+              health status:  -> Healthy
+
+              31s         Normal   OperationStarted     application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Initiated
+              automated sync to ''sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5''
+
+              31s         Normal   ResourceUpdated      application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              30s         Normal   OperationCompleted   application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Sync
+              operation to sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5
+              succeeded
+
+              28s         Normal   ResourceUpdated      application/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 64509c59ba9d5538bce84871a46c7dfe022e0d4e8f3a0efa2d2cd856914e3178
+                bytes: 10834
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"26d57b67-83df-4aa9-9f2f-34ce3f813afe\"\
+                ,\n    \"resourceVersion\": \"1149\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-15T04:17:51Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\\\",\\\
+                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:17:51Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T04:19:52Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"r"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 7db5cdacd401366c3b7308dfc3128b0bb0784035b8496fa5d3b27ca083c120bc
+                bytes: 1222
+              output: "Name:               argocd/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:55976/applications/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                   STATUS  HEALTH  AGE    MESSAGE               \
+                \                                                                \
+                \              REASON\nApplication/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\
+                \  Synced          2m10s  application.argoproj.io/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\
+                \ serverside-applied  \nApplication/kube-state-metrics-parity    \
+                \                            Synced          46s    application.argoproj.io/kube-state-metrics-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\",\n   \
+              \   \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kube-state-metrics-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kube-state-metrics-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:ba9a08ebb5e2fc18d800db0d7be1b8db22b0f711b709fdf5a9f4da61767dd4a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kube-state-metrics-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/kube-state-metrics   1/1   1     1     107s'
+        pods: '# default
+
+          kube-state-metrics-7d4775494-htgf2   1/1   Running   0     107s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T04:17:51Z'
+    finishedAt: '2026-06-15T04:18:08Z'
+    elapsedSeconds: 17.027
+    timeoutSeconds: 900
+    command: helm upgrade --install kube-state-metrics kube-state-metrics --repo https://prometheus-community.github.io/helm-charts
+      --version 7.4.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T04:18:13Z'
+    finishedAt: '2026-06-15T04:18:14Z'
+    elapsedSeconds: 0.366
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-state-metrics/7.4.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T04:18:14Z'
+    finishedAt: '2026-06-15T04:18:14Z'
+    elapsedSeconds: 0.119
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr.kubeconfig
+      --context kind-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-default/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T04:18:14Z'
+    finishedAt: '2026-06-15T04:18:34Z'
+    elapsedSeconds: 20.35
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T04:18:40Z'
+    finishedAt: '2026-06-15T04:18:40Z'
+    elapsedSeconds: 0.246
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-state-metrics/7.4.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T04:18:40Z'
+    finishedAt: '2026-06-15T04:19:00Z'
+    elapsedSeconds: 19.686
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+      --space helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics --target
+      helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T04:19:00Z'
+    finishedAt: '2026-06-15T04:19:00Z'
+    elapsedSeconds: 0.55
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T04:19:00Z'
+    finishedAt: '2026-06-15T04:19:04Z'
+    elapsedSeconds: 4.105
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-kube-state-metrics
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T04:19:04Z'
+    finishedAt: '2026-06-15T04:19:05Z'
+    elapsedSeconds: 1.007
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster
+      kube-state-metrics-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-default/argo-application.json
+      --target helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T04:19:05Z'
+    finishedAt: '2026-06-15T04:19:06Z'
+    elapsedSeconds: 0.964
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T04:19:06Z'
+    finishedAt: '2026-06-15T04:19:26Z'
+    elapsedSeconds: 20.156
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T04:20:01Z'
+    finishedAt: '2026-06-15T04:20:02Z'
+    elapsedSeconds: 0.175
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubestatemetrics-mqepb3bg-1ljr.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "kube-state-metrics" does not exist. Installing it now.
+
+      NAME: kube-state-metrics
+
+      LAST DEPLOYED: Mon Jun 15 05:17:52 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      kube-state-metrics is a simple service that listens to the Kubernetes API server
+      and generates metrics about the state of the objects.
+
+      The exposed metrics can be found here:
+
+      https://github.com/kubernetes/kube-state-metrics/blob/master/docs/README.md#exposed-metrics
+
+
+      The metrics are exported on the HTTP endpoint /metrics on the listening port.
+
+      In your case, kube-state-metrics.default-helm.svc.cluster.local:8080/metrics
+
+
+      They are served either as plaintext or protobuf depending on the Accept header.
+
+      They are designed to be consumed either by Prometheus itself or by a scraper
+      that is compatible with scraping a Prometheus client endpoint.'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/kube-state-metrics   1/1   1     1     20s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
