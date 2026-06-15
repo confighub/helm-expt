@@ -15,24 +15,24 @@ or run Kubernetes. Run live commands serially.
 | --- | ---: |
 | Matrix variant rows | 192 |
 | Variants needing at least one live command | 125 |
-| Live commands remaining | 199 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 80 |
+| Live commands remaining | 198 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 79 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 14 |
-| Ready-to-run todo rows | 185 |
+| Ready-to-run todo rows | 184 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
 | `kind-parity` | 119 |
-| `live-parity` | 80 |
+| `live-parity` | 79 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `todo` | 185 |
+| `todo` | 184 |
 | `watch` | 14 |
 
 ## By Run Readiness
@@ -40,7 +40,7 @@ or run Kubernetes. Run live commands serially.
 | Readiness | Rows |
 | --- | ---: |
 | `model-or-stage-first` | 1 |
-| `ready-to-run` | 185 |
+| `ready-to-run` | 184 |
 | `review-target-first` | 13 |
 
 ## Active Watch Rows
@@ -73,7 +73,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| falcosecurity/falco | 9.0.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/falcosecurity/falco/9.0.0 --base default |
 | falcosecurity/falcosidekick | 0.13.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/falcosecurity/falcosidekick/0.13.1 --base default |
 | fluent/fluentd | 0.5.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
 | grafana/pyroscope | 2.0.2 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds |
@@ -93,6 +92,7 @@ generated priority. They are good candidates for a serial live block.
 | rook-release/rook-ceph-cluster | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default |
 | rook-release/rook-ceph | v1.19.5 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph/v1.19.5 --base default |
 | runix/pgadmin4 | 1.62.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/runix/pgadmin4/1.62.0 --base default |
+| sealed-secrets/sealed-secrets | 2.18.6 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/sealed-secrets/sealed-secrets/2.18.6 --base no-crds |
 
 ## Full Queue
 
