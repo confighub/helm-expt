@@ -760,7 +760,7 @@ kyverno/kyverno-policies@3.8.0,default,in_confighub,C,pass,pass,no,,,
 kyverno/kyverno-policies@3.8.0,default,local_live,L,pass,pass,no,,,
 kyverno/kyverno-policies@3.8.0,default,gitops_oci_live,G,watch,watch,no,,,
 kyverno/kyverno-policies@3.8.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-kyverno/kyverno-policies@3.8.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+kyverno/kyverno-policies@3.8.0,default,two_cluster_kind_parity,K,watch,watch,no,,,
 kyverno/kyverno@3.8.1,default,render_parity,R,pass,pass,no,,,
 kyverno/kyverno@3.8.1,default,in_confighub,C,pass,pass,no,,,
 kyverno/kyverno@3.8.1,default,local_live,L,pass,pass,no,,,

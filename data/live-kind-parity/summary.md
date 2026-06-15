@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 94
-watch: 4
+watch: 5
 blocked: 2
-semantic parity pass: 98
+semantic parity pass: 99
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 4
+non-pass rows where semantic parity passed: 5
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -37,6 +37,7 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
 | target-prerequisite: required Secret missing (parity passed) | 1 |
 | target-runtime: pod crash loop (parity passed) | 1 |
+| watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
 
@@ -133,6 +134,7 @@ broader support claim.
 | `jetstack/cert-manager@v1.20.2` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
 | `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
 | `kedacore/keda@2.19.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |
+| `kyverno/kyverno-policies@3.8.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | ui-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
