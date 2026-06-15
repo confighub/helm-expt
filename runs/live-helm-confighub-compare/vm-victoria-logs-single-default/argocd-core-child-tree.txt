@@ -1,0 +1,21 @@
+Name:               argocd/victoria-logs-single-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:63471/applications/victoria-logs-single-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-victorialogssingle-mqetnifo-12b7-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-victorialogssingle-mqetnifo-12b7-victoria-logs-single
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                            STATUS  HEALTH   AGE    MESSAGE                                                          REASON
+Namespace/default-oci                                                Synced           6m2s
+Service/victoria-logs-single-server                                  Synced  Healthy  6m17s  service/victoria-logs-single-server serverside-applied
+StatefulSet/victoria-logs-single-server                              Synced  Healthy  6m17s  statefulset.apps/victoria-logs-single-server serverside-applied  partitioned roll out complete: 1 new pods have been updated...
+├─PersistentVolumeClaim/server-volume-victoria-logs-single-server-0          Healthy  6m17s
+├─Pod/victoria-logs-single-server-0                                          Healthy  6m17s
+└─ControllerRevision/victoria-logs-single-server-6d658d4cc4                           6m17s

@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 865 / 35 / 55 / 267 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 867 / 35 / 55 / 265 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -304,7 +304,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⬜ | local-live | ⬜ |
 | `velero/velero@12.0.1` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
-| `vm/victoria-logs-single@0.12.5` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `vm/victoria-logs-single@0.12.5` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `vm/victoria-metrics-single@0.39.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 |  | default-reviewed | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⬜ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 
