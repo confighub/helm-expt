@@ -1,0 +1,1385 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: rook-release-rook-ceph-cluster-v1.19.5-default-live-parity-20260605
+spec:
+  chart: rook-release/rook-ceph-cluster
+  version: v1.19.5
+  base: default
+  result: blocked
+  observedAt: '2026-06-15T04:44:42Z'
+  package:
+    path: packages/rook-release/rook-ceph-cluster/v1.19.5
+  recipe:
+    path: recipes/rook-release/rook-ceph-cluster/v1.19.5
+  variantRevision: recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-rookcephcluster-mqeqbgz7-10vd
+    kubeContext: kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-rookcephcluster-mqeqbgz7-10vd --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-rookcephcluster-mqeqbgz7-10vd"...
+
+        Deleting cluster "helm-expt-parity-rookcephcluster-mqeqbgz7-10vd" ...
+
+        Deleted nodes: ["helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-control-plane"]
+
+        Deleting Space "helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
+        --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010
+      objectCount: 27
+      liveHelmManifestSHA256: 2fdb5f41cf7efa8ddba8cd03a1566eb786e44f1cb3826aa8916e1cf328093da1
+      liveHelmManifestObjectCount: 27
+      namespace: default-helm
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          ServiceAccount: 7
+          StorageClass: 3
+          ClusterRoleBinding: 2
+          Role: 4
+          RoleBinding: 6
+          CephBlockPool: 1
+          CephCluster: 1
+          CephFilesystem: 1
+          CephFilesystemSubVolumeGroup: 1
+          CephObjectStore: 1
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      stderr: 'Error: namespaces "rook-ceph" not found'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 9711becc76f8baa56fdb2e7ac1584cd0057bb9b0ff648b56c31e5e4cad77631c
+      objectCount: 28
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      - rook-ceph
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CephBlockPool: 1
+          CephCluster: 1
+          CephFilesystem: 1
+          CephFilesystemSubVolumeGroup: 1
+          CephObjectStore: 1
+          ClusterRoleBinding: 2
+          Role: 4
+          RoleBinding: 6
+          ServiceAccount: 7
+          StorageClass: 3
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        - rook-ceph
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 5
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrolebinding.rbac.authorization.k8s.io "rook-ceph-mgr-cluster-default"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "rook-ceph-osd-default" deleted
+
+            storageclass.storage.k8s.io "ceph-block" deleted
+
+            storageclass.storage.k8s.io "ceph-bucket" deleted
+
+            storageclass.storage.k8s.io "ceph-filesystem" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - ceph.rook.io/v1|CephBlockPool|default|ceph-blockpool
+          - ceph.rook.io/v1|CephCluster|default|default
+          - ceph.rook.io/v1|CephFilesystemSubVolumeGroup|default|ceph-filesystem-csi
+          - ceph.rook.io/v1|CephFilesystem|default|ceph-filesystem
+          - ceph.rook.io/v1|CephObjectStore|default|ceph-objectstore
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rook-ceph-cluster-mgmt
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rook-ceph-cmd-reporter
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rook-ceph-mgr
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rook-ceph-osd
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|rook-ceph-purge-osd
+          - rbac.authorization.k8s.io/v1|Role|default|rook-ceph-cmd-reporter
+          - rbac.authorization.k8s.io/v1|Role|default|rook-ceph-mgr
+          - rbac.authorization.k8s.io/v1|Role|default|rook-ceph-osd
+          - rbac.authorization.k8s.io/v1|Role|default|rook-ceph-purge-osd
+          - v1|ServiceAccount|default|rook-ceph-cmd-reporter
+          - v1|ServiceAccount|default|rook-ceph-default
+          - v1|ServiceAccount|default|rook-ceph-mgr
+          - v1|ServiceAccount|default|rook-ceph-nvmeof
+          - v1|ServiceAccount|default|rook-ceph-osd
+          - v1|ServiceAccount|default|rook-ceph-purge-osd
+          - v1|ServiceAccount|default|rook-ceph-rgw
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+      controller: Argo CD OCI
+      app: rook-ceph-cluster-parity
+      manifestSHA256: 01568511a9433ae60f48ccc1a6b1ba81df773b7fa165370ce4913eb980356c45
+      objectCount: 28
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      - rook-ceph
+      runtimeNamespaces: []
+      ociRevision: sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci
+              targetRevision: latest
+          revision: sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:48:12Z'
+          status: Progressing
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:48:12Z'
+          finishedAt: '2026-06-15T04:48:14Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 28
+          syncResultStatusCounts:
+            Synced: 28
+        history:
+        - id: 0
+          revision: sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+          deployedAt: '2026-06-15T04:48:14Z'
+          deployStartedAt: '2026-06-15T04:48:12Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-cmd-reporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-mgr
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-nvmeof
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-purge-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: rook-ceph-rgw
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ceph.rook.io
+          kind: CephBlockPool
+          namespace: default
+          name: ceph-blockpool
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ceph.rook.io
+          kind: CephCluster
+          namespace: default
+          name: default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ceph.rook.io
+          kind: CephFilesystem
+          namespace: default
+          name: ceph-filesystem
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ceph.rook.io
+          kind: CephFilesystemSubVolumeGroup
+          namespace: default
+          name: ceph-filesystem-csi
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ceph.rook.io
+          kind: CephObjectStore
+          namespace: default
+          name: ceph-objectstore
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: rook-ceph-mgr-cluster-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: rook-ceph-osd-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rook-ceph-cmd-reporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rook-ceph-mgr
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rook-ceph-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: rook-ceph-purge-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rook-ceph-cluster-mgmt
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rook-ceph-cmd-reporter
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rook-ceph-mgr
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rook-ceph-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: rook-ceph-purge-osd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: rook-ceph
+          name: rook-ceph-mgr-system-default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: storage.k8s.io
+          kind: StorageClass
+          namespace: ''
+          name: ceph-block
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: storage.k8s.io
+          kind: StorageClass
+          namespace: ''
+          name: ceph-bucket
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: storage.k8s.io
+          kind: StorageClass
+          namespace: ''
+          name: ceph-filesystem
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         rook-ceph-cluster-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster:argoproj.io/Application:argocd/rook-ceph-cluster-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 622b06cd-1dd6-4313-8117-22f5b5994057\n              confighub.com/UnitSlug:\
+              \ rook-ceph-cluster-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T04:48:11Z\n\
+              \  Generation:          10\n  Resource Version:    1690\n  UID:    \
+              \             c9714034-289b-41fe-ad45-892ce604c514\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T04:48:12Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T04:48:12Z\n    Deployed At:        2026-06-15T04:48:14Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \    Source:\n      Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:48:14Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \        Source:\n          Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T04:48:12Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/rook-ceph-mgr serverside-applied\n        Name: \
+              \       rook-ceph-mgr\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ServiceAccount\n        Message:     serviceaccount/rook-ceph-osd\
+              \ serverside-applied\n        Name:        rook-ceph-osd\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/rook-ceph-cmd-reporter serverside-applied\n     \
+              \   Name:        rook-ceph-cmd-reporter\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/rook-ceph-purge-osd\
+              \ serverside-applied\n        Name:        rook-ceph-purge-osd\n   \
+              \     Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
+              \      Message:     serviceaccount/rook-ceph-nvmeof serverside-applied\n\
+              \        Name:        rook-ceph-nvmeof\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/rook-ceph-rgw\
+              \ serverside-applied\n        Name:        rook-ceph-rgw\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/rook-ceph-default serverside-applied\n        Name:\
+              \        rook-ceph-default\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       storage.k8s.io\n        Hook Phase:  Running\n\
+              \        Kind:        StorageClass\n        Message:     storageclass.storage.k8s.io/ceph-bucket\
+              \ serverside-applied\n        Name:        ceph-bucket\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       storage.k8s.io\n    \
+              \    Hook Phase:  Running\n        Kind:        StorageClass\n     \
+              \   Message:     storageclass.storage.k8s.io/ceph-block serverside-applied\n\
+              \        Name:        ceph-block\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       storage.k8s.io\n        Hook Phase: \
+              \ Running\n        Kind:        StorageClass\n        Message:     storageclass.storage.k8s.io/ceph-filesystem\
+              \ serverside-applied\n        Name:        ceph-filesystem\n       \
+              \ Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Vers"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                 MESSAGE
+
+              6m51s       Normal   OperationStarted     application/rook-ceph-cluster-parity   Initiated
+              automated sync to ''sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072''
+
+              6m51s       Normal   ResourceUpdated      application/rook-ceph-cluster-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/rook-ceph-cluster-parity   Updated
+              health status:  -> Progressing
+
+              6m49s       Normal   OperationCompleted   application/rook-ceph-cluster-parity   Sync
+              operation to sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+              succeeded
+
+              6m47s       Normal   ResourceUpdated      application/rook-ceph-cluster-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 28
+              artifact:
+                path: argocd-core-child.json
+                sha256: b812d4d4c654da7e241bbebe8dfa2e24e4132237ed813fa3000e34099d86e757
+                bytes: 25830
+              output: "{\n  \"metadata\": {\n    \"name\": \"rook-ceph-cluster-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c9714034-289b-41fe-ad45-892ce604c514\"\
+                ,\n    \"resourceVersion\": \"1762\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T04:48:11Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster:argoproj.io/Application:argocd/rook-ceph-cluster-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"622b06cd-1dd6-4313-8117-22f5b5994057\",\n      \"confighub.com/UnitSlug\"\
+                : \"rook-ceph-cluster-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:48:11Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T04:55:11Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"rook-ceph-cmd-reporter\",\n        \"status\": \"\
+                Synced\"\n      },\n      {\n        \"version\": \"v1\",\n      \
+                \  \"kind\": \"ServiceAccount\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"rook-ceph-default\",\n        \"status\": \"\
+                Synced\"\n      },\n      {\n        \"version\": \"v1\",\n      \
+                \  \"kind\": \"ServiceAccount\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"rook-ceph-mgr\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"rook-ceph-nvmeof\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"rook-ceph-osd\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"rook-ceph-purge-osd\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: e803ac9e12bd9bd9e966d765b9356cef83ba69f7293ab6f8e8a96c178002a18b
+                bytes: 9727
+              output: "Name:               argocd/rook-ceph-cluster-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:58437/applications/rook-ceph-cluster-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \    STATUS  HEALTH  AGE    MESSAGE                              \
+                \                                                                \
+                \                                                                \
+                \               REASON\nRoleBinding/rook-ceph-purge-osd          \
+                \         Synced          8m53s  rolebinding.rbac.authorization.k8s.io/rook-ceph-purge-osd\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-purge-osd\
+                \ serverside-applied  \nRoleBinding/rook-ceph-mgr-system-default \
+                \         Synced          7m6s   rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-system-default\
+                \ reconciled. reconciliation required create\n                   \
+                \                               missing subjects added:\n        \
+                \                                                  {Kind:ServiceAccount\
+                \ APIGroup: Name:rook-ceph-mgr Namespace:default}. rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-system-default\
+                \ serverside-applied  \nNamespace/default-oci                    \
+                \         Synced                                                 \
+                \                                                                \
+                \                                              8m42s             \
+                \                                                                \
+                \                                                                \
+                \                                               \nServiceAccount/rook-ceph-nvmeof\
+                \                   Synced                                       \
+                \                                                                \
+                \                                                        8m53s  serviceaccount/rook-ceph-nvmeof\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                           \nServiceAccount/rook-ceph-osd       \
+                \               Synced                                           \
+                \                                                                \
+                \                                                    8m53s  serviceaccount/rook-ceph-osd\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                              \nCephCluster/default             \
+                \                  Synced  Progressing                           \
+                \                                                                \
+                \                                                       8m54s  cephcluster.ceph.rook.io/default\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                          Waiting for status to be reported\nCephFilesystem/ceph-filesystem\
+                \                    Synced                                      \
+                \                                                                \
+                \                                                         8m54s  cephfilesystem.ceph.rook.io/ceph-filesystem\
+                \ serverside-applied                                             \
+                \                                                                \
+                \               \nClusterRoleBinding/rook-ceph-osd-default       \
+                \   Synced                                                       \
+                \                                                                \
+                \                                        7m6s                    \
+                \                                                                \
+                \                                                                \
+                \                                         \nRole/rook-ceph-osd   \
+                \                             Synced                             \
+                \                                                                \
+                \                                                                \
+                \  8m54s  role.rbac.authorization.k8s.io/rook-ceph-osd reconciled.\
+                \ reconciliation required update. role.rbac.authorization.k8s.io/rook-ceph-osd\
+                \ serverside-applied                                  \nRoleBinding/rook-ceph-cmd-reporter\
+                \                Synced                                          \
+                \                                                                \
+                \                                                     8m53s  rolebinding.rbac.authorization.k8s.io/rook-ceph-cmd-reporter\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-cmd-reporter\
+                \ serverside-applied  \nServiceAccount/rook-ceph-mgr             \
+                \         Synced                                                 \
+                \                                                                \
+                \                                              8m53s  serviceaccount/rook-ceph-mgr\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                              \nServiceAccount/rook-ceph-purge-osd\
+                \                Synced                                          \
+                \                                                                \
+                \                                                     8m53s  serviceaccount/rook-ceph-purge-osd\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                        \nServiceAccount/rook-ceph-rgw          \
+                \            Synced                                              \
+                \                                                                \
+                \                                                 8m53s  serviceaccount/rook-ceph-rgw\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                              \nCephBlockPool/ceph-blockpool    \
+                \                  Synced                                        \
+                \                                                                \
+                \                                                       8m54s  cephblockpool.ceph.rook.io/ceph-blockpool\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                 \nCephObjectStore/ceph-objectstore             \
+                \     Synced  Progressing                                        \
+                \                                                                \
+                \                                          8m54s  cephobjectstore.ceph.rook.io/ceph-objectstore\
+                \ serverside-applied                                             \
+                \                                                                \
+                \             Waiting for status to be reported\nClusterRoleBinding/rook-ceph-mgr-cluster-default\
+                \  Synced                                                        \
+                \                                                                \
+                \                                       7m6s                     \
+                \                                                                \
+                \                                                                \
+                \                                        \nRoleBinding/rook-ceph-cluster-mgmt\
+                \                Synced                                          \
+                \                                                                \
+                \                                                     8m53s  rolebinding.rbac.authorization.k8s.io/rook-ceph-cluster-mgmt\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-cluster-mgmt\
+                \ serverside-applied  \nRoleBinding/rook-ceph-mgr                \
+                \         Synced                                                 \
+                \                                                                \
+                \        "
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\",\n    \
+              \  \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              rook-ceph-cluster-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
+              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/rook-ceph-cluster-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"rook-ceph-cluster-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci
+              targetRevision: latest
+          revision: sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T04:46:15Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T04:48:09Z'
+          finishedAt: '2026-06-15T04:48:11Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+          deployedAt: '2026-06-15T04:48:11Z'
+          deployStartedAt: '2026-06-15T04:48:09Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: rook-ceph-cluster-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T04:46:07Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        10\n  Resource Version:  1712\n  UID:        \
+              \       30d8295c-7c63-44f4-b5fb-78ed8b96a5db\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T04:46:15Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T04:48:09Z\n\
+              \    Deployed At:        2026-06-15T04:48:11Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \    Source:\n      Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T04:48:11Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \        Source:\n          Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T04:48:09Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/rook-ceph-cluster-parity\
+              \ serverside-applied\n        Name:        rook-ceph-cluster-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \      Source:\n        Path:              ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T04:54:33Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       rook-ceph-cluster-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     9m6s   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     9m6s   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                               MESSAGE
+
+              9m6s        Normal   ResourceUpdated      application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Updated
+              sync status:  -> Synced
+
+              9m6s        Normal   ResourceUpdated      application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Initiated
+              automated sync to ''sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m10s       Normal   OperationCompleted   application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Sync
+              operation to sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 61809486e45d7fbbc65050647956e096b896349262c045c07b0bf7af153fbcf3
+                bytes: 10814
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"30d8295c-7c63-44f4-b5fb-78ed8b96a5db\"\
+                ,\n    \"resourceVersion\": \"1788\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-15T04:46:07Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\\\",\\\"\
+                repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T04:46:07Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T04:55:28Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoU"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: f20edee0560fe58fbcbb0ebf62f050b0f76db1de67c02a70f878433e89dbc074
+                bytes: 1212
+              output: "Name:               argocd/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:58553/applications/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                  STATUS  HEALTH  AGE    MESSAGE                \
+                \                                                                \
+                \            REASON\nApplication/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\
+                \  Synced          9m29s  application.argoproj.io/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\
+                \ serverside-applied  \nApplication/rook-ceph-cluster-parity     \
+                \                           Synced          7m25s  application.argoproj.io/rook-ceph-cluster-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\",\n    \
+              \  \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              rook-ceph-cluster-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
+              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/rook-ceph-cluster-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"rook-ceph-cluster-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        kind: no-workload-objects
+        workloads: ''
+        pods: ''
+        notReady: []
+        objectKinds:
+          CephBlockPool: 1
+          CephCluster: 1
+          CephFilesystem: 1
+          CephFilesystemSubVolumeGroup: 1
+          CephObjectStore: 1
+          ClusterRoleBinding: 2
+          Role: 4
+          RoleBinding: 6
+          ServiceAccount: 7
+          StorageClass: 3
+        reason: rendered object set has no Deployment, StatefulSet, DaemonSet, Job,
+          or CronJob to wait for
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 27
+      configHubObjectCount: 28
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 27
+      configHubObjectCount: 28
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-15T04:46:12Z'
+    finishedAt: '2026-06-15T04:46:15Z'
+    elapsedSeconds: 2.2
+    timeoutSeconds: 900
+    command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
+      --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T04:46:20Z'
+    finishedAt: '2026-06-15T04:46:21Z'
+    elapsedSeconds: 0.363
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T04:46:26Z'
+    finishedAt: '2026-06-15T04:46:27Z'
+    elapsedSeconds: 0.181
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig
+      --context kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/direct-apply-manifest.yaml
+    objectCount: 27
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T04:46:27Z'
+    finishedAt: '2026-06-15T04:46:27Z'
+    elapsedSeconds: 0.016
+    timeoutSeconds: 300
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T04:46:38Z'
+    finishedAt: '2026-06-15T04:46:38Z'
+    elapsedSeconds: 0.221
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T04:46:44Z'
+    finishedAt: '2026-06-15T04:47:41Z'
+    elapsedSeconds: 57.702
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+      --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster --target
+      helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci
+    objectCount: 28
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T04:47:41Z'
+    finishedAt: '2026-06-15T04:47:42Z'
+    elapsedSeconds: 0.878
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T04:47:42Z'
+    finishedAt: '2026-06-15T04:47:58Z'
+    elapsedSeconds: 15.826
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
+      --unit <28 unit(s)> --wait --timeout 5m
+    unitCount: 28
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T04:47:58Z'
+    finishedAt: '2026-06-15T04:47:59Z'
+    elapsedSeconds: 0.934
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
+      rook-ceph-cluster-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/argo-application.json
+      --target helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T04:47:59Z'
+    finishedAt: '2026-06-15T04:48:00Z'
+    elapsedSeconds: 1.067
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-15T04:48:00Z'
+    finishedAt: '2026-06-15T04:55:03Z'
+    elapsedSeconds: 422.509
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T04:55:37Z'
+    finishedAt: '2026-06-15T04:55:37Z'
+    elapsedSeconds: 0.014
+    timeoutSeconds: 180
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\nap"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=5 objectStores=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: namespaces "rook-ceph" not found'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=5 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: ''
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=5
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=5 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cephblockpools.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephclusters.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephfilesystems.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephfilesystemsubvolumegroups.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephobjectstores.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cephblockpools.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubKubectlApply
+      - name: cephclusters.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubKubectlApply
+      - name: cephfilesystems.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubKubectlApply
+      - name: cephfilesystemsubvolumegroups.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubKubectlApply
+      - name: cephobjectstores.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubKubectlApply
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cephblockpools.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubOciArgo
+      - name: cephclusters.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubOciArgo
+      - name: cephfilesystems.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubOciArgo
+      - name: cephfilesystemsubvolumegroups.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubOciArgo
+      - name: cephobjectstores.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: configHubOciArgo
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

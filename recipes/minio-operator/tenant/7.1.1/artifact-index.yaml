@@ -63,7 +63,7 @@ spec:
     path: "packages/minio-operator/tenant/7.1.1"
     installer: "packages/minio-operator/tenant/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42"
+    deterministicBundleSHA256: "2d06312b902e7504cacf6b5e16bba80d747f61540be75012a85b30b717cae944"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -84,8 +84,18 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "tenants.minio.min.io"
+            purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+            sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "minio-operator/operator@7.1.1/default"
+      targetFactSummary: "required CRD tenants.minio.min.io"
       packageBase:
         name: "default"
         path: "packages/minio-operator/tenant/7.1.1/bases/default"

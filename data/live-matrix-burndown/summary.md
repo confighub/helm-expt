@@ -19,7 +19,7 @@ or run Kubernetes. Run live commands serially.
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 67 |
 | Two-cluster kind parity commands | 119 |
 | Watch/review rows | 18 |
-| Ready-to-run todo rows | 168 |
+| Ready-to-run todo rows | 167 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ or run Kubernetes. Run live commands serially.
 
 | Readiness | Rows |
 | --- | ---: |
-| `model-or-stage-first` | 1 |
-| `ready-to-run` | 168 |
+| `model-or-stage-first` | 2 |
+| `ready-to-run` | 167 |
 | `review-target-first` | 17 |
 
 ## Active Watch Rows

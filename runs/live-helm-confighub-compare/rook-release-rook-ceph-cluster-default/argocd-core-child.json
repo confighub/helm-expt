@@ -1,0 +1,769 @@
+{
+  "metadata": {
+    "name": "rook-ceph-cluster-parity",
+    "namespace": "argocd",
+    "uid": "c9714034-289b-41fe-ad45-892ce604c514",
+    "resourceVersion": "1762",
+    "generation": 11,
+    "creationTimestamp": "2026-06-15T04:48:11Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster:argoproj.io/Application:argocd/rook-ceph-cluster-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "622b06cd-1dd6-4313-8117-22f5b5994057",
+      "confighub.com/UnitSlug": "rook-ceph-cluster-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:48:11Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-15T04:55:11Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci",
+      "path": "./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-default",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-nvmeof",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "rook-ceph-rgw",
+        "status": "Synced"
+      },
+      {
+        "group": "ceph.rook.io",
+        "version": "v1",
+        "kind": "CephBlockPool",
+        "namespace": "default",
+        "name": "ceph-blockpool",
+        "status": "Synced"
+      },
+      {
+        "group": "ceph.rook.io",
+        "version": "v1",
+        "kind": "CephCluster",
+        "namespace": "default",
+        "name": "default",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for status to be reported"
+        }
+      },
+      {
+        "group": "ceph.rook.io",
+        "version": "v1",
+        "kind": "CephFilesystem",
+        "namespace": "default",
+        "name": "ceph-filesystem",
+        "status": "Synced"
+      },
+      {
+        "group": "ceph.rook.io",
+        "version": "v1",
+        "kind": "CephFilesystemSubVolumeGroup",
+        "namespace": "default",
+        "name": "ceph-filesystem-csi",
+        "status": "Synced"
+      },
+      {
+        "group": "ceph.rook.io",
+        "version": "v1",
+        "kind": "CephObjectStore",
+        "namespace": "default",
+        "name": "ceph-objectstore",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for status to be reported"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-mgr-cluster-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "rook-ceph-osd-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-cluster-mgmt",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-cmd-reporter",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-mgr",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "rook-ceph-purge-osd",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "rook-ceph",
+        "name": "rook-ceph-mgr-system-default",
+        "status": "Synced"
+      },
+      {
+        "group": "storage.k8s.io",
+        "version": "v1",
+        "kind": "StorageClass",
+        "name": "ceph-block",
+        "status": "Synced"
+      },
+      {
+        "group": "storage.k8s.io",
+        "version": "v1",
+        "kind": "StorageClass",
+        "name": "ceph-bucket",
+        "status": "Synced"
+      },
+      {
+        "group": "storage.k8s.io",
+        "version": "v1",
+        "kind": "StorageClass",
+        "name": "ceph-filesystem",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci",
+          "path": "./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-15T04:48:12Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072",
+        "deployedAt": "2026-06-15T04:48:14Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci",
+          "path": "./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-15T04:48:12Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-15T04:55:03Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci",
+            "path": "./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-mgr",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-mgr serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-osd",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-cmd-reporter",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-cmd-reporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-purge-osd",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-purge-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-nvmeof",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-nvmeof serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-rgw",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-rgw serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "rook-ceph-default",
+            "status": "Synced",
+            "message": "serviceaccount/rook-ceph-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "storage.k8s.io",
+            "version": "v1",
+            "kind": "StorageClass",
+            "namespace": "default-oci",
+            "name": "ceph-bucket",
+            "status": "Synced",
+            "message": "storageclass.storage.k8s.io/ceph-bucket serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "storage.k8s.io",
+            "version": "v1",
+            "kind": "StorageClass",
+            "namespace": "default-oci",
+            "name": "ceph-block",
+            "status": "Synced",
+            "message": "storageclass.storage.k8s.io/ceph-block serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "storage.k8s.io",
+            "version": "v1",
+            "kind": "StorageClass",
+            "namespace": "default-oci",
+            "name": "ceph-filesystem",
+            "status": "Synced",
+            "message": "storageclass.storage.k8s.io/ceph-filesystem serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "rook-ceph-mgr-cluster-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-cluster-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:rook-ceph-mgr Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-cluster-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "rook-ceph-osd-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/rook-ceph-osd-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:rook-ceph-osd Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/rook-ceph-osd-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "rook-ceph-purge-osd",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/rook-ceph-purge-osd reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rook-ceph-purge-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "rook-ceph-cmd-reporter",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/rook-ceph-cmd-reporter reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rook-ceph-cmd-reporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "rook-ceph-mgr",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/rook-ceph-mgr reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rook-ceph-mgr serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "rook-ceph-osd",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/rook-ceph-osd reconciled. reconciliation required update. role.rbac.authorization.k8s.io/rook-ceph-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "rook-ceph-cluster-mgmt",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-cluster-mgmt reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-cluster-mgmt serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "rook-ceph",
+            "name": "rook-ceph-mgr-system-default",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-system-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:rook-ceph-mgr Namespace:default}. rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr-system-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "rook-ceph-cmd-reporter",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-cmd-reporter reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-cmd-reporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "rook-ceph-osd",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-osd reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "rook-ceph-mgr",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-mgr serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "rook-ceph-purge-osd",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/rook-ceph-purge-osd reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/rook-ceph-purge-osd serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "ceph.rook.io",
+            "version": "v1",
+            "kind": "CephBlockPool",
+            "namespace": "default",
+            "name": "ceph-blockpool",
+            "status": "Synced",
+            "message": "cephblockpool.ceph.rook.io/ceph-blockpool serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "ceph.rook.io",
+            "version": "v1",
+            "kind": "CephFilesystem",
+            "namespace": "default",
+            "name": "ceph-filesystem",
+            "status": "Synced",
+            "message": "cephfilesystem.ceph.rook.io/ceph-filesystem serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "ceph.rook.io",
+            "version": "v1",
+            "kind": "CephFilesystemSubVolumeGroup",
+            "namespace": "default",
+            "name": "ceph-filesystem-csi",
+            "status": "Synced",
+            "message": "cephfilesystemsubvolumegroup.ceph.rook.io/ceph-filesystem-csi serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "ceph.rook.io",
+            "version": "v1",
+            "kind": "CephObjectStore",
+            "namespace": "default",
+            "name": "ceph-objectstore",
+            "status": "Synced",
+            "message": "cephobjectstore.ceph.rook.io/ceph-objectstore serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "ceph.rook.io",
+            "version": "v1",
+            "kind": "CephCluster",
+            "namespace": "default",
+            "name": "default",
+            "status": "Synced",
+            "message": "cephcluster.ceph.rook.io/default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:a7796bc71c2be3272a39091fb16c78d0092c1c9948a6338b3be197cf49832072",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci",
+          "path": "./helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-15T04:48:12Z",
+      "finishedAt": "2026-06-15T04:48:14Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

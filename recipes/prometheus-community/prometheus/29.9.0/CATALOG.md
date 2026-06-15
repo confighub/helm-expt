@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/prometheus-community/prometheus/29.9.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/prometheus-community/prometheus/29.9.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/prometheus/29.9.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus/29.9.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus/29.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/prometheus/29.9.0](../../../../packages/prometheus-community/prometheus/29.9.0) |

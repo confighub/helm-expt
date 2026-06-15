@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/bitnami/nginx/24.0.4/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/nginx/24.0.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/nginx/24.0.4/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/bitnami/nginx/24.0.4/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/nginx/24.0.4/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/nginx/24.0.4](../../../../packages/bitnami/nginx/24.0.4) |

@@ -6,7 +6,33 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "rook-release/rook-ceph-cluster default variant rendered from rook-release/rook-ceph-cluster@v1.19.5"
+      name: "default"
+      path: "bases/default"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD cephblockpools.ceph.rook.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cephclusters.ceph.rook.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cephfilesystems.ceph.rook.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cephfilesystemsubvolumegroups.ceph.rook.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD cephobjectstores.ceph.rook.io"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

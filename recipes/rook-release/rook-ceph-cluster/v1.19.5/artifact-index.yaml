@@ -64,7 +64,7 @@ spec:
     path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d05b8045a23ebd2fdab186de3485c7eed5a40e6c6b7c66b44de14c8c35209176"
+    deterministicBundleSHA256: "e5bdb9141875ddce5cbab0cea093bc513a447da0484dfa235fb61cedc0ce4b89"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -85,8 +85,58 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephblockpools.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephBlockPool resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephclusters.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephCluster resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephfilesystems.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephFilesystem resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephobjectstores.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephObjectStore resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      targetFactSummary: "required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io"
       packageBase:
         name: "default"
         path: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"

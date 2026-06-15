@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/kyverno/kyverno-policies/3.8.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/kyverno/kyverno-policies/3.8.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/kyverno/kyverno-policies/3.8.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/kyverno/kyverno-policies/3.8.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/kyverno/kyverno-policies/3.8.0](../../../../packages/kyverno/kyverno-policies/3.8.0) |
@@ -57,7 +58,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/kyverno/kyverno-policies/3.8.0/bases/default](../../../../packages/kyverno/kyverno-policies/3.8.0/bases/default) | [recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | pass | allow | none |
+| default | [recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/kyverno/kyverno-policies/3.8.0/bases/default](../../../../packages/kyverno/kyverno-policies/3.8.0/bases/default) | [recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | pass | allow | required CRD clusterpolicies.kyverno.io |
 
 ## Package Bases
 

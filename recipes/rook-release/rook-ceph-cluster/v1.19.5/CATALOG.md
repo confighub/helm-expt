@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/rook-release/rook-ceph-cluster/v1.19.5/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/rook-release/rook-ceph-cluster/v1.19.5/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/rook-release/rook-ceph-cluster/v1.19.5/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/rook-release/rook-ceph-cluster/v1.19.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/rook-release/rook-ceph-cluster/v1.19.5](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5) |
@@ -57,7 +58,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 27 | 28 | 27/27 | pass | warn | warn | none |
+| default | [recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 27 | 28 | 27/27 | pass | warn | warn | required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io |
 
 ## Package Bases
 

@@ -493,6 +493,9 @@ function classifyReason(receipt, target) {
     if (regularMessage.includes("customresourcedefinition") && regularMessage.includes("cannot be imported")) {
       return "fixture: pre-existing CRDs owned by test controller";
     }
+    if (regularMessage.includes("namespaces ") && regularMessage.includes(" not found")) {
+      return semanticPassed ? "target-prerequisite: namespace missing (parity passed)" : "target-prerequisite: namespace missing";
+    }
     return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
   }
   // Real parity finding: Helm installed but a ConfigHub delivery path diverged live.

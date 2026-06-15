@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/minio-operator/tenant/7.1.1/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/minio-operator/tenant/7.1.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/minio-operator/tenant/7.1.1/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/minio-operator/tenant/7.1.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/minio-operator/tenant/7.1.1](../../../../packages/minio-operator/tenant/7.1.1) |
@@ -57,7 +58,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/minio-operator/tenant/7.1.1/bases/default](../../../../packages/minio-operator/tenant/7.1.1/bases/default) | [recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 2 | 3 | 2/2 | pass | warn | warn | none |
+| default | [recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/minio-operator/tenant/7.1.1/bases/default](../../../../packages/minio-operator/tenant/7.1.1/bases/default) | [recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 2 | 3 | 2/2 | pass | warn | warn | required CRD tenants.minio.min.io |
 
 ## Package Bases
 
