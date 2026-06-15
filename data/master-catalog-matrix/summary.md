@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 905 / 57 / 60 / 200 / 122 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 906 / 57 / 60 / 199 / 122 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -252,7 +252,7 @@ when you want the user/product view with those columns visible.
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ❌ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
+|  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `nats/nats@2.14.0` | default | next80 | `tpl` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | ha | next80 | `tpl` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `nats/surveyor@0.20.9` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |

@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 104
+pass: 105
 watch: 5
 blocked: 5
-semantic parity pass: 110
+semantic parity pass: 111
 semantic parity defects: 3
 non-pass rows where semantic parity passed: 6
 non-pass rows with related lifecycle evidence: 0
@@ -149,6 +149,7 @@ broader support claim.
 | `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | `nats/nack@0.34.0` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/nats-nack-default/receipt.yaml |
+| `nats/nack@0.34.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nack-no-crds/receipt.yaml |
 | `nats/nats@2.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nats-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
