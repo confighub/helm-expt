@@ -65,6 +65,7 @@ grafana/promtail,6.17.1,default,pass,pass,,,live parity passed,runs/live-kind-pa
 grafana/pyroscope,2.0.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml
 grafana/pyroscope,2.0.2,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml
 grafana/rollout-operator,0.49.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml
+grafana/rollout-operator,0.49.0,no-crds,watch,pass,target-runtime: installer-applied workload not ready at observation cutoff (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml
 grafana/tempo,1.24.4,local-persistent,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml
 grafana/tempo,1.24.4,s3-query-observability,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml
 haproxytech/kubernetes-ingress,1.52.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml
