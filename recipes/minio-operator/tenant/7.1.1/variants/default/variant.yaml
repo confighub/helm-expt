@@ -17,3 +17,15 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "tenants.minio.min.io"
+        sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "minio-operator/operator@7.1.1/default"
+        purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

@@ -1,0 +1,51 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "minio-operator-tenant-default-operator-reconciliation-watch"
+  chart: "minio-operator/tenant"
+  version: "7.1.1"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "kind proof rig with the MinIO Tenant CRD staged from minio-operator/operator"
+  receipt: "runs/live-helm-confighub-compare/minio-operator-tenant-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    sync: "Synced"
+    health: "Progressing"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciRuntime: "pass"
+    targetFacts: "pass"
+    controllerResidue: "Tenant/default-oci/myminio: Synced/Progressing"
+  passed:
+    - "the required tenants.minio.min.io CRD was declared as a target fact and staged before all three live legs"
+    - "regular Helm installed the Tenant custom resource once the CRD existed"
+    - "ConfigHub direct apply installed the same Tenant custom resource"
+    - "ConfigHub OCI/Argo synced the uploaded Units"
+    - "semantic object parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "Argo aggregate health remains Progressing because the Tenant custom resource is created, but no MinIO Operator controller reconciles it on this proof target."
+    observedResidue:
+      - "Application/argocd/tenant-parity: Synced/Progressing after 420 seconds"
+      - "Tenant/default-oci/myminio exists with no reported state or health"
+      - "the proof target has the Tenant CRD, but not the MinIO Operator controller workload"
+    interpretation: "This is a platform-stack prerequisite row, not a render parity or target-fact defect."
+  diagnosis:
+    summary: "The tenant chart is not standalone. It can create a Tenant resource only after the MinIO Tenant CRD exists, and a useful runtime claim also needs the MinIO Operator controller to reconcile that resource."
+    productBoundary: "A production claim for this base needs a target profile where the MinIO Operator controller is installed and observed, or a stack base that delivers operator plus tenant together."
+    nextInvestigation:
+      - "Rerun against a target profile that installs and observes minio-operator/operator before applying minio-operator/tenant."
+      - "Decide whether the catalog should expose tenant as a derived base under an operator-owned platform stack rather than as a standalone first-run base."
+      - "Add storage, certificate, and tenant readiness observations once the operator controller prerequisite is modeled."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/minio-operator-tenant-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/minio-operator-tenant-default/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/minio-operator-tenant-default/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/minio-operator-tenant-default/argocd-core-root-tree.txt"
+    targetFactCRDManifest: "runs/live-helm-confighub-compare/minio-operator-tenant-default/target-facts-confighub-oci-crds.yaml"
+  notClaimed:
+    - "This row does not claim minio-operator/tenant is standalone on a bare cluster."
+    - "This row does not prove Tenant reconciliation without the MinIO Operator controller."
+    - "This row does not prove tenant storage, certificate issuance, pool readiness, object-store health, backup, upgrade, or production security policy."

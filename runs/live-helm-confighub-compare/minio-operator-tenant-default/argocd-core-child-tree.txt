@@ -1,0 +1,17 @@
+Name:               argocd/tenant-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:54148/applications/tenant-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-tenant-mqeobjfe-703-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-tenant-mqeobjfe-703-tenant
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME              STATUS  HEALTH       AGE    MESSAGE                                         REASON
+Namespace/default-oci  Synced               7m38s
+Tenant/myminio         Synced  Progressing  7m1s   tenant.minio.min.io/myminio serverside-applied  No status info available
