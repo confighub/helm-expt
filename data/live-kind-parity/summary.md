@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 74
 watch: 1
-blocked: 1
+blocked: 2
 semantic parity pass: 75
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 1
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| blocked: inspect receipt | 1 |
+| blocked: inspect receipt | 2 |
 | render-input: required Helm values missing (parity passed) | 1 |
 
 ## How To Read Non-Pass Rows
@@ -64,6 +64,7 @@ broader support claim.
 | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/receipt.yaml |
 | `argo-cd/argo-workflows@1.0.14` | minimal-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml |
 | `argo-cd/argocd-image-updater@1.2.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml |
+| `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | render-input: required Helm values missing (parity passed) |  | semantic parity passed; required render inputs need a modeled base | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
