@@ -108,7 +108,7 @@ function buildReport() {
         matrix_value: "todo",
         evidence: confighubReceipt,
         reason: "base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet",
-        next_action: `run scripts/run-top20-confighub-proof.mjs --charts ${chart.split("/").at(-1)} --base ${row.base} --variant-promotion-proof --cleanup-spaces`,
+        next_action: `node scripts/run-top20-confighub-proof.mjs --charts ${chart.split("/").at(-1)} --base ${row.base} --variant-promotion-proof --cleanup-spaces`,
       };
     }
 

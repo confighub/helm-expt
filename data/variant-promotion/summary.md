@@ -22,8 +22,7 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 170 |
-| missing-confighub-proof | 2 |
+| available-needs-receipt | 172 |
 | proven-with-watch | 20 |
 
 Matrix values:
@@ -60,26 +59,26 @@ resolved and the receipt reruns as pass.
 
 | Row | Status | Next action |
 | --- | --- | --- |
-| `aqua/trivy-operator@0.32.1/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base default --variant-promotion-proof --cleanup-spaces |
-| `aqua/trivy-operator@0.32.1/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.17/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.17/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-events@2.4.21/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-events --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-events@2.4.21/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-events --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-rollouts@2.40.9/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-rollouts@2.40.9/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/controller-default-reviewed` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/minimal-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argocd-image-updater@1.2.2/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/vertical-pod-autoscaler@0.9.0/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
-| `bitnami/apache@11.4.29/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts apache --base default --variant-promotion-proof --cleanup-spaces |
-| `bitnami/contour@21.1.4/default` | available-needs-receipt | run scripts/run-top20-confighub-proof.mjs --charts contour --base default --variant-promotion-proof --cleanup-spaces |
+| `aqua/trivy-operator@0.32.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base default --variant-promotion-proof --cleanup-spaces |
+| `aqua/trivy-operator@0.32.1/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-cd@9.5.17/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-cd@9.5.17/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-events@2.4.21/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-events --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-events@2.4.21/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-events --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-rollouts@2.40.9/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-rollouts@2.40.9/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-workflows@1.0.14/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-workflows@1.0.14/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-workflows@1.0.14/minimal-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argocd-image-updater@1.2.2/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/cluster-autoscaler@9.57.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/vertical-pod-autoscaler@0.9.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/apache@11.4.29/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts apache --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/contour@21.1.4/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts contour --base default --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 
