@@ -1,0 +1,81 @@
+LAST SEEN   TYPE      REASON                  OBJECT                                              MESSAGE
+8m          Normal    NoPods                  poddisruptionbudget/elasticsearch-coordinating      No matching pods found
+8m          Normal    Scheduled               pod/elasticsearch-ingest-0                          Successfully assigned default-helm/elasticsearch-ingest-0 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+8m          Normal    Provisioning            persistentvolumeclaim/data-elasticsearch-data-0     External provisioner is provisioning volume for claim "default-helm/data-elasticsearch-data-0"
+8m          Normal    Scheduled               pod/elasticsearch-ingest-1                          Successfully assigned default-helm/elasticsearch-ingest-1 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+8m          Normal    WaitForFirstConsumer    persistentvolumeclaim/data-elasticsearch-data-1     waiting for first consumer to be created before binding
+8m          Normal    ExternalProvisioning    persistentvolumeclaim/data-elasticsearch-data-1     Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+8m          Normal    Provisioning            persistentvolumeclaim/data-elasticsearch-data-1     External provisioner is provisioning volume for claim "default-helm/data-elasticsearch-data-1"
+8m          Normal    NoPods                  poddisruptionbudget/elasticsearch-ingest            No matching pods found
+8m          Normal    WaitForFirstConsumer    persistentvolumeclaim/data-elasticsearch-master-0   waiting for first consumer to be created before binding
+8m          Normal    ExternalProvisioning    persistentvolumeclaim/data-elasticsearch-master-0   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+8m          Normal    Provisioning            persistentvolumeclaim/data-elasticsearch-master-0   External provisioner is provisioning volume for claim "default-helm/data-elasticsearch-master-0"
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-data                      Create Pod elasticsearch-data-1 in StatefulSet elasticsearch-data successful
+8m          Normal    WaitForFirstConsumer    persistentvolumeclaim/data-elasticsearch-master-1   waiting for first consumer to be created before binding
+8m          Normal    ExternalProvisioning    persistentvolumeclaim/data-elasticsearch-master-1   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+8m          Normal    Provisioning            persistentvolumeclaim/data-elasticsearch-master-1   External provisioner is provisioning volume for claim "default-helm/data-elasticsearch-master-1"
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-data                      Create Claim data-elasticsearch-data-1 Pod elasticsearch-data-1 in StatefulSet elasticsearch-data success
+8m          Normal    Scheduled               pod/elasticsearch-coordinating-0                    Successfully assigned default-helm/elasticsearch-coordinating-0 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-master                    Create Claim data-elasticsearch-master-0 Pod elasticsearch-master-0 in StatefulSet elasticsearch-master success
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-data                      Create Claim data-elasticsearch-data-0 Pod elasticsearch-data-0 in StatefulSet elasticsearch-data success
+8m          Normal    NoPods                  poddisruptionbudget/elasticsearch-data              No matching pods found
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-master                    Create Pod elasticsearch-master-1 in StatefulSet elasticsearch-master successful
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-master                    Create Claim data-elasticsearch-master-1 Pod elasticsearch-master-1 in StatefulSet elasticsearch-master success
+8m          Normal    Scheduled               pod/elasticsearch-coordinating-1                    Successfully assigned default-helm/elasticsearch-coordinating-1 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-ingest                    Create Pod elasticsearch-ingest-0 in StatefulSet elasticsearch-ingest successful
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-ingest                    Create Pod elasticsearch-ingest-1 in StatefulSet elasticsearch-ingest successful
+8m          Normal    WaitForFirstConsumer    persistentvolumeclaim/data-elasticsearch-data-0     waiting for first consumer to be created before binding
+8m          Normal    NoPods                  poddisruptionbudget/elasticsearch-master            No matching pods found
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-data                      Create Pod elasticsearch-data-0 in StatefulSet elasticsearch-data successful
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-master                    Create Pod elasticsearch-master-0 in StatefulSet elasticsearch-master successful
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-coordinating              Create Pod elasticsearch-coordinating-0 in StatefulSet elasticsearch-coordinating successful
+8m          Normal    SuccessfulCreate        statefulset/elasticsearch-coordinating              Create Pod elasticsearch-coordinating-1 in StatefulSet elasticsearch-coordinating successful
+7m55s       Normal    Scheduled               pod/elasticsearch-master-0                          Successfully assigned default-helm/elasticsearch-master-0 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+7m55s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-elasticsearch-master-0   Successfully provisioned volume pvc-d0b7aa10-abdb-4ace-b7b9-01bef8ec5801
+7m54s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-elasticsearch-data-1     Successfully provisioned volume pvc-1c54fb92-ca91-49df-95c0-f9c69da5ace5
+7m53s       Normal    Scheduled               pod/elasticsearch-data-1                            Successfully assigned default-helm/elasticsearch-data-1 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+7m53s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-elasticsearch-master-1   Successfully provisioned volume pvc-4c200f9f-a92e-416f-bf66-aad958155ee4
+7m52s       Normal    Scheduled               pod/elasticsearch-data-0                            Successfully assigned default-helm/elasticsearch-data-0 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+7m52s       Normal    ExternalProvisioning    persistentvolumeclaim/data-elasticsearch-data-0     Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+7m52s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-elasticsearch-data-0     Successfully provisioned volume pvc-c5c58f48-a1d7-47b6-915b-17b2f18e98cf
+7m52s       Normal    Scheduled               pod/elasticsearch-master-1                          Successfully assigned default-helm/elasticsearch-master-1 to helm-expt-parity-elasticsearch-mqgeyy60-1773-control-plane
+5m15s       Normal    Pulling                 pod/elasticsearch-ingest-1                          Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+5m14s       Warning   Failed                  pod/elasticsearch-ingest-1                          Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+5m14s       Warning   Failed                  pod/elasticsearch-ingest-1                          Error: ErrImagePull
+5m10s       Normal    Pulling                 pod/elasticsearch-coordinating-1                    Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+5m9s        Warning   Failed                  pod/elasticsearch-coordinating-1                    Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+5m9s        Warning   Failed                  pod/elasticsearch-coordinating-1                    Error: ErrImagePull
+5m6s        Normal    Pulling                 pod/elasticsearch-ingest-0                          Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+5m6s        Normal    Pulling                 pod/elasticsearch-master-0                          Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+5m5s        Warning   Failed                  pod/elasticsearch-ingest-0                          Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+5m5s        Warning   Failed                  pod/elasticsearch-ingest-0                          Error: ErrImagePull
+5m4s        Warning   Failed                  pod/elasticsearch-master-0                          Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+5m4s        Warning   Failed                  pod/elasticsearch-master-0                          Error: ErrImagePull
+4m56s       Normal    Pulling                 pod/elasticsearch-coordinating-0                    Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+4m55s       Warning   Failed                  pod/elasticsearch-coordinating-0                    Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+4m55s       Warning   Failed                  pod/elasticsearch-coordinating-0                    Error: ErrImagePull
+4m55s       Normal    Pulling                 pod/elasticsearch-data-1                            Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+4m54s       Warning   Failed                  pod/elasticsearch-data-1                            Error: ErrImagePull
+4m54s       Warning   Failed                  pod/elasticsearch-data-1                            Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+4m47s       Normal    Pulling                 pod/elasticsearch-master-1                          Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+4m46s       Warning   Failed                  pod/elasticsearch-master-1                          Error: ErrImagePull
+4m46s       Warning   Failed                  pod/elasticsearch-master-1                          Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+4m39s       Normal    Pulling                 pod/elasticsearch-data-0                            Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+4m38s       Warning   Failed                  pod/elasticsearch-data-0                            Error: ErrImagePull
+4m38s       Warning   Failed                  pod/elasticsearch-data-0                            Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+2m52s       Warning   Failed                  pod/elasticsearch-ingest-1                          Error: ImagePullBackOff
+2m51s       Warning   Failed                  pod/elasticsearch-ingest-0                          Error: ImagePullBackOff
+2m47s       Normal    BackOff                 pod/elasticsearch-master-0                          Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m47s       Warning   Failed                  pod/elasticsearch-master-0                          Error: ImagePullBackOff
+2m47s       Warning   Failed                  pod/elasticsearch-coordinating-1                    Error: ImagePullBackOff
+2m46s       Warning   Failed                  pod/elasticsearch-coordinating-0                    Error: ImagePullBackOff
+2m43s       Warning   Failed                  pod/elasticsearch-data-0                            Error: ImagePullBackOff
+2m40s       Normal    BackOff                 pod/elasticsearch-ingest-1                          Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m40s       Normal    BackOff                 pod/elasticsearch-ingest-0                          Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m39s       Normal    BackOff                 pod/elasticsearch-master-1                          Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m39s       Warning   Failed                  pod/elasticsearch-master-1                          Error: ImagePullBackOff
+2m38s       Warning   Failed                  pod/elasticsearch-data-1                            Error: ImagePullBackOff
+2m38s       Normal    BackOff                 pod/elasticsearch-data-1                            Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m33s       Normal    BackOff                 pod/elasticsearch-coordinating-1                    Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m32s       Normal    BackOff                 pod/elasticsearch-coordinating-0                    Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+2m28s       Normal    BackOff                 pod/elasticsearch-data-0                            Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"

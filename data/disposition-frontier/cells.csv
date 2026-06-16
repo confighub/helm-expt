@@ -140,8 +140,8 @@ bitnami/elasticsearch@22.1.6,default,two_cluster_kind_parity,K,missing,blocked,y
 bitnami/elasticsearch@22.1.6,ha,render_parity,R,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,ha,in_confighub,C,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,ha,local_live,L,fail,fail,no,,,
-bitnami/elasticsearch@22.1.6,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-bitnami/elasticsearch@22.1.6,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+bitnami/elasticsearch@22.1.6,ha,gitops_oci_live,G,watch,watch,no,,,
+bitnami/elasticsearch@22.1.6,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/elasticsearch@22.1.6,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
 bitnami/memcached@8.5.5,default,render_parity,R,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,in_confighub,C,pass,pass,no,,,

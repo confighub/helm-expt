@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-46 non-pass rows: 37 watch, 9 blocked.
+47 non-pass rows: 38 watch, 9 blocked.
 4 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,8 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
+| `remote-image` | 10 |
 | `target-runtime` | 10 |
-| `remote-image` | 9 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -46,8 +46,8 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
+| `catalog or image publisher` | 10 |
 | `needs runtime review` | 10 |
-| `catalog or image publisher` | 9 |
 | `catalog` | 4 |
 | `user` | 4 |
 | `catalog or operator` | 1 |
@@ -64,6 +64,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/elasticsearch@22.1.6 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/elasticsearch@22.1.6 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
