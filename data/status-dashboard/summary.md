@@ -70,16 +70,16 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/183 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/184 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 148/148 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 79/79 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 35/79 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 35/79 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 80/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 36/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 35/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 133 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 57 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 76 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 41/183 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/183 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 42/184 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/184 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 7/148 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -193,7 +193,7 @@ considered.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 35 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 36 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 35 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
@@ -221,6 +221,7 @@ needs a support artifact or a direct receipt review before rerun.
 | bitnami/opensearch@2.0.10 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/phpmyadmin@20.0.0 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/spark@10.0.3 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/spark@10.0.3 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | elastic/filebeat@8.5.1 | default | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fluent/fluentd@0.5.3 | default | watch | runtime-review | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) |
@@ -442,8 +443,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 192 | 0 | 0 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 135 | 48 | 9 | 192 |
-| live Helm-vs-ConfigHub parity | 135 | 48 | 9 | 192 |
+| GitOps/OCI live | 135 | 49 | 8 | 192 |
+| live Helm-vs-ConfigHub parity | 135 | 49 | 8 | 192 |
 | two-cluster kind parity | 116 | 32 | 0 | 148 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -453,7 +454,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/183
+ConfigHub/OCI live comparison: 0/184
 two-cluster kind parity:       7/148
 ~~~
 
@@ -471,7 +472,7 @@ useful.
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 35 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 36 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 35 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
@@ -487,7 +488,7 @@ useful.
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | capability-profile-base | 2 | Read the receipt and classify the row before rerunning. |
 | crd-bootstrap | 1 | Read the receipt and classify the row before rerunning. |
-| image-retention-review | 11 | Read the receipt and classify the row before rerunning. |
+| image-retention-review | 12 | Read the receipt and classify the row before rerunning. |
 | render-input-model | 2 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -516,6 +517,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | bitnami/opensearch@2.0.10 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/phpmyadmin@20.0.0 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/spark@10.0.3 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/spark@10.0.3 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime: pod config/runtime errors (parity passed) |

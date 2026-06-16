@@ -24,9 +24,9 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   33
+ready-to-run rows:   32
 run blocks:          7  (G/P: 2, K: 5)
-derived predictions: 23
+derived predictions: 22
 unknown predictions: 10
 ```
 
@@ -38,13 +38,12 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## GP-01 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/spark@10.0.3, bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/spark@10.0.3 | ha | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha` | remote-image | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
 | bitnami/zookeeper@13.8.7 | default | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/zookeeper@13.8.7 | ha | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
 | elastic/kibana@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |

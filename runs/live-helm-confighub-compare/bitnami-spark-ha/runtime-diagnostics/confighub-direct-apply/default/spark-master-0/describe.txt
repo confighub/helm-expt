@@ -1,0 +1,80 @@
+Name:             spark-master-0
+Namespace:        default
+Priority:         0
+Service Account:  spark
+Node:             helm-expt-parity-spark-mqghfthi-196o-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 11:21:30 +0100
+Labels:           app.kubernetes.io/component=master
+                  app.kubernetes.io/instance=spark
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=spark
+                  app.kubernetes.io/version=4.0.0
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=spark-master-5dd99f5654
+                  helm.sh/chart=spark-10.0.3
+                  statefulset.kubernetes.io/pod-name=spark-master-0
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.14
+IPs:
+  IP:           10.244.0.14
+Controlled By:  StatefulSet/spark-master
+Containers:
+  spark-master:
+    Container ID:
+    Image:           docker.io/bitnami/spark:4.0.0-debian-12-r20
+    Image ID:
+    Ports:           8080/TCP (http), 7077/TCP (cluster)
+    Host Ports:      0/TCP (http), 0/TCP (cluster)
+    SeccompProfile:  RuntimeDefault
+    State:           Waiting
+      Reason:        ErrImagePull
+    Ready:           False
+    Restart Count:   0
+    Limits:
+      cpu:                750m
+      ephemeral-storage:  2Gi
+      memory:             768Mi
+    Requests:
+      cpu:                500m
+      ephemeral-storage:  50Mi
+      memory:             512Mi
+    Liveness:             tcp-socket :8080 delay=180s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            http-get http://:8080/ delay=30s timeout=5s period=10s #success=1 #failure=6
+    Environment:
+      BITNAMI_DEBUG:            false
+      SPARK_MODE:               master
+      SPARK_DAEMON_MEMORY:
+      SPARK_MASTER_PORT:        7077
+      SPARK_MASTER_WEBUI_PORT:  8080
+    Mounts:
+      /opt/bitnami/spark/conf from empty-dir (rw,path="app-conf-dir")
+      /opt/bitnami/spark/logs from empty-dir (rw,path="app-logs-dir")
+      /opt/bitnami/spark/tmp from empty-dir (rw,path="app-tmp-dir")
+      /opt/bitnami/spark/work from empty-dir (rw,path="app-work-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  empty-dir:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age   From               Message
+  ----     ------     ----  ----               -------
+  Normal   Scheduled  10s   default-scheduler  Successfully assigned default/spark-master-0 to helm-expt-parity-spark-mqghfthi-196o-control-plane
+  Normal   Pulling    9s    kubelet            spec.containers{spark-master}: Pulling image "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+  Warning  Failed     9s    kubelet            spec.containers{spark-master}: Failed to pull image "docker.io/bitnami/spark:4.0.0-debian-12-r20": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/spark:4.0.0-debian-12-r20": failed to resolve reference "docker.io/bitnami/spark:4.0.0-debian-12-r20": docker.io/bitnami/spark:4.0.0-debian-12-r20: not found
+  Warning  Failed     9s    kubelet            spec.containers{spark-master}: Error: ErrImagePull
+  Normal   BackOff    8s    kubelet            spec.containers{spark-master}: Back-off pulling image "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+  Warning  Failed     8s    kubelet            spec.containers{spark-master}: Error: ImagePullBackOff
