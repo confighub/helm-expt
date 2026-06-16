@@ -1,0 +1,88 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "jaegertracing-jaeger-operator-2.57.0-target-prerequisites"
+  chart: "jaegertracing/jaeger-operator"
+  version: "2.57.0"
+spec:
+  summary: "Both Jaeger operator bases render cert-manager Certificate and Issuer resources. The no-crds base disables the Jaeger CRD, but it does not remove the cert-manager dependency. A target must accept cert-manager.io/v1 Certificate and Issuer objects before either base can be applied."
+  bases:
+    default:
+      status: "target-prerequisite-needed"
+      currentProofLimit: "The live G/P and two-cluster kind receipts both block before workload readiness because the target has no cert-manager.io/v1 CRDs for Certificate and Issuer. This is a target prerequisite, not a hidden ConfigHub render difference."
+      requiredBeforeApply:
+        -
+          kind: "CRD"
+          name: "certificates.cert-manager.io"
+          source: "cert-manager target component"
+          status: "target-prerequisite"
+          purpose: "The chart renders Certificate default/jaeger-operator-service-cert for webhook serving TLS."
+        -
+          kind: "CRD"
+          name: "issuers.cert-manager.io"
+          source: "cert-manager target component"
+          status: "target-prerequisite"
+          purpose: "The chart renders Issuer default/selfsigned-issuer for webhook serving TLS."
+      requiredBeforeObserve:
+        -
+          kind: "Controller"
+          name: "cert-manager"
+          status: "target-lifecycle-decision"
+          purpose: "If the target expects the rendered Certificate to become Ready, a cert-manager controller must reconcile it. If a different certificate strategy is used, the base or lifecycle route must say so."
+      mustObserve:
+        - "certificates.cert-manager.io and issuers.cert-manager.io exist before apply."
+        - "The Jaeger operator Deployment becomes Available."
+        - "The webhook Service has valid serving certificate material, or a target-approved alternate certificate route is recorded."
+        - "Argo aggregate health is Healthy, or the remaining cert-manager-style health residue is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "cert-manager-crd-preflight-receipt"
+        - "deployment-readiness-receipt"
+        - "webhook-certificate-lifecycle-receipt"
+    no-crds:
+      status: "target-prerequisite-needed"
+      currentProofLimit: "The no-crds live G/P receipt proves that disabling the Jaeger CRD is not enough for a vanilla target. The rendered object set still includes cert-manager Certificate and Issuer resources, so both regular Helm and ConfigHub apply block when those CRDs are absent."
+      requiredBeforeApply:
+        -
+          kind: "CRD"
+          name: "certificates.cert-manager.io"
+          source: "cert-manager target component"
+          status: "target-prerequisite"
+          purpose: "The chart renders Certificate default/jaeger-operator-service-cert for webhook serving TLS."
+        -
+          kind: "CRD"
+          name: "issuers.cert-manager.io"
+          source: "cert-manager target component"
+          status: "target-prerequisite"
+          purpose: "The chart renders Issuer default/selfsigned-issuer for webhook serving TLS."
+      requiredBeforeObserve:
+        -
+          kind: "Controller"
+          name: "cert-manager"
+          status: "target-lifecycle-decision"
+          purpose: "If the target expects the rendered Certificate to become Ready, a cert-manager controller must reconcile it. If a different certificate strategy is used, the base or lifecycle route must say so."
+      mustObserve:
+        - "certificates.cert-manager.io and issuers.cert-manager.io exist before apply."
+        - "The Jaeger operator Deployment becomes Available."
+        - "The webhook Service has valid serving certificate material, or a target-approved alternate certificate route is recorded."
+        - "Argo aggregate health is Healthy, or the remaining cert-manager-style health residue is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "cert-manager-crd-preflight-receipt"
+        - "deployment-readiness-receipt"
+        - "webhook-certificate-lifecycle-receipt"
+  evidence:
+    liveParityReceipts:
+      - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
+      - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+    kindParityReceipts:
+      - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+    blockingMessage: "no matches for kind Certificate or Issuer in version cert-manager.io/v1"
+  nextInvestigation:
+    - "Decide whether a supported Jaeger operator base should require cert-manager as a target component, or provide an alternate certificate route."
+    - "If cert-manager is required, model the Certificate and Issuer CRDs as target facts and rerun live G/P and K lanes."
+    - "If cert-manager is not required, create a new base that disables or replaces the rendered cert-manager resources before claiming vanilla-target support."
+  notProvenBy:
+    - "render parity alone"
+    - "the no-crds base name"
+    - "a target that has the Jaeger CRD but not cert-manager Certificate and Issuer CRDs"

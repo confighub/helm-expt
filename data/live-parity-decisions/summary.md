@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-31 non-pass rows: 29 watch, 2 blocked.
-1 are resolved by the **user** (stage a prerequisite); 1
+32 non-pass rows: 29 watch, 3 blocked.
+3 are resolved by the **user** (stage a prerequisite); 0
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -35,17 +35,15 @@ passed — the residue is operational, not a config mismatch.
 | --- | ---: |
 | `gitops-runtime` | 16 |
 | `target-runtime` | 12 |
+| `target-prerequisite` | 3 |
 | `operate-policy` | 1 |
-| `semantic-model-gap` | 1 |
-| `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 12 |
-| `catalog` | 1 |
+| `user` | 3 |
 | `needs operate review` | 1 |
-| `user` | 1 |
 
 ## Rows
 
@@ -71,7 +69,8 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | istio/gateway@1.30.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
-| jaegertracing/jaeger-operator@2.57.0 | default | blocked | semantic-model-gap | catalog | no — needs catalog work |
+| jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
+| jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
