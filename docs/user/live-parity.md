@@ -149,6 +149,11 @@ npm run live-parity:run -- \
   --target-profile kind-loadbalancer
 ```
 
+Preflight also checks `cub auth status`. A live run can take long enough for an
+almost-expired token to fail during upload or cleanup, so the harness refuses to
+start when ConfigHub auth is expired or close to expiry. Run `cub auth login`
+first, then rerun preflight.
+
 `kind-loadbalancer` is deliberately guarded. `cloud-provider-kind` observes kind
 clusters host-wide, so the harness refuses to start it while another kind
 cluster is running. Wait for other live lanes to finish first, then run the
