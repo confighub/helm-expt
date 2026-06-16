@@ -124,7 +124,7 @@
       "residue_category": "target-prerequisite-secret",
       "blocker_owner": "user",
       "usable_today": "yes, after staging a Secret",
-      "user_decision": "Usable once you stage the required Secret on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
       "reason": "target-prerequisite: required Secret missing (parity passed)",
       "receipt": "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
@@ -166,7 +166,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs disabled or missing (parity passed)",
       "receipt": "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml"
@@ -208,7 +208,7 @@
       "residue_category": "target-prerequisite-secret",
       "blocker_owner": "user",
       "usable_today": "yes, after staging a Secret",
-      "user_decision": "Usable once you stage the required Secret on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
       "reason": "target-prerequisite: required Secret missing (parity passed)",
       "receipt": "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
@@ -250,7 +250,7 @@
       "residue_category": "target-prerequisite-namespace",
       "blocker_owner": "user",
       "usable_today": "yes, after creating the Namespace",
-      "user_decision": "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you create the required Namespace on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
       "reason": "target-prerequisite: required Namespace missing (parity passed)",
       "receipt": "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
@@ -264,7 +264,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: cert-manager CRDs missing",
       "receipt": "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
@@ -278,7 +278,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: cert-manager CRDs missing",
       "receipt": "runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
@@ -292,7 +292,7 @@
       "residue_category": "target-prerequisite-secret",
       "blocker_owner": "user",
       "usable_today": "yes, after staging a Secret",
-      "user_decision": "Usable once you stage the required Secret on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
       "reason": "target-prerequisite: required Secret missing (parity passed)",
       "receipt": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
@@ -376,7 +376,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs disabled or missing (parity passed)",
       "receipt": "runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml"
@@ -396,6 +396,20 @@
       "receipt": "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml"
     },
     {
+      "chart": "projectcalico/tigera-operator",
+      "version": "v3.32.0",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "unknown",
+      "residue_category": "target-prerequisite-crds",
+      "blocker_owner": "user",
+      "usable_today": "yes, after staging CRDs",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
+      "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
+      "reason": "target-prerequisite: CRDs missing",
+      "receipt": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
+    },
+    {
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "base": "cluster-metrics-readonly",
@@ -404,7 +418,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs missing",
       "receipt": "runs/live-kind-parity/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml"
@@ -418,7 +432,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs missing",
       "receipt": "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
@@ -432,7 +446,7 @@
       "residue_category": "target-prerequisite-namespace",
       "blocker_owner": "user",
       "usable_today": "yes, after creating the Namespace",
-      "user_decision": "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you create the required Namespace on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
       "reason": "target-prerequisite: required Namespace missing (parity passed)",
       "receipt": "runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml"
@@ -460,7 +474,7 @@
       "residue_category": "target-prerequisite-crds",
       "blocker_owner": "user",
       "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
       "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
       "reason": "target-prerequisite: CRDs missing",
       "receipt": "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"

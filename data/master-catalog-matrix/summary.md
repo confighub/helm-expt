@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 919 / 89 / 94 / 122 / 120 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 919 / 89 / 95 / 121 / 120 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -267,7 +267,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `percona/pxc-operator@1.19.1` | default | next80 | `lookup;crds;cluster-rbac` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `lookup;crds;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ⚠️ | ⬜ | live-parity | ⬜ |
-| `projectcalico/tigera-operator@v3.32.0` | default | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | — | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `projectcalico/tigera-operator@v3.32.0` | default | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | — | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ⬜ | in-confighub | ⬜ |
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | ha | next80 | `tpl;stateful-storage` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
