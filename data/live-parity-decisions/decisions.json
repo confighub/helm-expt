@@ -27,6 +27,20 @@
       "receipt": "runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml"
     },
     {
+      "chart": "bitnami/apache",
+      "version": "11.4.29",
+      "variant": "default",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod config/runtime errors (parity passed)",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml"
+    },
+    {
       "chart": "bitnami/mongodb",
       "version": "19.0.9",
       "variant": "existing-secret-replicaset",
@@ -279,6 +293,20 @@
       "receipt": "runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml"
     },
     {
+      "chart": "jaegertracing/jaeger-operator",
+      "version": "2.57.0",
+      "variant": "default",
+      "result": "blocked",
+      "residue_category": "semantic-model-gap",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the ConfigHub delivery did not match the live Helm result (a semantic/model difference), so the row did not pass. Catalog/model work.",
+      "next_action": "Catalog work: reconcile the base, render context, target facts, or semantic contract with the live Helm result, then rerun.",
+      "reason": "helm-runtime: upstream leg blocked",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
+    },
+    {
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "variant": "default",
@@ -291,6 +319,20 @@
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
       "support_artifact": "",
       "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
+    },
+    {
+      "chart": "jetstack/trust-manager",
+      "version": "v0.22.1",
+      "variant": "no-crds",
+      "result": "watch",
+      "residue_category": "gitops-runtime",
+      "blocker_owner": "needs GitOps controller-health review",
+      "usable_today": "watch — synced and converged; aggregate health needs explanation",
+      "user_decision": "Desired state synced through ConfigHub OCI/Argo and the workloads converged, and semantic Helm-vs-ConfigHub parity passed — but Argo's aggregate health is Progressing, or a resource reads OutOfSync while Healthy. Known GitOps controller-health residue, not a parity defect.",
+      "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
+      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
     },
     {
       "chart": "kyverno/kyverno-policies",
