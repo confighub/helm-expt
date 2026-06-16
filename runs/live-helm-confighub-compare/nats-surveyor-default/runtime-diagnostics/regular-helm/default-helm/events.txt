@@ -1,0 +1,10 @@
+LAST SEEN   TYPE      REASON              OBJECT                         MESSAGE
+11m         Normal    Scheduled           pod/surveyor-c4759d87-5gsvn    Successfully assigned default-helm/surveyor-c4759d87-5gsvn to helm-expt-parity-surveyor-mqg0tl7v-z7u-control-plane
+11m         Normal    Pulling             pod/surveyor-c4759d87-5gsvn    Pulling image "natsio/nats-surveyor:0.9.9"
+11m         Normal    SuccessfulCreate    replicaset/surveyor-c4759d87   Created pod: surveyor-c4759d87-5gsvn
+11m         Normal    ScalingReplicaSet   deployment/surveyor            Scaled up replica set surveyor-c4759d87 from 0 to 1
+10m         Normal    Pulled              pod/surveyor-c4759d87-5gsvn    Successfully pulled image "natsio/nats-surveyor:0.9.9" in 3.93s (11.061s including waiting). Image size: 15728539 bytes.
+6s          Normal    Created             pod/surveyor-c4759d87-5gsvn    Container created
+6s          Normal    Started             pod/surveyor-c4759d87-5gsvn    Container started
+6s          Normal    Pulled              pod/surveyor-c4759d87-5gsvn    Container image "natsio/nats-surveyor:0.9.9" already present on machine and can be accessed by the pod
+1s          Warning   BackOff             pod/surveyor-c4759d87-5gsvn    Back-off restarting failed container surveyor in pod surveyor-c4759d87-5gsvn_default-helm(fbcac977-1461-4c2d-ae75-dd47499fb891)
