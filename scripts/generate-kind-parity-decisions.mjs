@@ -53,6 +53,12 @@ const CATEGORIES = {
     decision: "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
     next_action: "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
   },
+  "hook-lifecycle": {
+    blocker_owner: "catalog",
+    usable_today: "no — needs lifecycle route",
+    decision: "Not usable as a pure config-only apply yet: the chart relies on a Helm hook or hook-produced object, so the catalog must route that lifecycle action explicitly.",
+    next_action: "Catalog work: add a lifecycle route for the hook action or provide the hook-produced object as a target prerequisite, then rerun.",
+  },
   "render-input": {
     blocker_owner: "user",
     usable_today: "yes, after supplying values",
@@ -99,6 +105,7 @@ function classify(reason, base, result, semanticParity) {
   if (/not found in .*rendered|required crd .*not found/.test(r)) return "model-gap-render";
   if (/secret/.test(r)) return "target-prerequisite-secret";
   if (/namespace/.test(r) && /not found|missing|required/.test(r)) return "target-prerequisite-namespace";
+  if (/helm-hook|hook|certgen|certificate generation/.test(r)) return "hook-lifecycle";
   if (/crd/.test(r) && (/disabled|missing|no-crds/.test(r) || base.includes("no-crds"))) return "target-prerequisite-crds";
   if (/required helm values|render-input/.test(r)) return "render-input";
   if (/crash|runtime/.test(r)) return "target-runtime";

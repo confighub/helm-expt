@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 19
-semantic parity pass: 133
+blocked: 20
+semantic parity pass: 134
 semantic parity defects: 6
-non-pass rows where semantic parity passed: 17
+non-pass rows where semantic parity passed: 18
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -41,6 +41,7 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: required Namespace missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
+| helm-hook: pre-install certificate generation failed (parity passed) | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
@@ -80,6 +81,7 @@ broader support claim.
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
+| `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
 | `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |

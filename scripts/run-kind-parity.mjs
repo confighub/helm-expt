@@ -363,6 +363,9 @@ function classifyReceipt(receipt) {
   if (text.includes("startupapicheck") || text.includes("failed post-install")) {
     return `helm-hook: post-install hook failed${paritySuffix}`;
   }
+  if (text.includes("failed pre-install") && (text.includes("certgen") || text.includes("certificate"))) {
+    return `helm-hook: pre-install certificate generation failed${paritySuffix}`;
+  }
   if (
     (text.includes("missing-required-secret") || text.includes("mountvolume.setup failed")) &&
     text.includes("secret") &&
