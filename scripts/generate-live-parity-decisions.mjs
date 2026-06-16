@@ -58,6 +58,13 @@ const CATEGORIES = {
     next_action: "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
     support_artifact: "runtime-review.yaml",
   },
+  "target-fit": {
+    blocker_owner: "user or catalog",
+    usable_today: "watch — needs a target with the required platform shape",
+    decision: "The rendered config matched regular Helm (semantic parity passed), but the selected proof target does not provide a platform behavior this base requires. Choose a target that satisfies the base, or create a separate base for the smaller proof target.",
+    next_action: "Review the target-topology support artifact, choose a target with the required platform behavior, or create a target-scoped base before rerunning.",
+    support_artifact: "target-topology.yaml",
+  },
   "target-prerequisite": {
     blocker_owner: "user",
     usable_today: "yes, after staging the prerequisite",
@@ -103,6 +110,7 @@ function classify(reason, result) {
   if (r.startsWith("render-input")) return "render-input";
   if (r.startsWith("remote-image")) return "remote-image";
   if (r.startsWith("capability-profile")) return "capability-profile";
+  if (r.startsWith("target-fit")) return "target-fit";
   if (r.startsWith("target-runtime")) return "target-runtime";
   if (/semantic|object diff|does not match|model/.test(r)) return "semantic-model-gap";
   // Fallbacks for un-prefixed reasons.
@@ -115,7 +123,7 @@ function classify(reason, result) {
 function supportArtifactCandidates(category) {
   const file = CATEGORIES[category]?.support_artifact;
   const candidates = file ? [file] : [];
-  if (category === "target-runtime") {
+  if (category === "target-runtime" || category === "target-fit") {
     candidates.push("target-prerequisite-plan.yaml", "target-topology.yaml", "operating-policy.yaml");
   }
   return candidates;

@@ -1,0 +1,652 @@
+{
+  "metadata": {
+    "name": "aws-ebs-csi-driver-parity",
+    "namespace": "argocd",
+    "uid": "1f1ba648-0e8d-4a87-8ddc-98f04cbcdb27",
+    "resourceVersion": "3843",
+    "generation": 11,
+    "creationTimestamp": "2026-06-16T06:21:08Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster:argoproj.io/Application:argocd/aws-ebs-csi-driver-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "b55098a0-c862-442b-bd57-0d01cc1cc210",
+      "confighub.com/UnitSlug": "aws-ebs-csi-driver-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T06:21:08Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T06:28:10Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci",
+      "path": "./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ebs-csi-controller-sa",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "ebs-csi-node-sa",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default",
+        "name": "ebs-csi-node",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for daemon set \"ebs-csi-node\" rollout to finish: 0 of 1 updated pods are available..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default",
+        "name": "ebs-csi-node-windows",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "ebs-csi-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Degraded",
+          "message": "Deployment \"ebs-csi-controller\" exceeded its progress deadline"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "ebs-csi-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ebs-csi-node-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ebs-external-attacher-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ebs-external-provisioner-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ebs-external-resizer-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "ebs-external-snapshotter-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ebs-csi-attacher-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ebs-csi-node-getter-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ebs-csi-provisioner-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ebs-csi-resizer-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "ebs-csi-snapshotter-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "ebs-csi-leases-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "ebs-csi-leases-rolebinding",
+        "status": "Synced"
+      },
+      {
+        "group": "storage.k8s.io",
+        "version": "v1",
+        "kind": "CSIDriver",
+        "name": "ebs.csi.aws.com",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci",
+          "path": "./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a"
+    },
+    "health": {
+      "status": "Degraded",
+      "lastTransitionTime": "2026-06-16T06:21:10Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a",
+        "deployedAt": "2026-06-16T06:21:12Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci",
+          "path": "./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T06:21:10Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T06:28:01Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci",
+            "path": "./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "ebs-csi-controller",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/ebs-csi-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "ebs-csi-node-sa",
+            "status": "Synced",
+            "message": "serviceaccount/ebs-csi-node-sa serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "ebs-csi-controller-sa",
+            "status": "Synced",
+            "message": "serviceaccount/ebs-csi-controller-sa serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "ebs-csi-node-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/ebs-csi-node-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[patch list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[storage.k8s.io] Resources:[csinodes] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-csi-node-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "ebs-external-attacher-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/ebs-external-attacher-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch patch] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[csinodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch patch] APIGroups:[storage.k8s.io] Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[patch] APIGroups:[storage.k8s.io] Resources:[volumeattachments/status] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-external-attacher-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "ebs-external-provisioner-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/ebs-external-provisioner-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create patch delete] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch update] APIGroups:[] Resources:[persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch create update patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch update] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshots] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshotcontents] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[csinodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[storage.k8s.io] Resources:[volumeattributesclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-external-provisioner-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "ebs-external-resizer-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/ebs-external-resizer-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch patch] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[patch] APIGroups:[] Resources:[persistentvolumeclaims/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch create update patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[volumeattributesclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-external-resizer-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "ebs-external-snapshotter-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/ebs-external-snapshotter-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[list watch create update patch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshotclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch update patch] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshotcontents] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update patch] APIGroups:[snapshot.storage.k8s.io] Resources:[volumesnapshotcontents/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[groupsnapshot.storage.k8s.io] Resources:[volumegroupsnapshotclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch update patch] APIGroups:[groupsnapshot.storage.k8s.io] Resources:[volumegroupsnapshotcontents] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update patch] APIGroups:[groupsnapshot.storage.k8s.io] Resources:[volumegroupsnapshotcontents/status] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-external-snapshotter-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "ebs-csi-attacher-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-attacher-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:ebs-csi-controller-sa Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-attacher-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "ebs-csi-provisioner-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-provisioner-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:ebs-csi-controller-sa Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-provisioner-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "ebs-csi-node-getter-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-node-getter-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:ebs-csi-node-sa Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-node-getter-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "ebs-csi-resizer-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-resizer-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:ebs-csi-controller-sa Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-resizer-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "ebs-csi-snapshotter-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-snapshotter-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:ebs-csi-controller-sa Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/ebs-csi-snapshotter-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "ebs-csi-leases-role",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/ebs-csi-leases-role reconciled. reconciliation required update. role.rbac.authorization.k8s.io/ebs-csi-leases-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "ebs-csi-leases-rolebinding",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/ebs-csi-leases-rolebinding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/ebs-csi-leases-rolebinding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default",
+            "name": "ebs-csi-node-windows",
+            "status": "Synced",
+            "message": "daemonset.apps/ebs-csi-node-windows serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1",
+              "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6",
+              "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default",
+            "name": "ebs-csi-node",
+            "status": "Synced",
+            "message": "daemonset.apps/ebs-csi-node serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1",
+              "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6",
+              "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "ebs-csi-controller",
+            "status": "Synced",
+            "message": "deployment.apps/ebs-csi-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1",
+              "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5",
+              "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6",
+              "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6",
+              "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+            ]
+          },
+          {
+            "group": "storage.k8s.io",
+            "version": "v1",
+            "kind": "CSIDriver",
+            "namespace": "default-oci",
+            "name": "ebs.csi.aws.com",
+            "status": "Synced",
+            "message": "csidriver.storage.k8s.io/ebs.csi.aws.com serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci",
+          "path": "./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T06:21:10Z",
+      "finishedAt": "2026-06-16T06:21:12Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6",
+        "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6",
+        "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5",
+        "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6",
+        "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6",
+        "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

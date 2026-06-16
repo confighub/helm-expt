@@ -1,0 +1,203 @@
+Name:                 ebs-csi-node-krjkc
+Namespace:            default-helm
+Priority:             2000001000
+Priority Class Name:  system-node-critical
+Service Account:      ebs-csi-node-sa
+Node:                 helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane/192.168.97.2
+Start Time:           Tue, 16 Jun 2026 07:01:31 +0100
+Labels:               app=ebs-csi-node
+                      app.kubernetes.io/component=csi-driver
+                      app.kubernetes.io/instance=aws-ebs-csi-driver
+                      app.kubernetes.io/managed-by=Helm
+                      app.kubernetes.io/name=aws-ebs-csi-driver
+                      app.kubernetes.io/version=1.60.1
+                      controller-revision-hash=6bc6dbfd9c
+                      helm.sh/chart=aws-ebs-csi-driver-2.60.1
+                      pod-template-generation=1
+Annotations:          <none>
+Status:               Running
+IP:                   10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  DaemonSet/ebs-csi-node
+Containers:
+  ebs-plugin:
+    Container ID:  containerd://1cbae82d1a7e71dd873fbbee5036f1a3443e3f3052d0fce872d4ea6e7bec2e53
+    Image:         public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+    Image ID:      public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8
+    Port:          9808/TCP (healthz)
+    Host Port:     0/TCP (healthz)
+    Args:
+      node
+      --endpoint=$(CSI_ENDPOINT)
+      --csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/
+      --logging-format=text
+      --v=2
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:   I0616 06:08:14.883356       1 main.go:174] "Initializing metadata"
+I0616 06:08:14.883442       1 metadata.go:75] "Attempting to retrieve instance metadata from IMDS"
+E0616 06:08:19.888441       1 metadata.go:81] "Retrieving IMDS metadata failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument, request canceled, context deadline exceeded"
+I0616 06:08:19.888504       1 metadata.go:92] "Attempting to retrieve instance metadata from Kubernetes API"
+I0616 06:08:19.888872       1 envvar.go:195] "Feature gate default state" feature="InOrderInformers" enabled=true
+I0616 06:08:19.888910       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0616 06:08:19.888915       1 envvar.go:195] "Feature gate default state" feature="InOrderInformersBatchProcess" enabled=true
+I0616 06:08:19.888919       1 envvar.go:195] "Feature gate default state" feature="WatchListClient" enabled=true
+I0616 06:08:19.888922       1 envvar.go:195] "Feature gate default state" feature="AtomicFIFO" enabled=true
+I0616 06:08:19.888925       1 envvar.go:195] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0616 06:08:19.888928       1 envvar.go:195] "Feature gate default state" feature="UnlockWhileProcessingFIFO" enabled=true
+I0616 06:08:19.888930       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCARotation" enabled=true
+I0616 06:08:19.888933       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowTLSCacheGC" enabled=true
+I0616 06:08:19.888936       1 envvar.go:195] "Feature gate default state" feature="InformerResourceVersion" enabled=true
+E0616 06:08:19.900385       1 metadata.go:98] "Retrieving Kubernetes metadata failed" err="did not find aws instance ID in node providerID string"
+E0616 06:08:19.900468       1 main.go:179] "Failed to initialize metadata when it is required" err="all specified --metadata-sources '[imds kubernetes]' are unavailable"
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:08:14 +0100
+      Finished:     Tue, 16 Jun 2026 07:08:19 +0100
+    Ready:          False
+    Restart Count:  6
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:      10m
+      memory:   40Mi
+    Liveness:   http-get http://:healthz/healthz delay=10s timeout=3s period=10s #success=1 #failure=5
+    Readiness:  http-get http://:healthz/healthz delay=0s timeout=3s period=5s #success=1 #failure=3
+    Environment:
+      CSI_ENDPOINT:   unix:/csi/csi.sock
+      CSI_NODE_NAME:   (v1:spec.nodeName)
+    Mounts:
+      /csi from plugin-dir (rw)
+      /dev from device-dir (rw)
+      /var/lib/kubelet from kubelet-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sbnw2 (ro)
+  node-driver-registrar:
+    Container ID:  containerd://b757ebd711fcc9f80845da350d1b0034a05270d7df508230216c9a9fe5d259b1
+    Image:         public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+    Image ID:      public.ecr.aws/csi-components/csi-node-driver-registrar@sha256:eb9c4724b5b5a30fd10b48bd81e70fc7f002dd769254825304eab37db4cb14fe
+    Port:          9809/TCP (healthz-ndr)
+    Host Port:     0/TCP (healthz-ndr)
+    Args:
+      --csi-address=$(ADDRESS)
+      --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+      --http-endpoint=0.0.0.0:9809
+      --v=2
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:   I0616 06:07:19.888343       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+I0616 06:07:19.888370       1 main.go:146] "Running node-driver-registrar" mode=""
+I0616 06:07:19.888372       1 main.go:163] "Attempting to open a gRPC connection" csiAddress="/csi/csi.sock"
+I0616 06:07:29.889958       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:07:39.888738       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:07:49.891556       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+E0616 06:07:49.891647       1 main.go:167] "Error connecting to CSI driver" err="context deadline exceeded"
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:07:19 +0100
+      Finished:     Tue, 16 Jun 2026 07:07:49 +0100
+    Ready:          False
+    Restart Count:  5
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:     10m
+      memory:  32Mi
+    Liveness:  http-get http://:healthz-ndr/healthz delay=30s timeout=15s period=90s #success=1 #failure=3
+    Environment:
+      ADDRESS:               /csi/csi.sock
+      DRIVER_REG_SOCK_PATH:  /var/lib/kubelet/plugins/ebs.csi.aws.com/csi.sock
+    Mounts:
+      /csi from plugin-dir (rw)
+      /registration from registration-dir (rw)
+      /var/lib/kubelet/plugins/ebs.csi.aws.com/ from probe-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sbnw2 (ro)
+  liveness-probe:
+    Container ID:  containerd://a4aec2291541efc98e677203803c987ced394a039168c83e9176d1642b08422a
+    Image:         public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+    Image ID:      public.ecr.aws/csi-components/livenessprobe@sha256:d66c8a8b373815a83486fcc8f888e2c6d50c1ddcdf0a1d97999fc0431f8654a0
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --csi-address=/csi/csi.sock
+    State:          Running
+      Started:      Tue, 16 Jun 2026 07:02:02 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:        10m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /csi from plugin-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sbnw2 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  kubelet-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet
+    HostPathType:  Directory
+  plugin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet/plugins/ebs.csi.aws.com/
+    HostPathType:  DirectoryOrCreate
+  registration-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet/plugins_registry/
+    HostPathType:  Directory
+  device-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /dev
+    HostPathType:  Directory
+  probe-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  kube-api-access-sbnw2:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 op=Exists
+                             node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type     Reason     Age                     From               Message
+  ----     ------     ----                    ----               -------
+  Normal   Pulling    8m1s                    kubelet            spec.containers{ebs-plugin}: Pulling image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+  Normal   Scheduled  8m1s                    default-scheduler  Successfully assigned default-helm/ebs-csi-node-krjkc to helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane
+  Normal   Pulled     7m53s                   kubelet            spec.containers{ebs-plugin}: Successfully pulled image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" in 946ms (7.394s including waiting). Image size: 32815808 bytes.
+  Normal   Pulling    7m53s                   kubelet            spec.containers{node-driver-registrar}: Pulling image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6"
+  Normal   Pulling    7m42s                   kubelet            spec.containers{liveness-probe}: Pulling image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+  Normal   Pulled     7m42s                   kubelet            spec.containers{node-driver-registrar}: Successfully pulled image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6" in 3.696s (11.283s including waiting). Image size: 15447232 bytes.
+  Normal   Pulled     7m31s                   kubelet            spec.containers{liveness-probe}: Successfully pulled image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6" in 4.482s (11.286s including waiting). Image size: 15549803 bytes.
+  Normal   Started    7m30s                   kubelet            spec.containers{liveness-probe}: Container started
+  Normal   Created    7m30s                   kubelet            spec.containers{liveness-probe}: Container created
+  Normal   Started    7m11s (x2 over 7m42s)   kubelet            spec.containers{node-driver-registrar}: Container started
+  Normal   Created    7m11s (x2 over 7m42s)   kubelet            spec.containers{node-driver-registrar}: Container created
+  Normal   Started    6m41s (x4 over 7m53s)   kubelet            spec.containers{ebs-plugin}: Container started
+  Normal   Created    6m41s (x4 over 7m53s)   kubelet            spec.containers{ebs-plugin}: Container created
+  Normal   Pulled     6m41s (x3 over 7m30s)   kubelet            spec.containers{ebs-plugin}: Container image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" already present on machine and can be accessed by the pod
+  Warning  Unhealthy  5m52s (x9 over 7m29s)   kubelet            spec.containers{ebs-plugin}: Readiness probe failed: Get "http://10.244.0.13:9808/healthz": dial tcp 10.244.0.13:9808: connect: connection refused
+  Warning  BackOff    5m52s (x8 over 6m41s)   kubelet            spec.containers{node-driver-registrar}: Back-off restarting failed container node-driver-registrar in pod ebs-csi-node-krjkc_default-helm(acfdbfcc-369a-4da2-ae1b-3ad25dc9e12c)
+  Warning  BackOff    2m13s (x18 over 7m24s)  kubelet            spec.containers{ebs-plugin}: Back-off restarting failed container ebs-plugin in pod ebs-csi-node-krjkc_default-helm(acfdbfcc-369a-4da2-ae1b-3ad25dc9e12c)
+  Normal   Pulled     2m13s (x5 over 7m11s)   kubelet            spec.containers{node-driver-registrar}: Container image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6" already present on machine and can be accessed by the pod

@@ -2144,10 +2144,14 @@ def terminal_readiness_blocker(result: dict) -> str:
     combined = f"{pods}\n{workloads}"
     if "imagepullbackoff" in combined or "errimagepull" in combined:
         return "image pull failure"
+    if "crashloopbackoff" in combined:
+        return "pod crash loop"
     for item in result.get("notReady") or []:
         status = (item.get("status") or "").lower()
         if status in ("imagepullbackoff", "errimagepull"):
             return "image pull failure"
+        if status == "crashloopbackoff" or status == "error":
+            return "pod crash loop"
     return ""
 
 

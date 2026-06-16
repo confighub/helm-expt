@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetTopology"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1"
+spec:
+  chart: "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1"
+  scope: "target platform identity required after render parity has passed"
+  summary: "The default base renders deterministically and preserves semantic Helm-vs-ConfigHub parity, but the AWS EBS CSI controller expects AWS/EKS metadata. Vanilla kind does not provide IMDS, AWS instance IDs in node providerID, or an AWS region, so the driver crash-loops there."
+  bases:
+    default:
+      variant: "default"
+      status: "target-fit-required"
+      targetFit:
+        platform: "aws-or-eks-like"
+        requiresCloudProviderIdentity: true
+        requiresInstanceMetadata: true
+        requiresNodeProviderID: "aws instance id"
+        requiresRegion: "AWS_REGION or equivalent AWS metadata"
+        reason: "the aws-ebs-csi-driver process initializes metadata from IMDS or Kubernetes node providerID before it can run"
+      liveEvidence:
+        receipt: "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
+        regularHelm: "watch"
+        configHubKubectlApply: "watch"
+        configHubOciArgo: "watch"
+        semanticObjectParity: "pass"
+        argoSync: "Synced"
+        argoHealth: "Degraded"
+        observedRuntimeResidue:
+          - "could not get IMDS metadata"
+          - "did not find aws instance ID in node providerID string"
+          - "all specified --metadata-sources '[imds kubernetes]' are unavailable"
+          - "The region can be manually supplied via the AWS_REGION environment variable"
+  recommendedUse:
+    - "Use this base on an AWS/EKS-like target that provides the required metadata and node identity."
+    - "Do not treat vanilla kind as a runtime-valid target for this base; it is useful for render parity only."
+    - "If a non-AWS proof target is desired, create a separate target-scoped base with explicit metadata-source and region decisions."
+  requiredReceipts:
+    - "live parity receipt for the chosen target profile"
+    - "target-fit observation receipt for AWS/EKS metadata and node identity"
+  notProvenBy:
+    - "render parity alone"
+    - "a vanilla kind cluster"
+    - "Argo CD Synced without workload health on an AWS/EKS-like target"

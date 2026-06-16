@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/value-model.yaml](value-model.yaml) |
+| Target topology | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1](../../../../packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1) |

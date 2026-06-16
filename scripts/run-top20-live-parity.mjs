@@ -529,6 +529,9 @@ function classifyWatch(spec, target) {
   if (target.chart === "ingress-nginx/ingress-nginx" && target.variant === "admission-disabled") {
     return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
   }
+  if (isAwsEbsCsiDriver(spec, target) && (hasAwsMetadataTargetFit(text) || hasCrashLoopRuntime(text))) {
+    return "target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)";
+  }
   if (target.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
   if (hasImagePullFailure(text)) {
     return "remote-image: image pull failed or pinned image is unavailable (parity passed)";
@@ -572,4 +575,22 @@ function classifyWatch(spec, target) {
 
 function hasImagePullFailure(text) {
   return text.includes("imagepullbackoff") || text.includes("errimagepull") || text.includes("failed to pull image");
+}
+
+function hasAwsMetadataTargetFit(text) {
+  return text.includes("metadata-sources") ||
+    text.includes("imds") ||
+    text.includes("providerid") ||
+    text.includes("aws_region") ||
+    text.includes("aws instance id");
+}
+
+function hasCrashLoopRuntime(text) {
+  return text.includes("crashloopbackoff") || text.includes("pod crash loop");
+}
+
+function isAwsEbsCsiDriver(spec, target) {
+  return spec.chart === "aws-ebs-csi-driver/aws-ebs-csi-driver" ||
+    target.chart === "aws-ebs-csi-driver/aws-ebs-csi-driver" ||
+    target.chart === "aws-ebs-csi-driver";
 }

@@ -7,6 +7,7 @@
     "gitops-runtime",
     "operate-policy",
     "target-runtime",
+    "target-fit",
     "target-prerequisite",
     "render-input",
     "remote-image",
@@ -28,6 +29,20 @@
       "reason": "gitops-runtime: child Argo Application not materialized (parity passed)",
       "support_artifact": "recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/argo-cd-argo-cd-default-9-5-17/receipt.yaml"
+    },
+    {
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.60.1",
+      "variant": "default",
+      "result": "watch",
+      "residue_category": "target-fit",
+      "blocker_owner": "user or catalog",
+      "usable_today": "watch — needs a target with the required platform shape",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed), but the selected proof target does not provide a platform behavior this base requires. Choose a target that satisfies the base, or create a separate base for the smaller proof target.",
+      "next_action": "Review the target-topology support artifact, choose a target with the required platform behavior, or create a target-scoped base before rerunning.",
+      "reason": "target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)",
+      "support_artifact": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml",
+      "receipt": "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
     },
     {
       "chart": "bitnami/apache",

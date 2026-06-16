@@ -1,0 +1,76 @@
+LAST SEEN   TYPE      REASON              OBJECT                                    MESSAGE
+8m          Normal    Scheduled           pod/ebs-csi-controller-c69844876-mzqxv    Successfully assigned default-helm/ebs-csi-controller-c69844876-mzqxv to helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane
+8m          Normal    Pulling             pod/ebs-csi-controller-c69844876-lmwn7    Pulling image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+8m          Normal    SuccessfulCreate    daemonset/ebs-csi-node                    Created pod: ebs-csi-node-krjkc
+8m          Normal    Pulling             pod/ebs-csi-controller-c69844876-mzqxv    Pulling image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+8m          Normal    Pulling             pod/ebs-csi-node-krjkc                    Pulling image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+8m          Normal    Scheduled           pod/ebs-csi-controller-c69844876-lmwn7    Successfully assigned default-helm/ebs-csi-controller-c69844876-lmwn7 to helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane
+8m          Normal    SuccessfulCreate    replicaset/ebs-csi-controller-c69844876   Created pod: ebs-csi-controller-c69844876-lmwn7
+8m          Normal    SuccessfulCreate    replicaset/ebs-csi-controller-c69844876   Created pod: ebs-csi-controller-c69844876-mzqxv
+8m          Normal    NoPods              poddisruptionbudget/ebs-csi-controller    No matching pods found
+8m          Normal    ScalingReplicaSet   deployment/ebs-csi-controller             Scaled up replica set ebs-csi-controller-c69844876 from 0 to 2
+8m          Normal    Scheduled           pod/ebs-csi-node-krjkc                    Successfully assigned default-helm/ebs-csi-node-krjkc to helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane
+7m53s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Successfully pulled image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" in 6.448s (6.448s including waiting). Image size: 32815808 bytes.
+7m53s       Normal    Pulling             pod/ebs-csi-controller-c69844876-lmwn7    Pulling image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
+7m52s       Normal    Pulling             pod/ebs-csi-node-krjkc                    Pulling image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6"
+7m52s       Normal    Pulled              pod/ebs-csi-node-krjkc                    Successfully pulled image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" in 946ms (7.394s including waiting). Image size: 32815808 bytes.
+7m51s       Normal    Pulling             pod/ebs-csi-controller-c69844876-mzqxv    Pulling image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
+7m51s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Successfully pulled image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" in 697ms (8.091s including waiting). Image size: 32815808 bytes.
+7m45s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Successfully pulled image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5" in 6.945s (8.532s including waiting). Image size: 39335252 bytes.
+7m44s       Normal    Pulling             pod/ebs-csi-controller-c69844876-lmwn7    Pulling image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6"
+7m41s       Normal    Pulled              pod/ebs-csi-node-krjkc                    Successfully pulled image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6" in 3.696s (11.283s including waiting). Image size: 15447232 bytes.
+7m41s       Normal    Pulling             pod/ebs-csi-node-krjkc                    Pulling image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+7m40s       Normal    Pulling             pod/ebs-csi-controller-c69844876-mzqxv    Pulling image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6"
+7m40s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Successfully pulled image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5" in 683ms (11.248s including waiting). Image size: 39335252 bytes.
+7m34s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Successfully pulled image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6" in 6.177s (10.502s including waiting). Image size: 37331755 bytes.
+7m34s       Normal    Created             pod/ebs-csi-controller-c69844876-lmwn7    Container created
+7m34s       Normal    Started             pod/ebs-csi-controller-c69844876-lmwn7    Container started
+7m34s       Normal    Pulling             pod/ebs-csi-controller-c69844876-lmwn7    Pulling image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6"
+7m30s       Normal    Pulled              pod/ebs-csi-node-krjkc                    Successfully pulled image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6" in 4.482s (11.286s including waiting). Image size: 15549803 bytes.
+7m29s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Successfully pulled image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6" in 653ms (11.219s including waiting). Image size: 37331755 bytes.
+7m29s       Normal    Created             pod/ebs-csi-controller-c69844876-mzqxv    Container created
+7m29s       Normal    Pulling             pod/ebs-csi-controller-c69844876-mzqxv    Pulling image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6"
+7m29s       Normal    Started             pod/ebs-csi-controller-c69844876-mzqxv    Container started
+7m29s       Normal    Started             pod/ebs-csi-node-krjkc                    Container started
+7m29s       Normal    Created             pod/ebs-csi-node-krjkc                    Container created
+7m22s       Normal    Created             pod/ebs-csi-controller-c69844876-mzqxv    Container created
+7m22s       Normal    Created             pod/ebs-csi-controller-c69844876-lmwn7    Container created
+7m22s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Successfully pulled image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6" in 6.546s (11.626s including waiting). Image size: 37287243 bytes.
+7m22s       Normal    Started             pod/ebs-csi-controller-c69844876-lmwn7    Container started
+7m22s       Normal    Created             pod/ebs-csi-controller-c69844876-lmwn7    Container created
+7m22s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Container image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6" already present on machine and can be accessed by the pod
+7m22s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Successfully pulled image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6" in 652ms (7.133s including waiting). Image size: 37287243 bytes.
+7m22s       Normal    Created             pod/ebs-csi-controller-c69844876-mzqxv    Container created
+7m22s       Normal    Started             pod/ebs-csi-controller-c69844876-mzqxv    Container started
+7m22s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Container image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6" already present on machine and can be accessed by the pod
+7m22s       Normal    Started             pod/ebs-csi-controller-c69844876-lmwn7    Container started
+7m22s       Normal    Started             pod/ebs-csi-controller-c69844876-mzqxv    Container started
+7m21s       Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Container image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" already present on machine and can be accessed by the pod
+7m21s       Normal    Created             pod/ebs-csi-controller-c69844876-mzqxv    Container created
+7m21s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Container image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" already present on machine and can be accessed by the pod
+7m21s       Normal    Started             pod/ebs-csi-controller-c69844876-mzqxv    Container started
+7m21s       Normal    Created             pod/ebs-csi-controller-c69844876-lmwn7    Container created
+7m21s       Normal    Started             pod/ebs-csi-controller-c69844876-lmwn7    Container started
+7m14s       Normal    Started             pod/ebs-csi-controller-c69844876-lmwn7    Container started
+7m14s       Normal    Created             pod/ebs-csi-controller-c69844876-lmwn7    Container created
+7m10s       Normal    Started             pod/ebs-csi-node-krjkc                    Container started
+7m10s       Normal    Created             pod/ebs-csi-node-krjkc                    Container created
+7m9s        Normal    Created             pod/ebs-csi-controller-c69844876-mzqxv    Container created
+7m9s        Normal    Started             pod/ebs-csi-controller-c69844876-mzqxv    Container started
+6m40s       Normal    Pulled              pod/ebs-csi-node-krjkc                    Container image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" already present on machine and can be accessed by the pod
+6m40s       Normal    Created             pod/ebs-csi-node-krjkc                    Container created
+6m40s       Normal    Started             pod/ebs-csi-node-krjkc                    Container started
+6m37s       Warning   BackOff             pod/ebs-csi-controller-c69844876-lmwn7    Back-off restarting failed container csi-provisioner in pod ebs-csi-controller-c69844876-lmwn7_default-helm(45fbc071-11af-49db-aa83-f62bd4ad1bed)
+6m30s       Warning   BackOff             pod/ebs-csi-controller-c69844876-lmwn7    Back-off restarting failed container csi-attacher in pod ebs-csi-controller-c69844876-lmwn7_default-helm(45fbc071-11af-49db-aa83-f62bd4ad1bed)
+6m30s       Warning   BackOff             pod/ebs-csi-controller-c69844876-mzqxv    Back-off restarting failed container csi-provisioner in pod ebs-csi-controller-c69844876-mzqxv_default-helm(6d50fe05-c750-4d1b-af11-f9c879a16b1e)
+6m21s       Warning   BackOff             pod/ebs-csi-controller-c69844876-mzqxv    Back-off restarting failed container csi-attacher in pod ebs-csi-controller-c69844876-mzqxv_default-helm(6d50fe05-c750-4d1b-af11-f9c879a16b1e)
+6m21s       Warning   BackOff             pod/ebs-csi-controller-c69844876-lmwn7    Back-off restarting failed container csi-resizer in pod ebs-csi-controller-c69844876-lmwn7_default-helm(45fbc071-11af-49db-aa83-f62bd4ad1bed)
+6m17s       Warning   BackOff             pod/ebs-csi-controller-c69844876-mzqxv    Back-off restarting failed container csi-resizer in pod ebs-csi-controller-c69844876-mzqxv_default-helm(6d50fe05-c750-4d1b-af11-f9c879a16b1e)
+5m51s       Warning   Unhealthy           pod/ebs-csi-node-krjkc                    Readiness probe failed: Get "http://10.244.0.13:9808/healthz": dial tcp 10.244.0.13:9808: connect: connection refused
+5m51s       Warning   BackOff             pod/ebs-csi-node-krjkc                    Back-off restarting failed container node-driver-registrar in pod ebs-csi-node-krjkc_default-helm(acfdbfcc-369a-4da2-ae1b-3ad25dc9e12c)
+2m13s       Normal    Pulled              pod/ebs-csi-controller-c69844876-lmwn7    Container image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5" already present on machine and can be accessed by the pod
+2m13s       Warning   BackOff             pod/ebs-csi-controller-c69844876-lmwn7    Back-off restarting failed container ebs-plugin in pod ebs-csi-controller-c69844876-lmwn7_default-helm(45fbc071-11af-49db-aa83-f62bd4ad1bed)
+2m12s       Warning   BackOff             pod/ebs-csi-node-krjkc                    Back-off restarting failed container ebs-plugin in pod ebs-csi-node-krjkc_default-helm(acfdbfcc-369a-4da2-ae1b-3ad25dc9e12c)
+2m12s       Normal    Pulled              pod/ebs-csi-node-krjkc                    Container image "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6" already present on machine and can be accessed by the pod
+2m9s        Warning   BackOff             pod/ebs-csi-controller-c69844876-mzqxv    Back-off restarting failed container ebs-plugin in pod ebs-csi-controller-c69844876-mzqxv_default-helm(6d50fe05-c750-4d1b-af11-f9c879a16b1e)
+2m9s        Normal    Pulled              pod/ebs-csi-controller-c69844876-mzqxv    Container image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5" already present on machine and can be accessed by the pod

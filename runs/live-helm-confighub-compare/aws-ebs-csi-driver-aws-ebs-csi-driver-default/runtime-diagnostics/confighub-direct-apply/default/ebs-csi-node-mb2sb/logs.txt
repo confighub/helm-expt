@@ -1,0 +1,53 @@
+I0616 06:12:44.901668       1 main.go:174] "Initializing metadata"
+I0616 06:12:44.901744       1 metadata.go:75] "Attempting to retrieve instance metadata from IMDS"
+E0616 06:12:49.903412       1 metadata.go:81] "Retrieving IMDS metadata failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument, request canceled, context deadline exceeded"
+I0616 06:12:49.903443       1 metadata.go:92] "Attempting to retrieve instance metadata from Kubernetes API"
+I0616 06:12:49.903595       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCARotation" enabled=true
+I0616 06:12:49.903632       1 envvar.go:195] "Feature gate default state" feature="InOrderInformersBatchProcess" enabled=true
+I0616 06:12:49.903635       1 envvar.go:195] "Feature gate default state" feature="InformerResourceVersion" enabled=true
+I0616 06:12:49.903637       1 envvar.go:195] "Feature gate default state" feature="WatchListClient" enabled=true
+I0616 06:12:49.903639       1 envvar.go:195] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0616 06:12:49.903646       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0616 06:12:49.903648       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowTLSCacheGC" enabled=true
+I0616 06:12:49.903650       1 envvar.go:195] "Feature gate default state" feature="UnlockWhileProcessingFIFO" enabled=true
+I0616 06:12:49.903653       1 envvar.go:195] "Feature gate default state" feature="AtomicFIFO" enabled=true
+I0616 06:12:49.903655       1 envvar.go:195] "Feature gate default state" feature="InOrderInformers" enabled=true
+E0616 06:12:49.916630       1 metadata.go:98] "Retrieving Kubernetes metadata failed" err="did not find aws instance ID in node providerID string"
+E0616 06:12:49.916719       1 main.go:179] "Failed to initialize metadata when it is required" err="all specified --metadata-sources '[imds kubernetes]' are unavailable"
+I0616 06:12:59.128119       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+I0616 06:12:59.128150       1 main.go:146] "Running node-driver-registrar" mode=""
+I0616 06:12:59.128152       1 main.go:163] "Attempting to open a gRPC connection" csiAddress="/csi/csi.sock"
+I0616 06:13:09.131115       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:19.129726       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:29.129881       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+E0616 06:13:29.129910       1 main.go:167] "Error connecting to CSI driver" err="context deadline exceeded"
+I0616 06:09:49.377934       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:09:59.380590       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:09.377015       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:19.377560       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:29.378705       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:39.377094       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:49.382048       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:10:59.379992       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:09.380964       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:19.379609       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:29.377772       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:39.380698       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:49.381069       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:11:59.376744       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:09.378156       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:19.380931       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:29.379417       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:39.379652       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:49.377408       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:12:59.380617       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:09.378134       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:19.381523       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:29.377136       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:39.381568       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:49.380237       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:59.381739       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:14:09.381461       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:14:19.376497       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:14:29.378974       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:14:39.378040       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"

@@ -44,6 +44,7 @@ because the two lanes prove different things; both keys are listed.
 | **Render input** | Required Helm input values are missing, so the base renders incomplete or invalid objects. Regular Helm and ConfigHub block on the same validation. | catalog (G/P: needs a better base) · user (K: supply values) | No on the default base — until inputs are supplied or a better base is chosen | G/P · `render-input` — K · `render-input` |
 | **Capability profile** | Parity passed, but the base rendered for a Kubernetes capability the target does not serve (e.g. an APIService version a newer cluster dropped). A render-profile / base-selection issue, not a semantic diff. | catalog | Depends — use or promote the base rendered for the target's API set | G/P · `capability-profile` — K · `capability-profile-diff` |
 | **Hook / lifecycle** | The chart relies on a Helm hook or controller-populated lifecycle behavior (e.g. a certgen Job) that config-only delivery does not run. Needs a lifecycle route or staged equivalent. | catalog | No — until a lifecycle route is decided | K · `hook-lifecycle` (see [lifecycle-route-actions](../../data/lifecycle-route-actions/summary.md)) |
+| **Platform target fit** | Parity passed, but the target does not provide the platform shape required by the base (for example AWS/EKS metadata, provider identity, schedulable node count, or load-balancer behavior). | user or catalog | Watch — use a target that satisfies the base, or create a target-scoped base | G/P · `target-fit` |
 | **Target runtime** | The rendered config matched regular Helm, but the workload did not reach the expected runtime state on the target. Runtime residue to review. | needs runtime review | Watch — config correct, runtime unconfirmed | G/P · `target-runtime` — K · `target-runtime` |
 | **GitOps controller health** | Synced through ConfigHub OCI/Argo and converged, parity passed — but Argo's aggregate health reads Progressing, or a resource reads OutOfSync while Healthy. | needs GitOps controller-health review | Watch — synced and converged; aggregate health needs explanation | G/P · `gitops-runtime` |
 | **Operate policy** | Parity passed, but an operational readiness step (for example init/unseal) is required before the workload is fully ready. | needs operate review | Watch — needs an operational step | G/P · `operate-policy` |
@@ -90,16 +91,23 @@ Distinguish it from neighbours: `target-runtime` means the image pulled but the
 workload misbehaved; `render-input` means values were missing before any image
 mattered; `hook/lifecycle` means a hook action (not an image) is the gap.
 
-## Reserved: platform target fit
+## Platform target fit, in detail (worked example: AWS EBS CSI)
 
-Not yet a committed row, recorded here as vocabulary. Some charts need a specific
-**platform identity** rather than a generic Kubernetes target — for example the
-**AWS EBS CSI driver** expects AWS/EKS instance metadata (IMDS) and a node
-`providerID` carrying an AWS instance id, and crash-loops on vanilla kind with
-`all specified --metadata-sources [imds kubernetes] are unavailable`. That is
-**platform target fit**, not a render defect: a useful base needs an AWS/EKS-like
-target profile, or an explicit refusal of vanilla kind. When such a row is
-committed with a receipt, it joins the decision surfaces as its own family.
+Some charts need a specific **platform identity** rather than a generic
+Kubernetes target. The committed AWS EBS CSI receipt is the concrete example:
+
+- Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo all preserve
+  semantic object parity.
+- The workloads crash-loop on vanilla kind because the driver cannot read AWS
+  instance metadata (IMDS), cannot find an AWS instance id in node `providerID`,
+  and has no AWS region.
+- Argo pulls and applies the ConfigHub OCI payload, then reports the application
+  as `Synced / Degraded` because the workload cannot run on that target.
+
+That is **platform target fit**, not a render defect. A useful base needs an
+AWS/EKS-like target profile, or an explicit target-scoped base/refusal for
+non-AWS clusters. The chart-local support artifact is
+[target-topology.yaml](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml).
 
 ## From a non-green row to a support decision
 

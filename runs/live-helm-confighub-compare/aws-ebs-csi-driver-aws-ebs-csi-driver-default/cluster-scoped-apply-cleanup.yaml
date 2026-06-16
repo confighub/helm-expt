@@ -1,0 +1,433 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-node-role
+rules:
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  verbs:
+  - patch
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csinodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-external-attacher-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csinodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments/status
+  verbs:
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-external-provisioner-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+  - delete
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshots
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csinodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattributesclasses
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-external-resizer-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumeclaims/status
+  verbs:
+  - patch
+- apiGroups:
+  - ''
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattributesclasses
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-external-snapshotter-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - groupsnapshot.storage.k8s.io
+  resources:
+  - volumegroupsnapshotcontents/status
+  verbs:
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-attacher-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ebs-external-attacher-role
+subjects:
+- kind: ServiceAccount
+  name: ebs-csi-controller-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-node-getter-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ebs-csi-node-role
+subjects:
+- kind: ServiceAccount
+  name: ebs-csi-node-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-provisioner-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ebs-external-provisioner-role
+subjects:
+- kind: ServiceAccount
+  name: ebs-csi-controller-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-resizer-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ebs-external-resizer-role
+subjects:
+- kind: ServiceAccount
+  name: ebs-csi-controller-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs-csi-snapshotter-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ebs-external-snapshotter-role
+subjects:
+- kind: ServiceAccount
+  name: ebs-csi-controller-sa
+  namespace: default
+---
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  labels:
+    app.kubernetes.io/component: csi-driver
+    app.kubernetes.io/instance: aws-ebs-csi-driver
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-ebs-csi-driver
+    app.kubernetes.io/version: 1.60.1
+    helm.sh/chart: aws-ebs-csi-driver-2.60.1
+  name: ebs.csi.aws.com
+spec:
+  attachRequired: true
+  fsGroupPolicy: File
+  podInfoOnMount: false

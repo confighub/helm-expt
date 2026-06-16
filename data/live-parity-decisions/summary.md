@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-40 non-pass rows: 33 watch, 7 blocked.
+41 non-pass rows: 34 watch, 7 blocked.
 3 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -40,6 +40,7 @@ passed — the residue is operational, not a config mismatch.
 | `capability-profile` | 2 |
 | `render-input` | 2 |
 | `operate-policy` | 1 |
+| `target-fit` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
@@ -49,12 +50,14 @@ passed — the residue is operational, not a config mismatch.
 | `catalog` | 4 |
 | `user` | 3 |
 | `needs operate review` | 1 |
+| `user or catalog` | 1 |
 
 ## Rows
 
 | Chart | Variant | Result | Residue | Who fixes it | Usable today |
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | watch | target-fit | user or catalog | watch — needs a target with the required platform shape |
 | bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |

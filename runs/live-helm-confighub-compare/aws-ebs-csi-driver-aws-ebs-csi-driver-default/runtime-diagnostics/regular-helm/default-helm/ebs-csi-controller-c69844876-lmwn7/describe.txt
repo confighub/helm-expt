@@ -1,0 +1,282 @@
+Name:                 ebs-csi-controller-c69844876-lmwn7
+Namespace:            default-helm
+Priority:             2000000000
+Priority Class Name:  system-cluster-critical
+Service Account:      ebs-csi-controller-sa
+Node:                 helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane/192.168.97.2
+Start Time:           Tue, 16 Jun 2026 07:01:31 +0100
+Labels:               app=ebs-csi-controller
+                      app.kubernetes.io/component=csi-driver
+                      app.kubernetes.io/instance=aws-ebs-csi-driver
+                      app.kubernetes.io/managed-by=Helm
+                      app.kubernetes.io/name=aws-ebs-csi-driver
+                      app.kubernetes.io/version=1.60.1
+                      helm.sh/chart=aws-ebs-csi-driver-2.60.1
+                      pod-template-hash=c69844876
+Annotations:          <none>
+Status:               Running
+IP:                   10.244.0.14
+IPs:
+  IP:           10.244.0.14
+Controlled By:  ReplicaSet/ebs-csi-controller-c69844876
+Containers:
+  ebs-plugin:
+    Container ID:    containerd://c195e480b2bf5acce1682ce55ab2cc47bfc9a509670fc4ef4306257d45517c10
+    Image:           public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+    Image ID:        public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8
+    Port:            9808/TCP (healthz)
+    Host Port:       0/TCP (healthz)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      controller
+      --endpoint=$(CSI_ENDPOINT)
+      --batching=true
+      --logging-format=text
+      --user-agent-extra=helm
+      --v=2
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:   ng metadata"
+I0616 06:07:52.910626       1 metadata.go:75] "Attempting to retrieve instance metadata from IMDS"
+E0616 06:07:57.911203       1 metadata.go:81] "Retrieving IMDS metadata failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument, request canceled, context deadline exceeded"
+I0616 06:07:57.911252       1 metadata.go:92] "Attempting to retrieve instance metadata from Kubernetes API"
+I0616 06:07:57.911792       1 envvar.go:195] "Feature gate default state" feature="UnlockWhileProcessingFIFO" enabled=true
+I0616 06:07:57.911944       1 envvar.go:195] "Feature gate default state" feature="InOrderInformersBatchProcess" enabled=true
+I0616 06:07:57.911998       1 envvar.go:195] "Feature gate default state" feature="WatchListClient" enabled=true
+I0616 06:07:57.912047       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCARotation" enabled=true
+I0616 06:07:57.912085       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowTLSCacheGC" enabled=true
+I0616 06:07:57.912112       1 envvar.go:195] "Feature gate default state" feature="AtomicFIFO" enabled=true
+I0616 06:07:57.912168       1 envvar.go:195] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0616 06:07:57.912196       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0616 06:07:57.912246       1 envvar.go:195] "Feature gate default state" feature="InformerResourceVersion" enabled=true
+I0616 06:07:57.912273       1 envvar.go:195] "Feature gate default state" feature="InOrderInformers" enabled=true
+E0616 06:07:57.920366       1 metadata.go:98] "Retrieving Kubernetes metadata failed" err="did not find aws instance ID in node providerID string"
+E0616 06:07:57.920503       1 main.go:179] "Failed to initialize metadata when it is required" err="all specified --metadata-sources '[imds kubernetes]' are unavailable"
+I0616 06:07:57.920548       1 main.go:181] "The region can be manually supplied via the AWS_REGION environment variable"
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:07:52 +0100
+      Finished:     Tue, 16 Jun 2026 07:07:57 +0100
+    Ready:          False
+    Restart Count:  6
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:      10m
+      memory:   40Mi
+    Liveness:   http-get http://:healthz/healthz delay=10s timeout=60s period=10s #success=1 #failure=10
+    Readiness:  http-get http://:healthz/healthz delay=10s timeout=60s period=10s #success=1 #failure=5
+    Environment:
+      CSI_ENDPOINT:            unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+      CSI_NODE_NAME:            (v1:spec.nodeName)
+      AWS_ACCESS_KEY_ID:       <set to the key 'key_id' in secret 'aws-secret'>                Optional: true
+      AWS_SECRET_ACCESS_KEY:   <set to the key 'access_key' in secret 'aws-secret'>            Optional: true
+      AWS_EC2_ENDPOINT:        <set to the key 'endpoint' of config map 'aws-meta'>            Optional: true
+      AWS_SAGEMAKER_ENDPOINT:  <set to the key 'sagemaker_endpoint' of config map 'aws-meta'>  Optional: true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q9f6n (ro)
+  csi-provisioner:
+    Container ID:    containerd://a7003b88c4d6286822dda39eb7bed2581b40325d93d97782a174b8a89d3447ad
+    Image:           public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5
+    Image ID:        public.ecr.aws/csi-components/csi-provisioner@sha256:4eb9d5ad09805c9f59d1f0d789c582dbb952611b27ff826269c527954826ebb8
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=60s
+      --csi-address=$(ADDRESS)
+      --v=2
+      --feature-gates=Topology=true
+      --extra-create-metadata
+      --leader-election=true
+      --default-fstype=ext4
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --worker-threads=100
+      --retry-interval-max=30m
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:   nect: no such file or directory"
+W0616 06:07:45.788256       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:46.797537       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:47.888181       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:48.722749       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+I0616 06:07:48.938877       1 connection.go:253] "Still connecting" address="unix:///var/lib/csi/sockets/pluginproxy/csi.sock"
+E0616 06:07:48.939062       1 csi-provisioner.go:236] context deadline exceeded
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:07:18 +0100
+      Finished:     Tue, 16 Jun 2026 07:07:48 +0100
+    Ready:          False
+    Restart Count:  5
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:              /var/lib/csi/sockets/pluginproxy/csi.sock
+      ENABLE_VAC_FALLBACK:  true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q9f6n (ro)
+  csi-attacher:
+    Container ID:    containerd://9711c6c34b19d89946c405150a15ca0f3daaeacfa0979e278766d4a40203835e
+    Image:           public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6
+    Image ID:        public.ecr.aws/csi-components/csi-attacher@sha256:95f0f68011d9d7e24df1b473b88812b80be58153e4ad3eef0cccd0b9cffeafe8
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=6m
+      --csi-address=$(ADDRESS)
+      --v=2
+      --leader-election=true
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --worker-threads=100
+      --retry-interval-max=5m
+      --feature-gates=MutableCSINodeAllocatableCount=true
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:   annel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:46.232252       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:47.115439       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:47.927825       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+I0616 06:07:48.991035       1 connection.go:253] "Still connecting" address="unix:///var/lib/csi/sockets/pluginproxy/csi.sock"
+E0616 06:07:48.991202       1 main.go:153] "Failed to connect to the CSI driver" err="context deadline exceeded" csiAddress="/var/lib/csi/sockets/pluginproxy/csi.sock"
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:07:18 +0100
+      Finished:     Tue, 16 Jun 2026 07:07:48 +0100
+    Ready:          False
+    Restart Count:  5
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:  /var/lib/csi/sockets/pluginproxy/csi.sock
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q9f6n (ro)
+  csi-resizer:
+    Container ID:    containerd://c184fedc383d3802d08b84e23bfef2e2f0cdb16a0249faf1b63287f4b135a147
+    Image:           public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6
+    Image ID:        public.ecr.aws/csi-components/csi-resizer@sha256:ebc1acc45f4ad6a01076f000c74ca8455322eb3702e3c3b9b32bd13c5deaf1a6
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=60s
+      --extra-modify-metadata
+      --csi-address=$(ADDRESS)
+      --v=2
+      --handle-volume-inuse-error=false
+      --leader-election=true
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --workers=100
+      --retry-interval-max=30m
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+      Reason:    Error
+      Message:      1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:46.055889       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:47.197678       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+W0616 06:07:48.157430       1 logging.go:55] [core] [Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock", ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>": "unix" }, }. Err: connection error: desc = "transport: Error while dialing: dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such file or directory"
+I0616 06:07:49.046730       1 connection.go:253] "Still connecting" address="unix:///var/lib/csi/sockets/pluginproxy/csi.sock"
+E0616 06:07:49.046761       1 main.go:185] "Failed to create CSI client" err="failed to connect to CSI driver: context deadline exceeded"
+
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 07:07:19 +0100
+      Finished:     Tue, 16 Jun 2026 07:07:49 +0100
+    Ready:          False
+    Restart Count:  5
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:              /var/lib/csi/sockets/pluginproxy/csi.sock
+      ENABLE_VAC_FALLBACK:  true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q9f6n (ro)
+  liveness-probe:
+    Container ID:  containerd://9cae53e32e3b1063ced5ed5e745d7cbd758235e0f26b69e15a1d9fb4fd5fdf75
+    Image:         public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+    Image ID:      public.ecr.aws/csi-components/livenessprobe@sha256:d66c8a8b373815a83486fcc8f888e2c6d50c1ddcdf0a1d97999fc0431f8654a0
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --csi-address=/csi/csi.sock
+      --probe-timeout=60s
+    State:          Running
+      Started:      Tue, 16 Jun 2026 07:02:09 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:        10m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /csi from socket-dir (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q9f6n (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  socket-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  kube-api-access-q9f6n:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 :NoExecute op=Exists for 300s
+                             CriticalAddonsOnly op=Exists
+Events:
+  Type     Reason     Age                     From               Message
+  ----     ------     ----                    ----               -------
+  Normal   Pulling    8m                      kubelet            spec.containers{ebs-plugin}: Pulling image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+  Normal   Scheduled  8m                      default-scheduler  Successfully assigned default-helm/ebs-csi-controller-c69844876-lmwn7 to helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane
+  Normal   Pulled     7m53s                   kubelet            spec.containers{ebs-plugin}: Successfully pulled image "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1" in 6.448s (6.448s including waiting). Image size: 32815808 bytes.
+  Normal   Pulling    7m53s                   kubelet            spec.containers{csi-provisioner}: Pulling image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
+  Normal   Pulled     7m45s                   kubelet            spec.containers{csi-provisioner}: Successfully pulled image "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5" in 6.945s (8.532s including waiting). Image size: 39335252 bytes.
+  Normal   Pulling    7m44s                   kubelet            spec.containers{csi-attacher}: Pulling image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6"
+  Normal   Started    7m34s                   kubelet            spec.containers{csi-attacher}: Container started
+  Normal   Pulled     7m34s                   kubelet            spec.containers{csi-attacher}: Successfully pulled image "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6" in 6.177s (10.502s including waiting). Image size: 37331755 bytes.
+  Normal   Pulling    7m34s                   kubelet            spec.containers{csi-resizer}: Pulling image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6"
+  Normal   Created    7m34s                   kubelet            spec.containers{csi-attacher}: Container created
+  Normal   Created    7m22s                   kubelet            spec.containers{csi-resizer}: Container created
+  Normal   Pulled     7m22s                   kubelet            spec.containers{liveness-probe}: Container image "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6" already present on machine and can be accessed by the pod
+  Normal   Started    7m22s                   kubelet            spec.containers{liveness-probe}: Container started
+  Normal   Created    7m22s                   kubelet            spec.containers{liveness-probe}: Container created
+  Normal   Pulled     7m22s                   kubelet            spec.containers{csi-resizer}: Successfully pulled image "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6" in 6.546s (11.626s including waiting). Image size: 37287243 bytes.
+  Normal   Started    7m22s                   kubelet            spec.containers{csi-resizer}: Container started
+  Normal   Started    7m21s (x2 over 7m53s)   kubelet            spec.containers{ebs-plugin}: Container started
+  No
+
+[truncated at 20000 characters]
