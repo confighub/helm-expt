@@ -38,6 +38,35 @@ Since scanning is the named use case, the specifics:
 - **The genuinely novel UX: scan diff across versions.** Because both the old and new variants exist as data, an upgrade can answer "what new findings does this version introduce and which old ones does it fix" as a first-class diff. Standard Helm users cannot ask this question without building the comparison pipeline themselves. This belongs in the `cub upgrade` transcript next to the object diff.
 - **Later, not now:** VEX-style statements ("CVE X in image Y does not affect variant Z because the component is disabled") are the natural extension, since the variant's effective configuration is known. Heavier analysis, real value, do not promise it yet.
 
+## 3b. Environment attestation
+
+The environment-determinism matrix built for the sceptic plan is part of the
+commercial safety story. A catalog artifact should not only say "this rendered
+once"; it should say which render context was tested.
+
+For the free public catalog, this means one supported platform profile per
+variant, with the recorded Helm version, Kubernetes capability profile, flag
+profile, timezone, locale, and relevant environment facts.
+
+For paid or managed support, this can expand into a support matrix:
+
+```text
+variant x Kubernetes version x controller profile x policy profile x platform
+```
+
+The commercial claim should stay narrow:
+
+```text
+supported for these declared profiles
+not universally safe for every cluster shape
+```
+
+This matters because many Helm failures are not pure render failures. They are
+target-fit failures: missing APIs, webhook readiness, storage class behavior,
+load balancer assumptions, image availability, or lifecycle prerequisites. The
+environment matrix, target facts, and live receipts are how those assumptions
+become visible.
+
 ## 4. The commercial model
 
 The tiers map onto the boundaries the repo already drew (product-support-tiers, maintenance SLA, and the serverless design's upsell walls):
@@ -48,6 +77,23 @@ The tiers map onto the boundaries the repo already drew (product-support-tiers, 
 - **The Server tier.** Where the per-install story becomes an estate story: fleet-wide CVE queries, authority on every change, the ledger, gates before apply, continuous observation. This is the upsell from the serverless doc, and security is its sharpest wedge, because "where do I run this image and who changed that field" are the two questions a security team asks weekly that scattered receipts cannot answer.
 
 The pricing logic underneath: factory scanning amortizes a cost every customer currently pays separately and badly; the subscription sells that amortization plus the SLA; the Server sells the queries. Each tier's security claim is backed by a receipt the tier below can verify, which keeps the funnel honest.
+
+The broader commercial packaging work is tracked in
+[issue #949](https://github.com/confighub/helm-expt/issues/949). That issue keeps
+three paid lanes explicit without forcing them into first-run user docs:
+
+- **Helm remediation and legacy patch lane:** old approved chart versions,
+  CVE-oriented object patches, image digest updates, RBAC/securityContext fixes,
+  deprecated API patches, webhook/cert mitigations, rollback evidence, and patch
+  SLAs.
+- **Config lifecycle intelligence:** upgrade risk, hook/lifecycle routes,
+  annotated diffs, evidence packs, and exact rendered configuration variants.
+- **Managed integrations:** Argo, Flux, Kargo or promotion waves, bulk scan and
+  patch, AICR, NIM, and possible BYO AI/cloud sandbox integrations.
+
+Those are commercial lanes, not free-catalog claims. Each should map to a
+receipt, claims-register row, or explicit future/no-claim status before launch
+copy mentions it as a product capability.
 
 ## 5. What makes the safety claim defensible
 

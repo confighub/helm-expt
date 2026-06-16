@@ -175,6 +175,32 @@ nearest to hand.
 | Variant and operations story | Product proof lane | A user can see when to use a base variant, when to use a derived ConfigHub variant, and when a change must be handled as a delivery prerequisite or managed overlay. |
 | Sceptic proofing | Adversarial lane | Claims register, blast-radius accuracy, hook dispositions, environment matrix, torture fixtures, refresh survival, and upgrade evidence all name their limits and next tests. |
 
+## Desktop Planning Sweep, 2026-06-16
+
+The Desktop planning notes were reviewed against the repo docs, open issues, and
+roadmap. The result is:
+
+| Desktop note | Canonical repo home |
+| --- | --- |
+| Helm pain points | [Helm Pain Points](../user/helm-pain-points.md), [pain-point coverage](../../data/pain-point-coverage/summary.md), per-chart `helm-pain-report.yaml` files. |
+| Product support tiers | [Product Support Tiers](../user/product-support-tiers.md), [Maintenance Strategy](./maintenance-strategy.md). |
+| Low-friction serverless installer | [Serverless Verified Install Model](./serverless-verified-install-plan.md), issue [#23](https://github.com/confighub/helm-expt/issues/23). |
+| Commercial safety model | [Verified Install Commercial Model](./verified-install-commercial-model.md), issue [#949](https://github.com/confighub/helm-expt/issues/949). |
+| Helm community personas | [Helm Community Persona PRD](./helm-community-persona-prd.md), [Persona Plan](./helm-community-persona-plan.md), [Persona Reference](../reference/helm-community-persona-reference.md). |
+| Robust sceptic plan | [Robust Sceptic Plan](./robust-sceptic-plan.md), claims register, blast-radius, torture, environment, hook, and lifecycle data surfaces. |
+| Pilot HelmOps PRD | `confighub-ai-demo` roadmap and milestone; helm-expt owns upstream evidence such as issue [#948](https://github.com/confighub/helm-expt/issues/948). |
+
+The sweep produced one new helm-expt tracker: [#949](https://github.com/confighub/helm-expt/issues/949)
+for Helm remediation, lifecycle intelligence, and commercial support lanes.
+Pilot-specific HelmOps hardening lives in `confighub-ai-demo` under its
+`HelmOps product hardening` milestone. The main ownership rule remains:
+
+```text
+helm-expt proves catalog and live-evidence claims.
+ConfigHub/cub/installer implement managed operations.
+Pilot consumes the evidence and gates user-facing routes.
+```
+
 The website must not present proof machinery as the product. The public flow
 should be:
 
