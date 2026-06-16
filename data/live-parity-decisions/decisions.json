@@ -258,6 +258,20 @@
     {
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
+      "variant": "ha",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: ConfigHub workload not ready (parity passed)",
+      "support_artifact": "recipes/grafana/pyroscope/2.0.2/runtime-review.yaml",
+      "receipt": "runs/live-helm-confighub-compare/grafana-pyroscope-ha/receipt.yaml"
+    },
+    {
+      "chart": "grafana/pyroscope",
+      "version": "2.0.2",
       "variant": "no-crds",
       "result": "watch",
       "residue_category": "target-runtime",

@@ -1,0 +1,43 @@
+Name:               argocd/pyroscope-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:64694/applications/pyroscope-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-pyroscope-mqgdlqit-22a9-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-pyroscope-mqgdlqit-22a9-pyroscope
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                STATUS  HEALTH   AGE   MESSAGE                                              REASON
+ConfigMap/alloy-config-pyroscope                         Synced           18m   configmap/alloy-config-pyroscope serverside-applied
+Service/pyroscope-alloy-cluster                          Synced  Healthy  18m   service/pyroscope-alloy-cluster serverside-applied
+ClusterRoleBinding/pyroscope-alloy                       Synced           7m6s
+Role/pyroscope-discovery                                 Synced           7m6s  role.rbac.authorization.k8s.io/pyroscope-discovery reconciled. reconciliation required create
+                                                         missing rules added:
+                                                                 {Verbs:[get watch list] APIGroups:[ discovery.k8s.io] Resources:[endpointslices endpoints services pods] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/pyroscope-discovery serverside-applied
+RoleBinding/pyroscope-discovery                          Synced                                                                                                                                                                                                                        7m6s  rolebinding.rbac.authorization.k8s.io/pyroscope-discovery reconciled. reconciliation required create
+                                                         missing subjects added:
+                                                                 {Kind:ServiceAccount APIGroup: Name:pyroscope Namespace:default}. rolebinding.rbac.authorization.k8s.io/pyroscope-discovery serverside-applied
+Namespace/default-oci                                    Synced                                                                                                                                                  13m
+Service/pyroscope                                        Synced  Healthy                                                                                                                                         18m   service/pyroscope serverside-applied
+Service/pyroscope-headless                               Synced  Healthy                                                                                                                                         18m   service/pyroscope-headless serverside-applied
+Service/pyroscope-memberlist                             Synced  Healthy                                                                                                                                         18m   service/pyroscope-memberlist serverside-applied
+ServiceAccount/pyroscope                                 Synced                                                                                                                                                  18m   serviceaccount/pyroscope serverside-applied
+StatefulSet/pyroscope                                    Synced  Progressing                                                                                                                                     18m   statefulset.apps/pyroscope serverside-applied            Waiting for 2 pods to be ready...
+├─Pod/pyroscope-0                                                Degraded                                                                                                                                        18m
+├─Pod/pyroscope-1                                                Degraded                                                                                                                                        18m
+└─ControllerRevision/pyroscope-84c4bcbb57                                                                                                                                                                        18m
+ClusterRole/pyroscope-alloy                              Synced                                                                                                                                                  7m6s
+ConfigMap/pyroscope-overrides-config                     Synced                                                                                                                                                  18m   configmap/pyroscope-overrides-config serverside-applied
+CustomResourceDefinition/podlogs.monitoring.grafana.com  Synced  Healthy                                                                                                                                         7m6s                                                           CRD is healthy
+ConfigMap/pyroscope-config                               Synced                                                                                                                                                  18m   configmap/pyroscope-config serverside-applied
+Service/pyroscope-alloy                                  Synced  Healthy                                                                                                                                         18m   service/pyroscope-alloy serverside-applied
+ServiceAccount/pyroscope-alloy                           Synced                                                                                                                                                  18m   serviceaccount/pyroscope-alloy serverside-applied
+StatefulSet/pyroscope-alloy                              Synced  Healthy                                                                                                                                         18m   statefulset.apps/pyroscope-alloy serverside-applied      partitioned roll out complete: 1 new pods have been updated...
+├─Pod/pyroscope-alloy-0                                          Healthy                                                                                                                                         18m
+└─ControllerRevision/pyroscope-alloy-56c557c6d9                                                                                                                                                                  18m
+PodDisruptionBudget/pyroscope                            Synced  Healthy                                                                                                                                         18m   poddisruptionbudget.policy/pyroscope serverside-applied  PodDisruptionBudget has InsufficientPods

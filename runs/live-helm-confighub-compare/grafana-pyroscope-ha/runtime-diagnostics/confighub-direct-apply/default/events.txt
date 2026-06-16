@@ -1,0 +1,30 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                        MESSAGE
+9m14s       Normal    Starting                  node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane
+9m21s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane status is now: NodeHasNoDiskPressure
+9m21s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane status is now: NodeHasSufficientMemory
+9m21s       Normal    Starting                  node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Starting kubelet.
+9m21s       Normal    NodeHasSufficientPID      node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane status is now: NodeHasSufficientPID
+9m21s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Updated Node Allocatable limit across pods
+9m16s       Normal    RegisteredNode            node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane event: Registered Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane in Controller
+9m3s        Normal    NodeReady                 node/helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane   Node helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane status is now: NodeReady
+5m5s        Normal    Scheduled                 pod/pyroscope-0                                               Successfully assigned default/pyroscope-0 to helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane
+5m5s        Normal    SuccessfulCreate          statefulset/pyroscope                                         Create Pod pyroscope-1 in StatefulSet pyroscope successful
+5m5s        Normal    SuccessfulCreate          statefulset/pyroscope                                         Create Pod pyroscope-0 in StatefulSet pyroscope successful
+5m5s        Normal    NoPods                    poddisruptionbudget/pyroscope                                 No matching pods found
+5m5s        Normal    SuccessfulCreate          statefulset/pyroscope-alloy                                   Create Pod pyroscope-alloy-0 in StatefulSet pyroscope-alloy successful
+5m5s        Normal    Scheduled                 pod/pyroscope-1                                               Successfully assigned default/pyroscope-1 to helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane
+5m5s        Normal    Scheduled                 pod/pyroscope-alloy-0                                         Successfully assigned default/pyroscope-alloy-0 to helm-expt-parity-pyroscope-mqgdlqit-22a9-control-plane
+5m4s        Normal    Started                   pod/pyroscope-alloy-0                                         Container started
+5m4s        Normal    Pulled                    pod/pyroscope-alloy-0                                         Container image "quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0" already present on machine and can be accessed by the pod
+5m4s        Normal    Started                   pod/pyroscope-alloy-0                                         Container started
+5m4s        Normal    Created                   pod/pyroscope-alloy-0                                         Container created
+5m4s        Normal    Pulled                    pod/pyroscope-alloy-0                                         Container image "docker.io/grafana/alloy:v1.12.2" already present on machine and can be accessed by the pod
+5m4s        Normal    Created                   pod/pyroscope-alloy-0                                         Container created
+2m29s       Normal    Started                   pod/pyroscope-0                                               Container started
+2m29s       Normal    Created                   pod/pyroscope-0                                               Container created
+2m29s       Normal    Pulled                    pod/pyroscope-0                                               Container image "grafana/pyroscope:2.0.2" already present on machine and can be accessed by the pod
+2m26s       Normal    Pulled                    pod/pyroscope-1                                               Container image "grafana/pyroscope:2.0.2" already present on machine and can be accessed by the pod
+2m26s       Normal    Started                   pod/pyroscope-1                                               Container started
+2m26s       Normal    Created                   pod/pyroscope-1                                               Container created
+96s         Warning   Unhealthy                 pod/pyroscope-0                                               Readiness probe failed: Get "http://10.244.0.15:4040/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+93s         Warning   Unhealthy                 pod/pyroscope-1                                               Readiness probe failed: Get "http://10.244.0.16:4040/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

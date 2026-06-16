@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 36
+watch: 37
 blocked: 9
 not-started: 0
 ```
@@ -137,6 +137,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `grafana/alloy@1.8.2` | no-crds | pass | - | runs/live-helm-confighub-compare/grafana-alloy-no-crds/receipt.yaml |
 |  | `grafana/promtail@6.17.1` | default | pass | - | runs/live-helm-confighub-compare/grafana-promtail-default/receipt.yaml |
 |  | `grafana/pyroscope@2.0.2` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml |
+|  | `grafana/pyroscope@2.0.2` | ha | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-ha/receipt.yaml |
 |  | `grafana/pyroscope@2.0.2` | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml |
 |  | `grafana/rollout-operator@0.49.0` | default | pass | - | runs/live-helm-confighub-compare/grafana-rollout-operator-default/receipt.yaml |
 |  | `grafana/rollout-operator@0.49.0` | no-crds | pass | - | runs/live-helm-confighub-compare/grafana-rollout-operator-no-crds/receipt.yaml |

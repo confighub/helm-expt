@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-45 non-pass rows: 36 watch, 9 blocked.
+46 non-pass rows: 37 watch, 9 blocked.
 4 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,8 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
+| `target-runtime` | 10 |
 | `remote-image` | 9 |
-| `target-runtime` | 9 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -46,8 +46,8 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
+| `needs runtime review` | 10 |
 | `catalog or image publisher` | 9 |
-| `needs runtime review` | 9 |
 | `catalog` | 4 |
 | `user` | 4 |
 | `catalog or operator` | 1 |
@@ -75,6 +75,7 @@ passed — the residue is operational, not a config mismatch.
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| grafana/pyroscope@2.0.2 | ha | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/tempo@1.24.4 | s3-query-observability | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
