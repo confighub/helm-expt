@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "spark-master" in pod "spark-master-0" not found

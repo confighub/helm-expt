@@ -15,8 +15,8 @@
   "cellCount": 497,
   "byCompletionClass": {
     "needs-run": 260,
-    "already-decided": 107,
-    "needs-target-or-prereq-fix": 106,
+    "already-decided": 109,
+    "needs-target-or-prereq-fix": 104,
     "needs-modeling": 24
   },
   "byLane": {
@@ -1994,13 +1994,13 @@
       "variant": "ha",
       "lane": "G",
       "lane_label": "gitops-oci-live",
-      "state": "blocked",
-      "reason": "upstream: single-cluster local live is blocked (image unavailable (registry purge))",
-      "next_action": "resolve the local-live prerequisite first; the live lanes inherit it",
-      "support_artifact": "",
-      "owner": "either",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha"
+      "state": "watch",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "owner": "catalog or image publisher",
+      "completion_class": "already-decided",
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/spark",
@@ -2025,10 +2025,10 @@
       "state": "blocked",
       "reason": "local-live blocked: Helm equivalence receipt and installer setupCheck present",
       "next_action": "resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it",
-      "support_artifact": "",
+      "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "tooling/target",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha"
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/spark",
@@ -2036,13 +2036,13 @@
       "variant": "ha",
       "lane": "P",
       "lane_label": "live-helm-vs-confighub-parity",
-      "state": "blocked",
-      "reason": "upstream: single-cluster local live is blocked (image unavailable (registry purge))",
-      "next_action": "resolve the local-live prerequisite first; the live lanes inherit it",
-      "support_artifact": "",
-      "owner": "either",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha"
+      "state": "watch",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "owner": "catalog or image publisher",
+      "completion_class": "already-decided",
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/spark",

@@ -332,8 +332,8 @@ bitnami/spark@10.0.3,default,two_cluster_kind_parity,K,missing,blocked,yes,upstr
 bitnami/spark@10.0.3,ha,render_parity,R,pass,pass,no,,,
 bitnami/spark@10.0.3,ha,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,ha,local_live,L,blocked,blocked,no,,,
-bitnami/spark@10.0.3,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/spark@10.0.3,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/spark@10.0.3,ha,gitops_oci_live,G,watch,watch,no,,,
+bitnami/spark@10.0.3,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,
