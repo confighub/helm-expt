@@ -70,16 +70,16 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/171 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/172 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 148/148 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 67/67 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 19/67 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 39/67 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 68/68 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 25/68 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 34/68 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 133 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 57 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 76 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 32/171 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/171 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 33/172 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/172 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 7/148 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -193,8 +193,8 @@ considered.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 19 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 25 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 34 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
@@ -206,13 +206,14 @@ needs a support artifact or a direct receipt review before rerun.
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime-review | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) |
-| bitnami/apache@11.4.29 | default | watch | runtime-review | - |
+| bitnami/apache@11.4.29 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/contour@21.1.4 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml) |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) |
-| bitnami/opensearch@2.0.10 | default | watch | runtime-review | - |
-| bitnami/opensearch@2.0.10 | ha | watch | runtime-review | - |
+| bitnami/opensearch@2.0.10 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/opensearch@2.0.10 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | elastic/filebeat@8.5.1 | default | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fluent/fluentd@0.5.3 | default | watch | runtime-review | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) |
@@ -223,8 +224,8 @@ needs a support artifact or a direct receipt review before rerun.
 | hashicorp/terraform@1.1.2 | default | watch | runtime-review | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) |
 | hashicorp/terraform@1.1.2 | no-crds | watch | runtime-review | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
-| istio/gateway@1.30.0 | controller-default-reviewed | watch | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
-| istio/gateway@1.30.0 | default | watch | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
+| istio/gateway@1.30.0 | controller-default-reviewed | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| istio/gateway@1.30.0 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime-review | - |
 | jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime-review | - |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime-review | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) |
@@ -430,8 +431,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 192 | 0 | 0 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 135 | 36 | 21 | 192 |
-| live Helm-vs-ConfigHub parity | 135 | 36 | 21 | 192 |
+| GitOps/OCI live | 135 | 37 | 20 | 192 |
+| live Helm-vs-ConfigHub parity | 135 | 37 | 20 | 192 |
 | two-cluster kind parity | 116 | 32 | 0 | 148 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -441,7 +442,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/171
+ConfigHub/OCI live comparison: 0/172
 two-cluster kind parity:       7/148
 ~~~
 
@@ -459,8 +460,8 @@ useful.
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 19 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 25 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 34 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
@@ -470,8 +471,9 @@ useful.
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 23 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 18 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
+| image-retention-review | 6 | Read the receipt and classify the row before rerunning. |
 | render-input-model | 2 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -490,9 +492,10 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | grafana/tempo@1.24.4 | s3-query-observability | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
-| bitnami/apache@11.4.29 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
-| bitnami/opensearch@2.0.10 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
-| bitnami/opensearch@2.0.10 | ha | watch | target-runtime: pod config/runtime errors (parity passed) |
+| bitnami/apache@11.4.29 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/contour@21.1.4 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/opensearch@2.0.10 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/opensearch@2.0.10 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
@@ -500,8 +503,8 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | grafana/pyroscope@2.0.2 | no-crds | watch | target-runtime: ConfigHub workload not ready (parity passed) |
 | hashicorp/terraform@1.1.2 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
 | hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) |
-| istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) |
-| istio/gateway@1.30.0 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
+| istio/gateway@1.30.0 | controller-default-reviewed | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| istio/gateway@1.30.0 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite: cert-manager CRDs missing |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite: cert-manager CRDs missing |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |

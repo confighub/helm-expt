@@ -72,6 +72,13 @@ const CATEGORIES = {
     next_action: "Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.",
     support_artifact: "value-model.yaml",
   },
+  "remote-image": {
+    blocker_owner: "catalog or image publisher",
+    usable_today: "watch — image reference must be resolved",
+    decision: "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+    next_action: "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+    support_artifact: "data/image-digest-workdown/summary.md",
+  },
   "semantic-model-gap": {
     blocker_owner: "catalog",
     usable_today: "no — needs catalog work",
@@ -87,6 +94,7 @@ function classify(reason, result) {
   if (r.startsWith("operate-policy")) return "operate-policy";
   if (r.startsWith("target-prerequisite")) return "target-prerequisite";
   if (r.startsWith("render-input")) return "render-input";
+  if (r.startsWith("remote-image")) return "remote-image";
   if (r.startsWith("target-runtime")) return "target-runtime";
   if (/semantic|object diff|does not match|model/.test(r)) return "semantic-model-gap";
   // Fallbacks for un-prefixed reasons.
@@ -106,6 +114,10 @@ function supportArtifactCandidates(category) {
 }
 
 function supportArtifactPath(category, chart, version) {
+  if (category === "remote-image") {
+    const rel = CATEGORIES[category]?.support_artifact;
+    return rel && existsSync(join(repoRoot, rel)) ? rel : "";
+  }
   for (const file of supportArtifactCandidates(category)) {
     const rel = `recipes/${chart}/${version}/${file}`;
     if (existsSync(join(repoRoot, rel))) return rel;
