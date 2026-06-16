@@ -41,7 +41,7 @@
       "residue_category": "render-input",
       "blocker_owner": "user",
       "usable_today": "yes, after supplying values",
-      "user_decision": "Usable once you supply the required Helm values. With complete inputs the rendered object set matched regular Helm (semantic parity passed).",
+      "user_decision": "Usable once you supply the required Helm values. The current receipt is blocked on missing inputs, so it does not by itself prove full parity.",
       "next_action": "Provide the required values in the base/variant, then the row can move to pass.",
       "reason": "render-input: required Helm values missing (parity passed)",
       "receipt": "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml"
@@ -395,6 +395,20 @@
       "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
       "reason": "helm-runtime: upstream not ready (parity passed)",
       "receipt": "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+    },
+    {
+      "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+      "version": "4.0.18",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "unknown",
+      "residue_category": "render-input",
+      "blocker_owner": "user",
+      "usable_today": "yes, after supplying values",
+      "user_decision": "Usable once you supply the required Helm values. The current receipt is blocked on missing inputs, so it does not by itself prove full parity.",
+      "next_action": "Provide the required values in the base/variant, then the row can move to pass.",
+      "reason": "render-input: required Helm values missing",
+      "receipt": "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
     },
     {
       "chart": "percona/pg-operator",

@@ -327,7 +327,9 @@ function meaningFor(row) {
   if (row.result === "pass") return "live parity passed";
   if (row.semantic_parity === "defect") return "semantic object parity defect";
   if (row.reason?.startsWith("render-input:")) {
-    return "semantic parity passed; required render inputs need a modeled base";
+    return row.semantic_parity === "pass"
+      ? "semantic parity passed; required render inputs need a modeled base"
+      : "required render inputs need a modeled base";
   }
   if (row.semantic_parity === "pass" && row.related_lifecycle_evidence) {
     return "semantic parity passed; lifecycle route has evidence";
@@ -352,6 +354,9 @@ function classifyReceipt(receipt) {
     text.includes("you must specify values for either") &&
     (text.includes("autodiscovery") || text.includes("autoscalinggroups"))
   ) {
+    return `render-input: required Helm values missing${paritySuffix}`;
+  }
+  if (text.includes("required value") && (text.includes("nfs.server") || text.includes("nfs"))) {
     return `render-input: required Helm values missing${paritySuffix}`;
   }
   if (

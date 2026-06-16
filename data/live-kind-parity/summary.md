@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 120
 watch: 9
-blocked: 28
+blocked: 29
 semantic parity pass: 141
 semantic parity defects: 8
 non-pass rows where semantic parity passed: 21
@@ -43,6 +43,7 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: cert-manager CRDs missing | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | helm-hook: pre-install certificate generation failed (parity passed) | 1 |
+| render-input: required Helm values missing | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
@@ -180,6 +181,7 @@ broader support claim.
 | `nats/nats@2.14.0` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/nats-nats-ha/receipt.yaml |
 | `nats/surveyor@0.20.9` | default | blocked | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/nats-surveyor-default/receipt.yaml |
 | `nats/surveyor@0.20.9` | default-reviewed | blocked | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | unknown | render-input: required Helm values missing |  | required render inputs need a modeled base | runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
