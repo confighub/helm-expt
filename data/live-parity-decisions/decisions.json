@@ -502,6 +502,20 @@
       "reason": "render-input: required Velero provider values missing",
       "support_artifact": "recipes/velero/velero/12.0.1/value-model.yaml",
       "receipt": "runs/live-helm-confighub-compare/velero-velero-default/receipt.yaml"
+    },
+    {
+      "chart": "velero/velero",
+      "version": "12.0.1",
+      "variant": "no-crds",
+      "result": "blocked",
+      "residue_category": "render-input",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs a better base",
+      "user_decision": "The selected base renders incomplete or invalid chart configuration because required Helm inputs are not modeled. This is not a user target prerequisite; the catalog needs a useful base that asks for or supplies the required inputs.",
+      "next_action": "Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.",
+      "reason": "render-input: required Velero provider values missing",
+      "support_artifact": "recipes/velero/velero/12.0.1/value-model.yaml",
+      "receipt": "runs/live-helm-confighub-compare/velero-velero-no-crds/receipt.yaml"
     }
   ]
 }
