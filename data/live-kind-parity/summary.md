@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 117
 watch: 9
-blocked: 24
+blocked: 25
 semantic parity pass: 135
-semantic parity defects: 7
+semantic parity defects: 8
 non-pass rows where semantic parity passed: 18
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 7 |
+| parity: semantic object diff | 8 |
 | target-prerequisite: CRDs missing | 4 |
 | helm-runtime: upstream not ready (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
@@ -211,6 +211,7 @@ broader support claim.
 | `stakater/reloader@2.2.12` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | pass | target-prerequisite: required Namespace missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
+| `traefik/traefik@40.2.0` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/traefik-traefik-default/receipt.yaml |
 | `velero/velero@12.0.1` | default | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/velero-velero-default/receipt.yaml |
 | `velero/velero@12.0.1` | no-crds | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/velero-velero-no-crds/receipt.yaml |
 | `vm/victoria-metrics-single@0.39.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml |

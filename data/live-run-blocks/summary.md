@@ -24,9 +24,9 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   30
+ready-to-run rows:   29
 run blocks:          7  (G/P: 2, K: 5)
-derived predictions: 20
+derived predictions: 19
 unknown predictions: 10
 ```
 
@@ -64,7 +64,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-01 — K · operator/CRD/lifecycle
 
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted gitops-runtime / target-prerequisite (minio-operator/operator@7.1.1, rook-release/rook-ceph-cluster@v1.19.5, rook-release/rook-ceph@v1.19.5, traefik/traefik@40.2.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with predicted gitops-runtime / target-prerequisite / remote-image (minio-operator/operator@7.1.1, rook-release/rook-ceph-cluster@v1.19.5, rook-release/rook-ceph@v1.19.5, traefik/traefik@40.2.0, bitnami/apache@11.4.29); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -73,18 +73,17 @@ then by predicted residue family and chart family. Blocks are capped at
 | minio-operator/operator@7.1.1 | default | `npm run kind-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default` | gitops-runtime | medium | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | `npm run kind-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` | target-prerequisite | high | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel; stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | rook-release/rook-ceph@v1.19.5 | default | `npm run kind-parity:run -- --recipe recipes/rook-release/rook-ceph/v1.19.5 --base default` | target-prerequisite | medium | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel; stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| traefik/traefik@40.2.0 | default | `npm run kind-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base default` | gitops-runtime | high | two-cluster kind run (provisions two clusters) |
 | traefik/traefik@40.2.0 | no-crds | `npm run kind-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` | gitops-runtime | high | two-cluster kind run (provisions two clusters) |
+| bitnami/apache@11.4.29 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
 
 ## K-02 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 4 ready kind-parity row(s) with predicted remote-image (bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/apache@11.4.29 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
 | bitnami/elasticsearch@22.1.6 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/elasticsearch@22.1.6 | ha | `npm run kind-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
 | bitnami/phpmyadmin@20.0.0 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
