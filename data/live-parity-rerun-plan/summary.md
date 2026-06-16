@@ -10,26 +10,27 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 80
+rows: 89
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 32
-watch: 48
-configHub-oci-live-comparison: 49
-two-cluster-kind-parity: 31
-semantic-parity-defects: 7
+blocked: 40
+watch: 49
+configHub-oci-live-comparison: 50
+two-cluster-kind-parity: 39
+semantic-parity-defects: 8
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 17
-runtime-or-watch-rows: 35
+prerequisite-or-lifecycle-rows: 19
+runtime-or-watch-rows: 36
 ```
 
 ## Current Interpretation
 
-7 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
+8 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
 claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.
 
 | Chart | Base | Current | Meaning | Next action |
 | --- | --- | --- | --- | --- |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | Semantic parity already passed; rerun with right-sized Helm readiness waits or classify as watch if upstream Helm stays pending. | If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect. |
 | `projectcalico/tigera-operator@v3.32.0` | default | blocked | The rendered custom resources cannot be accepted until their CRDs are established. Split or stage the CRD bootstrap before rerunning. | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases, then rerun. |
 | `argo-cd/argo-cd@9.5.17` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | The base declares target-fit requirements. The aws-ebs-csi-driver process initializes metadata from IMDS or Kubernetes node providerID before it can run | Use a target with the required platform behavior, or create a separate base that matches the proof target. |
@@ -86,26 +87,34 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `hashicorp/terraform@1.1.2` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `nats/nack@0.34.0` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `nats/nats@2.14.0` | ha | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `traefik/traefik@40.2.0` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
+| `bitnami/apache@11.4.29` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
+| `bitnami/elasticsearch@22.1.6` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `elastic/filebeat@8.5.1` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `istio/gateway@1.30.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
+| `istio/gateway@1.30.0` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `istio/istiod@1.30.0` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `kedacore/keda@2.19.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning. | Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity. |
 | `percona/pg-operator@3.0.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `projectcalico/tigera-operator@v3.32.0` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
+| `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `velero/velero@12.0.1` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `velero/velero@12.0.1` | no-crds | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `bitnami/contour@21.1.4` | default | blocked | This is Helm lifecycle behavior. Decide whether the hook maps to desired config, a lifecycle operation, or an observation check. | Keep desired object parity separate from hook execution and document the lifecycle route. |
+| `dex/dex@0.24.0` | default | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `elastic/filebeat@8.5.1` | node-or-cluster-collector | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `fairwinds-stable/vpa@4.11.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
+| `gitlab/gitlab-runner@0.89.0` | default | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `grafana/rollout-operator@0.49.0` | no-crds | watch | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
-| `istio/gateway@1.30.0` | controller-default-reviewed | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
-| `istio/gateway@1.30.0` | default | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | Rerun once on a clean pair of vanilla kind clusters; if object parity remains clean, decide whether readiness should stay watch. | Do not change chart artifacts unless semantic parity or object readiness shows a real difference. |
 | `nats/surveyor@0.20.9` | default | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
 | `nats/surveyor@0.20.9` | default-reviewed | blocked | Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate. | Keep the recipe stable unless the rendered object comparison starts failing. |
@@ -116,8 +125,8 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 49 | 0 | 40 | 9 | 0 |
-| two-cluster-kind-parity | 31 | 0 | 8 | 23 | 0 |
+| configHub-oci-live-comparison | 50 | 0 | 40 | 10 | 0 |
+| two-cluster-kind-parity | 39 | 0 | 9 | 30 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -144,14 +153,14 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| image-retention-review | 12 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
-| inspect-parity-diff | 7 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
+| image-retention-review | 16 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
+| inspect-parity-diff | 8 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| render-input-model | 2 | Model the required Helm values as a real base before rerunning. |
-| runtime-review | 19 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 16 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| render-input-model | 3 | Model the required Helm values as a real base before rerunning. |
+| runtime-review | 20 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| stage-prerequisite | 18 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -167,10 +176,10 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 7 | Do not rerun until the semantic diff has been inspected. |
+| inspect-diff-first | 8 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 36 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 35 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 43 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 36 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -206,6 +215,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | review-target-first | runtime-review | configHub-oci-live-comparison | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | helm-runtime: upstream leg blocked | - | `npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default` |
 | 20 | model-or-stage-first | crd-bootstrap | configHub-oci-live-comparison | `projectcalico/tigera-operator@v3.32.0` | default | blocked | crd-bootstrap: required CRDs missing before custom resources apply | [`recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml`](../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.17` | default | watch | gitops-runtime: child Argo Application not materialized (parity passed) | [`recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.17 --base default` |
 | 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | [`recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml`](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml) | `npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default` |
@@ -262,26 +272,34 @@ faithful to the locked chart/version without changing the recipe.
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `hashicorp/terraform@1.1.2` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `nats/nack@0.34.0` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart nats/nack --version 0.34.0 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `nats/nats@2.14.0` | ha | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart nats/nats --version 2.14.0 --base ha` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `traefik/traefik@40.2.0` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart traefik/traefik --version 40.2.0 --base default` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed` |
+| 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `bitnami/apache@11.4.29` | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart bitnami/apache --version 11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `bitnami/elasticsearch@22.1.6` | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart bitnami/elasticsearch --version 22.1.6 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `elastic/filebeat@8.5.1` | default | blocked | target-prerequisite: required Secret missing (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `hashicorp/terraform@1.1.2` | no-crds | blocked | target-prerequisite: required Secret missing (parity passed) | [`recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml`](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base no-crds` |
+| 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base controller-default-reviewed` |
+| 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `istio/istiod@1.30.0` | default | blocked | target-prerequisite: required Namespace missing (parity passed) | [`recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart istio/istiod --version 1.30.0 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `kedacore/keda@2.19.0` | no-crds | watch | target-prerequisite: required Secret missing (parity passed) | - | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
+| 50 | model-or-stage-first | render-input-model | two-cluster-kind-parity | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | render-input: required Helm values missing | [`recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml`](../../recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml) | `npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `percona/pg-operator@3.0.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `projectcalico/tigera-operator@v3.32.0` | default | blocked | target-prerequisite: CRDs missing | [`recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml`](../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | target-prerequisite: CRDs missing | - | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base cluster-metrics-readonly` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | target-prerequisite: CRDs missing | - | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: required Namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart rook-release/rook-ceph-cluster --version v1.19.5 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | target-prerequisite: required Namespace missing (parity passed) | - | `npm run kind-parity:run -- --chart strimzi/strimzi-kafka-operator --version 1.0.0 --base no-crds` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `velero/velero@12.0.1` | default | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart velero/velero --version 12.0.1 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `velero/velero@12.0.1` | no-crds | blocked | target-prerequisite: CRDs missing | - | `npm run kind-parity:run -- --chart velero/velero --version 12.0.1 --base no-crds` |
 | 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `bitnami/contour@21.1.4` | default | blocked | helm-hook: pre-install certificate generation failed (parity passed) | - | `npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `dex/dex@0.24.0` | default | blocked | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart dex/dex --version 0.24.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `elastic/filebeat@8.5.1` | node-or-cluster-collector | blocked | helm-runtime: upstream not ready (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | default | watch | target-runtime: pod crash loop (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `gitlab/gitlab-runner@0.89.0` | default | watch | helm-runtime: upstream not ready (parity passed) | - | `npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/rollout-operator@0.49.0` | no-crds | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | - | `npm run kind-parity:run -- --chart grafana/rollout-operator --version 0.49.0 --base no-crds` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | target-runtime: pods pending (parity passed) | [`recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base controller-default-reviewed` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `istio/gateway@1.30.0` | default | blocked | target-runtime: pods pending (parity passed) | [`recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart istio/gateway --version 1.30.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `kyverno/kyverno-policies@3.8.0` | default | watch | watch: object parity passed; readiness needs review | - | `npm run kind-parity:run -- --chart kyverno/kyverno-policies --version 3.8.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `nats/surveyor@0.20.9` | default | blocked | target-runtime: pod crash loop (parity passed) | [`recipes/nats/surveyor/0.20.9/runtime-review.yaml`](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `nats/surveyor@0.20.9` | default-reviewed | blocked | helm-runtime: upstream not ready (parity passed) | [`recipes/nats/surveyor/0.20.9/runtime-review.yaml`](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed` |

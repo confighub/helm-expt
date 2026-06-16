@@ -12,9 +12,9 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 493,
+  "cellCount": 492,
   "byCompletionClass": {
-    "needs-run": 256,
+    "needs-run": 255,
     "already-decided": 110,
     "needs-target-or-prereq-fix": 98,
     "needs-modeling": 29
@@ -22,7 +22,7 @@
   "byLane": {
     "promotion": 192,
     "K": 72,
-    "lifecycle": 62,
+    "lifecycle": 61,
     "G": 57,
     "P": 57,
     "L": 53
@@ -6831,20 +6831,6 @@
       "owner": "tooling/target",
       "completion_class": "needs-target-or-prereq-fix",
       "command": "npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds"
-    },
-    {
-      "chart": "velero/velero",
-      "version": "12.0.1",
-      "variant": "no-crds",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
     },
     {
       "chart": "velero/velero",

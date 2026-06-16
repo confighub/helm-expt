@@ -125,8 +125,8 @@ const COLUMN_PROVENANCE = [
   },
   {
     source: "live-parity-rerun-plan/rerun-plan.csv",
-    carried: "active non-pass live parity rows: next step, rerun readiness, reason, support artifact, rerun command",
-    dropped: "priority, lane, current result, receipt path; follow the source when diagnosing the run itself",
+    carried: "active non-pass live parity rows: current result, next step, rerun readiness, reason, support artifact, rerun command",
+    dropped: "priority and receipt path; follow the source when diagnosing the run itself",
   },
 ];
 
@@ -195,7 +195,7 @@ function buildReport(generatedAt) {
   const liveCompare = indexBy(readCsv(SOURCES.liveCompare), (row) => `${row.chart}|${row.version}|${row.variant}`);
   const kindParity = indexBy(readCsv(SOURCES.kindParity), (row) => `${row.chart}|${row.version}|${row.base}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
-  const activeProof = indexBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
+  const activeProof = groupBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
 
   const rows = outcomes
     .map((outcome) => {
@@ -240,7 +240,9 @@ function buildReport(generatedAt) {
       const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
       const liveCompareResult = liveCompare.get(`${chartName}|${version}|${variant}`)?.result;
       const kindParityResult = kindParity.get(`${chartName}|${version}|${variant}`)?.result;
-      const active = activeProof.get(`${chartName}|${version}|${variant}`);
+      const activeRows = activeProof.get(`${chartName}|${version}|${variant}`) ?? [];
+      const activeLive = activeRows.find((row) => row.lane === "configHub-oci-live-comparison");
+      const active = chooseActiveProofRow(activeRows);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
       // is UNROUTED — rendering it as "no hooks" would hide exactly the gap
@@ -298,6 +300,10 @@ function buildReport(generatedAt) {
       };
       if (liveCompareResult) {
         const value = normalizeLane(liveCompareResult);
+        row.lane_gitops_oci_live = value;
+        row.lane_live_dual_parity = value;
+      } else if (activeLive?.current_result) {
+        const value = normalizeLane(activeLive.current_result);
         row.lane_gitops_oci_live = value;
         row.lane_live_dual_parity = value;
       }
@@ -867,6 +873,21 @@ function indexBy(rows, keyFn) {
   const map = new Map();
   for (const row of rows) map.set(keyFn(row), row);
   return map;
+}
+
+function groupBy(rows, keyFn) {
+  const map = new Map();
+  for (const row of rows) {
+    const key = keyFn(row);
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(row);
+  }
+  return map;
+}
+
+function chooseActiveProofRow(rows) {
+  if (rows.length === 0) return null;
+  return [...rows].sort((a, b) => Number(a.priority || 9999) - Number(b.priority || 9999))[0];
 }
 
 function parseCsvLine(line) {

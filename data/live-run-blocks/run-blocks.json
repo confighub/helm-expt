@@ -9,7 +9,7 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 20,
+  "readyRowCount": 19,
   "blockCount": 5,
   "blocks": [
     {
@@ -18,10 +18,9 @@
       "hardness": "app",
       "predicted_residue_families": [
         "remote-image",
-        "render-input",
         "target-runtime"
       ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted remote-image / render-input / target-runtime (bitnami/zookeeper@13.8.7, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, dex/dex@0.24.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, dex/dex@0.24.0, elastic/kibana@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -60,23 +59,6 @@
         },
         {
           "work_type": "live-parity",
-          "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
-          "version": "4.0.18",
-          "base": "default",
-          "command": "npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default",
-          "current_status": "todo",
-          "lane_cells": "G=todo;P=todo",
-          "support_artifact": "",
-          "receipt": "",
-          "prediction_status": "derived",
-          "predicted_residue_family": "render-input",
-          "predicted_target_profile": "vanilla kind — required input values must be supplied or refused first",
-          "prediction_basis": "sibling receipt — nfs-subdir-external-provisioner/nfs-subdir-external-provisioner already classified render-input (runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml)",
-          "confidence": "high",
-          "serial_safety_notes": "light controller — safe within a block"
-        },
-        {
-          "work_type": "live-parity",
           "chart": "dex/dex",
           "version": "0.24.0",
           "base": "default",
@@ -91,20 +73,7 @@
           "prediction_basis": "sibling receipt — dex/dex already classified target-runtime (runs/live-kind-parity/dex-dex-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-02",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "target-runtime",
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "elastic/kibana",
@@ -121,7 +90,20 @@
           "prediction_basis": "family pattern — elastic: 3/4 classified rows are target-runtime",
           "confidence": "medium",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-02",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "target-runtime",
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 3 ready live-parity row(s) with predicted target-runtime / unknown (elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "elastic/metricbeat",

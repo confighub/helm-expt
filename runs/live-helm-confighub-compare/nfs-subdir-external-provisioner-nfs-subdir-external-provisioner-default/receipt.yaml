@@ -1,0 +1,181 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18-default-live-parity-20260605
+spec:
+  chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+  version: 4.0.18
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T14:26:25Z'
+  package:
+    path: packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+  recipe:
+    path: recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+  variantRevision: recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp
+    kubeContext: kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp"...
+
+        Deleting cluster "helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp" ...
+
+        Deleted nodes: ["helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp-control-plane"]
+
+        Deleting Space "helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner
+        --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+        --version 4.0.18 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28
+      objectCount: 7
+      liveHelmManifestSHA256: 49f555ee0cff12c7389153be4f747157772b7b5ea9a15da2c5e9e0e12e5d5c5d
+      liveHelmManifestObjectCount: 7
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: ''
+        pods: ''
+        notReady: []
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 1c63dc2a56e90f46fa1e8537c1077b7c157839f7c3c4c1ef350d56fc7e96cdac
+            bytes: 45
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 1c63dc2a56e90f46fa1e8537c1077b7c157839f7c3c4c1ef350d56fc7e96cdac
+            bytes: 45
+          podArtifacts: []
+      stderr: 'Error: Deployment.apps "nfs-subdir-external-provisioner" is invalid:
+        [spec.template.spec.volumes[0].nfs.server: Required value, spec.template.spec.containers[0].volumeMounts[0].name:
+        Not found: "nfs-subdir-external-provisioner-root"]'
+      getManifestError: ''
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T14:27:51Z'
+    finishedAt: '2026-06-16T14:27:53Z'
+    elapsedSeconds: 2.516
+    timeoutSeconds: 900
+    command: helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner
+      --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/ --version
+      4.0.18 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T14:31:03Z'
+    finishedAt: '2026-06-16T14:31:03Z'
+    elapsedSeconds: 0.466
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-live-lane/packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp-nfs-subdir-external-provisioner
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: blocked
+    startedAt: '2026-06-16T14:31:03Z'
+    finishedAt: '2026-06-16T14:31:03Z'
+    elapsedSeconds: 0.104
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig
+      --context kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/direct-apply-manifest.yaml
+    objectCount: 7
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: Deployment.apps "nfs-subdir-external-provisioner" is invalid:
+      [spec.template.spec.volumes[0].nfs.server: Required value, spec.template.spec.containers[0].volumeMounts[0].name:
+      Not found: "nfs-subdir-external-provisioner-root"]'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: failure
+    result: blocked
+    detail: "manifest apply failed: The Deployment \"nfs-subdir-external-provisioner\"\
+      \ is invalid: \n* spec.template.spec.volumes[0].nfs.server: Required value\n\
+      * spec.template.spec.containers[0].volumeMounts[0].name: Not found: \"nfs-subdir-external-provisioner-root\""
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: "manifest apply failed: The Deployment \"nfs-subdir-external-provisioner\"\
+      \ is invalid: \n* spec.template.spec.volumes[0].nfs.server: Required value\n\
+      * spec.template.spec.containers[0].volumeMounts[0].name: Not found: \"nfs-subdir-external-provisioner-root\""

@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 129 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 57 |
 | Two-cluster kind parity commands | 72 |
-| Watch/blocked/review rows | 109 |
-| Ready-to-run todo rows | 20 |
+| Watch/blocked/review rows | 110 |
+| Ready-to-run todo rows | 19 |
 
 ## By Work Type
 
@@ -38,19 +38,19 @@ For the cell-level completion count, use
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 39 |
-| `todo` | 40 |
+| `blocked` | 40 |
+| `todo` | 39 |
 | `watch` | 50 |
 
 ## By Run Readiness
 
 | Readiness | Rows |
 | --- | ---: |
-| `inspect-diff-first` | 7 |
+| `inspect-diff-first` | 8 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 56 |
-| `ready-to-run` | 20 |
-| `review-target-first` | 44 |
+| `model-or-stage-first` | 63 |
+| `ready-to-run` | 19 |
+| `review-target-first` | 37 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -98,7 +98,6 @@ generated priority. They are good candidates for a serial live block.
 | elastic/kibana | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default |
 | elastic/metricbeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default |
 | gitlab/gitlab-runner | 0.89.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner | 4.0.18 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default |
 | opencost/opencost | 2.5.21 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default |
 
 ## Full Queue
