@@ -1,0 +1,359 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: gitlab-gitlab-runner-0.89.0-default-kind-parity-20260606
+spec:
+  chart: gitlab/gitlab-runner
+  version: 0.89.0
+  base: default
+  result: watch
+  observedAt: '2026-06-16T12:42:46Z'
+  package:
+    path: packages/gitlab/gitlab-runner/0.89.0
+  recipe:
+    path: recipes/gitlab/gitlab-runner/0.89.0
+  variantRevision: recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-gitlab-ee72e-u45f-helm
+    installerCluster: hx-gitlab-ee72e-u45f-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-gitlab-ee72e-u45f-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-gitlab-ee72e-u45f-helm" ...
+
+          Deleted nodes: ["hx-gitlab-ee72e-u45f-helm-control-plane"]'
+      - cluster: hx-gitlab-ee72e-u45f-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-gitlab-ee72e-u45f-installer" ...
+
+          Deleted nodes: ["hx-gitlab-ee72e-u45f-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
+        --version 0.89.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/gitlab-gitlab-runner-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e
+      objectCount: 2
+      liveHelmManifestSHA256: 3b6abebe72ba0c719f654320630c8d16b4023e7bb6d92b97d44657bb94459adc
+      liveHelmManifestObjectCount: 2
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/gitlab-runner   1/1   1     1     4m17s'
+        pods: '# default
+
+          gitlab-runner-844d54c8cc-kmmq2   1/1   Running   1 (99s ago)   4m17s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/gitlab/gitlab-runner/0.89.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-gitlab-ee72e-u45f-gitlab-runner
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 5fd66874a8e017c9779092356decad274ab757a5e6eb7503a060887c1ad84cea
+      objectCount: 3
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/gitlab-runner   0/1   1     0     7m38s'
+        pods: '# default
+
+          gitlab-runner-844d54c8cc-q2qsb   0/1   Error   2 (2m38s ago)   7m38s'
+        notReady:
+        - namespace: default
+          pod: gitlab-runner-844d54c8cc-q2qsb
+          ready: 0/1
+          status: Error
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: gitlab-runner-844d54c8cc-q2qsb
+          result: blocked
+          detailHead: "Name:             gitlab-runner-844d54c8cc-q2qsb\nNamespace:\
+            \        default\nPriority:         0\nService Account:  default\nNode:\
+            \             hx-gitlab-ee72e-u45f-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:47:56 +0100\nLabels:           app=gitlab-runner\n\
+            \                  chart=gitlab-runner-0.89.0\n                  heritage=Helm\n\
+            \                  pod-template-hash=844d54c8cc\n                  release=gitlab-runner\n\
+            Annotations:      checksum/configmap: aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10\n\
+            Status:           Running\nIP:               10.244.0.5\nIPs:\n  IP: \
+            \          10.244.0.5\nControlled By:  ReplicaSet/gitlab-runner-844d54c8cc\n\
+            Containers:\n  gitlab-runner:\n    Container ID:  containerd://2e10bd2a99183528ee8adc4ecd4a50fb453afd222afa416cc59b893155aa7d18\n\
+            \    Image:         registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\n\
+            \    Image ID:      registry.gitlab.com/gitlab-org/gitlab-runner@sha256:3be36158657e3bcdcbd6e65c9b3549514d2890586ba1f4065b89af1eea7660d3\n\
+            \    Port:          9252/TCP (metrics)\n    Host Port:     0/TCP (metrics)\n\
+            \    Command:\n      /usr/bin/dumb-init\n      --\n      /bin/bash\n \
+            \     /configmaps/entrypoint\n    State:          Terminated\n      Reason:\
+            \       Error\n      Exit Code:    1\n      Started:      Tue, 16 Jun\
+            \ 2026 13:52:57 +0100\n      Finished:     Tue, 16 Jun 2026 13:55:23 +0100\n\
+            \    Last State:     Terminated\n      Reason:       Error\n      Exit\
+            \ Code:    1\n      Started:      Tue, 16 Jun 2026 13:50:36 +0100\n  \
+            \    Finished:     Tue, 16 Jun 2026 13:52:56 +0100\n    Ready:       \
+            \   False\n    Restart Count:  2\n    Liveness:       exec [/bin/bash\
+            \ /configmaps/check-live 3] delay=60s timeout=4s period=60s #success=1\
+            \ #failure=3\n    Readiness:      exec [/usr/bin/pgrep gitlab.*runner]\
+            \ delay=60s timeout=4s period=60s #success=1 #failure=3\n    Environment:\n\
+            \      CI_SERVER_URL:           \n      RUNNER_EXECUTOR:         kubernetes\n\
+            \      REGISTER_LOCKED:         true\n      RUNNER_TAG_LIST:         \n\
+            \      SESSION_SERVER_ADDRESS:  \n    Mounts:\n      /configmaps from\
+            \ configmaps (rw)\n      /home/gitlab-runner/.gitlab-runner from etc-gitlab-runner\
+            \ (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ljzlt\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  runner-secrets:\n    Type:       EmptyDir\
+            \ (a temporary directory that shares a pod's lifetime)\n    Medium:  \
+            \   Memory\n    SizeLimit:  <unset>\n  etc-gitlab-runner:\n    Type: \
+            \      EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     Memory\n    SizeLimit:  <unset>\n  configmaps:\n    Type:\
+            \      ConfigMap (a volume populated by a ConfigMap)\n    Name:      gitlab-runner\n\
+            \    Optional:  false\n  kube-api-access-ljzlt:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple"
+          detailTail: "e                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  runner-secrets:\n    Type:       EmptyDir\
+            \ (a temporary directory that shares a pod's lifetime)\n    Medium:  \
+            \   Memory\n    SizeLimit:  <unset>\n  etc-gitlab-runner:\n    Type: \
+            \      EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     Memory\n    SizeLimit:  <unset>\n  configmaps:\n    Type:\
+            \      ConfigMap (a volume populated by a ConfigMap)\n    Name:      gitlab-runner\n\
+            \    Optional:  false\n  kube-api-access-ljzlt:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   BestEffort\nNode-Selectors:\
+            \              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \       From               Message\n  ----     ------     ----       \
+            \            ----               -------\n  Normal   Scheduled  7m38s \
+            \                 default-scheduler  Successfully assigned default/gitlab-runner-844d54c8cc-q2qsb\
+            \ to hx-gitlab-ee72e-u45f-installer-control-plane\n  Normal   Pulling\
+            \    7m38s                  kubelet            spec.containers{gitlab-runner}:\
+            \ Pulling image \"registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\"\
+            \n  Normal   Pulled     7m26s                  kubelet            spec.containers{gitlab-runner}:\
+            \ Successfully pulled image \"registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\"\
+            \ in 11.54s (11.54s including waiting). Image size: 64326780 bytes.\n\
+            \  Normal   Created    2m38s (x3 over 7m26s)  kubelet            spec.containers{gitlab-runner}:\
+            \ Container created\n  Normal   Pulled     2m38s (x2 over 4m58s)  kubelet\
+            \            spec.containers{gitlab-runner}: Container image \"registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Killing    2m38s                  kubelet            spec.containers{gitlab-runner}:\
+            \ Container gitlab-runner failed liveness probe, will be restarted\n \
+            \ Normal   Started    2m37s (x3 over 7m26s)  kubelet            spec.containers{gitlab-runner}:\
+            \ Container started\n  Warning  Unhealthy  66s (x8 over 6m23s)    kubelet\
+            \            spec.containers{gitlab-runner}: Readiness probe failed:\n\
+            \  Warning  Unhealthy  38s (x4 over 5m38s)    kubelet            spec.containers{gitlab-runner}:\
+            \ Liveness probe failed:\n  Warning  BackOff    10s                  \
+            \  kubelet            spec.containers{gitlab-runner}: Back-off restarting\
+            \ failed container gitlab-runner in pod gitlab-runner-844d54c8cc-q2qsb_default(d3a14446-408a-4bdb-a370-c83e7bbc24d5)"
+          logsHead: "Registration attempt 23 of 30\nRuntime platform             \
+            \                     \e[0;m  arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=357\
+            \ revision\e[0;m=d4bac16c version\e[0;m=19.0.0\n\e[0;33mWARNING: Running\
+            \ in user-mode.                    \e[0;m \n\e[0;33mWARNING: The user-mode\
+            \ requires you to manually start builds processing:\e[0;m \n\e[0;33mWARNING:\
+            \ $ gitlab-runner run                      \e[0;m \n\e[0;33mWARNING: Use\
+            \ sudo for system-mode:                \e[0;m \n\e[0;33mWARNING: $ sudo\
+            \ gitlab-runner...                  \e[0;m \n                        \
+            \                          \e[0;m \nMerging configuration from template\
+            \ file \"/configmaps/config.template.toml\"\e[0;m \n\e[31;1mPANIC: The\
+            \ url needs to be entered                \e[0;m \nRegistration attempt\
+            \ 24 of 30\nRuntime platform                                  \e[0;m \
+            \ arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=372 revision\e[0;m=d4bac16c\
+            \ version\e[0;m=19.0.0\n\e[0;33mWARNING: Running in user-mode.       \
+            \             \e[0;m \n\e[0;33mWARNING: The user-mode requires you to\
+            \ manually start builds processing:\e[0;m \n\e[0;33mWARNING: $ gitlab-runner\
+            \ run                      \e[0;m \n\e[0;33mWARNING: Use sudo for system-mode:\
+            \                \e[0;m \n\e[0;33mWARNING: $ sudo gitlab-runner...   \
+            \               \e[0;m \n                                            \
+            \      \e[0;m \nMerging configuration from template file \"/configmaps/config.template.toml\"\
+            \e[0;m \n\e[31;1mPANIC: The url needs to be entered                \e\
+            [0;m \nRegistration attempt 25 of 30\nRuntime platform               \
+            \                   \e[0;m  arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=410\
+            \ revision\e[0;m=d4bac16c version\e[0;m=19.0.0\n\e[0;33mWARNING: Running\
+            \ in user-mode.                    \e[0;m \n\e[0;33mWARNING: The user-mode\
+            \ requires you to manually start builds processing:\e[0;m \n\e[0;33mWARNING:\
+            \ $ gitlab-runner run                      \e[0;m \n\e[0;33mWARNING: Use\
+            \ sudo for system-mode:                \e[0;m \n\e[0;33mWARNING: $ sudo\
+            \ gitlab-runner...                  \e[0;m \n                        \
+            \                          \e[0;m \nMerging configuration from template\
+            \ file \"/configmaps/config.template.toml\"\e[0;m \n\e[31;1mPANIC: The\
+            \ url needs to be entered                \e[0;m \nRegistration attempt\
+            \ 26 of 30\nRuntime platform                                  \e[0;m \
+            \ arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=424 revision\e[0;m=d4bac16c\
+            \ version\e[0;m=19.0.0\n\e[0;33mWARNING: Running in user-mode.       \
+            \             \e[0;m \n\e[0;33mWARNING: The user-mode requires you to\
+            \ manually start builds processing:\e[0;m \n\e[0;33mWARNING: $ gitlab-runner\
+            \ run                      \e[0;m \n\e[0;33mWARNING: Use sudo for system-mode:\
+            \                \e[0;m \n\e[0;33mWARNING: $ sudo gitlab-runner...   \
+            \               \e[0;m \n                                            \
+            \      \e[0;m \nMerging configuration from template file \"/configmaps/config.template.toml\"\
+            \e[0;m \n\e[31;1mPANIC: The url needs to be entered                \e\
+            [0;m \nRegistration attempt 27 of 30\nRuntime platform               \
+            \                   \e[0;m  arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=43"
+          logsTail: "ation from template file \"/configmaps/config.template.toml\"\
+            \e[0;m \n\e[31;1mPANIC: The url needs to be entered                \e\
+            [0;m \nRegistration attempt 27 of 30\nRuntime platform               \
+            \                   \e[0;m  arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=439\
+            \ revision\e[0;m=d4bac16c version\e[0;m=19.0.0\n\e[0;33mWARNING: Running\
+            \ in user-mode.                    \e[0;m \n\e[0;33mWARNING: The user-mode\
+            \ requires you to manually start builds processing:\e[0;m \n\e[0;33mWARNING:\
+            \ $ gitlab-runner run                      \e[0;m \n\e[0;33mWARNING: Use\
+            \ sudo for system-mode:                \e[0;m \n\e[0;33mWARNING: $ sudo\
+            \ gitlab-runner...                  \e[0;m \n                        \
+            \                          \e[0;m \nMerging configuration from template\
+            \ file \"/configmaps/config.template.toml\"\e[0;m \n\e[31;1mPANIC: The\
+            \ url needs to be entered                \e[0;m \nRegistration attempt\
+            \ 28 of 30\nRuntime platform                                  \e[0;m \
+            \ arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=451 revision\e[0;m=d4bac16c\
+            \ version\e[0;m=19.0.0\n\e[0;33mWARNING: Running in user-mode.       \
+            \             \e[0;m \n\e[0;33mWARNING: The user-mode requires you to\
+            \ manually start builds processing:\e[0;m \n\e[0;33mWARNING: $ gitlab-runner\
+            \ run                      \e[0;m \n\e[0;33mWARNING: Use sudo for system-mode:\
+            \                \e[0;m \n\e[0;33mWARNING: $ sudo gitlab-runner...   \
+            \               \e[0;m \n                                            \
+            \      \e[0;m \nMerging configuration from template file \"/configmaps/config.template.toml\"\
+            \e[0;m \n\e[31;1mPANIC: The url needs to be entered                \e\
+            [0;m \nRegistration attempt 29 of 30\nRuntime platform               \
+            \                   \e[0;m  arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=467\
+            \ revision\e[0;m=d4bac16c version\e[0;m=19.0.0\n\e[0;33mWARNING: Running\
+            \ in user-mode.                    \e[0;m \n\e[0;33mWARNING: The user-mode\
+            \ requires you to manually start builds processing:\e[0;m \n\e[0;33mWARNING:\
+            \ $ gitlab-runner run                      \e[0;m \n\e[0;33mWARNING: Use\
+            \ sudo for system-mode:                \e[0;m \n\e[0;33mWARNING: $ sudo\
+            \ gitlab-runner...                  \e[0;m \n                        \
+            \                          \e[0;m \nMerging configuration from template\
+            \ file \"/configmaps/config.template.toml\"\e[0;m \n\e[31;1mPANIC: The\
+            \ url needs to be entered                \e[0;m \nRegistration attempt\
+            \ 30 of 30\nRuntime platform                                  \e[0;m \
+            \ arch\e[0;m=arm64 os\e[0;m=linux pid\e[0;m=482 revision\e[0;m=d4bac16c\
+            \ version\e[0;m=19.0.0\n\e[0;33mWARNING: Running in user-mode.       \
+            \             \e[0;m \n\e[0;33mWARNING: The user-mode requires you to\
+            \ manually start builds processing:\e[0;m \n\e[0;33mWARNING: $ gitlab-runner\
+            \ run                      \e[0;m \n\e[0;33mWARNING: Use sudo for system-mode:\
+            \                \e[0;m \n\e[0;33mWARNING: $ sudo gitlab-runner...   \
+            \               \e[0;m \n                                            \
+            \      \e[0;m \nMerging configuration from template file \"/configmaps/config.template.toml\"\
+            \e[0;m \n\e[31;1mPANIC: The url needs to be entered                \e\
+            [0;m"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 2
+      installerObjectCount: 2
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 2
+      installerObjectCount: 3
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"gitlab-runner\" does not exist. Installing it now.\nNAME: gitlab-runner\n\
+      LAST DEPLOYED: Tue Jun 16 13:43:38 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n#############################################################################################\n\
+      ## WARNING: You did not specify an gitlabUrl in your 'helm install' call.  \
+      \                ##\n#############################################################################################\n\
+      \nThis deployment will be incomplete until you provide the URL that your\nGitLab\
+      \ instance is reachable at:\n\n    helm upgrade gitlab-runner \\\n        --set\
+      \ gitlabUrl=http://gitlab.your-domain.com,runnerRegistrationToken=your-registration-token\
+      \ \\\n        gitlab/gitlab-runner\n\nRunner namespace \"default\" was found\
+      \ in runners.config template."
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/gitlab-runner   0/1   1     0     7m38s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

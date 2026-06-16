@@ -9,7 +9,7 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 22,
+  "readyRowCount": 21,
   "blockCount": 5,
   "blocks": [
     {
@@ -149,11 +149,11 @@
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
           "receipt": "",
-          "prediction_status": "unknown",
-          "predicted_residue_family": "unknown",
-          "predicted_target_profile": "unknown",
-          "prediction_basis": "",
-          "confidence": "unknown",
+          "prediction_status": "derived",
+          "predicted_residue_family": "target-runtime",
+          "predicted_target_profile": "vanilla kind proof rig — runtime convergence to review",
+          "prediction_basis": "sibling receipt — gitlab/gitlab-runner already classified target-runtime (runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml)",
+          "confidence": "high",
           "serial_safety_notes": "light controller — safe within a block"
         },
         {
@@ -280,7 +280,7 @@
         "remote-image",
         "target-runtime"
       ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -350,7 +350,20 @@
           "prediction_basis": "family pattern — elastic: 3/4 classified rows are target-runtime",
           "confidence": "medium",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-03",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "target-runtime",
+        "unknown"
+      ],
+      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted target-runtime / unknown (grafana/pyroscope@2.0.2, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "grafana/pyroscope",
@@ -367,35 +380,6 @@
           "prediction_basis": "sibling receipt — grafana/pyroscope already classified target-runtime (runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); HA/multi-replica base — higher resource use"
-        }
-      ]
-    },
-    {
-      "block_id": "K-03",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
-        {
-          "work_type": "kind-parity",
-          "chart": "gitlab/gitlab-runner",
-          "version": "0.89.0",
-          "base": "default",
-          "command": "npm run kind-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default",
-          "current_status": "todo",
-          "lane_cells": "K=todo",
-          "support_artifact": "",
-          "receipt": "",
-          "prediction_status": "unknown",
-          "predicted_residue_family": "unknown",
-          "predicted_target_profile": "unknown",
-          "prediction_basis": "",
-          "confidence": "unknown",
-          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
         },
         {
           "work_type": "kind-parity",

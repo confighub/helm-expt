@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 120
-watch: 9
+watch: 10
 blocked: 29
-semantic parity pass: 141
+semantic parity pass: 142
 semantic parity defects: 8
-non-pass rows where semantic parity passed: 21
+non-pass rows where semantic parity passed: 22
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -33,8 +33,8 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 8 |
+| helm-runtime: upstream not ready (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 4 |
-| helm-runtime: upstream not ready (parity passed) | 3 |
 | remote-image: image pull failed or pinned image is unavailable (parity passed) | 3 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
@@ -128,6 +128,7 @@ broader support claim.
 | `fluent/fluentd@0.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fluent-fluentd-default/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-default/receipt.yaml |
 | `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/gatekeeper-gatekeeper-no-crds/receipt.yaml |
+| `gitlab/gitlab-runner@0.89.0` | default | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml |
 | `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/alloy@1.8.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-no-crds/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
