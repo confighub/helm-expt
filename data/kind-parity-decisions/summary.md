@@ -23,7 +23,7 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-36 non-pass rows: 9 watch, 27 blocked.
+37 non-pass rows: 9 watch, 28 blocked.
 15 are resolved by the **user** (stage a prerequisite or supply
 values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
@@ -32,7 +32,7 @@ readiness review.
 | --- | ---: |
 | `target-prerequisite-crds` | 8 |
 | `model-gap-render` | 7 |
-| `target-runtime` | 6 |
+| `target-runtime` | 7 |
 | `remote-image` | 3 |
 | `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
@@ -46,7 +46,7 @@ readiness review.
 | --- | ---: |
 | `user` | 15 |
 | `catalog` | 11 |
-| `needs runtime review` | 6 |
+| `needs runtime review` | 7 |
 | `catalog or image publisher` | 3 |
 | `needs readiness review` | 1 |
 
@@ -62,6 +62,7 @@ readiness review.
 | bitnami/elasticsearch@22.1.6 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
+| dex/dex@0.24.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |

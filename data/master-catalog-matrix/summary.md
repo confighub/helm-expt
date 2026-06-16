@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 923 / 89 / 98 / 114 / 120 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 923 / 89 / 99 / 113 / 120 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -178,7 +178,7 @@ when you want the user/product view with those columns visible.
 | `coredns/coredns@1.45.2` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `crossplane-stable/crossplane@2.3.1` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
