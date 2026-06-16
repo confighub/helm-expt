@@ -482,6 +482,12 @@ function classifyReason(receipt, target) {
   if (message.includes("target topology requires at least") || message.includes("schedulable node")) {
     return "target-fit: minimum schedulable nodes not met";
   }
+  if (
+    message.includes('no matches for kind "apiservice"') &&
+    message.includes("apiregistration.k8s.io/v1beta1")
+  ) {
+    return "capability-profile: rendered APIService version is not served by target Kubernetes";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(

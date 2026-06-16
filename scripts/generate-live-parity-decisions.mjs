@@ -79,6 +79,13 @@ const CATEGORIES = {
     next_action: "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
     support_artifact: "data/image-digest-workdown/summary.md",
   },
+  "capability-profile": {
+    blocker_owner: "catalog",
+    usable_today: "yes, use the capability-profile base",
+    decision: "The selected base rendered a Kubernetes API version that the target no longer serves. This is a render-profile/base selection issue, not a runtime prerequisite and not a semantic ConfigHub-vs-Helm diff.",
+    next_action: "Use or promote the base rendered for the target API set, then rerun live parity. For prometheus-adapter on modern Kubernetes, use the apiservice-v1-capability base.",
+    support_artifact: "CATALOG.md",
+  },
   "semantic-model-gap": {
     blocker_owner: "catalog",
     usable_today: "no — needs catalog work",
@@ -95,6 +102,7 @@ function classify(reason, result) {
   if (r.startsWith("target-prerequisite")) return "target-prerequisite";
   if (r.startsWith("render-input")) return "render-input";
   if (r.startsWith("remote-image")) return "remote-image";
+  if (r.startsWith("capability-profile")) return "capability-profile";
   if (r.startsWith("target-runtime")) return "target-runtime";
   if (/semantic|object diff|does not match|model/.test(r)) return "semantic-model-gap";
   // Fallbacks for un-prefixed reasons.
