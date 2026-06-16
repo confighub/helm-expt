@@ -377,7 +377,7 @@
       "user_decision": "Desired state synced through ConfigHub OCI/Argo and the workloads converged, and semantic Helm-vs-ConfigHub parity passed — but Argo's aggregate health is Progressing, or a resource reads OutOfSync while Healthy. Known GitOps controller-health residue, not a parity defect.",
       "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
     },
     {
@@ -391,7 +391,7 @@
       "user_decision": "Desired state synced through ConfigHub OCI/Argo and the workloads converged, and semantic Helm-vs-ConfigHub parity passed — but Argo's aggregate health is Progressing, or a resource reads OutOfSync while Healthy. Known GitOps controller-health residue, not a parity defect.",
       "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
     },
     {
@@ -447,7 +447,7 @@
       "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
       "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
       "reason": "target-runtime: pod config/runtime errors (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/nats/surveyor/0.20.9/runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
     },
     {
@@ -461,7 +461,7 @@
       "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
       "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
       "reason": "target-runtime: pod config/runtime errors (parity passed)",
-      "support_artifact": "",
+      "support_artifact": "recipes/nats/surveyor/0.20.9/runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
     },
     {
