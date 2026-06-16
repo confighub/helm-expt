@@ -1,0 +1,1739 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-elasticsearch-22.1.6-default-kind-parity-20260606
+spec:
+  chart: bitnami/elasticsearch
+  version: 22.1.6
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T12:05:43Z'
+  package:
+    path: packages/bitnami/elasticsearch/22.1.6
+  recipe:
+    path: recipes/bitnami/elasticsearch/22.1.6
+  variantRevision: recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-elasti-57c34-igvr-helm
+    installerCluster: hx-elasti-57c34-igvr-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-elasti-57c34-igvr-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-elasti-57c34-igvr-helm" ...
+
+          Deleted nodes: ["hx-elasti-57c34-igvr-helm-control-plane"]'
+      - cluster: hx-elasti-57c34-igvr-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-elasti-57c34-igvr-installer" ...
+
+          Deleted nodes: ["hx-elasti-57c34-igvr-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
+        --version 22.1.6 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-elasticsearch-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217
+      objectCount: 21
+      liveHelmManifestSHA256: 5e111c1e0ab517fa22a6e71370dc0337dc5d0e1e5cb44bb989e92aa6fc860297
+      liveHelmManifestObjectCount: 21
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/elasticsearch-coordinating   0/2   8m
+
+          statefulset.apps/elasticsearch-data           0/2   8m
+
+          statefulset.apps/elasticsearch-ingest         0/2   8m
+
+          statefulset.apps/elasticsearch-master         0/2   8m'
+        pods: '# default
+
+          elasticsearch-coordinating-0   0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-coordinating-1   0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-data-0           0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-data-1           0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-ingest-0         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-ingest-1         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-master-0         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-master-1         0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: elasticsearch-coordinating-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-coordinating-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: elasticsearch-coordinating-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-coordinating-0\nNamespace:\
+            \        default\nPriority:         0\nService Account:  elasticsearch-coordinating\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:39 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=elasticsearch\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=elasticsearch\n\
+            \                  app.kubernetes.io/version=9.1.2\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=elasticsearch-coordinating-58dd95dc8\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-coordinating-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  StatefulSet/elasticsearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID"
+          detailTail: "ault.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/elasticsearch-coordinating-0\
+            \ to hx-elasti-57c34-igvr-helm-control-plane\n  Normal   Pulling    5m5s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed\
+            \     5m3s (x5 over 7m59s)    kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     5m3s (x5 over 7m59s)    kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m52s (x20 over 7m58s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m39s (x21 over 7m58s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-coordinating-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-coordinating-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-coordinating-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-coordinating-1\nNamespace:\
+            \        default\nPriority:         0\nService Account:  elasticsearch-coordinating\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:39 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=elasticsearch\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=elasticsearch\n\
+            \                  app.kubernetes.io/version=9.1.2\n                 \
+            \ apps.kubernetes.io/pod-index=1\n                  controller-revision-hash=elasticsearch-coordinating-58dd95dc8\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-coordinating-1\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.8\nIPs:\n  IP:           10.244.0.8\nControlled By:  StatefulSet/elasticsearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID"
+          detailTail: "ault.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/elasticsearch-coordinating-1\
+            \ to hx-elasti-57c34-igvr-helm-control-plane\n  Normal   Pulling    5m3s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed\
+            \     5m2s (x5 over 7m56s)    kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     5m2s (x5 over 7m56s)    kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m54s (x19 over 7m56s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m29s (x21 over 7m56s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-coordinating-1" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-coordinating-1" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-data-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  elasticsearch-data\nNode:     \
+            \        hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\nStart Time:\
+            \       Tue, 16 Jun 2026 13:06:45 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-data-6869bcf4b\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-data-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.14\n\
+            IPs:\n  IP:           10.244.0.14\nControlled By:  StatefulSet/elasticsearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             1536Mi\n    Requests:\n      cpu:                500m\n\
+            \      ephemeral-storage:  50Mi\n      memory:             1Gi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasticsearch:9.1.2-"
+          detailTail: "arch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n    \
+            \  /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dirs\"\
+            )\n      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-data-0\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m54s                   default-scheduler\
+            \  Successfully assigned default/elasticsearch-data-0 to hx-elasti-57c34-igvr-helm-control-plane\n\
+            \  Normal   Pulling    5m (x5 over 7m54s)      kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     5m (x5 over 7m53s)      kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     5m (x5 over 7m53s)      kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m49s (x20 over 7m52s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m37s (x21 over 7m52s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "elasticsearch" in
+            pod "elasticsearch-data-0" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "elasticsearch" in
+            pod "elasticsearch-data-0" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-data-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  elasticsearch-data\nNode:     \
+            \        hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\nStart Time:\
+            \       Tue, 16 Jun 2026 13:06:46 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-data-6869bcf4b\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-data-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.15\n\
+            IPs:\n  IP:           10.244.0.15\nControlled By:  StatefulSet/elasticsearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             1536Mi\n    Requests:\n      cpu:                500m\n\
+            \      ephemeral-storage:  50Mi\n      memory:             1Gi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasticsearch:9.1.2-"
+          detailTail: "arch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n    \
+            \  /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dirs\"\
+            )\n      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-data-1\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m53s                   default-scheduler\
+            \  Successfully assigned default/elasticsearch-data-1 to hx-elasti-57c34-igvr-helm-control-plane\n\
+            \  Normal   Pulling    4m51s (x5 over 7m53s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     4m51s (x5 over 7m52s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     4m51s (x5 over 7m52s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Normal \
+            \  BackOff    2m46s (x21 over 7m51s)  kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     2m46s (x21 over 7m51s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-data-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-data-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-ingest-0\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-ingest\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:39 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-ingest-7464665dbb\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-ingest-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.7\n\
+            IPs:\n  IP:           10.244.0.7\nControlled By:  StatefulSet/elasticsearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasti"
+          detailTail: "aster-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/elasticsearch-ingest-0\
+            \ to hx-elasti-57c34-igvr-helm-control-plane\n  Normal   Pulling    5m5s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed\
+            \     5m4s (x5 over 7m57s)    kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     5m4s (x5 over 7m57s)    kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m56s (x20 over 7m57s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m43s (x21 over 7m57s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-ingest-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-ingest-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-ingest-1\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-ingest\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:39 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-ingest-7464665dbb\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-ingest-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.6\n\
+            IPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/elasticsearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasti"
+          detailTail: "aster-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/elasticsearch-ingest-1\
+            \ to hx-elasti-57c34-igvr-helm-control-plane\n  Normal   Pulling    5m6s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed\
+            \     5m6s (x5 over 7m58s)    kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     5m6s (x5 over 7m58s)    kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m55s (x20 over 7m57s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m42s (x21 over 7m57s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "elasticsearch" in
+            pod "elasticsearch-ingest-1" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "elasticsearch" in
+            pod "elasticsearch-ingest-1" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-master-0\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-master\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:43 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-master-55f496979\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-master-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.13\n\
+            IPs:\n  IP:           10.244.0.13\nControlled By:  StatefulSet/elasticsearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elast"
+          detailTail: "-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-master-0\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m56s                   default-scheduler\
+            \  Successfully assigned default/elasticsearch-master-0 to hx-elasti-57c34-igvr-helm-control-plane\n\
+            \  Normal   Pulling    4m50s (x5 over 7m56s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     4m50s (x5 over 7m55s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     4m50s (x5 over 7m55s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m48s (x20 over 7m54s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m36s (x21 over 7m54s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-master-1\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-master\n\
+            Node:             hx-elasti-57c34-igvr-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 13:06:46 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-master-55f496979\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-master-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.16\n\
+            IPs:\n  IP:           10.244.0.16\nControlled By:  StatefulSet/elasticsearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elast"
+          detailTail: "-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-master-1\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m54s                   default-scheduler\
+            \  Successfully assigned default/elasticsearch-master-1 to hx-elasti-57c34-igvr-helm-control-plane\n\
+            \  Normal   Pulling    4m54s (x5 over 7m54s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     4m54s (x5 over 7m52s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r50\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\": docker.io/bitnami/os-shell:12-debian-12-r50:\
+            \ not found\n  Warning  Failed     4m54s (x5 over 7m52s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m50s (x20 over 7m51s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m36s (x21 over 7m51s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource StatefulSet/default/elasticsearch-coordinating not
+        ready. status: InProgress, message: Ready: 0/2
+
+        resource StatefulSet/default/elasticsearch-data not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default/elasticsearch-ingest not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default/elasticsearch-master not ready. status: InProgress,
+        message: Ready: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-elasti-57c34-igvr-elasticsearch
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 414fba797b450ee1c3ac6c10d6ec6a0d3c2b33b35801ea050bdc6b5206669136
+      objectCount: 22
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/elasticsearch-coordinating   0/2   10s
+
+          statefulset.apps/elasticsearch-data           0/2   10s
+
+          statefulset.apps/elasticsearch-ingest         0/2   10s
+
+          statefulset.apps/elasticsearch-master         0/2   10s'
+        pods: '# default
+
+          elasticsearch-coordinating-0   0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-coordinating-1   0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-data-0           0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-data-1           0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-ingest-0         0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-ingest-1         0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-master-0         0/1   Init:ErrImagePull   0     10s
+
+          elasticsearch-master-1         0/1   Init:ErrImagePull   0     10s'
+        notReady:
+        - namespace: default
+          pod: elasticsearch-coordinating-0
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-coordinating-1
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-0
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-1
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-0
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-1
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-0
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-1
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: elasticsearch-coordinating-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-coordinating-0\nNamespace:\
+            \        default\nPriority:         0\nService Account:  elasticsearch-coordinating\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:41 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=elasticsearch\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=elasticsearch\n\
+            \                  app.kubernetes.io/version=9.1.2\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=elasticsearch-coordinating-58dd95dc8\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-coordinating-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  StatefulSet/elasticsearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container I"
+          detailTail: "PORT_NUMBER:  9300\n      ELASTICSEARCH_HTTP_PORT_NUMBER: \
+            \      9200\n      ELASTICSEARCH_CLUSTER_HOSTS:          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/elasticsearch-coordinating-0 to hx-elasti-57c34-igvr-installer-control-plane\n\
+            \  Normal   Pulling    10s   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     7s    kubelet            spec.initContainers{sysctl}: Failed\
+            \ to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error:\
+            \ code = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     7s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    6s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     6s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-coordinating-0"
+            is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-coordinating-0"
+            is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-coordinating-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-coordinating-1\nNamespace:\
+            \        default\nPriority:         0\nService Account:  elasticsearch-coordinating\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:41 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=elasticsearch\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=elasticsearch\n\
+            \                  app.kubernetes.io/version=9.1.2\n                 \
+            \ apps.kubernetes.io/pod-index=1\n                  controller-revision-hash=elasticsearch-coordinating-58dd95dc8\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-coordinating-1\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.6\nIPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/elasticsearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container I"
+          detailTail: "PORT_NUMBER:  9300\n      ELASTICSEARCH_HTTP_PORT_NUMBER: \
+            \      9200\n      ELASTICSEARCH_CLUSTER_HOSTS:          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/elasticsearch-coordinating-1 to hx-elasti-57c34-igvr-installer-control-plane\n\
+            \  Normal   Pulling    10s   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     6s    kubelet            spec.initContainers{sysctl}: Failed\
+            \ to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error:\
+            \ code = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     6s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    6s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     6s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-coordinating-1" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-coordinating-1" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-data-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  elasticsearch-data\nNode:     \
+            \        hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\nStart\
+            \ Time:       Tue, 16 Jun 2026 13:14:47 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-data-6869bcf4b\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-data-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.15\n\
+            IPs:\n  IP:           10.244.0.15\nControlled By:  StatefulSet/elasticsearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             1536Mi\n    Requests:\n      cpu:                500m\n\
+            \      ephemeral-storage:  50Mi\n      memory:             1Gi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasticsearch:9.1.2"
+          detailTail: "RCH_CLUSTER_NAME:           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:\
+            \          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n    \
+            \  /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dirs\"\
+            )\n      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-data-0\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age   From               Message\n  ----\
+            \     ------     ----  ----               -------\n  Normal   Scheduled\
+            \  4s    default-scheduler  Successfully assigned default/elasticsearch-data-0\
+            \ to hx-elasti-57c34-igvr-installer-control-plane\n  Normal   Pulling\
+            \    4s    kubelet            spec.initContainers{sysctl}: Pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed \
+            \    3s    kubelet            spec.initContainers{sysctl}: Failed to pull\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error: code\
+            \ = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     3s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    2s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     2s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-data-0"
+            is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-data-0"
+            is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-data-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-data-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  elasticsearch-data\nNode:     \
+            \        hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\nStart\
+            \ Time:       Tue, 16 Jun 2026 13:14:47 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-data-6869bcf4b\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-data-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.16\n\
+            IPs:\n  IP:           10.244.0.16\nControlled By:  StatefulSet/elasticsearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             1536Mi\n    Requests:\n      cpu:                500m\n\
+            \      ephemeral-storage:  50Mi\n      memory:             1Gi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elasticsearch:9.1.2"
+          detailTail: "RCH_CLUSTER_NAME:           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:\
+            \          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n    \
+            \  /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dirs\"\
+            )\n      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-data-1\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age   From               Message\n  ----\
+            \     ------     ----  ----               -------\n  Normal   Scheduled\
+            \  5s    default-scheduler  Successfully assigned default/elasticsearch-data-1\
+            \ to hx-elasti-57c34-igvr-installer-control-plane\n  Normal   Pulling\
+            \    5s    kubelet            spec.initContainers{sysctl}: Pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed \
+            \    3s    kubelet            spec.initContainers{sysctl}: Failed to pull\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error: code\
+            \ = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     3s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    2s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     2s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-data-1" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-data-1" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-ingest-0\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-ingest\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:41 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-ingest-7464665dbb\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-ingest-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.7\n\
+            IPs:\n  IP:           10.244.0.7\nControlled By:  StatefulSet/elasticsearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elast"
+          detailTail: "TTP_PORT_NUMBER:       9200\n      ELASTICSEARCH_CLUSTER_NAME:\
+            \           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  11s   default-scheduler  Successfully assigned\
+            \ default/elasticsearch-ingest-0 to hx-elasti-57c34-igvr-installer-control-plane\n\
+            \  Normal   Pulling    11s   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     10s   kubelet            spec.initContainers{sysctl}: Failed\
+            \ to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error:\
+            \ code = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     10s   kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    9s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     9s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-ingest-0" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-ingest-0" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-ingest-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-ingest-1\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-ingest\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:41 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-ingest-7464665dbb\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-ingest-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.8\n\
+            IPs:\n  IP:           10.244.0.8\nControlled By:  StatefulSet/elasticsearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elast"
+          detailTail: "TTP_PORT_NUMBER:       9200\n      ELASTICSEARCH_CLUSTER_NAME:\
+            \           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  11s   default-scheduler  Successfully assigned\
+            \ default/elasticsearch-ingest-1 to hx-elasti-57c34-igvr-installer-control-plane\n\
+            \  Normal   Pulling    11s   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning\
+            \  Failed     9s    kubelet            spec.initContainers{sysctl}: Failed\
+            \ to pull image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error:\
+            \ code = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     9s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    8s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     8s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-ingest-1"
+            is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-ingest-1"
+            is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-0
+          result: blocked
+          detailHead: "Name:             elasticsearch-master-0\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-master\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:46 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=elasticsearch-master-55f496979\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-master-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.14\n\
+            IPs:\n  IP:           10.244.0.14\nControlled By:  StatefulSet/elasticsearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elas"
+          detailTail: "CLUSTER_NAME:           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:\
+            \          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-master-0\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age   From               Message\n  ----\
+            \     ------     ----  ----               -------\n  Normal   Scheduled\
+            \  6s    default-scheduler  Successfully assigned default/elasticsearch-master-0\
+            \ to hx-elasti-57c34-igvr-installer-control-plane\n  Normal   Pulling\
+            \    6s    kubelet            spec.initContainers{sysctl}: Pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed \
+            \    5s    kubelet            spec.initContainers{sysctl}: Failed to pull\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error: code\
+            \ = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     5s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    4s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     4s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-0"
+            is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "elasticsearch-master-0"
+            is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: elasticsearch-master-1
+          result: blocked
+          detailHead: "Name:             elasticsearch-master-1\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  elasticsearch-master\n\
+            Node:             hx-elasti-57c34-igvr-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 13:14:44 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=elasticsearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=elasticsearch\n            \
+            \      app.kubernetes.io/version=9.1.2\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=elasticsearch-master-55f496979\n\
+            \                  helm.sh/chart=elasticsearch-22.1.6\n              \
+            \    statefulset.kubernetes.io/pod-name=elasticsearch-master-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.13\n\
+            IPs:\n  IP:           10.244.0.13\nControlled By:  StatefulSet/elasticsearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r50\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/elasticsearch-env.sh\n\
+            \      \n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n \
+            \         cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\n      fi\n  \
+            \    \n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /plugins from empty-dir (rw,path=\"\
+            app-plugins-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\n\
+            Containers:\n  elasticsearch:\n    Container ID:    \n    Image:     \
+            \      docker.io/bitnami/elas"
+          detailTail: "CLUSTER_NAME:           elastic\n      ELASTICSEARCH_CLUSTER_HOSTS:\
+            \          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\n\
+            \      ELASTICSEARCH_TOTAL_NODES:            4\n      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   elasticsearch-master-0 elasticsearch-master-1\n      ELASTICSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local\n\
+            \      ELASTICSEARCH_HEAP_SIZE:              128m\n    Mounts:\n     \
+            \ /bitnami/elasticsearch from empty-dir (rw,path=\"app-volume-dir\")\n\
+            \      /bitnami/elasticsearch/data from data (rw)\n      /opt/bitnami/elasticsearch/config\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/elasticsearch/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/elasticsearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/elasticsearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-elasticsearch-master-1\n\
+            \    ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age   From               Message\n  ----\
+            \     ------     ----  ----               -------\n  Normal   Scheduled\
+            \  8s    default-scheduler  Successfully assigned default/elasticsearch-master-1\
+            \ to hx-elasti-57c34-igvr-installer-control-plane\n  Normal   Pulling\
+            \    8s    kubelet            spec.initContainers{sysctl}: Pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r50\"\n  Warning  Failed \
+            \    6s    kubelet            spec.initContainers{sysctl}: Failed to pull\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r50\": rpc error: code\
+            \ = NotFound desc = failed to pull and unpack image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : failed to resolve reference \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            : docker.io/bitnami/os-shell:12-debian-12-r50: not found\n  Warning  Failed\
+            \     6s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull\n\
+            \  Normal   BackOff    6s    kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r50\"\
+            \n  Warning  Failed     6s    kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-master-1" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "copy-default-plugins"
+            in pod "elasticsearch-master-1" is waiting to start: PodInitializing'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 21
+      installerObjectCount: 21
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 21
+      installerObjectCount: 22
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource StatefulSet/default/elasticsearch-coordinating not ready.
+      status: InProgress, message: Ready: 0/2
+
+      resource StatefulSet/default/elasticsearch-data not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default/elasticsearch-ingest not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default/elasticsearch-master not ready. status: InProgress,
+      message: Ready: 0/2
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      statefulset.apps/elasticsearch-coordinating   0/2   10s
+
+      statefulset.apps/elasticsearch-data           0/2   10s
+
+      statefulset.apps/elasticsearch-ingest         0/2   10s
+
+      statefulset.apps/elasticsearch-master         0/2   10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

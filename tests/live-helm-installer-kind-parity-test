@@ -972,7 +972,8 @@ def missing_required_secret(detail: str) -> str:
 
 
 def pod_status_is_terminal_blocker(status: str) -> bool:
-    return status in {
+    normalized_status = status.split(":", 1)[1] if status.startswith("Init:") else status
+    return normalized_status in {
         "CrashLoopBackOff",
         "CreateContainerConfigError",
         "ErrImagePull",

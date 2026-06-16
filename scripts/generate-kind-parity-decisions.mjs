@@ -71,6 +71,12 @@ const CATEGORIES = {
     decision: "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
     next_action: "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
   },
+  "remote-image": {
+    blocker_owner: "catalog or image publisher",
+    usable_today: "watch — objects match, image unavailable",
+    decision: "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+    next_action: "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+  },
   readiness: {
     blocker_owner: "needs readiness review",
     usable_today: "watch — objects match, readiness unconfirmed",
@@ -108,6 +114,7 @@ function classify(reason, base, result, semanticParity) {
   if (/helm-hook|hook|certgen|certificate generation/.test(r)) return "hook-lifecycle";
   if (/crd/.test(r) && (/disabled|missing|no-crds/.test(r) || base.includes("no-crds"))) return "target-prerequisite-crds";
   if (/required helm values|render-input/.test(r)) return "render-input";
+  if (/imagepull|errimagepull|failed to pull image|pull access denied|remote-image/.test(r)) return "remote-image";
   if (/crash|runtime/.test(r)) return "target-runtime";
   if (/readiness/.test(r)) return "readiness";
   // Blocked rows that only say "inspect receipt" but whose receipt reason is

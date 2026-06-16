@@ -23,7 +23,7 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-35 non-pass rows: 9 watch, 26 blocked.
+36 non-pass rows: 9 watch, 27 blocked.
 15 are resolved by the **user** (stage a prerequisite or supply
 values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
@@ -31,8 +31,9 @@ readiness review.
 | Residue category | Rows |
 | --- | ---: |
 | `target-prerequisite-crds` | 8 |
-| `target-runtime` | 8 |
 | `model-gap-render` | 7 |
+| `target-runtime` | 6 |
+| `remote-image` | 3 |
 | `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
@@ -45,7 +46,8 @@ readiness review.
 | --- | ---: |
 | `user` | 15 |
 | `catalog` | 11 |
-| `needs runtime review` | 8 |
+| `needs runtime review` | 6 |
+| `catalog or image publisher` | 3 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -57,6 +59,7 @@ readiness review.
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/contour@21.1.4 | default | blocked | hook-lifecycle | catalog | no — needs lifecycle route |
 | bitnami/contour@21.1.4 | no-crds | blocked | model-gap-render | catalog | no — needs catalog work |
+| bitnami/elasticsearch@22.1.6 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
@@ -66,8 +69,8 @@ readiness review.
 | grafana/rollout-operator@0.49.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/terraform@1.1.2 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | hashicorp/terraform@1.1.2 | no-crds | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
-| istio/gateway@1.30.0 | controller-default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
-| istio/gateway@1.30.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| istio/gateway@1.30.0 | controller-default-reviewed | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| istio/gateway@1.30.0 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | istio/istiod@1.30.0 | default | blocked | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
