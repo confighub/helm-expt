@@ -17,17 +17,17 @@
   "byActionType": {
     "run-promotion": 172,
     "record-decision": 120,
-    "stage-prereq": 82,
+    "stage-prereq": 83,
     "refresh-image": 48,
     "run-kind": 22,
-    "fix-model": 21,
+    "fix-model": 20,
     "refuse-or-scope": 20,
     "lifecycle-observe": 7
   },
   "byOwnerLane": {
     "Codex-live": 201,
-    "product-decision": 146,
-    "Claude-non-live": 86,
+    "product-decision": 147,
+    "Claude-non-live": 85,
     "upstream-implementation": 59
   },
   "top10": [
@@ -68,17 +68,17 @@
     },
     {
       "action_id": "CCP-06",
+      "action_type": "stage-prereq",
+      "sub_group": "stage-prereq-other",
+      "affected_cell_count": 23,
+      "owner_lane": "product-decision"
+    },
+    {
+      "action_id": "CCP-07",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "affected_cell_count": 22,
       "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "stage-prereq-other",
-      "affected_cell_count": 22,
-      "owner_lane": "product-decision"
     },
     {
       "action_id": "CCP-08",
@@ -579,6 +579,49 @@
     },
     {
       "action_id": "CCP-06",
+      "action_type": "stage-prereq",
+      "sub_group": "stage-prereq-other",
+      "owner_lane": "product-decision",
+      "affected_cell_count": 23,
+      "lanes": [
+        "G",
+        "K",
+        "P"
+      ],
+      "command": "",
+      "prerequisite": "see target-prerequisite-actions",
+      "expected_status": "pass after the prerequisite is staged",
+      "prediction": true,
+      "evidence_surface": "target-prerequisite-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "bitnami/zookeeper@13.8.7/default [G]",
+        "bitnami/zookeeper@13.8.7/default [K]",
+        "bitnami/zookeeper@13.8.7/default [P]",
+        "bitnami/zookeeper@13.8.7/ha [G]",
+        "bitnami/zookeeper@13.8.7/ha [K]",
+        "bitnami/zookeeper@13.8.7/ha [P]",
+        "dex/dex@0.24.0/default [G]",
+        "dex/dex@0.24.0/default [P]",
+        "elastic/kibana@8.5.1/default [G]",
+        "elastic/kibana@8.5.1/default [K]",
+        "elastic/kibana@8.5.1/default [P]",
+        "elastic/metricbeat@8.5.1/default [G]",
+        "elastic/metricbeat@8.5.1/default [K]",
+        "elastic/metricbeat@8.5.1/default [P]",
+        "gitlab/gitlab-runner@0.89.0/default [G]",
+        "gitlab/gitlab-runner@0.89.0/default [P]",
+        "grafana/pyroscope@2.0.2/ha [K]",
+        "hashicorp/terraform@1.1.2/default [K]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [G]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [P]",
+        "opencost/opencost@2.5.21/default [G]",
+        "opencost/opencost@2.5.21/default [K]",
+        "opencost/opencost@2.5.21/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-07",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "owner_lane": "Codex-live",
@@ -615,48 +658,6 @@
         "prometheus-community/prometheus@29.9.0/server-only-ephemeral [K]",
         "runix/pgadmin4@1.62.0/default [K]",
         "vm/victoria-logs-single@0.12.5/default [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "stage-prereq-other",
-      "owner_lane": "product-decision",
-      "affected_cell_count": 22,
-      "lanes": [
-        "G",
-        "K",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "see target-prerequisite-actions",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/zookeeper@13.8.7/default [G]",
-        "bitnami/zookeeper@13.8.7/default [K]",
-        "bitnami/zookeeper@13.8.7/default [P]",
-        "bitnami/zookeeper@13.8.7/ha [G]",
-        "bitnami/zookeeper@13.8.7/ha [K]",
-        "bitnami/zookeeper@13.8.7/ha [P]",
-        "dex/dex@0.24.0/default [G]",
-        "dex/dex@0.24.0/default [P]",
-        "elastic/kibana@8.5.1/default [G]",
-        "elastic/kibana@8.5.1/default [K]",
-        "elastic/kibana@8.5.1/default [P]",
-        "elastic/metricbeat@8.5.1/default [G]",
-        "elastic/metricbeat@8.5.1/default [K]",
-        "elastic/metricbeat@8.5.1/default [P]",
-        "gitlab/gitlab-runner@0.89.0/default [G]",
-        "gitlab/gitlab-runner@0.89.0/default [P]",
-        "grafana/pyroscope@2.0.2/ha [K]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [G]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [P]",
-        "opencost/opencost@2.5.21/default [G]",
-        "opencost/opencost@2.5.21/default [K]",
-        "opencost/opencost@2.5.21/default [P]"
       ]
     },
     {
@@ -856,7 +857,7 @@
       "action_type": "fix-model",
       "sub_group": "crd-lifecycle",
       "owner_lane": "Claude-non-live",
-      "affected_cell_count": 3,
+      "affected_cell_count": 2,
       "lanes": [
         "K"
       ],
@@ -867,7 +868,6 @@
       "evidence_surface": "model-gap-workdown",
       "linked_issues": "#248; #753",
       "affected_rows": [
-        "hashicorp/terraform@1.1.2/default [K]",
         "nats/nack@0.34.0/default [K]",
         "traefik/traefik@40.2.0/default [K]"
       ]

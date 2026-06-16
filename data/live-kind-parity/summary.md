@@ -14,9 +14,9 @@ the same live outcome as cub installer output?
 pass: 120
 watch: 10
 blocked: 30
-semantic parity pass: 143
-semantic parity defects: 8
-non-pass rows where semantic parity passed: 23
+semantic parity pass: 144
+semantic parity defects: 7
+non-pass rows where semantic parity passed: 24
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -32,9 +32,9 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 8 |
+| parity: semantic object diff | 7 |
+| remote-image: image pull failed or pinned image is unavailable (parity passed) | 5 |
 | helm-runtime: upstream not ready (parity passed) | 4 |
-| remote-image: image pull failed or pinned image is unavailable (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 4 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
@@ -87,6 +87,7 @@ broader support claim.
 | `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | no-crds | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml |
+| `bitnami/elasticsearch@22.1.6` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml |
 | `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
@@ -146,7 +147,6 @@ broader support claim.
 | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
-| `hashicorp/terraform@1.1.2` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | dev-mode | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
