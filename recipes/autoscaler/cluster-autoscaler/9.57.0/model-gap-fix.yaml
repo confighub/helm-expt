@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: cluster-autoscaler-9.57.0-model-gap-fix
+  chart: autoscaler/cluster-autoscaler
+  version: 9.57.0
+spec:
+  gap_kind: generated-fact
+  bases:
+    - base: controller-default-reviewed
+      lane: K
+      failure_signature: "no target fact value generator for autoDiscovery.clusterName"
+      receipt: runs/live-kind-parity/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml
+  fix_class: needs-implementation
+  sibling_base_that_passes: "none"
+  decision: "The variant declares autoDiscovery.clusterName under targetFacts.requiredValues, but the kind-parity runner has no generator for that path, so it cannot produce the value. This needs a runner + variant change (owner: upstream/Codex for the runner part)."
+  fix_spec: "Two-part. (1) Variant (recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml): convert the requiredValues entry for autoDiscovery.clusterName from a static value to a generator source declaration (e.g. source: kind-cluster-name) so the runner knows to generate it. (2) Runner (tests/live-helm-installer-kind-parity-test, value_for_required_value): add a branch for that source/path that returns the running kind cluster's name (already available as the helm cluster in the run context). The awsRegion static value will also need handling (a generator branch, or a passthrough for source-less static values)."
+  verify_non_live: "Render the controller-default-reviewed base offline with autoDiscovery.clusterName injected via --input and confirm the rendered Deployment contains the cluster name in the autodiscovery arg/annotation (render only, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml
+    - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml (targetFacts.requiredValues: autoDiscovery.clusterName)"
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
+    - "The runner change is upstream/Codex-owned (tests/live-helm-installer-kind-parity-test); this card only specifies it."

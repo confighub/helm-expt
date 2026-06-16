@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: opensearch-2.0.10-model-gap-fix
+  chart: bitnami/opensearch
+  version: "2.0.10"
+spec:
+  gap_kind: semantic-normalization
+  bases:
+    - base: default
+      lane: K
+      failure_signature: "semantic object parity: diffs=4 — the 4 headless Services (opensearch-coordinating-hl, -data-hl, -ingest-hl, -master-hl) differ on spec.trafficDistribution: PreferClose (rendered by Helm, not matched by the installer render)"
+      receipt: runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml
+    - base: ha
+      lane: K
+      failure_signature: "semantic object parity: diffs=8 — the 4 headless Services (trafficDistribution) plus the 4 StatefulSets (coordinating/data/ingest/master) differ"
+      receipt: runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "default: all 4 diffs are headless Services differing on spec.trafficDistribution: PreferClose (a deprecated alias for PreferSameZone on k8s >= 1.33). ha: the same 4 Services plus 4 StatefulSets diff, indicating additional ha-specific value divergence on top of the trafficDistribution issue."
+  fix_spec: "Add a semantic-normalization rule that prunes spec.trafficDistribution == PreferClose from v1|Service objects (a deprecated alias), aligning the installer render with the live Helm manifest — add it to the recipe/variant semantic normalizations (analogous to the existing prune-null-fields normalization). For the ha base, separately diff the 4 StatefulSet objects to identify the remaining field-level differences (likely replica/resource values); those need a further normalization or value-model fix and are not determinable from committed files alone."
+  verify_non_live: "Render each base with the trafficDistribution normalization and diff the 4 headless Services between the regular-Helm render and the installer render; spec.trafficDistribution should no longer be a diff. For ha, separately diff the 4 StatefulSets to find remaining differences (render parity, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base default   |   --base ha"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml
+    - runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

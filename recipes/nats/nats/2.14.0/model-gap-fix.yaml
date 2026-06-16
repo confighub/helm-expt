@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: nats-2.14.0-model-gap-fix
+  chart: nats/nats
+  version: "2.14.0"
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: ha
+      lane: K
+      failure_signature: "extra=1 (v1|Namespace||default, allowed normalization); diffs=3: apps/v1|StatefulSet||nats, v1|ConfigMap||nats-config, v1|Service||nats-headless differ between the ha installer render and the regular-Helm ha render"
+      receipt: runs/live-kind-parity/nats-nats-ha/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "default (K pass)"
+  decision: "The default base passes. The ha base applies renderDelta config.cluster.enabled=true,config.cluster.replicas=3, which changes the StatefulSet (replicas + cluster-mode), the ConfigMap (cluster stanza), and the headless Service (cluster route port). These three objects diff because the installer does not reproduce the cluster-mode fields identically; the gap is ha/cluster-mode-specific."
+  fix_spec: "1) apps/v1|StatefulSet||nats: confirm the installer render has spec.replicas=3 and the container args/config-map mount match the cluster-enabled Helm render. 2) v1|ConfigMap||nats-config: reconcile the cluster stanza (routes, cluster listen address) so the data matches `helm template` with the ha values. 3) v1|Service||nats-headless: ensure the cluster route port (6222) is present to match regular Helm. Apply in recipes/nats/nats/2.14.0/ (the ha variant overlay / revision)."
+  verify_non_live: "Render the ha base with the fix and diff against `helm template nats nats --version 2.14.0` with cluster.enabled=true,cluster.replicas=3; the StatefulSet, ConfigMap, and headless Service should show zero field-level diffs (render parity, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart nats/nats --version 2.14.0 --base ha"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/nats-nats-ha/receipt.yaml
+    - "runs/live-kind-parity/nats-nats-default/receipt.yaml (passing sibling)"
+    - recipes/nats/nats/2.14.0/effective-values-ha.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

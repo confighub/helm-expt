@@ -1,0 +1,34 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: velero-12.0.1-model-gap-fix
+  chart: velero/velero
+  version: 12.0.1
+spec:
+  gap_kind: base-design
+  bases:
+    - base: default
+      lane: "G/P"
+      failure_signature: "render-input: required Velero provider values missing"
+      receipt: runs/live-helm-confighub-compare/velero-velero-default/receipt.yaml
+    - base: default
+      lane: K
+      failure_signature: "manifest apply failed: BackupStorageLocation.velero.io \"default\" is invalid: spec.provider and spec.credential are null"
+      receipt: runs/live-kind-parity/velero-velero-default/receipt.yaml
+    - base: no-crds
+      lane: "G/P"
+      failure_signature: "manifest apply failed: BackupStorageLocation.velero.io \"default\" is invalid: spec.provider and spec.credential are null"
+      receipt: runs/live-helm-confighub-compare/velero-velero-no-crds/receipt.yaml
+  fix_class: needs-implementation
+  sibling_base_that_passes: "none"
+  decision: "Both the default and no-crds bases use empty chart values, so the chart renders BackupStorageLocation and VolumeSnapshotLocation CRs with null provider/credential, which the Velero CRD webhook rejects at apply. The catalog needs a provider-scoped base (or a value-model that requires/refuses the provider inputs) before either lane can proceed."
+  fix_spec: "Create a provider-scoped base (e.g. aws-provider or minio-provider) with effective-values-<provider>.yaml setting at minimum: configuration.backupStorageLocation[0].provider, .bucket, .credential.name, .credential.key, and configuration.volumeSnapshotLocation[0].provider/.credential; declare these as targetFacts.requiredValues / requiredSecrets in the variant. Update value-model.yaml to record these paths as required-render-input-modeled. Apply the same to a no-crds provider variant or uniformly across both base paths."
+  verify_non_live: "Render the new provider-scoped base offline with the provider/bucket/credential inputs injected and confirm the rendered BackupStorageLocation and VolumeSnapshotLocation have non-null spec.provider and spec.credential (render only, no cluster)."
+  rerun_command: "npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base <new-provider-base>"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/velero-velero-default/receipt.yaml
+    - runs/live-kind-parity/velero-velero-default/receipt.yaml
+    - runs/live-helm-confighub-compare/velero-velero-no-crds/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

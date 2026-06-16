@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: nack-0.34.0-model-gap-fix
+  chart: nats/nack
+  version: 0.34.0
+spec:
+  gap_kind: crd-lifecycle
+  bases:
+    - base: default
+      lane: K
+      failure_signature: "semantic object parity blocked: missing=0 extra=6 (all CRDs); installer-applied set carries the JetStream CRDs absent from regular Helm's live set: accounts, consumers, keyvalues, objectstores, streams, streamtemplates (all *.jetstream.nats.io, apiextensions.k8s.io/v1|CustomResourceDefinition)"
+      receipt: runs/live-kind-parity/nats-nack-default/receipt.yaml
+  fix_class: base-scope-decision
+  sibling_base_that_passes: "no-crds (K pass)"
+  decision: "Promote no-crds as the supported base for live kind-parity; default is blocked because the installer-applied set carries the 6 JetStream CRD objects that regular Helm's live object set excludes. Users who manage CRDs out-of-band should use the no-crds base."
+  fix_spec: "The no-crds base (effective-values-no-crds.yaml, render profile=no-crds) already excludes the CRDs from the installer render, achieving parity with the regular-Helm live set. To make the default base match, the 6 JetStream CRDs must be excluded from the installer-applied object set; no single chart-level Helm values switch is evidenced in effective-values.yaml or control-points.yaml, so the exclusion is performed by the no-crds render profile."
+  verify_non_live: "Render the default base with cub installer and compare the object set to regular Helm's live object set; the 6 JetStream CRD objects should no longer appear in the installer output (render parity, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart nats/nack --version 0.34.0 --base default"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/nats-nack-default/receipt.yaml
+    - "runs/live-kind-parity/nats-nack-no-crds/receipt.yaml (result: pass, semantic-object-parity: pass)"
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
