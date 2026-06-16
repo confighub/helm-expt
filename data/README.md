@@ -52,6 +52,7 @@ smallest generated surface that answers it.
 | I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim). | [live-run-blocks/summary.md](./live-run-blocks/summary.md)<br>[live-run-blocks/run-blocks.csv](./live-run-blocks/run-blocks.csv)<br>[live-run-blocks/run-blocks.json](./live-run-blocks/run-blocks.json) |
 | I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action. | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md)<br>[matrix-completion-audit/audit.csv](./matrix-completion-audit/audit.csv)<br>[matrix-completion-audit/audit.json](./matrix-completion-audit/audit.json) |
 | I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug. | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md)<br>[variant-promotion-closeout/closeout.csv](./variant-promotion-closeout/closeout.csv)<br>[variant-promotion-closeout/closeout.json](./variant-promotion-closeout/closeout.json) |
+| I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse. | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md)<br>[remote-image-runtime-workdown/workdown.csv](./remote-image-runtime-workdown/workdown.csv)<br>[remote-image-runtime-workdown/workdown.json](./remote-image-runtime-workdown/workdown.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -280,6 +281,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `quirk-work-queue` | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | source-scan quirk work queue for top-100 charts |
 | `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `remote-dependency-closure` | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md) | remote dependency closure map for top-100 charts |
+| `remote-image-runtime-workdown` | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md) | product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
 | `secret-lifecycle` | [secret-lifecycle/summary.md](./secret-lifecycle/summary.md) | front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state |
@@ -310,7 +312,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 143 CSV files. Each row records the path, audience,
+It includes 144 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
