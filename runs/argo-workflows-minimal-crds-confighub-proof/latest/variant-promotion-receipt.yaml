@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "argo-workflows-minimal-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "argo-cd/argo-workflows"
+    chartVersion: "1.0.14"
+    packagePath: "packages/argo-cd/argo-workflows/1.0.14"
+    variant: "minimal-crds"
+    upstreamSpace: "helm-argo-workflows-minimal-crds-confighub-proof"
+    downstreamSpace: "ArgoWorkflows-minimal-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-argo-workflows-server runs/argo-workflows-minimal-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-argo-workflows-minimal-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-argo-workflows-minimal-crds runs/argo-workflows-minimal-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-argo-workflows-minimal-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote ArgoWorkflows-minimal-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create argo-workflows-minimal-crds-variant-promote-20260527 --space ArgoWorkflows-minimal-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote ArgoWorkflows-minimal-crds-staging --changeset ArgoWorkflows-minimal-crds-staging/argo-workflows-minimal-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote ArgoWorkflows-minimal-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-argo-workflows-server"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=argo-workflows-minimal-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-argo-workflows-minimal-crds"
+    upstreamUnitID: "bf063dc7-59b8-4b37-9741-932cae84bf58"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-argo-workflows-minimal-crds"
+  changeset:
+    slug: "argo-workflows-minimal-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset argo-workflows-minimal-crds-variant-promote-20260527 (e558e433-4da9-416a-ba03-be4948f32ca1)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-argo-workflows-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-argo-workflows-minimal-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-argo-workflows-minimal-crds"
+    addedUnitDownstreamUpstreamUnitID: "bf063dc7-59b8-4b37-9741-932cae84bf58"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cluster-autoscaler-controller-default-reviewed-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "autoscaler/cluster-autoscaler"
+    chartVersion: "9.57.0"
+    packagePath: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    variant: "controller-default-reviewed"
+    upstreamSpace: "helm-cluster-autoscaler-controller-default-reviewed-confighub-proof"
+    downstreamSpace: "ClusterAutoscaler-controller-default-reviewed-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-cluster-autoscaler-aws-cluster-autoscaler runs/cluster-autoscaler-controller-default-reviewed-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cluster-autoscaler-controller-default-reviewed-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cluster-autoscaler-controller-default-reviewed runs/cluster-autoscaler-controller-default-reviewed-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cluster-autoscaler-controller-default-reviewed-confighub-proof --allow-exists"
+    dryRun: "cub variant promote ClusterAutoscaler-controller-default-reviewed-staging --dry-run -o mutations"
+    changeset: "cub changeset create cluster-autoscaler-controller-default-reviewed-variant-promote-20260527 --space ClusterAutoscaler-controller-default-reviewed-staging --description ... --allow-exists"
+    promote: "cub variant promote ClusterAutoscaler-controller-default-reviewed-staging --changeset ClusterAutoscaler-controller-default-reviewed-staging/cluster-autoscaler-controller-default-reviewed-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote ClusterAutoscaler-controller-default-reviewed-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-cluster-autoscaler-aws-cluster-autoscaler"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cluster-autoscaler-controller-default-reviewed-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cluster-autoscaler-controller-default-reviewed"
+    upstreamUnitID: "c54cc7bf-97b3-467f-b778-9be65a667440"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cluster-autoscaler-controller-default-reviewed"
+  changeset:
+    slug: "cluster-autoscaler-controller-default-reviewed-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cluster-autoscaler-controller-default-reviewed-variant-promote-20260527 (2d40ec33-8338-4805-a4bf-98f25f4d4926)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-cluster-autoscaler-aws-cluster-autoscaler\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cluster-autoscaler-controller-default-reviewed\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cluster-autoscaler-controller-default-reviewed"
+    addedUnitDownstreamUpstreamUnitID: "c54cc7bf-97b3-467f-b778-9be65a667440"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

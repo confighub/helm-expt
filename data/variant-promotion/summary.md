@@ -22,15 +22,17 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 163 |
-| proven-with-watch | 29 |
+| available-needs-receipt | 153 |
+| blocked | 2 |
+| proven-with-watch | 37 |
 
 Matrix values:
 
 | Matrix value | Rows |
 | --- | ---: |
-| todo | 163 |
-| watch | 29 |
+| no | 2 |
+| todo | 153 |
+| watch | 37 |
 
 ## Watch Rows
 
@@ -40,7 +42,7 @@ resolved and the receipt reruns as pass.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 29 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
+| 37 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
@@ -61,14 +63,10 @@ resolved and the receipt reruns as pass.
 | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `argo-cd/argo-workflows@1.0.14/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/minimal-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
 | `argo-cd/argocd-image-updater@1.2.2/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
 | `autoscaler/vertical-pod-autoscaler@0.9.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
 | `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
-| `bitnami/apache@11.4.29/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts apache --base default --variant-promotion-proof --cleanup-spaces |
 | `bitnami/contour@21.1.4/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base default --variant-promotion-proof --cleanup-spaces |
 | `bitnami/contour@21.1.4/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `bitnami/elasticsearch@22.1.6/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts elasticsearch --base default --variant-promotion-proof --cleanup-spaces |
@@ -79,6 +77,10 @@ resolved and the receipt reruns as pass.
 | `bitnami/mongodb@19.0.9/generated-passwords` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
 | `bitnami/mongodb@19.1.0/existing-secret-replicaset` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
 | `bitnami/mongodb@19.1.0/generated-passwords` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mysql@14.0.3/existing-secret` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mysql --base existing-secret --variant-promotion-proof --cleanup-spaces |
+| `bitnami/nginx@24.0.2/existing-tls-ingress` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces |
+| `bitnami/nginx@24.0.4/existing-tls-ingress` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces |
+| `bitnami/nginx@24.0.4/http-clusterip` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base http-clusterip --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 

@@ -18,12 +18,12 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | # | Action | Family | Cells | Owner lane | Command / prerequisite |
 | --- | --- | --- | ---: | --- | --- |
-| CCP-01 | run-promotion | promotion-ready | 163 | Codex-live | npm run … (data/variant-promotion-proof-batches: 18 serial batches) |
+| CCP-01 | run-promotion | promotion-ready | 153 | Codex-live | npm run … (data/variant-promotion-proof-batches: 18 serial batches) |
 | CCP-02 | record-decision | verified-watch | 66 | product-decision | — |
 | CCP-03 | record-decision | lifecycle-not-applicable | 54 | product-decision | — |
 | CCP-04 | refresh-image | remote-image-refresh | 48 | Claude-non-live | a pullable image or retained digest |
-| CCP-05 | stage-prereq | local-kind-apply-harness | 39 | upstream-implementation | local-kind kubectl-apply harness fix |
-| CCP-06 | refuse-or-scope | promotion-changeset-bug | 29 | upstream-implementation | ConfigHub changeset add-new-units fix |
+| CCP-05 | refuse-or-scope | promotion-changeset-bug | 39 | upstream-implementation | ConfigHub changeset add-new-units fix |
+| CCP-06 | stage-prereq | local-kind-apply-harness | 39 | upstream-implementation | local-kind kubectl-apply harness fix |
 | CCP-07 | stage-prereq | stage-prereq-other | 23 | product-decision | see target-prerequisite-actions |
 | CCP-08 | run-kind | kind-ready | 22 | Codex-live | npm run kind-parity:run … (data/live-run-blocks) |
 | CCP-09 | stage-prereq | install-crds | 8 | Claude-non-live | cert-manager CRDs |
@@ -33,11 +33,11 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Action type | Cells |
 | --- | ---: |
-| `run-promotion` | 163 |
+| `run-promotion` | 153 |
 | `record-decision` | 120 |
 | `stage-prereq` | 83 |
 | `refresh-image` | 48 |
-| `refuse-or-scope` | 29 |
+| `refuse-or-scope` | 39 |
 | `run-kind` | 22 |
 | `fix-model` | 20 |
 | `lifecycle-observe` | 7 |
@@ -46,27 +46,27 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Owner lane | Cells |
 | --- | ---: |
-| `Codex-live` | 192 |
+| `Codex-live` | 182 |
 | `product-decision` | 147 |
 | `Claude-non-live` | 85 |
-| `upstream-implementation` | 68 |
+| `upstream-implementation` | 78 |
 
 ## Variant promotion (first-class family)
 
 The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.
-- `CCP-01` **run-promotion** — 163 ready promotions via the serial ConfigHub lane (#948); run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md).
-- `CCP-06` **refuse-or-scope** — 29 watch rows blocked on the ConfigHub changeset add-new-units bug (#682); upstream server fix.
+- `CCP-01` **run-promotion** — 153 ready promotions via the serial ConfigHub lane (#948); run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md).
+- `CCP-05` **refuse-or-scope** — 39 watch rows blocked on the ConfigHub changeset add-new-units bug (#682); upstream server fix.
 
 ## All action families
 
 | # | Action | Family | Cells | Lanes | Owner | Expected (pred?) | Evidence surface | Issues |
 | --- | --- | --- | ---: | --- | --- | --- | --- | --- |
-| CCP-01 | run-promotion | promotion-ready | 163 | promotion | Codex-live | pass or watch (prediction) | variant-promotion-closeout | #948 |
+| CCP-01 | run-promotion | promotion-ready | 153 | promotion | Codex-live | pass or watch (prediction) | variant-promotion-closeout | #948 |
 | CCP-02 | record-decision | verified-watch | 66 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |
 | CCP-03 | record-decision | lifecycle-not-applicable | 54 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
 | CCP-04 | refresh-image | remote-image-refresh | 48 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
-| CCP-05 | stage-prereq | local-kind-apply-harness | 39 | L | upstream-implementation | pass after the local-kind apply harness is fixed (prediction) | outcome-coverage/base-outcomes | #248; #753 |
-| CCP-06 | refuse-or-scope | promotion-changeset-bug | 29 | promotion | upstream-implementation | watch (verified); pass once the server fix lands | variant-promotion-closeout | #682; #948 |
+| CCP-05 | refuse-or-scope | promotion-changeset-bug | 39 | promotion | upstream-implementation | watch (verified); pass once the server fix lands | variant-promotion-closeout | #682; #948 |
+| CCP-06 | stage-prereq | local-kind-apply-harness | 39 | L | upstream-implementation | pass after the local-kind apply harness is fixed (prediction) | outcome-coverage/base-outcomes | #248; #753 |
 | CCP-07 | stage-prereq | stage-prereq-other | 23 | G/K/P | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
 | CCP-08 | run-kind | kind-ready | 22 | K | Codex-live | pass or watch (prediction) | kind-parity-decisions | #248; #753 |
 | CCP-09 | stage-prereq | install-crds | 8 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |

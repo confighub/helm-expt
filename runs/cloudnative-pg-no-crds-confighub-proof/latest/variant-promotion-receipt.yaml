@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cloudnative-pg-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "cloudnative-pg/cloudnative-pg"
+    chartVersion: "0.28.2"
+    packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    variant: "no-crds"
+    upstreamSpace: "helm-cloudnative-pg-no-crds-confighub-proof"
+    downstreamSpace: "CloudNativePG-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-cloudnative-pg runs/cloudnative-pg-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cloudnative-pg-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cloudnative-pg-no-crds runs/cloudnative-pg-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cloudnative-pg-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote CloudNativePG-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create cloudnative-pg-no-crds-variant-promote-20260527 --space CloudNativePG-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote CloudNativePG-no-crds-staging --changeset CloudNativePG-no-crds-staging/cloudnative-pg-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote CloudNativePG-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-cloudnative-pg"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cloudnative-pg-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cloudnative-pg-no-crds"
+    upstreamUnitID: "1bbf792d-7d84-4916-b094-6569b051214a"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cloudnative-pg-no-crds"
+  changeset:
+    slug: "cloudnative-pg-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cloudnative-pg-no-crds-variant-promote-20260527 (e7704a2d-8174-4e2c-bb78-d09ae9100e00)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-cloudnative-pg\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cloudnative-pg-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cloudnative-pg-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "1bbf792d-7d84-4916-b094-6569b051214a"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

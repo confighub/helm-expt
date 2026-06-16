@@ -22,9 +22,9 @@ columns). It changes no status and runs nothing.
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-run` | 246 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
-| `already-decided` | 119 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-target-or-prereq-fix` | 98 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-run` | 236 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `already-decided` | 127 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-target-or-prereq-fix` | 100 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `needs-modeling` | 29 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -38,12 +38,12 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `todo` | 246 |
-| `watch` | 119 |
-| `blocked` | 109 |
+| `todo` | 236 |
+| `watch` | 127 |
+| `blocked` | 111 |
 | `fail` | 18 |
 
-## needs-run (246)
+## needs-run (236)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -56,15 +56,11 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| argo-cd/argo-workflows@1.0.14 | minimal-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | argo-cd/argocd-image-updater@1.2.2 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| autoscaler/cluster-autoscaler@9.57.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
-| bitnami/apache@11.4.29 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts apache --base default --variant-promotion-proof --cleanup-spaces |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base default --variant-promotion-proof --cleanup-spaces |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -122,8 +118,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cloudnative-pg --base default --variant-promotion-proof --cleanup-spaces |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cloudnative-pg --base no-crds --variant-promotion-proof --cleanup-spaces |
-| coredns/coredns@1.45.2 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts coredns --base default --variant-promotion-proof --cleanup-spaces |
 | crossplane-stable/crossplane@2.3.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts crossplane --base default --variant-promotion-proof --cleanup-spaces |
 | descheduler/descheduler@0.36.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts descheduler --base default --variant-promotion-proof --cleanup-spaces |
 | dex/dex@0.24.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts dex --base default --variant-promotion-proof --cleanup-spaces |
@@ -161,9 +155,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | gatekeeper/gatekeeper@3.22.2 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts gatekeeper --base no-crds --variant-promotion-proof --cleanup-spaces |
 | gitlab/gitlab-runner@0.89.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts gitlab-runner --base default --variant-promotion-proof --cleanup-spaces |
 | grafana/alloy@1.8.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| grafana/alloy@1.8.2 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts alloy --base default --variant-promotion-proof --cleanup-spaces |
 | grafana/alloy@1.8.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| grafana/alloy@1.8.2 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts alloy --base no-crds --variant-promotion-proof --cleanup-spaces |
 | grafana/grafana@10.5.15 | existing-secret-ingress | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts grafana --base existing-secret-ingress --variant-promotion-proof --cleanup-spaces |
 | grafana/loki@7.0.0 | simple-scalable-minio | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/loki@7.0.0 | simple-scalable-minio | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts loki --base simple-scalable-minio --variant-promotion-proof --cleanup-spaces |
@@ -243,8 +235,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | percona/pxc-operator@1.19.1 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pxc-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | projectcalico/tigera-operator@v3.32.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts tigera-operator --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/alertmanager@1.37.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts alertmanager --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/alertmanager@1.37.0 | ha | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts alertmanager --base ha --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -296,7 +286,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default-reviewed --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces |
 
-## needs-target-or-prereq-fix (98)
+## needs-target-or-prereq-fix (100)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -350,6 +340,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | gitlab/gitlab-runner@0.89.0 | default | G | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
 | gitlab/gitlab-runner@0.89.0 | default | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | gitlab/gitlab-runner@0.89.0 | default | P | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
+| grafana/alloy@1.8.2 | default | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
+| grafana/alloy@1.8.2 | no-crds | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
 | grafana/pyroscope@2.0.2 | ha | K | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
 | grafana/pyroscope@2.0.2 | ha | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | grafana/rollout-operator@0.49.0 | no-crds | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
@@ -437,7 +429,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (119)
+## already-decided (127)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -455,11 +447,15 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | argo-cd/argo-rollouts@2.40.9 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | argo-cd/argo-rollouts@2.40.9 | no-crds | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| argo-cd/argo-workflows@1.0.14 | minimal-crds | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | watch | render-input: required Helm values missing (parity passed) | Provide the required values in the base/variant, then the row can move to pass. |
+| autoscaler/cluster-autoscaler@9.57.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | G | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | Review the target-topology support artifact, choose a target with the required platform behavior, or create a target-scoped base before rerunning. |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | P | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | Review the target-topology support artifact, choose a target with the required platform behavior, or create a target-scoped base before rerunning. |
 | bitnami/apache@11.4.29 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/apache@11.4.29 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/apache@11.4.29 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | bitnami/contour@21.1.4 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | no-crds | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
@@ -492,6 +488,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/spark@10.0.3 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/spark@10.0.3 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/spark@10.0.3 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| coredns/coredns@1.45.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | elastic/filebeat@8.5.1 | default | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/filebeat@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
@@ -554,6 +552,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | percona/pg-operator@3.0.0 | no-crds | K | watch | target-prerequisite: CRDs disabled or missing (parity passed) | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | percona/pxc-operator@1.19.1 | no-crds | K | watch | helm-runtime: upstream not ready (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
+| prometheus-community/alertmanager@1.37.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| prometheus-community/alertmanager@1.37.0 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | prometheus-community/prometheus@29.9.0 | default | G | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
