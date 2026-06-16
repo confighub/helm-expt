@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-43 non-pass rows: 36 watch, 7 blocked.
-3 are resolved by the **user** (stage a prerequisite); 4
+44 non-pass rows: 36 watch, 8 blocked.
+4 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -36,7 +36,7 @@ passed — the residue is operational, not a config mismatch.
 | `gitops-runtime` | 16 |
 | `remote-image` | 9 |
 | `target-runtime` | 9 |
-| `target-prerequisite` | 3 |
+| `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
 | `operate-policy` | 1 |
@@ -48,7 +48,7 @@ passed — the residue is operational, not a config mismatch.
 | `catalog or image publisher` | 9 |
 | `needs runtime review` | 9 |
 | `catalog` | 4 |
-| `user` | 3 |
+| `user` | 4 |
 | `needs operate review` | 1 |
 | `user or catalog` | 1 |
 
@@ -81,6 +81,7 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | istio/gateway@1.30.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| istio/istiod@1.30.0 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/istio/istiod/1.30.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/istio/istiod/1.30.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/istio/istiod/1.30.0/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/istio/istiod/1.30.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/istio/istiod/1.30.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/istio/istiod/1.30.0](../../../../packages/istio/istiod/1.30.0) |

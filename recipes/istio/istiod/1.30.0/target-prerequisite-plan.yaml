@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "istio-istiod-1.30.0-target-prerequisites"
+  chart: "istio/istiod"
+  version: "1.30.0"
+spec:
+  summary: "The Istiod default base preserves the chart's rendered object semantics, but the live parity run shows that a usable target is not just any namespace on any cluster. The chart renders a mixed namespace shape: workload objects such as the Deployment, Service, ConfigMaps, and HPA are in default, while the ServiceAccount, Role, and RoleBinding are in istio-system. Regular Helm blocks immediately when istio-system is absent. ConfigHub direct apply and ConfigHub OCI/Argo preserve the object meaning, but the Deployment cannot create pods because the ServiceAccount is not in the Deployment namespace. This row needs a namespace and target-scope decision before production support."
+  bases:
+    default:
+      status: "target-prerequisite-and-namespace-routing-needed"
+      currentProofLimit: "The live parity receipt shows semantic object parity for ConfigHub direct apply and ConfigHub OCI/Argo. It does not prove a healthy Istiod control plane. Regular Helm blocks with 'namespaces \"istio-system\" not found'. ConfigHub OCI/Argo syncs all 18 objects but remains Progressing while deployment.apps/istiod is 0/1 because pods cannot be created with the referenced ServiceAccount in the observed namespace."
+      requiredBeforeApply:
+        -
+          kind: "Namespace"
+          name: "istio-system"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The upstream chart renders some namespaced resources into istio-system. Regular Helm refuses the install when that namespace is absent."
+        -
+          kind: "NamespaceRoutingDecision"
+          name: "istiod-control-plane-namespace"
+          namespace: "target scope"
+          status: "target-scope-decision"
+          purpose: "A supported base must keep the Deployment, ServiceAccount, Role, RoleBinding, Service, ConfigMaps, and HPA in a coherent namespace shape, or rerender the base for the intended control-plane namespace."
+      requiredBeforeObserve:
+        -
+          kind: "MetricsAPI"
+          name: "metrics.k8s.io"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The chart renders an HPA. metrics.k8s.io is not required for object parity, but it is required before HPA behavior can be treated as production-observed."
+      mustObserve:
+        - "The istio-system namespace exists before running regular Helm when preserving this upstream namespace shape."
+        - "The Istiod Deployment and its ServiceAccount/RBAC are in the same intended namespace, or the mismatch is deliberately accepted and documented for the target."
+        - "The Istiod Deployment creates pods and reaches Available=True."
+        - "Argo aggregate health becomes Healthy, or any remaining Progressing condition is explicitly accepted for the target scope."
+      requiredReceipts:
+        - "target-fact-receipt"
+        - "namespace-routing-receipt"
+        - "deployment-readiness-receipt"
+        - "gitops-health-receipt"
+  evidence:
+    liveParityReceipt: "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+    regularHelmEvent: "namespaces \"istio-system\" not found"
+    configHubOciEvent: "Argo child Application Synced/Progressing; deployment.apps/istiod remains 0/1 because pod creation cannot resolve the expected service account in the workload namespace"
+    semanticParity: "pass for Helm vs ConfigHub direct apply and Helm vs ConfigHub OCI/Argo"
+  nextInvestigation:
+    - "Decide whether the public catalog should expose this base only for targets that pre-stage istio-system and preserve upstream Istio namespace conventions."
+    - "Decide whether a safer first-run base should rerender the control plane so Deployment, ServiceAccount, Role, RoleBinding, Service, ConfigMaps, and HPA live in one explicit namespace."
+    - "Add target facts for istio-system and metrics.k8s.io if this base remains catalog-supported."
+    - "Add a namespace-routing check before moving the row from blocked/watch to supported."
+  notProvenBy:
+    - "render parity alone"
+    - "ConfigHub OCI upload alone"
+    - "Argo Synced while the child Application remains Progressing"
+    - "a direct kubectl apply result before the Deployment has created an available pod"
