@@ -102,10 +102,70 @@ def semantic_normalizations_for(revision_path: Path) -> list[str]:
 def raw_values_file(source: Path, destination: Path) -> Path:
     data = load_yaml(source)
     if data.get("kind") == "EffectiveValues" and isinstance(data.get("spec", {}).get("values"), dict):
-        write_yaml(destination, data["spec"]["values"])
+        values = data["spec"]["values"] or {}
+        render_delta = str(data.get("spec", {}).get("renderDelta") or "").strip()
+        if render_delta:
+            values = apply_render_delta(values, render_delta)
+        write_yaml(destination, values)
         return destination
     shutil.copyfile(source, destination)
     return destination
+
+
+def apply_render_delta(values: dict, render_delta: str) -> dict:
+    updated = json.loads(json.dumps(values))
+    delta_path = Path(render_delta)
+    if (Path.cwd() / delta_path).exists() and delta_path.suffix in {".yaml", ".yml"}:
+        extra = load_yaml(Path.cwd() / delta_path)
+        if isinstance(extra, dict):
+            deep_merge(updated, extra)
+        return updated
+    if not looks_like_value_assignments(render_delta):
+        return updated
+    for raw_item in re.split(r"[,;]", render_delta):
+        item = raw_item.strip()
+        if not item:
+            continue
+        key, raw_value = item.split("=", 1)
+        set_dotted_value(updated, key.strip(), parse_scalar(raw_value.strip()))
+    return updated
+
+
+def looks_like_value_assignments(render_delta: str) -> bool:
+    items = [item.strip() for item in re.split(r"[,;]", render_delta) if item.strip()]
+    return bool(items) and all(re.match(r"^[A-Za-z0-9_.-]+=", item) for item in items)
+
+
+def deep_merge(target: dict, source: dict) -> dict:
+    for key, value in source.items():
+        if isinstance(value, dict) and isinstance(target.get(key), dict):
+            deep_merge(target[key], value)
+        else:
+            target[key] = value
+    return target
+
+
+def set_dotted_value(target: dict, dotted_key: str, value) -> None:
+    cursor = target
+    parts = [part for part in dotted_key.split(".") if part]
+    for part in parts[:-1]:
+        cursor = cursor.setdefault(part, {})
+    if parts:
+        cursor[parts[-1]] = value
+
+
+def parse_scalar(value: str):
+    if value.lower() == "true":
+        return True
+    if value.lower() == "false":
+        return False
+    if value.lower() == "null":
+        return None
+    if re.match(r"^-?[0-9]+$", value):
+        return int(value)
+    if re.match(r"^-?[0-9]+\.[0-9]+$", value):
+        return float(value)
+    return value
 
 
 def yaml_docs(text: str) -> list[dict]:

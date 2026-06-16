@@ -17,7 +17,7 @@ blocked: 40
 watch: 49
 configHub-oci-live-comparison: 50
 two-cluster-kind-parity: 39
-semantic-parity-defects: 8
+semantic-parity-defects: 7
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 19
 runtime-or-watch-rows: 36
@@ -25,7 +25,7 @@ runtime-or-watch-rows: 36
 
 ## Current Interpretation
 
-8 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
+7 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
 claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.
 
 | Chart | Base | Current | Meaning | Next action |
@@ -84,13 +84,13 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/contour@21.1.4` | no-crds | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/opensearch@2.0.10` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/opensearch@2.0.10` | ha | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
-| `hashicorp/terraform@1.1.2` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `nats/nack@0.34.0` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `nats/nats@2.14.0` | ha | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `traefik/traefik@40.2.0` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `bitnami/apache@11.4.29` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `bitnami/elasticsearch@22.1.6` | default | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
+| `bitnami/elasticsearch@22.1.6` | ha | blocked | Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe. | If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt. |
 | `elastic/filebeat@8.5.1` | default | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | The target is missing required API types or prerequisites. Stage them, then rerun the same base. | Record the prerequisite in the chart facts, base variant, or install checks before promoting. |
@@ -153,8 +153,8 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| image-retention-review | 16 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
-| inspect-parity-diff | 8 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
+| image-retention-review | 17 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
+| inspect-parity-diff | 7 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
@@ -176,9 +176,9 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 8 | Do not rerun until the semantic diff has been inspected. |
+| inspect-diff-first | 7 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 43 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 44 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 36 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -269,13 +269,13 @@ faithful to the locked chart/version without changing the recipe.
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/contour@21.1.4` | no-crds | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | ha | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
-| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `hashicorp/terraform@1.1.2` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `nats/nack@0.34.0` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart nats/nack --version 0.34.0 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `nats/nats@2.14.0` | ha | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart nats/nats --version 2.14.0 --base ha` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `traefik/traefik@40.2.0` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart traefik/traefik --version 40.2.0 --base default` |
 | 50 | inspect-receipt-first | inspect-receipt | two-cluster-kind-parity | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | blocked | blocked: inspect receipt | - | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base controller-default-reviewed` |
 | 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `bitnami/apache@11.4.29` | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart bitnami/apache --version 11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `bitnami/elasticsearch@22.1.6` | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart bitnami/elasticsearch --version 22.1.6 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 50 | model-or-stage-first | image-retention-review | two-cluster-kind-parity | `bitnami/elasticsearch@22.1.6` | ha | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run kind-parity:run -- --chart bitnami/elasticsearch --version 22.1.6 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `elastic/filebeat@8.5.1` | default | blocked | target-prerequisite: required Secret missing (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base default` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `fairwinds-stable/vpa@4.11.0` | no-crds | watch | target-prerequisite: CRDs disabled or missing (parity passed) | - | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `hashicorp/terraform@1.1.2` | no-crds | blocked | target-prerequisite: required Secret missing (parity passed) | [`recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml`](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base no-crds` |

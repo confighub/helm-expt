@@ -117,6 +117,20 @@
       "receipt": "runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml"
     },
     {
+      "chart": "bitnami/elasticsearch",
+      "version": "22.1.6",
+      "base": "ha",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml"
+    },
+    {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "base": "default",
@@ -241,20 +255,6 @@
       "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
       "reason": "target-runtime: installer-applied workload not ready at observation cutoff (parity passed)",
       "receipt": "runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml"
-    },
-    {
-      "chart": "hashicorp/terraform",
-      "version": "1.1.2",
-      "base": "default",
-      "result": "blocked",
-      "semantic_parity": "defect",
-      "residue_category": "model-gap-render",
-      "blocker_owner": "catalog",
-      "usable_today": "no — needs catalog work",
-      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
-      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
-      "reason": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||default; runtime also requires hook/target Secret(s): terraformrc, workspacesecrets",
-      "receipt": "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
     },
     {
       "chart": "hashicorp/terraform",

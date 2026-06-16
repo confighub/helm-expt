@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 923 / 90 / 103 / 107 / 121 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 923 / 90 / 104 / 106 / 121 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -138,7 +138,7 @@ when you want the user/product view with those columns visible.
 | `bitnami/contour@21.1.4` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 | `bitnami/elasticsearch@22.1.6` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 | `bitnami/memcached@8.5.5` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
