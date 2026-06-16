@@ -156,9 +156,9 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Day-1 operations — the work between a first variant and a running estate.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-14T12:24:44.630Z UTC · source: committed helm-expt evidence for this day-1 operations.</p>
-    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs — each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <h1>Day-1 operations - the work between a first variant and a running estate.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-16T14:54:53.202Z UTC · source: committed helm-expt evidence for this day-1 operations.</p>
+    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
@@ -170,7 +170,7 @@
         </div>
         <p class="opmeta"><code>cub variant create &lt;name&gt; &lt;upstream-space&gt;</code> · <span class="muted">ConfigHub · free tier</span></p>
         <pre><code>cub variant create redis-prod-us-east redis-base</code></pre>
-        <p>A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer — without running Helm again and without a new installer base. This is the day-1 customization most teams need first.</p>
+        <p>A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer - without running Helm again and without a new installer base. This is the day-1 customization most teams need first.</p>
         <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
       </div>
       <div class="op">
@@ -180,7 +180,7 @@
         </div>
         <p class="opmeta"><code>review the variant's object diff vs its base</code> · <span class="muted">ConfigHub · free tier</span></p>
         
-        <p>Every derived variant carries an exact, reviewable object diff against the base it came from — so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
+        <p>Every derived variant carries an exact, reviewable object diff against the base it came from - so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
         <p class="muted">See: <a href="../docs/user/change-routing-before-oci.md">change-routing-before-oci</a></p>
       </div>
       <div class="op">
@@ -211,7 +211,7 @@ cub variant promote &lt;space&gt;</code></pre>
         </div>
         <p class="opmeta"><code>publish content-addressed OCI; a controller reconciles</code> · <span class="muted">free to run · standard Argo/Flux</span></p>
         
-        <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it — pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
+        <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
         <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
       </div>
       <div class="op">
@@ -232,7 +232,7 @@ cub gitops import &lt;app&gt;</code></pre>
         </div>
         <p class="opmeta"><code>wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
         
-        <p>Your own charts — wrapper charts, platform values, customer overlay values, internal-only charts — run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
+        <p>Your own charts - wrapper charts, platform values, customer overlay values, internal-only charts - run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
         <p class="muted">See: <a href="../docs/user/custom-overlays.md">custom-overlays</a> · <a href="../docs/user/product-support-tiers.md">product-support-tiers</a></p>
       </div>
     </section>
