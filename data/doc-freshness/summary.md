@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-16 (commit `511658a2`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-16 (commit `e5bab3e2`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,8 +23,8 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 174 |
-| Fresh (no linked source newer than the doc) | 12 |
+| Authored docs tracked | 175 |
+| Fresh (no linked source newer than the doc) | 13 |
 | **Review-due** | 41 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
@@ -35,16 +35,16 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
-| [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 6 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-06-13)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
+| [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 7 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-06-13)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
+| [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 6 | `data/live-parity-rerun-plan/summary.md (2026-06-16)`<br>`data/outcome-coverage/summary.md (2026-06-16)`<br>`data/status-dashboard/summary.md (2026-06-16)` |
+| [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 6 | `data/outcome-coverage/summary.md (2026-06-16)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 6 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/top100-readiness/next80-queues.csv (2026-06-13)`<br>`data/top100-readiness/next80-queues.md (2026-06-13)` |
-| [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 5 | `data/live-parity-rerun-plan/summary.md (2026-06-16)`<br>`data/outcome-coverage/summary.md (2026-06-16)`<br>`data/status-dashboard/summary.md (2026-06-16)` |
-| [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 5 | `data/outcome-coverage/summary.md (2026-06-16)` |
+| [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 6 | `data/outcome-coverage/summary.md (2026-06-16)`<br>`tests/npm-scripts.md (2026-06-12)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 5 | `data/live-helm-confighub-compare/summary.md (2026-06-16)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 5 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/top100-readiness/readiness.csv (2026-06-13)`<br>`data/top100-readiness/summary.md (2026-06-13)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-12 | 5 | `data/master-catalog-matrix/matrix.html (2026-06-16)`<br>`data/chart-use-guide/summary.md (2026-06-13)`<br>`data/outcome-evidence-contract/summary.md (2026-06-13)` |
 | [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 5 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/outcome-coverage/chart-outcomes.csv (2026-06-16)`<br>`data/outcome-coverage/summary.md (2026-06-16)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 5 | `data/master-catalog-matrix/summary.md (2026-06-16)`<br>`data/live-kind-parity/summary.md (2026-06-16)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
-| [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 5 | `data/outcome-coverage/summary.md (2026-06-16)`<br>`tests/npm-scripts.md (2026-06-12)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-10 | 4 | `data/top100-coverage/summary.md (2026-06-13)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 4 | `data/live-parity-rerun-plan/summary.md (2026-06-16)`<br>`data/master-catalog-matrix/matrix.csv (2026-06-16)`<br>`data/master-catalog-matrix/matrix.html (2026-06-16)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 4 | `data/quirk-coverage/summary.md (2026-06-13)`<br>`data/top100-coverage/summary.md (2026-06-13)`<br>`data/live-e2e/cub-scout-watchlist.md (2026-06-11)` |
