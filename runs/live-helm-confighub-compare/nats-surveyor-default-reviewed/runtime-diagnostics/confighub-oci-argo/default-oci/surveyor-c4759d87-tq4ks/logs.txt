@@ -1,0 +1,45 @@
+Error: couldn't start surveyor: dial tcp: lookup nats on 10.96.0.10:53: no such host
+Usage:
+  nats-surveyor [flags]
+
+Flags:
+  -s, --servers string                      NATS Cluster url(s) (NATS_SURVEYOR_SERVERS) (default "nats://127.0.0.1:4222")
+  -c, --count int                           Expected number of servers (-1 for undefined). (NATS_SURVEYOR_COUNT) (default 1)
+      --timeout duration                    Polling timeout (NATS_SURVEYOR_TIMEOUT) (default 3s)
+      --server-discovery-timeout duration   Maximum wait time between responses from servers during server discovery.
+                                            Use in conjunction with -count=-1. (NATS_SURVEYOR_SERVER_DISCOVERY_TIMEOUT) (default 500ms)
+      --creds string                        Credentials File (NATS_SURVEYOR_CREDS)
+      --nkey string                         Nkey Seed File (NATS_SURVEYOR_NKEY)
+      --jwt string                          User JWT. Use in conjunction with --seed (NATS_SURVEYOR_JWT)
+      --seed string                         Private key (nkey seed). Use in conjunction with --jwt (NATS_SURVEYOR_SEED)
+      --user string                         NATS user name or token (NATS_SURVEYOR_USER)
+      --password string                     NATS user password (NATS_SURVEYOR_PASSWORD)
+      --token-file string                   Path to a file with a bearer token (NATS_SURVEYOR_TOKEN_FILE)
+      --tlscert string                      Client certificate file for NATS connections. (NATS_SURVEYOR_TLSCERT)
+      --tlskey string                       Client private key for NATS connections. (NATS_SURVEYOR_TLSKEY)
+      --tlscacert string                    Client certificate CA on NATS connections. (NATS_SURVEYOR_TLSCACERT)
+      --tlsfirst                            Whether to use TLS First connections. (NATS_SURVEYOR_TLSFIRST)
+  -p, --port int                            Port to listen on. (NATS_SURVEYOR_PORT) (default 7777)
+  -a, --addr string                         Network host to listen on. (NATS_SURVEYOR_ADDR) (default "0.0.0.0")
+      --http-tlscert string                 Server certificate file (Enables HTTPS). (NATS_SURVEYOR_HTTP_TLSCERT)
+      --http-tlskey string                  Private key for server certificate (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSKEY)
+      --http-tlscacert string               Client certificate CA for verification (used with HTTPS). (NATS_SURVEYOR_HTTP_TLSCACERT)
+      --http-user string                    Enable basic auth and set user name for HTTP scrapes. (NATS_SURVEYOR_HTTP_USER)
+      --http-pass string                    Set the password for HTTP scrapes. NATS bcrypt supported. (NATS_SURVEYOR_HTTP_PASS)
+      --prefix string                       Replace the default prefix for all the metrics. (NATS_SURVEYOR_PREFIX)
+      --observe string                      Listen for observation statistics based on config files in a directory. (NATS_SURVEYOR_OBSERVE)
+      --jetstream string                    Listen for JetStream Advisories based on config files in a directory. (NATS_SURVEYOR_JETSTREAM)
+      --accounts                            Export per-account metrics (NATS_SURVEYOR_ACCOUNTS)
+      --accounts-detailed                   Export granular per-account bytes and message metrics (NATS_SURVEYOR_ACCOUNTS_DETAILED)
+      --gatewayz                            Export gateway metrics (NATS_SURVEYOR_GATEWAYZ)
+      --raftz                               Export metalayer Raft group metrics from raftz endpoint (NATS_SURVEYOR_RAFTZ)
+      --jsz jsz                             Export jsz metrics, one of: all|streams|consumers (NATS_SURVEYOR_JSZ) (default <unknown>)
+      --jsz-limit int                       Limit the number of returned account jsz metrics (NATS_SURVEYOR_JSZ_LIMIT) (default 1024)
+      --jsz-leaders-only                    Fetch jsz metrics from stream and consumer leaders only (NATS_SURVEYOR_JSZ_LEADERS_ONLY)
+      --jsz-filter jsz-filter               Fetch selected jsz metrics only(comma separated list). Metrics: stream_total_messages,stream_total_bytes,stream_first_seq,stream_last_seq,stream_consumer_count,stream_subject_count,consumer_delivered_consumer_seq,consumer_delivered_stream_seq,consumer_ack_floor_consumer_seq,consumer_ack_floor_stream_seq,consumer_num_ack_pending,consumer_num_pending,consumer_num_redelivered,consumer_num_waiting (NATS_SURVEYOR_JSZ_FILTER) (default [])
+      --sys-req-prefix string               Subject prefix for system requests ($SYS.REQ) (NATS_SURVEYOR_SYS_REQ_PREFIX) (default "$SYS.REQ")
+      --pprof                               Enable unauthenticated pprof endpoint at /debug/pprof/ (NATS_SURVEYOR_PPROF)
+      --log-level string                    Log level, one of: trace|debug|info|warn|error|fatal|panic (NATS_SURVEYOR_LOG_LEVEL) (default "info")
+      --config string                       config file (default is ./nats-surveyor.yaml)
+  -h, --help                                help for nats-surveyor
+  -v, --version                             version for nats-surveyor

@@ -1,0 +1,9 @@
+LAST SEEN   TYPE      REASON              OBJECT                         MESSAGE
+5m4s        Normal    Scheduled           pod/surveyor-c4759d87-4g6t4    Successfully assigned default-apply/surveyor-c4759d87-4g6t4 to helm-expt-parity-surveyor-mqg1yy6k-1h3t-control-plane
+5m4s        Warning   FailedCreate        replicaset/surveyor-c4759d87   Error creating: pods "surveyor-c4759d87-" is forbidden: error looking up service account default-apply/surveyor: serviceaccount "surveyor" not found
+5m4s        Normal    SuccessfulCreate    replicaset/surveyor-c4759d87   Created pod: surveyor-c4759d87-4g6t4
+5m4s        Normal    ScalingReplicaSet   deployment/surveyor            Scaled up replica set surveyor-c4759d87 from 0 to 1
+2m14s       Normal    Pulled              pod/surveyor-c4759d87-4g6t4    Container image "natsio/nats-surveyor:0.9.9" already present on machine and can be accessed by the pod
+2m14s       Normal    Created             pod/surveyor-c4759d87-4g6t4    Container created
+2m14s       Normal    Started             pod/surveyor-c4759d87-4g6t4    Container started
+51s         Warning   BackOff             pod/surveyor-c4759d87-4g6t4    Back-off restarting failed container surveyor in pod surveyor-c4759d87-4g6t4_default-apply(8236906f-f426-4260-9e00-03df74c2c1e5)

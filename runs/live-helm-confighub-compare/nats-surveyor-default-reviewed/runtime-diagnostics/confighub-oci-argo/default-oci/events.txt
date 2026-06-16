@@ -1,0 +1,8 @@
+LAST SEEN   TYPE      REASON              OBJECT                         MESSAGE
+10m         Normal    Scheduled           pod/surveyor-c4759d87-tq4ks    Successfully assigned default-oci/surveyor-c4759d87-tq4ks to helm-expt-parity-surveyor-mqg1yy6k-1h3t-control-plane
+10m         Normal    SuccessfulCreate    replicaset/surveyor-c4759d87   Created pod: surveyor-c4759d87-tq4ks
+10m         Normal    ScalingReplicaSet   deployment/surveyor            Scaled up replica set surveyor-c4759d87 from 0 to 1
+4m53s       Normal    Pulled              pod/surveyor-c4759d87-tq4ks    Container image "natsio/nats-surveyor:0.9.9" already present on machine and can be accessed by the pod
+4m53s       Normal    Created             pod/surveyor-c4759d87-tq4ks    Container created
+4m53s       Normal    Started             pod/surveyor-c4759d87-tq4ks    Container started
+63s         Warning   BackOff             pod/surveyor-c4759d87-tq4ks    Back-off restarting failed container surveyor in pod surveyor-c4759d87-tq4ks_default-oci(1226e474-77f4-41ba-8609-c6e67a25fba7)
