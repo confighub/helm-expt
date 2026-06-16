@@ -22,15 +22,15 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 172 |
-| proven-with-watch | 20 |
+| available-needs-receipt | 163 |
+| proven-with-watch | 29 |
 
 Matrix values:
 
 | Matrix value | Rows |
 | --- | ---: |
-| todo | 172 |
-| watch | 20 |
+| todo | 163 |
+| watch | 29 |
 
 ## Watch Rows
 
@@ -40,45 +40,45 @@ resolved and the receipt reruns as pass.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 20 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
+| 29 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
+| `aqua/trivy-operator@0.32.1/default` | runs/trivy-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `aqua/trivy-operator@0.32.1/no-crds` | runs/trivy-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | `argo-cd/argo-cd@9.5.15/default` | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/mongodb@19.0.7/generated-passwords` | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/mysql@14.0.3/generated-passwords` | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/nginx@24.0.2/http-clusterip` | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/postgresql@18.6.7/generated-passwords` | runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/rabbitmq@16.0.14/generated-passwords` | runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `bitnami/redis@25.5.3/default` | runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `external-secrets/external-secrets@2.5.0/default` | runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `grafana/grafana@10.5.15/generated-passwords` | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
-| `grafana/loki@7.0.0/single-binary-filesystem` | runs/loki-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-cd@9.5.17/default` | runs/argo-cd-9517-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-cd@9.5.17/no-crds` | runs/argo-cd-9517-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-events@2.4.21/default` | runs/argo-events-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-events@2.4.21/no-crds` | runs/argo-events-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-rollouts@2.40.9/default` | runs/argo-rollouts-default-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-rollouts@2.40.9/no-crds` | runs/argo-rollouts-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| `argo-cd/argo-workflows@1.0.14/controller-default-reviewed` | runs/argo-workflows-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 
 ## First TODO Rows
 
 | Row | Status | Next action |
 | --- | --- | --- |
-| `aqua/trivy-operator@0.32.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base default --variant-promotion-proof --cleanup-spaces |
-| `aqua/trivy-operator@0.32.1/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.17/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-cd@9.5.17/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-events@2.4.21/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-events --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-events@2.4.21/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-events --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-rollouts@2.40.9/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-rollouts@2.40.9/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argo-workflows@1.0.14/minimal-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
-| `argo-cd/argocd-image-updater@1.2.2/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/cluster-autoscaler@9.57.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/vertical-pod-autoscaler@0.9.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
-| `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
-| `bitnami/apache@11.4.29/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts apache --base default --variant-promotion-proof --cleanup-spaces |
-| `bitnami/contour@21.1.4/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --charts contour --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-cd@9.5.15/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-workflows@1.0.14/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argo-workflows@1.0.14/minimal-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base minimal-crds --variant-promotion-proof --cleanup-spaces |
+| `argo-cd/argocd-image-updater@1.2.2/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/cluster-autoscaler@9.57.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/vertical-pod-autoscaler@0.9.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces |
+| `autoscaler/vertical-pod-autoscaler@0.9.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/apache@11.4.29/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts apache --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/contour@21.1.4/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/contour@21.1.4/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base no-crds --variant-promotion-proof --cleanup-spaces |
+| `bitnami/elasticsearch@22.1.6/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts elasticsearch --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/elasticsearch@22.1.6/ha` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts elasticsearch --base ha --variant-promotion-proof --cleanup-spaces |
+| `bitnami/memcached@8.5.5/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts memcached --base default --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mongodb@19.0.7/existing-secret-replicaset` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mongodb@19.0.9/existing-secret-replicaset` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mongodb@19.0.9/generated-passwords` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mongodb@19.1.0/existing-secret-replicaset` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
+| `bitnami/mongodb@19.1.0/generated-passwords` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 

@@ -43,7 +43,7 @@ from a different chart version's disposition row.
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 0 / 20 / 172 / 0 / 0 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 0 / 29 / 163 / 0 / 0 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 182 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Variants currently in the active proof queue | 63 |
@@ -115,18 +115,18 @@ when you want the user/product view with those columns visible.
 
 | Chart | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Outcome | Prod |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `aqua/trivy-operator@0.32.1` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
+| `aqua/trivy-operator@0.32.1` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
+|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.15` | default | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ✅ |
 |  | no-crds | top20 | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `argo-cd/argo-cd@9.5.17` | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-| `argo-cd/argo-events@2.4.21` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `argo-cd/argo-rollouts@2.40.9` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
+| `argo-cd/argo-cd@9.5.17` | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ⬜ |
+| `argo-cd/argo-events@2.4.21` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
+|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
+| `argo-cd/argo-rollouts@2.40.9` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
+|  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `argo-cd/argo-workflows@1.0.14` | default | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | controller-default-reviewed | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
+|  | controller-default-reviewed | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | minimal-crds | next80 | - | 1 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⚠️ | ⬜ | live-parity | ⬜ |

@@ -15,27 +15,27 @@
   "nonGreenCellsCovered": 492,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 172,
+    "run-promotion": 163,
     "record-decision": 120,
     "stage-prereq": 83,
     "refresh-image": 48,
+    "refuse-or-scope": 29,
     "run-kind": 22,
     "fix-model": 20,
-    "refuse-or-scope": 20,
     "lifecycle-observe": 7
   },
   "byOwnerLane": {
-    "Codex-live": 201,
+    "Codex-live": 192,
     "product-decision": 147,
     "Claude-non-live": 85,
-    "upstream-implementation": 59
+    "upstream-implementation": 68
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-ready",
-      "affected_cell_count": 172,
+      "affected_cell_count": 163,
       "owner_lane": "Codex-live"
     },
     {
@@ -68,24 +68,24 @@
     },
     {
       "action_id": "CCP-06",
+      "action_type": "refuse-or-scope",
+      "sub_group": "promotion-changeset-bug",
+      "affected_cell_count": 29,
+      "owner_lane": "upstream-implementation"
+    },
+    {
+      "action_id": "CCP-07",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "affected_cell_count": 23,
       "owner_lane": "product-decision"
     },
     {
-      "action_id": "CCP-07",
+      "action_id": "CCP-08",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "affected_cell_count": 22,
       "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-08",
-      "action_type": "refuse-or-scope",
-      "sub_group": "promotion-changeset-bug",
-      "affected_cell_count": 20,
-      "owner_lane": "upstream-implementation"
     },
     {
       "action_id": "CCP-09",
@@ -108,7 +108,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-ready",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 172,
+      "affected_cell_count": 163,
       "lanes": [
         "promotion"
       ],
@@ -119,16 +119,7 @@
       "evidence_surface": "variant-promotion-closeout",
       "linked_issues": "#948",
       "affected_rows": [
-        "aqua/trivy-operator@0.32.1/default [promotion]",
-        "aqua/trivy-operator@0.32.1/no-crds [promotion]",
         "argo-cd/argo-cd@9.5.15/no-crds [promotion]",
-        "argo-cd/argo-cd@9.5.17/default [promotion]",
-        "argo-cd/argo-cd@9.5.17/no-crds [promotion]",
-        "argo-cd/argo-events@2.4.21/default [promotion]",
-        "argo-cd/argo-events@2.4.21/no-crds [promotion]",
-        "argo-cd/argo-rollouts@2.40.9/default [promotion]",
-        "argo-cd/argo-rollouts@2.40.9/no-crds [promotion]",
-        "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [promotion]",
         "argo-cd/argo-workflows@1.0.14/default [promotion]",
         "argo-cd/argo-workflows@1.0.14/minimal-crds [promotion]",
         "argo-cd/argocd-image-updater@1.2.2/default [promotion]",
@@ -579,6 +570,53 @@
     },
     {
       "action_id": "CCP-06",
+      "action_type": "refuse-or-scope",
+      "sub_group": "promotion-changeset-bug",
+      "owner_lane": "upstream-implementation",
+      "affected_cell_count": 29,
+      "lanes": [
+        "promotion"
+      ],
+      "command": "",
+      "prerequisite": "ConfigHub changeset add-new-units fix",
+      "expected_status": "watch (verified); pass once the server fix lands",
+      "prediction": false,
+      "evidence_surface": "variant-promotion-closeout",
+      "linked_issues": "#682; #948",
+      "affected_rows": [
+        "aqua/trivy-operator@0.32.1/default [promotion]",
+        "aqua/trivy-operator@0.32.1/no-crds [promotion]",
+        "argo-cd/argo-cd@9.5.15/default [promotion]",
+        "argo-cd/argo-cd@9.5.17/default [promotion]",
+        "argo-cd/argo-cd@9.5.17/no-crds [promotion]",
+        "argo-cd/argo-events@2.4.21/default [promotion]",
+        "argo-cd/argo-events@2.4.21/no-crds [promotion]",
+        "argo-cd/argo-rollouts@2.40.9/default [promotion]",
+        "argo-cd/argo-rollouts@2.40.9/no-crds [promotion]",
+        "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [promotion]",
+        "bitnami/mongodb@19.0.7/generated-passwords [promotion]",
+        "bitnami/mysql@14.0.3/generated-passwords [promotion]",
+        "bitnami/nginx@24.0.2/http-clusterip [promotion]",
+        "bitnami/postgresql@18.6.7/generated-passwords [promotion]",
+        "bitnami/rabbitmq@16.0.14/generated-passwords [promotion]",
+        "bitnami/redis@25.5.3/default [promotion]",
+        "external-secrets/external-secrets@2.5.0/default [promotion]",
+        "grafana/grafana@10.5.15/generated-passwords [promotion]",
+        "grafana/loki@7.0.0/single-binary-filesystem [promotion]",
+        "grafana/tempo@1.24.4/local-persistent [promotion]",
+        "hashicorp/consul@2.0.0/default-control-plane [promotion]",
+        "hashicorp/vault@0.32.0/dev-mode [promotion]",
+        "ingress-nginx/ingress-nginx@4.15.1/internal-clusterip [promotion]",
+        "jetstack/cert-manager@v1.20.2/crds-enabled [promotion]",
+        "longhorn/longhorn@1.11.2/default [promotion]",
+        "metrics-server/metrics-server@3.13.0/default [promotion]",
+        "prometheus-community/kube-prometheus-stack@85.3.3/default [promotion]",
+        "prometheus-community/prometheus@29.8.0/server-only-ephemeral [promotion]",
+        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/default [promotion]"
+      ]
+    },
+    {
+      "action_id": "CCP-07",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
@@ -621,7 +659,7 @@
       ]
     },
     {
-      "action_id": "CCP-07",
+      "action_id": "CCP-08",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "owner_lane": "Codex-live",
@@ -658,44 +696,6 @@
         "prometheus-community/prometheus@29.9.0/server-only-ephemeral [K]",
         "runix/pgadmin4@1.62.0/default [K]",
         "vm/victoria-logs-single@0.12.5/default [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
-      "action_type": "refuse-or-scope",
-      "sub_group": "promotion-changeset-bug",
-      "owner_lane": "upstream-implementation",
-      "affected_cell_count": 20,
-      "lanes": [
-        "promotion"
-      ],
-      "command": "",
-      "prerequisite": "ConfigHub changeset add-new-units fix",
-      "expected_status": "watch (verified); pass once the server fix lands",
-      "prediction": false,
-      "evidence_surface": "variant-promotion-closeout",
-      "linked_issues": "#682; #948",
-      "affected_rows": [
-        "argo-cd/argo-cd@9.5.15/default [promotion]",
-        "bitnami/mongodb@19.0.7/generated-passwords [promotion]",
-        "bitnami/mysql@14.0.3/generated-passwords [promotion]",
-        "bitnami/nginx@24.0.2/http-clusterip [promotion]",
-        "bitnami/postgresql@18.6.7/generated-passwords [promotion]",
-        "bitnami/rabbitmq@16.0.14/generated-passwords [promotion]",
-        "bitnami/redis@25.5.3/default [promotion]",
-        "external-secrets/external-secrets@2.5.0/default [promotion]",
-        "grafana/grafana@10.5.15/generated-passwords [promotion]",
-        "grafana/loki@7.0.0/single-binary-filesystem [promotion]",
-        "grafana/tempo@1.24.4/local-persistent [promotion]",
-        "hashicorp/consul@2.0.0/default-control-plane [promotion]",
-        "hashicorp/vault@0.32.0/dev-mode [promotion]",
-        "ingress-nginx/ingress-nginx@4.15.1/internal-clusterip [promotion]",
-        "jetstack/cert-manager@v1.20.2/crds-enabled [promotion]",
-        "longhorn/longhorn@1.11.2/default [promotion]",
-        "metrics-server/metrics-server@3.13.0/default [promotion]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/default [promotion]",
-        "prometheus-community/prometheus@29.8.0/server-only-ephemeral [promotion]",
-        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/default [promotion]"
       ]
     },
     {
