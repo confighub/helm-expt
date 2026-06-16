@@ -6242,7 +6242,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/prometheus-community/prometheus-pushgateway/3.6.0 --base default"
+      "command": ""
     },
     {
       "chart": "prometheus-community/prometheus-pushgateway",
