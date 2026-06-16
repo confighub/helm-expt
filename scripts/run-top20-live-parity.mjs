@@ -16,6 +16,7 @@ const targetProfile = optionValue("--target-profile");
 const gitopsCanonicalizationProfile = optionValue("--gitops-canonicalization-profile");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
+const MIN_AUTH_TTL_MINUTES = 90;
 
 const targets = [
   { rank: 1, slug: "redis", chart: "bitnami/redis", version: "25.5.3", namespace: "redis", variant: "default", recipe: "recipes/bitnami/redis/25.5.3" },
@@ -45,6 +46,11 @@ if (wantsHelp) {
 } else if (wantsPreflight) {
   preflightSelectedTargets();
 } else if (mode === "--run") {
+  const auth = cubAuthCheck();
+  if (auth.result !== "pass") {
+    console.error(`FAIL live-parity auth preflight: ${auth.detail}`);
+    process.exit(1);
+  }
   const selected = selectedTargets();
   for (const target of selected) runTarget(target);
   writeSummary();
@@ -79,6 +85,7 @@ function preflightSelectedTargets() {
     const checks = [
       toolCheck("python3"),
       toolCheck("cub"),
+      cubAuthCheck(),
       toolCheck("kind"),
       toolCheck("docker"),
       targetProfileCheck(targetProfile),
@@ -105,6 +112,46 @@ function toolCheck(binary) {
     result: "pass",
     detail: firstLine(version.stdout || version.stderr) || path.stdout.trim(),
   };
+}
+
+function cubAuthCheck() {
+  const result = spawnSync("cub", ["auth", "status"], { encoding: "utf8", stdio: "pipe" });
+  const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`.trim();
+  if (result.status !== 0) {
+    return {
+      name: "cub auth",
+      result: "blocked",
+      detail: firstLine(output) || "not authenticated; run cub auth login before live parity",
+    };
+  }
+  const expiry = parseCubAuthExpiry(output);
+  if (expiry) {
+    const ttlMinutes = Math.floor((expiry.getTime() - Date.now()) / 60000);
+    if (ttlMinutes < MIN_AUTH_TTL_MINUTES) {
+      return {
+        name: "cub auth",
+        result: "blocked",
+        detail: `access token expires in ${ttlMinutes}m; run cub auth login before starting a live rig`,
+      };
+    }
+    return {
+      name: "cub auth",
+      result: "pass",
+      detail: `authenticated; token expires in ${ttlMinutes}m`,
+    };
+  }
+  return {
+    name: "cub auth",
+    result: "pass",
+    detail: firstLine(output) || "authenticated",
+  };
+}
+
+function parseCubAuthExpiry(output) {
+  const match = output.match(/(?:access token )?expires?\s+(?:at|:)\s+([^\n]+)/i);
+  if (!match) return null;
+  const parsed = new Date(match[1].trim());
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 function targetProfileCheck(profile) {
