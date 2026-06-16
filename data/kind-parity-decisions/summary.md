@@ -23,16 +23,16 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-26 non-pass rows: 9 watch, 17 blocked.
+27 non-pass rows: 9 watch, 18 blocked.
 9 are resolved by the **user** (stage a prerequisite or supply
-values); 7 need **catalog/model** work; the rest need a runtime or
+values); 8 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
 | `target-runtime` | 9 |
+| `model-gap-render` | 5 |
 | `target-prerequisite-crds` | 5 |
-| `model-gap-render` | 4 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
 | `model-gap-target-fact` | 1 |
@@ -43,7 +43,7 @@ readiness review.
 | --- | ---: |
 | `needs runtime review` | 9 |
 | `user` | 9 |
-| `catalog` | 7 |
+| `catalog` | 8 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -52,6 +52,7 @@ readiness review.
 | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | model-gap-target-fact | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |

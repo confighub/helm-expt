@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 17
+blocked: 18
 semantic parity pass: 132
-semantic parity defects: 5
+semantic parity defects: 6
 non-pass rows where semantic parity passed: 16
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 5 |
+| parity: semantic object diff | 6 |
 | helm-runtime: upstream not ready (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
@@ -78,6 +78,7 @@ broader support claim.
 | `autoscaler/cluster-autoscaler@9.57.0` | default | watch | pass | render-input: required Helm values missing (parity passed) |  | semantic parity passed; required render inputs need a modeled base | runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
 | `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
