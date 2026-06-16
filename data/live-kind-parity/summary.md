@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 120
 watch: 10
-blocked: 29
-semantic parity pass: 142
+blocked: 30
+semantic parity pass: 143
 semantic parity defects: 8
-non-pass rows where semantic parity passed: 22
+non-pass rows where semantic parity passed: 23
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -34,8 +34,8 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | parity: semantic object diff | 8 |
 | helm-runtime: upstream not ready (parity passed) | 4 |
+| remote-image: image pull failed or pinned image is unavailable (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 4 |
-| remote-image: image pull failed or pinned image is unavailable (parity passed) | 3 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | target-runtime: pod crash loop (parity passed) | 3 |
@@ -83,6 +83,7 @@ broader support claim.
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
+| `bitnami/apache@11.4.29` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-apache-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | no-crds | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml |

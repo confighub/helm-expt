@@ -23,7 +23,7 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-39 non-pass rows: 10 watch, 29 blocked.
+40 non-pass rows: 10 watch, 30 blocked.
 16 are resolved by the **user** (stage a prerequisite or supply
 values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
@@ -33,7 +33,7 @@ readiness review.
 | `target-prerequisite-crds` | 8 |
 | `target-runtime` | 8 |
 | `model-gap-render` | 7 |
-| `remote-image` | 3 |
+| `remote-image` | 4 |
 | `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
@@ -47,7 +47,7 @@ readiness review.
 | `user` | 16 |
 | `catalog` | 11 |
 | `needs runtime review` | 8 |
-| `catalog or image publisher` | 3 |
+| `catalog or image publisher` | 4 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -57,6 +57,7 @@ readiness review.
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | model-gap-target-fact | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
+| bitnami/apache@11.4.29 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/contour@21.1.4 | default | blocked | hook-lifecycle | catalog | no — needs lifecycle route |
 | bitnami/contour@21.1.4 | no-crds | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/elasticsearch@22.1.6 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |

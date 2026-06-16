@@ -16,8 +16,8 @@
   "byCompletionClass": {
     "needs-run": 256,
     "already-decided": 110,
-    "needs-target-or-prereq-fix": 99,
-    "needs-modeling": 28
+    "needs-target-or-prereq-fix": 98,
+    "needs-modeling": 29
   },
   "byLane": {
     "promotion": 192,
@@ -581,12 +581,12 @@
       "lane": "K",
       "lane_label": "two-cluster-kind",
       "state": "blocked",
-      "reason": "upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config))",
-      "next_action": "resolve the local-live prerequisite first; the live lanes inherit it",
-      "support_artifact": "",
-      "owner": "either",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run kind-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default"
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "support_artifact": "runs/live-kind-parity/bitnami-apache-default/receipt.yaml",
+      "owner": "catalog or image publisher",
+      "completion_class": "needs-modeling",
+      "command": ""
     },
     {
       "chart": "bitnami/apache",

@@ -24,8 +24,8 @@ columns). It changes no status and runs nothing.
 | --- | ---: | --- |
 | `needs-run` | 256 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `already-decided` | 110 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-target-or-prereq-fix` | 99 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `needs-modeling` | 28 | The catalog/model has to change before this can pass. |
+| `needs-target-or-prereq-fix` | 98 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-modeling` | 29 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
@@ -306,7 +306,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts victoria-metrics-single --base default-reviewed --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces |
 
-## needs-target-or-prereq-fix (99)
+## needs-target-or-prereq-fix (98)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -318,7 +318,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply); the live lanes inherit it |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply); the live lanes inherit it |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
-| bitnami/apache@11.4.29 | default | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/apache@11.4.29 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | bitnami/contour@21.1.4 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | bitnami/contour@21.1.4 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
@@ -412,7 +411,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | velero/velero@12.0.1 | no-crds | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | velero/velero@12.0.1 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 
-## needs-modeling (28)
+## needs-modeling (29)
 
 The catalog/model has to change before this can pass.
 
@@ -420,6 +419,7 @@ The catalog/model has to change before this can pass.
 | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | K | blocked | no target fact value generator for autoDiscovery.clusterName | Catalog work: add the missing target-fact value generator, then rerun. |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=2; extra=v1|Namespace||default; objects=apps/v1|Deployment|default|ebs-csi-controller; storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
+| bitnami/apache@11.4.29 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
 | bitnami/contour@21.1.4 | default | K | blocked | helm-hook: pre-install certificate generation failed (parity passed) | Catalog work: add a lifecycle route for the hook action or provide the hook-produced object as a target prerequisite, then rerun. |
 | bitnami/contour@21.1.4 | no-crds | K | blocked | semantic object parity issue: missing=5 extra=1 diffs=0; missing=apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io; extra=v1|Namespace||default; runtime also fails to pull docker.io/bitnami/contour:1.32.1-debian-12-r0; lifecycle also hits pre-install certificate-generation hook failure; runtime also requires hook/target Secret(s): envoycert | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/elasticsearch@22.1.6 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
