@@ -6,7 +6,7 @@
 
 The path to **100% verified disposition** of the master matrix — *not* 100% green.
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
-action is a valid product answer. This collapses the 492 non-green cells from the
+action is a valid product answer. This collapses the 477 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
 **21 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
@@ -25,8 +25,8 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | CCP-05 | refuse-or-scope | promotion-changeset-bug | 39 | upstream-implementation | ConfigHub changeset add-new-units fix |
 | CCP-06 | stage-prereq | local-kind-apply-harness | 39 | upstream-implementation | local-kind kubectl-apply harness fix |
 | CCP-07 | stage-prereq | stage-prereq-other | 23 | product-decision | see target-prerequisite-actions |
-| CCP-08 | run-kind | kind-ready | 22 | Codex-live | npm run kind-parity:run … (data/live-run-blocks) |
-| CCP-09 | stage-prereq | install-crds | 8 | Claude-non-live | cert-manager CRDs |
+| CCP-08 | stage-prereq | install-crds | 8 | Claude-non-live | cert-manager CRDs |
+| CCP-09 | fix-model | model-gap | 7 | Claude-non-live | — |
 | CCP-10 | lifecycle-observe | lifecycle-route | 7 | Codex-live | data/lifecycle-route-actions (route/action packets) |
 
 ## Cells by action type
@@ -38,17 +38,17 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | `stage-prereq` | 83 |
 | `refresh-image` | 48 |
 | `refuse-or-scope` | 39 |
-| `run-kind` | 22 |
-| `fix-model` | 20 |
+| `fix-model` | 21 |
 | `lifecycle-observe` | 7 |
+| `run-kind` | 6 |
 
 ## Cells by owner lane
 
 | Owner lane | Cells |
 | --- | ---: |
-| `Codex-live` | 182 |
+| `Codex-live` | 166 |
 | `product-decision` | 147 |
-| `Claude-non-live` | 85 |
+| `Claude-non-live` | 86 |
 | `upstream-implementation` | 78 |
 
 ## Variant promotion (first-class family)
@@ -68,10 +68,10 @@ The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.
 | CCP-05 | refuse-or-scope | promotion-changeset-bug | 39 | promotion | upstream-implementation | watch (verified); pass once the server fix lands | variant-promotion-closeout | #682; #948 |
 | CCP-06 | stage-prereq | local-kind-apply-harness | 39 | L | upstream-implementation | pass after the local-kind apply harness is fixed (prediction) | outcome-coverage/base-outcomes | #248; #753 |
 | CCP-07 | stage-prereq | stage-prereq-other | 23 | G/K/P | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-08 | run-kind | kind-ready | 22 | K | Codex-live | pass or watch (prediction) | kind-parity-decisions | #248; #753 |
-| CCP-09 | stage-prereq | install-crds | 8 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
+| CCP-08 | stage-prereq | install-crds | 8 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
+| CCP-09 | fix-model | model-gap | 7 | G/K/L/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
 | CCP-10 | lifecycle-observe | lifecycle-route | 7 | lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions | #248; #753 |
-| CCP-11 | fix-model | model-gap | 6 | G/K/L/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-11 | run-kind | kind-ready | 6 | K | Codex-live | pass or watch (prediction) | kind-parity-decisions | #248; #753 |
 | CCP-12 | stage-prereq | create-namespace | 6 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
 | CCP-13 | fix-model | base-design | 5 | G/K/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
 | CCP-14 | fix-model | semantic-normalization | 4 | G/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |

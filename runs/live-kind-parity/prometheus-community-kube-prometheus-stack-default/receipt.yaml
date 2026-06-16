@@ -1,49 +1,52 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: LiveHelmInstallerKindParityReceipt
 metadata:
-  name: prometheus-community-kube-prometheus-stack-85.3.3-default-kind-parity-20260606
+  name: prometheus-community-kube-prometheus-stack-86.1.0-default-kind-parity-20260606
 spec:
   chart: prometheus-community/kube-prometheus-stack
-  version: 85.3.3
+  version: 86.1.0
   base: default
-  result: pass
-  observedAt: '2026-06-09T07:30:29Z'
+  result: blocked
+  observedAt: '2026-06-16T19:20:36Z'
   package:
-    path: packages/prometheus-community/kube-prometheus-stack/85.3.3
+    path: packages/prometheus-community/kube-prometheus-stack/86.1.0
   recipe:
-    path: recipes/prometheus-community/kube-prometheus-stack/85.3.3
-  variantRevision: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml
+    path: recipes/prometheus-community/kube-prometheus-stack/86.1.0
+  variantRevision: recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-kubepr-c1846-ljx1-helm
-    installerCluster: hx-kubepr-c1846-ljx1-installer
+    helmCluster: hx-kubepr-ccd1b-1qhs-helm
+    installerCluster: hx-kubepr-ccd1b-1qhs-installer
     namespace: monitoring
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-kubepr-c1846-ljx1-helm
+      - cluster: hx-kubepr-ccd1b-1qhs-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-kubepr-c1846-ljx1-helm" ...
+        detail: 'Deleting cluster "hx-kubepr-ccd1b-1qhs-helm" ...
 
-          Deleted nodes: ["hx-kubepr-c1846-ljx1-helm-control-plane"]'
-      - cluster: hx-kubepr-c1846-ljx1-installer
+          Deleted nodes: ["hx-kubepr-ccd1b-1qhs-helm-control-plane"]'
+      - cluster: hx-kubepr-ccd1b-1qhs-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-kubepr-c1846-ljx1-installer" ...
+        detail: 'Deleting cluster "hx-kubepr-ccd1b-1qhs-installer" ...
 
-          Deleted nodes: ["hx-kubepr-c1846-ljx1-installer-control-plane"]'
+          Deleted nodes: ["hx-kubepr-ccd1b-1qhs-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
-      result: pass
+      result: blocked
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
-        --repo https://prometheus-community.github.io/helm-charts --version 85.3.3
-        --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
+        --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
+        --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: monitoring
-      manifestSHA256: 9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491
+      manifestSHA256: 58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd
       objectCount: 124
-      liveHelmManifestSHA256: 1b4bf717552b5559ba29ca66989e2d5c3995152d88738d7193b5c344c5cedc1e
+      liveHelmManifestSHA256: a5d181f356863e37121b9d311ef3a97a31259c65b202d23aaf84db4f35ac5573
       liveHelmManifestObjectCount: 114
       runtimeNamespaces: &id001
       - monitoring
@@ -52,42 +55,46 @@ spec:
         namespaces: *id001
         workloads: '# monitoring
 
-          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     94s
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     101s
 
-          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     94s
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     101s
 
-          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     94s
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     101s
 
-          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   79s
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   92s
 
-          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   78s
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   92s
 
-          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   94s'
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   101s'
         pods: '# monitoring
 
-          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     79s
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     92s
 
-          kube-prometheus-stack-grafana-689f864759-995mn              3/3   Running   0     94s
+          kube-prometheus-stack-grafana-689f864759-dqf6r              3/3   Running   0     101s
 
-          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-ngk9q   1/1   Running   0     94s
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-qblp7   1/1   Running   0     101s
 
-          kube-prometheus-stack-operator-6d54798576-wp8j6             1/1   Running   0     94s
+          kube-prometheus-stack-operator-6cd9d8fb8d-7dqwf             1/1   Running   0     101s
 
-          kube-prometheus-stack-prometheus-node-exporter-mrmzn        1/1   Running   0     94s
+          kube-prometheus-stack-prometheus-node-exporter-r4t9g        1/1   Running   0     101s
 
-          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     78s'
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     92s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-c1846-ljx1-kube-prometheus-stack
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/kube-prometheus-stack/86.1.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-ccd1b-1qhs-kube-prometheus-stack
         --non-interactive --namespace monitoring
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: monitoring
-      manifestSHA256: b0bbb44997aa0603db8da35a79de02abc6fa1643de7e8632296cd09426ded831
+      manifestSHA256: 571577cdf30e1bd0d0f4f9e6f86686bbd2b09e4d7dd76c2beb62fb5e2bf03e9d
       objectCount: 125
       manifestNamespaces:
       - kube-system
@@ -99,47 +106,80 @@ spec:
         namespaces: *id002
         workloads: '# monitoring
 
-          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     102s
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     93s
 
-          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     102s
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     93s
 
-          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     102s
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     93s
 
-          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   84s
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   77s
 
-          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   84s
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   77s
 
-          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   102s'
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   93s'
         pods: '# monitoring
 
-          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     84s
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     77s
 
-          kube-prometheus-stack-grafana-689f864759-st769              3/3   Running   0     102s
+          kube-prometheus-stack-grafana-689f864759-kx5wb              3/3   Running   0     93s
 
-          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-x56g9   1/1   Running   0     101s
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-pc7vv   1/1   Running   0     93s
 
-          kube-prometheus-stack-operator-6d54798576-742dq             1/1   Running   0     101s
+          kube-prometheus-stack-operator-6cd9d8fb8d-p2qc9             1/1   Running   0     93s
 
-          kube-prometheus-stack-prometheus-node-exporter-7rjkf        1/1   Running   0     101s
+          kube-prometheus-stack-prometheus-node-exporter-s6z9r        1/1   Running   0     93s
 
-          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     84s'
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     77s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||monitoring
     semanticNormalizations: &id003
     - prune-null-fields
     - prune-empty-metadata-maps
-    helmVsCubInstallerApply:
-      result: pass
+    regularHelmRenderVsLive:
+      result: blocked
       helmObjectCount: 124
+      installerObjectCount: 114
+      missingFromInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusrules.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||scrapeconfigs.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||thanosrulers.monitoring.coreos.com
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 736df0dd689982280a303563c679ea1c527ccbbcf6cfe1cdeabf21057cd9dec1
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 114
       installerObjectCount: 125
       missingFromInstaller: []
       extraInInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusrules.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||scrapeconfigs.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||thanosrulers.monitoring.coreos.com
       - v1|Namespace||monitoring
       semanticDiffs: []
       semanticNormalizations: *id003
-      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+      comparisonSHA256: b27032d690018b1af86710b320d90d6a2a5c952d3a0fa57f083a02b4c4f90c49
   checks:
   - name: kind-create-helm
     result: pass
@@ -149,14 +189,20 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=0
+    detail: secrets=0 crds=0 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: staged=1
-  - name: regular-helm-live
+    detail: secrets=1 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
     result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=10 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
     detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
-      NAME: kube-prometheus-stack\nLAST DEPLOYED: Tue Jun  9 08:31:25 2026\nNAMESPACE:\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Tue Jun 16 20:21:27 2026\nNAMESPACE:\
       \ monitoring\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
       TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
       \ status by running:\n  kubectl --namespace monitoring get pods -l \"release=kube-prometheus-stack\"\
@@ -168,28 +214,44 @@ spec:
       Get your grafana admin user password by running:\n\n  kubectl get secret --namespace\
       \ monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath=\"{.items[0].data.admin-password}\"\
       \ | "
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# monitoring
 
-      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     102s
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     93s
 
-      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     102s
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     93s
 
-      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     102s
+      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     93s
 
-      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   84s
+      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   77s
 
-      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   84s
+      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   77s
 
-      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   102s'
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   93s'
   - name: semantic-object-parity
-    result: pass
-    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+    result: blocked
+    detail: missing=0 extra=['apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusrules.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||scrapeconfigs.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||thanosrulers.monitoring.coreos.com',
+      'v1|Namespace||monitoring'] diffs=0
   targetFacts:
     regularHelm:
       result: pass
       stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -199,4 +261,15 @@ spec:
         - cert
         - key
         lane: cubInstallerApply
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/target-facts-installer.yaml
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

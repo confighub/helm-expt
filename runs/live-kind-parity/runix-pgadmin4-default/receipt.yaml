@@ -1,0 +1,182 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: runix-pgadmin4-1.62.0-default-kind-parity-20260606
+spec:
+  chart: runix/pgadmin4
+  version: 1.62.0
+  base: default
+  result: pass
+  observedAt: '2026-06-16T19:37:44Z'
+  package:
+    path: packages/runix/pgadmin4/1.62.0
+  recipe:
+    path: recipes/runix/pgadmin4/1.62.0
+  variantRevision: recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-pgadmi-2244d-nrgm-helm
+    installerCluster: hx-pgadmi-2244d-nrgm-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-pgadmi-2244d-nrgm-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-pgadmi-2244d-nrgm-helm" ...
+
+          Deleted nodes: ["hx-pgadmi-2244d-nrgm-helm-control-plane"]'
+      - cluster: hx-pgadmi-2244d-nrgm-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-pgadmi-2244d-nrgm-installer" ...
+
+          Deleted nodes: ["hx-pgadmi-2244d-nrgm-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
+        --version 1.62.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/runix-pgadmin4-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565
+      objectCount: 5
+      liveHelmManifestSHA256: 78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/pgadmin4   1/1   1     1     45s'
+        pods: '# default
+
+          pgadmin4-6d5b97559d-22x6k   1/1   Running   0     45s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/runix/pgadmin4/1.62.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-pgadmi-2244d-nrgm-pgadmin4
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: aad29a19fad417757c927e7b6987390beffe07f4e316215fc5d8de64b9bcf451
+      objectCount: 6
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/pgadmin4   1/1   1     1     50s'
+        pods: '# default
+
+          pgadmin4-6d5b97559d-f5hdb   1/1   Running   0     50s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"pgadmin4\" does not exist. Installing it now.\nNAME: pgadmin4\n\
+      LAST DEPLOYED: Tue Jun 16 20:38:35 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nCHART NAME: pgadmin4\nCHART\
+      \ VERSION: 1.62.0\nAPP VERSION: 9.13\n\n\nSECURITY WARNING: 'env.password' is\
+      \ set to the default 'SuperSecret' and no 'existingSecret' is set.\nThis is\
+      \ insecure. Set a strong password or use an existingSecret.\n\n1. Get the application\
+      \ URL by running these commands:\n  export POD_NAME=$(kubectl get pods --namespace\
+      \ default -l \"app.kubernetes.io/name=pgadmin4,app.kubernetes.io/instance=pgadmin4\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  echo \"Visit http://127.0.0.1:8080\
+      \ to use your application\"\n  kubectl port-forward $POD_NAME 8080:80"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/pgadmin4   1/1   1     1     50s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

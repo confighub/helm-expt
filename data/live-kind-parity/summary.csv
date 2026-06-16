@@ -1,8 +1,8 @@
 chart,version,base,result,semantic_parity,reason,related_lifecycle_evidence,meaning,receipt
 aqua/trivy-operator,0.32.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/aqua-trivy-operator-default/receipt.yaml
 aqua/trivy-operator,0.32.1,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/aqua-trivy-operator-no-crds/receipt.yaml
-argo-cd/argo-cd,9.5.15,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml
-argo-cd/argo-cd,9.5.17,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml
+argo-cd/argo-cd,9.5.15,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml
+argo-cd/argo-cd,9.5.17,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml
 argo-cd/argo-events,2.4.21,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-events-default/receipt.yaml
 argo-cd/argo-events,2.4.21,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml
 argo-cd/argo-rollouts,2.40.9,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml
@@ -22,20 +22,20 @@ bitnami/contour,21.1.4,no-crds,blocked,defect,parity: semantic object diff,,sema
 bitnami/elasticsearch,22.1.6,default,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml
 bitnami/elasticsearch,22.1.6,ha,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml
 bitnami/memcached,8.5.5,default,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-memcached-default/receipt.yaml
-bitnami/mongodb,19.0.7,existing-secret-replicaset,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
-bitnami/mongodb,19.0.7,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+bitnami/mongodb,19.1.0,existing-secret-replicaset,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
+bitnami/mongodb,19.1.0,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
 bitnami/mysql,14.0.3,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml
 bitnami/mysql,14.0.3,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml
-bitnami/nginx,24.0.2,existing-tls-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
-bitnami/nginx,24.0.2,http-clusterip,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
+bitnami/nginx,25.0.0,existing-tls-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
+bitnami/nginx,25.0.0,http-clusterip,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
 bitnami/opensearch,2.0.10,default,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml
 bitnami/opensearch,2.0.10,ha,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml
-bitnami/postgresql,18.6.7,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml
-bitnami/postgresql,18.6.7,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml
+bitnami/postgresql,18.7.0,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml
+bitnami/postgresql,18.7.0,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml
 bitnami/rabbitmq,16.0.14,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
 bitnami/rabbitmq,16.0.14,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
-bitnami/redis,25.5.3,default,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-default/receipt.yaml
-bitnami/redis,25.5.3,reuse-existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
+bitnami/redis,27.0.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-default/receipt.yaml
+bitnami/redis,27.0.0,reuse-existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
 cloudnative-pg/cloudnative-pg,0.28.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml
 cloudnative-pg/cloudnative-pg,0.28.2,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml
 coredns/coredns,1.45.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/coredns-coredns-default/receipt.yaml
@@ -128,8 +128,8 @@ percona/pxc-operator,1.19.1,no-crds,watch,pass,helm-runtime: upstream not ready 
 projectcalico/tigera-operator,v3.32.0,default,blocked,unknown,target-prerequisite: CRDs missing,,inspect receipt,runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml
 prometheus-community/alertmanager,1.37.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml
 prometheus-community/alertmanager,1.37.0,ha,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml
-prometheus-community/kube-prometheus-stack,85.3.3,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
-prometheus-community/kube-prometheus-stack,85.3.3,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
+prometheus-community/kube-prometheus-stack,86.1.0,default,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+prometheus-community/kube-prometheus-stack,86.1.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
 prometheus-community/kube-state-metrics,7.4.0,cluster-metrics-readonly,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-kube-state-metrics-cluster-metrics-readonly/receipt.yaml
 prometheus-community/kube-state-metrics,7.4.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-kube-state-metrics-default/receipt.yaml
 prometheus-community/prometheus-adapter,5.3.0,apiservice-v1-capability,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-adapter-apiservice-v1-capability/receipt.yaml
@@ -141,10 +141,11 @@ prometheus-community/prometheus-node-exporter,4.55.0,cluster-metrics-readonly,pa
 prometheus-community/prometheus-node-exporter,4.55.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-node-exporter-default/receipt.yaml
 prometheus-community/prometheus-operator-crds,29.0.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-operator-crds-default/receipt.yaml
 prometheus-community/prometheus-pushgateway,3.6.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-pushgateway-default/receipt.yaml
-prometheus-community/prometheus,29.8.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml
-prometheus-community/prometheus,29.8.0,server-only-ephemeral,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
+prometheus-community/prometheus,29.9.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml
+prometheus-community/prometheus,29.9.0,server-only-ephemeral,pass,pass,,,live parity passed,runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
 rook-release/rook-ceph-cluster,v1.19.5,default,blocked,pass,target-prerequisite: required Namespace missing (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml
 rook-release/rook-ceph,v1.19.5,default,pass,pass,,,live parity passed,runs/live-kind-parity/rook-release-rook-ceph-default/receipt.yaml
+runix/pgadmin4,1.62.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/runix-pgadmin4-default/receipt.yaml
 sealed-secrets/sealed-secrets,2.18.6,default,pass,pass,,,live parity passed,runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml
 sealed-secrets/sealed-secrets,2.18.6,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/sealed-secrets-sealed-secrets-no-crds/receipt.yaml
 secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml
@@ -157,5 +158,6 @@ traefik/traefik,40.2.0,default,blocked,defect,parity: semantic object diff,,sema
 traefik/traefik,40.2.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/traefik-traefik-no-crds/receipt.yaml
 velero/velero,12.0.1,default,blocked,unknown,blocked: inspect receipt,,inspect receipt,runs/live-kind-parity/velero-velero-default/receipt.yaml
 velero/velero,12.0.1,no-crds,blocked,unknown,target-prerequisite: CRDs missing,,inspect receipt,runs/live-kind-parity/velero-velero-no-crds/receipt.yaml
+vm/victoria-logs-single,0.12.5,default,pass,pass,,,live parity passed,runs/live-kind-parity/vm-victoria-logs-single-default/receipt.yaml
 vm/victoria-metrics-single,0.39.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/vm-victoria-metrics-single-default/receipt.yaml
 vm/victoria-metrics-single,0.39.0,default-reviewed,pass,pass,,,live parity passed,runs/live-kind-parity/vm-victoria-metrics-single-default-reviewed/receipt.yaml

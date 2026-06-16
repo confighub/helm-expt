@@ -23,16 +23,16 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-40 non-pass rows: 10 watch, 30 blocked.
+41 non-pass rows: 10 watch, 31 blocked.
 16 are resolved by the **user** (stage a prerequisite or supply
-values); 10 need **catalog/model** work; the rest need a runtime or
+values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
 | `target-prerequisite-crds` | 8 |
 | `target-runtime` | 8 |
-| `model-gap-render` | 6 |
+| `model-gap-render` | 7 |
 | `remote-image` | 5 |
 | `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
@@ -45,7 +45,7 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `user` | 16 |
-| `catalog` | 10 |
+| `catalog` | 11 |
 | `needs runtime review` | 8 |
 | `catalog or image publisher` | 5 |
 | `needs readiness review` | 1 |
@@ -87,6 +87,7 @@ readiness review.
 | percona/pg-operator@3.0.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
+| prometheus-community/kube-prometheus-stack@86.1.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite-namespace | user | yes, after creating the Namespace |

@@ -1,48 +1,51 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: LiveHelmInstallerKindParityReceipt
 metadata:
-  name: bitnami-postgresql-18.6.7-existing-secret-kind-parity-20260606
+  name: bitnami-postgresql-18.7.0-existing-secret-kind-parity-20260606
 spec:
   chart: bitnami/postgresql
-  version: 18.6.7
+  version: 18.7.0
   base: existing-secret
   result: pass
-  observedAt: '2026-06-06T10:39:59Z'
+  observedAt: '2026-06-16T19:07:02Z'
   package:
-    path: packages/bitnami/postgresql/18.6.7
+    path: packages/bitnami/postgresql/18.7.0
   recipe:
-    path: recipes/bitnami/postgresql/18.6.7
-  variantRevision: recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml
+    path: recipes/bitnami/postgresql/18.7.0
+  variantRevision: recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-postgr-6ba8a-1p9e-helm
-    installerCluster: hx-postgr-6ba8a-1p9e-installer
+    helmCluster: hx-postgr-9aed0-kas0-helm
+    installerCluster: hx-postgr-9aed0-kas0-installer
     namespace: postgresql
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-postgr-6ba8a-1p9e-helm
+      - cluster: hx-postgr-9aed0-kas0-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-postgr-6ba8a-1p9e-helm" ...
+        detail: 'Deleting cluster "hx-postgr-9aed0-kas0-helm" ...
 
-          Deleted nodes: ["hx-postgr-6ba8a-1p9e-helm-control-plane"]'
-      - cluster: hx-postgr-6ba8a-1p9e-installer
+          Deleted nodes: ["hx-postgr-9aed0-kas0-helm-control-plane"]'
+      - cluster: hx-postgr-9aed0-kas0-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-postgr-6ba8a-1p9e-installer" ...
+        detail: 'Deleting cluster "hx-postgr-9aed0-kas0-installer" ...
 
-          Deleted nodes: ["hx-postgr-6ba8a-1p9e-installer-control-plane"]'
+          Deleted nodes: ["hx-postgr-9aed0-kas0-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
-        --version 18.6.7 --namespace postgresql --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-postgresql-existing-secret/regular-helm-values.yaml
+      command: helm upgrade --install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql
+        --version 18.7.0 --namespace postgresql --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: postgresql
-      manifestSHA256: 63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef
+      manifestSHA256: bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2
       objectCount: 6
-      liveHelmManifestSHA256: 235a4f02f54c3f03e6e0597a607819e96064bddb4d72e6ec5ebca610f24d8133
+      liveHelmManifestSHA256: 4c616c38a46d0111de1e859bbe425e47f110987218a845e09fc4cbca466859fc
       liveHelmManifestObjectCount: 6
       runtimeNamespaces: &id001
       - postgresql
@@ -51,22 +54,26 @@ spec:
         namespaces: *id001
         workloads: '# postgresql
 
-          statefulset.apps/postgresql   1/1   35s'
+          statefulset.apps/postgresql   1/1   34s'
         pods: '# postgresql
 
-          postgresql-0   1/1   Running   0     35s'
+          postgresql-0   1/1   Running   0     34s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.6.7
-        --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-postgr-6ba8a-1p9e-postgresql
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/postgresql/18.7.0
+        --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-postgr-9aed0-kas0-postgresql
         --non-interactive --namespace postgresql
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: postgresql
-      manifestSHA256: 6f0c4291bdb660457bff75e289d24ea23de7e1adbbeb7ec0d8b70025cce1e7cc
+      manifestSHA256: 787ecd425b4bfb966c9b81bd9c8028dd97d95c7bb7a096de8ebaf4a740b360f8
       objectCount: 7
       manifestNamespaces:
       - postgresql
@@ -77,14 +84,29 @@ spec:
         namespaces: *id002
         workloads: '# postgresql
 
-          statefulset.apps/postgresql   1/1   40s'
+          statefulset.apps/postgresql   1/1   41s'
         pods: '# postgresql
 
-          postgresql-0   1/1   Running   0     40s'
+          postgresql-0   1/1   Running   0     41s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||postgresql
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 6
@@ -93,7 +115,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||postgresql
       semanticDiffs: []
-      comparisonSHA256: c3866137a465ac636d73c84a83f03755b6dc44de56f05463b9c548fb927c384f
+      semanticNormalizations: *id003
+      comparisonSHA256: 4030296e969daaa881ca65b0740e402ac6166e4ff517bb98972482911dd4a3c0
   checks:
   - name: kind-create-helm
     result: pass
@@ -103,30 +126,29 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
   - name: regular-helm-live
     result: pass
-    detail: "Release \"postgresql\" does not exist. Installing it now.\nNAME: postgresql\n\
-      LAST DEPLOYED: Sat Jun  6 11:40:56 2026\nNAMESPACE: postgresql\nSTATUS: deployed\n\
-      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
-      \ NAME: postgresql\nCHART VERSION: 18.6.7\nAPP VERSION: 18.4.0\n\n\u26A0 WARNING:\
-      \ Since August 28th, 2025, only a limited subset of images/charts are available\
-      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
-      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
-      \n** Please be patient while the chart is being deployed **\n\nWARNING: PostgreSQL\
-      \ has been configured without authentication, this is not recommended for production\
-      \ environments.\n\nPostgreSQL can be accessed via port 5432 on the following\
-      \ DNS names from within your cluster:\n\n    postgresql.postgresql.svc.cluster.local\
-      \ - Read/Write connection\n\nTo get the password for \"postgres\" run:\n\n \
-      \   export POSTGRES_PASSWORD=$(kubectl get secret --"
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/postgresql:18.7.0
+
+      Digest: sha256:34fc08a6cc0d2f739891ad6a3946c834ef556c6ef1780008b23dc0933fa72bd4'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# postgresql
 
-      statefulset.apps/postgresql   1/1   40s'
+      statefulset.apps/postgresql   1/1   41s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||postgresql'] diffs=0
@@ -138,7 +160,11 @@ spec:
         name: postgresql-auth
         keys:
         - postgres-password
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-helm.yaml
+        lane: regularHelm
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -146,4 +172,16 @@ spec:
         name: postgresql-auth
         keys:
         - postgres-password
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-installer.yaml
+        lane: cubInstallerApply
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

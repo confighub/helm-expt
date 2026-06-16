@@ -18,40 +18,38 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-492 non-green cells:
+477 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-run` | 236 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 220 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `already-decided` | 127 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-target-or-prereq-fix` | 100 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `needs-modeling` | 29 | The catalog/model has to change before this can pass. |
+| `needs-modeling` | 30 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
 | `promotion` | 192 |
-| `K` | 72 |
 | `lifecycle` | 61 |
 | `G` | 57 |
+| `K` | 57 |
 | `P` | 57 |
 | `L` | 53 |
 
 | State | Cells |
 | --- | ---: |
-| `todo` | 236 |
+| `todo` | 220 |
 | `watch` | 127 |
-| `blocked` | 111 |
+| `blocked` | 112 |
 | `fail` | 18 |
 
-## needs-run (236)
+## needs-run (220)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
 | Chart | Variant | Lane | State | Reason | Next action |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-cd@9.5.15 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | argo-cd/argo-cd@9.5.15 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces |
-| argo-cd/argo-cd@9.5.17 | no-crds | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces |
@@ -75,9 +73,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
 | bitnami/mongodb@19.0.9 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.9 | generated-passwords | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
-| bitnami/mongodb@19.1.0 | existing-secret-replicaset | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces |
-| bitnami/mongodb@19.1.0 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.1.0 | generated-passwords | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base generated-passwords --variant-promotion-proof --cleanup-spaces |
 | bitnami/mysql@14.0.3 | existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mysql --base existing-secret --variant-promotion-proof --cleanup-spaces |
 | bitnami/nginx@24.0.2 | existing-tls-ingress | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces |
@@ -85,9 +81,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/nginx@24.0.4 | existing-tls-ingress | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces |
 | bitnami/nginx@24.0.4 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@24.0.4 | http-clusterip | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base http-clusterip --variant-promotion-proof --cleanup-spaces |
-| bitnami/nginx@25.0.0 | existing-tls-ingress | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces |
-| bitnami/nginx@25.0.0 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@25.0.0 | http-clusterip | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base http-clusterip --variant-promotion-proof --cleanup-spaces |
 | bitnami/opensearch@2.0.10 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts opensearch --base default --variant-promotion-proof --cleanup-spaces |
 | bitnami/opensearch@2.0.10 | ha | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts opensearch --base ha --variant-promotion-proof --cleanup-spaces |
@@ -99,17 +93,13 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/postgresql@18.6.7 | existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/postgresql@18.6.7 | existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts postgresql --base existing-secret --variant-promotion-proof --cleanup-spaces |
 | bitnami/postgresql@18.6.7 | generated-passwords | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/postgresql@18.7.0 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.7.0 | existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts postgresql --base existing-secret --variant-promotion-proof --cleanup-spaces |
-| bitnami/postgresql@18.7.0 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.7.0 | generated-passwords | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts postgresql --base generated-passwords --variant-promotion-proof --cleanup-spaces |
 | bitnami/rabbitmq@16.0.14 | existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rabbitmq --base existing-secret --variant-promotion-proof --cleanup-spaces |
 | bitnami/redis@25.5.3 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/redis@25.5.3 | reuse-existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/redis@25.5.3 | reuse-existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts redis --base reuse-existing-secret --variant-promotion-proof --cleanup-spaces |
-| bitnami/redis@27.0.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@27.0.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts redis --base default --variant-promotion-proof --cleanup-spaces |
-| bitnami/redis@27.0.0 | reuse-existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@27.0.0 | reuse-existing-secret | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts redis --base reuse-existing-secret --variant-promotion-proof --cleanup-spaces |
 | bitnami/spark@10.0.3 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts spark --base default --variant-promotion-proof --cleanup-spaces |
 | bitnami/spark@10.0.3 | ha | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts spark --base ha --variant-promotion-proof --cleanup-spaces |
@@ -237,9 +227,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | projectcalico/tigera-operator@v3.32.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts tigera-operator --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/kube-prometheus-stack@86.1.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/kube-prometheus-stack@86.1.0 | no-crds | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/kube-prometheus-stack@86.1.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/kube-state-metrics@7.4.0 | cluster-metrics-readonly | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/kube-state-metrics@7.4.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base default --variant-promotion-proof --cleanup-spaces |
@@ -257,14 +245,11 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | prometheus-community/prometheus-operator-crds@29.0.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-operator-crds --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus-pushgateway@3.6.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-pushgateway --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus@29.8.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/prometheus@29.9.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus@29.9.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/prometheus@29.9.0 | server-only-ephemeral | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus@29.9.0 | server-only-ephemeral | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base server-only-ephemeral --variant-promotion-proof --cleanup-spaces |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph-cluster --base default --variant-promotion-proof --cleanup-spaces |
 | rook-release/rook-ceph@v1.19.5 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | rook-release/rook-ceph@v1.19.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph --base default --variant-promotion-proof --cleanup-spaces |
-| runix/pgadmin4@1.62.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | runix/pgadmin4@1.62.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces |
 | sealed-secrets/sealed-secrets@2.18.6 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces |
 | sealed-secrets/sealed-secrets@2.18.6 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base no-crds --variant-promotion-proof --cleanup-spaces |
@@ -281,7 +266,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts traefik --base no-crds --variant-promotion-proof --cleanup-spaces |
 | velero/velero@12.0.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts velero --base default --variant-promotion-proof --cleanup-spaces |
 | velero/velero@12.0.1 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts velero --base no-crds --variant-promotion-proof --cleanup-spaces |
-| vm/victoria-logs-single@0.12.5 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | vm/victoria-logs-single@0.12.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-logs-single --base default --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default-reviewed --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces |
@@ -393,7 +377,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | velero/velero@12.0.1 | no-crds | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | velero/velero@12.0.1 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 
-## needs-modeling (29)
+## needs-modeling (30)
 
 The catalog/model has to change before this can pass.
 
@@ -414,6 +398,7 @@ The catalog/model has to change before this can pass.
 | nats/nats@2.14.0 | ha | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=3; extra=v1|Namespace||default; objects=apps/v1|StatefulSet||nats; v1|ConfigMap||nats-config; v1|Service||nats-headless | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | projectcalico/tigera-operator@v3.32.0 | default | G | blocked | crd-bootstrap: required CRDs missing before custom resources apply | Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness. |
 | projectcalico/tigera-operator@v3.32.0 | default | P | blocked | crd-bootstrap: required CRDs missing before custom resources apply | Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness. |
+| prometheus-community/kube-prometheus-stack@86.1.0 | default | K | blocked | semantic object parity issue: missing=0 extra=11 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | G | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | Use or promote the base rendered for the target API set, then rerun live parity. For prometheus-adapter on modern Kubernetes, use the apiservice-v1-capability base. |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
