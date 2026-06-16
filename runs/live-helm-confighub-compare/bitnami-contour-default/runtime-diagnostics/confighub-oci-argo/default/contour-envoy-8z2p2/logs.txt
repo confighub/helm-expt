@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "envoy-initconfig" in pod "contour-envoy-8z2p2" is waiting to start: PodInitializing

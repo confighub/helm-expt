@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "contour" in pod "contour-contour-6f88fd5fc6-97z6m" not found

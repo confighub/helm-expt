@@ -2211,13 +2211,19 @@ def capture_runtime_diagnostics(
     output_dir = run_root / "runtime-diagnostics" / safe_filename(label)
     namespace_artifacts = []
     pod_artifacts = []
+    # Diagnostics are evidence, not the main live run. Keep them bounded so a
+    # timeout row still writes a receipt and cleans up promptly.
+    event_timeout = 20
+    describe_timeout = 30
+    log_timeout = 30
+    log_tail = "80"
     for namespace in namespaces:
         namespace_dir = output_dir / safe_filename(namespace)
         rc_events, events_out, events_err = kubectl(
             ["-n", namespace, "get", "events", "--sort-by=.lastTimestamp"],
             kubeconfig,
             context,
-            timeout=60,
+            timeout=event_timeout,
         )
         namespace_artifacts.append({
             "namespace": namespace,
@@ -2229,7 +2235,7 @@ def capture_runtime_diagnostics(
             ["-n", namespace, "describe", "deploy,statefulset,daemonset,job"],
             kubeconfig,
             context,
-            timeout=120,
+            timeout=describe_timeout,
         )
         namespace_artifacts.append({
             "namespace": namespace,
@@ -2243,7 +2249,7 @@ def capture_runtime_diagnostics(
         if not namespace or not pod:
             continue
         pod_dir = output_dir / safe_filename(namespace) / safe_filename(pod)
-        rc_describe, describe_out, describe_err = kubectl(["-n", namespace, "describe", "pod", pod], kubeconfig, context, timeout=60)
+        rc_describe, describe_out, describe_err = kubectl(["-n", namespace, "describe", "pod", pod], kubeconfig, context, timeout=describe_timeout)
         pod_artifacts.append({
             "namespace": namespace,
             "pod": pod,
@@ -2251,7 +2257,7 @@ def capture_runtime_diagnostics(
             "result": "pass" if rc_describe == 0 else "blocked",
             **diagnostic_artifact(run_root, pod_dir / "describe.txt", describe_out or describe_err),
         })
-        rc_logs, logs_out, logs_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", "--tail=200"], kubeconfig, context, timeout=120)
+        rc_logs, logs_out, logs_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", f"--tail={log_tail}"], kubeconfig, context, timeout=log_timeout)
         pod_artifacts.append({
             "namespace": namespace,
             "pod": pod,
@@ -2259,7 +2265,7 @@ def capture_runtime_diagnostics(
             "result": "pass" if rc_logs == 0 else "blocked",
             **diagnostic_artifact(run_root, pod_dir / "logs.txt", logs_out or logs_err),
         })
-        rc_prev, prev_out, prev_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", "--previous", "--tail=200"], kubeconfig, context, timeout=120)
+        rc_prev, prev_out, prev_err = kubectl(["-n", namespace, "logs", pod, "--all-containers=true", "--previous", f"--tail={log_tail}"], kubeconfig, context, timeout=log_timeout)
         if rc_prev == 0 or prev_out or prev_err:
             pod_artifacts.append({
                 "namespace": namespace,
@@ -2772,7 +2778,12 @@ def main() -> int:
             check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
         helm_runtime_namespaces = workload_namespaces(helm_live_manifest or canonical_helm_manifest, helm_namespace)
         if helm_runtime_namespaces:
-            helm_runtime = wait_ready(kubeconfig, context, helm_runtime_namespaces[0], timeout_seconds=180)
+            # If Helm already exhausted its own --wait timeout, take a bounded
+            # snapshot instead of waiting again for the same non-ready objects.
+            if rc != 0 and helm_wait_timeout(f"{helm_out}\n{helm_err}"):
+                helm_runtime = ready_status(kubeconfig, context, helm_runtime_namespaces[0], command_timeout=20)
+            else:
+                helm_runtime = wait_ready(kubeconfig, context, helm_runtime_namespaces[0], timeout_seconds=180)
             add_runtime_diagnostics(kubeconfig, context, helm_runtime, run_root, "regular-helm", helm_runtime_namespaces)
         else:
             helm_runtime = no_workload_runtime(helm_live_manifest or canonical_helm_manifest)

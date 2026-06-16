@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-36 non-pass rows: 31 watch, 5 blocked.
+37 non-pass rows: 32 watch, 5 blocked.
 3 are resolved by the **user** (stage a prerequisite); 2
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,7 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
-| `target-runtime` | 14 |
+| `target-runtime` | 9 |
+| `remote-image` | 6 |
 | `target-prerequisite` | 3 |
 | `render-input` | 2 |
 | `operate-policy` | 1 |
@@ -42,7 +43,8 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
-| `needs runtime review` | 14 |
+| `needs runtime review` | 9 |
+| `catalog or image publisher` | 6 |
 | `user` | 3 |
 | `catalog` | 2 |
 | `needs operate review` | 1 |
@@ -52,13 +54,14 @@ passed — the residue is operational, not a config mismatch.
 | Chart | Variant | Result | Residue | Who fixes it | Usable today |
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| bitnami/apache@11.4.29 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| bitnami/opensearch@2.0.10 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
-| bitnami/opensearch@2.0.10 | ha | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| bitnami/opensearch@2.0.10 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/opensearch@2.0.10 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
@@ -69,8 +72,8 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/terraform@1.1.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
-| istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
-| istio/gateway@1.30.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| istio/gateway@1.30.0 | controller-default-reviewed | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| istio/gateway@1.30.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

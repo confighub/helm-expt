@@ -1,0 +1,40 @@
+Name:               argocd/contour-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:54375/applications/contour-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg5j82p-1qob-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-contour-mqg5j82p-1qob-contour
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Degraded
+
+KIND/NAME                                                             STATUS     HEALTH       AGE    MESSAGE  REASON
+Service/contour                                                       Synced     Healthy      13m
+Service/contour-envoy                                                 Synced     Progressing  13m
+ServiceAccount/contour-contour                                        Synced                  13m
+CustomResourceDefinition/extensionservices.projectcontour.io          OutOfSync  Healthy      7m8s            CRD is healthy
+DaemonSet/contour-envoy                                               Synced     Progressing  13m             Waiting for daemon set "contour-envoy" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/contour-envoy-8z2p2                                                        Progressing  13m
+└─ControllerRevision/contour-envoy-7745bbb45d                                                 13m
+IngressClass/contour                                                  Synced                  7m7s
+NetworkPolicy/contour-contour                                         Synced                  13m
+ClusterRoleBinding/contour-contour                                    Synced                  7m7s
+CustomResourceDefinition/contourconfigurations.projectcontour.io      OutOfSync  Healthy      7m8s            CRD is healthy
+CustomResourceDefinition/tlscertificatedelegations.projectcontour.io  OutOfSync  Healthy      7m8s            CRD is healthy
+Deployment/contour-contour                                            Synced     Degraded     13m             Deployment "contour-contour" exceeded its progress deadline
+└─ReplicaSet/contour-contour-6f88fd5fc6                                          Progressing  13m             Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/contour-contour-6f88fd5fc6-97z6m                                         Progressing  13m
+NetworkPolicy/contour-contour-certgen                                 Synced                  13m
+ClusterRole/contour-contour                                           Synced                  7m7s
+RoleBinding/contour-contour-role                                      Synced                  13m
+ServiceAccount/contour-envoy                                          Synced                  13m
+CustomResourceDefinition/contourdeployments.projectcontour.io         OutOfSync  Healthy      7m8s            CRD is healthy
+NetworkPolicy/contour-envoy                                           Synced                  13m
+Role/contour-contour                                                  Synced                  13m
+ConfigMap/contour                                                     Synced                  13m
+Namespace/default-oci                                                 Synced                  8m45s
+CustomResourceDefinition/httpproxies.projectcontour.io                OutOfSync  Healthy      7m8s            CRD is healthy

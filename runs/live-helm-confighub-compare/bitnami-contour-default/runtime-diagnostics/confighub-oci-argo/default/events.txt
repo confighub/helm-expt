@@ -1,0 +1,18 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                      MESSAGE
+26m         Normal    Starting                  node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane
+27m         Normal    Starting                  node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Starting kubelet.
+27m         Normal    NodeHasSufficientPID      node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane status is now: NodeHasSufficientPID
+27m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane status is now: NodeHasNoDiskPressure
+27m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane status is now: NodeHasSufficientMemory
+27m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Updated Node Allocatable limit across pods
+26m         Normal    RegisteredNode            node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane event: Registered Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane in Controller
+26m         Normal    NodeReady                 node/helm-expt-parity-contour-mqg5j82p-1qob-control-plane   Node helm-expt-parity-contour-mqg5j82p-1qob-control-plane status is now: NodeReady
+17m         Normal    ScalingReplicaSet         deployment/contour-contour                                  Scaled up replica set contour-contour-6f88fd5fc6 from 0 to 1
+17m         Normal    SuccessfulCreate          daemonset/contour-envoy                                     Created pod: contour-envoy-8z2p2
+17m         Warning   FailedCreate              daemonset/contour-envoy                                     Error creating: pods "contour-envoy-" is forbidden: error looking up service account default/contour-envoy: serviceaccount "contour-envoy" not found
+17m         Normal    Scheduled                 pod/contour-envoy-8z2p2                                     Successfully assigned default/contour-envoy-8z2p2 to helm-expt-parity-contour-mqg5j82p-1qob-control-plane
+17m         Normal    Scheduled                 pod/contour-contour-6f88fd5fc6-97z6m                        Successfully assigned default/contour-contour-6f88fd5fc6-97z6m to helm-expt-parity-contour-mqg5j82p-1qob-control-plane
+17m         Normal    SuccessfulCreate          replicaset/contour-contour-6f88fd5fc6                       Created pod: contour-contour-6f88fd5fc6-97z6m
+17m         Warning   FailedCreate              replicaset/contour-contour-6f88fd5fc6                       Error creating: pods "contour-contour-6f88fd5fc6-" is forbidden: error looking up service account default/contour-contour: serviceaccount "contour-contour" not found
+59s         Warning   FailedMount               pod/contour-envoy-8z2p2                                     MountVolume.SetUp failed for volume "envoycert" : secret "envoycert" not found
+59s         Warning   FailedMount               pod/contour-contour-6f88fd5fc6-97z6m                        MountVolume.SetUp failed for volume "contourcert" : secret "contourcert" not found

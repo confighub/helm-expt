@@ -524,6 +524,9 @@ function classifyWatch(spec, target) {
     return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
   }
   if (target.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
+  if (hasImagePullFailure(text)) {
+    return "remote-image: image pull failed or pinned image is unavailable (parity passed)";
+  }
   if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff") ||
     text.includes("imagepullbackoff") || text.includes("errimagepull")) {
     return "target-runtime: pod config/runtime errors (parity passed)";
@@ -559,4 +562,8 @@ function classifyWatch(spec, target) {
     return `gitops-runtime: Argo health ${gitops.health} (parity passed)`;
   }
   return "watch: inspect receipt";
+}
+
+function hasImagePullFailure(text) {
+  return text.includes("imagepullbackoff") || text.includes("errimagepull") || text.includes("failed to pull image");
 }

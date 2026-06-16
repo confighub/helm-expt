@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-contour-mqg5j82p-1qob-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:54492/applications/helm-expt-parity-contour-mqg5j82p-1qob-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg5j82p-1qob-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-contour-mqg5j82p-1qob-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                   STATUS  HEALTH  AGE    MESSAGE                                                                                    REASON
+Application/contour-parity                                  Synced          7m33s  application.argoproj.io/contour-parity serverside-applied
+Application/helm-expt-parity-contour-mqg5j82p-1qob-cluster  Synced          22m    application.argoproj.io/helm-expt-parity-contour-mqg5j82p-1qob-cluster serverside-applied

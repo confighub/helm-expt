@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 31
+watch: 32
 blocked: 5
 not-started: 0
 ```
@@ -98,10 +98,11 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `autoscaler/cluster-autoscaler@9.57.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
-|  | `bitnami/apache@11.4.29` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml |
+|  | `bitnami/apache@11.4.29` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml |
+|  | `bitnami/contour@21.1.4` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml |
 |  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
-|  | `bitnami/opensearch@2.0.10` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
-|  | `bitnami/opensearch@2.0.10` | ha | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
+|  | `bitnami/opensearch@2.0.10` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |
@@ -136,8 +137,8 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | - | runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/receipt.yaml |
 |  | `hashicorp/terraform@1.1.2` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml |
 |  | `hashicorp/terraform@1.1.2` | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml |
-|  | `istio/gateway@1.30.0` | controller-default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml |
-|  | `istio/gateway@1.30.0` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml |
+|  | `istio/gateway@1.30.0` | controller-default-reviewed | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml |
+|  | `istio/gateway@1.30.0` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
 |  | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml |
 |  | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml |
