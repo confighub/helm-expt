@@ -6673,10 +6673,10 @@
       "state": "todo",
       "reason": "single-cluster local live passes; this live lane is runnable but not yet recorded",
       "next_action": "run the two-cluster kind parity lane",
-      "support_artifact": "",
+      "support_artifact": "runs/live-kind-parity/traefik-traefik-default/receipt.yaml",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base default"
+      "command": ""
     },
     {
       "chart": "traefik/traefik",
