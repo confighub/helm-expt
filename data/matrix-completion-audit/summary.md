@@ -18,11 +18,11 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-493 non-green cells:
+492 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-run` | 256 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 255 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `already-decided` | 110 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-target-or-prereq-fix` | 98 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `needs-modeling` | 29 | The catalog/model has to change before this can pass. |
@@ -31,19 +31,19 @@ columns). It changes no status and runs nothing.
 | --- | ---: |
 | `promotion` | 192 |
 | `K` | 72 |
-| `lifecycle` | 62 |
+| `lifecycle` | 61 |
 | `G` | 57 |
 | `P` | 57 |
 | `L` | 53 |
 
 | State | Cells |
 | --- | ---: |
-| `todo` | 256 |
+| `todo` | 255 |
 | `watch` | 110 |
 | `blocked` | 109 |
 | `fail` | 18 |
 
-## needs-run (256)
+## needs-run (255)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -299,7 +299,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts traefik --base no-crds --variant-promotion-proof --cleanup-spaces |
 | velero/velero@12.0.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts velero --base default --variant-promotion-proof --cleanup-spaces |
-| velero/velero@12.0.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | velero/velero@12.0.1 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts velero --base no-crds --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-logs-single@0.12.5 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | vm/victoria-logs-single@0.12.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts victoria-logs-single --base default --variant-promotion-proof --cleanup-spaces |

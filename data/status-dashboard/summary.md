@@ -72,9 +72,9 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/184 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 160/160 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 80/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 36/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 35/80 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 89/89 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 43/89 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 36/89 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 129 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 57 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 72 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
@@ -192,9 +192,9 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 36 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 35 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| inspect-diff-first | 8 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 43 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 36 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
@@ -205,6 +205,7 @@ needs a support artifact or a direct receipt review before rerun.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | runtime-review | - |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | crd-bootstrap | [recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml](../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml) |
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime-review | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | watch | target-fit-review | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml) |
@@ -261,26 +262,34 @@ needs a support artifact or a direct receipt review before rerun.
 | hashicorp/terraform@1.1.2 | default | blocked | inspect-parity-diff | - |
 | nats/nack@0.34.0 | default | blocked | inspect-parity-diff | - |
 | nats/nats@2.14.0 | ha | blocked | inspect-parity-diff | - |
+| traefik/traefik@40.2.0 | default | blocked | inspect-parity-diff | - |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | inspect-receipt | - |
+| bitnami/apache@11.4.29 | default | blocked | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/elasticsearch@22.1.6 | default | blocked | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | elastic/filebeat@8.5.1 | default | blocked | stage-prerequisite | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | stage-prerequisite | - |
 | hashicorp/terraform@1.1.2 | no-crds | blocked | stage-prerequisite | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) |
+| istio/gateway@1.30.0 | controller-default-reviewed | blocked | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| istio/gateway@1.30.0 | default | blocked | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | istio/istiod@1.30.0 | default | blocked | stage-prerequisite | [recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml) |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | stage-prerequisite | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | stage-prerequisite | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) |
 | kedacore/keda@2.19.0 | no-crds | watch | stage-prerequisite | - |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | render-input-model | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml](../../recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml) |
 | percona/pg-operator@3.0.0 | no-crds | watch | stage-prerequisite | - |
+| projectcalico/tigera-operator@v3.32.0 | default | blocked | stage-prerequisite | [recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml](../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml) |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | stage-prerequisite | - |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | stage-prerequisite | - |
+| rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | stage-prerequisite | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | stage-prerequisite | - |
 | velero/velero@12.0.1 | default | blocked | inspect-receipt | - |
 | velero/velero@12.0.1 | no-crds | blocked | stage-prerequisite | - |
 | bitnami/contour@21.1.4 | default | blocked | lifecycle-route | - |
+| dex/dex@0.24.0 | default | blocked | runtime-review | - |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fairwinds-stable/vpa@4.11.0 | default | watch | runtime-review | - |
+| gitlab/gitlab-runner@0.89.0 | default | watch | runtime-review | - |
 | grafana/rollout-operator@0.49.0 | no-crds | watch | runtime-review | - |
-| istio/gateway@1.30.0 | controller-default-reviewed | blocked | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
-| istio/gateway@1.30.0 | default | blocked | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | runtime-review | - |
 | nats/surveyor@0.20.9 | default | blocked | runtime-review | [recipes/nats/surveyor/0.20.9/runtime-review.yaml](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) |
 | nats/surveyor@0.20.9 | default-reviewed | blocked | runtime-review | [recipes/nats/surveyor/0.20.9/runtime-review.yaml](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) |
@@ -471,25 +480,25 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 36 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 35 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| inspect-diff-first | 8 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 43 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 36 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-parity-diff | 7 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
-| stage-prerequisite | 16 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| inspect-parity-diff | 8 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
+| stage-prerequisite | 18 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 19 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 20 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | capability-profile-base | 2 | Read the receipt and classify the row before rerunning. |
 | crd-bootstrap | 1 | Read the receipt and classify the row before rerunning. |
-| image-retention-review | 12 | Read the receipt and classify the row before rerunning. |
-| render-input-model | 2 | Model the required Helm values as a real base before rerunning. |
+| image-retention-review | 16 | Read the receipt and classify the row before rerunning. |
+| render-input-model | 3 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
