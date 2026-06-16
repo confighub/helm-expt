@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "sysctl" in pod "elasticsearch-data-2" not found

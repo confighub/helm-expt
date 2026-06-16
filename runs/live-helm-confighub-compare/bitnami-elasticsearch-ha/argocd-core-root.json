@@ -1,0 +1,326 @@
+{
+  "metadata": {
+    "name": "helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+    "namespace": "argocd",
+    "uid": "4fed8e47-a03a-404f-87ea-4c8d2f69fb86",
+    "resourceVersion": "4571",
+    "generation": 16,
+    "creationTimestamp": "2026-06-16T09:03:27Z",
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+    },
+    "finalizers": [
+      "resources-finalizer.argocd.argoproj.io"
+    ],
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T09:03:27Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:kubectl.kubernetes.io/last-applied-configuration": {}
+            },
+            "f:finalizers": {
+              "v:\"resources-finalizer.argocd.argoproj.io\"": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          },
+          "f:status": {
+            "f:controllerNamespace": {},
+            "f:health": {
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:operationState": {
+              "f:operation": {
+                "f:initiatedBy": {
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  "f:revision": {},
+                  "f:source": {
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:startedAt": {}
+            },
+            "f:resourceHealthSource": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              "f:comparedTo": {
+                "f:destination": {
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T09:25:59Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci",
+      "path": "./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "argocd"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "ServerSideApply.ForceConflicts=true",
+        "RespectIgnoreDifferences=true",
+        "CreateNamespace=false"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "elasticsearch-parity",
+        "status": "Synced"
+      },
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "argocd"
+        }
+      },
+      "revision": "sha256:7dc4eb538cff57eaa1df4814dfff5a27d24eb48567842539e23dadf3205e3e20"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-16T09:03:41Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:7dc4eb538cff57eaa1df4814dfff5a27d24eb48567842539e23dadf3205e3e20",
+        "deployedAt": "2026-06-16T09:18:38Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T09:18:36Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T09:25:50Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:7dc4eb538cff57eaa1df4814dfff5a27d24eb48567842539e23dadf3205e3e20",
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci",
+            "path": "./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "ServerSideApply.ForceConflicts=true",
+            "RespectIgnoreDifferences=true",
+            "CreateNamespace=false"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "elasticsearch-parity",
+            "status": "Synced",
+            "message": "application.argoproj.io/elasticsearch-parity serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+            "status": "Synced",
+            "message": "application.argoproj.io/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:7dc4eb538cff57eaa1df4814dfff5a27d24eb48567842539e23dadf3205e3e20",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T09:18:36Z",
+      "finishedAt": "2026-06-16T09:18:38Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

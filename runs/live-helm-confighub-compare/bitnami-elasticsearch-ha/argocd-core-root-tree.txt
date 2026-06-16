@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:50390/applications/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                         STATUS  HEALTH  AGE    MESSAGE                                                                                          REASON
+Application/elasticsearch-parity                                  Synced          7m31s  application.argoproj.io/elasticsearch-parity serverside-applied
+Application/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster  Synced          22m    application.argoproj.io/helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster serverside-applied
