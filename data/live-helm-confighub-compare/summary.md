@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 134
-watch: 28
+watch: 29
 blocked: 2
 not-started: 0
 ```
@@ -155,6 +155,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `nats/nats@2.14.0` | default | pass | - | runs/live-helm-confighub-compare/nats-nats-default/receipt.yaml |
 |  | `nats/nats@2.14.0` | ha | pass | - | runs/live-helm-confighub-compare/nats-nats-ha/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |
+|  | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-no-crds/receipt.yaml |
 |  | `percona/psmdb-operator@1.22.0` | default | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml |

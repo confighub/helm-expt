@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-30 non-pass rows: 28 watch, 2 blocked.
+31 non-pass rows: 29 watch, 2 blocked.
 1 are resolved by the **user** (stage a prerequisite); 1
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -33,7 +33,7 @@ passed — the residue is operational, not a config mismatch.
 
 | Residue category | Rows |
 | --- | ---: |
-| `gitops-runtime` | 15 |
+| `gitops-runtime` | 16 |
 | `target-runtime` | 12 |
 | `operate-policy` | 1 |
 | `semantic-model-gap` | 1 |
@@ -41,7 +41,7 @@ passed — the residue is operational, not a config mismatch.
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `needs GitOps controller-health review` | 15 |
+| `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 12 |
 | `catalog` | 1 |
 | `needs operate review` | 1 |
@@ -78,6 +78,7 @@ passed — the residue is operational, not a config mismatch.
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
