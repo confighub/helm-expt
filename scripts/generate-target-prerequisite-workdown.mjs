@@ -168,6 +168,8 @@ function extractName(receiptRel, reason) {
     for (const m of text.matchAll(/missingNamespace:\s*["']?([\w.\-/]+)/g)) names.push(`Namespace ${m[1]}`);
     for (const m of text.matchAll(/namespaces?\s+"([^"]+)"\s+not found/g)) names.push(`Namespace ${m[1]}`);
     for (const m of text.matchAll(/secret\s+"([^"]+)"\s+not found/gi)) names.push(`Secret ${m[1]}`);
+    // Required Helm input values surfaced by the renderer, e.g. "nfs.server: Required value".
+    for (const m of text.matchAll(/([\w.]+):\s*Required value/g)) names.push(`value ${m[1].replace(/^\.+/, "")}`);
   }
   return uniq(names).join("; ") || "unknown";
 }

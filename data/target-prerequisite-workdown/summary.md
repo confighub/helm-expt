@@ -66,7 +66,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | nats/surveyor@0.20.9 | default-reviewed | K | external-api | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default | G/P | unknown | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default | K | unknown | unknown | operator-review | yes |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown | unknown | user-stage | unknown |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown | value nfs.server | user-stage | unknown |
 | percona/pg-operator@3.0.0 | no-crds | K | crd | unknown | user-stage | yes |
 | percona/pxc-operator@1.19.1 | no-crds | K | external-api | unknown | operator-review | yes |
 | projectcalico/tigera-operator@v3.32.0 | default | K | crd | unknown | user-stage | unknown |
