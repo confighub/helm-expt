@@ -70,16 +70,16 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/161 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/164 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 146/146 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 45/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 8/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 32/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 59/59 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 13/59 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 37/59 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 134 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 58 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 76 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 27/161 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/161 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 29/164 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/164 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 7/146 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -192,10 +192,10 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| inspect-diff-first | 4 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 8 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 32 | Review runtime, storage, controller health, or wait conditions before rerunning. |
-| inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
+| inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 13 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 37 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
 
@@ -227,6 +227,7 @@ needs a support artifact or a direct receipt review before rerun.
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
 | istio/gateway@1.30.0 | default | watch | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime-review | - |
+| jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime-review | - |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime-review | [recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime-review | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](../../recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml) |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime-review | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](../../recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml) |
@@ -234,22 +235,35 @@ needs a support artifact or a direct receipt review before rerun.
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime-review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | stage-prerequisite | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | inspect-parity-diff | - |
+| bitnami/contour@21.1.4 | no-crds | blocked | inspect-parity-diff | - |
 | bitnami/opensearch@2.0.10 | default | blocked | inspect-parity-diff | - |
 | bitnami/opensearch@2.0.10 | ha | blocked | inspect-parity-diff | - |
+| hashicorp/terraform@1.1.2 | default | blocked | inspect-parity-diff | - |
 | nats/nack@0.34.0 | default | blocked | inspect-parity-diff | - |
 | nats/nats@2.14.0 | ha | blocked | inspect-parity-diff | - |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | inspect-receipt | - |
 | elastic/filebeat@8.5.1 | default | blocked | stage-prerequisite | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | stage-prerequisite | - |
+| hashicorp/terraform@1.1.2 | no-crds | blocked | stage-prerequisite | [recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml](../../recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml) |
+| istio/istiod@1.30.0 | default | blocked | stage-prerequisite | - |
 | kedacore/keda@2.19.0 | no-crds | watch | stage-prerequisite | - |
 | percona/pg-operator@3.0.0 | no-crds | watch | stage-prerequisite | - |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | stage-prerequisite | - |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | stage-prerequisite | - |
+| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | stage-prerequisite | - |
+| velero/velero@12.0.1 | default | blocked | inspect-receipt | - |
+| velero/velero@12.0.1 | no-crds | blocked | stage-prerequisite | - |
+| bitnami/contour@21.1.4 | default | blocked | lifecycle-route | - |
+| elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | fairwinds-stable/vpa@4.11.0 | default | watch | runtime-review | - |
+| grafana/rollout-operator@0.49.0 | no-crds | watch | runtime-review | - |
 | istio/gateway@1.30.0 | controller-default-reviewed | blocked | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
 | istio/gateway@1.30.0 | default | blocked | runtime-review | [recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/gateway/1.30.0/target-prerequisite-plan.yaml) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | runtime-review | - |
 | nats/surveyor@0.20.9 | default | blocked | runtime-review | - |
+| nats/surveyor@0.20.9 | default-reviewed | blocked | runtime-review | - |
+| percona/pxc-operator@1.19.1 | no-crds | watch | runtime-review | - |
 
 ### Local Live Non-Pass Triage
 
@@ -408,8 +422,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 192 | 0 | 0 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 134 | 27 | 31 | 192 |
-| live Helm-vs-ConfigHub parity | 134 | 27 | 31 | 192 |
+| GitOps/OCI live | 134 | 30 | 28 | 192 |
+| live Helm-vs-ConfigHub parity | 134 | 30 | 28 | 192 |
 | two-cluster kind parity | 116 | 30 | 0 | 146 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -419,7 +433,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/161
+ConfigHub/OCI live comparison: 0/164
 two-cluster kind parity:       7/146
 ~~~
 
@@ -436,19 +450,20 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 4 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 8 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 32 | Review runtime, storage, controller health, or wait conditions before rerunning. |
-| inspect-receipt-first | 1 | Read the receipt and classify the row before rerunning. |
+| inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 13 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 37 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-parity-diff | 4 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
-| stage-prerequisite | 7 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| inspect-parity-diff | 7 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
+| stage-prerequisite | 11 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
-| gitops-runtime-review | 14 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 18 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| inspect-receipt | 1 | Read the receipt and classify the row before rerunning. |
+| gitops-runtime-review | 15 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| runtime-review | 22 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -466,6 +481,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | grafana/tempo@1.24.4 | s3-query-observability | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
+| bitnami/apache@11.4.29 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
 | bitnami/opensearch@2.0.10 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
 | bitnami/opensearch@2.0.10 | ha | watch | target-runtime: pod config/runtime errors (parity passed) |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
@@ -477,7 +493,9 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | hashicorp/terraform@1.1.2 | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) |
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) |
 | istio/gateway@1.30.0 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
+| jaegertracing/jaeger-operator@2.57.0 | default | blocked | helm-runtime: upstream leg blocked |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
+| jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |

@@ -1,0 +1,113 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: trust-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: trust-manager
+    app.kubernetes.io/version: v0.22.1
+    helm.sh/chart: trust-manager-v0.22.1
+  name: trust-manager
+rules:
+- apiGroups:
+  - trust.cert-manager.io
+  resources:
+  - bundles
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - trust.cert-manager.io
+  resources:
+  - bundles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - trust.cert-manager.io
+  resources:
+  - bundles/status
+  verbs:
+  - patch
+- apiGroups:
+  - ''
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - watch
+  - delete
+- apiGroups:
+  - ''
+  - events.k8s.io
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: trust-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: trust-manager
+    app.kubernetes.io/version: v0.22.1
+    helm.sh/chart: trust-manager-v0.22.1
+  name: trust-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trust-manager
+subjects:
+- kind: ServiceAccount
+  name: trust-manager
+  namespace: default
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: default/trust-manager
+  labels:
+    app: trust-manager
+    app.kubernetes.io/instance: trust-manager
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: trust-manager
+    app.kubernetes.io/version: v0.22.1
+    helm.sh/chart: trust-manager-v0.22.1
+  name: trust-manager
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: trust-manager
+      namespace: default
+      path: /validate-trust-cert-manager-io-v1alpha1-bundle
+  failurePolicy: Fail
+  name: trust.cert-manager.io
+  rules:
+  - apiGroups:
+    - trust.cert-manager.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - bundles
+  sideEffects: None
+  timeoutSeconds: 5

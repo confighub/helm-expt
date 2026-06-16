@@ -25,23 +25,25 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-27 non-pass rows: 26 watch, 1 blocked.
-1 are resolved by the **user** (stage a prerequisite); 0
+30 non-pass rows: 28 watch, 2 blocked.
+1 are resolved by the **user** (stage a prerequisite); 1
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
 
 | Residue category | Rows |
 | --- | ---: |
-| `gitops-runtime` | 14 |
-| `target-runtime` | 11 |
+| `gitops-runtime` | 15 |
+| `target-runtime` | 12 |
 | `operate-policy` | 1 |
+| `semantic-model-gap` | 1 |
 | `target-prerequisite` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `needs GitOps controller-health review` | 14 |
-| `needs runtime review` | 11 |
+| `needs GitOps controller-health review` | 15 |
+| `needs runtime review` | 12 |
+| `catalog` | 1 |
 | `needs operate review` | 1 |
 | `user` | 1 |
 
@@ -50,6 +52,7 @@ passed — the residue is operational, not a config mismatch.
 | Chart | Variant | Result | Residue | Who fixes it | Usable today |
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| bitnami/apache@11.4.29 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
@@ -68,7 +71,9 @@ passed — the residue is operational, not a config mismatch.
 | hashicorp/vault@0.32.0 | ha-raft-ui | watch | operate-policy | needs operate review | watch — needs an operational readiness step |
 | istio/gateway@1.30.0 | controller-default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | istio/gateway@1.30.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| jaegertracing/jaeger-operator@2.57.0 | default | blocked | semantic-model-gap | catalog | no — needs catalog work |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

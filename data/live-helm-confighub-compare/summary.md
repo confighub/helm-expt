@@ -7,14 +7,15 @@ completed row has a receipt under
 
 ```text
 pass: 134
-watch: 26
-blocked: 1
+watch: 28
+blocked: 2
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
+helm-runtime: upstream leg blocked: 1
 target-prerequisite: namespace missing (parity passed): 1
 ```
 
@@ -96,6 +97,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `autoscaler/cluster-autoscaler@9.57.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+|  | `bitnami/apache@11.4.29` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml |
 |  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
 |  | `bitnami/opensearch@2.0.10` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
 |  | `bitnami/opensearch@2.0.10` | ha | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |
@@ -136,8 +138,10 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `istio/gateway@1.30.0` | controller-default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml |
 |  | `istio/gateway@1.30.0` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
+|  | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | helm-runtime: upstream leg blocked | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml |
 |  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml |
+|  | `jetstack/trust-manager@v0.22.1` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |

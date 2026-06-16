@@ -116,8 +116,8 @@ aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,two_cluster_kind_parity,K,b
 bitnami/apache@11.4.29,default,render_parity,R,pass,pass,no,,,
 bitnami/apache@11.4.29,default,in_confighub,C,pass,pass,no,,,
 bitnami/apache@11.4.29,default,local_live,L,blocked,blocked,no,,,
-bitnami/apache@11.4.29,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/apache@11.4.29,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/apache@11.4.29,default,gitops_oci_live,G,watch,watch,no,,,
+bitnami/apache@11.4.29,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/apache@11.4.29,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,default,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,default,in_confighub,C,pass,pass,no,,,
@@ -698,8 +698,8 @@ istio/istiod@1.30.0,default,two_cluster_kind_parity,K,blocked,blocked,no,,,
 jaegertracing/jaeger-operator@2.57.0,default,render_parity,R,pass,pass,no,,,
 jaegertracing/jaeger-operator@2.57.0,default,in_confighub,C,pass,pass,no,,,
 jaegertracing/jaeger-operator@2.57.0,default,local_live,L,blocked,blocked,no,,,
-jaegertracing/jaeger-operator@2.57.0,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-jaegertracing/jaeger-operator@2.57.0,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+jaegertracing/jaeger-operator@2.57.0,default,gitops_oci_live,G,blocked,blocked,no,,,
+jaegertracing/jaeger-operator@2.57.0,default,live_helm_vs_confighub_parity,P,blocked,blocked,no,,,
 jaegertracing/jaeger-operator@2.57.0,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 jaegertracing/jaeger-operator@2.57.0,no-crds,render_parity,R,pass,pass,no,,,
 jaegertracing/jaeger-operator@2.57.0,no-crds,in_confighub,C,pass,pass,no,,,
@@ -740,8 +740,8 @@ jetstack/trust-manager@v0.22.1,default,two_cluster_kind_parity,K,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,no-crds,render_parity,R,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,no-crds,in_confighub,C,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,no-crds,local_live,L,fail,fail,no,,,
-jetstack/trust-manager@v0.22.1,no-crds,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-jetstack/trust-manager@v0.22.1,no-crds,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+jetstack/trust-manager@v0.22.1,no-crds,gitops_oci_live,G,watch,watch,no,,,
+jetstack/trust-manager@v0.22.1,no-crds,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 jetstack/trust-manager@v0.22.1,no-crds,two_cluster_kind_parity,K,pass,pass,no,,,
 kedacore/keda@2.19.0,default,render_parity,R,pass,pass,no,,,
 kedacore/keda@2.19.0,default,in_confighub,C,pass,pass,no,,,

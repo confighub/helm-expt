@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:61943/applications/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                       STATUS  HEALTH  AGE    MESSAGE                                                                                        REASON
+Application/trust-manager-parity                                Synced          7m31s  application.argoproj.io/trust-manager-parity serverside-applied
+Application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster  Synced          9m21s  application.argoproj.io/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster serverside-applied

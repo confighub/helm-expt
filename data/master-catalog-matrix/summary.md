@@ -39,14 +39,14 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 61 / 76 / 169 / 121 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 65 / 78 / 164 / 120 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 0 / 20 / 172 / 0 / 0 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 182 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
-| Variants currently in the active proof queue | 39 |
+| Variants currently in the active proof queue | 50 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/prometheus@29.9.0`.
 
@@ -78,7 +78,7 @@ otherwise.
 | Design a more useful base | 35 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/apache@11.4.29/default` |
 | Decide a limitation first | 15 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/no-crds`, `bitnami/elasticsearch@22.1.6/default` |
 | Complete the core proof lane | 72 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-workflows@1.0.14/default` |
-| Active proof queue | 39 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `bitnami/apache@11.4.29/default` |
+| Active proof queue | 50 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
 | Record or finish production scope | 172 | Rows without a target-scoped supported, superseded, or rejected production decision. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 43 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
@@ -134,7 +134,7 @@ when you want the user/product view with those columns visible.
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | next80 | `tpl;capabilities;cluster-rbac` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
-| `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `bitnami/contour@21.1.4` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 | `bitnami/elasticsearch@22.1.6` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
@@ -232,13 +232,13 @@ when you want the user/product view with those columns visible.
 |  | controller-default-reviewed | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 | `istio/istiod@1.30.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 | `jaegertracing/jaeger@4.8.0` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `jaegertracing/jaeger-operator@2.57.0` | default | next80 | `crds;webhooks` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
+| `jaegertracing/jaeger-operator@2.57.0` | default | next80 | `crds;webhooks` | — | — | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ⬜ | ⬜ | in-confighub | ⬜ |
 |  | no-crds | next80 | `crds;webhooks` | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `jetstack/cert-manager@v1.20.2` | default | top20 | — | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | crds-enabled | top20 | — | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `jetstack/trust-manager@v0.22.1` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
+|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
 | `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⚠️ | ⬜ | live-parity | ⬜ |
 | `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
@@ -303,7 +303,7 @@ when you want the user/product view with those columns visible.
 | `traefik/traefik@40.2.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | — | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⬜ | local-live | ⬜ |
 | `velero/velero@12.0.1` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
-|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
+|  | no-crds | next80 | — | — | — | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 | `vm/victoria-logs-single@0.12.5` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
 | `vm/victoria-metrics-single@0.39.0` | default | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | default-reviewed | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
