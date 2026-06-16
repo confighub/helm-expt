@@ -1,0 +1,1212 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default-kind-parity-20260606
+spec:
+  chart: aws-ebs-csi-driver/aws-ebs-csi-driver
+  version: 2.60.1
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T00:21:06Z'
+  package:
+    path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+  recipe:
+    path: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+  variantRevision: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-awsebs-e9abf-cbjn-helm
+    installerCluster: hx-awsebs-e9abf-cbjn-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-awsebs-e9abf-cbjn-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-awsebs-e9abf-cbjn-helm" ...
+
+          Deleted nodes: ["hx-awsebs-e9abf-cbjn-helm-control-plane"]'
+      - cluster: hx-awsebs-e9abf-cbjn-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-awsebs-e9abf-cbjn-installer" ...
+
+          Deleted nodes: ["hx-awsebs-e9abf-cbjn-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver --repo
+        https://kubernetes-sigs.github.io/aws-ebs-csi-driver --version 2.60.1 --namespace
+        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7
+      objectCount: 19
+      liveHelmManifestSHA256: a7fa9b3c98d5ded3f2af04fa9b3207e6e76431eb0a24077ca15e4a0d224b4d67
+      liveHelmManifestObjectCount: 19
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/ebs-csi-controller   0/2   2     0     8m
+
+          daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     8m
+
+          daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   8m'
+        pods: '# default
+
+          ebs-csi-controller-c69844876-rxdlw   1/5   CrashLoopBackOff   21 (88s ago)   8m
+
+          ebs-csi-controller-c69844876-x8xx6   1/5   CrashLoopBackOff   21 (88s ago)   8m
+
+          ebs-csi-node-97qqz                   1/3   CrashLoopBackOff   11 (96s ago)   8m'
+        notReady:
+        - namespace: default
+          pod: ebs-csi-controller-c69844876-rxdlw
+          ready: 1/5
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: ebs-csi-controller-c69844876-x8xx6
+          ready: 1/5
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: ebs-csi-node-97qqz
+          ready: 1/3
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: ebs-csi-controller-c69844876-rxdlw
+          result: blocked
+          detailHead: "Name:                 ebs-csi-controller-c69844876-rxdlw\n\
+            Namespace:            default\nPriority:             2000000000\nPriority\
+            \ Class Name:  system-cluster-critical\nService Account:      ebs-csi-controller-sa\n\
+            Node:                 hx-awsebs-e9abf-cbjn-helm-control-plane/192.168.97.2\n\
+            Start Time:           Tue, 16 Jun 2026 01:21:56 +0100\nLabels:       \
+            \        app=ebs-csi-controller\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n\
+            \                      pod-template-hash=c69844876\nAnnotations:     \
+            \     <none>\nStatus:               Running\nIP:                   10.244.0.7\n\
+            IPs:\n  IP:           10.244.0.7\nControlled By:  ReplicaSet/ebs-csi-controller-c69844876\n\
+            Containers:\n  ebs-plugin:\n    Container ID:    containerd://49171ce4fd0cdc610ea490b993a09177616964701984520cdf1878faa166ec57\n\
+            \    Image:           public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n\
+            \    Image ID:        public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8\n\
+            \    Port:            9808/TCP (healthz)\n    Host Port:       0/TCP (healthz)\n\
+            \    SeccompProfile:  RuntimeDefault\n    Args:\n      controller\n  \
+            \    --endpoint=$(CSI_ENDPOINT)\n      --batching=true\n      --logging-format=text\n\
+            \      --user-agent-extra=helm\n      --v=2\n    State:       Waiting\n\
+            \      Reason:    CrashLoopBackOff\n    Last State:  Terminated\n    \
+            \  Reason:    Error\n      Message:   ng metadata\"\nI0616 00:28:23.911063\
+            \       1 metadata.go:75] \"Attempting to retrieve instance metadata from\
+            \ IMDS\"\nE0616 00:28:28.912473       1 metadata.go:81] \"Retrieving IMDS\
+            \ metadata failed\" err=\"could not get IMDS metadata: operation error\
+            \ ec2imds: GetInstanceIdentityDocument, request canceled, context deadline\
+            \ exceeded\"\nI0616 00:28:28.912667       1 metadata.go:92] \"Attempting\
+            \ to retrieve instance metadata from Kubernetes API\"\nI0616 00:28:28.912986\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"WatchListClient\"\
+            \ enabled=true\nI0616 00:28:28.913021       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsAllowTLSCacheGC\" enabled=true\n\
+            I0616 00:28:28.913025       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"AtomicFIFO\" enabled=true\nI0616 00:28:28.913029       1 envvar.go:195]\
+            \ \"Feature gate default state\" feature=\"UnlockWhileProcessingFIFO\"\
+            \ enabled=true\nI0616 00:28:28.913032       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"InOrderInformers\" enabled=true\nI0616\
+            \ 00:28:28.913035       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"InformerResourceVersion\" enabled=true\nI0616 00:28:28.913038\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"ClientsAllowCBOR\"\
+            \ enabled=false\nI0616 00:28:28.913041       1 envva"
+          detailTail: "containers{csi-resizer}: Pulling image \"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\"\
+            \n  Normal   Created    7m24s                  kubelet            spec.containers{csi-attacher}:\
+            \ Container created\n  Normal   Created    7m15s                  kubelet\
+            \            spec.containers{csi-resizer}: Container created\n  Normal\
+            \   Pulled     7m15s                  kubelet            spec.containers{liveness-probe}:\
+            \ Container image \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Started    7m15s                  kubelet            spec.containers{liveness-probe}:\
+            \ Container started\n  Normal   Created    7m15s                  kubelet\
+            \            spec.containers{liveness-probe}: Container created\n  Normal\
+            \   Pulled     7m15s                  kubelet            spec.containers{csi-resizer}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\"\
+            \ in 765ms (8.879s including waiting). Image size: 37287243 bytes.\n \
+            \ Normal   Started    7m15s                  kubelet            spec.containers{csi-resizer}:\
+            \ Container started\n  Normal   Started    7m14s (x2 over 7m51s)  kubelet\
+            \            spec.containers{ebs-plugin}: Container started\n  Normal\
+            \   Created    7m14s (x2 over 7m51s)  kubelet            spec.containers{ebs-plugin}:\
+            \ Container created\n  Normal   Pulled     7m14s                  kubelet\
+            \            spec.containers{ebs-plugin}: Container image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Created    7m7s (x2 over 7m38s)   kubelet            spec.containers{csi-provisioner}:\
+            \ Container created\n  Normal   Started    7m7s (x2 over 7m37s)   kubelet\
+            \            spec.containers{csi-provisioner}: Container started\n  Warning\
+            \  BackOff    6m30s (x4 over 6m37s)  kubelet            spec.containers{csi-provisioner}:\
+            \ Back-off restarting failed container csi-provisioner in pod ebs-csi-controller-c69844876-rxdlw_default(7d77e8e1-675e-4e8d-8fb0-470238afc5b9)\n\
+            \  Warning  BackOff    6m15s (x3 over 6m23s)  kubelet            spec.containers{csi-attacher}:\
+            \ Back-off restarting failed container csi-attacher in pod ebs-csi-controller-c69844876-rxdlw_default(7d77e8e1-675e-4e8d-8fb0-470238afc5b9)\n\
+            \  Warning  BackOff    6m13s (x2 over 6m15s)  kubelet            spec.containers{csi-resizer}:\
+            \ Back-off restarting failed container csi-resizer in pod ebs-csi-controller-c69844876-rxdlw_default(7d77e8e1-675e-4e8d-8fb0-470238afc5b9)\n\
+            \  Normal   Pulled     2m28s (x5 over 7m7s)   kubelet            spec.containers{csi-provisioner}:\
+            \ Container image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  BackOff    2m7s (x47 over 7m8s)   kubelet            spec.containers{ebs-plugin}:\
+            \ Back-off restarting failed container ebs-plugin in pod ebs-csi-controller-c69844876-rxdlw_default(7d77e8e1-675e-4e8d-8fb0-470238afc5b9)"
+          logsHead: 'W0616 00:27:28.901703       1 feature_gate.go:410] Setting GA
+            feature gate Topology=true. It will be removed in a future release.
+
+            I0616 00:27:28.901732       1 feature_gate.go:466] feature gates: {map[Topology:true]}
+
+            I0616 00:27:28.901740       1 csi-provisioner.go:155] "Version" version="v6.2.0-eksbuild.5"
+
+            I0616 00:27:28.901743       1 csi-provisioner.go:178] Building kube configs
+            for running in cluster...
+
+            I0616 00:27:28.901818       1 envvar.go:172] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            I0616 00:27:28.901826       1 envvar.go:172] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:27:28.901828       1 envvar.go:172] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:27:28.901829       1 envvar.go:172] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:27:28.901830       1 envvar.go:172] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:27:28.901831       1 envvar.go:172] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            W0616 00:27:28.905032       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:29.905686       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:31.077716       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:32.005708       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:33.175972       1 logging.go:55] [core] [Channel #1 SubChannel
+            #'
+          logsTail: 'i.sock"
+
+            I0616 00:28:31.327366       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:41.335694       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:51.328945       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:01.328541       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:11.336664       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:21.332166       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:31.327150       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:41.328007       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:51.328180       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:23.911034       1 main.go:174] "Initializing metadata"
+
+            I0616 00:28:23.911063       1 metadata.go:75] "Attempting to retrieve
+            instance metadata from IMDS"
+
+            E0616 00:28:28.912473       1 metadata.go:81] "Retrieving IMDS metadata
+            failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument,
+            request canceled, context deadline exceeded"
+
+            I0616 00:28:28.912667       1 metadata.go:92] "Attempting to retrieve
+            instance metadata from Kubernetes API"
+
+            I0616 00:28:28.912986       1 envvar.go:195] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:28:28.913021       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowTLSCacheGC" enabled=true
+
+            I0616 00:28:28.913025       1 envvar.go:195] "Feature gate default state"
+            feature="AtomicFIFO" enabled=true
+
+            I0616 00:28:28.913029       1 envvar.go:195] "Feature gate default state"
+            feature="UnlockWhileProcessingFIFO" enabled=true
+
+            I0616 00:28:28.913032       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:28:28.913035       1 envvar.go:195] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            I0616 00:28:28.913038       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:28:28.913041       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCARotation" enabled=true
+
+            I0616 00:28:28.913044       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:28:28.913047       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            E0616 00:28:28.923484       1 metadata.go:98] "Retrieving Kubernetes metadata
+            failed" err="did not find aws instance ID in node providerID string"
+
+            E0616 00:28:28.923555       1 main.go:179] "Failed to initialize metadata
+            when it is required" err="all specified --metadata-sources ''[imds kubernetes]''
+            are unavailable"
+
+            I0616 00:28:28.923577       1 main.go:181] "The region can be manually
+            supplied via the AWS_REGION environment variable"'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: ebs-csi-controller-c69844876-x8xx6
+          result: blocked
+          detailHead: "Name:                 ebs-csi-controller-c69844876-x8xx6\n\
+            Namespace:            default\nPriority:             2000000000\nPriority\
+            \ Class Name:  system-cluster-critical\nService Account:      ebs-csi-controller-sa\n\
+            Node:                 hx-awsebs-e9abf-cbjn-helm-control-plane/192.168.97.2\n\
+            Start Time:           Tue, 16 Jun 2026 01:21:56 +0100\nLabels:       \
+            \        app=ebs-csi-controller\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n\
+            \                      pod-template-hash=c69844876\nAnnotations:     \
+            \     <none>\nStatus:               Running\nIP:                   10.244.0.6\n\
+            IPs:\n  IP:           10.244.0.6\nControlled By:  ReplicaSet/ebs-csi-controller-c69844876\n\
+            Containers:\n  ebs-plugin:\n    Container ID:    containerd://c2d9e55514f386a43d0a27a8a943b06ba0f65ffc9ac4186ad9e0385f9cd9e5a4\n\
+            \    Image:           public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n\
+            \    Image ID:        public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8\n\
+            \    Port:            9808/TCP (healthz)\n    Host Port:       0/TCP (healthz)\n\
+            \    SeccompProfile:  RuntimeDefault\n    Args:\n      controller\n  \
+            \    --endpoint=$(CSI_ENDPOINT)\n      --batching=true\n      --logging-format=text\n\
+            \      --user-agent-extra=helm\n      --v=2\n    State:       Waiting\n\
+            \      Reason:    CrashLoopBackOff\n    Last State:  Terminated\n    \
+            \  Reason:    Error\n      Message:   ng metadata\"\nI0616 00:28:23.911700\
+            \       1 metadata.go:75] \"Attempting to retrieve instance metadata from\
+            \ IMDS\"\nE0616 00:28:28.917499       1 metadata.go:81] \"Retrieving IMDS\
+            \ metadata failed\" err=\"could not get IMDS metadata: operation error\
+            \ ec2imds: GetInstanceIdentityDocument, request canceled, context deadline\
+            \ exceeded\"\nI0616 00:28:28.917538       1 metadata.go:92] \"Attempting\
+            \ to retrieve instance metadata from Kubernetes API\"\nI0616 00:28:28.917728\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"ClientsAllowTLSCacheGC\"\
+            \ enabled=true\nI0616 00:28:28.917751       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsPreferCBOR\" enabled=false\nI0616\
+            \ 00:28:28.917756       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"InOrderInformersBatchProcess\" enabled=true\nI0616 00:28:28.917760\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"InformerResourceVersion\"\
+            \ enabled=true\nI0616 00:28:28.917780       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"AtomicFIFO\" enabled=true\nI0616 00:28:28.917785\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"ClientsAllowCBOR\"\
+            \ enabled=false\nI0616 00:28:28.917788       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsAllowCARotation\" enabled=true\n\
+            I0616 00:28:28.917791  "
+          detailTail: "ontainers{csi-resizer}: Pulling image \"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\"\
+            \n  Normal   Created    7m26s                  kubelet            spec.containers{csi-attacher}:\
+            \ Container created\n  Normal   Created    7m17s                  kubelet\
+            \            spec.containers{csi-resizer}: Container created\n  Normal\
+            \   Pulled     7m17s                  kubelet            spec.containers{liveness-probe}:\
+            \ Container image \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Started    7m17s                  kubelet            spec.containers{liveness-probe}:\
+            \ Container started\n  Normal   Created    7m17s                  kubelet\
+            \            spec.containers{liveness-probe}: Container created\n  Normal\
+            \   Pulled     7m17s                  kubelet            spec.containers{csi-resizer}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\"\
+            \ in 8.196s (8.953s including waiting). Image size: 37287243 bytes.\n\
+            \  Normal   Started    7m17s                  kubelet            spec.containers{csi-resizer}:\
+            \ Container started\n  Normal   Started    7m16s (x2 over 7m52s)  kubelet\
+            \            spec.containers{ebs-plugin}: Container started\n  Normal\
+            \   Created    7m16s (x2 over 7m52s)  kubelet            spec.containers{ebs-plugin}:\
+            \ Container created\n  Normal   Pulled     7m16s                  kubelet\
+            \            spec.containers{ebs-plugin}: Container image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Created    7m8s (x2 over 7m39s)   kubelet            spec.containers{csi-provisioner}:\
+            \ Container created\n  Normal   Started    7m8s (x2 over 7m39s)   kubelet\
+            \            spec.containers{csi-provisioner}: Container started\n  Warning\
+            \  BackOff    6m29s (x5 over 6m38s)  kubelet            spec.containers{csi-provisioner}:\
+            \ Back-off restarting failed container csi-provisioner in pod ebs-csi-controller-c69844876-x8xx6_default(f0cf85cc-c038-452e-86c6-1f19d5de35a7)\n\
+            \  Warning  BackOff    6m16s (x3 over 6m25s)  kubelet            spec.containers{csi-attacher}:\
+            \ Back-off restarting failed container csi-attacher in pod ebs-csi-controller-c69844876-x8xx6_default(f0cf85cc-c038-452e-86c6-1f19d5de35a7)\n\
+            \  Warning  BackOff    6m16s                  kubelet            spec.containers{csi-resizer}:\
+            \ Back-off restarting failed container csi-resizer in pod ebs-csi-controller-c69844876-x8xx6_default(f0cf85cc-c038-452e-86c6-1f19d5de35a7)\n\
+            \  Normal   Pulled     2m30s (x5 over 7m8s)   kubelet            spec.containers{csi-provisioner}:\
+            \ Container image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  BackOff    2m6s (x48 over 7m10s)  kubelet            spec.containers{ebs-plugin}:\
+            \ Back-off restarting failed container ebs-plugin in pod ebs-csi-controller-c69844876-x8xx6_default(f0cf85cc-c038-452e-86c6-1f19d5de35a7)"
+          logsHead: 'I0616 00:27:51.904538       1 main.go:118] "Version" version="v2.1.0-eksbuild.6"
+
+            I0616 00:27:51.904583       1 feature_gate.go:466] feature gates: {map[]}
+
+            I0616 00:27:51.904677       1 envvar.go:172] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:27:51.904685       1 envvar.go:172] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            I0616 00:27:51.904687       1 envvar.go:172] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            I0616 00:27:51.904689       1 envvar.go:172] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:27:51.904691       1 envvar.go:172] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:27:51.904692       1 envvar.go:172] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:27:51.907007       1 main.go:162] "VolumeAttributesClass v1 API
+            is available"
+
+            W0616 00:27:51.907381       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:52.917575       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:53.884113       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:54.747947       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:27:55.678656       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyTyp'
+          logsTail: '00:28:05.826468       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:28:06.972566       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:28:07.895846       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:28:08.858381       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:28:09.909001       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            W0616 00:28:10.824422       1 logging.go:55] [core] [Channel #1 SubChannel
+            #2] grpc: addrConn.createTransport failed to connect to {Addr: "/var/lib/csi/sockets/pluginproxy/csi.sock",
+            ServerName: "localhost", Attributes: {"<%!p(networktype.keyType=grpc.internal.transport.networktype)>":
+            "unix" }, }. Err: connection error: desc = "transport: Error while dialing:
+            dial unix /var/lib/csi/sockets/pluginproxy/csi.sock: connect: no such
+            file or directory"
+
+            I0616 00:28:10.903275       1 connection.go:253] "Still connecting" address="unix:///var/lib/csi/sockets/pluginproxy/csi.sock"
+
+            E0616 00:28:10.903364       1 main.go:153] "Failed to connect to the CSI
+            driver" err="context deadline exceeded" csiAddress="/var/lib/csi/sockets/pluginproxy/csi.sock"'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: ebs-csi-node-97qqz
+          result: blocked
+          detailHead: "Name:                 ebs-csi-node-97qqz\nNamespace:      \
+            \      default\nPriority:             2000001000\nPriority Class Name:\
+            \  system-node-critical\nService Account:      ebs-csi-node-sa\nNode:\
+            \                 hx-awsebs-e9abf-cbjn-helm-control-plane/192.168.97.2\n\
+            Start Time:           Tue, 16 Jun 2026 01:21:56 +0100\nLabels:       \
+            \        app=ebs-csi-node\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      controller-revision-hash=6bc6dbfd9c\n\
+            \                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n     \
+            \                 pod-template-generation=1\nAnnotations:          <none>\n\
+            Status:               Running\nIP:                   10.244.0.5\nIPs:\n\
+            \  IP:           10.244.0.5\nControlled By:  DaemonSet/ebs-csi-node\n\
+            Containers:\n  ebs-plugin:\n    Container ID:  containerd://e540fc779bb4448bcb8251dc5b5f39d40255faaca2a0a15ba33a445906fd01ee\n\
+            \    Image:         public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n\
+            \    Image ID:      public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8\n\
+            \    Port:          9808/TCP (healthz)\n    Host Port:     0/TCP (healthz)\n\
+            \    Args:\n      node\n      --endpoint=$(CSI_ENDPOINT)\n      --csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/\n\
+            \      --logging-format=text\n      --v=2\n    State:       Waiting\n\
+            \      Reason:    CrashLoopBackOff\n    Last State:  Terminated\n    \
+            \  Reason:    Error\n      Message:   I0616 00:28:15.880849       1 main.go:174]\
+            \ \"Initializing metadata\"\nI0616 00:28:15.880915       1 metadata.go:75]\
+            \ \"Attempting to retrieve instance metadata from IMDS\"\nE0616 00:28:20.881717\
+            \       1 metadata.go:81] \"Retrieving IMDS metadata failed\" err=\"could\
+            \ not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument,\
+            \ request canceled, context deadline exceeded\"\nI0616 00:28:20.881789\
+            \       1 metadata.go:92] \"Attempting to retrieve instance metadata from\
+            \ Kubernetes API\"\nI0616 00:28:20.882113       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"InOrderInformersBatchProcess\" enabled=true\n\
+            I0616 00:28:20.882170       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"InformerResourceVersion\" enabled=true\nI0616 00:28:20.882176\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"ClientsAllowTLSCacheGC\"\
+            \ enabled=true\nI0616 00:28:20.882179       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsPreferCBOR\" enabled=false\nI0616\
+            \ 00:28:20.882182       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"WatchListClient\" enabled=true\nI0616 00:28:20.882186    \
+            \   1 envvar.go:195] \"Feature gate default state\" feature=\"InOrderInformers\"\
+            \ enabled=true\nI0616 00:28:20.882189       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"Clients"
+          detailTail: "1.60.1\"\n  Normal   Pulled     7m53s                   kubelet\
+            \            spec.containers{ebs-plugin}: Successfully pulled image \"\
+            public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\" in 6.971s (6.971s\
+            \ including waiting). Image size: 32815808 bytes.\n  Normal   Pulling\
+            \    7m53s                   kubelet            spec.containers{node-driver-registrar}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\"\
+            \n  Normal   Pulling    7m47s                   kubelet            spec.containers{liveness-probe}:\
+            \ Pulling image \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\"\
+            \n  Normal   Pulled     7m47s                   kubelet            spec.containers{node-driver-registrar}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\"\
+            \ in 4.485s (6.012s including waiting). Image size: 15447232 bytes.\n\
+            \  Normal   Started    7m34s                   kubelet            spec.containers{liveness-probe}:\
+            \ Container started\n  Normal   Created    7m34s                   kubelet\
+            \            spec.containers{liveness-probe}: Container created\n  Normal\
+            \   Pulled     7m34s                   kubelet            spec.containers{liveness-probe}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\"\
+            \ in 4.758s (13.444s including waiting). Image size: 15549803 bytes.\n\
+            \  Normal   Started    7m16s (x2 over 7m47s)   kubelet            spec.containers{node-driver-registrar}:\
+            \ Container started\n  Normal   Created    7m16s (x2 over 7m47s)   kubelet\
+            \            spec.containers{node-driver-registrar}: Container created\n\
+            \  Normal   Started    6m46s (x4 over 7m53s)   kubelet            spec.containers{ebs-plugin}:\
+            \ Container started\n  Normal   Created    6m46s (x4 over 7m53s)   kubelet\
+            \            spec.containers{ebs-plugin}: Container created\n  Normal\
+            \   Pulled     6m46s (x3 over 7m33s)   kubelet            spec.containers{ebs-plugin}:\
+            \ Container image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  Unhealthy  5m58s (x9 over 7m32s)   kubelet            spec.containers{ebs-plugin}:\
+            \ Readiness probe failed: Get \"http://10.244.0.5:9808/healthz\": dial\
+            \ tcp 10.244.0.5:9808: connect: connection refused\n  Warning  BackOff\
+            \    5m58s (x7 over 6m46s)   kubelet            spec.containers{node-driver-registrar}:\
+            \ Back-off restarting failed container node-driver-registrar in pod ebs-csi-node-97qqz_default(7c9e7329-d509-4684-a3ff-f517086dd544)\n\
+            \  Warning  BackOff    2m32s (x20 over 7m27s)  kubelet            spec.containers{ebs-plugin}:\
+            \ Back-off restarting failed container ebs-plugin in pod ebs-csi-node-97qqz_default(7c9e7329-d509-4684-a3ff-f517086dd544)\n\
+            \  Normal   Pulled     2m32s (x5 over 7m16s)   kubelet            spec.containers{node-driver-registrar}:\
+            \ Container image \"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\"\
+            \ already present on machine and can be accessed by the pod"
+          logsHead: 'I0616 00:28:15.880849       1 main.go:174] "Initializing metadata"
+
+            I0616 00:28:15.880915       1 metadata.go:75] "Attempting to retrieve
+            instance metadata from IMDS"
+
+            E0616 00:28:20.881717       1 metadata.go:81] "Retrieving IMDS metadata
+            failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument,
+            request canceled, context deadline exceeded"
+
+            I0616 00:28:20.881789       1 metadata.go:92] "Attempting to retrieve
+            instance metadata from Kubernetes API"
+
+            I0616 00:28:20.882113       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            I0616 00:28:20.882170       1 envvar.go:195] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            I0616 00:28:20.882176       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowTLSCacheGC" enabled=true
+
+            I0616 00:28:20.882179       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:28:20.882182       1 envvar.go:195] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:28:20.882186       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:28:20.882189       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCARotation" enabled=true
+
+            I0616 00:28:20.882191       1 envvar.go:195] "Feature gate default state"
+            feature="UnlockWhileProcessingFIFO" enabled=true
+
+            I0616 00:28:20.882195       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:28:20.882198       1 envvar.go:195] "Feature gate default state"
+            feature="AtomicFIFO" enabled=true
+
+            E0616 00:28:20.896427       1 metadata.go:98] "Retrieving Kubernetes metadata
+            failed" err="did not find aws instance ID in node providerID string"
+
+            E0616 00:28:20.896467       1 main.go:179] "Failed to initialize metadata
+            when it is required" err="all specified --metadata-sources ''[imds kubernetes]''
+            are unavailable"
+
+            I0616 00:27:25.901436       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+
+            I0616 00:27:25.901460       1 main.go:146] "Running node-driver-registrar"
+            mode=""
+
+            I0616 00:27:25.901462       1 main.go:163] "Attempting to open a gRPC
+            connection" csiAddress="/csi/csi.sock"
+
+            I0616 00:27:35.909155       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:45.903584       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:55.902316       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            E0616 00:27:55.902457       1 main.go:167] "Error connecting to CSI driver"
+            err="context deadline exceeded"
+
+            I0616 00:22:33.741144       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:22:43.738248       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:22:53.743373       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:23:03.741260       1 connection.go'
+          logsTail: 'address="unix:///csi/csi.sock"
+
+            I0616 00:25:03.740153       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:25:13.741529       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:25:23.739656       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:25:33.738112       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:25:43.738653       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:25:53.739298       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:03.744243       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:13.739276       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:23.739359       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:33.748214       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:43.747195       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:26:53.745084       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:03.746141       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:13.746185       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:23.744868       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:33.738156       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:43.738897       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:27:53.738858       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:03.738378       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:13.739714       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:23.738197       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:33.743149       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:43.740653       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:28:53.738645       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:03.745293       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:13.739068       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:23.740648       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:33.748137       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:43.740125       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+
+            I0616 00:29:53.745661       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource DaemonSet/default/ebs-csi-node not ready. status: InProgress,
+        message: Available: 0/1
+
+        resource Deployment/default/ebs-csi-controller not ready. status: InProgress,
+        message: Available: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-awsebs-e9abf-cbjn-aws-ebs-csi-driver
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 77f17470d51227402935646f7d18c08f631fb71866b424246fd5bdf8b7397550
+      objectCount: 20
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/ebs-csi-controller   0/2   2     0     31s
+
+          daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     31s
+
+          daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   31s'
+        pods: '# default
+
+          ebs-csi-controller-8d8878fb7-bghbr   0/5   ContainerCreating   0             31s
+
+          ebs-csi-controller-8d8878fb7-w5bld   0/5   ContainerCreating   0             31s
+
+          ebs-csi-node-qgtcc                   2/3   Error               1 (20s ago)   31s'
+        notReady:
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-bghbr
+          ready: 0/5
+          status: ContainerCreating
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-w5bld
+          ready: 0/5
+          status: ContainerCreating
+        - namespace: default
+          pod: ebs-csi-node-qgtcc
+          ready: 2/3
+          status: Error
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-bghbr
+          result: pass
+          detailHead: "Name:                 ebs-csi-controller-8d8878fb7-bghbr\n\
+            Namespace:            default\nPriority:             2000000000\nPriority\
+            \ Class Name:  system-cluster-critical\nService Account:      ebs-csi-controller-sa\n\
+            Node:                 hx-awsebs-e9abf-cbjn-installer-control-plane/192.168.97.3\n\
+            Start Time:           Tue, 16 Jun 2026 01:29:58 +0100\nLabels:       \
+            \        app=ebs-csi-controller\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n\
+            \                      pod-template-hash=8d8878fb7\nAnnotations:     \
+            \     <none>\nStatus:               Pending\nIP:                   \n\
+            IPs:                  <none>\nControlled By:        ReplicaSet/ebs-csi-controller-8d8878fb7\n\
+            Containers:\n  ebs-plugin:\n    Container ID:    \n    Image:        \
+            \   public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n    Image\
+            \ ID:        \n    Port:            9808/TCP (healthz)\n    Host Port:\
+            \       0/TCP (healthz)\n    SeccompProfile:  RuntimeDefault\n    Args:\n\
+            \      controller\n      --endpoint=$(CSI_ENDPOINT)\n      --batching=true\n\
+            \      --logging-format=text\n      --user-agent-extra=helm\n      --v=2\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ memory:  256Mi\n    Requests:\n      cpu:      10m\n      memory:  \
+            \ 40Mi\n    Liveness:   http-get http://:healthz/healthz delay=10s timeout=60s\
+            \ period=10s #success=1 #failure=10\n    Readiness:  http-get http://:healthz/healthz\
+            \ delay=10s timeout=60s period=10s #success=1 #failure=5\n    Environment:\n\
+            \      CSI_ENDPOINT:            unix:///var/lib/csi/sockets/pluginproxy/csi.sock\n\
+            \      CSI_NODE_NAME:            (v1:spec.nodeName)\n      AWS_ACCESS_KEY_ID:\
+            \       <set to the key 'key_id' in secret 'aws-secret'>             \
+            \   Optional: true\n      AWS_SECRET_ACCESS_KEY:   <set to the key 'access_key'\
+            \ in secret 'aws-secret'>            Optional: true\n      AWS_EC2_ENDPOINT:\
+            \        <set to the key 'endpoint' of config map 'aws-meta'>        \
+            \    Optional: true\n      AWS_SAGEMAKER_ENDPOINT:  <set to the key 'sagemaker_endpoint'\
+            \ of config map 'aws-meta'>  Optional: true\n    Mounts:\n      /var/lib/csi/sockets/pluginproxy/\
+            \ from socket-dir (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-n7q2z (ro)\n  csi-provisioner:\n    Container ID:\
+            \    \n    Image:           public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Args:\n      --timeout=60s\n\
+            \      --csi-address=$(ADDRESS)\n      --v=2\n      --feature-gates=Topology=true\n\
+            \      --extra-create-metadata\n      --leader-election=true\n      --default-fstype=ext4\n\
+            \      --kube-api-"
+          detailTail: "ublic.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      --csi-address=/csi/csi.sock\n      --probe-timeout=60s\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ memory:  32Mi\n    Requests:\n      cpu:        10m\n      memory: \
+            \    32Mi\n    Environment:  <none>\n    Mounts:\n      /csi from socket-dir\
+            \ (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-n7q2z\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   False \n  Initialized                 True \n  Ready             \
+            \          False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  socket-dir:\n    Type:       EmptyDir\
+            \ (a temporary directory that shares a pod's lifetime)\n    Medium:  \
+            \   \n    SizeLimit:  <unset>\n  kube-api-access-n7q2z:\n    Type:   \
+            \                 Projected (a volume that contains injected data from\
+            \ multiple sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:\
+            \           kube-root-ca.crt\n    Optional:                false\n   \
+            \ DownwardAPI:             true\nQoS Class:                   Burstable\n\
+            Node-Selectors:              kubernetes.io/os=linux\nTolerations:    \
+            \             :NoExecute op=Exists for 300s\n                        \
+            \     CriticalAddonsOnly op=Exists\nEvents:\n  Type    Reason     Age\
+            \   From               Message\n  ----    ------     ----  ----      \
+            \         -------\n  Normal  Scheduled  31s   default-scheduler  Successfully\
+            \ assigned default/ebs-csi-controller-8d8878fb7-bghbr to hx-awsebs-e9abf-cbjn-installer-control-plane\n\
+            \  Normal  Pulling    31s   kubelet            spec.containers{ebs-plugin}:\
+            \ Pulling image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \n  Normal  Pulled     23s   kubelet            spec.containers{ebs-plugin}:\
+            \ Successfully pulled image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ in 688ms (7.823s including waiting). Image size: 32815808 bytes.\n \
+            \ Normal  Created    23s   kubelet            spec.containers{ebs-plugin}:\
+            \ Container created\n  Normal  Started    23s   kubelet            spec.containers{ebs-plugin}:\
+            \ Container started\n  Normal  Pulling    23s   kubelet            spec.containers{csi-provisioner}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \n  Normal  Pulled     11s   kubelet            spec.containers{csi-provisioner}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \ in 686ms (11.852s including waiting). Image size: 39335252 bytes.\n\
+            \  Normal  Created    11s   kubelet            spec.containers{csi-provisioner}:\
+            \ Container created\n  Normal  Started    11s   kubelet            spec.containers{csi-provisioner}:\
+            \ Container started\n  Normal  Pulling    11s   kubelet            spec.containers{csi-attacher}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6\""
+          logsHead: 'Error from server (BadRequest): container "liveness-probe" in
+            pod "ebs-csi-controller-8d8878fb7-bghbr" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "liveness-probe" in
+            pod "ebs-csi-controller-8d8878fb7-bghbr" is waiting to start: ContainerCreating'
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-w5bld
+          result: pass
+          detailHead: "Name:                 ebs-csi-controller-8d8878fb7-w5bld\n\
+            Namespace:            default\nPriority:             2000000000\nPriority\
+            \ Class Name:  system-cluster-critical\nService Account:      ebs-csi-controller-sa\n\
+            Node:                 hx-awsebs-e9abf-cbjn-installer-control-plane/192.168.97.3\n\
+            Start Time:           Tue, 16 Jun 2026 01:29:58 +0100\nLabels:       \
+            \        app=ebs-csi-controller\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n\
+            \                      pod-template-hash=8d8878fb7\nAnnotations:     \
+            \     <none>\nStatus:               Pending\nIP:                   \n\
+            IPs:                  <none>\nControlled By:        ReplicaSet/ebs-csi-controller-8d8878fb7\n\
+            Containers:\n  ebs-plugin:\n    Container ID:    \n    Image:        \
+            \   public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n    Image\
+            \ ID:        \n    Port:            9808/TCP (healthz)\n    Host Port:\
+            \       0/TCP (healthz)\n    SeccompProfile:  RuntimeDefault\n    Args:\n\
+            \      controller\n      --endpoint=$(CSI_ENDPOINT)\n      --batching=true\n\
+            \      --logging-format=text\n      --user-agent-extra=helm\n      --v=2\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ memory:  256Mi\n    Requests:\n      cpu:      10m\n      memory:  \
+            \ 40Mi\n    Liveness:   http-get http://:healthz/healthz delay=10s timeout=60s\
+            \ period=10s #success=1 #failure=10\n    Readiness:  http-get http://:healthz/healthz\
+            \ delay=10s timeout=60s period=10s #success=1 #failure=5\n    Environment:\n\
+            \      CSI_ENDPOINT:            unix:///var/lib/csi/sockets/pluginproxy/csi.sock\n\
+            \      CSI_NODE_NAME:            (v1:spec.nodeName)\n      AWS_ACCESS_KEY_ID:\
+            \       <set to the key 'key_id' in secret 'aws-secret'>             \
+            \   Optional: true\n      AWS_SECRET_ACCESS_KEY:   <set to the key 'access_key'\
+            \ in secret 'aws-secret'>            Optional: true\n      AWS_EC2_ENDPOINT:\
+            \        <set to the key 'endpoint' of config map 'aws-meta'>        \
+            \    Optional: true\n      AWS_SAGEMAKER_ENDPOINT:  <set to the key 'sagemaker_endpoint'\
+            \ of config map 'aws-meta'>  Optional: true\n    Mounts:\n      /var/lib/csi/sockets/pluginproxy/\
+            \ from socket-dir (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-fpkkw (ro)\n  csi-provisioner:\n    Container ID:\
+            \    \n    Image:           public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Args:\n      --timeout=60s\n\
+            \      --csi-address=$(ADDRESS)\n      --v=2\n      --feature-gates=Topology=true\n\
+            \      --extra-create-metadata\n      --leader-election=true\n      --default-fstype=ext4\n\
+            \      --kube-api-"
+          detailTail: "Type                        Status\n  PodReadyToStartContainers\
+            \   False \n  Initialized                 True \n  Ready             \
+            \          False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  socket-dir:\n    Type:       EmptyDir\
+            \ (a temporary directory that shares a pod's lifetime)\n    Medium:  \
+            \   \n    SizeLimit:  <unset>\n  kube-api-access-fpkkw:\n    Type:   \
+            \                 Projected (a volume that contains injected data from\
+            \ multiple sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:\
+            \           kube-root-ca.crt\n    Optional:                false\n   \
+            \ DownwardAPI:             true\nQoS Class:                   Burstable\n\
+            Node-Selectors:              kubernetes.io/os=linux\nTolerations:    \
+            \             :NoExecute op=Exists for 300s\n                        \
+            \     CriticalAddonsOnly op=Exists\nEvents:\n  Type    Reason     Age\
+            \   From               Message\n  ----    ------     ----  ----      \
+            \         -------\n  Normal  Scheduled  31s   default-scheduler  Successfully\
+            \ assigned default/ebs-csi-controller-8d8878fb7-w5bld to hx-awsebs-e9abf-cbjn-installer-control-plane\n\
+            \  Normal  Pulling    31s   kubelet            spec.containers{ebs-plugin}:\
+            \ Pulling image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \n  Normal  Pulled     24s   kubelet            spec.containers{ebs-plugin}:\
+            \ Successfully pulled image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ in 876ms (7.14s including waiting). Image size: 32815808 bytes.\n  Normal\
+            \  Created    24s   kubelet            spec.containers{ebs-plugin}: Container\
+            \ created\n  Normal  Started    24s   kubelet            spec.containers{ebs-plugin}:\
+            \ Container started\n  Normal  Pulling    24s   kubelet            spec.containers{csi-provisioner}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \n  Normal  Pulled     12s   kubelet            spec.containers{csi-provisioner}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\"\
+            \ in 6.504s (11.862s including waiting). Image size: 39335252 bytes.\n\
+            \  Normal  Created    12s   kubelet            spec.containers{csi-provisioner}:\
+            \ Container created\n  Normal  Started    12s   kubelet            spec.containers{csi-provisioner}:\
+            \ Container started\n  Normal  Pulling    12s   kubelet            spec.containers{csi-attacher}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6\"\
+            \n  Normal  Pulled     1s    kubelet            spec.containers{csi-attacher}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6\"\
+            \ in 6.428s (10.861s including waiting). Image size: 37331755 bytes.\n\
+            \  Normal  Created    1s    kubelet            spec.containers{csi-attacher}:\
+            \ Container created\n  Normal  Started    1s    kubelet            spec.containers{csi-attacher}:\
+            \ Container started\n  Normal  Pulling    1s    kubelet            spec.containers{csi-resizer}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\""
+          logsHead: 'Error from server (BadRequest): container "ebs-plugin" in pod
+            "ebs-csi-controller-8d8878fb7-w5bld" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "ebs-plugin" in pod
+            "ebs-csi-controller-8d8878fb7-w5bld" is waiting to start: ContainerCreating'
+        - namespace: default
+          pod: ebs-csi-node-qgtcc
+          result: blocked
+          detailHead: "Name:                 ebs-csi-node-qgtcc\nNamespace:      \
+            \      default\nPriority:             2000001000\nPriority Class Name:\
+            \  system-node-critical\nService Account:      ebs-csi-node-sa\nNode:\
+            \                 hx-awsebs-e9abf-cbjn-installer-control-plane/192.168.97.3\n\
+            Start Time:           Tue, 16 Jun 2026 01:29:58 +0100\nLabels:       \
+            \        app=ebs-csi-node\n                      app.kubernetes.io/component=csi-driver\n\
+            \                      app.kubernetes.io/instance=aws-ebs-csi-driver\n\
+            \                      app.kubernetes.io/managed-by=Helm\n           \
+            \           app.kubernetes.io/name=aws-ebs-csi-driver\n              \
+            \        app.kubernetes.io/version=1.60.1\n                      controller-revision-hash=6bc6dbfd9c\n\
+            \                      helm.sh/chart=aws-ebs-csi-driver-2.60.1\n     \
+            \                 pod-template-generation=1\nAnnotations:          <none>\n\
+            Status:               Running\nIP:                   10.244.0.5\nIPs:\n\
+            \  IP:           10.244.0.5\nControlled By:  DaemonSet/ebs-csi-node\n\
+            Containers:\n  ebs-plugin:\n    Container ID:  containerd://8b90f1b5cd781e8268cde97452833d117c5f06906c548be026d6c9f08ed61c97\n\
+            \    Image:         public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n\
+            \    Image ID:      public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver@sha256:1930268a9469e48fa0731a98e808bf4b69e4bc940d02dc81756741a842972ab8\n\
+            \    Port:          9808/TCP (healthz)\n    Host Port:     0/TCP (healthz)\n\
+            \    Args:\n      node\n      --endpoint=$(CSI_ENDPOINT)\n      --csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/\n\
+            \      --logging-format=text\n      --v=2\n    State:      Terminated\n\
+            \      Reason:   Error\n      Message:  I0616 00:30:22.571998       1\
+            \ main.go:174] \"Initializing metadata\"\nI0616 00:30:22.572027      \
+            \ 1 metadata.go:75] \"Attempting to retrieve instance metadata from IMDS\"\
+            \nE0616 00:30:27.573106       1 metadata.go:81] \"Retrieving IMDS metadata\
+            \ failed\" err=\"could not get IMDS metadata: operation error ec2imds:\
+            \ GetInstanceIdentityDocument, request canceled, context deadline exceeded\"\
+            \nI0616 00:30:27.573148       1 metadata.go:92] \"Attempting to retrieve\
+            \ instance metadata from Kubernetes API\"\nI0616 00:30:27.573385     \
+            \  1 envvar.go:195] \"Feature gate default state\" feature=\"UnlockWhileProcessingFIFO\"\
+            \ enabled=true\nI0616 00:30:27.573525       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"AtomicFIFO\" enabled=true\nI0616 00:30:27.573543\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"InOrderInformersBatchProcess\"\
+            \ enabled=true\nI0616 00:30:27.573552       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsAllowTLSCacheGC\" enabled=true\n\
+            I0616 00:30:27.573560       1 envvar.go:195] \"Feature gate default state\"\
+            \ feature=\"ClientsAllowCARotation\" enabled=true\nI0616 00:30:27.573568\
+            \       1 envvar.go:195] \"Feature gate default state\" feature=\"ClientsAllowCBOR\"\
+            \ enabled=false\nI0616 00:30:27.573587       1 envvar.go:195] \"Feature\
+            \ gate default state\" feature=\"ClientsPreferCBOR\" enabled=false\nI0616\
+            \ 00:30:27.573596       1"
+          detailTail: "bernetes.io/unreachable:NoExecute op=Exists\n             \
+            \                node.kubernetes.io/unschedulable:NoSchedule op=Exists\n\
+            Events:\n  Type     Reason     Age               From               Message\n\
+            \  ----     ------     ----              ----               -------\n\
+            \  Normal   Pulling    31s               kubelet            spec.containers{ebs-plugin}:\
+            \ Pulling image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \n  Normal   Scheduled  31s               default-scheduler  Successfully\
+            \ assigned default/ebs-csi-node-qgtcc to hx-awsebs-e9abf-cbjn-installer-control-plane\n\
+            \  Normal   Pulled     25s               kubelet            spec.containers{ebs-plugin}:\
+            \ Successfully pulled image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ in 6.271s (6.271s including waiting). Image size: 32815808 bytes.\n\
+            \  Normal   Pulling    25s               kubelet            spec.containers{node-driver-registrar}:\
+            \ Pulling image \"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\"\
+            \n  Normal   Started    18s               kubelet            spec.containers{node-driver-registrar}:\
+            \ Container started\n  Normal   Pulling    18s               kubelet \
+            \           spec.containers{liveness-probe}: Pulling image \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\"\
+            \n  Normal   Pulled     18s               kubelet            spec.containers{node-driver-registrar}:\
+            \ Successfully pulled image \"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\"\
+            \ in 4.746s (6.258s including waiting). Image size: 15447232 bytes.\n\
+            \  Normal   Created    18s               kubelet            spec.containers{node-driver-registrar}:\
+            \ Container created\n  Normal   Started    7s (x2 over 25s)  kubelet \
+            \           spec.containers{ebs-plugin}: Container started\n  Normal \
+            \  Created    7s (x2 over 25s)  kubelet            spec.containers{ebs-plugin}:\
+            \ Container created\n  Normal   Pulled     7s                kubelet \
+            \           spec.containers{liveness-probe}: Successfully pulled image\
+            \ \"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\" in\
+            \ 3.8s (10.939s including waiting). Image size: 15549803 bytes.\n  Normal\
+            \   Created    7s                kubelet            spec.containers{liveness-probe}:\
+            \ Container created\n  Normal   Started    7s                kubelet \
+            \           spec.containers{liveness-probe}: Container started\n  Normal\
+            \   Pulled     7s                kubelet            spec.containers{ebs-plugin}:\
+            \ Container image \"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  Unhealthy  5s (x2 over 6s)   kubelet            spec.containers{ebs-plugin}:\
+            \ Readiness probe failed: Get \"http://10.244.0.5:9808/healthz\": dial\
+            \ tcp 10.244.0.5:9808: connect: connection refused\n  Warning  BackOff\
+            \    1s                kubelet            spec.containers{ebs-plugin}:\
+            \ Back-off restarting failed container ebs-plugin in pod ebs-csi-node-qgtcc_default(2aa71061-2098-42c2-aa49-0ad26c1252d4)"
+          logsHead: 'I0616 00:30:22.571998       1 main.go:174] "Initializing metadata"
+
+            I0616 00:30:22.572027       1 metadata.go:75] "Attempting to retrieve
+            instance metadata from IMDS"
+
+            E0616 00:30:27.573106       1 metadata.go:81] "Retrieving IMDS metadata
+            failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument,
+            request canceled, context deadline exceeded"
+
+            I0616 00:30:27.573148       1 metadata.go:92] "Attempting to retrieve
+            instance metadata from Kubernetes API"
+
+            I0616 00:30:27.573385       1 envvar.go:195] "Feature gate default state"
+            feature="UnlockWhileProcessingFIFO" enabled=true
+
+            I0616 00:30:27.573525       1 envvar.go:195] "Feature gate default state"
+            feature="AtomicFIFO" enabled=true
+
+            I0616 00:30:27.573543       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            I0616 00:30:27.573552       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowTLSCacheGC" enabled=true
+
+            I0616 00:30:27.573560       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCARotation" enabled=true
+
+            I0616 00:30:27.573568       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:30:27.573587       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:30:27.573596       1 envvar.go:195] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:30:27.573602       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:30:27.573625       1 envvar.go:195] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            E0616 00:30:27.583874       1 metadata.go:98] "Retrieving Kubernetes metadata
+            failed" err="did not find aws instance ID in node providerID string"
+
+            E0616 00:30:27.583917       1 main.go:179] "Failed to initialize metadata
+            when it is required" err="all specified --metadata-sources ''[imds kubernetes]''
+            are unavailable"
+
+            I0616 00:30:11.143030       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+
+            I0616 00:30:11.143068       1 main.go:146] "Running node-driver-registrar"
+            mode=""
+
+            I0616 00:30:11.143074       1 main.go:163] "Attempting to open a gRPC
+            connection" csiAddress="/csi/csi.sock"
+
+            I0616 00:30:21.147578       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"'
+          logsTail: 'I0616 00:30:22.571998       1 main.go:174] "Initializing metadata"
+
+            I0616 00:30:22.572027       1 metadata.go:75] "Attempting to retrieve
+            instance metadata from IMDS"
+
+            E0616 00:30:27.573106       1 metadata.go:81] "Retrieving IMDS metadata
+            failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument,
+            request canceled, context deadline exceeded"
+
+            I0616 00:30:27.573148       1 metadata.go:92] "Attempting to retrieve
+            instance metadata from Kubernetes API"
+
+            I0616 00:30:27.573385       1 envvar.go:195] "Feature gate default state"
+            feature="UnlockWhileProcessingFIFO" enabled=true
+
+            I0616 00:30:27.573525       1 envvar.go:195] "Feature gate default state"
+            feature="AtomicFIFO" enabled=true
+
+            I0616 00:30:27.573543       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformersBatchProcess" enabled=true
+
+            I0616 00:30:27.573552       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowTLSCacheGC" enabled=true
+
+            I0616 00:30:27.573560       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCARotation" enabled=true
+
+            I0616 00:30:27.573568       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsAllowCBOR" enabled=false
+
+            I0616 00:30:27.573587       1 envvar.go:195] "Feature gate default state"
+            feature="ClientsPreferCBOR" enabled=false
+
+            I0616 00:30:27.573596       1 envvar.go:195] "Feature gate default state"
+            feature="WatchListClient" enabled=true
+
+            I0616 00:30:27.573602       1 envvar.go:195] "Feature gate default state"
+            feature="InOrderInformers" enabled=true
+
+            I0616 00:30:27.573625       1 envvar.go:195] "Feature gate default state"
+            feature="InformerResourceVersion" enabled=true
+
+            E0616 00:30:27.583874       1 metadata.go:98] "Retrieving Kubernetes metadata
+            failed" err="did not find aws instance ID in node providerID string"
+
+            E0616 00:30:27.583917       1 main.go:179] "Failed to initialize metadata
+            when it is required" err="all specified --metadata-sources ''[imds kubernetes]''
+            are unavailable"
+
+            I0616 00:30:11.143030       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+
+            I0616 00:30:11.143068       1 main.go:146] "Running node-driver-registrar"
+            mode=""
+
+            I0616 00:30:11.143074       1 main.go:163] "Attempting to open a gRPC
+            connection" csiAddress="/csi/csi.sock"
+
+            I0616 00:30:21.147578       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 19
+      installerObjectCount: 19
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs:
+      - apps/v1|Deployment|default|ebs-csi-controller
+      - storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com
+      semanticNormalizations: *id003
+      comparisonSHA256: cffc3965d2c54aaa50fb44e6b0b716797a81521aeb43ec8b81af4af9673b5e8e
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 19
+      installerObjectCount: 20
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs:
+      - apps/v1|Deployment|default|ebs-csi-controller
+      - storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com
+      semanticNormalizations: *id003
+      comparisonSHA256: f9050ff6b449b40c7b424a5ace4475d613311460b9cd6e8e2ddd14772b77fd9d
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=0 extra=[] diffs=2
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource DaemonSet/default/ebs-csi-node not ready. status: InProgress,
+      message: Available: 0/1
+
+      resource Deployment/default/ebs-csi-controller not ready. status: InProgress,
+      message: Available: 0/2
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/ebs-csi-controller   0/2   2     0     31s
+
+      daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     31s
+
+      daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   31s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=2
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
