@@ -91,6 +91,7 @@ function readme(rows) {
     ["I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes.", "data/model-gap-workdown/summary.md; data/model-gap-workdown/workdown.csv; data/model-gap-workdown/workdown.json"],
     ["I want the target/user prerequisites a base needs before it can pass (a CRD, Namespace, Secret, storage, external API, or target topology), who owns each, and the exact prerequisite name.", "data/target-prerequisite-workdown/summary.md; data/target-prerequisite-workdown/workdown.csv; data/target-prerequisite-workdown/workdown.json"],
     ["I want an action packet per non-green row: what to stage before rerunning (create-namespace / stage-secret / install-crds / provide-external-service / provide-storage-or-topology / operator-review), the required inputs, the evidence to look for, and the rerun command.", "data/target-prerequisite-actions/summary.md; data/target-prerequisite-actions/actions.csv; data/target-prerequisite-actions/actions.json"],
+    ["I want the ranked plan to reach 100% verified matrix disposition: the non-green cells collapsed into action families by cells-cleared-per-action, owner lane, and linked issues, with variant promotion as a first-class family.", "data/coverage-completion-plan/summary.md; data/coverage-completion-plan/actions.csv; data/coverage-completion-plan/actions.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -334,6 +335,7 @@ function audienceFor(path) {
   if (path.startsWith("data/model-gap-workdown/")) return "user/front-door";
   if (path.startsWith("data/target-prerequisite-workdown/")) return "user/front-door";
   if (path.startsWith("data/target-prerequisite-actions/")) return "user/front-door";
+  if (path.startsWith("data/coverage-completion-plan/")) return "user/front-door";
   if (path.startsWith("data/gitops-health-residue/")) return "user/front-door";
   if (path.startsWith("data/large-config-operations/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
@@ -447,6 +449,7 @@ function roleFor(path) {
   if (path === "data/model-gap-workdown/workdown.csv") return "one row per catalog-owned model-gap (non-pass row needing a recipe/base change, not a re-run): model-gap kind (crd-lifecycle / missing-crd / object-set-shape / generated-fact / semantic-normalization / base-design), recommended action, owner class, a sibling base that already passes, the rerun command after the fix, and evidence path";
   if (path === "data/target-prerequisite-workdown/workdown.csv") return "one row per target/user prerequisite (non-pass row needing something staged on the target, not a model change): prerequisite kind (crd / namespace / secret / storage / object-store / topology / external-api) and exact name, whether semantic parity already passed, owner class (user-stage / catalog-support / target-policy / operator-review / upstream-or-registry), support artifact, next action, and rerun command";
   if (path === "data/target-prerequisite-actions/actions.csv") return "one action packet per target-prerequisite row: action_kind (create-namespace / stage-secret / install-crds / provide-external-service / provide-storage-or-topology / operator-review / unknown-preflight), required inputs, evidence required after staging, rerun command, and automatic=false (preflight plan, not automation)";
+  if (path === "data/coverage-completion-plan/actions.csv") return "one row per action family on the path to 100% verified matrix disposition: action_type, sub-group, owner lane, affected cell count (cells-cleared-per-action), affected rows, command/prerequisite, expected status (predictions marked), evidence surface to regenerate, and linked issues; ranked by cells cleared";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -522,6 +525,7 @@ function familyRole(family) {
     "model-gap-workdown": "catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes",
     "target-prerequisite-workdown": "target/user prerequisites: non-pass rows needing a CRD/Namespace/Secret/storage/external-API/topology staged on the target (not a model change), with the exact prerequisite name, owner class, and next action",
     "target-prerequisite-actions": "action packets: per non-green row, what to stage before rerunning (action_kind), the required inputs, the evidence to look for after staging, and the rerun command; automatic=false (preflight plan, not automation)",
+    "coverage-completion-plan": "ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -642,6 +646,7 @@ function commandMap() {
     "model-gap-workdown": { generate: "npm run model-gap-workdown", verify: "npm run model-gap-workdown:verify" },
     "target-prerequisite-workdown": { generate: "npm run target-prerequisite-workdown", verify: "npm run target-prerequisite-workdown:verify" },
     "target-prerequisite-actions": { generate: "npm run target-prerequisite-actions", verify: "npm run target-prerequisite-actions:verify" },
+    "coverage-completion-plan": { generate: "npm run coverage-completion-plan", verify: "npm run coverage-completion-plan:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
