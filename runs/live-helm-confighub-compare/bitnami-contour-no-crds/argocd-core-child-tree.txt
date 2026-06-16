@@ -1,0 +1,35 @@
+Name:               argocd/contour-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55907/applications/contour-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-contour
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Degraded
+
+KIND/NAME                                      STATUS  HEALTH       AGE    MESSAGE                                                                                                                                                                               REASON
+ClusterRoleBinding/contour-contour             Synced               7m1s
+Namespace/default-oci                          Synced               8m15s
+DaemonSet/contour-envoy                        Synced  Progressing  13m    daemonset.apps/contour-envoy serverside-applied                                                                                                                                       Waiting for daemon set "contour-envoy" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/contour-envoy-k2vrp                              Progressing  13m
+└─ControllerRevision/contour-envoy-7745bbb45d                       13m
+IngressClass/contour                           Synced               7m1s
+NetworkPolicy/contour-envoy                    Synced               13m    networkpolicy.networking.k8s.io/contour-envoy serverside-applied
+ClusterRole/contour-contour                    Synced               7m1s
+Role/contour-contour                           Synced               13m    role.rbac.authorization.k8s.io/contour-contour reconciled. reconciliation required update. role.rbac.authorization.k8s.io/contour-contour serverside-applied
+RoleBinding/contour-contour-role               Synced               13m    rolebinding.rbac.authorization.k8s.io/contour-contour-role reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/contour-contour-role serverside-applied
+Deployment/contour-contour                     Synced  Degraded     13m    deployment.apps/contour-contour serverside-applied                                                                                                                                    Deployment "contour-contour" exceeded its progress deadline
+└─ReplicaSet/contour-contour-6f88fd5fc6                Progressing  13m                                                                                                                                                                                          Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/contour-contour-6f88fd5fc6-z8lqj               Progressing  13m
+NetworkPolicy/contour-contour                  Synced               13m    networkpolicy.networking.k8s.io/contour-contour serverside-applied
+ConfigMap/contour                              Synced               13m    configmap/contour serverside-applied
+ServiceAccount/contour-envoy                   Synced               13m    serviceaccount/contour-envoy serverside-applied
+NetworkPolicy/contour-contour-certgen          Synced               13m    networkpolicy.networking.k8s.io/contour-contour-certgen serverside-applied
+Service/contour                                Synced  Healthy      13m    service/contour serverside-applied
+Service/contour-envoy                          Synced  Progressing  13m    service/contour-envoy serverside-applied
+ServiceAccount/contour-contour                 Synced               13m    serviceaccount/contour-contour serverside-applied

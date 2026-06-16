@@ -2138,11 +2138,50 @@ def ready_status(kubeconfig: Path, context: str, namespace: str, command_timeout
     }
 
 
+def terminal_readiness_blocker(result: dict) -> str:
+    pods = (result.get("pods") or "").lower()
+    workloads = (result.get("workloads") or "").lower()
+    combined = f"{pods}\n{workloads}"
+    if "imagepullbackoff" in combined or "errimagepull" in combined:
+        return "image pull failure"
+    for item in result.get("notReady") or []:
+        status = (item.get("status") or "").lower()
+        if status in ("imagepullbackoff", "errimagepull"):
+            return "image pull failure"
+    return ""
+
+
+def namespace_terminal_readiness_blocker(kubeconfig: Path, context: str, namespace: str, result: dict, command_timeout: int = 20) -> str:
+    blocker = terminal_readiness_blocker(result)
+    if blocker:
+        return blocker
+    rc, events, _ = kubectl(
+        ["-n", namespace, "get", "events", "--sort-by=.lastTimestamp"],
+        kubeconfig,
+        context,
+        timeout=command_timeout,
+    )
+    if rc != 0:
+        return ""
+    lowered = events.lower()
+    if "failedmount" in lowered and "not found" in lowered:
+        if "secret" in lowered:
+            return "missing secret"
+        if "configmap" in lowered:
+            return "missing configmap"
+        return "missing mounted dependency"
+    return ""
+
+
 def wait_ready(kubeconfig: Path, context: str, namespace: str, timeout_seconds: int = 300) -> dict:
     deadline = time.monotonic() + timeout_seconds
     last = ready_status(kubeconfig, context, namespace)
     while time.monotonic() < deadline:
         if last["result"] == "pass":
+            return last
+        blocker = namespace_terminal_readiness_blocker(kubeconfig, context, namespace, last)
+        if blocker:
+            last["terminalReadinessBlocker"] = blocker
             return last
         time.sleep(10)
         remaining = max(1, int(deadline - time.monotonic()))
@@ -2163,21 +2202,34 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
         last = results
         if results and all(item.get("result") == "pass" for item in results.values()):
             break
+        blockers = {
+            namespace: blocker
+            for namespace, result in results.items()
+            if (blocker := namespace_terminal_readiness_blocker(kubeconfig, context, namespace, result))
+        }
+        if blockers:
+            for namespace, blocker in blockers.items():
+                results[namespace]["terminalReadinessBlocker"] = blocker
+            break
         time.sleep(10)
     not_ready = []
     workloads = []
     pods = []
+    blockers = {}
     for namespace, result in last.items():
         workloads.append(f"# {namespace}\n{result.get('workloads', '')}".rstrip())
         pods.append(f"# {namespace}\n{result.get('pods', '')}".rstrip())
         for item in result.get("notReady", []):
             not_ready.append({"namespace": namespace, **item})
+        if result.get("terminalReadinessBlocker"):
+            blockers[namespace] = result["terminalReadinessBlocker"]
     return {
         "result": "pass" if last and all(item.get("result") == "pass" for item in last.values()) else "watch",
         "namespaces": namespaces,
         "workloads": "\n".join(workloads),
         "pods": "\n".join(pods),
         "notReady": not_ready,
+        "terminalReadinessBlockers": blockers,
     }
 
 

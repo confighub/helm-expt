@@ -57,6 +57,20 @@
       "receipt": "runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml"
     },
     {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "variant": "no-crds",
+      "result": "watch",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — image reference must be resolved",
+      "user_decision": "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml"
+    },
+    {
       "chart": "bitnami/mongodb",
       "version": "19.0.9",
       "variant": "existing-secret-replicaset",

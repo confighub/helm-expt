@@ -1,0 +1,98 @@
+Name:             contour-contour-6f88fd5fc6-z8lqj
+Namespace:        default
+Priority:         0
+Service Account:  contour-contour
+Node:             helm-expt-parity-contour-mqg6u9si-jv7-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 06:24:10 +0100
+Labels:           app.kubernetes.io/component=contour
+                  app.kubernetes.io/instance=contour
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=contour
+                  app.kubernetes.io/version=1.32.1
+                  helm.sh/chart=contour-21.1.4
+                  pod-template-hash=6f88fd5fc6
+Annotations:      checksum/config: 7a2b79b3bb4ed721a1dfec37c680ffdcaf8d1976e71f115034be9295e367aa36
+Status:           Pending
+IP:
+IPs:              <none>
+Controlled By:    ReplicaSet/contour-contour-6f88fd5fc6
+Containers:
+  contour:
+    Container ID:
+    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0
+    Image ID:
+    Ports:           8001/TCP (xds), 8000/TCP (metrics)
+    Host Ports:      0/TCP (xds), 0/TCP (metrics)
+    SeccompProfile:  RuntimeDefault
+    Command:
+      contour
+    Args:
+      serve
+      --incluster
+      --xds-address=0.0.0.0
+      --xds-port=8001
+      --http-port=8000
+      --envoy-service-http-port=8080
+      --envoy-service-https-port=8443
+      --contour-cafile=/certs/ca.crt
+      --contour-cert-file=/certs/tls.crt
+      --contour-key-file=/certs/tls.key
+      --config-path=/config/contour.yaml
+      --envoy-service-namespace=default
+      --envoy-service-name=contour-envoy
+      --leader-election-resource-name=default-contour-contour
+      --log-format=text
+      --kubernetes-debug=0
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:                150m
+      ephemeral-storage:  2Gi
+      memory:             192Mi
+    Requests:
+      cpu:                100m
+      ephemeral-storage:  50Mi
+      memory:             128Mi
+    Liveness:             tcp-socket :8000 delay=120s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            http-get http://:8000/healthz delay=15s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      CONTOUR_NAMESPACE:  default (v1:metadata.namespace)
+      POD_NAME:           contour-contour-6f88fd5fc6-z8lqj (v1:metadata.name)
+      BITNAMI_DEBUG:      false
+    Mounts:
+      /certs from contourcert (ro)
+      /config from contour-config (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5sb55 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  contourcert:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  contourcert
+    Optional:    false
+  contour-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      contour
+    Optional:  false
+  kube-api-access-5sb55:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason       Age                  From               Message
+  ----     ------       ----                 ----               -------
+  Normal   Scheduled    5m4s                 default-scheduler  Successfully assigned default/contour-contour-6f88fd5fc6-z8lqj to helm-expt-parity-contour-mqg6u9si-jv7-control-plane
+  Warning  FailedMount  54s (x10 over 5m4s)  kubelet            MountVolume.SetUp failed for volume "contourcert" : secret "contourcert" not found
