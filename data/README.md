@@ -53,6 +53,7 @@ smallest generated surface that answers it.
 | I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action. | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md)<br>[matrix-completion-audit/audit.csv](./matrix-completion-audit/audit.csv)<br>[matrix-completion-audit/audit.json](./matrix-completion-audit/audit.json) |
 | I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug. | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md)<br>[variant-promotion-closeout/closeout.csv](./variant-promotion-closeout/closeout.csv)<br>[variant-promotion-closeout/closeout.json](./variant-promotion-closeout/closeout.json) |
 | I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse. | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md)<br>[remote-image-runtime-workdown/workdown.csv](./remote-image-runtime-workdown/workdown.csv)<br>[remote-image-runtime-workdown/workdown.json](./remote-image-runtime-workdown/workdown.json) |
+| I want the ready-to-run variant promotions grouped into safe serial batches of commands to run once ConfigHub auth returns. | [variant-promotion-proof-batches/summary.md](./variant-promotion-proof-batches/summary.md)<br>[variant-promotion-proof-batches/batches.csv](./variant-promotion-proof-batches/batches.csv)<br>[variant-promotion-proof-batches/batches.json](./variant-promotion-proof-batches/batches.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -302,6 +303,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `variant-path-coverage` | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | chart/base/path proof status matrix |
 | `variant-promotion` | [variant-promotion/summary.md](./variant-promotion/summary.md) | server-side ConfigHub variant promotion status by chart/base |
 | `variant-promotion-closeout` | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md) | actionable promotion queue: per variant, whether cub variant promote is ready-to-run / watch-grade / blocked by the ConfigHub changeset bug, the owner class, and the exact next command or fix |
+| `variant-promotion-proof-batches` | [variant-promotion-proof-batches/summary.md](./variant-promotion-proof-batches/summary.md) | run plan: the ready-to-run promotions grouped into safe serial batches of 5-10 cub variant promote proof commands to run once ConfigHub auth returns (not completed evidence) |
 | `webhook-cert-lifecycle` | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | webhook serving certificate lifecycle evidence and proof boundaries |
 
 ## Every CSV
@@ -312,7 +314,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 144 CSV files. Each row records the path, audience,
+It includes 145 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
