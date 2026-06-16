@@ -55,6 +55,7 @@ smallest generated surface that answers it.
 | I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse. | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md)<br>[remote-image-runtime-workdown/workdown.csv](./remote-image-runtime-workdown/workdown.csv)<br>[remote-image-runtime-workdown/workdown.json](./remote-image-runtime-workdown/workdown.json) |
 | I want the ready-to-run variant promotions grouped into safe serial batches of commands to run once ConfigHub auth returns. | [variant-promotion-proof-batches/summary.md](./variant-promotion-proof-batches/summary.md)<br>[variant-promotion-proof-batches/batches.csv](./variant-promotion-proof-batches/batches.csv)<br>[variant-promotion-proof-batches/batches.json](./variant-promotion-proof-batches/batches.json) |
 | I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes. | [model-gap-workdown/summary.md](./model-gap-workdown/summary.md)<br>[model-gap-workdown/workdown.csv](./model-gap-workdown/workdown.csv)<br>[model-gap-workdown/workdown.json](./model-gap-workdown/workdown.json) |
+| I want the target/user prerequisites a base needs before it can pass (a CRD, Namespace, Secret, storage, external API, or target topology), who owns each, and the exact prerequisite name. | [target-prerequisite-workdown/summary.md](./target-prerequisite-workdown/summary.md)<br>[target-prerequisite-workdown/workdown.csv](./target-prerequisite-workdown/workdown.csv)<br>[target-prerequisite-workdown/workdown.json](./target-prerequisite-workdown/workdown.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -290,6 +291,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `secret-lifecycle` | [secret-lifecycle/summary.md](./secret-lifecycle/summary.md) | front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state |
 | `serious-chart-reviews` | - | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
+| `target-prerequisite-workdown` | [target-prerequisite-workdown/summary.md](./target-prerequisite-workdown/summary.md) | target/user prerequisites: non-pass rows needing a CRD/Namespace/Secret/storage/external-API/topology staged on the target (not a model change), with the exact prerequisite name, owner class, and next action |
 | `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
 | `top100-coverage` | [top100-coverage/summary.md](./top100-coverage/summary.md) | front-door top-100 coverage contract and work queue |
 | `top100-promotion-wave` | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md) | first strict top-100 promotion-review wave |
@@ -316,7 +318,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 146 CSV files. Each row records the path, audience,
+It includes 147 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
