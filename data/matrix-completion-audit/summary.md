@@ -23,8 +23,8 @@ columns). It changes no status and runs nothing.
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-run` | 260 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
-| `needs-target-or-prereq-fix` | 108 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 105 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `already-decided` | 107 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-target-or-prereq-fix` | 106 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `needs-modeling` | 24 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -39,8 +39,8 @@ columns). It changes no status and runs nothing.
 | State | Cells |
 | --- | ---: |
 | `todo` | 260 |
-| `blocked` | 114 |
-| `watch` | 105 |
+| `blocked` | 112 |
+| `watch` | 107 |
 | `fail` | 18 |
 
 ## needs-run (260)
@@ -310,7 +310,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | run scripts/run-top20-confighub-proof.mjs --charts victoria-metrics-single --base default-reviewed --variant-promotion-proof --cleanup-spaces |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | run scripts/run-top20-confighub-proof.mjs --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces |
 
-## needs-target-or-prereq-fix (108)
+## needs-target-or-prereq-fix (106)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -334,10 +334,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/opensearch@2.0.10 | ha | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | bitnami/phpmyadmin@20.0.0 | default | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/phpmyadmin@20.0.0 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
-| bitnami/spark@10.0.3 | default | G | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/spark@10.0.3 | default | K | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/spark@10.0.3 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
-| bitnami/spark@10.0.3 | default | P | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/spark@10.0.3 | ha | G | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/spark@10.0.3 | ha | K | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/spark@10.0.3 | ha | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
@@ -456,7 +454,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (105)
+## already-decided (107)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -498,6 +496,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/postgresql@18.6.7 | generated-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | bitnami/rabbitmq@16.0.14 | generated-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | bitnami/redis@25.5.3 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
+| bitnami/spark@10.0.3 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/spark@10.0.3 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | elastic/filebeat@8.5.1 | default | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/filebeat@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |

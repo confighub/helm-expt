@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-47 non-pass rows: 38 watch, 9 blocked.
+48 non-pass rows: 39 watch, 9 blocked.
 4 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,7 +34,7 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
-| `remote-image` | 10 |
+| `remote-image` | 11 |
 | `target-runtime` | 10 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
@@ -46,7 +46,7 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
-| `catalog or image publisher` | 10 |
+| `catalog or image publisher` | 11 |
 | `needs runtime review` | 10 |
 | `catalog` | 4 |
 | `user` | 4 |
@@ -72,6 +72,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/opensearch@2.0.10 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/opensearch@2.0.10 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/phpmyadmin@20.0.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/spark@10.0.3 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
