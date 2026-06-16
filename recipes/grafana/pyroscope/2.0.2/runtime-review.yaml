@@ -10,6 +10,9 @@ spec:
     - base: "no-crds"
       receipt: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
       observedResult: "watch"
+    - base: "ha"
+      receipt: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/receipt.yaml"
+      observedResult: "watch"
   controller: "Argo CD"
   targetShape: "kind proof rig"
   receipt: "runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml"
@@ -27,26 +30,35 @@ spec:
     - "ConfigHub OCI/Argo synced the uploaded Units"
     - "semantic object parity passed for direct apply and OCI/Argo"
   watch:
-    summary: "The ConfigHub-applied Pyroscope pod stayed Running but not Ready while the regular Helm leg became Ready. This has now been observed for both default and no-crds."
+    summary: "The ConfigHub-applied Pyroscope workload stayed Running but not Ready while the regular Helm leg became Ready. This has now been observed for default, no-crds, and ha."
     observedRuntime:
       - "ConfigHub direct apply: pyroscope-0 is 0/1 Running after the readiness wait"
       - "ConfigHub OCI/Argo: pyroscope-0 is 0/1 Running after the readiness wait"
+      - "ConfigHub HA direct apply and OCI/Argo: pyroscope-0 and pyroscope-1 are 0/1 Running or restart into Error while pyroscope-alloy is Ready"
       - "Argo CD reports the workload application Synced but Progressing"
     diagnostics:
       readinessProbe: "GET /ready on port 4040"
       logEvidence:
         - "Metastore not ready: terminated after 50 retries"
         - "component=metastore-client msg=\"no instances available, backoff and retry\""
+        - "HA base: failed to resolve bootstrap peers because two StatefulSet peers were discovered where the config expected one"
+        - "HA base: Kubernetes resolver returned 403 for service pyroscope-headless in namespace default"
   diagnosis:
     summary: "This is a runtime namespace-relocation watch row, not a render parity defect."
     interpretation: "The default package preserves chart-internal namespace references to default. In the live parity rig, regular Helm installs into default-helm and rewrites those references consistently, while the installer output creates the target Namespace object but does not relocate every namespace-sensitive value inside the rendered chart output."
     productBoundary: "A supported non-default-namespace Pyroscope base needs an explicit namespace relocation path, or this base should be advertised only for the namespace shape it actually proves."
     issue: "https://github.com/confighub/helm-expt/issues/96"
     nextInvestigation:
-      - "Decide whether Pyroscope default should be supported only in namespace default, or whether a new namespace-aware base should be generated."
-      - "If namespace relocation is supported, verify service DNS, StatefulSet environment, Role/RoleBinding namespaces, and generated Alloy configuration all move together."
+      - "Decide whether Pyroscope should be supported only in namespace default, or whether a new namespace-aware base should be generated."
+      - "For the ha base, decide whether the supported base should include a corrected raft/bootstrap peer model or whether HA remains watch-grade for this target."
+      - "If namespace relocation is supported, verify service DNS, StatefulSet environment, Role/RoleBinding namespaces, generated Alloy configuration, and HA bootstrap peer settings all move together."
       - "Rerun live parity after the namespace route is modeled."
   evidence:
+    haReceipt: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/receipt.yaml"
+    haConfigHubDirectPod0Logs: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/logs.txt"
+    haConfigHubDirectPod1Logs: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/runtime-diagnostics/confighub-direct-apply/default/pyroscope-1/logs.txt"
+    haConfigHubOciPod0Logs: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/runtime-diagnostics/confighub-oci-argo/default/pyroscope-0/logs.txt"
+    haConfigHubOciPod1Logs: "runs/live-helm-confighub-compare/grafana-pyroscope-ha/runtime-diagnostics/confighub-oci-argo/default/pyroscope-1/logs.txt"
     noCrdsReceipt: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
     noCrdsConfigHubDirectLogs: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/logs.txt"
     noCrdsConfigHubDirectDescribe: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/runtime-diagnostics/confighub-direct-apply/default/pyroscope-0/describe.txt"
@@ -61,4 +73,5 @@ spec:
   notClaimed:
     - "This row does not prove Pyroscope production support."
     - "This row does not prove that namespace relocation is safe for this chart."
+    - "This row does not prove that the ha base has a production-ready raft/bootstrap configuration."
     - "This row does not prove that Argo CD aggregate health should be ignored in production."
