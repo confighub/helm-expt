@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 134 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 76 |
-| Watch/blocked/review rows | 85 |
-| Ready-to-run todo rows | 49 |
+| Watch/blocked/review rows | 86 |
+| Ready-to-run todo rows | 48 |
 
 ## By Work Type
 
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 26 |
-| `todo` | 69 |
-| `watch` | 39 |
+| `todo` | 68 |
+| `watch` | 40 |
 
 ## By Run Readiness
 
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 7 |
 | `inspect-receipt-first` | 2 |
 | `model-or-stage-first` | 37 |
-| `ready-to-run` | 49 |
-| `review-target-first` | 39 |
+| `ready-to-run` | 48 |
+| `review-target-first` | 40 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| nats/surveyor | 0.20.9 | default-reviewed | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed |
 | strimzi/strimzi-kafka-operator | 1.0.0 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds |
 | velero/velero | 12.0.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default |
 | velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | gitlab/gitlab-runner | 0.89.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default |
 | grafana/pyroscope | 2.0.2 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha |
 | istio/istiod | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/istiod/1.30.0 --base default |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner | 4.0.18 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default |
 
 ## Full Queue
 

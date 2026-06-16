@@ -1,0 +1,71 @@
+Name:             surveyor-c4759d87-4g6t4
+Namespace:        default-apply
+Priority:         0
+Service Account:  surveyor
+Node:             helm-expt-parity-surveyor-mqg1yy6k-1h3t-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 04:11:14 +0100
+Labels:           app.kubernetes.io/instance=surveyor
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=surveyor
+                  app.kubernetes.io/version=0.9.9
+                  helm.sh/chart=surveyor-0.20.9
+                  pod-template-hash=c4759d87
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  ReplicaSet/surveyor-c4759d87
+Containers:
+  surveyor:
+    Container ID:  containerd://b1280efe29f1e48ad3f3d7bccaba60b4e939b395a5e152b0a26827737ec16394
+    Image:         natsio/nats-surveyor:0.9.9
+    Image ID:      docker.io/natsio/nats-surveyor@sha256:104a3e938b2311b3773a7e07a2a80c4f252c3b46cf3cc6ef4856f55c3c8705c6
+    Port:          7777/TCP (http)
+    Host Port:     0/TCP (http)
+    Args:
+      -p
+      7777
+      -s=nats://nats:4222
+      --timeout=3s
+      -c=1
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Tue, 16 Jun 2026 04:14:04 +0100
+      Finished:     Tue, 16 Jun 2026 04:14:04 +0100
+    Ready:          False
+    Restart Count:  5
+    Liveness:       http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wfzr7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  kube-api-access-wfzr7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  5m4s                  default-scheduler  Successfully assigned default-apply/surveyor-c4759d87-4g6t4 to helm-expt-parity-surveyor-mqg1yy6k-1h3t-control-plane
+  Normal   Pulled     2m14s (x6 over 5m4s)  kubelet            spec.containers{surveyor}: Container image "natsio/nats-surveyor:0.9.9" already present on machine and can be accessed by the pod
+  Normal   Created    2m14s (x6 over 5m4s)  kubelet            spec.containers{surveyor}: Container created
+  Normal   Started    2m14s (x6 over 5m4s)  kubelet            spec.containers{surveyor}: Container started
+  Warning  BackOff    51s (x14 over 5m2s)   kubelet            spec.containers{surveyor}: Back-off restarting failed container surveyor in pod surveyor-c4759d87-4g6t4_default-apply(8236906f-f426-4260-9e00-03df74c2c1e5)

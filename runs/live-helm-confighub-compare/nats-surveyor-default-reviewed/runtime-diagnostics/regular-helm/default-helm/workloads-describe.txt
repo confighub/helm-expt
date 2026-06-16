@@ -1,0 +1,52 @@
+Name:                   surveyor
+Namespace:              default-helm
+CreationTimestamp:      Tue, 16 Jun 2026 04:00:05 +0100
+Labels:                 app.kubernetes.io/instance=surveyor
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=surveyor
+                        app.kubernetes.io/version=0.9.9
+                        helm.sh/chart=surveyor-0.20.9
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: surveyor
+                        meta.helm.sh/release-namespace: default-helm
+Selector:               app.kubernetes.io/instance=surveyor,app.kubernetes.io/name=surveyor
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app.kubernetes.io/instance=surveyor
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=surveyor
+                    app.kubernetes.io/version=0.9.9
+                    helm.sh/chart=surveyor-0.20.9
+  Service Account:  surveyor
+  Containers:
+   surveyor:
+    Image:      natsio/nats-surveyor:0.9.9
+    Port:       7777/TCP (http)
+    Host Port:  0/TCP (http)
+    Args:
+      -p
+      7777
+      -s=nats://nats:4222
+      --timeout=3s
+      -c=1
+    Liveness:      http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:     http-get http://:http/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    False   ProgressDeadlineExceeded
+OldReplicaSets:  <none>
+NewReplicaSet:   surveyor-c4759d87 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  11m   deployment-controller  Scaled up replica set surveyor-c4759d87 from 0 to 1

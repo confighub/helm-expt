@@ -405,6 +405,20 @@
       "receipt": "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
     },
     {
+      "chart": "nats/surveyor",
+      "version": "0.20.9",
+      "variant": "default-reviewed",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod config/runtime errors (parity passed)",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+    },
+    {
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "variant": "default",

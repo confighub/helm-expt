@@ -1,0 +1,1130 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: nats-surveyor-0.20.9-default-reviewed-live-parity-20260605
+spec:
+  chart: nats/surveyor
+  version: 0.20.9
+  base: default-reviewed
+  result: watch
+  observedAt: '2026-06-16T02:58:39Z'
+  package:
+    path: packages/nats/surveyor/0.20.9
+  recipe:
+    path: recipes/nats/surveyor/0.20.9
+  variantRevision: recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-surveyor-mqg1yy6k-1h3t
+    kubeContext: kind-helm-expt-parity-surveyor-mqg1yy6k-1h3t
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-surveyor-mqg1yy6k-1h3t --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-surveyor-mqg1yy6k-1h3t"...
+
+        Deleting cluster "helm-expt-parity-surveyor-mqg1yy6k-1h3t" ...
+
+        Deleted nodes: ["helm-expt-parity-surveyor-mqg1yy6k-1h3t-control-plane"]
+
+        Deleting Space "helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 0.20.9 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
+      objectCount: 3
+      liveHelmManifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
+      liveHelmManifestObjectCount: 3
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/surveyor   0/1   1     0     11m
+        pods: surveyor-c4759d87-vn7xh   0/1   CrashLoopBackOff   7 (4s ago)   11m
+        notReady:
+        - namespace: default-helm
+          pod: surveyor-c4759d87-vn7xh
+          ready: 0/1
+          status: CrashLoopBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: efbed89a543e530ed0d9b01a6955e26a8d8721fd0910013779ad45277099ee09
+            bytes: 1373
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: a7814d5336e72acf1bab2162f39e5968edebe27d9c0a27c2f0264913da1284ab
+            bytes: 2268
+          podArtifacts:
+          - namespace: default-helm
+            pod: surveyor-c4759d87-vn7xh
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/surveyor-c4759d87-vn7xh/describe.txt
+            sha256: 728c5fabd0bae534ef79fe5497a6cef1dc2a0bb4be05750212cf10f14ae59703
+            bytes: 3813
+          - namespace: default-helm
+            pod: surveyor-c4759d87-vn7xh
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/surveyor-c4759d87-vn7xh/logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+          - namespace: default-helm
+            pod: surveyor-c4759d87-vn7xh
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/surveyor-c4759d87-vn7xh/previous-logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+      stderr: 'Error: resource Deployment/default-helm/surveyor not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+        --base default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0d031c91725bb5f3c42947c7c8462e150786ad4f4754829c83b509a96204149f
+      objectCount: 4
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default-apply
+
+          deployment.apps/surveyor   0/1   1     0     4m54s'
+        pods: '# default-apply
+
+          surveyor-c4759d87-4g6t4   0/1   CrashLoopBackOff   5 (2m4s ago)   4m54s'
+        notReady:
+        - namespace: default-apply
+          pod: surveyor-c4759d87-4g6t4
+          ready: 0/1
+          status: CrashLoopBackOff
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-apply
+          namespaceArtifacts:
+          - namespace: default-apply
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/events.txt
+            sha256: b9ca413df2d7c647009d3811f3caa9f9d8871f47ef588a69243c8b52cb1cc28c
+            bytes: 1287
+          - namespace: default-apply
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/workloads-describe.txt
+            sha256: e54fc24aa9b1eccef4f6d394fcc07a14f44a2fc9a128a1c3f197986717b9bce4
+            bytes: 2133
+          podArtifacts:
+          - namespace: default-apply
+            pod: surveyor-c4759d87-4g6t4
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/surveyor-c4759d87-4g6t4/describe.txt
+            sha256: 4e3c9bd83df5a54087e558f23cff70c070463a2556d73964aa6bc34ae16f83eb
+            bytes: 3499
+          - namespace: default-apply
+            pod: surveyor-c4759d87-4g6t4
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/surveyor-c4759d87-4g6t4/logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+          - namespace: default-apply
+            pod: surveyor-c4759d87-4g6t4
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/surveyor-c4759d87-4g6t4/previous-logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+      controller: Argo CD OCI
+      app: surveyor-parity
+      manifestSHA256: e7081406b174b7215f2f2d66a75eea5c120559c25b69ac26e6b5fcc7a02afe94
+      objectCount: 4
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci
+              targetRevision: latest
+          revision: sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T03:17:07Z'
+          status: Progressing
+        summary:
+          images:
+          - natsio/nats-surveyor:0.9.9
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T03:17:04Z'
+          finishedAt: '2026-06-16T03:17:06Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 4
+          syncResultStatusCounts:
+            Synced: 4
+        history:
+        - id: 0
+          revision: sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+          deployedAt: '2026-06-16T03:17:06Z'
+          deployStartedAt: '2026-06-16T03:17:04Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: surveyor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default-oci
+          name: surveyor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default-oci
+          name: surveyor
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         surveyor-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster:argoproj.io/Application:argocd/surveyor-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 2dedfb7e-e88b-4c31-9fdf-af3380735455\n              confighub.com/UnitSlug:\
+              \ surveyor-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:   \
+              \      Application\nMetadata:\n  Creation Timestamp:  2026-06-16T03:17:03Z\n\
+              \  Generation:          9\n  Resource Version:    2891\n  UID:     \
+              \            83ce151a-5fec-4ecc-8fb4-9ce264f8ef4e\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T03:17:07Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-16T03:17:04Z\n    Deployed At:        2026-06-16T03:17:06Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \    Source:\n      Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T03:17:06Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \        Source:\n          Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-16T03:17:04Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/surveyor serverside-applied\n        Name:      \
+              \  surveyor\n        Namespace:   default-oci\n        Status:     \
+              \ Synced\n        Sync Phase:  Sync\n        Version:     v1\n     \
+              \   Group:       \n        Hook Phase:  Running\n        Kind:     \
+              \   Service\n        Message:     service/surveyor serverside-applied\n\
+              \        Name:        surveyor\n        Namespace:   default-oci\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       apps\n        Hook Phase:  Running\n\
+              \        Images:\n          natsio/nats-surveyor:0.9.9\n        Kind:\
+              \        Deployment\n        Message:     deployment.apps/surveyor serverside-applied\n\
+              \        Name:        surveyor\n        Namespace:   default-oci\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n      Revision:      sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \      Source:\n        Path:              ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T03:21:53Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       surveyor\n    Namespace:\
+              \  default-oci\n    Status:     Synced\n    Version:    v1\n    Kind:\
+              \       ServiceAccount\n    Name:       surveyor\n    Namespace:  default-oci\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apps\n\
+              \    Kind:       Deployment\n    Name:       surveyor\n    Namespace:\
+              \  default-oci\n    Status:     Synced\n    Version:    v1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n    Images:\n  \
+              \    natsio/nats-surveyor:0.9.9\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    6m52s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d'\n\
+              \  Normal  ResourceUpdated     6m52s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  6m52s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  6m50s  argocd-application-controller\
+              \  Sync operation to sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\
+              \ succeeded\n  Normal  ResourceUpdated     6m49s  argocd-application-controller\
+              \  Updated "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                        MESSAGE
+
+              6m52s       Normal   OperationStarted     application/surveyor-parity   Initiated
+              automated sync to ''sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d''
+
+              6m52s       Normal   ResourceUpdated      application/surveyor-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/surveyor-parity   Updated
+              health status:  -> Healthy
+
+              6m50s       Normal   OperationCompleted   application/surveyor-parity   Sync
+              operation to sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/surveyor-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m49s       Normal   ResourceUpdated      application/surveyor-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 4
+              artifact:
+                path: argocd-core-child.json
+                sha256: c6042baca6e6dca2df84790e6a2e1734331e4b6449d96baa01f74dcca14cb0b8
+                bytes: 9881
+              output: "{\n  \"metadata\": {\n    \"name\": \"surveyor-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"83ce151a-5fec-4ecc-8fb4-9ce264f8ef4e\"\
+                ,\n    \"resourceVersion\": \"3069\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-16T03:17:03Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster:argoproj.io/Application:argocd/surveyor-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"2dedfb7e-e88b-4c31-9fdf-af3380735455\",\n      \"confighub.com/UnitSlug\"\
+                : \"surveyor-parity-app\"\n    },\n    \"managedFields\": [\n    \
+                \  {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-16T03:17:03Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T03:24:04Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default-oci\",\n        \"\
+                name\": \"surveyor\",\n        \"status\": \"Synced\",\n        \"\
+                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"surveyor\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"surveyor\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for rollout to finish: 0 of 1 updated replicas are available...\"\
+                \n        }\n      }\n    ],\n    \"sync\": {\n      \"status\": \"\
+                Synced\",\n      \"comparedTo\": {\n        \"source\": {\n      \
+                \    \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\"\
+                ,\n          \"targetRevision\": \"latest\"\n        },\n        \"\
+                destination\": {\n          \"server\": \"https://kubernetes.default.s"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: fd353c8b2eab2cdf9a90866a3c2ce928894a11a8fd261f7f7145650958b12b0f
+                bytes: 1566
+              output: "Name:               argocd/surveyor-parity\nProject:      \
+                \      default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:50298/applications/surveyor-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                        STATUS  HEALTH\
+                \       AGE    MESSAGE                                      REASON\n\
+                Namespace/default-oci            Synced               7m43s      \
+                \                                         \nService/surveyor     \
+                \            Synced  Healthy      7m6s   service/surveyor serverside-applied\
+                \          \nServiceAccount/surveyor          Synced             \
+                \  7m6s   serviceaccount/surveyor serverside-applied   \nDeployment/surveyor\
+                \              Synced  Progressing  7m6s   deployment.apps/surveyor\
+                \ serverside-applied  Waiting for rollout to finish: 0 of 1 updated\
+                \ replicas are available...\n\u2514\u2500ReplicaSet/surveyor-c4759d87\
+                \           Progressing  7m6s                                    \
+                \            Waiting for rollout to finish: 0 out of 1 new replicas\
+                \ are available...\n  \u2514\u2500Pod/surveyor-c4759d87-tq4ks    \
+                \      Degraded     7m6s                                         \
+                \       back-off 5m0s restarting failed container=surveyor pod=surveyor-c4759d87-tq4ks_default-oci(1226e474-77f4-41ba-8609-c6e67a25fba7)"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              surveyor-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/surveyor-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"surveyor-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci
+              targetRevision: latest
+          revision: sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T03:00:11Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T03:17:01Z'
+          finishedAt: '2026-06-16T03:17:03Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+          deployedAt: '2026-06-16T03:17:03Z'
+          deployStartedAt: '2026-06-16T03:17:01Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: surveyor-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-16T03:00:02Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        15\n  Resource Version:  3053\n  UID:        \
+              \       33d5f806-5eef-46ac-93f1-1f2bc30bf74f\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-16T03:00:11Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T03:17:01Z\n\
+              \    Deployed At:        2026-06-16T03:17:03Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \    Source:\n      Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T03:17:03Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \        Source:\n          Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-16T03:17:01Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/surveyor-parity serverside-applied\n\
+              \        Name:        surveyor-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \      Source:\n        Path:              ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T03:23:53Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       surveyor-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     24m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     24m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                        MESSAGE
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Updated
+              sync status:  -> Synced
+
+              24m         Normal   ResourceUpdated      application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Initiated
+              automated sync to ''sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m10s       Normal   OperationCompleted   application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Sync
+              operation to sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 1f4901fdf46c684eeb10413bb360cac3d122ae44f7c22bc163e17ea034edbda4
+                bytes: 10668
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"33d5f806-5eef-46ac-93f1-1f2bc30bf74f\"\
+                ,\n    \"resourceVersion\": \"3098\",\n    \"generation\": 16,\n \
+                \   \"creationTimestamp\": \"2026-06-16T03:00:02Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T03:00:02Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-16T03:24:22Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighu"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: ea83a01d6fbee2226228d7d03d3b42c38a5ff7843cc243cbc453f48a9d119e91
+                bytes: 1140
+              output: "Name:               argocd/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:50422/applications/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \           STATUS  HEALTH  AGE    MESSAGE                       \
+                \                                                              REASON\n\
+                Application/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster  Synced\
+                \          24m    application.argoproj.io/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\
+                \ serverside-applied  \nApplication/surveyor-parity              \
+                \                    Synced          7m29s  application.argoproj.io/surveyor-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              surveyor-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/surveyor-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:811a383e0899322571aba875bca21ea97b6af6d7192fbe4ce593858b57c4a59d\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"surveyor-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default-oci
+
+          deployment.apps/surveyor   0/1   1     0     10m'
+        pods: '# default-oci
+
+          surveyor-c4759d87-tq4ks   0/1   CrashLoopBackOff   6 (4m43s ago)   10m'
+        notReady:
+        - namespace: default-oci
+          pod: surveyor-c4759d87-tq4ks
+          ready: 0/1
+          status: CrashLoopBackOff
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-oci
+          namespaceArtifacts:
+          - namespace: default-oci
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/events.txt
+            sha256: c8731f1fbadc98bc2141c64665546e0ef925ab9595bdd14eec5418a01c85e1c8
+            bytes: 1061
+          - namespace: default-oci
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/workloads-describe.txt
+            sha256: c58e1aca96235daf06cb73958676fa942978422cae23ba1260f4f0f53a0d1b4c
+            bytes: 2452
+          podArtifacts:
+          - namespace: default-oci
+            pod: surveyor-c4759d87-tq4ks
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/surveyor-c4759d87-tq4ks/describe.txt
+            sha256: b3ef56818e3e7ad097337717e74de52779d162fabc37db6a53b687d5cae0ebdf
+            bytes: 3486
+          - namespace: default-oci
+            pod: surveyor-c4759d87-tq4ks
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/surveyor-c4759d87-tq4ks/logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+          - namespace: default-oci
+            pod: surveyor-c4759d87-tq4ks
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/surveyor-c4759d87-tq4ks/previous-logs.txt
+            sha256: 8bd7ad5cd4607efb93a2f47cfdbb0f31c6d2581c8ee70963c8207814c1913afd
+            bytes: 5025
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T03:00:02Z'
+    finishedAt: '2026-06-16T03:08:05Z'
+    elapsedSeconds: 482.551
+    timeoutSeconds: 900
+    command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
+      --version 0.20.9 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T03:11:13Z'
+    finishedAt: '2026-06-16T03:11:14Z'
+    elapsedSeconds: 0.408
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+      --base default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-16T03:11:14Z'
+    finishedAt: '2026-06-16T03:11:14Z'
+    elapsedSeconds: 0.093
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg1yy6k-1h3t.kubeconfig
+      --context kind-helm-expt-parity-surveyor-mqg1yy6k-1h3t apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/direct-apply-manifest.yaml
+    objectCount: 3
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-16T03:11:14Z'
+    finishedAt: '2026-06-16T03:16:18Z'
+    elapsedSeconds: 304.014
+    timeoutSeconds: 300
+    namespaces: default-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-16T03:16:28Z'
+    finishedAt: '2026-06-16T03:16:29Z'
+    elapsedSeconds: 0.408
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+      --base default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-16T03:16:29Z'
+    finishedAt: '2026-06-16T03:16:48Z'
+    elapsedSeconds: 19.301
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+      --space helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor --target helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci
+    objectCount: 4
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-16T03:16:48Z'
+    finishedAt: '2026-06-16T03:16:49Z'
+    elapsedSeconds: 0.769
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-16T03:16:49Z'
+    finishedAt: '2026-06-16T03:16:52Z'
+    elapsedSeconds: 2.637
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-surveyor-mqg1yy6k-1h3t-surveyor
+      --unit <4 unit(s)> --wait --timeout 5m
+    unitCount: 4
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-16T03:16:52Z'
+    finishedAt: '2026-06-16T03:16:52Z'
+    elapsedSeconds: 0.892
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster
+      surveyor-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/argo-application.json
+      --target helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-16T03:16:52Z'
+    finishedAt: '2026-06-16T03:16:53Z'
+    elapsedSeconds: 0.951
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-surveyor-mqg1yy6k-1h3t-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-16T03:16:53Z'
+    finishedAt: '2026-06-16T03:23:56Z'
+    elapsedSeconds: 422.464
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-16T03:24:33Z'
+    finishedAt: '2026-06-16T03:27:36Z'
+    elapsedSeconds: 182.352
+    timeoutSeconds: 180
+    namespaces: default-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-surveyor-mqg1yy6k-1h3t\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg1yy6k-1h3t.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-surveyor-mqg1yy6k-1h3t\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-surveyor-mqg1yy6k-1h3t\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-surveyor-mqg1yy6k-1h3t\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg1yy6k-1h3t.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/surveyor not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default-apply
+
+      deployment.apps/surveyor   0/1   1     0     4m54s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

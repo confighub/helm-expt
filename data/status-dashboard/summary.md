@@ -70,16 +70,16 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/167 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/168 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 148/148 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 64/64 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 17/64 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 38/64 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 65/65 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 17/65 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 39/65 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 134 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 58 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 76 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 31/167 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/167 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | GitOps aggregate health residue rows | 32/168 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/168 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 7/148 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -194,7 +194,7 @@ considered.
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 17 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
@@ -231,6 +231,7 @@ needs a support artifact or a direct receipt review before rerun.
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime-review | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](../../recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml) |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime-review | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](../../recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml) |
 | nats/surveyor@0.20.9 | default | watch | runtime-review | - |
+| nats/surveyor@0.20.9 | default-reviewed | watch | runtime-review | - |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime-review | [recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml](../../recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml) |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime-review | [recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml](../../recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml) |
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime-review | [recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) |
@@ -427,8 +428,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 192 | 0 | 0 | 192 |
 | local live | 139 | 53 | 0 | 192 |
-| GitOps/OCI live | 134 | 33 | 25 | 192 |
-| live Helm-vs-ConfigHub parity | 134 | 33 | 25 | 192 |
+| GitOps/OCI live | 134 | 34 | 24 | 192 |
+| live Helm-vs-ConfigHub parity | 134 | 34 | 24 | 192 |
 | two-cluster kind parity | 116 | 32 | 0 | 148 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -438,7 +439,7 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/167
+ConfigHub/OCI live comparison: 0/168
 two-cluster kind parity:       7/148
 ~~~
 
@@ -457,7 +458,7 @@ useful.
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 17 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
@@ -467,7 +468,7 @@ useful.
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 22 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 23 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -506,6 +507,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | nats/surveyor@0.20.9 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
+| nats/surveyor@0.20.9 | default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite: namespace missing (parity passed) |
