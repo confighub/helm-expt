@@ -367,6 +367,20 @@
       "receipt": "runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml"
     },
     {
+      "chart": "istio/istiod",
+      "version": "1.30.0",
+      "variant": "default",
+      "result": "blocked",
+      "residue_category": "target-prerequisite",
+      "blocker_owner": "user",
+      "usable_today": "yes, after staging the prerequisite",
+      "user_decision": "Usable once you stage the named prerequisite (for example a namespace, Secret, or CRD) on the target; the rendered objects matched regular Helm (semantic parity passed). The prerequisite is missing, not the configuration.",
+      "next_action": "Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass.",
+      "reason": "target-prerequisite: namespace missing (parity passed)",
+      "support_artifact": "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml",
+      "receipt": "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+    },
+    {
       "chart": "jaegertracing/jaeger-operator",
       "version": "2.57.0",
       "variant": "default",

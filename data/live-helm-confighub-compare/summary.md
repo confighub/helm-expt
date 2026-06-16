@@ -8,7 +8,7 @@ completed row has a receipt under
 ```text
 pass: 135
 watch: 36
-blocked: 7
+blocked: 8
 not-started: 0
 ```
 
@@ -18,7 +18,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 capability-profile: rendered APIService version is not served by target Kubernetes: 2
 render-input: required Velero provider values missing: 2
 target-prerequisite: cert-manager CRDs missing: 2
-target-prerequisite: namespace missing (parity passed): 1
+target-prerequisite: namespace missing (parity passed): 2
 ```
 
 | Rank | Chart | Base | Result | Reason | Receipt |
@@ -144,6 +144,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `hashicorp/terraform@1.1.2` | no-crds | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml |
 |  | `istio/gateway@1.30.0` | controller-default-reviewed | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml |
 |  | `istio/gateway@1.30.0` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml |
+|  | `istio/istiod@1.30.0` | default | blocked | target-prerequisite: namespace missing (parity passed) | runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
 |  | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml |
 |  | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml |

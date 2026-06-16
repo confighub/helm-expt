@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 133 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 57 |
 | Two-cluster kind parity commands | 76 |
-| Watch/blocked/review rows | 95 |
-| Ready-to-run todo rows | 38 |
+| Watch/blocked/review rows | 96 |
+| Ready-to-run todo rows | 37 |
 
 ## By Work Type
 
@@ -38,8 +38,8 @@ For the cell-level completion count, use
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 30 |
-| `todo` | 58 |
+| `blocked` | 31 |
+| `todo` | 57 |
 | `watch` | 45 |
 
 ## By Run Readiness
@@ -48,8 +48,8 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 7 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 51 |
-| `ready-to-run` | 38 |
+| `model-or-stage-first` | 52 |
+| `ready-to-run` | 37 |
 | `review-target-first` | 35 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -102,7 +102,6 @@ generated priority. They are good candidates for a serial live block.
 | elastic/metricbeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default |
 | gitlab/gitlab-runner | 0.89.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default |
 | grafana/pyroscope | 2.0.2 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha |
-| istio/istiod | 1.30.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/istio/istiod/1.30.0 --base default |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner | 4.0.18 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default |
 | opencost/opencost | 2.5.21 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default |
 | projectcalico/tigera-operator | v3.32.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default |

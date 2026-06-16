@@ -1,0 +1,584 @@
+{
+  "metadata": {
+    "name": "istiod-parity",
+    "namespace": "argocd",
+    "uid": "cabf0f4c-3d00-4879-a9a2-470f58ae3fe3",
+    "resourceVersion": "1749",
+    "generation": 11,
+    "creationTimestamp": "2026-06-16T07:50:37Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-istiod-mqgca9ud-202m-cluster:argoproj.io/Application:argocd/istiod-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "527b342c-10ac-4447-a4d5-9e729745e972",
+      "confighub.com/UnitSlug": "istiod-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:50:37Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:57:37Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci",
+      "path": "./helm-expt-parity-istiod-mqgca9ud-202m-istiod",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "istio",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "istio-sidecar-injector",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "values",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "istiod",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "istio-system",
+        "name": "istiod",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "MutatingWebhookConfiguration",
+        "name": "istio-sidecar-injector-default",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "istio-validator-istio-system",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "istiod",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 out of 1 new replicas have been updated..."
+        }
+      },
+      {
+        "group": "autoscaling",
+        "version": "v2",
+        "kind": "HorizontalPodAutoscaler",
+        "namespace": "default",
+        "name": "istiod",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "the HPA controller was able to get the target's current scale"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "istio-reader-clusterrole-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "istiod-clusterrole-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "istiod-gateway-controller-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "istio-reader-clusterrole-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "istiod-clusterrole-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "istiod-gateway-controller-default",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "istio-system",
+        "name": "istiod",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "istio-system",
+        "name": "istiod",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci",
+          "path": "./helm-expt-parity-istiod-mqgca9ud-202m-istiod",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-16T07:50:40Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7",
+        "deployedAt": "2026-06-16T07:50:44Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci",
+          "path": "./helm-expt-parity-istiod-mqgca9ud-202m-istiod",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T07:50:40Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T07:57:30Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci",
+            "path": "./helm-expt-parity-istiod-mqgca9ud-202m-istiod",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "istio-system",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "serviceaccount/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "istio",
+            "status": "Synced",
+            "message": "configmap/istio serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "values",
+            "status": "Synced",
+            "message": "configmap/values serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "istio-sidecar-injector",
+            "status": "Synced",
+            "message": "configmap/istio-sidecar-injector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "istiod-clusterrole-default",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/istiod-clusterrole-default reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch update patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch update] APIGroups:[admissionregistration.k8s.io] Resources:[validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[config.istio.io security.istio.io networking.istio.io authentication.istio.io rbac.istio.io telemetry.istio.io extensions.istio.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[networking.istio.io] Resources:[workloadentries] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[networking.istio.io] Resources:[workloadentries/status serviceentries/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[security.istio.io] Resources:[authorizationpolicies/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[] Resources:[services/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apiextensions.k8s.io] Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[pods nodes services namespaces endpoints] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[networking.k8s.io] Resources:[ingresses ingressclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[*] APIGroups:[networking.k8s.io] Resources:[ingresses/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list watch update] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authentication.k8s.io] Resources:[tokenreviews] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authorization.k8s.io] Resources:[subjectaccessreviews] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[gateway.networking.k8s.io gateway.networking.x-k8s.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update patch] APIGroups:[gateway.networking.x-k8s.io] Resources:[xbackendtrafficpolicies/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update patch] APIGroups:[gateway.networking.k8s.io] Resources:[backendtlspolicies/status gatewayclasses/status gateways/status grpcroutes/status httproutes/status referencegrants/status tcproutes/status tlsroutes/status udproutes/status listenersets/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create update patch delete] APIGroups:[gateway.networking.k8s.io] Resources:[gatewayclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[inference.networking.k8s.io] Resources:[inferencepools] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update patch] APIGroups:[inference.networking.k8s.io] Resources:[inferencepools/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list create delete] APIGroups:[multicluster.x-k8s.io] Resources:[serviceexports] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[multicluster.x-k8s.io] Resources:[serviceimports] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/istiod-clusterrole-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "istiod-gateway-controller-default",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/istiod-gateway-controller-default reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[apps] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[] Resources:[services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list update patch create delete] APIGroups:[] Resources:[serviceaccounts] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/istiod-gateway-controller-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "istio-reader-clusterrole-default",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/istio-reader-clusterrole-default reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[config.istio.io security.istio.io networking.istio.io authentication.istio.io rbac.istio.io telemetry.istio.io extensions.istio.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[endpoints pods services nodes replicationcontrollers namespaces secrets configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[networking.istio.io] Resources:[workloadentries] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get watch list] APIGroups:[networking.x-k8s.io gateway.networking.k8s.io] Resources:[gateways] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apiextensions.k8s.io] Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete] APIGroups:[multicluster.x-k8s.io] Resources:[serviceexports] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[multicluster.x-k8s.io] Resources:[serviceimports] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authentication.k8s.io] Resources:[tokenreviews] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authorization.k8s.io] Resources:[subjectaccessreviews] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/istio-reader-clusterrole-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "istiod-clusterrole-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/istiod-clusterrole-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:istiod Namespace:istio-system}. clusterrolebinding.rbac.authorization.k8s.io/istiod-clusterrole-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "istio-reader-clusterrole-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/istio-reader-clusterrole-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:istio-reader-service-account Namespace:istio-system}. clusterrolebinding.rbac.authorization.k8s.io/istio-reader-clusterrole-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "istiod-gateway-controller-default",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/istiod-gateway-controller-default reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:istiod Namespace:istio-system}. clusterrolebinding.rbac.authorization.k8s.io/istiod-gateway-controller-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "istio-system",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create] APIGroups:[networking.istio.io] Resources:[gateways] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get watch list update delete] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get update patch create] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "istio-system",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:istiod Namespace:istio-system}. rolebinding.rbac.authorization.k8s.io/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "service/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "deployment.apps/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "registry.istio.io/release/pilot:1.30.0"
+            ]
+          },
+          {
+            "group": "autoscaling",
+            "version": "v2",
+            "kind": "HorizontalPodAutoscaler",
+            "namespace": "default",
+            "name": "istiod",
+            "status": "Synced",
+            "message": "horizontalpodautoscaler.autoscaling/istiod serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "MutatingWebhookConfiguration",
+            "namespace": "default-oci",
+            "name": "istio-sidecar-injector-default",
+            "status": "Synced",
+            "message": "mutatingwebhookconfiguration.admissionregistration.k8s.io/istio-sidecar-injector-default serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "default-oci",
+            "name": "istio-validator-istio-system",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/istio-validator-istio-system serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci",
+          "path": "./helm-expt-parity-istiod-mqgca9ud-202m-istiod",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T07:50:40Z",
+      "finishedAt": "2026-06-16T07:50:44Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,41 @@
+Name:               argocd/istiod-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:62573/applications/istiod-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-istiod
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                    STATUS  HEALTH  AGE   MESSAGE  REASON
+ClusterRole/istiod-clusterrole-default                       Synced          7m2s
+ClusterRoleBinding/istiod-clusterrole-default                Synced          7m2s
+ClusterRoleBinding/istiod-gateway-controller-default         Synced          7m2s
+Role/istiod                                                  Synced          7m2s  role.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create
+                                                             missing rules added:
+                                                                     {Verbs:[create] APIGroups:[networking.istio.io] Resources:[gateways] ResourceNames:[] NonResourceURLs:[]}
+                                                                     {Verbs:[create get watch list update delete] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}
+                                                                     {Verbs:[delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}
+                                                                     {Verbs:[get update patch create] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/istiod serverside-applied
+ServiceAccount/istiod                                        Synced                                                                                                                                                                                      7m2s   serviceaccount/istiod serverside-applied
+MutatingWebhookConfiguration/istio-sidecar-injector-default  Synced                                                                                                                                                                                      7m2s
+Service/istiod                                               Synced  Healthy                                                                                                                                                                             8m38s  service/istiod serverside-applied
+ValidatingWebhookConfiguration/istio-validator-istio-system  Synced                                                                                                                                                                                      7m2s
+HorizontalPodAutoscaler/istiod                               Synced  Healthy                                                                                                                                                                             8m38s  horizontalpodautoscaler.autoscaling/istiod serverside-applied  the HPA controller was able to get the target's current scale
+ClusterRole/istiod-gateway-controller-default                Synced                                                                                                                                                                                      7m2s
+RoleBinding/istiod                                           Synced                                                                                                                                                                                      7m2s   rolebinding.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create
+                                                             missing subjects added:
+                                                                     {Kind:ServiceAccount APIGroup: Name:istiod Namespace:istio-system}. rolebinding.rbac.authorization.k8s.io/istiod serverside-applied
+ConfigMap/istio                                              Synced                                                                                                                                       8m38s  configmap/istio serverside-applied
+ConfigMap/istio-sidecar-injector                             Synced                                                                                                                                       8m38s  configmap/istio-sidecar-injector serverside-applied
+Deployment/istiod                                            Synced  Progressing                                                                                                                          8m38s  deployment.apps/istiod serverside-applied            Waiting for rollout to finish: 0 out of 1 new replicas have been updated...
+└─ReplicaSet/istiod-7c66449676                                       Degraded                                                                                                                             8m38s                                                       pods "istiod-7c66449676-" is forbidden: error looking up service account default/istiod: serviceaccount "istiod" not found
+ClusterRoleBinding/istio-reader-clusterrole-default          Synced                                                                                                                                       7m2s
+ConfigMap/values                                             Synced                                                                                                                                       8m38s  configmap/values serverside-applied
+Namespace/default-oci                                        Synced                                                                                                                                       8m27s
+ClusterRole/istio-reader-clusterrole-default                 Synced                                                                                                                                       7m2s

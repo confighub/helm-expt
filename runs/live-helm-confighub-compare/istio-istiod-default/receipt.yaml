@@ -1,0 +1,703 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LiveHelmConfigHubParityReceipt"
+metadata:
+  name: "istio-istiod-1.30.0-default-live-parity-20260605"
+spec:
+  base: "default"
+  chart: "istio/istiod"
+  checks:
+    -
+      detail: "acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock"
+      name: "live-lane-lock"
+      result: "pass"
+    -
+      detail: "Creating kind cluster \"helm-expt-parity-istiod-mqgca9ud-202m\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-istiod-mqgca9ud-202m.kubeconfig)...\nCreating cluster \"helm-expt-parity-istiod-mqgca9ud-202m\" ...\n • Ensuring node image (kindest/node:v1.35.0) 🖼  ...\n ✓ Ensuring node image (kindest/node:v1.35.0) 🖼\n • Preparing nodes 📦   ...\n ✓ Preparing nodes 📦 \n • Writing configuration 📜  ...\n ✓ Writing configuration 📜\n • Starting control-plane 🕹️  ...\n ✓ Starting control-plane 🕹️\n • Installing CNI 🔌  ...\n ✓ Installing CNI 🔌\n • Installing StorageClass 💾  ...\n ✓ Installing StorageClass 💾\nSet kubectl context to \"kind-helm-expt-parity-istiod-mqgca9ud-202m\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-istiod-mqgca9ud-202m --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-istiod-mqgca9ud-202m.kubeconfig\n\nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂\nInstalling Argo CD...\nCreating namespace "
+      name: "cluster-up"
+      result: "pass"
+    -
+      detail: "secrets=0 crds=0 namespaces=0 objectStores=0"
+      name: "target-facts-regular-helm"
+      result: "pass"
+    -
+      detail: "Error: namespaces \"istio-system\" not found\nnamespaces \"istio-system\" not found\nnamespaces \"istio-system\" not found"
+      name: "regular-helm-live"
+      result: "blocked"
+    -
+      detail: "secrets=0 crds=0 namespaces=0 objectStores=0"
+      name: "target-facts-confighub-apply"
+      result: "pass"
+    -
+      detail: "# default\ndeployment.apps/istiod   0/1   0     0     0s"
+      name: "confighub-kubectl-apply-live"
+      result: "pass"
+    -
+      detail: "objects=8"
+      name: "confighub-kubectl-apply-cluster-cleanup"
+      result: "pass"
+    -
+      detail: "secrets=0 crds=0 namespaces=0 objectStores=0"
+      name: "target-facts-confighub-oci"
+      result: "pass"
+    -
+      detail: "sync=Synced health=Progressing after 420s"
+      name: "confighub-oci-argo-live"
+      result: "watch"
+    -
+      detail: "apply=pass argo=pass applyDiffs=0 argoDiffs=0"
+      name: "semantic-object-parity"
+      result: "pass"
+  gitOpsCanonicalizationProfile:
+    changes:
+      []
+    name: "none"
+    result: "pass"
+  legs:
+    configHubKubectlApply:
+      applyMode: "namespace-first kubectl apply; separated secrets staged when present"
+      cleanupBeforeOci:
+        clusterScopedResources:
+          detail: "clusterrole.rbac.authorization.k8s.io \"istio-reader-clusterrole-default\" deleted\nclusterrole.rbac.authorization.k8s.io \"istiod-clusterrole-default\" deleted\nclusterrole.rbac.authorization.k8s.io \"istiod-gateway-controller-default\" deleted\nclusterrolebinding.rbac.authorization.k8s.io \"istio-reader-clusterrole-default\" deleted\nclusterrolebinding.rbac.authorization.k8s.io \"istiod-clusterrole-default\" deleted\nclusterrolebinding.rbac.authorization.k8s.io \"istiod-gateway-controller-default\" deleted\nmutatingwebhookconfiguration.admissionregistration.k8s.io \"istio-sidecar-injector-default\" deleted\nvalidatingwebhookconfiguration.admissionregistration.k8s.io \"istio-validator-istio-system\" deleted"
+          manifest: "cluster-scoped-apply-cleanup.yaml"
+          objectCount: 8
+          result: "pass"
+        namespaces:
+          - "default-apply"
+          - "istio-system"
+        protectedNamespaceResources:
+          namespaces:
+            - "default"
+          objectCount: 0
+          preservedPreExistingObjects:
+            - "apps/v1|Deployment|default|istiod"
+            - "autoscaling/v2|HorizontalPodAutoscaler|default|istiod"
+            - "v1|ConfigMap|default|istio"
+            - "v1|ConfigMap|default|istio-sidecar-injector"
+            - "v1|ConfigMap|default|values"
+            - "v1|Service|default|istiod"
+          result: "not-needed"
+        reason: "isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs"
+        retainedNamespaces:
+          []
+      manifestNamespaces:
+        - "default"
+        - "default-apply"
+        - "istio-system"
+      manifestSHA256: "78daea85e7288aa685d34885a46281b27f7a2e832851c8e076b730e42d85a797"
+      namespace: "default-apply"
+      objectCount: 18
+      renderCommand: "cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/istiod/1.30.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-istiod-mqgca9ud-202m-istiod --non-interactive --namespace default-apply"
+      result: "pass"
+      runtime:
+        namespaces:
+          - "default"
+        notReady:
+          []
+        pods: "# default"
+        result: "pass"
+        terminalReadinessBlockers:
+          {}
+        workloads: "# default\ndeployment.apps/istiod   0/1   0     0     0s"
+      runtimeNamespaces:
+        - "default"
+    configHubOciArgo:
+      app: "istiod-parity"
+      argoStatus:
+        conditions:
+          []
+        diagnostics:
+          argocdCore:
+            coreNamespace: "argocd"
+            json:
+              artifact:
+                bytes: 26122
+                path: "argocd-core-child.json"
+                sha256: "2c50d3c30a2de69b96104df5e70e4b1a505bb82c2cf1e82401f74827a29f947e"
+              output: "{\n  \"metadata\": {\n    \"name\": \"istiod-parity\",\n    \"namespace\": \"argocd\",\n    \"uid\": \"cabf0f4c-3d00-4879-a9a2-470f58ae3fe3\",\n    \"resourceVersion\": \"1749\",\n    \"generation\": 11,\n    \"creationTimestamp\": \"2026-06-16T07:50:37Z\",\n    \"annotations\": {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster:argoproj.io/Application:argocd/istiod-parity\",\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\": \"527b342c-10ac-4447-a4d5-9e729745e972\",\n      \"confighub.com/UnitSlug\": \"istiod-parity-app\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\",\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T07:50:37Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\": {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\": {},\n              \"f:confighub.com/RevisionNum\": {},\n              \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\": {}\n            }\n          },\n          \"f:spec\": {\n            \"f:destination\": {\n              \"f:namespace\": {},\n              \"f:server\": {}\n            },\n            \"f:project\": {},\n            \"f:source\": {\n              \"f:path\": {},\n              \"f:repoURL\": {},\n              \"f:targetRevision\": {}\n            },\n            \"f:syncPolicy\": {\n              \"f:automated\": {\n                \"f:prune\": {},\n                \"f:selfHeal\": {}\n              },\n              \"f:syncOptions\": {}\n            }\n          }\n        }\n      },\n      {\n        \"manager\": \"argocd-application-controller\",\n        \"operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T07:57:37Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\": {\n            \".\": {},\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \".\": {},\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:history\": {},\n            \"f:operationState\": {\n              \".\": {},\n              \"f:finishedAt\": {},\n              \"f:message\": {},\n              \"f:operation\": {\n                \".\": {},\n                \"f:initiatedBy\": {\n                  \".\": {},\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \".\": {},\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \".\": {},\n                  \"f:prune\": {},\n                  \"f:revision\": {},\n                  \"f:source\": {\n                    \".\": {},\n                    \"f:path\": {},\n                    \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:phase\": {},\n              \"f:startedAt\": {},\n              \"f:syncResult\": {\n                \".\": {},\n                \"f:resources\": {},\n                \"f:revision\": {},\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              }\n            },\n            \"f:reconciledAt\": {},\n            \"f:resourceHealthSource\": {},\n            \"f:resources\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {},\n            \"f:sync\": {\n              \".\": {},\n              \"f:comparedTo\": {\n                \".\": {},\n                \"f:destination\": {\n                  \".\": {},\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {},\n              \"f:status\": {}\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\",\n      \"path\": \"./helm-expt-parity-istiod-mqgca9ud-202m-istiod\",\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\",\n      \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"istio\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"istio-sidecar-injector\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\",\n        \"name\": \"values\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\": \"default\",\n        \"name\": \"istiod\",\n        \"status\": \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\": \"istio-system\",\n        \"name\": \"istiod\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n        \"kind\": \"MutatingWebhookConfiguration\",\n        \"name\": \"istio-sidecar-injector-default\",\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\",\n "
+              result: "pass"
+              summary:
+                conditions: 0
+                health: "Progressing"
+                operationPhase: "Succeeded"
+                resources: 18
+                sync: "Synced"
+            result: "pass"
+            temporaryKubeconfigNamespace: true
+            tree:
+              artifact:
+                bytes: 6398
+                path: "argocd-core-child-tree.txt"
+                sha256: "c90566b0f5173c419bf06e8bcbed875f75559758c0e05f632607f5b3ee76a4fa"
+              output: "Name:               argocd/istiod-parity\nProject:            default\nServer:             https://kubernetes.default.svc\nNamespace:          default-oci\nURL:                http://localhost:62573/applications/istiod-parity\nSource:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n  Target:           latest\n  Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-istiod\nSyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\nSync Status:        Synced to latest (sha256:)\nHealth Status:      Progressing\n\nKIND/NAME                                                    STATUS  HEALTH  AGE   MESSAGE  REASON\nClusterRole/istiod-clusterrole-default                       Synced          7m2s           \nClusterRoleBinding/istiod-clusterrole-default                Synced          7m2s           \nClusterRoleBinding/istiod-gateway-controller-default         Synced          7m2s           \nRole/istiod                                                  Synced          7m2s  role.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create\n                                                             missing rules added:\n                                                                     {Verbs:[create] APIGroups:[networking.istio.io] Resources:[gateways] ResourceNames:[] NonResourceURLs:[]}\n                                                                     {Verbs:[create get watch list update delete] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n                                                                     {Verbs:[delete] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n                                                                     {Verbs:[get update patch create] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/istiod serverside-applied  \nServiceAccount/istiod                                        Synced                                                                                                                                                                                      7m2s   serviceaccount/istiod serverside-applied                       \nMutatingWebhookConfiguration/istio-sidecar-injector-default  Synced                                                                                                                                                                                      7m2s                                                                  \nService/istiod                                               Synced  Healthy                                                                                                                                                                             8m38s  service/istiod serverside-applied                              \nValidatingWebhookConfiguration/istio-validator-istio-system  Synced                                                                                                                                                                                      7m2s                                                                  \nHorizontalPodAutoscaler/istiod                               Synced  Healthy                                                                                                                                                                             8m38s  horizontalpodautoscaler.autoscaling/istiod serverside-applied  the HPA controller was able to get the target's current scale\nClusterRole/istiod-gateway-controller-default                Synced                                                                                                                                                                                      7m2s                                                                  \nRoleBinding/istiod                                           Synced                                                                                                                                                                                      7m2s   rolebinding.rbac.authorization.k8s.io/istiod reconciled. reconciliation required create\n                                                             missing subjects added:\n                                                                     {Kind:ServiceAccount APIGroup: Name:istiod Namespace:istio-system}. rolebinding.rbac.authorization.k8s.io/istiod serverside-applied  \nConfigMap/istio                                              Synced                                                                                                                                       8m38s  configmap/istio serverside-applied                   \nConfigMap/istio-sidecar-injector                             Synced                                                                                                                                       8m38s  configmap/istio-sidecar-injector serverside-applied  \nDeployment/istiod                                            Synced  Progressing                                                                                                                          8m38s  deployment.apps/istiod serverside-applied            Waiting for rollout to finish: 0 out of 1 new replicas have been updated...\n└─ReplicaSet/istiod-7c66449676                                       Degraded                                                                                                                             8m38s                                                       pods \"istiod-7c66449676-\" is forbidden: error looking up service account default/istiod: serviceaccount \"istiod\" not found\nClusterRoleBinding/istio-reader-clusterrole-default          Synced                                                                                                                                       7m2s                                                        \nConfigMap/values                                             Synced                                                                                                                                       8m38s  configmap/values serverside-applied                  \nNamespace/default-oci                                        Synced                                                                                                                                       8m27s                                                       \nClusterRole/istio-reader-clusterrole-default                 Synced                                                                                                                                       7m2s"
+              result: "pass"
+          cubScoutGitOpsStatus:
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\": \"sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\"\n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"istiod-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/istiod-parity\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\": \"sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\"\n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"istiod-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+            result: "pass"
+            summary:
+              applicationCount: 0
+              backendCount: 0
+              resourceCount: 0
+              sourceCount: 2
+          describe:
+            output: "Name:         istiod-parity\nNamespace:    argocd\nLabels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-istiod-mqgca9ud-202m-cluster:argoproj.io/Application:argocd/istiod-parity\n              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID: 527b342c-10ac-4447-a4d5-9e729745e972\n              confighub.com/UnitSlug: istiod-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T07:50:37Z\n  Generation:          10\n  Resource Version:    1674\n  UID:                 cabf0f4c-3d00-4879-a9a2-470f58ae3fe3\nSpec:\n  Destination:\n    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-istiod\n    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n    Target Revision:  latest\n  Sync Policy:\n    Automated:\n      Prune:      true\n      Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T07:50:40Z\n    Status:                Progressing\n  History:\n    Deploy Started At:  2026-06-16T07:50:40Z\n    Deployed At:        2026-06-16T07:50:44Z\n    Id:                 0\n    Initiated By:\n      Automated:  true\n    Revision:     sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n    Source:\n      Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-istiod\n      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n      Target Revision:  latest\n  Operation State:\n    Finished At:  2026-06-16T07:50:44Z\n    Message:      successfully synced (all tasks run)\n    Operation:\n      Initiated By:\n        Automated:  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:     true\n        Revision:  sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n        Source:\n          Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-istiod\n          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n          Target Revision:  latest\n        Sync Options:\n          ServerSideApply=true\n          CreateNamespace=true\n    Phase:       Succeeded\n    Started At:  2026-06-16T07:50:40Z\n    Sync Result:\n      Resources:\n        Group:       \n        Hook Phase:  Running\n        Kind:        Namespace\n        Message:     namespace/default-oci serverside-applied\n        Name:        default-oci\n        Namespace:   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n        Message:     serviceaccount/istiod serverside-applied\n        Name:        istiod\n        Namespace:   istio-system\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/istio serverside-applied\n        Name:        istio\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/values serverside-applied\n        Name:        values\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n        Message:     configmap/istio-sidecar-injector serverside-applied\n        Name:        istio-sidecar-injector\n        Namespace:   default\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n        Hook Phase:  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/istiod-clusterrole-default reconciled. reconciliation required create\n                     missing rules added:\n                       {Verbs:[get list watch update patch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch update] APIGroups:[admissionregistration.k8s.io] Resources:[validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get watch list] APIGroups:[config.istio.io security.istio.io networking.istio.io authentication.istio.io rbac.istio.io telemetry.istio.io extensions.istio.io] Resources:[*] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get watch list update patch create delete] APIGroups:[networking.istio.io] Resources:[workloadentries] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get watch list update patch create delete] APIGroups:[networking.istio.io] Resources:[workloadentries/status serviceentries/status] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get watch list update patch create delete] APIGroups:[security.istio.io] Resources:[authorizationpolicies/status] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get watch list update patch create delete] APIGroups:[] Resources:[services/status] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[apiextensions.k8s.io] Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[] Resources:[pods nodes services namespaces endpoints] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get list watch] APIGroups:[networking.k"
+            result: "pass"
+          events:
+            output: "LAST SEEN   TYPE     REASON               OBJECT                      MESSAGE\n6m49s       Normal   OperationStarted     application/istiod-parity   Initiated automated sync to 'sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7'\n6m49s       Normal   ResourceUpdated      application/istiod-parity   Updated sync status:  -> OutOfSync\n6m49s       Normal   ResourceUpdated      application/istiod-parity   Updated health status:  -> Progressing\n6m45s       Normal   OperationCompleted   application/istiod-parity   Sync operation to sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7 succeeded\n6m44s       Normal   ResourceUpdated      application/istiod-parity   Updated sync status: OutOfSync -> Synced"
+            result: "pass"
+          healthResidue:
+            []
+        health:
+          lastTransitionTime: "2026-06-16T07:50:40Z"
+          status: "Progressing"
+        history:
+          -
+            deployStartedAt: "2026-06-16T07:50:40Z"
+            deployedAt: "2026-06-16T07:50:44Z"
+            id: 0
+            revision: "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+            source:
+              path: "./helm-expt-parity-istiod-mqgca9ud-202m-istiod"
+              repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci"
+              targetRevision: "latest"
+        operationState:
+          finishedAt: "2026-06-16T07:50:44Z"
+          message: "successfully synced (all tasks run)"
+          operationSyncResourceCount: 0
+          operationSyncResources:
+            []
+          phase: "Succeeded"
+          startedAt: "2026-06-16T07:50:40Z"
+          syncResultResourceCount: 18
+          syncResultStatusCounts:
+            Synced: 18
+        resources:
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ConfigMap"
+            name: "istio"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ConfigMap"
+            name: "istio-sidecar-injector"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ConfigMap"
+            name: "values"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Namespace"
+            name: "default-oci"
+            namespace: ""
+            status: "Synced"
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Service"
+            name: "istiod"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: ""
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ServiceAccount"
+            name: "istiod"
+            namespace: "istio-system"
+            status: "Synced"
+          -
+            group: "admissionregistration.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "MutatingWebhookConfiguration"
+            name: "istio-sidecar-injector-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "admissionregistration.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ValidatingWebhookConfiguration"
+            name: "istio-validator-istio-system"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "apps"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Deployment"
+            name: "istiod"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: "autoscaling"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "HorizontalPodAutoscaler"
+            name: "istiod"
+            namespace: "default"
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRole"
+            name: "istio-reader-clusterrole-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRole"
+            name: "istiod-clusterrole-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRole"
+            name: "istiod-gateway-controller-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRoleBinding"
+            name: "istio-reader-clusterrole-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRoleBinding"
+            name: "istiod-clusterrole-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "ClusterRoleBinding"
+            name: "istiod-gateway-controller-default"
+            namespace: ""
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Role"
+            name: "istiod"
+            namespace: "istio-system"
+            status: "Synced"
+          -
+            group: "rbac.authorization.k8s.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "RoleBinding"
+            name: "istiod"
+            namespace: "istio-system"
+            status: "Synced"
+        result: "recorded"
+        summary:
+          {}
+        sync:
+          comparedTo:
+            destination:
+              namespace: "default-oci"
+              server: "https://kubernetes.default.svc"
+            source:
+              path: "./helm-expt-parity-istiod-mqgca9ud-202m-istiod"
+              repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci"
+              targetRevision: "latest"
+          revision: "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+          status: "Synced"
+      controller: "Argo CD OCI"
+      health: "Progressing"
+      manifestNamespaces:
+        - "default"
+        - "default-oci"
+        - "istio-system"
+      manifestSHA256: "4c4392f348b9e4d2ec4e4ed501f409089f31e0a5f55e9a3f1b9643072472cebe"
+      namespace: "default-oci"
+      objectCount: 18
+      ociRevision: "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+      renderedLifecycleSecrets:
+        count: 0
+        result: "not-needed"
+        secrets:
+          []
+      result: "watch"
+      rootArgoStatus:
+        conditions:
+          []
+        diagnostics:
+          argocdCore:
+            coreNamespace: "argocd"
+            json:
+              artifact:
+                bytes: 10628
+                path: "argocd-core-root.json"
+                sha256: "01cb913ab30f3414d997f435030d44f1381f60fb5bacfc57cfb67625f596dff4"
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n    \"namespace\": \"argocd\",\n    \"uid\": \"5b43b9a3-90fe-42e4-942c-a3fa749d4ea1\",\n    \"resourceVersion\": \"1777\",\n    \"generation\": 12,\n    \"creationTimestamp\": \"2026-06-16T07:48:59Z\",\n    \"annotations\": {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\"helm-expt-parity-istiod-mqgca9ud-202m-cluster\\\",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\"./helm-expt-parity-istiod-mqgca9ud-202m-cluster\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\\\",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\": [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n    \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\",\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T07:48:59Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\": {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\": {}\n            },\n            \"f:finalizers\": {\n              \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n            }\n          },\n          \"f:spec\": {\n            \"f:destination\": {\n              \"f:namespace\": {},\n              \"f:server\": {}\n            },\n            \"f:project\": {},\n            \"f:source\": {\n              \"f:path\": {},\n              \"f:repoURL\": {},\n              \"f:targetRevision\": {}\n            },\n            \"f:syncPolicy\": {\n              \"f:automated\": {\n                \"f:selfHeal\": {}\n              },\n              \"f:syncOptions\": {}\n            }\n          },\n          \"f:status\": {\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:operationState\": {\n              \"f:operation\": {\n                \"f:initiatedBy\": {\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \"f:revision\": {},\n                  \"f:source\": {\n                    \"f:path\": {},\n                    \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:startedAt\": {}\n            },\n            \"f:resourceHealthSource\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {},\n            \"f:sync\": {\n              \"f:comparedTo\": {\n                \"f:destination\": {\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {}\n            }\n          }\n        }\n      },\n      {\n        \"manager\": \"argocd-application-controller\",\n        \"operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T07:57:55Z\",\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\": {\n            \".\": {},\n            \"f:controllerNamespace\": {},\n            \"f:health\": {\n              \".\": {},\n              \"f:lastTransitionTime\": {},\n              \"f:status\": {}\n            },\n            \"f:history\": {},\n            \"f:operationState\": {\n              \".\": {},\n              \"f:finishedAt\": {},\n              \"f:message\": {},\n              \"f:operation\": {\n                \".\": {},\n                \"f:initiatedBy\": {\n                  \".\": {},\n                  \"f:automated\": {}\n                },\n                \"f:retry\": {\n                  \".\": {},\n                  \"f:limit\": {}\n                },\n                \"f:sync\": {\n                  \".\": {},\n                  \"f:revision\": {},\n                  \"f:source\": {\n                    \".\": {},\n                    \"f:path\": {},\n                    \"f:repoURL\": {},\n                    \"f:targetRevision\": {}\n                  },\n                  \"f:syncOptions\": {}\n                }\n              },\n              \"f:phase\": {},\n              \"f:startedAt\": {},\n              \"f:syncResult\": {\n                \".\": {},\n                \"f:resources\": {},\n                \"f:revision\": {},\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              }\n            },\n            \"f:reconciledAt\": {},\n            \"f:resourceHealthSource\": {},\n            \"f:resources\": {},\n            \"f:sourceHydrator\": {},\n            \"f:sourceType\": {},\n            \"f:summary\": {},\n            \"f:sync\": {\n              \".\": {},\n              \"f:comparedTo\": {\n                \".\": {},\n                \"f:destination\": {\n                  \".\": {},\n                  \"f:namespace\": {},\n                  \"f:server\": {}\n                },\n                \"f:source\": {\n                  \".\": {},\n                  \"f:path\": {},\n                  \"f:repoURL\": {},\n                  \"f:targetRevision\": {}\n                }\n              },\n              \"f:revision\": {},\n              \"f:status\": {}\n            }\n          }\n        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n      \"repoURL\": \"oci://oci.hub.confighub.com:44"
+              result: "pass"
+              summary:
+                conditions: 0
+                health: "Healthy"
+                operationPhase: "Succeeded"
+                resources: 2
+                sync: "Synced"
+            result: "pass"
+            temporaryKubeconfigNamespace: true
+            tree:
+              artifact:
+                bytes: 1120
+                path: "argocd-core-root-tree.txt"
+                sha256: "496a12c2cf29640a9dec2117af0911bd5fd5eaec25e1ee02234cb2c35d2cbb80"
+              output: "Name:               argocd/helm-expt-parity-istiod-mqgca9ud-202m-cluster\nProject:            default\nServer:             https://kubernetes.default.svc\nNamespace:          argocd\nURL:                http://localhost:62689/applications/helm-expt-parity-istiod-mqgca9ud-202m-cluster\nSource:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n  Target:           latest\n  Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\nSyncWindow:         Sync Allowed\nSync Policy:        Automated\nSync Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\nKIND/NAME                                                  STATUS  HEALTH  AGE    MESSAGE                                                                                   REASON\nApplication/helm-expt-parity-istiod-mqgca9ud-202m-cluster  Synced          9m5s   application.argoproj.io/helm-expt-parity-istiod-mqgca9ud-202m-cluster serverside-applied  \nApplication/istiod-parity                                  Synced          7m27s  application.argoproj.io/istiod-parity serverside-applied"
+              result: "pass"
+          cubScoutGitOpsStatus:
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\": \"sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\"\n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"istiod-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\",\n      \"message\": \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/istiod-parity\",\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\": \"sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\"\n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"istiod-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+            result: "pass"
+            summary:
+              applicationCount: 0
+              backendCount: 0
+              resourceCount: 0
+              sourceCount: 2
+          describe:
+            output: "Name:         helm-expt-parity-istiod-mqgca9ud-202m-cluster\nNamespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T07:48:59Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:        11\n  Resource Version:  1551\n  UID:               5b43b9a3-90fe-42e4-942c-a3fa749d4ea1\nSpec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\n    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n    Target Revision:  latest\n  Sync Policy:\n    Automated:\n      Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T07:49:07Z\n    Status:                Healthy\n  History:\n    Deploy Started At:  2026-06-16T07:50:35Z\n    Deployed At:        2026-06-16T07:50:37Z\n    Id:                 0\n    Initiated By:\n      Automated:  true\n    Revision:     sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n    Source:\n      Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\n      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n      Target Revision:  latest\n  Operation State:\n    Finished At:  2026-06-16T07:50:37Z\n    Message:      successfully synced (all tasks run)\n    Operation:\n      Initiated By:\n        Automated:  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:  sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n        Source:\n          Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\n          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n          Target Revision:  latest\n        Sync Options:\n          ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n          RespectIgnoreDifferences=true\n          CreateNamespace=false\n    Phase:       Succeeded\n    Started At:  2026-06-16T07:50:35Z\n    Sync Result:\n      Resources:\n        Group:       argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n        Message:     application.argoproj.io/istiod-parity serverside-applied\n        Name:        istiod-parity\n        Namespace:   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-istiod-mqgca9ud-202m-cluster serverside-applied\n        Name:        helm-expt-parity-istiod-mqgca9ud-202m-cluster\n        Namespace:   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n        Version:     v1alpha1\n      Revision:      sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n      Source:\n        Path:              ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\n        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n        Target Revision:   latest\n  Reconciled At:           2026-06-16T07:55:06Z\n  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-istiod-mqgca9ud-202m-cluster\n    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:      argoproj.io\n    Kind:       Application\n    Name:       istiod-parity\n    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n      Source:\n        Path:             ./helm-expt-parity-istiod-mqgca9ud-202m-cluster\n        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci\n        Target Revision:  latest\n    Revision:             sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7\n    Status:               Synced\nEvents:\n  Type    Reason              Age    From                           Message\n  ----    ------              ----   ----                           -------\n  Normal  ResourceUpdated     8m40s  argocd-application-controller  Updated sync status:  -> Synced\n  Normal  ResourceUpdated     8m40s  argocd-application-controller  Updated health status:  -> Healthy\n  Normal  OperationStarted    7m12s  argocd-application-controller  Initiated automated sync to 'sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7'\n  Normal  ResourceUpdated     7m12s  argocd-application-controller  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted  7m10s  argocd-application-controller  Sync operation to sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7 succeeded\n  Normal  ResourceUpdated     7m7s   argocd-application-controller  Updated sync status: OutOfSync -> Synced"
+            result: "pass"
+          events:
+            output: "LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE\n8m40s       Normal   ResourceUpdated      application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Updated sync status:  -> Synced\n8m40s       Normal   ResourceUpdated      application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Updated health status:  -> Healthy\n7m12s       Normal   OperationStarted     application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Initiated automated sync to 'sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7'\n7m12s       Normal   ResourceUpdated      application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Updated sync status: Synced -> OutOfSync\n7m10s       Normal   OperationCompleted   application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Sync operation to sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7 succeeded\n7m7s        Normal   ResourceUpdated      application/helm-expt-parity-istiod-mqgca9ud-202m-cluster   Updated sync status: OutOfSync -> Synced"
+            result: "pass"
+          healthResidue:
+            []
+        health:
+          lastTransitionTime: "2026-06-16T07:49:07Z"
+          status: "Healthy"
+        history:
+          -
+            deployStartedAt: "2026-06-16T07:50:35Z"
+            deployedAt: "2026-06-16T07:50:37Z"
+            id: 0
+            revision: "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+            source:
+              path: "./helm-expt-parity-istiod-mqgca9ud-202m-cluster"
+              repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci"
+              targetRevision: "latest"
+        operationState:
+          finishedAt: "2026-06-16T07:50:37Z"
+          message: "successfully synced (all tasks run)"
+          operationSyncResourceCount: 0
+          operationSyncResources:
+            []
+          phase: "Succeeded"
+          startedAt: "2026-06-16T07:50:35Z"
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        resources:
+          -
+            group: "argoproj.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Application"
+            name: "helm-expt-parity-istiod-mqgca9ud-202m-cluster"
+            namespace: "argocd"
+            status: "Synced"
+          -
+            group: "argoproj.io"
+            health: ""
+            healthMessage: ""
+            hook: false
+            kind: "Application"
+            name: "istiod-parity"
+            namespace: "argocd"
+            status: "Synced"
+        result: "recorded"
+        summary:
+          {}
+        sync:
+          comparedTo:
+            destination:
+              namespace: "argocd"
+              server: "https://kubernetes.default.svc"
+            source:
+              path: "./helm-expt-parity-istiod-mqgca9ud-202m-cluster"
+              repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci"
+              targetRevision: "latest"
+          revision: "sha256:48792abfed07f26f708b2b2a77281c44fad3d51a7507f5e16f1e21eb0d70b9b7"
+          status: "Synced"
+      runtime:
+        namespaces:
+          - "default"
+        notReady:
+          []
+        pods: "# default"
+        result: "pass"
+        terminalReadinessBlockers:
+          {}
+        workloads: "# default\ndeployment.apps/istiod   0/1   0     0     8m57s"
+      runtimeNamespaces:
+        - "default"
+      separatedSecrets:
+        []
+      sync: "Synced"
+      workloadSpace: "helm-expt-parity-istiod-mqgca9ud-202m-istiod"
+    regularHelm:
+      command: "helm upgrade --install istiod istiod --repo https://istio-release.storage.googleapis.com/charts --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-istiod-default/regular-helm-values.yaml --wait --timeout 8m"
+      getManifestError: ""
+      liveHelmManifestObjectCount: 17
+      liveHelmManifestSHA256: "8c194a6e24170bbf5717afa7282de5e0b2dab97e61fd72a111d0878dfc371d4b"
+      manifestSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+      namespace: "default-helm"
+      objectCount: 17
+      result: "blocked"
+      runtime:
+        ignoredJobPods:
+          []
+        notReady:
+          []
+        pods: ""
+        result: "pass"
+        workloads: "deployment.apps/istiod   0/1   0     0     0s"
+      stderr: "Error: namespaces \"istio-system\" not found\nnamespaces \"istio-system\" not found\nnamespaces \"istio-system\" not found"
+  observedAt: "2026-06-16T07:47:24Z"
+  operatingPolicy:
+    configHubKubectlApply:
+      namespace: "default-apply"
+      operation: "none"
+      result: "pass"
+    configHubOciArgo:
+      namespace: "default-oci"
+      operation: "none"
+      result: "pass"
+    regularHelm:
+      operation: "none"
+      result: "pass"
+  operationTimings:
+    -
+      command: "helm upgrade --install istiod istiod --repo https://istio-release.storage.googleapis.com/charts --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-istiod-default/regular-helm-values.yaml --wait --timeout 8m"
+      elapsedSeconds: 2.482
+      finishedAt: "2026-06-16T07:49:02Z"
+      name: "regular-helm-install"
+      result: "blocked"
+      startedAt: "2026-06-16T07:48:59Z"
+      timeoutSeconds: 900
+    -
+      command: "cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/istiod/1.30.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-istiod-mqgca9ud-202m-istiod --non-interactive --namespace default-apply"
+      elapsedSeconds: 0.393
+      finishedAt: "2026-06-16T07:49:08Z"
+      name: "configHub-direct-render"
+      result: "pass"
+      startedAt: "2026-06-16T07:49:07Z"
+      timeoutSeconds: 360
+    -
+      command: "kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-istiod-mqgca9ud-202m.kubeconfig --context kind-helm-expt-parity-istiod-mqgca9ud-202m apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-istiod-default/direct-apply-manifest.yaml"
+      elapsedSeconds: 0.19
+      finishedAt: "2026-06-16T07:49:08Z"
+      name: "configHub-direct-apply"
+      objectCount: 17
+      result: "pass"
+      startedAt: "2026-06-16T07:49:08Z"
+      timeoutSeconds: 300
+    -
+      elapsedSeconds: 0.087
+      finishedAt: "2026-06-16T07:49:08Z"
+      name: "configHub-direct-readiness"
+      namespaces: "default"
+      result: "pass"
+      startedAt: "2026-06-16T07:49:08Z"
+      timeoutSeconds: 300
+    -
+      command: "cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/istiod/1.30.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-istiod-mqgca9ud-202m-istiod --non-interactive --namespace default-oci"
+      elapsedSeconds: 0.284
+      finishedAt: "2026-06-16T07:49:19Z"
+      name: "configHub-oci-render"
+      result: "pass"
+      startedAt: "2026-06-16T07:49:19Z"
+      timeoutSeconds: 360
+    -
+      command: "cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-istiod-mqgca9ud-202m-istiod --space helm-expt-parity-istiod-mqgca9ud-202m-istiod --target helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci"
+      elapsedSeconds: 53.688
+      finishedAt: "2026-06-16T07:50:13Z"
+      name: "configHub-oci-upload"
+      objectCount: 18
+      result: "pass"
+      startedAt: "2026-06-16T07:49:19Z"
+      timeoutSeconds: 600
+    -
+      command: "cub unit list --space helm-expt-parity-istiod-mqgca9ud-202m-istiod"
+      elapsedSeconds: 0.532
+      finishedAt: "2026-06-16T07:50:14Z"
+      name: "configHub-oci-unit-list"
+      result: "pass"
+      startedAt: "2026-06-16T07:50:13Z"
+      timeoutSeconds: 120
+    -
+      command: "cub unit apply --space helm-expt-parity-istiod-mqgca9ud-202m-istiod --unit <18 unit(s)> --wait --timeout 5m"
+      elapsedSeconds: 9.887
+      finishedAt: "2026-06-16T07:50:24Z"
+      name: "configHub-oci-unit-apply"
+      result: "pass"
+      startedAt: "2026-06-16T07:50:14Z"
+      timeoutSeconds: 360
+      unitCount: 18
+    -
+      command: "cub unit create --space helm-expt-parity-istiod-mqgca9ud-202m-cluster istiod-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-istiod-default/argo-application.json --target helm-expt-parity-istiod-mqgca9ud-202m-cluster/oci --allow-exists"
+      elapsedSeconds: 1.306
+      finishedAt: "2026-06-16T07:50:25Z"
+      name: "configHub-oci-app-create"
+      result: "pass"
+      startedAt: "2026-06-16T07:50:24Z"
+      timeoutSeconds: 180
+    -
+      command: "cub unit apply --space helm-expt-parity-istiod-mqgca9ud-202m-cluster --unit <1 unit(s)> --wait --timeout 5m"
+      elapsedSeconds: 1.487
+      finishedAt: "2026-06-16T07:50:26Z"
+      name: "configHub-oci-app-apply"
+      result: "pass"
+      startedAt: "2026-06-16T07:50:25Z"
+      timeoutSeconds: 360
+      unitCount: 1
+    -
+      elapsedSeconds: 422.53
+      finishedAt: "2026-06-16T07:57:29Z"
+      health: "Progressing"
+      name: "configHub-oci-argo-wait"
+      result: "watch"
+      startedAt: "2026-06-16T07:50:26Z"
+      sync: "Synced"
+      timeoutSeconds: 420
+      waitedSeconds: 420
+    -
+      elapsedSeconds: 0.104
+      finishedAt: "2026-06-16T07:58:05Z"
+      name: "configHub-oci-readiness"
+      namespaces: "default"
+      result: "pass"
+      startedAt: "2026-06-16T07:58:05Z"
+      timeoutSeconds: 180
+  package:
+    path: "packages/istio/istiod/1.30.0"
+  recipe:
+    path: "recipes/istio/istiod/1.30.0"
+  result: "blocked"
+  run:
+    cleanup:
+      command: "cub lk down --name helm-expt-parity-istiod-mqgca9ud-202m --force"
+      detail: "Deleting kind cluster \"helm-expt-parity-istiod-mqgca9ud-202m\"...\nDeleting cluster \"helm-expt-parity-istiod-mqgca9ud-202m\" ...\nDeleted nodes: [\"helm-expt-parity-istiod-mqgca9ud-202m-control-plane\"]\nDeleting Space \"helm-expt-parity-istiod-mqgca9ud-202m-cluster\" (recursive: cascades to Unit, Target, Worker)...\n\nDone."
+      result: "pass"
+    clusterLifecycle: "cleaned-up"
+    kubeContext: "kind-helm-expt-parity-istiod-mqgca9ud-202m"
+    legNamespaces:
+      configHubKubectlApply: "default-apply"
+      configHubOciArgo: "default-oci"
+      regularHelm: "default-helm"
+    namespace: "default"
+    namespaceMode: "isolated-leg-namespaces"
+    rig: "helm-expt-parity-istiod-mqgca9ud-202m"
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||default"
+    helmVsConfigHubKubectlApply:
+      comparisonSHA256: "c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f"
+      configHubObjectCount: 18
+      extraInConfigHub:
+        - "v1|Namespace||default"
+      helmObjectCount: 17
+      missingFromConfigHub:
+        []
+      result: "pass"
+      semanticDiffs:
+        []
+      semanticNormalizations:
+        - "prune-null-fields"
+    helmVsConfigHubOciArgo:
+      comparisonSHA256: "c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f"
+      configHubObjectCount: 18
+      extraInConfigHub:
+        - "v1|Namespace||default"
+      helmObjectCount: 17
+      missingFromConfigHub:
+        []
+      result: "pass"
+      semanticDiffs:
+        []
+      semanticNormalizations:
+        - "prune-null-fields"
+    semanticNormalizations:
+      - "prune-null-fields"
+  targetFacts:
+    configHubKubectlApply:
+      result: "pass"
+      stagedCRDs:
+        []
+      stagedNamespaces:
+        []
+      stagedObjectStores:
+        []
+      stagedSecrets:
+        []
+    configHubOciArgo:
+      result: "pass"
+      stagedCRDs:
+        []
+      stagedNamespaces:
+        []
+      stagedObjectStores:
+        []
+      stagedSecrets:
+        []
+    regularHelm:
+      result: "pass"
+      stagedCRDs:
+        []
+      stagedNamespaces:
+        []
+      stagedObjectStores:
+        []
+      stagedSecrets:
+        []
+  targetProfile:
+    name: "none"
+    resources:
+      []
+    result: "pass"
+  variantRevision: "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
+  version: "1.30.0"
