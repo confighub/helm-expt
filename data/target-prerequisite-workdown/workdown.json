@@ -65,7 +65,7 @@
       "owner_class": "operator-review",
       "support_artifact": "",
       "recommended_next_action": "Review the runtime residue on the target (pod not ready / crash loop / ContainerCreating); stage any missing dependency, then rerun.",
-      "rerun_command": "",
+      "rerun_command": "npm run kind-parity:run -- --chart dex/dex --version 0.24.0 --base default",
       "evidence_path": "runs/live-kind-parity/dex-dex-default/receipt.yaml"
     },
     {
@@ -185,7 +185,7 @@
       "owner_class": "operator-review",
       "support_artifact": "",
       "recommended_next_action": "Provide the required upstream service/endpoint as a stack dependency or target fact, then rerun.",
-      "rerun_command": "",
+      "rerun_command": "npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default",
       "evidence_path": "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
     },
     {
@@ -485,7 +485,7 @@
       "owner_class": "user-stage",
       "support_artifact": "",
       "recommended_next_action": "Supply the required Helm input values for this base, then rerun.",
-      "rerun_command": "",
+      "rerun_command": "npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default",
       "evidence_path": "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
     },
     {
@@ -530,7 +530,7 @@
       "owner_class": "user-stage",
       "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
       "recommended_next_action": "Stage the required CRDs on the target (or use the CRD-rendering base), then rerun.",
-      "rerun_command": "",
+      "rerun_command": "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default",
       "evidence_path": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
     },
     {
@@ -590,7 +590,7 @@
       "owner_class": "user-stage",
       "support_artifact": "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml",
       "recommended_next_action": "Create the required Namespace (Namespace rook-ceph) on the target, then rerun.",
-      "rerun_command": "",
+      "rerun_command": "npm run kind-parity:run -- --chart rook-release/rook-ceph-cluster --version v1.19.5 --base default",
       "evidence_path": "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
     },
     {
