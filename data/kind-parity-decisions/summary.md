@@ -23,9 +23,9 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-28 non-pass rows: 9 watch, 19 blocked.
+29 non-pass rows: 9 watch, 20 blocked.
 11 are resolved by the **user** (stage a prerequisite or supply
-values); 8 need **catalog/model** work; the rest need a runtime or
+values); 9 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
@@ -36,6 +36,7 @@ readiness review.
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
 | `target-prerequisite-namespace` | 2 |
+| `hook-lifecycle` | 1 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
@@ -43,7 +44,7 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `user` | 11 |
-| `catalog` | 8 |
+| `catalog` | 9 |
 | `needs runtime review` | 8 |
 | `needs readiness review` | 1 |
 
@@ -54,6 +55,7 @@ readiness review.
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | blocked | model-gap-target-fact | catalog | no — needs catalog work |
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
+| bitnami/contour@21.1.4 | default | blocked | hook-lifecycle | catalog | no — needs lifecycle route |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
