@@ -50,12 +50,16 @@ rounded up to a `pass`.
 | What still needs live proof? | [live-matrix-burndown](../../data/live-matrix-burndown/summary.md) |
 | Why is this **K** (two-cluster kind) row watch/blocked — who fixes it, can I use it today? | [kind-parity-decisions](../../data/kind-parity-decisions/summary.md) |
 | Why is this **G/P** (GitOps/OCI + live Helm-vs-ConfigHub) row watch/blocked — who fixes it, can I use it today? | [live-parity-decisions](../../data/live-parity-decisions/summary.md) |
+| What does the residue category mean — `remote-image` vs `render-input` vs `capability-profile` vs hook/lifecycle, …? | [residue-families](../reference/residue-families.md) |
 | What does this chart's hook / lifecycle action need? | [lifecycle-route-actions](../../data/lifecycle-route-actions/summary.md) |
 | How do I rerun it — exact command, receipt, support artifact? | the row's support artifact and receipt path, plus [live-parity.md](./live-parity.md) |
 
 The two decision surfaces turn every non-pass G/P/K row into a plain answer:
 what the residue is, **who fixes it** (you, with a target prerequisite — or the
-catalog, with model work), and whether you can use the chart **today**.
+catalog, with model work), and whether you can use the chart **today**. The
+residue category names — `remote-image`, `render-input`, `capability-profile`,
+`target-prerequisite`, hook/lifecycle, and the rest — are defined in
+[residue-families](../reference/residue-families.md).
 
 ## The honest line
 
