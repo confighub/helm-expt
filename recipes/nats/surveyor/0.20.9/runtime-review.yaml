@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeReview"
+metadata:
+  name: "surveyor-no-nats-endpoint-runtime-watch"
+  chart: "nats/surveyor"
+  version: "0.20.9"
+spec:
+  base: "default"
+  alsoObservedBases:
+    - base: "default-reviewed"
+      receipt: "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+      observedResult: "watch"
+  controller: "Argo CD"
+  targetShape: "kind proof rig"
+  receipt: "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "watch"
+    configHubDirectRuntime: "watch"
+    configHubOciRuntime: "watch"
+    semanticParity: "pass"
+  passed:
+    - "regular Helm rendered and applied the surveyor object set"
+    - "ConfigHub direct apply rendered and applied the same desired object meaning"
+    - "ConfigHub OCI/Argo synced the uploaded Units"
+    - "semantic object parity passed across the legs"
+  watch:
+    summary: "The surveyor Deployment crash-loops on every leg with the same residue, including under regular Helm -- so it is a dependency gap, not a ConfigHub delivery defect."
+    observedRuntime:
+      - "regular Helm: surveyor Deployment 0/1, pod CrashLoopBackOff (~7 restarts), 'resource Deployment/surveyor not ready ... Available: 0/1'"
+      - "ConfigHub direct apply and OCI/Argo: the same surveyor CrashLoopBackOff residue"
+      - "default-reviewed base: same surveyor CrashLoopBackOff residue"
+  diagnosis:
+    summary: "This is a missing stack-dependency runtime watch, not a render parity defect."
+    interpretation: "NATS Surveyor is a monitoring client that requires a reachable NATS system to connect to. The proof rig installs Surveyor alone, with no NATS server present, so the Surveyor process cannot establish its monitoring connection and the Deployment never reaches Ready. Regular Helm hits the identical boundary, which confirms the rendered objects are correct and the gap is a required runtime dependency, not the configuration."
+    productBoundary: "A supported Surveyor base needs the required NATS endpoint modeled as a target fact, or NATS deployed as a stack dependency, before the workload can become Ready."
+    issue: "https://github.com/confighub/helm-expt/issues/865"
+    nextInvestigation:
+      - "Model the required NATS endpoint as a target fact, or declare NATS as a stack dependency for the Surveyor base (see issue #865)."
+      - "Rerun live parity after the NATS endpoint is provided and confirm Surveyor reaches Ready."
+  evidence:
+    receipt: "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
+    reviewedReceipt: "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+  notClaimed:
+    - "This row does not prove NATS Surveyor production support."
+    - "This row does not prove Surveyor can run without a reachable NATS endpoint."
+    - "This row does not claim automatic provisioning of the NATS dependency."

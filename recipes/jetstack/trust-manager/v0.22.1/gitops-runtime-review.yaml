@@ -1,0 +1,51 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "trust-manager-argo-health-progressing-watch"
+  chart: "jetstack/trust-manager"
+  version: "v0.22.1"
+spec:
+  base: "default"
+  coveredBases:
+    - "default"
+    - "no-crds"
+  controller: "Argo CD OCI"
+  targetShape: "kind proof rig with ConfigHub OCI source and local-path storage"
+  receipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
+  additionalReceipts:
+    no-crds: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
+  observedResult: "watch"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Progressing"
+    semanticParityDirectApply: "pass"
+    semanticParityOciArgo: "pass"
+    runtimeResidue: "Argo CD reports the application Synced with all 15 resources Synced and the sync operation Succeeded, but the aggregate application health reads Progressing."
+  passed:
+    - "regular Helm rendered and applied the trust-manager object set and the workload became ready (notReady empty)"
+    - "ConfigHub direct apply rendered and applied the same object set and the workload became ready"
+    - "ConfigHub OCI upload, Unit apply, and Argo Application apply completed"
+    - "ConfigHub OCI/Argo reported the application Synced (15/15 resources Synced, sync operation Succeeded: 'successfully synced (all tasks run)')"
+    - "Helm-vs-ConfigHub semantic parity passed for direct apply and OCI/Argo"
+  watch:
+    summary: "The only residue is that Argo CD's aggregate application health reads Progressing even though every resource is Synced, the sync operation Succeeded, and the direct-apply and regular-Helm legs reached readiness. This is a GitOps controller-health reporting residue, not a parity or delivery defect."
+    observedResidue:
+      - "ConfigHub OCI/Argo: sync=Synced, health=Progressing, operationState.phase=Succeeded, syncResultStatusCounts.Synced=15"
+      - "regular Helm and ConfigHub direct apply: workloads became ready (notReady empty)"
+    interpretation: "Argo aggregate health can lag at Progressing for controllers whose readiness it does not fully resolve, even after all resources are Synced and the workload is up. The condition needs explanation/observation, not a config change."
+  diagnosis:
+    summary: "trust-manager delivers cleanly through ConfigHub OCI/Argo; the watch is a controller-health reporting residue to explain, not a defect."
+    productBoundary: "A supported claim needs an explanation (or a settled Healthy reading) for the Argo aggregate health Progressing condition, captured as fresh evidence."
+    nextInvestigation:
+      - "Inspect the Argo application resource tree to identify which child keeps aggregate health at Progressing."
+      - "Confirm whether health settles to Healthy on a longer observation window."
+      - "Rerun ConfigHub OCI live parity and record whether health reaches Healthy."
+  evidence:
+    receipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
+    noCrdsReceipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
+  notClaimed:
+    - "This row does not prove trust-manager production support."
+    - "This row does not prove the Argo aggregate health Progressing condition can be ignored in production."
+    - "This row does not claim automatic remediation of the controller-health residue."
