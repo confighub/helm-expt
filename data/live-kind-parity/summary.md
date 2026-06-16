@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 119
+pass: 120
 watch: 9
 blocked: 25
-semantic parity pass: 137
+semantic parity pass: 138
 semantic parity defects: 8
 non-pass rows where semantic parity passed: 18
 non-pass rows with related lifecycle evidence: 0
@@ -204,6 +204,7 @@ broader support claim.
 | `prometheus-community/prometheus-pushgateway@3.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-pushgateway-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
+| `rook-release/rook-ceph@v1.19.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/rook-release-rook-ceph-default/receipt.yaml |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml |
 | `sealed-secrets/sealed-secrets@2.18.6` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-no-crds/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
