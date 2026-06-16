@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: aws-ebs-csi-driver-2.60.1-model-gap-fix
+  chart: aws-ebs-csi-driver/aws-ebs-csi-driver
+  version: "2.60.1"
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: default
+      lane: K
+      failure_signature: "extra=1 (v1|Namespace||default, allowed normalization); diffs=2: apps/v1|Deployment|default|ebs-csi-controller and storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com differ between installer render and regular Helm"
+      receipt: runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "No sibling base passes. The v1|Namespace||default extra is on the allowedExtraInstallerObjects list (accepted normalization). The two real diffs are the ebs-csi-controller Deployment and the ebs.csi.aws.com CSIDriver."
+  fix_spec: "1) apps/v1|Deployment|default|ebs-csi-controller: diff the installer render vs the regular-Helm render to find the divergent fields (likely env-var injection, annotation, or label differences introduced by the recipe overlay) and reconcile the recipe so the Deployment spec matches field-for-field. 2) storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com (cluster-scoped): diff the installer vs regular-Helm render (likely spec.podInfoOnMount / attachRequired / fsGroupPolicy) and reconcile. The Namespace extra needs no fix."
+  verify_non_live: "Render the default base with the recipe fix and diff the manifests against `helm template`; the Deployment and CSIDriver should show zero field-level diffs (render parity, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart aws-ebs-csi-driver/aws-ebs-csi-driver --version 2.60.1 --base default"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

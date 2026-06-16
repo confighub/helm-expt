@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: contour-21.1.4-model-gap-fix
+  chart: bitnami/contour
+  version: 21.1.4
+spec:
+  gap_kind: missing-crd
+  bases:
+    - base: no-crds
+      lane: K
+      failure_signature: "semantic object parity: missing=5 extra=[v1|Namespace||default] diffs=0 — the installer object set omits 5 projectcontour.io CRDs (contourconfigurations, contourdeployments, extensionservices, httpproxies, tlscertificatedelegations) that the live Helm render includes"
+      receipt: runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml
+  fix_class: needs-implementation
+  sibling_base_that_passes: "none"
+  decision: "The no-crds base sets manageCRDs=false, so the installer render omits the 5 Contour CRDs; but the live Helm install on the same no-crds values still renders them, so the comparison shows 5 CRDs missing from the installer. Decision: either (A) scope the no-crds base explicitly as CRD-free and normalize the comparison to allow the 5 CRDs as missing for that base, with the default base as the CRD-rendering off-ramp; or (B) find a Helm values combination that also omits the CRDs in the live path (may not exist)."
+  fix_spec: "Option A (recommended): add a semantic-normalization entry declaring the 5 projectcontour.io CRDs as allowedMissingInstallerObjects for the no-crds base, scope the no-crds base as CRD-free in value-model/catalog-status, and confirm the default base is the CRD-rendering path that passes the parity check. Option B: investigate whether the chart's manageCRDs flag suppresses CRDs in the live Helm install path; if so, update effective-values-no-crds.yaml and rerun."
+  verify_non_live: "Render the no-crds base offline and confirm the 5 CRDs are absent from the installer set; render the default base offline and confirm the 5 CRDs are present (render only, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

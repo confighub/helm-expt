@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: prometheus-adapter-5.3.0-model-gap-fix
+  chart: prometheus-community/prometheus-adapter
+  version: "5.3.0"
+spec:
+  gap_kind: semantic-normalization
+  bases:
+    - base: default
+      lane: "G/P"
+      failure_signature: "rendered APIService apiregistration.k8s.io/v1beta1 is not served by the target Kubernetes"
+      receipt: runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/receipt.yaml
+    - base: cluster-metrics-readonly
+      lane: "G/P"
+      failure_signature: "rendered APIService apiregistration.k8s.io/v1beta1 is not served by the target Kubernetes"
+      receipt: runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml
+  fix_class: base-scope-decision
+  sibling_base_that_passes: "apiservice-v1-capability (G/P pass)"
+  decision: "The default and cluster-metrics-readonly bases have an empty capabilityProfile.apiVersions ([]), so the chart falls back to rendering the APIService under apiregistration.k8s.io/v1beta1, which the target cluster no longer serves. The sibling base apiservice-v1-capability adds apiregistration.k8s.io/v1 to its capability profile, making the chart render the same APIService under apiregistration.k8s.io/v1 (served). Modern-cluster users should select apiservice-v1-capability."
+  fix_spec: "In the default and cluster-metrics-readonly variant.yaml files, add apiregistration.k8s.io/v1 to spec.capabilityProfile.apiVersions (currently []), matching what apiservice-v1-capability already does — this renders apiregistration.k8s.io/v1|APIService instead of v1beta1. Alternatively, scope default/cluster-metrics-readonly explicitly to clusters that still serve apiregistration.k8s.io/v1beta1 and route modern-cluster users to apiservice-v1-capability."
+  verify_non_live: "Render default and cluster-metrics-readonly with the updated capabilityProfile.apiVersions and diff the APIService group/version against the apiservice-v1-capability render; they should match at apiregistration.k8s.io/v1 (render parity, no cluster)."
+  rerun_command: "npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-adapter/5.3.0 --base default   |   --base cluster-metrics-readonly"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/receipt.yaml
+    - runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml
+    - "recipes/prometheus-community/prometheus-adapter/5.3.0/variants/apiservice-v1-capability/variant.yaml (passing sibling: capabilityProfile includes apiregistration.k8s.io/v1)"
+    - "recipes/prometheus-community/prometheus-adapter/5.3.0/variants/default/variant.yaml (capabilityProfile.apiVersions: [])"
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."

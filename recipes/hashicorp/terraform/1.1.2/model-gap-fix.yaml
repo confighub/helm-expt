@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: terraform-1.1.2-model-gap-fix
+  chart: hashicorp/terraform
+  version: 1.1.2
+spec:
+  gap_kind: crd-lifecycle
+  bases:
+    - base: default
+      lane: K
+      failure_signature: "installer-applied set carries 1 extra CRD absent from regular Helm's live set: apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io (grounded on the committed default rendered object-inventory)"
+      receipt: "unknown — runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml is referenced by the kind-parity data but is not present in runs/ (flagged to Codex); grounded instead on the committed rendered object-inventory"
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none (no-crds achieves object-set parity but is blocked by a separate missing-required-secret runtime issue)"
+  decision: "default is blocked: the installer renders 1 CRD lifecycle object (workspaces.app.terraform.io) that regular Helm excludes from its live object set. No sibling base passes K end-to-end."
+  fix_spec: "Apply the no-crds render profile to the default base: the no-crds variant (recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml -> effective-values-no-crds.yaml, profile=no-crds) produces a 4-object render (Deployment, RoleBinding, Role, ServiceAccount) without workspaces.app.terraform.io. The exclusion is performed by the cub render profile; no chart-level Helm values flag (crds.enabled / installCRDs) is evidenced in effective-values.yaml (values: {}) or control-points.yaml (crds: review-required, count=1). After applying, the default object set would match the no-crds render, achieving CRD-set parity with regular Helm's live set."
+  verify_non_live: "Render the default base with cub installer and compare the object set to regular Helm's live object set; workspaces.app.terraform.io should no longer appear (render parity, no cluster)."
+  rerun_command: "npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base default"
+  automatic: false
+  evidence:
+    - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/object-inventory.yaml (5 objects, 1 CRD: workspaces.app.terraform.io)"
+    - "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/object-inventory.yaml (4 objects, CRD absent)"
+    - "recipes/hashicorp/terraform/1.1.2/control-points.yaml (crds: status=review-required, count=1)"
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
