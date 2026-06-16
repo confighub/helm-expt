@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ImageRemediation
+metadata:
+  name: contour-21.1.4-image-remediation
+  chart: bitnami/contour
+  version: 21.1.4
+spec:
+  residue: remote-image
+  semantic_parity: passed
+  remediation_class: registry-remap
+  recommended: "Remap the removed docker.io/bitnami contour and envoy images to docker.io/bitnamilegacy — Bitnami's documented migration registry for the legacy free images it stopped publishing under docker.io/bitnami in Aug 2025. Verify the exact tags are retained under docker.io/bitnamilegacy and pin their digests. The pre-install certgen hook (contour-contour-certgen) uses one of these images, so the remap also unblocks that hook."
+  override_path: "global.imageRegistry: docker.io/bitnamilegacy (Bitnami common-chart convention) covers both contour and envoy — NOT present in committed recipe artifacts (effective-values are chart-defaults; the workdown records candidate_override_path as unknown), so treat as remediation TO VERIFY against the chart values schema."
+  digest_resolution: "unknown — data/image-digest-workdown has no resolved digest for these images (resolution receipts missing); pin retained digests once confirmed."
+  verify_non_live: "Render each base with global.imageRegistry=docker.io/bitnamilegacy and confirm the contour and envoy refs resolve to docker.io/bitnamilegacy in the Job, Deployment, and DaemonSet (render only, no cluster); a live rerun then confirms pullability and whether the certgen hook runs."
+  bases:
+    - base: default
+      lane: G/P
+      missing_images: "docker.io/bitnami/contour:1.32.1-debian-12-r0; docker.io/bitnami/envoy:1.34.5-debian-12-r0"
+      image_location: hook/lifecycle-job
+      failure_signature: "remote-image: the pinned image(s) above could not be pulled on the target; the pre-install certgen hook (contour-contour-certgen) fails first with ImagePullBackOff; semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default --repo-url oci://registry-1.docker.io/bitnamicharts"
+    - base: no-crds
+      lane: G/P
+      missing_images: "docker.io/bitnami/contour:1.32.1-debian-12-r0; docker.io/bitnami/envoy:1.34.5-debian-12-r0"
+      image_location: hook/lifecycle-job
+      failure_signature: "remote-image: the pinned image(s) above could not be pulled on the target; the pre-install certgen hook (contour-contour-certgen) fails first with ImagePullBackOff; semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml
+    - data/remote-image-runtime-workdown/workdown.csv
+    - data/image-digest-workdown/summary.md
+  cross_reference: "recipes/bitnami/contour/21.1.4/model-gap-fix.yaml (no-crds CRD set) and recipes/bitnami/contour/21.1.4/lifecycle-route.yaml (certgen cert lifecycle) address separate residues; the certgen route cannot be rehearsed until the image is pullable, so this card is a prerequisite for that route."
+  not_claimed:
+    - "This card does not prove the images are pullable or that the cells pass; it requires applying the override and a fresh live rerun."
+    - "It does not verify that docker.io/bitnamilegacy retains the exact pinned tags; that must be confirmed against the registry before the remap is considered stable."
+    - "It does not resolve the no-crds CRD set (see model-gap-fix.yaml) or the certgen cert lifecycle (see lifecycle-route.yaml); this card is only the image pull."

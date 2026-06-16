@@ -1,0 +1,39 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ImageRemediation
+metadata:
+  name: spark-10.0.3-image-remediation
+  chart: bitnami/spark
+  version: 10.0.3
+spec:
+  residue: remote-image
+  semantic_parity: passed
+  remediation_class: registry-remap
+  recommended: "Remap the removed docker.io/bitnami image(s) to docker.io/bitnamilegacy — Bitnami's documented migration registry for the legacy free images it stopped publishing under docker.io/bitnami in Aug 2025. Verify the exact tag is retained under docker.io/bitnamilegacy and pin its digest."
+  override_path: "global.imageRegistry: docker.io/bitnamilegacy (Bitnami common-chart convention) — NOT present in committed recipe artifacts (effective-values and effective-values-ha are chart-defaults; the workdown records candidate_override_path as unknown), so treat as remediation TO VERIFY against the chart values schema."
+  digest_resolution: "unknown — data/image-digest-workdown lists bitnami/spark 10.0.3 with no resolved digest (resolution receipts missing); pin a retained digest once confirmed."
+  verify_non_live: "Render each base with global.imageRegistry=docker.io/bitnamilegacy and confirm every docker.io/bitnami image ref resolves to docker.io/bitnamilegacy (render only, no cluster); a live rerun then confirms pullability."
+  bases:
+    - base: default
+      lane: G/P
+      missing_images: "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+      image_location: container
+      failure_signature: "remote-image: the pinned image above could not be pulled on the target (container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default --repo-url oci://registry-1.docker.io/bitnamicharts"
+    - base: ha
+      lane: G/P
+      missing_images: "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+      image_location: container
+      failure_signature: "remote-image: the pinned image above could not be pulled on the target (container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml
+    - data/remote-image-runtime-workdown/workdown.csv
+    - data/image-digest-workdown/summary.md
+  not_claimed:
+    - "This card does not prove the image is pullable or that the cell passes; it requires applying the override and a fresh live rerun."
+    - "It does not verify that docker.io/bitnamilegacy retains the exact pinned tag; that must be confirmed against the registry before the remap is considered stable."
+    - "The override value path is not present in committed recipe artifacts; global.imageRegistry is the Bitnami convention to verify against the chart values schema."
