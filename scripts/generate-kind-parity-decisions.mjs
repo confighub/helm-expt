@@ -47,6 +47,12 @@ const CATEGORIES = {
     decision: "Usable once you stage the required Secret on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
     next_action: "Stage the named Secret as a target fact, then the row can move to pass.",
   },
+  "target-prerequisite-namespace": {
+    blocker_owner: "user",
+    usable_today: "yes, after creating the Namespace",
+    decision: "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+    next_action: "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
+  },
   "render-input": {
     blocker_owner: "user",
     usable_today: "yes, after supplying values",
@@ -92,6 +98,7 @@ function classify(reason, base, result, semanticParity) {
   if (semanticParity === "defect") return "model-gap-render";
   if (/not found in .*rendered|required crd .*not found/.test(r)) return "model-gap-render";
   if (/secret/.test(r)) return "target-prerequisite-secret";
+  if (/namespace/.test(r) && /not found|missing|required/.test(r)) return "target-prerequisite-namespace";
   if (/crd/.test(r) && (/disabled|missing|no-crds/.test(r) || base.includes("no-crds"))) return "target-prerequisite-crds";
   if (/required helm values|render-input/.test(r)) return "render-input";
   if (/crash|runtime/.test(r)) return "target-runtime";

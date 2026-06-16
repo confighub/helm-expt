@@ -6,6 +6,7 @@
   "residue_categories": [
     "target-prerequisite-crds",
     "target-prerequisite-secret",
+    "target-prerequisite-namespace",
     "render-input",
     "target-runtime",
     "readiness",
@@ -212,6 +213,20 @@
       "receipt": "runs/live-kind-parity/istio-gateway-default/receipt.yaml"
     },
     {
+      "chart": "istio/istiod",
+      "version": "1.30.0",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-prerequisite-namespace",
+      "blocker_owner": "user",
+      "usable_today": "yes, after creating the Namespace",
+      "user_decision": "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "next_action": "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
+      "reason": "target-prerequisite: required Namespace missing (parity passed)",
+      "receipt": "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+    },
+    {
       "chart": "kedacore/keda",
       "version": "2.19.0",
       "base": "no-crds",
@@ -357,12 +372,12 @@
       "base": "no-crds",
       "result": "watch",
       "semantic_parity": "pass",
-      "residue_category": "target-runtime",
-      "blocker_owner": "needs runtime review",
-      "usable_today": "watch — config correct, runtime unconfirmed",
-      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
-      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
-      "reason": "helm-runtime: upstream not ready (parity passed)",
+      "residue_category": "target-prerequisite-namespace",
+      "blocker_owner": "user",
+      "usable_today": "yes, after creating the Namespace",
+      "user_decision": "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "next_action": "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
+      "reason": "target-prerequisite: required Namespace missing (parity passed)",
       "receipt": "runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml"
     },
     {

@@ -370,6 +370,9 @@ function classifyReceipt(receipt) {
   ) {
     return `target-prerequisite: required Secret missing${paritySuffix}`;
   }
+  if (text.includes("namespace") && text.includes("not found")) {
+    return `target-prerequisite: required Namespace missing${paritySuffix}`;
+  }
   if (
     spec.chart === "ingress-nginx/ingress-nginx"
     && text.includes("ingress-nginx-admission")
