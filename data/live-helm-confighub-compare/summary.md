@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 34
+watch: 35
 blocked: 7
 not-started: 0
 ```
@@ -103,6 +103,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `bitnami/apache@11.4.29` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml |
 |  | `bitnami/contour@21.1.4` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml |
 |  | `bitnami/contour@21.1.4` | no-crds | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml |
+|  | `bitnami/elasticsearch@22.1.6` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-elasticsearch-default/receipt.yaml |
 |  | `bitnami/memcached@8.5.5` | default | pass | - | runs/live-helm-confighub-compare/bitnami-memcached-default/receipt.yaml |
 |  | `bitnami/opensearch@2.0.10` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml |
 |  | `bitnami/opensearch@2.0.10` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml |

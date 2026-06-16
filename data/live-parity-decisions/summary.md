@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-41 non-pass rows: 34 watch, 7 blocked.
+42 non-pass rows: 35 watch, 7 blocked.
 3 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -35,7 +35,7 @@ passed — the residue is operational, not a config mismatch.
 | --- | ---: |
 | `gitops-runtime` | 16 |
 | `target-runtime` | 9 |
-| `remote-image` | 7 |
+| `remote-image` | 8 |
 | `target-prerequisite` | 3 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -46,7 +46,7 @@ passed — the residue is operational, not a config mismatch.
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 9 |
-| `catalog or image publisher` | 7 |
+| `catalog or image publisher` | 8 |
 | `catalog` | 4 |
 | `user` | 3 |
 | `needs operate review` | 1 |
@@ -61,6 +61,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/elasticsearch@22.1.6 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

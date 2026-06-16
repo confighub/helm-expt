@@ -1,0 +1,166 @@
+Name:             elasticsearch-master-0
+Namespace:        default
+Priority:         0
+Service Account:  elasticsearch-master
+Node:             helm-expt-parity-elasticsearch-mqga39vs-1kmw-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 07:55:13 +0100
+Labels:           app=master
+                  app.kubernetes.io/component=master
+                  app.kubernetes.io/instance=elasticsearch
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=elasticsearch
+                  app.kubernetes.io/version=9.1.2
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=elasticsearch-master-55f496979
+                  helm.sh/chart=elasticsearch-22.1.6
+                  statefulset.kubernetes.io/pod-name=elasticsearch-master-0
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.38
+IPs:
+  IP:           10.244.0.38
+Controlled By:  StatefulSet/elasticsearch-master
+Init Containers:
+  sysctl:
+    Container ID:
+    Image:         docker.io/bitnami/os-shell:12-debian-12-r50
+    Image ID:
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -ec
+      CURRENT=`sysctl -n vm.max_map_count`;
+      DESIRED="262144";
+      if [ "$DESIRED" -gt "$CURRENT" ]; then
+          sysctl -w vm.max_map_count=262144;
+      fi;
+      CURRENT=`sysctl -n fs.file-max`;
+      DESIRED="65536";
+      if [ "$DESIRED" -gt "$CURRENT" ]; then
+          sysctl -w fs.file-max=65536;
+      fi;
+
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:                150m
+      ephemeral-storage:  2Gi
+      memory:             192Mi
+    Requests:
+      cpu:                100m
+      ephemeral-storage:  50Mi
+      memory:             128Mi
+    Environment:          <none>
+    Mounts:               <none>
+  copy-default-plugins:
+    Container ID:
+    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0
+    Image ID:
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      /bin/bash
+    Args:
+      -ec
+      #!/bin/bash
+
+      . /opt/bitnami/scripts/libfs.sh
+      . /opt/bitnami/scripts/elasticsearch-env.sh
+
+      if ! is_dir_empty "$DB_DEFAULT_PLUGINS_DIR"; then
+          cp -nr "$DB_DEFAULT_PLUGINS_DIR"/* /plugins
+      fi
+
+    State:          Waiting
+      Reason:       PodInitializing
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:                750m
+      ephemeral-storage:  2Gi
+      memory:             768Mi
+    Requests:
+      cpu:                500m
+      ephemeral-storage:  50Mi
+      memory:             512Mi
+    Environment:          <none>
+    Mounts:
+      /plugins from empty-dir (rw,path="app-plugins-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+Containers:
+  elasticsearch:
+    Container ID:
+    Image:           docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0
+    Image ID:
+    Ports:           9200/TCP (rest-api), 9300/TCP (transport)
+    Host Ports:      0/TCP (rest-api), 0/TCP (transport)
+    SeccompProfile:  RuntimeDefault
+    State:           Waiting
+      Reason:        PodInitializing
+    Ready:           False
+    Restart Count:   0
+    Limits:
+      cpu:                750m
+      ephemeral-storage:  2Gi
+      memory:             768Mi
+    Requests:
+      cpu:                500m
+      ephemeral-storage:  50Mi
+      memory:             512Mi
+    Liveness:             tcp-socket :rest-api delay=180s timeout=5s period=10s #success=1 #failure=5
+    Readiness:            exec [/opt/bitnami/scripts/elasticsearch/healthcheck.sh] delay=90s timeout=5s period=10s #success=1 #failure=5
+    Environment:
+      BITNAMI_DEBUG:                        false
+      MY_POD_NAME:                          elasticsearch-master-0 (v1:metadata.name)
+      ELASTICSEARCH_IS_DEDICATED_NODE:      yes
+      ELASTICSEARCH_NODE_ROLES:             master
+      ELASTICSEARCH_TRANSPORT_PORT_NUMBER:  9300
+      ELASTICSEARCH_HTTP_PORT_NUMBER:       9200
+      ELASTICSEARCH_CLUSTER_NAME:           elastic
+      ELASTICSEARCH_CLUSTER_HOSTS:          elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,
+      ELASTICSEARCH_TOTAL_NODES:            4
+      ELASTICSEARCH_CLUSTER_MASTER_HOSTS:   elasticsearch-master-0 elasticsearch-master-1
+      ELASTICSEARCH_MINIMUM_MASTER_NODES:   2
+      ELASTICSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local
+      ELASTICSEARCH_HEAP_SIZE:              128m
+    Mounts:
+      /bitnami/elasticsearch from empty-dir (rw,path="app-volume-dir")
+      /bitnami/elasticsearch/data from data (rw)
+      /opt/bitnami/elasticsearch/config from empty-dir (rw,path="app-conf-dir")
+      /opt/bitnami/elasticsearch/logs from empty-dir (rw,path="app-logs-dir")
+      /opt/bitnami/elasticsearch/plugins from empty-dir (rw,path="app-plugins-dir")
+      /opt/bitnami/elasticsearch/tmp from empty-dir (rw,path="app-tmp-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 False
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  data-elasticsearch-master-0
+    ReadOnly:   false
+  empty-dir:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age   From               Message
+  ----     ------     ----  ----               -------
+  Normal   Scheduled  5s    default-scheduler  Successfully assigned default/elasticsearch-master-0 to helm-expt-parity-elasticsearch-mqga39vs-1kmw-control-plane
+  Normal   Pulling    4s    kubelet            spec.initContainers{sysctl}: Pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+  Warning  Failed     3s    kubelet            spec.initContainers{sysctl}: Failed to pull image "docker.io/bitnami/os-shell:12-debian-12-r50": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/os-shell:12-debian-12-r50": failed to resolve reference "docker.io/bitnami/os-shell:12-debian-12-r50": docker.io/bitnami/os-shell:12-debian-12-r50: not found
+  Warning  Failed     3s    kubelet            spec.initContainers{sysctl}: Error: ErrImagePull
+  Normal   BackOff    2s    kubelet            spec.initContainers{sysctl}: Back-off pulling image "docker.io/bitnami/os-shell:12-debian-12-r50"
+  Warning  Failed     2s    kubelet            spec.initContainers{sysctl}: Error: ImagePullBackOff

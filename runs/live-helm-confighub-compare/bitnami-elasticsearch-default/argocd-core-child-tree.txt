@@ -1,0 +1,53 @@
+Name:               argocd/elasticsearch-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:60361/applications/elasticsearch-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                  STATUS  HEALTH       AGE  MESSAGE                                                                        REASON
+StatefulSet/elasticsearch-data                             Synced  Progressing  13m  statefulset.apps/elasticsearch-data serverside-applied                         Waiting for 2 pods to be ready...
+├─PersistentVolumeClaim/data-elasticsearch-data-0                  Healthy      13m
+├─PersistentVolumeClaim/data-elasticsearch-data-1                  Healthy      13m
+├─Pod/elasticsearch-data-0                                         Progressing  13m
+├─Pod/elasticsearch-data-1                                         Progressing  13m
+└─ControllerRevision/elasticsearch-data-6869bcf4b                               13m
+NetworkPolicy/elasticsearch-coordinating                   Synced               13m  networkpolicy.networking.k8s.io/elasticsearch-coordinating serverside-applied
+PodDisruptionBudget/elasticsearch-coordinating             Synced  Healthy      13m  poddisruptionbudget.policy/elasticsearch-coordinating serverside-applied       PodDisruptionBudget has InsufficientPods
+Service/elasticsearch                                      Synced  Healthy      13m  service/elasticsearch serverside-applied
+Service/elasticsearch-data-hl                              Synced  Healthy      13m  service/elasticsearch-data-hl serverside-applied
+ServiceAccount/elasticsearch-data                          Synced               13m  serviceaccount/elasticsearch-data serverside-applied
+StatefulSet/elasticsearch-coordinating                     Synced  Progressing  13m  statefulset.apps/elasticsearch-coordinating serverside-applied                 Waiting for 2 pods to be ready...
+├─Pod/elasticsearch-coordinating-0                                 Progressing  13m
+├─Pod/elasticsearch-coordinating-1                                 Progressing  13m
+└─ControllerRevision/elasticsearch-coordinating-58dd95dc8                       13m
+StatefulSet/elasticsearch-master                           Synced  Progressing  13m  statefulset.apps/elasticsearch-master serverside-applied                       Waiting for 2 pods to be ready...
+├─PersistentVolumeClaim/data-elasticsearch-master-0                Healthy      13m
+├─PersistentVolumeClaim/data-elasticsearch-master-1                Healthy      13m
+├─Pod/elasticsearch-master-0                                       Progressing  13m
+├─Pod/elasticsearch-master-1                                       Progressing  13m
+└─ControllerRevision/elasticsearch-master-55f496979                             13m
+PodDisruptionBudget/elasticsearch-ingest                   Synced  Healthy      13m  poddisruptionbudget.policy/elasticsearch-ingest serverside-applied             PodDisruptionBudget has InsufficientPods
+PodDisruptionBudget/elasticsearch-master                   Synced  Healthy      13m  poddisruptionbudget.policy/elasticsearch-master serverside-applied             PodDisruptionBudget has InsufficientPods
+Namespace/default-oci                                      Synced               13m
+Service/elasticsearch-coordinating-hl                      Synced  Healthy      13m  service/elasticsearch-coordinating-hl serverside-applied
+ServiceAccount/elasticsearch-ingest                        Synced               13m  serviceaccount/elasticsearch-ingest serverside-applied
+ServiceAccount/elasticsearch-master                        Synced               13m  serviceaccount/elasticsearch-master serverside-applied
+NetworkPolicy/elasticsearch-data                           Synced               13m  networkpolicy.networking.k8s.io/elasticsearch-data serverside-applied
+NetworkPolicy/elasticsearch-ingest                         Synced               13m  networkpolicy.networking.k8s.io/elasticsearch-ingest serverside-applied
+NetworkPolicy/elasticsearch-master                         Synced               13m  networkpolicy.networking.k8s.io/elasticsearch-master serverside-applied
+PodDisruptionBudget/elasticsearch-data                     Synced  Healthy      13m  poddisruptionbudget.policy/elasticsearch-data serverside-applied               PodDisruptionBudget has InsufficientPods
+ServiceAccount/elasticsearch-coordinating                  Synced               13m  serviceaccount/elasticsearch-coordinating serverside-applied
+StatefulSet/elasticsearch-ingest                           Synced  Progressing  13m  statefulset.apps/elasticsearch-ingest serverside-applied                       Waiting for 2 pods to be ready...
+├─Pod/elasticsearch-ingest-0                                       Progressing  13m
+├─Pod/elasticsearch-ingest-1                                       Progressing  13m
+└─ControllerRevision/elasticsearch-ingest-7464665dbb                            13m
+Service/elasticsearch-ingest-hl                            Synced  Healthy      13m  service/elasticsearch-ingest-hl serverside-applied
+Service/elasticsearch-master-hl                            Synced  Healthy      13m  service/elasticsearch-master-hl serverside-applied

@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:60490/applications/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                         STATUS  HEALTH  AGE    MESSAGE                                                                                          REASON
+Application/elasticsearch-parity                                  Synced          7m26s  application.argoproj.io/elasticsearch-parity serverside-applied
+Application/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster  Synced          22m    application.argoproj.io/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster serverside-applied
