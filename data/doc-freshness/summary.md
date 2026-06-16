@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-16 (commit `8acb0b26`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-16 (commit `dcde9613`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 175 |
-| Fresh (no linked source newer than the doc) | 14 |
-| **Review-due** | 40 |
+| Fresh (no linked source newer than the doc) | 15 |
+| **Review-due** | 39 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
 ## Review queue
@@ -57,7 +57,6 @@ most recently changed triggers.
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-13 | 3 | `data/live-helm-confighub-compare/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)`<br>`data/master-catalog-matrix/matrix.html (2026-06-16)` |
 | [docs/user/verify-it-yourself.md](../../docs/user/verify-it-yourself.md) | user | 2026-06-13 | 3 | `data/live-kind-parity/summary.md (2026-06-16)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 2 | `data/quirk-coverage/coverage.csv (2026-06-13)`<br>`data/quirk-coverage/summary.md (2026-06-13)` |
-| [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-15 | 2 | `data/live-helm-confighub-compare/summary.md (2026-06-16)`<br>`data/live-matrix-burndown/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 2 | `data/production-disposition/next-actions.csv (2026-06-13)`<br>`data/production-disposition/support-decision-contract.md (2026-06-13)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
