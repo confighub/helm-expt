@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 21
+blocked: 22
 semantic parity pass: 134
 semantic parity defects: 7
 non-pass rows where semantic parity passed: 18
@@ -33,8 +33,8 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 7 |
+| target-prerequisite: CRDs missing | 4 |
 | helm-runtime: upstream not ready (parity passed) | 3 |
-| target-prerequisite: CRDs missing | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
@@ -151,6 +151,7 @@ broader support claim.
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-controller-default-reviewed/receipt.yaml |
 | `istio/gateway@1.30.0` | default | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-default/receipt.yaml |
 | `istio/istiod@1.30.0` | default | blocked | pass | target-prerequisite: required Namespace missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-istiod-default/receipt.yaml |
+| `jaegertracing/jaeger-operator@2.57.0` | default | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml |
 | `jaegertracing/jaeger@4.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jaegertracing-jaeger-default/receipt.yaml |
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
