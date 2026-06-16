@@ -6438,7 +6438,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/rook-release/rook-ceph/v1.19.5 --base default"
+      "command": ""
     },
     {
       "chart": "rook-release/rook-ceph",

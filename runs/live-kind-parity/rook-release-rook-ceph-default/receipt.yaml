@@ -1,0 +1,226 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: rook-release-rook-ceph-v1.19.5-default-kind-parity-20260606
+spec:
+  chart: rook-release/rook-ceph
+  version: v1.19.5
+  base: default
+  result: pass
+  observedAt: '2026-06-16T11:29:03Z'
+  package:
+    path: packages/rook-release/rook-ceph/v1.19.5
+  recipe:
+    path: recipes/rook-release/rook-ceph/v1.19.5
+  variantRevision: recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-rookce-b587f-7bl8-helm
+    installerCluster: hx-rookce-b587f-7bl8-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-rookce-b587f-7bl8-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-rookce-b587f-7bl8-helm" ...
+
+          Deleted nodes: ["hx-rookce-b587f-7bl8-helm-control-plane"]'
+      - cluster: hx-rookce-b587f-7bl8-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-rookce-b587f-7bl8-installer" ...
+
+          Deleted nodes: ["hx-rookce-b587f-7bl8-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install rook-ceph rook-ceph --repo https://charts.rook.io/release
+        --version v1.19.5 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8
+      objectCount: 133
+      liveHelmManifestSHA256: 25eee3138d716cc51ef080e7d8d48951c1dae705495f782a831b00393cdb282e
+      liveHelmManifestObjectCount: 133
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/ceph-csi-controller-manager   1/1   1     1     74s
+
+          deployment.apps/rook-ceph-operator            1/1   1     1     74s'
+        pods: '# default
+
+          ceph-csi-controller-manager-8bcc6877c-524ms   1/1   Running   0     74s
+
+          rook-ceph-operator-64bb557454-slj4v           1/1   Running   0     74s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-rookce-b587f-7bl8-rook-ceph
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: c44376ce3356a92c380cbf4104b1778d4a0c9b5fe31c0354b7345959aae13957
+      objectCount: 134
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/ceph-csi-controller-manager   1/1   1     1     82s
+
+          deployment.apps/rook-ceph-operator            1/1   1     1     82s'
+        pods: '# default
+
+          ceph-csi-controller-manager-8bcc6877c-46d29   1/1   Running   0     82s
+
+          rook-ceph-operator-64bb557454-jdz8l           1/1   Running   0     82s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 133
+      installerObjectCount: 133
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 133
+      installerObjectCount: 134
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "rook-ceph" does not exist. Installing it now.
+
+      NAME: rook-ceph
+
+      LAST DEPLOYED: Tue Jun 16 12:29:56 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      The Rook Operator has been installed.
+
+
+      Visit https://rook.io/docs/rook/latest for instructions on how to create and
+      configure Rook clusters
+
+
+      Important Notes:
+
+      - You must customize the ''CephCluster'' resource in the sample manifests for
+      your cluster.
+
+      - Each CephCluster must be deployed to its own namespace, the samples use `rook-ceph`
+      for the namespace.
+
+      - The sample manifests assume you also installed the rook-ceph operator in the
+      `rook-ceph` namespace.
+
+      - The helm chart includes all the RBAC required to create a CephCluster CRD
+      in the same namespace.
+
+      - Any disk devices you add to the cluster in the ''CephCluster'' must be empty
+      (no filesystem and no partitions).
+
+      - The CSI operator will manage the CSI driver lifecycle for RBD, CephFS, and
+      NFS drivers.'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/ceph-csi-controller-manager   1/1   1     1     82s
+
+      deployment.apps/rook-ceph-operator            1/1   1     1     82s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
