@@ -18,19 +18,19 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-497 non-green cells:
+493 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-run` | 262 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
-| `already-decided` | 109 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 256 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `already-decided` | 110 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-target-or-prereq-fix` | 99 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `needs-modeling` | 27 | The catalog/model has to change before this can pass. |
+| `needs-modeling` | 28 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
 | `promotion` | 192 |
-| `K` | 76 |
+| `K` | 72 |
 | `lifecycle` | 62 |
 | `G` | 57 |
 | `P` | 57 |
@@ -38,12 +38,12 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `todo` | 262 |
-| `watch` | 109 |
-| `blocked` | 108 |
+| `todo` | 256 |
+| `watch` | 110 |
+| `blocked` | 109 |
 | `fail` | 18 |
 
-## needs-run (262)
+## needs-run (256)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -228,7 +228,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | linkerd/linkerd-crds@1.8.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts linkerd-crds --base default --variant-promotion-proof --cleanup-spaces |
 | longhorn/longhorn@1.11.2 | ui-ingress | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts longhorn --base ui-ingress --variant-promotion-proof --cleanup-spaces |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts metrics-server --base external-tls-ca --variant-promotion-proof --cleanup-spaces |
-| minio-operator/operator@7.1.1 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts operator --base default --variant-promotion-proof --cleanup-spaces |
 | minio-operator/tenant@7.1.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts tenant --base default --variant-promotion-proof --cleanup-spaces |
@@ -275,16 +274,13 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus-node-exporter --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus-operator-crds@29.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-operator-crds@29.0.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus-operator-crds --base default --variant-promotion-proof --cleanup-spaces |
-| prometheus-community/prometheus-pushgateway@3.6.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus-pushgateway@3.6.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus-pushgateway --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus@29.8.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus@29.9.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus@29.9.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus --base default --variant-promotion-proof --cleanup-spaces |
 | prometheus-community/prometheus@29.9.0 | server-only-ephemeral | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus@29.9.0 | server-only-ephemeral | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts prometheus --base server-only-ephemeral --variant-promotion-proof --cleanup-spaces |
-| rook-release/rook-ceph-cluster@v1.19.5 | default | K | todo | target-prerequisite: required Namespace missing (parity passed) | Declare and stage the required Namespace as a target fact, then the row can move to pass. |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts rook-ceph-cluster --base default --variant-promotion-proof --cleanup-spaces |
-| rook-release/rook-ceph@v1.19.5 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | rook-release/rook-ceph@v1.19.5 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | rook-release/rook-ceph@v1.19.5 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts rook-ceph --base default --variant-promotion-proof --cleanup-spaces |
 | runix/pgadmin4@1.62.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -298,10 +294,8 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | strimzi/strimzi-kafka-operator@1.0.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts strimzi-kafka-operator --base default --variant-promotion-proof --cleanup-spaces |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts strimzi-kafka-operator --base no-crds --variant-promotion-proof --cleanup-spaces |
-| traefik/traefik@40.2.0 | default | K | todo | semantic object parity issue: missing=0 extra=26 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||accesscontrolpolicies.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||aiservices.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apiauths.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apibundles.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apicatalogitems.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apiplans.hub.traefik.io | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts traefik --base default --variant-promotion-proof --cleanup-spaces |
-| traefik/traefik@40.2.0 | no-crds | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts traefik --base no-crds --variant-promotion-proof --cleanup-spaces |
 | velero/velero@12.0.1 | default | promotion | todo | base has ConfigHub upload proof and a server-side variant clone, but no cub variant promote receipt yet | node scripts/run-top20-confighub-proof.mjs --charts velero --base default --variant-promotion-proof --cleanup-spaces |
@@ -366,7 +360,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | elastic/metricbeat@8.5.1 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | elastic/metricbeat@8.5.1 | default | P | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | gitlab/gitlab-runner@0.89.0 | default | G | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
-| gitlab/gitlab-runner@0.89.0 | default | K | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
 | gitlab/gitlab-runner@0.89.0 | default | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | gitlab/gitlab-runner@0.89.0 | default | P | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
 | grafana/pyroscope@2.0.2 | ha | K | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
@@ -412,13 +405,14 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | projectcalico/tigera-operator@v3.32.0 | default | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | projectcalico/tigera-operator@v3.32.0 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | G | blocked | target-prerequisite: namespace missing (parity passed) | Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass. |
+| rook-release/rook-ceph-cluster@v1.19.5 | default | K | blocked | target-prerequisite: required Namespace missing (parity passed) | Declare and stage the required Namespace as a target fact, then the row can move to pass. |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | P | blocked | target-prerequisite: namespace missing (parity passed) | Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass. |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | velero/velero@12.0.1 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | velero/velero@12.0.1 | no-crds | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | velero/velero@12.0.1 | no-crds | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 
-## needs-modeling (27)
+## needs-modeling (28)
 
 The catalog/model has to change before this can pass.
 
@@ -446,13 +440,14 @@ The catalog/model has to change before this can pass.
 | prometheus-community/prometheus-adapter@5.3.0 | default | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | prometheus-community/prometheus-adapter@5.3.0 | default | L | blocked | local-live blocked: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | prometheus-community/prometheus-adapter@5.3.0 | default | P | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | Use or promote the base rendered for the target API set, then rerun live parity. For prometheus-adapter on modern Kubernetes, use the apiservice-v1-capability base. |
+| traefik/traefik@40.2.0 | default | K | blocked | semantic object parity issue: missing=0 extra=26 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||accesscontrolpolicies.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||aiservices.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apiauths.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apibundles.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apicatalogitems.hub.traefik.io; apiextensions.k8s.io/v1|CustomResourceDefinition||apiplans.hub.traefik.io | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | velero/velero@12.0.1 | default | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | default | K | blocked | manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io "default" is invalid: [spec.credential: Invalid value: "null": spec.credential in body must be of type object: "null", spec.provider: Invalid value: "null": spec.provider in body must be of type string: "null"] Error from server (Invalid): VolumeSnapshotLocation.velero.io "default" is invalid: [spec.credential: Invalid value: "null": spec.credential in body must be of type object: "null", spec.provider: Invalid value: "null": spec.provider in body must be of type string: "null"] | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | velero/velero@12.0.1 | default | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (109)
+## already-decided (110)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -507,6 +502,7 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | fairwinds-stable/vpa@4.11.0 | no-crds | K | watch | target-prerequisite: CRDs disabled or missing (parity passed) | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | fluent/fluentd@0.5.3 | default | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | fluent/fluentd@0.5.3 | default | P | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| gitlab/gitlab-runner@0.89.0 | default | K | watch | helm-runtime: upstream not ready (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | grafana/grafana@10.5.15 | generated-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | grafana/loki@7.0.0 | single-binary-filesystem | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | resolve https://github.com/confighub/helm-expt/issues/682, then rerun the promotion receipt for a full pass |
 | grafana/pyroscope@2.0.2 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |

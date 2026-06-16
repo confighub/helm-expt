@@ -19,15 +19,15 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1152
-recorded disposition:       1092  (94.8%)
-+ derived blocked:          32
-= verified disposition:     1124  (97.6%)
-genuine todo (named next):  28
+recorded disposition:       1103  (95.7%)
++ derived blocked:          27
+= verified disposition:     1130  (98.1%)
+genuine todo (named next):  22
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 28 cells are not yet a
-non-todo verified disposition (2.4% of cells).
+**Distance to 99%:** 22 cells are not yet a
+non-todo verified disposition (1.9% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -39,7 +39,7 @@ Every one carries a named next action below — none is a silent gap.
 | L local_live | 192 | 192 | 0 | 0 |
 | G gitops_oci_live | 192 | 192 | 0 | 0 |
 | P live_helm_vs_confighub_parity | 192 | 192 | 0 | 0 |
-| K two_cluster_kind_parity | 192 | 164 | 28 | 0 |
+| K two_cluster_kind_parity | 192 | 170 | 22 | 0 |
 
 ## The work to 99%, by next action
 
@@ -47,11 +47,12 @@ Each genuine `todo` cell, grouped by what closes it.
 
 | Cells | Next action |
 | --- | --- |
-| 28 | run the two-cluster kind parity lane |
+| 22 | run the two-cluster kind parity lane |
 
 ## Rules (so the derivation is auditable)
 
 - A recorded `pass`/`watch`/`blocked`/`fail`/`refused`/`n-a` is already a verified disposition.
+- A recorded two-cluster K receipt in `data/live-kind-parity/summary.csv` overrides the older aggregate `base-outcomes` K cell.
 - A live lane (G/P/K) on a row whose `local_live` is **blocked** -> derived **blocked**, same named prerequisite (you cannot make a multi-cluster or GitOps live claim when one cluster will not converge).
 - A live lane on a row whose `local_live` **failed** -> derived **blocked** on the upstream failure.
 - A live lane on a row whose `local_live` **passes** -> genuine **todo**, runnable now, with the lane's run command as the next action.

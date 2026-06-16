@@ -8,10 +8,11 @@
 // Granularity: chart@version x variant x lane cell (the master matrix's
 // cells). Nearest existing view: data/master-catalog-matrix (shows the
 // cells) and data/top100-coverage (chart-level coverage). This view adds
-// the cell-level disposition accounting neither carries, and for every
-// recorded `missing` cell DERIVES the honest disposition + next action by
-// rule, so the worklist to 99% is explicit. Read-only over committed
-// sources; it proposes, it does not mutate base-outcomes.
+// the cell-level disposition accounting neither carries, overlays committed
+// two-cluster kind parity receipts when they are newer than base-outcomes,
+// and for every remaining `missing` cell DERIVES the honest disposition +
+// next action by rule. Read-only over committed sources; it proposes, it
+// does not mutate base-outcomes.
 //
 //   node scripts/generate-disposition-frontier.mjs --generate
 //   node scripts/generate-disposition-frontier.mjs --verify
@@ -29,6 +30,7 @@ const outputs = {
 };
 
 const SOURCE = "data/outcome-coverage/base-outcomes.csv";
+const KIND_PARITY_SOURCE = "data/live-kind-parity/summary.csv";
 const RUNS_DIR = join(repoRoot, "runs", "next80-local-kind");
 
 // The six lanes, in the matrix's order. `live` lanes are the ones that
@@ -67,12 +69,15 @@ if (mode === "--generate") {
 
 function buildReport() {
   const rows = readCsv(SOURCE);
+  const kindParity = indexKindParity(readCsv(KIND_PARITY_SOURCE));
   const cells = [];
   for (const row of rows) {
     const localLive = row.local_live;
     const localReason = localLive === "blocked" || localLive === "fail" ? localLiveReason(row) : "";
     for (const lane of LANES) {
-      const recorded = row[lane.key] ?? "";
+      const key = `${row.chart}|${row.base}`;
+      const kindResult = lane.key === "two_cluster_kind_parity" ? kindParity.get(key)?.result : "";
+      const recorded = kindResult || row[lane.key] || "";
       const cell = {
         chart: row.chart,
         variant: row.base,
@@ -85,6 +90,11 @@ function buildReport() {
         next_action: "",
         owner: "",
       };
+      const kindRow = kindResult ? kindParity.get(key) : null;
+      if (kindRow) {
+        cell.reason = kindRow.reason || kindRow.meaning || "";
+        cell.owner = "kind-parity";
+      }
       if (RECORDED_DISPOSITIONS.has(recorded)) {
         cells.push(cell);
         continue;
@@ -243,6 +253,7 @@ ${todoTable}
 ## Rules (so the derivation is auditable)
 
 - A recorded \`pass\`/\`watch\`/\`blocked\`/\`fail\`/\`refused\`/\`n-a\` is already a verified disposition.
+- A recorded two-cluster K receipt in \`data/live-kind-parity/summary.csv\` overrides the older aggregate \`base-outcomes\` K cell.
 - A live lane (G/P/K) on a row whose \`local_live\` is **blocked** -> derived **blocked**, same named prerequisite (you cannot make a multi-cluster or GitOps live claim when one cluster will not converge).
 - A live lane on a row whose \`local_live\` **failed** -> derived **blocked** on the upstream failure.
 - A live lane on a row whose \`local_live\` **passes** -> genuine **todo**, runnable now, with the lane's run command as the next action.
@@ -255,6 +266,15 @@ npm run disposition-frontier
 npm run disposition-frontier:verify
 ~~~
 `;
+}
+
+function indexKindParity(rows) {
+  const byKey = new Map();
+  for (const row of rows) {
+    if (!row.chart || !row.version || !row.base || !row.result) continue;
+    byKey.set(`${row.chart}@${row.version}|${row.base}`, row);
+  }
+  return byKey;
 }
 
 function pct(n, total) {
