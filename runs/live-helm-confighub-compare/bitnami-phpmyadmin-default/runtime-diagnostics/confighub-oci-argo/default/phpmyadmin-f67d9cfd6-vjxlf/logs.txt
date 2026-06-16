@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "phpmyadmin" in pod "phpmyadmin-f67d9cfd6-vjxlf" is waiting to start: PodInitializing

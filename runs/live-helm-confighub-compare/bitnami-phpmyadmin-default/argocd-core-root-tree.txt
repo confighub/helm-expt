@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:61685/applications/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                     STATUS  HEALTH  AGE    MESSAGE                                                                                      REASON
+Application/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster  Synced          16m    application.argoproj.io/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster serverside-applied
+Application/phpmyadmin-parity                                 Synced          7m26s  application.argoproj.io/phpmyadmin-parity serverside-applied

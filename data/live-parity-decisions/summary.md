@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-42 non-pass rows: 35 watch, 7 blocked.
+43 non-pass rows: 36 watch, 7 blocked.
 3 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,8 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
+| `remote-image` | 9 |
 | `target-runtime` | 9 |
-| `remote-image` | 8 |
 | `target-prerequisite` | 3 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -45,8 +45,8 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
+| `catalog or image publisher` | 9 |
 | `needs runtime review` | 9 |
-| `catalog or image publisher` | 8 |
 | `catalog` | 4 |
 | `user` | 3 |
 | `needs operate review` | 1 |
@@ -68,6 +68,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/opensearch@2.0.10 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/opensearch@2.0.10 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/phpmyadmin@20.0.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
