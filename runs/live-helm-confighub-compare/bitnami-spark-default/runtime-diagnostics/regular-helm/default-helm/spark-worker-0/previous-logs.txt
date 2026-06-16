@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "spark-worker" in pod "spark-worker-0" not found

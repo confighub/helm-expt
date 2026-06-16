@@ -1,0 +1,123 @@
+Name:               spark-master
+Namespace:          default-helm
+CreationTimestamp:  Tue, 16 Jun 2026 10:40:47 +0100
+Selector:           app.kubernetes.io/component=master,app.kubernetes.io/instance=spark,app.kubernetes.io/name=spark
+Labels:             app.kubernetes.io/component=master
+                    app.kubernetes.io/instance=spark
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=spark
+                    app.kubernetes.io/version=4.0.0
+                    helm.sh/chart=spark-10.0.3
+Annotations:        meta.helm.sh/release-name: spark
+                    meta.helm.sh/release-namespace: default-helm
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+Pods Status:        0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/component=master
+                    app.kubernetes.io/instance=spark
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=spark
+                    app.kubernetes.io/version=4.0.0
+                    helm.sh/chart=spark-10.0.3
+  Service Account:  spark
+  Containers:
+   spark-master:
+    Image:           docker.io/bitnami/spark:4.0.0-debian-12-r20
+    Ports:           8080/TCP (http), 7077/TCP (cluster)
+    Host Ports:      0/TCP (http), 0/TCP (cluster)
+    SeccompProfile:  RuntimeDefault
+    Limits:
+      cpu:                750m
+      ephemeral-storage:  2Gi
+      memory:             768Mi
+    Requests:
+      cpu:                500m
+      ephemeral-storage:  50Mi
+      memory:             512Mi
+    Liveness:             tcp-socket :8080 delay=180s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            http-get http://:8080/ delay=30s timeout=5s period=10s #success=1 #failure=6
+    Environment:
+      BITNAMI_DEBUG:            false
+      SPARK_MODE:               master
+      SPARK_DAEMON_MEMORY:
+      SPARK_MASTER_PORT:        7077
+      SPARK_MASTER_WEBUI_PORT:  8080
+    Mounts:
+      /opt/bitnami/spark/conf from empty-dir (rw,path="app-conf-dir")
+      /opt/bitnami/spark/logs from empty-dir (rw,path="app-logs-dir")
+      /opt/bitnami/spark/tmp from empty-dir (rw,path="app-tmp-dir")
+      /opt/bitnami/spark/work from empty-dir (rw,path="app-work-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+  Volumes:
+   empty-dir:
+    Type:          EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:     <unset>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>
+
+
+Name:               spark-worker
+Namespace:          default-helm
+CreationTimestamp:  Tue, 16 Jun 2026 10:40:47 +0100
+Selector:           app.kubernetes.io/component=worker,app.kubernetes.io/instance=spark,app.kubernetes.io/name=spark
+Labels:             app.kubernetes.io/component=worker
+                    app.kubernetes.io/instance=spark
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=spark
+                    app.kubernetes.io/version=4.0.0
+                    helm.sh/chart=spark-10.0.3
+Annotations:        meta.helm.sh/release-name: spark
+                    meta.helm.sh/release-namespace: default-helm
+Replicas:           2 desired | 1 total
+Update Strategy:    RollingUpdate
+Pods Status:        0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/component=worker
+                    app.kubernetes.io/instance=spark
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=spark
+                    app.kubernetes.io/version=4.0.0
+                    helm.sh/chart=spark-10.0.3
+  Service Account:  spark
+  Containers:
+   spark-worker:
+    Image:           docker.io/bitnami/spark:4.0.0-debian-12-r20
+    Port:            8080/TCP (http)
+    Host Port:       0/TCP (http)
+    SeccompProfile:  RuntimeDefault
+    Limits:
+      cpu:                750m
+      ephemeral-storage:  2Gi
+      memory:             768Mi
+    Requests:
+      cpu:                500m
+      ephemeral-storage:  50Mi
+      memory:             512Mi
+    Liveness:             tcp-socket :8080 delay=180s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            http-get http://:8080/ delay=30s timeout=5s period=10s #success=1 #failure=6
+    Startup:              http-get http://:8080/ delay=30s timeout=5s period=10s #success=1 #failure=6
+    Environment:
+      SPARK_MODE:               worker
+      BITNAMI_DEBUG:            false
+      SPARK_DAEMON_MEMORY:
+      SPARK_WORKER_WEBUI_PORT:  8080
+      SPARK_DAEMON_JAVA_OPTS:
+      SPARK_MASTER_URL:         spark://spark-master-svc:7077
+      SPARK_WORKER_OPTS:
+    Mounts:
+      /opt/bitnami/spark/conf from empty-dir (rw,path="app-conf-dir")
+      /opt/bitnami/spark/logs from empty-dir (rw,path="app-logs-dir")
+      /opt/bitnami/spark/tmp from empty-dir (rw,path="app-tmp-dir")
+      /opt/bitnami/spark/work from empty-dir (rw,path="app-work-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+  Volumes:
+   empty-dir:
+    Type:          EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:     <unset>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:     <none>

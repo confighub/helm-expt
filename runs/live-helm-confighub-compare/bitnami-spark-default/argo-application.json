@@ -1,0 +1,30 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "name": "spark-parity",
+    "namespace": "argocd"
+  },
+  "spec": {
+    "project": "default",
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqgga2xa-kju-cluster/oci",
+      "targetRevision": "latest",
+      "path": "./helm-expt-parity-spark-mqgga2xa-kju-spark"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true,
+        "prune": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  }
+}

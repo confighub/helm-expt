@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "spark-master" in pod "spark-master-0" is waiting to start: image can't be pulled
