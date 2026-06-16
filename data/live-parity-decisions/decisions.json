@@ -391,6 +391,20 @@
       "receipt": "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml"
     },
     {
+      "chart": "open-telemetry/opentelemetry-operator",
+      "version": "0.114.0",
+      "variant": "no-crds",
+      "result": "watch",
+      "residue_category": "gitops-runtime",
+      "blocker_owner": "needs GitOps controller-health review",
+      "usable_today": "watch — synced and converged; aggregate health needs explanation",
+      "user_decision": "Desired state synced through ConfigHub OCI/Argo and the workloads converged, and semantic Helm-vs-ConfigHub parity passed — but Argo's aggregate health is Progressing, or a resource reads OutOfSync while Healthy. Known GitOps controller-health residue, not a parity defect.",
+      "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
+      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
+      "support_artifact": "recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml",
+      "receipt": "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml"
+    },
+    {
       "chart": "prometheus-community/prometheus",
       "version": "29.9.0",
       "variant": "default",
