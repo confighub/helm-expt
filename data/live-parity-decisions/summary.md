@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-35 non-pass rows: 31 watch, 4 blocked.
-3 are resolved by the **user** (stage a prerequisite); 1
+36 non-pass rows: 31 watch, 5 blocked.
+3 are resolved by the **user** (stage a prerequisite); 2
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -36,15 +36,15 @@ passed — the residue is operational, not a config mismatch.
 | `gitops-runtime` | 16 |
 | `target-runtime` | 14 |
 | `target-prerequisite` | 3 |
+| `render-input` | 2 |
 | `operate-policy` | 1 |
-| `render-input` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 14 |
 | `user` | 3 |
-| `catalog` | 1 |
+| `catalog` | 2 |
 | `needs operate review` | 1 |
 
 ## Rows
@@ -86,6 +86,7 @@ passed — the residue is operational, not a config mismatch.
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | velero/velero@12.0.1 | default | blocked | render-input | catalog | no — needs a better base |
+| velero/velero@12.0.1 | no-crds | blocked | render-input | catalog | no — needs a better base |
 
 ## How To Read One Decision
 

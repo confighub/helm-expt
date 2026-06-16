@@ -19,8 +19,8 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1152
-recorded disposition:       1064  (92.4%)
-+ derived blocked:          60
+recorded disposition:       1066  (92.5%)
++ derived blocked:          58
 = verified disposition:     1124  (97.6%)
 genuine todo (named next):  28
 un-dispositioned gap:       0

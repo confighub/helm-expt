@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 133 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 57 |
 | Two-cluster kind parity commands | 76 |
-| Watch/blocked/review rows | 87 |
-| Ready-to-run todo rows | 46 |
+| Watch/blocked/review rows | 88 |
+| Ready-to-run todo rows | 45 |
 
 ## By Work Type
 
@@ -38,8 +38,8 @@ For the cell-level completion count, use
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 27 |
-| `todo` | 66 |
+| `blocked` | 28 |
+| `todo` | 65 |
 | `watch` | 40 |
 
 ## By Run Readiness
@@ -48,8 +48,8 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 7 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 38 |
-| `ready-to-run` | 46 |
+| `model-or-stage-first` | 39 |
+| `ready-to-run` | 45 |
 | `review-target-first` | 40 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| velero/velero | 12.0.1 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.60.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default |
 | bitnami/contour | 21.1.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default |
 | bitnami/contour | 21.1.4 | no-crds | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds |
@@ -112,6 +111,7 @@ generated priority. They are good candidates for a serial live block.
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner | 4.0.18 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default |
 | opencost/opencost | 2.5.21 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default |
 | projectcalico/tigera-operator | v3.32.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default |
+| prometheus-community/prometheus-adapter | 5.3.0 | cluster-metrics-readonly | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-adapter/5.3.0 --base cluster-metrics-readonly |
 
 ## Full Queue
 
