@@ -1,0 +1,19 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                        MESSAGE
+17m         Normal    Starting                  node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane
+17m         Normal    Starting                  node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Starting kubelet.
+17m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Updated Node Allocatable limit across pods
+17m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane status is now: NodeHasSufficientMemory
+17m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane status is now: NodeHasNoDiskPressure
+17m         Normal    NodeHasSufficientPID      node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane status is now: NodeHasSufficientPID
+17m         Normal    RegisteredNode            node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane event: Registered Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane in Controller
+16m         Normal    NodeReady                 node/helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane   Node helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane status is now: NodeReady
+8m22s       Normal    Scheduled                 pod/phpmyadmin-f67d9cfd6-vjxlf                                Successfully assigned default/phpmyadmin-f67d9cfd6-vjxlf to helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane
+8m22s       Warning   FailedCreate              replicaset/phpmyadmin-f67d9cfd6                               Error creating: pods "phpmyadmin-f67d9cfd6-" is forbidden: error looking up service account default/phpmyadmin: serviceaccount "phpmyadmin" not found
+8m22s       Normal    SuccessfulCreate          replicaset/phpmyadmin-f67d9cfd6                               Created pod: phpmyadmin-f67d9cfd6-vjxlf
+8m22s       Normal    ScalingReplicaSet         deployment/phpmyadmin                                         Scaled up replica set phpmyadmin-f67d9cfd6 from 0 to 1
+8m22s       Normal    NoPods                    poddisruptionbudget/phpmyadmin                                No matching pods found
+5m21s       Normal    Pulling                   pod/phpmyadmin-f67d9cfd6-vjxlf                                Pulling image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+5m20s       Warning   Failed                    pod/phpmyadmin-f67d9cfd6-vjxlf                                Failed to pull image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": failed to resolve reference "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22: not found
+5m20s       Warning   Failed                    pod/phpmyadmin-f67d9cfd6-vjxlf                                Error: ErrImagePull
+3m21s       Warning   Failed                    pod/phpmyadmin-f67d9cfd6-vjxlf                                Error: ImagePullBackOff
+3m7s        Normal    BackOff                   pod/phpmyadmin-f67d9cfd6-vjxlf                                Back-off pulling image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"

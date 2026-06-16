@@ -1,0 +1,130 @@
+Name:             phpmyadmin-f67d9cfd6-vjxlf
+Namespace:        default
+Priority:         0
+Service Account:  phpmyadmin
+Node:             helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 08:27:28 +0100
+Labels:           app.kubernetes.io/instance=phpmyadmin
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=phpmyadmin
+                  app.kubernetes.io/version=5.2.2
+                  helm.sh/chart=phpmyadmin-20.0.0
+                  pod-template-hash=f67d9cfd6
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  ReplicaSet/phpmyadmin-f67d9cfd6
+Init Containers:
+  prepare-base-dir:
+    Container ID:
+    Image:           docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22
+    Image ID:
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      /bin/bash
+    Args:
+      -ec
+      #!/bin/bash
+
+      . /opt/bitnami/scripts/liblog.sh
+      . /opt/bitnami/scripts/libfs.sh
+
+      info "Copying base dir to empty dir"
+      # In order to not break the application functionality (such as upgrades or plugins) we need
+      # to make the base directory writable, so we need to copy it to an empty dir volume
+      cp -r --preserve=mode /opt/bitnami/phpmyadmin /emptydir/app-base-dir
+
+      info "Copying symlinks to stdout/stderr"
+      # We copy the logs folder because it has symlinks to stdout and stderr
+      if ! is_dir_empty /opt/bitnami/apache/logs; then
+        cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir
+      fi
+      info "Copying php var directory"
+      # PhpMyAdmin will fail to start if the php var folder is not populated
+      if ! is_dir_empty /opt/bitnami/php/var; then
+        cp -r /opt/bitnami/php/var /emptydir/php-var-dir
+      fi
+      info "Copy operation completed"
+
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:                375m
+      ephemeral-storage:  2Gi
+      memory:             384Mi
+    Requests:
+      cpu:                250m
+      ephemeral-storage:  50Mi
+      memory:             256Mi
+    Environment:          <none>
+    Mounts:
+      /emptydir from empty-dir (rw)
+Containers:
+  phpmyadmin:
+    Container ID:
+    Image:           docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22
+    Image ID:
+    Ports:           8080/TCP (http), 8443/TCP (https)
+    Host Ports:      0/TCP (http), 0/TCP (https)
+    SeccompProfile:  RuntimeDefault
+    State:           Waiting
+      Reason:        PodInitializing
+    Ready:           False
+    Restart Count:   0
+    Limits:
+      cpu:                375m
+      ephemeral-storage:  2Gi
+      memory:             384Mi
+    Requests:
+      cpu:                250m
+      ephemeral-storage:  50Mi
+      memory:             256Mi
+    Liveness:             tcp-socket :http delay=30s timeout=30s period=10s #success=1 #failure=6
+    Readiness:            http-get http://:http/ delay=30s timeout=30s period=10s #success=1 #failure=6
+    Environment:
+      BITNAMI_DEBUG:                      false
+      DATABASE_PORT_NUMBER:               3306
+      DATABASE_HOST:
+      PHPMYADMIN_ALLOW_NO_PASSWORD:       true
+      PHPMYADMIN_ALLOW_ARBITRARY_SERVER:  true
+      DATABASE_ENABLE_SSL:                no
+    Mounts:
+      /opt/bitnami/apache/conf from empty-dir (rw,path="apache-conf-dir")
+      /opt/bitnami/apache/logs from empty-dir (rw,path="apache-logs-dir")
+      /opt/bitnami/apache/var/run from empty-dir (rw,path="apache-tmp-dir")
+      /opt/bitnami/php/etc from empty-dir (rw,path="php-conf-dir")
+      /opt/bitnami/php/tmp from empty-dir (rw,path="php-tmp-dir")
+      /opt/bitnami/php/var from empty-dir (rw,path="php-var-dir")
+      /opt/bitnami/phpmyadmin from empty-dir (rw,path="app-base-dir")
+      /tmp from empty-dir (rw,path="tmp-dir")
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 False
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  empty-dir:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age   From               Message
+  ----     ------     ----  ----               -------
+  Normal   Scheduled  10s   default-scheduler  Successfully assigned default/phpmyadmin-f67d9cfd6-vjxlf to helm-expt-parity-phpmyadmin-mqgb9186-qhf-control-plane
+  Normal   Pulling    10s   kubelet            spec.initContainers{prepare-base-dir}: Pulling image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+  Warning  Failed     9s    kubelet            spec.initContainers{prepare-base-dir}: Failed to pull image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": failed to resolve reference "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22": docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22: not found
+  Warning  Failed     9s    kubelet            spec.initContainers{prepare-base-dir}: Error: ErrImagePull
+  Normal   BackOff    8s    kubelet            spec.initContainers{prepare-base-dir}: Back-off pulling image "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+  Warning  Failed     8s    kubelet            spec.initContainers{prepare-base-dir}: Error: ImagePullBackOff

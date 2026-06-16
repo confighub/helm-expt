@@ -248,8 +248,8 @@ bitnami/opensearch@2.0.10,ha,two_cluster_kind_parity,K,blocked,blocked,no,,,
 bitnami/phpmyadmin@20.0.0,default,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,local_live,L,blocked,blocked,no,,,
-bitnami/phpmyadmin@20.0.0,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/phpmyadmin@20.0.0,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/phpmyadmin@20.0.0,default,gitops_oci_live,G,watch,watch,no,,,
+bitnami/phpmyadmin@20.0.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,

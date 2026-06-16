@@ -1,0 +1,374 @@
+{
+  "metadata": {
+    "name": "phpmyadmin-parity",
+    "namespace": "argocd",
+    "uid": "6f35f673-24a2-419a-95d3-9c26f1d006c7",
+    "resourceVersion": "2322",
+    "generation": 11,
+    "creationTimestamp": "2026-06-16T07:28:24Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster:argoproj.io/Application:argocd/phpmyadmin-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "0d76e66f-e973-43fa-9a75-f6774e0ae556",
+      "confighub.com/UnitSlug": "phpmyadmin-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:28:24Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:35:24Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci",
+      "path": "./helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "phpmyadmin",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "phpmyadmin",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "phpmyadmin",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "phpmyadmin",
+        "status": "Synced"
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "phpmyadmin",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci",
+          "path": "./helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:be3f0529b2da5f20dd9dd87f07b0f4d90a6b296620a31576a4a2e81e1aeebd3e"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-16T07:28:26Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:be3f0529b2da5f20dd9dd87f07b0f4d90a6b296620a31576a4a2e81e1aeebd3e",
+        "deployedAt": "2026-06-16T07:28:27Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci",
+          "path": "./helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T07:28:26Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T07:35:17Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:be3f0529b2da5f20dd9dd87f07b0f4d90a6b296620a31576a4a2e81e1aeebd3e",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci",
+            "path": "./helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "phpmyadmin",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/phpmyadmin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "phpmyadmin",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/phpmyadmin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "phpmyadmin",
+            "status": "Synced",
+            "message": "serviceaccount/phpmyadmin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "phpmyadmin",
+            "status": "Synced",
+            "message": "service/phpmyadmin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "phpmyadmin",
+            "status": "Synced",
+            "message": "deployment.apps/phpmyadmin serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+            ]
+          }
+        ],
+        "revision": "sha256:be3f0529b2da5f20dd9dd87f07b0f4d90a6b296620a31576a4a2e81e1aeebd3e",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci",
+          "path": "./helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T07:28:26Z",
+      "finishedAt": "2026-06-16T07:28:27Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
