@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-16 (commit `0ebfc9cd`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-16 (commit `a0668677`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -43,7 +43,7 @@ most recently changed triggers.
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 5 | `data/live-helm-confighub-compare/summary.md (2026-06-16)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 5 | `data/outcome-coverage/base-outcomes.csv (2026-06-16)`<br>`data/top100-readiness/readiness.csv (2026-06-13)`<br>`data/top100-readiness/summary.md (2026-06-13)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-12 | 5 | `data/master-catalog-matrix/matrix.html (2026-06-16)`<br>`data/chart-use-guide/summary.md (2026-06-13)`<br>`data/outcome-evidence-contract/summary.md (2026-06-13)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 5 | `data/status-dashboard/status.csv (2026-06-16)`<br>`data/status-dashboard/summary.md (2026-06-16)`<br>`data/README.md (2026-06-16)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 5 | `data/README.md (2026-06-16)`<br>`data/csv-index.csv (2026-06-16)`<br>`data/status-dashboard/status.csv (2026-06-16)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 5 | `data/live-kind-parity/summary.md (2026-06-16)`<br>`data/master-catalog-matrix/summary.md (2026-06-16)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-10 | 4 | `data/top100-coverage/summary.md (2026-06-13)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-12 | 4 | `data/master-catalog-matrix/matrix.csv (2026-06-16)`<br>`data/master-catalog-matrix/matrix.html (2026-06-16)`<br>`data/master-catalog-matrix/summary.md (2026-06-16)` |
@@ -63,7 +63,7 @@ most recently changed triggers.
 | [docs/README.md](../../docs/README.md) | docs | 2026-06-16 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-16)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)` |
-| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-06-16 | 1 | `data/kind-parity-decisions/summary.md (2026-06-16)`<br>`data/live-matrix-burndown/summary.md (2026-06-16)`<br>`data/live-run-blocks/summary.md (2026-06-16)` |
+| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-06-16 | 1 | `data/disposition-frontier/summary.md (2026-06-16)`<br>`data/kind-parity-decisions/summary.md (2026-06-16)`<br>`data/live-matrix-burndown/summary.md (2026-06-16)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-06-16 | 1 | `data/kind-parity-decisions/summary.md (2026-06-16)`<br>`data/live-parity-decisions/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 1 | `data/secret-lifecycle/summary.md (2026-06-13)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-13)` |
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-06-16 | 1 | `data/variant-promotion-closeout/summary.md (2026-06-16)`<br>`data/variant-promotion/status.csv (2026-06-16)` |
