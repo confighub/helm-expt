@@ -56,8 +56,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live non-pass rows classified | 53/53 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 134/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 134/192 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 116/143 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 132/143 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 116/144 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 133/144 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 120/192 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 37/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 1/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -71,7 +71,7 @@ Which detailed CSV should I open next?
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 134/161 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 143/143 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster kind parity receipts | 144/144 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 45/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 8/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 32/45 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
@@ -80,7 +80,7 @@ Which detailed CSV should I open next?
 | live evidence | live matrix two-cluster kind commands remaining | 76 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | GitOps aggregate health residue rows | 27/161 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/161 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 6/143 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 6/144 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -410,7 +410,7 @@ first.
 | local live | 139 | 53 | 0 | 192 |
 | GitOps/OCI live | 134 | 27 | 31 | 192 |
 | live Helm-vs-ConfigHub parity | 134 | 27 | 31 | 192 |
-| two-cluster kind parity | 116 | 27 | 0 | 143 |
+| two-cluster kind parity | 116 | 28 | 0 | 144 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -420,7 +420,7 @@ Current semantic parity defect receipts:
 
 ~~~text
 ConfigHub/OCI live comparison: 0/161
-two-cluster kind parity:       6/143
+two-cluster kind parity:       6/144
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -504,6 +504,7 @@ Current two-cluster kind parity non-pass receipts:
 | hashicorp/terraform@1.1.2 | no-crds | blocked | target-prerequisite: required Secret missing (parity passed) |
 | istio/gateway@1.30.0 | controller-default-reviewed | blocked | target-runtime: pods pending (parity passed) |
 | istio/gateway@1.30.0 | default | blocked | target-runtime: pods pending (parity passed) |
+| istio/istiod@1.30.0 | default | blocked | target-prerequisite: required Namespace missing (parity passed) |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite: required Secret missing (parity passed) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | watch: object parity passed; readiness needs review |
 | nats/nack@0.34.0 | default | blocked | parity: semantic object diff |
@@ -514,7 +515,7 @@ Current two-cluster kind parity non-pass receipts:
 | percona/pxc-operator@1.19.1 | no-crds | watch | helm-runtime: upstream not ready (parity passed) |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite: CRDs missing |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite: CRDs missing |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | helm-runtime: upstream not ready (parity passed) |
+| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-prerequisite: required Namespace missing (parity passed) |
 | velero/velero@12.0.1 | default | blocked | blocked: inspect receipt |
 | velero/velero@12.0.1 | no-crds | blocked | target-prerequisite: CRDs missing |
 

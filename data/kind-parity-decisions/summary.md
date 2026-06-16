@@ -23,27 +23,28 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-27 non-pass rows: 9 watch, 18 blocked.
-9 are resolved by the **user** (stage a prerequisite or supply
+28 non-pass rows: 9 watch, 19 blocked.
+11 are resolved by the **user** (stage a prerequisite or supply
 values); 8 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
-| `target-runtime` | 9 |
+| `target-runtime` | 8 |
 | `model-gap-render` | 5 |
 | `target-prerequisite-crds` | 5 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
+| `target-prerequisite-namespace` | 2 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
 | `render-input` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `needs runtime review` | 9 |
-| `user` | 9 |
+| `user` | 11 |
 | `catalog` | 8 |
+| `needs runtime review` | 8 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -64,6 +65,7 @@ readiness review.
 | hashicorp/terraform@1.1.2 | no-crds | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | istio/gateway@1.30.0 | controller-default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | istio/gateway@1.30.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| istio/istiod@1.30.0 | default | blocked | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
 | kyverno/kyverno-policies@3.8.0 | default | watch | readiness | needs readiness review | watch — objects match, readiness unconfirmed |
 | nats/nack@0.34.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
@@ -74,7 +76,7 @@ readiness review.
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | velero/velero@12.0.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | velero/velero@12.0.1 | no-crds | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 
