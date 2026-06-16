@@ -1,0 +1,194 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: rook-release-rook-ceph-cluster-v1.19.5-default-kind-parity-20260606
+spec:
+  chart: rook-release/rook-ceph-cluster
+  version: v1.19.5
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T11:35:44Z'
+  package:
+    path: packages/rook-release/rook-ceph-cluster/v1.19.5
+  recipe:
+    path: recipes/rook-release/rook-ceph-cluster/v1.19.5
+  variantRevision: recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-rookce-f46ab-fwqv-helm
+    installerCluster: hx-rookce-f46ab-fwqv-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-rookce-f46ab-fwqv-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-rookce-f46ab-fwqv-helm" ...
+
+          Deleted nodes: ["hx-rookce-f46ab-fwqv-helm-control-plane"]'
+      - cluster: hx-rookce-f46ab-fwqv-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-rookce-f46ab-fwqv-installer" ...
+
+          Deleted nodes: ["hx-rookce-f46ab-fwqv-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
+        --version v1.19.5 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010
+      objectCount: 27
+      liveHelmManifestSHA256: 5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010
+      liveHelmManifestObjectCount: 27
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: namespaces "rook-ceph" not found'
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-rookce-f46ab-fwqv-rook-ceph-cluster
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 5a67fe2092f2ba8cd67b466a5af2d4557631668b94e77d279249c7925a4e9e63
+      objectCount: 28
+      manifestNamespaces:
+      - default
+      - rook-ceph
+      runtimeNamespaces: []
+      runtime:
+        result: pass
+        namespaces: []
+        workloads: ''
+        pods: ''
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id001
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 27
+      installerObjectCount: 27
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 27
+      installerObjectCount: 28
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id001
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=5 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=5 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: namespaces "rook-ceph" not found'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: ''
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cephblockpools.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephclusters.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephfilesystems.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephfilesystemsubvolumegroups.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      - name: cephobjectstores.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: regularHelm
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: cephblockpools.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: cubInstallerApply
+      - name: cephclusters.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: cubInstallerApply
+      - name: cephfilesystems.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: cubInstallerApply
+      - name: cephfilesystemsubvolumegroups.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: cubInstallerApply
+      - name: cephobjectstores.ceph.rook.io
+        sourceVariant: rook-release/rook-ceph@v1.19.5/default
+        lane: cubInstallerApply
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

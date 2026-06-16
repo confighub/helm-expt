@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 120
 watch: 9
-blocked: 25
-semantic parity pass: 138
+blocked: 26
+semantic parity pass: 139
 semantic parity defects: 8
-non-pass rows where semantic parity passed: 18
+non-pass rows where semantic parity passed: 19
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -35,11 +35,11 @@ data/live-parity-rerun-plan/summary.md
 | parity: semantic object diff | 8 |
 | target-prerequisite: CRDs missing | 4 |
 | helm-runtime: upstream not ready (parity passed) | 3 |
+| target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
-| target-prerequisite: required Namespace missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
 | helm-hook: pre-install certificate generation failed (parity passed) | 1 |
@@ -204,6 +204,7 @@ broader support claim.
 | `prometheus-community/prometheus-pushgateway@3.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-pushgateway-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
+| `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | pass | target-prerequisite: required Namespace missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml |
 | `rook-release/rook-ceph@v1.19.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/rook-release-rook-ceph-default/receipt.yaml |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-default/receipt.yaml |
 | `sealed-secrets/sealed-secrets@2.18.6` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/sealed-secrets-sealed-secrets-no-crds/receipt.yaml |

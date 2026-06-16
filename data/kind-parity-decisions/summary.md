@@ -23,8 +23,8 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-34 non-pass rows: 9 watch, 25 blocked.
-14 are resolved by the **user** (stage a prerequisite or supply
+35 non-pass rows: 9 watch, 26 blocked.
+15 are resolved by the **user** (stage a prerequisite or supply
 values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
@@ -33,9 +33,9 @@ readiness review.
 | `target-prerequisite-crds` | 8 |
 | `target-runtime` | 8 |
 | `model-gap-render` | 7 |
+| `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
-| `target-prerequisite-namespace` | 2 |
 | `hook-lifecycle` | 1 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
@@ -43,7 +43,7 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `user` | 14 |
+| `user` | 15 |
 | `catalog` | 11 |
 | `needs runtime review` | 8 |
 | `needs readiness review` | 1 |
@@ -82,6 +82,7 @@ readiness review.
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
+| rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | traefik/traefik@40.2.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | velero/velero@12.0.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |

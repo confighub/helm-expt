@@ -438,6 +438,20 @@
       "receipt": "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
     },
     {
+      "chart": "rook-release/rook-ceph-cluster",
+      "version": "v1.19.5",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-prerequisite-namespace",
+      "blocker_owner": "user",
+      "usable_today": "yes, after creating the Namespace",
+      "user_decision": "Usable once you create the required Namespace on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
+      "next_action": "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
+      "reason": "target-prerequisite: required Namespace missing (parity passed)",
+      "receipt": "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+    },
+    {
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "base": "no-crds",

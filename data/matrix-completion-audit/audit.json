@@ -6393,10 +6393,10 @@
       "state": "todo",
       "reason": "single-cluster local live passes; this live lane is runnable but not yet recorded",
       "next_action": "run the two-cluster kind parity lane",
-      "support_artifact": "",
+      "support_artifact": "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default"
+      "command": ""
     },
     {
       "chart": "rook-release/rook-ceph-cluster",
