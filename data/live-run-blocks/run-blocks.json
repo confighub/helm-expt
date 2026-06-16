@@ -9,8 +9,8 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 24,
-  "blockCount": 6,
+  "readyRowCount": 23,
+  "blockCount": 5,
   "blocks": [
     {
       "block_id": "GP-01",
@@ -20,7 +20,7 @@
         "remote-image",
         "target-runtime"
       ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, dex/dex@0.24.0, elastic/kibana@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -59,10 +59,10 @@
         },
         {
           "work_type": "live-parity",
-          "chart": "elastic/kibana",
-          "version": "8.5.1",
+          "chart": "dex/dex",
+          "version": "0.24.0",
           "base": "default",
-          "command": "npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default",
+          "command": "npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default",
           "current_status": "todo",
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
@@ -70,16 +70,16 @@
           "prediction_status": "derived",
           "predicted_residue_family": "target-runtime",
           "predicted_target_profile": "vanilla kind proof rig — runtime convergence to review",
-          "prediction_basis": "family pattern — elastic: 3/4 classified rows are target-runtime",
-          "confidence": "medium",
+          "prediction_basis": "sibling receipt — dex/dex already classified target-runtime (runs/live-kind-parity/dex-dex-default/receipt.yaml)",
+          "confidence": "high",
           "serial_safety_notes": "light controller — safe within a block"
         },
         {
           "work_type": "live-parity",
-          "chart": "elastic/metricbeat",
+          "chart": "elastic/kibana",
           "version": "8.5.1",
           "base": "default",
-          "command": "npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default",
+          "command": "npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default",
           "current_status": "todo",
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
@@ -98,26 +98,27 @@
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
+        "target-runtime",
         "unknown"
       ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (dex/dex@0.24.0, gitlab/gitlab-runner@0.89.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 4 ready live-parity row(s) with predicted target-runtime / unknown (elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
           "work_type": "live-parity",
-          "chart": "dex/dex",
-          "version": "0.24.0",
+          "chart": "elastic/metricbeat",
+          "version": "8.5.1",
           "base": "default",
-          "command": "npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default",
+          "command": "npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default",
           "current_status": "todo",
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
           "receipt": "",
-          "prediction_status": "unknown",
-          "predicted_residue_family": "unknown",
-          "predicted_target_profile": "unknown",
-          "prediction_basis": "",
-          "confidence": "unknown",
+          "prediction_status": "derived",
+          "predicted_residue_family": "target-runtime",
+          "predicted_target_profile": "vanilla kind proof rig — runtime convergence to review",
+          "prediction_basis": "family pattern — elastic: 3/4 classified rows are target-runtime",
+          "confidence": "medium",
           "serial_safety_notes": "light controller — safe within a block"
         },
         {
@@ -180,7 +181,7 @@
       "predicted_residue_families": [
         "remote-image"
       ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 5 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -250,20 +251,7 @@
           "prediction_basis": "sibling receipt — bitnami/spark already classified remote-image (runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
-        }
-      ]
-    },
-    {
-      "block_id": "K-02",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "remote-image",
-        "target-runtime"
-      ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted remote-image / target-runtime (bitnami/spark@10.0.3, bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "bitnami/spark",
@@ -280,7 +268,20 @@
           "prediction_basis": "sibling receipt — bitnami/spark already classified remote-image (runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-02",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "remote-image",
+        "target-runtime"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "bitnami/zookeeper",
@@ -331,20 +332,7 @@
           "prediction_basis": "family pattern — elastic: 3/4 classified rows are target-runtime",
           "confidence": "medium",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        }
-      ]
-    },
-    {
-      "block_id": "K-03",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "target-runtime",
-        "unknown"
-      ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, dex/dex@0.24.0, gitlab/gitlab-runner@0.89.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "elastic/metricbeat",
@@ -378,24 +366,19 @@
           "prediction_basis": "sibling receipt — grafana/pyroscope already classified target-runtime (runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); HA/multi-replica base — higher resource use"
-        },
-        {
-          "work_type": "kind-parity",
-          "chart": "dex/dex",
-          "version": "0.24.0",
-          "base": "default",
-          "command": "npm run kind-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default",
-          "current_status": "todo",
-          "lane_cells": "K=todo",
-          "support_artifact": "",
-          "receipt": "",
-          "prediction_status": "unknown",
-          "predicted_residue_family": "unknown",
-          "predicted_target_profile": "unknown",
-          "prediction_basis": "",
-          "confidence": "unknown",
-          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-03",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (gitlab/gitlab-runner@0.89.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "gitlab/gitlab-runner",
@@ -412,19 +395,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        }
-      ]
-    },
-    {
-      "block_id": "K-04",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",

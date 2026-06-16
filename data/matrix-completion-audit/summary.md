@@ -349,7 +349,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/zookeeper@13.8.7 | ha | P | blocked | upstream: single-cluster local live is blocked (image unavailable (registry purge)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply); the live lanes inherit it |
 | dex/dex@0.24.0 | default | G | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
-| dex/dex@0.24.0 | default | K | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
+| dex/dex@0.24.0 | default | K | blocked | target-runtime: pod crash loop (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | dex/dex@0.24.0 | default | L | fail | local-live fail: Helm equivalence receipt and installer setupCheck present | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
 | dex/dex@0.24.0 | default | P | blocked | upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges | fix or route the local-live failure first |
 | elastic/filebeat@8.5.1 | default | K | blocked | target-prerequisite: required Secret missing (parity passed) | Stage the named Secret as a target fact, then the row can move to pass. |

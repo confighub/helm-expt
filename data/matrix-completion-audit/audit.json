@@ -2331,12 +2331,12 @@
       "lane": "K",
       "lane_label": "two-cluster-kind",
       "state": "blocked",
-      "reason": "upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges",
-      "next_action": "fix or route the local-live failure first",
-      "support_artifact": "",
-      "owner": "either",
+      "reason": "target-runtime: pod crash loop (parity passed)",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "support_artifact": "runs/live-kind-parity/dex-dex-default/receipt.yaml",
+      "owner": "needs runtime review",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run kind-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default"
+      "command": ""
     },
     {
       "chart": "dex/dex",

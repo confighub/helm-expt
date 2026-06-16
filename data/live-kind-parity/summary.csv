@@ -39,6 +39,7 @@ cloudnative-pg/cloudnative-pg,0.28.2,no-crds,pass,pass,,,live parity passed,runs
 coredns/coredns,1.45.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/coredns-coredns-default/receipt.yaml
 crossplane-stable/crossplane,2.3.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/crossplane-stable-crossplane-default/receipt.yaml
 descheduler/descheduler,0.36.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml
+dex/dex,0.24.0,default,blocked,pass,target-runtime: pod crash loop (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/dex-dex-default/receipt.yaml
 elastic/eck-operator,3.4.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml
 elastic/eck-operator,3.4.0,ha,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml
 elastic/eck-operator,3.4.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml

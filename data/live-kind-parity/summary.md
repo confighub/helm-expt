@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 120
 watch: 9
-blocked: 27
-semantic parity pass: 140
+blocked: 28
+semantic parity pass: 141
 semantic parity defects: 8
-non-pass rows where semantic parity passed: 20
+non-pass rows where semantic parity passed: 21
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -38,10 +38,10 @@ data/live-parity-rerun-plan/summary.md
 | remote-image: image pull failed or pinned image is unavailable (parity passed) | 3 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
+| target-runtime: pod crash loop (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
-| target-runtime: pod crash loop (parity passed) | 2 |
 | helm-hook: pre-install certificate generation failed (parity passed) | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
@@ -105,6 +105,7 @@ broader support claim.
 | `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |
 | `crossplane-stable/crossplane@2.3.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/crossplane-stable-crossplane-default/receipt.yaml |
 | `descheduler/descheduler@0.36.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml |
+| `dex/dex@0.24.0` | default | blocked | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/dex-dex-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml |
