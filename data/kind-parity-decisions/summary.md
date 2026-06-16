@@ -23,8 +23,8 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-37 non-pass rows: 9 watch, 28 blocked.
-15 are resolved by the **user** (stage a prerequisite or supply
+38 non-pass rows: 9 watch, 29 blocked.
+16 are resolved by the **user** (stage a prerequisite or supply
 values); 11 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
@@ -37,14 +37,14 @@ readiness review.
 | `target-prerequisite-namespace` | 3 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
+| `render-input` | 2 |
 | `hook-lifecycle` | 1 |
 | `model-gap-target-fact` | 1 |
 | `readiness` | 1 |
-| `render-input` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `user` | 15 |
+| `user` | 16 |
 | `catalog` | 11 |
 | `needs runtime review` | 7 |
 | `catalog or image publisher` | 3 |
@@ -81,6 +81,7 @@ readiness review.
 | nats/nats@2.14.0 | ha | blocked | model-gap-render | catalog | no — needs catalog work |
 | nats/surveyor@0.20.9 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nats/surveyor@0.20.9 | default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | render-input | user | yes, after supplying values |
 | percona/pg-operator@3.0.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |

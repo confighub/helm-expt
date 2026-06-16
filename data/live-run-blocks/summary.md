@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   23
+ready-to-run rows:   22
 run blocks:          5  (G/P: 2, K: 3)
-derived predictions: 15
-unknown predictions: 8
+derived predictions: 16
+unknown predictions: 6
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -38,7 +38,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## GP-01 — G/P · app
 
-**Goal:** G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, dex/dex@0.24.0, elastic/kibana@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 4 ready live-parity row(s) with predicted remote-image / render-input / target-runtime (bitnami/zookeeper@13.8.7, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, dex/dex@0.24.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -46,20 +46,20 @@ then by predicted residue family and chart family. Blocks are capped at
 | --- | --- | --- | --- | --- | --- |
 | bitnami/zookeeper@13.8.7 | default | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/zookeeper@13.8.7 | ha | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | `npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default` | render-input | high | light controller — safe within a block |
 | dex/dex@0.24.0 | default | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` | target-runtime | high | light controller — safe within a block |
-| elastic/kibana@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |
 
 ## GP-02 — G/P · app
 
-**Goal:** G/P: run the 4 ready live-parity row(s) with predicted target-runtime / unknown (elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 4 ready live-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| elastic/kibana@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |
 | elastic/metricbeat@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |
 | gitlab/gitlab-runner@0.89.0 | default | `npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default` | unknown | unknown | light controller — safe within a block |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | `npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default` | unknown | unknown | light controller — safe within a block |
 | opencost/opencost@2.5.21 | default | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` | unknown | unknown | light controller — safe within a block |
 
 ## K-01 — K · app
@@ -92,14 +92,13 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-03 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (gitlab/gitlab-runner@0.89.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21, runix/pgadmin4@1.62.0, vm/victoria-logs-single@0.12.5); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
 | gitlab/gitlab-runner@0.89.0 | default | `npm run kind-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | `npm run kind-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | opencost/opencost@2.5.21 | default | `npm run kind-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | runix/pgadmin4@1.62.0 | default | `npm run kind-parity:run -- --recipe recipes/runix/pgadmin4/1.62.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | vm/victoria-logs-single@0.12.5 | default | `npm run kind-parity:run -- --recipe recipes/vm/victoria-logs-single/0.12.5 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |

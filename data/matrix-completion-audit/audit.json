@@ -5313,12 +5313,12 @@
       "lane": "K",
       "lane_label": "two-cluster-kind",
       "state": "blocked",
-      "reason": "upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges",
-      "next_action": "fix or route the local-live failure first",
-      "support_artifact": "",
-      "owner": "either",
+      "reason": "render-input: required Helm values missing",
+      "next_action": "Provide the required values in the base/variant, then the row can move to pass.",
+      "support_artifact": "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml",
+      "owner": "user",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run kind-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default"
+      "command": ""
     },
     {
       "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",

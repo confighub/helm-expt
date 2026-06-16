@@ -62,7 +62,7 @@ const CATEGORIES = {
   "render-input": {
     blocker_owner: "user",
     usable_today: "yes, after supplying values",
-    decision: "Usable once you supply the required Helm values. With complete inputs the rendered object set matched regular Helm (semantic parity passed).",
+    decision: "Usable once you supply the required Helm values. The current receipt is blocked on missing inputs, so it does not by itself prove full parity.",
     next_action: "Provide the required values in the base/variant, then the row can move to pass.",
   },
   "target-runtime": {
