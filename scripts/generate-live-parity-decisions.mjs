@@ -72,6 +72,13 @@ const CATEGORIES = {
     next_action: "Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass.",
     support_artifact: "target-prerequisite-plan.yaml",
   },
+  "crd-bootstrap": {
+    blocker_owner: "catalog or operator",
+    usable_today: "no — needs a CRD/bootstrap route first",
+    decision: "The chart renders custom resources before the target has the matching CRDs established. This is a lifecycle/prerequisite boundary, not something to hide inside a single opaque install. A supported path must stage the CRDs first or split the base into bootstrap and custom-resource phases.",
+    next_action: "Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness.",
+    support_artifact: "target-prerequisite-plan.yaml",
+  },
   "render-input": {
     blocker_owner: "catalog",
     usable_today: "no — needs a better base",
@@ -107,6 +114,7 @@ function classify(reason, result) {
   if (r.startsWith("gitops-runtime")) return "gitops-runtime";
   if (r.startsWith("operate-policy")) return "operate-policy";
   if (r.startsWith("target-prerequisite")) return "target-prerequisite";
+  if (r.startsWith("crd-bootstrap")) return "crd-bootstrap";
   if (r.startsWith("render-input")) return "render-input";
   if (r.startsWith("remote-image")) return "remote-image";
   if (r.startsWith("capability-profile")) return "capability-profile";
@@ -114,6 +122,7 @@ function classify(reason, result) {
   if (r.startsWith("target-runtime")) return "target-runtime";
   if (/semantic|object diff|does not match|model/.test(r)) return "semantic-model-gap";
   // Fallbacks for un-prefixed reasons.
+  if (/no matches for kind/.test(r) && /crd|customresource/.test(r)) return "crd-bootstrap";
   if (/namespace|secret|crd|prerequisite/.test(r)) return "target-prerequisite";
   if (/argo|sync|controller|health/.test(r)) return "gitops-runtime";
   if (result === "blocked") return "semantic-model-gap";

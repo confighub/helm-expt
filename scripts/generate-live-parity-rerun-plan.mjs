@@ -235,6 +235,9 @@ function classifyLiveComparisonReason(spec) {
     ) {
       return "render-input: required Velero provider values missing";
     }
+    if (regularMessage.includes("no matches for kind") && regularMessage.includes("ensure crds are installed first")) {
+      return "crd-bootstrap: required CRDs missing before custom resources apply";
+    }
     if (regularMessage.includes("namespaces ") && regularMessage.includes(" not found")) {
       return semanticPassed ? "target-prerequisite: namespace missing (parity passed)" : "target-prerequisite: namespace missing";
     }
@@ -300,6 +303,7 @@ function isAwsEbsCsiDriver(spec) {
 
 function priorityForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) return 10;
+  if (row.reason?.startsWith("crd-bootstrap:")) return 20;
   if (row.reason?.startsWith("helm-runtime:")) return 20;
   if (row.result === "watch") return 30;
   return 40;
@@ -324,6 +328,9 @@ function diagnosisForConfigHubOci(row) {
   }
   if (row.reason?.startsWith("helm-runtime:")) {
     return "Semantic parity already passed; rerun with right-sized Helm readiness waits or classify as watch if upstream Helm stays pending.";
+  }
+  if (row.reason?.startsWith("crd-bootstrap:")) {
+    return "The rendered custom resources cannot be accepted until their CRDs are established. Split or stage the CRD bootstrap before rerunning.";
   }
   if (row.reason?.startsWith("target-fit:")) {
     return targetTopologyDiagnosis(row) ?? "Semantic parity passed, but the proof target lacks a platform behavior required by this base.";
@@ -376,6 +383,7 @@ function followupForConfigHubOci(row) {
     return "Run the LoadBalancer target profile with the required host privilege, or use a non-LoadBalancer proof target for this base.";
   }
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
+  if (row.reason?.startsWith("crd-bootstrap:")) return "Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases, then rerun.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
   if (row.reason?.startsWith("capability-profile:")) return "Use the maintained capability-profile base for the target Kubernetes API set, then rerun live parity.";
@@ -455,6 +463,7 @@ function nextStepType(row) {
   const reason = row.reason ?? "";
   if (reason.startsWith("parity:")) return "inspect-parity-diff";
   if (reason.startsWith("infra:")) return "clean-rerun";
+  if (reason.startsWith("crd-bootstrap:")) return "crd-bootstrap";
   if (reason.startsWith("target-prerequisite:")) return "stage-prerequisite";
   if (reason.startsWith("capability-profile:")) return "capability-profile-base";
   if (reason.startsWith("helm-hook:")) return "lifecycle-route";
@@ -473,6 +482,7 @@ function supportArtifactFor(row) {
   const reason = row.reason ?? "";
   const candidates = [];
   if (reason.startsWith("infra:")) return "data/live-helm-confighub-compare/blocked-triage.md";
+  if (reason.startsWith("crd-bootstrap:")) candidates.push("target-prerequisite-plan.yaml");
   if (reason.startsWith("target-prerequisite:")) candidates.push("target-prerequisite-plan.yaml");
   if (reason.startsWith("capability-profile:")) candidates.push("CATALOG.md");
   if (reason.startsWith("render-input:")) candidates.push("value-model.yaml", "helm-plan.yaml");
@@ -551,6 +561,7 @@ function nextStepDescription(type) {
   return {
     "inspect-parity-diff": "Inspect the object diff before changing waits, target provisioning, or the recipe.",
     "clean-rerun": "Rerun once on a clean host with serial execution and authoritative cleanup.",
+    "crd-bootstrap": "Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning.",
     "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.",
     "lifecycle-route": "Choose the lifecycle route or observation contract before rerunning strict parity.",
     "operating-policy": "Record the operating policy decision, then rerun only if the expected readiness changes.",
@@ -568,6 +579,7 @@ function rerunReadiness(type) {
   return {
     "inspect-parity-diff": "inspect-diff-first",
     "clean-rerun": "rerun-now-after-cleanup",
+    "crd-bootstrap": "model-or-stage-first",
     "stage-prerequisite": "model-or-stage-first",
     "lifecycle-route": "model-or-stage-first",
     "operating-policy": "model-or-stage-first",

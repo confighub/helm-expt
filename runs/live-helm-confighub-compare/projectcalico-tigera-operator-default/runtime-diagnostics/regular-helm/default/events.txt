@@ -1,0 +1,9 @@
+LAST SEEN   TYPE     REASON                    OBJECT                                                             MESSAGE
+3m49s       Normal   Starting                  node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane
+3m57s       Normal   Starting                  node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Starting kubelet.
+3m57s       Normal   NodeAllocatableEnforced   node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Updated Node Allocatable limit across pods
+3m57s       Normal   NodeHasSufficientMemory   node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane status is now: NodeHasSufficientMemory
+3m57s       Normal   NodeHasNoDiskPressure     node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane status is now: NodeHasNoDiskPressure
+3m57s       Normal   NodeHasSufficientPID      node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane status is now: NodeHasSufficientPID
+3m51s       Normal   RegisteredNode            node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane event: Registered Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane in Controller
+3m39s       Normal   NodeReady                 node/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane   Node helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane status is now: NodeReady

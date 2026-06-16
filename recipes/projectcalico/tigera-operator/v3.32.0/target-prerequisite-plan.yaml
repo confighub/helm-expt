@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetPrerequisitePlan"
+metadata:
+  name: "projectcalico-tigera-operator-v3.32.0-crd-prerequisites"
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+spec:
+  summary: "The Tigera operator default base preserves the rendered object set, but the live run shows that the chart cannot be treated as a one-step apply on a vanilla target. The rendered manifest includes operator.tigera.io/v1 custom resources before the corresponding CRDs are available. Regular Helm and ConfigHub direct apply both block with the same resource-mapping errors. A supported path needs a CRD bootstrap stage, or a split base that installs the operator and CRDs before applying the custom resources."
+  bases:
+    default:
+      status: "target-prerequisite-and-crd-bootstrap-needed"
+      currentProofLimit: "The live parity receipt blocks before the OCI/Argo leg because both regular Helm and ConfigHub direct apply fail to build/apply the same custom resources: APIServer, Goldmane, Installation, and Whisker in apiVersion operator.tigera.io/v1. This is not evidence of ConfigHub semantic drift; it is a lifecycle/prerequisite boundary that must be modeled before this base can be production-supported."
+      requiredBeforeApply:
+        -
+          kind: "CustomResourceDefinition"
+          name: "apiservers.operator.tigera.io"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The APIServer custom resource cannot be accepted until this CRD is established."
+        -
+          kind: "CustomResourceDefinition"
+          name: "goldmanes.operator.tigera.io"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The Goldmane custom resource cannot be accepted until this CRD is established."
+        -
+          kind: "CustomResourceDefinition"
+          name: "installations.operator.tigera.io"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The Installation custom resource cannot be accepted until this CRD is established."
+        -
+          kind: "CustomResourceDefinition"
+          name: "whiskers.operator.tigera.io"
+          namespace: "cluster"
+          status: "target-prerequisite"
+          purpose: "The Whisker custom resource cannot be accepted until this CRD is established."
+      requiredBeforeObserve:
+        -
+          kind: "CrdBootstrapOperation"
+          name: "tigera-operator-crds"
+          namespace: "cluster"
+          status: "lifecycle-operation"
+          purpose: "A supported installer path must either stage the Tigera CRDs before applying the CRs, or split the base so operator/CRD bootstrap and custom resources are applied in separate phases."
+        -
+          kind: "NetworkingTargetDecision"
+          name: "calico-target-fit"
+          namespace: "cluster"
+          status: "target-scope-decision"
+          purpose: "After CRDs are established, the operator still needs a target shape suitable for Calico/Tigera networking. That target fit is separate from render parity."
+      mustObserve:
+        - "The required operator.tigera.io CRDs are Established before APIServer, Goldmane, Installation, and Whisker are applied."
+        - "Regular Helm and ConfigHub direct apply both get past the resource-mapping stage after the CRD bootstrap decision."
+        - "The tigera-operator Deployment reaches Available=True."
+        - "ConfigHub OCI/Argo syncs the staged object set, or any remaining controller-health condition is recorded as a target-scoped watch."
+      requiredReceipts:
+        - "crd-bootstrap-receipt"
+        - "target-fact-receipt"
+        - "deployment-readiness-receipt"
+        - "gitops-health-receipt"
+  evidence:
+    liveParityReceipt: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+    regularHelmEvent: "no matches for kind \"APIServer\" / \"Goldmane\" / \"Installation\" / \"Whisker\" in version \"operator.tigera.io/v1\"; ensure CRDs are installed first"
+    configHubDirectEvent: "kubectl apply blocks with the same operator.tigera.io/v1 resource-mapping errors before the OCI/Argo leg can run"
+    semanticParity: "not reached in this live row because the target rejects the CRs before apply"
+  nextInvestigation:
+    - "Decide whether the public catalog should expose this base only for targets where Tigera operator CRDs are already established."
+    - "Design a split base or lifecycle operation that stages Tigera CRDs before applying APIServer, Goldmane, Installation, and Whisker."
+    - "Rerun live parity after the CRD bootstrap route exists, then observe tigera-operator Deployment readiness and GitOps health."
+  notProvenBy:
+    - "render parity alone"
+    - "a chart package that renders custom resources before their CRDs are accepted"
+    - "assuming the operator will bootstrap CRDs before Kubernetes validates the same apply batch"

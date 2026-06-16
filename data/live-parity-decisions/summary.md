@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-44 non-pass rows: 36 watch, 8 blocked.
+45 non-pass rows: 36 watch, 9 blocked.
 4 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -39,6 +39,7 @@ passed — the residue is operational, not a config mismatch.
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
+| `crd-bootstrap` | 1 |
 | `operate-policy` | 1 |
 | `target-fit` | 1 |
 
@@ -49,6 +50,7 @@ passed — the residue is operational, not a config mismatch.
 | `needs runtime review` | 9 |
 | `catalog` | 4 |
 | `user` | 4 |
+| `catalog or operator` | 1 |
 | `needs operate review` | 1 |
 | `user or catalog` | 1 |
 
@@ -93,6 +95,7 @@ passed — the residue is operational, not a config mismatch.
 | nats/surveyor@0.20.9 | default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| projectcalico/tigera-operator@v3.32.0 | default | blocked | crd-bootstrap | catalog or operator | no — needs a CRD/bootstrap route first |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | capability-profile | catalog | yes, use the capability-profile base |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | capability-profile | catalog | yes, use the capability-profile base |
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
