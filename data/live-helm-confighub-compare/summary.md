@@ -8,14 +8,14 @@ completed row has a receipt under
 ```text
 pass: 135
 watch: 33
-blocked: 6
+blocked: 7
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
-capability-profile: rendered APIService version is not served by target Kubernetes: 1
+capability-profile: rendered APIService version is not served by target Kubernetes: 2
 render-input: required Velero provider values missing: 2
 target-prerequisite: cert-manager CRDs missing: 2
 target-prerequisite: namespace missing (parity passed): 1
@@ -175,6 +175,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `prometheus-community/kube-state-metrics@7.4.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-default/receipt.yaml |
 |  | `prometheus-community/prometheus-adapter@5.3.0` | apiservice-v1-capability | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-apiservice-v1-capability/receipt.yaml |
 |  | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml |
+|  | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/receipt.yaml |
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml |
 |  | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml |
 |  | `prometheus-community/prometheus-node-exporter@4.55.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-node-exporter-cluster-metrics-readonly/receipt.yaml |

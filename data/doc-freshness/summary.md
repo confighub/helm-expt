@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-16 (commit `290021f2`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-16 (commit `dc2f25ee`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -57,6 +57,7 @@ most recently changed triggers.
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-13 | 3 | `data/live-helm-confighub-compare/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)`<br>`data/master-catalog-matrix/matrix.html (2026-06-16)` |
 | [docs/user/verify-it-yourself.md](../../docs/user/verify-it-yourself.md) | user | 2026-06-13 | 3 | `data/live-kind-parity/summary.md (2026-06-16)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 2 | `data/quirk-coverage/coverage.csv (2026-06-13)`<br>`data/quirk-coverage/summary.md (2026-06-13)` |
+| [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-15 | 2 | `data/live-helm-confighub-compare/summary.md (2026-06-16)`<br>`data/live-matrix-burndown/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 2 | `data/production-disposition/next-actions.csv (2026-06-13)`<br>`data/production-disposition/support-decision-contract.md (2026-06-13)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [docs/README.md](../../docs/README.md) | docs | 2026-06-15 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-16)` |
@@ -65,7 +66,6 @@ most recently changed triggers.
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 1 | `data/secret-lifecycle/summary.md (2026-06-13)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-13)` |
 | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 1 | `data/webhook-cert-lifecycle/summary.md (2026-06-11)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)` |
-| [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-15 | 1 | `data/live-helm-confighub-compare/summary.md (2026-06-16)`<br>`data/live-matrix-burndown/summary.md (2026-06-16)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-16)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-13 | 1 | `data/chart-use-guide/summary.md (2026-06-13)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-06-11 | 1 | `data/high-fanout-demo/prometheus-kps.csv (2026-06-12)`<br>`data/high-fanout-demo/summary.md (2026-06-12)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-15 | 1 | `data/live-matrix-burndown/summary.md (2026-06-16)`<br>`data/live-parity-decisions/summary.md (2026-06-16)`<br>`data/master-catalog-matrix/matrix.html (2026-06-16)` |
