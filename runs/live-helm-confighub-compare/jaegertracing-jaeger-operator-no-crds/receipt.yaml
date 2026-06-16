@@ -1,0 +1,204 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: jaegertracing-jaeger-operator-2.57.0-no-crds-live-parity-20260605
+spec:
+  chart: jaegertracing/jaeger-operator
+  version: 2.57.0
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-16T01:59:40Z'
+  package:
+    path: packages/jaegertracing/jaeger-operator/2.57.0
+  recipe:
+    path: recipes/jaegertracing/jaeger-operator/2.57.0
+  variantRevision: recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-jaegeroperator-mqfzv370-1msv
+    kubeContext: kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-jaegeroperator-mqfzv370-1msv --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-jaegeroperator-mqfzv370-1msv"...
+
+        Deleting cluster "helm-expt-parity-jaegeroperator-mqfzv370-1msv" ...
+
+        Deleted nodes: ["helm-expt-parity-jaegeroperator-mqfzv370-1msv-control-plane"]
+
+        Deleting Space "helm-expt-parity-jaegeroperator-mqfzv370-1msv-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
+        --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975
+      objectCount: 10
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: ''
+        pods: ''
+        notReady: []
+        ignoredJobPods: []
+        namespaces:
+        - default
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default/events.txt
+            sha256: 1b35f607da43b4e6b811c9af2f3e884146d56e5a2d8bc8d730f35b282161203d
+            bytes: 1651
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default/workloads-describe.txt
+            sha256: b7c8216194b94c87f493bd308f5dc1a99fa5face8c850b4d97b0e23bbb2dca5d
+            bytes: 40
+          podArtifacts: []
+      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
+        mapping not found for name: "jaeger-operator-service-cert" namespace: "default-helm"
+        from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
+        namespace: "default-helm" from "": no matches for kind "Issuer" in version
+        "cert-manager.io/v1"
+
+        ensure CRDs are installed first]'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T02:01:04Z'
+    finishedAt: '2026-06-16T02:01:07Z'
+    elapsedSeconds: 3.016
+    timeoutSeconds: 900
+    command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
+      --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T02:04:10Z'
+    finishedAt: '2026-06-16T02:04:11Z'
+    elapsedSeconds: 0.406
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-mqfzv370-1msv-jaeger-operator
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: blocked
+    startedAt: '2026-06-16T02:04:11Z'
+    finishedAt: '2026-06-16T02:04:11Z'
+    elapsedSeconds: 0.211
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig
+      --context kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml
+    objectCount: 10
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-jaegeroperator-mqfzv370-1msv\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-jaegeroperator-mqfzv370-1msv\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
+      mapping not found for name: "jaeger-operator-service-cert" namespace: "default-helm"
+      from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
+      namespace: "default-helm" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first]'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
+      namespace: "default" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
+      from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
+      namespace: "default" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
+      from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'

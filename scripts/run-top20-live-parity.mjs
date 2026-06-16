@@ -493,6 +493,10 @@ function classifyReason(receipt, target) {
     if (regularMessage.includes("customresourcedefinition") && regularMessage.includes("cannot be imported")) {
       return "fixture: pre-existing CRDs owned by test controller";
     }
+    if (regularMessage.includes("cert-manager.io/v1") &&
+      (regularMessage.includes('no matches for kind "certificate"') || regularMessage.includes('no matches for kind "issuer"'))) {
+      return "target-prerequisite: cert-manager CRDs missing";
+    }
     if (regularMessage.includes("namespaces ") && regularMessage.includes(" not found")) {
       return semanticPassed ? "target-prerequisite: namespace missing (parity passed)" : "target-prerequisite: namespace missing";
     }
