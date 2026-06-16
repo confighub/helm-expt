@@ -65,6 +65,13 @@ const CATEGORIES = {
     next_action: "Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass.",
     support_artifact: "target-prerequisite-plan.yaml",
   },
+  "render-input": {
+    blocker_owner: "catalog",
+    usable_today: "no — needs a better base",
+    decision: "The selected base renders incomplete or invalid chart configuration because required Helm inputs are not modeled. This is not a user target prerequisite; the catalog needs a useful base that asks for or supplies the required inputs.",
+    next_action: "Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.",
+    support_artifact: "value-model.yaml",
+  },
   "semantic-model-gap": {
     blocker_owner: "catalog",
     usable_today: "no — needs catalog work",
@@ -79,6 +86,7 @@ function classify(reason, result) {
   if (r.startsWith("gitops-runtime")) return "gitops-runtime";
   if (r.startsWith("operate-policy")) return "operate-policy";
   if (r.startsWith("target-prerequisite")) return "target-prerequisite";
+  if (r.startsWith("render-input")) return "render-input";
   if (r.startsWith("target-runtime")) return "target-runtime";
   if (/semantic|object diff|does not match|model/.test(r)) return "semantic-model-gap";
   // Fallbacks for un-prefixed reasons.

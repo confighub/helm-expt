@@ -8,13 +8,14 @@ completed row has a receipt under
 ```text
 pass: 135
 watch: 31
-blocked: 3
+blocked: 4
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
+render-input: required Velero provider values missing: 1
 target-prerequisite: cert-manager CRDs missing: 2
 target-prerequisite: namespace missing (parity passed): 1
 ```
@@ -187,6 +188,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | default | pass | - | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml |
+|  | `velero/velero@12.0.1` | default | blocked | render-input: required Velero provider values missing | runs/live-helm-confighub-compare/velero-velero-default/receipt.yaml |
 |  | `vm/victoria-logs-single@0.12.5` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-logs-single-default/receipt.yaml |
 |  | `vm/victoria-metrics-single@0.39.0` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/receipt.yaml |
 |  | `vm/victoria-metrics-single@0.39.0` | default-reviewed | pass | - | runs/live-helm-confighub-compare/vm-victoria-metrics-single-default-reviewed/receipt.yaml |

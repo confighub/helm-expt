@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 65
+rows: 66
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 26
+blocked: 27
 watch: 39
-configHub-oci-live-comparison: 34
+configHub-oci-live-comparison: 35
 two-cluster-kind-parity: 31
 semantic-parity-defects: 7
 infra-or-rig-rows: 0
@@ -64,6 +64,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
+| `velero/velero@12.0.1` | default | blocked | Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled. | Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity. |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/contour@21.1.4` | no-crds | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/opensearch@2.0.10` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
@@ -101,7 +102,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 34 | 0 | 31 | 3 | 0 |
+| configHub-oci-live-comparison | 35 | 0 | 31 | 4 | 0 |
 | two-cluster-kind-parity | 31 | 0 | 8 | 23 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -131,6 +132,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
+| render-input-model | 1 | Model the required Helm values as a real base before rerunning. |
 | runtime-review | 23 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 15 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
@@ -149,7 +151,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 17 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 18 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -220,6 +222,7 @@ faithful to the locked chart/version without changing the recipe.
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
+| 40 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `velero/velero@12.0.1` | default | blocked | render-input: required Velero provider values missing | [`recipes/velero/velero/12.0.1/value-model.yaml`](../../recipes/velero/velero/12.0.1/value-model.yaml) | `npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart aws-ebs-csi-driver/aws-ebs-csi-driver --version 2.60.1 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/contour@21.1.4` | no-crds | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |

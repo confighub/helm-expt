@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-34 non-pass rows: 31 watch, 3 blocked.
-3 are resolved by the **user** (stage a prerequisite); 0
+35 non-pass rows: 31 watch, 4 blocked.
+3 are resolved by the **user** (stage a prerequisite); 1
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -37,12 +37,14 @@ passed — the residue is operational, not a config mismatch.
 | `target-runtime` | 14 |
 | `target-prerequisite` | 3 |
 | `operate-policy` | 1 |
+| `render-input` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 14 |
 | `user` | 3 |
+| `catalog` | 1 |
 | `needs operate review` | 1 |
 
 ## Rows
@@ -83,6 +85,7 @@ passed — the residue is operational, not a config mismatch.
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| velero/velero@12.0.1 | default | blocked | render-input | catalog | no — needs a better base |
 
 ## How To Read One Decision
 
