@@ -1,0 +1,109 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ChartLifecycleRoute
+metadata:
+  name: bitnami-contour-21.1.4-certgen-lifecycle-route
+  chart: bitnami/contour
+  version: 21.1.4
+  # Hand-authored decision record (not generated). Read-only over committed live
+  # receipts. Update by hand only when a fresh certgen-route receipt lands.
+  authoredFrom: live G/P + K parity receipts (see spec.evidence)
+spec:
+  summary: >-
+    Contour ships a pre-install Helm hook Job (contour-contour-certgen) that
+    generates the Contour<->Envoy xDS mutual-TLS material as the Secrets
+    contourcert and envoycert at install time. Those Secrets are produced by the
+    hook, not rendered as desired objects, so a config-only ConfigHub apply does
+    not create them. The base stays watch-grade until BOTH the image and the
+    certgen route are proven.
+
+  hook:
+    name: contour-contour-certgen
+    kind: Job
+    phase: pre-install
+    produces:
+      - secret: contourcert
+        type: kubernetes.io/tls
+        role: Contour xDS serving certificate
+      - secret: envoycert
+        type: kubernetes.io/tls
+        role: Envoy xDS client certificate
+
+  # The question this artifact answers: for config-only ConfigHub delivery, what
+  # ARE contourcert / envoycert -- a rendered desired Secret, a target fact, a
+  # lifecycle operation, or refused?
+  certClassification:
+    answer: lifecycle-operation-output
+    isRenderedDesiredSecret: false
+    isTargetFact: false
+    evidence:
+      - "G/P receipt: renderedLifecycleSecrets.result=not-needed, count=0, secrets=[] -- ConfigHub did not render the certs as desired objects"
+      - "G/P receipt: separatedSecrets=[] -- no separated/staged Secret in the desired set"
+      - "regular-Helm leg: the pre-install Job contour-contour-certgen creates the certs at runtime, not the rendered manifest"
+    explanation: >-
+      contourcert and envoycert are outputs of the pre-install certgen hook Job,
+      not part of the rendered desired object model. They are therefore a
+      lifecycle operation -- not a rendered desired Secret, and not (today) a
+      declared target fact.
+
+  # Ordered dependency: the certgen route cannot even be rehearsed until the
+  # image is pullable, because regular Helm's own certgen hook fails first on
+  # ImagePullBackOff. Resolve remote-image BEFORE any certgen route.
+  blockedUpstreamBy:
+    family: remote-image
+    detail: >-
+      docker.io/bitnami/contour:1.32.1-debian-12-r0 and
+      docker.io/bitnami/envoy:1.34.5-debian-12-r0 are not pullable on a vanilla
+      target. Regular Helm fails at the hook with "failed pre-install: resource
+      Job/.../contour-contour-certgen not ready" (ImagePullBackOff). Resolve the
+      image (digest pin, override, or mirror) first.
+    see: data/image-digest-workdown/summary.md
+
+  routeOptions:
+    - name: stage-cert-secrets-as-target-facts
+      what: >-
+        Pre-create contourcert and envoycert (kubernetes.io/tls) on the target as
+        declared facts before apply, replacing the hook output with staged
+        material. Mirrors the proven generated-fact-staged-secret route already
+        used for the ingress-nginx admission certificate.
+      executionMode: user-executes
+      requires: TLS key/cert material for the Contour and Envoy xDS identities
+      patternProvenElsewhere: data/webhook-cert-lifecycle/summary.md
+    - name: managed-certgen-action
+      what: >-
+        Run the certgen Job as an explicit managed lifecycle action (an Argo/Flux
+        sync hook, or a ConfigHub managed action) with a recorded receipt,
+        instead of a silent pre-install Helm hook.
+      executionMode: not-yet-executable
+      requires: a pullable certgen image, then a recorded managed-action rehearsal
+    - name: refuse-until-proven
+      what: >-
+        Keep the base watch-grade and do not claim certgen support until a fresh
+        receipt proves one of the routes above on a target that can pull the image.
+      executionMode: target-owned
+
+  disposition:
+    current: watch
+    defaultRoute: refuse-until-proven
+    executionMode: not-yet-executable
+    automatic: false   # no committed evidence of automatic certgen execution
+    humanOfframp: stage the cert Secrets as target facts, or run certgen as a managed action
+    agentOfframp: none until the image is resolved and a certgen-route receipt exists
+
+  evidence:
+    gpDefault: runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml
+    gpNoCrds: runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml
+    kDefault: runs/live-kind-parity/bitnami-contour-default/receipt.yaml
+
+  nextAction: >-
+    1) Resolve the remote-image residue (digest pin / override / mirror).
+    2) Then rehearse a certgen route -- stage contourcert/envoycert as target
+    facts, or run certgen as a managed action -- and record a receipt.
+    3) Only then move the base off watch.
+
+  seeAlso:
+    # vocabulary for the remote-image + hook/lifecycle families (do not duplicate)
+    - docs/reference/residue-families.md
+    # the Contour rows in the live rerun queue
+    - data/live-parity-rerun-plan/summary.md
+    # the proven staged-cert route pattern (ingress-nginx admission cert)
+    - data/webhook-cert-lifecycle/summary.md
