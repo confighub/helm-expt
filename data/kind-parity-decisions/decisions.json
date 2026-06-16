@@ -74,6 +74,20 @@
       "receipt": "runs/live-kind-parity/bitnami-contour-default/receipt.yaml"
     },
     {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "base": "no-crds",
+      "result": "blocked",
+      "semantic_parity": "defect",
+      "residue_category": "model-gap-render",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+      "reason": "semantic object parity issue: missing=5 extra=1 diffs=0; missing=apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io; extra=v1|Namespace||default; runtime also fails to pull docker.io/bitnami/contour:1.32.1-debian-12-r0; lifecycle also hits pre-install certificate-generation hook failure; runtime also requires hook/target Secret(s): envoycert",
+      "receipt": "runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml"
+    },
+    {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "base": "default",
@@ -182,7 +196,7 @@
       "usable_today": "no — needs catalog work",
       "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
       "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
-      "reason": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||default",
+      "reason": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||default; runtime also requires hook/target Secret(s): terraformrc, workspacesecrets",
       "receipt": "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
     },
     {

@@ -1,0 +1,486 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-contour-21.1.4-no-crds-kind-parity-20260606
+spec:
+  chart: bitnami/contour
+  version: 21.1.4
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-16T00:56:00Z'
+  package:
+    path: packages/bitnami/contour/21.1.4
+  recipe:
+    path: recipes/bitnami/contour/21.1.4
+  variantRevision: recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-contou-cb26c-l7q5-helm
+    installerCluster: hx-contou-cb26c-l7q5-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-contou-cb26c-l7q5-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-contou-cb26c-l7q5-helm" ...
+
+          Deleted nodes: ["hx-contou-cb26c-l7q5-helm-control-plane"]'
+      - cluster: hx-contou-cb26c-l7q5-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-contou-cb26c-l7q5-installer" ...
+
+          Deleted nodes: ["hx-contou-cb26c-l7q5-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install contour contour --repo https://charts.bitnami.com/bitnami
+        --version 21.1.4 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-contour-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f
+      objectCount: 15
+      liveHelmManifestSHA256: d657da92d8f2e28dac5b88c7c05c68aafc733508cfc972c39a17e9a591e04c1a
+      liveHelmManifestObjectCount: 20
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default'
+        pods: '# default
+
+          contour-contour-certgen-dwb28   0/1   ImagePullBackOff   0     8m1s'
+        notReady:
+        - namespace: default
+          pod: contour-contour-certgen-dwb28
+          ready: 0/1
+          status: ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: contour-contour-certgen-dwb28
+          result: blocked
+          detailHead: "Name:             contour-contour-certgen-dwb28\nNamespace:\
+            \        default\nPriority:         0\nService Account:  contour-contour-certgen\n\
+            Node:             hx-contou-cb26c-l7q5-helm-control-plane/192.168.97.2\n\
+            Start Time:       Tue, 16 Jun 2026 01:56:55 +0100\nLabels:           app.kubernetes.io/component=contour-certgen\n\
+            \                  app.kubernetes.io/instance=contour\n              \
+            \    app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=contour\n\
+            \                  app.kubernetes.io/version=1.32.1\n                \
+            \  batch.kubernetes.io/controller-uid=6d8b8b3d-4bc0-4898-91e4-5b1085e204eb\n\
+            \                  batch.kubernetes.io/job-name=contour-contour-certgen\n\
+            \                  controller-uid=6d8b8b3d-4bc0-4898-91e4-5b1085e204eb\n\
+            \                  helm.sh/chart=contour-21.1.4\n                  job-name=contour-contour-certgen\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  Job/contour-contour-certgen\n\
+            Containers:\n  contour:\n    Container ID:    \n    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  contour\n    Args:\n      certgen\n      --kube\n      --incluster\n\
+            \      --overwrite\n      --secrets-format=compact\n      --namespace=$(CONTOUR_NAMESPACE)\n\
+            \      --certificate-lifetime=365\n    State:          Waiting\n     \
+            \ Reason:       ImagePullBackOff\n    Ready:          False\n    Restart\
+            \ Count:  0\n    Limits:\n      cpu:                150m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             192Mi\n    Requests:\n      cpu:   \
+            \             100m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         128Mi\n    Liveness:             exec [pgrep contour] delay=120s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    exec [pgrep contour] delay=15s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Environment:\n      CONTOUR_NAMESPACE:  default (v1:metadata.namespace)\n\
+            \    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount from\
+            \ kube-api-access-2tpwk (ro)\nConditions:\n  Type                    \
+            \    Status\n  PodReadyToStartContainers   True \n  Initialized      \
+            \           True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-2tpwk:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     -----"
+          detailTail: "Host Port:       <none>\n    SeccompProfile:  RuntimeDefault\n\
+            \    Command:\n      contour\n    Args:\n      certgen\n      --kube\n\
+            \      --incluster\n      --overwrite\n      --secrets-format=compact\n\
+            \      --namespace=$(CONTOUR_NAMESPACE)\n      --certificate-lifetime=365\n\
+            \    State:          Waiting\n      Reason:       ImagePullBackOff\n \
+            \   Ready:          False\n    Restart Count:  0\n    Limits:\n      cpu:\
+            \                150m\n      ephemeral-storage:  2Gi\n      memory:  \
+            \           192Mi\n    Requests:\n      cpu:                100m\n   \
+            \   ephemeral-storage:  50Mi\n      memory:             128Mi\n    Liveness:\
+            \             exec [pgrep contour] delay=120s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            exec [pgrep contour] delay=15s\
+            \ timeout=5s period=10s #success=1 #failure=3\n    Environment:\n    \
+            \  CONTOUR_NAMESPACE:  default (v1:metadata.namespace)\n    Mounts:\n\
+            \      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2tpwk\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  kube-api-access-2tpwk:\n    Type:\
+            \                    Projected (a volume that contains injected data from\
+            \ multiple sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:\
+            \           kube-root-ca.crt\n    Optional:                false\n   \
+            \ DownwardAPI:             true\nQoS Class:                   Burstable\n\
+            Node-Selectors:              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m1s\
+            \                    default-scheduler  Successfully assigned default/contour-contour-certgen-dwb28\
+            \ to hx-contou-cb26c-l7q5-helm-control-plane\n  Normal   Pulling    4m53s\
+            \ (x5 over 8m1s)    kubelet            spec.containers{contour}: Pulling\
+            \ image \"docker.io/bitnami/contour:1.32.1-debian-12-r0\"\n  Warning \
+            \ Failed     4m52s (x5 over 8m)      kubelet            spec.containers{contour}:\
+            \ Failed to pull image \"docker.io/bitnami/contour:1.32.1-debian-12-r0\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/contour:1.32.1-debian-12-r0\": failed to resolve reference\
+            \ \"docker.io/bitnami/contour:1.32.1-debian-12-r0\": docker.io/bitnami/contour:1.32.1-debian-12-r0:\
+            \ not found\n  Warning  Failed     4m52s (x5 over 8m)      kubelet   \
+            \         spec.containers{contour}: Error: ErrImagePull\n  Normal   BackOff\
+            \    2m47s (x21 over 7m59s)  kubelet            spec.containers{contour}:\
+            \ Back-off pulling image \"docker.io/bitnami/contour:1.32.1-debian-12-r0\"\
+            \n  Warning  Failed     2m47s (x21 over 7m59s)  kubelet            spec.containers{contour}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "contour" in pod "contour-contour-certgen-dwb28"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "contour" in pod "contour-contour-certgen-dwb28"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: failed pre-install: resource Job/default/contour-contour-certgen
+        not ready. status: InProgress, message: Job in progress
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/contour/21.1.4
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-contou-cb26c-l7q5-contour
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 426dbec7d627c1d07a1474743fdb3055d62085096348eb85dfac6ba18a912959
+      objectCount: 16
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/contour-contour   0/1   1     0     0s
+
+          daemonset.apps/contour-envoy   1     1     0     1     0     <none>   0s'
+        pods: '# default
+
+          contour-contour-6f88fd5fc6-p22s9   0/1   ContainerCreating   0     0s
+
+          contour-envoy-rqp28                0/2   Init:0/1            0     0s'
+        notReady:
+        - namespace: default
+          pod: contour-contour-6f88fd5fc6-p22s9
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default
+          pod: contour-envoy-rqp28
+          ready: 0/2
+          status: Init:0/1
+          blockedReason: missing-required-secret
+          missingSecret: envoycert
+        diagnostics:
+        - namespace: default
+          pod: contour-contour-6f88fd5fc6-p22s9
+          result: pass
+          detailHead: "Name:             contour-contour-6f88fd5fc6-p22s9\nNamespace:\
+            \        default\nPriority:         0\nService Account:  contour-contour\n\
+            Node:             hx-contou-cb26c-l7q5-installer-control-plane/192.168.97.3\n\
+            Start Time:       Tue, 16 Jun 2026 02:04:57 +0100\nLabels:           app.kubernetes.io/component=contour\n\
+            \                  app.kubernetes.io/instance=contour\n              \
+            \    app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=contour\n\
+            \                  app.kubernetes.io/version=1.32.1\n                \
+            \  helm.sh/chart=contour-21.1.4\n                  pod-template-hash=6f88fd5fc6\n\
+            Annotations:      checksum/config: 7a2b79b3bb4ed721a1dfec37c680ffdcaf8d1976e71f115034be9295e367aa36\n\
+            Status:           Pending\nIP:               \nIPs:              <none>\n\
+            Controlled By:    ReplicaSet/contour-contour-6f88fd5fc6\nContainers:\n\
+            \  contour:\n    Container ID:    \n    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0\n\
+            \    Image ID:        \n    Ports:           8001/TCP (xds), 8000/TCP\
+            \ (metrics)\n    Host Ports:      0/TCP (xds), 0/TCP (metrics)\n    SeccompProfile:\
+            \  RuntimeDefault\n    Command:\n      contour\n    Args:\n      serve\n\
+            \      --incluster\n      --xds-address=0.0.0.0\n      --xds-port=8001\n\
+            \      --http-port=8000\n      --envoy-service-http-port=8080\n      --envoy-service-https-port=8443\n\
+            \      --contour-cafile=/certs/ca.crt\n      --contour-cert-file=/certs/tls.crt\n\
+            \      --contour-key-file=/certs/tls.key\n      --config-path=/config/contour.yaml\n\
+            \      --envoy-service-namespace=default\n      --envoy-service-name=contour-envoy\n\
+            \      --leader-election-resource-name=default-contour-contour\n     \
+            \ --log-format=text\n      --kubernetes-debug=0\n    State:          Waiting\n\
+            \      Reason:       ContainerCreating\n    Ready:          False\n  \
+            \  Restart Count:  0\n    Limits:\n      cpu:                150m\n  \
+            \    ephemeral-storage:  2Gi\n      memory:             192Mi\n    Requests:\n\
+            \      cpu:                100m\n      ephemeral-storage:  50Mi\n    \
+            \  memory:             128Mi\n    Liveness:             tcp-socket :8000\
+            \ delay=120s timeout=5s period=20s #success=1 #failure=6\n    Readiness:\
+            \            http-get http://:8000/healthz delay=15s timeout=5s period=10s\
+            \ #success=1 #failure=3\n    Environment:\n      CONTOUR_NAMESPACE:  default\
+            \ (v1:metadata.namespace)\n      POD_NAME:           contour-contour-6f88fd5fc6-p22s9\
+            \ (v1:metadata.name)\n      BITNAMI_DEBUG:      false\n    Mounts:\n \
+            \     /certs from contourcert (ro)\n      /config from contour-config\
+            \ (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lfb75\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   False \n  Initialized                 True \n  Ready             \
+            \          False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  contourcert:\n    Type:        Secret\
+            \ (a volume populated by a Secret)\n    SecretName:  contourcert\n   \
+            \ Optional:    false\n  contour-config:\n    Type:      ConfigMap (a volume\
+            \ populated by"
+          detailTail: "ur:\n    Container ID:    \n    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0\n\
+            \    Image ID:        \n    Ports:           8001/TCP (xds), 8000/TCP\
+            \ (metrics)\n    Host Ports:      0/TCP (xds), 0/TCP (metrics)\n    SeccompProfile:\
+            \  RuntimeDefault\n    Command:\n      contour\n    Args:\n      serve\n\
+            \      --incluster\n      --xds-address=0.0.0.0\n      --xds-port=8001\n\
+            \      --http-port=8000\n      --envoy-service-http-port=8080\n      --envoy-service-https-port=8443\n\
+            \      --contour-cafile=/certs/ca.crt\n      --contour-cert-file=/certs/tls.crt\n\
+            \      --contour-key-file=/certs/tls.key\n      --config-path=/config/contour.yaml\n\
+            \      --envoy-service-namespace=default\n      --envoy-service-name=contour-envoy\n\
+            \      --leader-election-resource-name=default-contour-contour\n     \
+            \ --log-format=text\n      --kubernetes-debug=0\n    State:          Waiting\n\
+            \      Reason:       ContainerCreating\n    Ready:          False\n  \
+            \  Restart Count:  0\n    Limits:\n      cpu:                150m\n  \
+            \    ephemeral-storage:  2Gi\n      memory:             192Mi\n    Requests:\n\
+            \      cpu:                100m\n      ephemeral-storage:  50Mi\n    \
+            \  memory:             128Mi\n    Liveness:             tcp-socket :8000\
+            \ delay=120s timeout=5s period=20s #success=1 #failure=6\n    Readiness:\
+            \            http-get http://:8000/healthz delay=15s timeout=5s period=10s\
+            \ #success=1 #failure=3\n    Environment:\n      CONTOUR_NAMESPACE:  default\
+            \ (v1:metadata.namespace)\n      POD_NAME:           contour-contour-6f88fd5fc6-p22s9\
+            \ (v1:metadata.name)\n      BITNAMI_DEBUG:      false\n    Mounts:\n \
+            \     /certs from contourcert (ro)\n      /config from contour-config\
+            \ (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lfb75\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   False \n  Initialized                 True \n  Ready             \
+            \          False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  contourcert:\n    Type:        Secret\
+            \ (a volume populated by a Secret)\n    SecretName:  contourcert\n   \
+            \ Optional:    false\n  contour-config:\n    Type:      ConfigMap (a volume\
+            \ populated by a ConfigMap)\n    Name:      contour\n    Optional:  false\n\
+            \  kube-api-access-lfb75:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type    Reason     Age   From       \
+            \        Message\n  ----    ------     ----  ----               -------\n\
+            \  Normal  Scheduled  0s    default-scheduler  Successfully assigned default/contour-contour-6f88fd5fc6-p22s9\
+            \ to hx-contou-cb26c-l7q5-installer-control-plane"
+          logsHead: 'Error from server (BadRequest): container "contour" in pod "contour-contour-6f88fd5fc6-p22s9"
+            is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "contour" in pod "contour-contour-6f88fd5fc6-p22s9"
+            is waiting to start: ContainerCreating'
+        - namespace: default
+          pod: contour-envoy-rqp28
+          result: blocked
+          detailHead: "Name:             contour-envoy-rqp28\nNamespace:        default\n\
+            Priority:         0\nService Account:  contour-envoy\nNode:          \
+            \   hx-contou-cb26c-l7q5-installer-control-plane/192.168.97.3\nStart Time:\
+            \       Tue, 16 Jun 2026 02:04:57 +0100\nLabels:           app.kubernetes.io/component=envoy\n\
+            \                  app.kubernetes.io/instance=contour\n              \
+            \    app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=contour\n\
+            \                  app.kubernetes.io/version=1.34.5\n                \
+            \  controller-revision-hash=7745bbb45d\n                  helm.sh/chart=contour-21.1.4\n\
+            \                  pod-template-generation=1\nAnnotations:      <none>\n\
+            Status:           Pending\nIP:               \nIPs:              <none>\n\
+            Controlled By:    DaemonSet/contour-envoy\nInit Containers:\n  envoy-initconfig:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  contour\n    Args:\n      bootstrap\n      /config/envoy.json\n   \
+            \   --xds-address=contour\n      --xds-port=8001\n      --resources-dir=/config/resources\n\
+            \      --envoy-cafile=/certs/ca.crt\n      --envoy-cert-file=/certs/tls.crt\n\
+            \      --envoy-key-file=/certs/tls.key\n    State:          Waiting\n\
+            \      Reason:       PodInitializing\n    Ready:          False\n    Restart\
+            \ Count:  0\n    Limits:\n      cpu:                150m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             192Mi\n    Requests:\n      cpu:   \
+            \             100m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         128Mi\n    Environment:\n      CONTOUR_NAMESPACE:  default (v1:metadata.namespace)\n\
+            \    Mounts:\n      /admin from empty-dir (rw,path=\"app-admin-dir\")\n\
+            \      /certs from envoycert (ro)\n      /config from empty-dir (rw,path=\"\
+            app-conf-dir\")\nContainers:\n  shutdown-manager:\n    Container ID: \
+            \   \n    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0\n\
+            \    Image ID:        \n    Port:            8090/TCP (http-shutdown)\n\
+            \    Host Port:       0/TCP (http-shutdown)\n    SeccompProfile:  RuntimeDefault\n\
+            \    Command:\n      contour\n    Args:\n      envoy\n      shutdown-manager\n\
+            \      --serve-port=8090\n    State:          Waiting\n      Reason: \
+            \      PodInitializing\n    Ready:          False\n    Restart Count:\
+            \  0\n    Limits:\n      cpu:                150m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             192Mi\n    Requests:\n      cpu:   \
+            \             100m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         128Mi\n    Liveness:             tcp-socket :http-shutdown delay=120s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:http-shutdown/healthz delay=10s timeout=1s period=3s\
+            \ #success=1 #failure=3\n    Environment:          <none>\n    Mounts:\n\
+            \      /admin from empty-dir (rw,path=\"app-admin-dir\")\n  envoy:\n \
+            \   Container ID:    \n    Image:           docker.io/bitnami/envoy:1.34.5-debian-12-r0\n\
+            \    Image ID:        \n    Ports:     "
+          detailTail: "ry:             128Mi\n    Liveness:             tcp-socket\
+            \ :http-shutdown delay=120s timeout=5s period=20s #success=1 #failure=6\n\
+            \    Readiness:            http-get http://:http-shutdown/healthz delay=10s\
+            \ timeout=1s period=3s #success=1 #failure=3\n    Environment:       \
+            \   <none>\n    Mounts:\n      /admin from empty-dir (rw,path=\"app-admin-dir\"\
+            )\n  envoy:\n    Container ID:    \n    Image:           docker.io/bitnami/envoy:1.34.5-debian-12-r0\n\
+            \    Image ID:        \n    Ports:           8080/TCP (http), 8443/TCP\
+            \ (https), 8002/TCP (metrics)\n    Host Ports:      0/TCP (http), 0/TCP\
+            \ (https), 0/TCP (metrics)\n    SeccompProfile:  RuntimeDefault\n    Command:\n\
+            \      envoy\n    Args:\n      -c\n      /config/envoy.json\n      --service-cluster\
+            \ $(CONTOUR_NAMESPACE)\n      --service-node $(ENVOY_POD_NAME)\n     \
+            \ --log-level info\n    State:          Waiting\n      Reason:       PodInitializing\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Liveness:\
+            \             tcp-socket :8002 delay=120s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            http-get http://:8002/ready delay=10s\
+            \ timeout=1s period=3s #success=1 #failure=3\n    Environment:\n     \
+            \ CONTOUR_NAMESPACE:  default (v1:metadata.namespace)\n      ENVOY_POD_NAME:\
+            \     contour-envoy-rqp28 (v1:metadata.name)\n    Mounts:\n      /admin\
+            \ from empty-dir (rw,path=\"app-admin-dir\")\n      /certs from envoycert\
+            \ (ro)\n      /config from empty-dir (rw,path=\"app-conf-dir\")\nConditions:\n\
+            \  Type                        Status\n  PodReadyToStartContainers   False\
+            \ \n  Initialized                 False \n  Ready                    \
+            \   False \n  ContainersReady             False \n  PodScheduled     \
+            \           True \nVolumes:\n  empty-dir:\n    Type:       EmptyDir (a\
+            \ temporary directory that shares a pod's lifetime)\n    Medium:     \n\
+            \    SizeLimit:  <unset>\n  envoycert:\n    Type:        Secret (a volume\
+            \ populated by a Secret)\n    SecretName:  envoycert\n    Optional:  \
+            \  false\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/disk-pressure:NoSchedule op=Exists\n        \
+            \         node.kubernetes.io/memory-pressure:NoSchedule op=Exists\n  \
+            \               node.kubernetes.io/not-ready:NoExecute op=Exists\n   \
+            \              node.kubernetes.io/pid-pressure:NoSchedule op=Exists\n\
+            \                 node.kubernetes.io/unreachable:NoExecute op=Exists\n\
+            \                 node.kubernetes.io/unschedulable:NoSchedule op=Exists\n\
+            Events:\n  Type     Reason       Age   From               Message\n  ----\
+            \     ------       ----  ----               -------\n  Normal   Scheduled\
+            \    0s    default-scheduler  Successfully assigned default/contour-envoy-rqp28\
+            \ to hx-contou-cb26c-l7q5-installer-control-plane\n  Warning  FailedMount\
+            \  0s    kubelet            MountVolume.SetUp failed for volume \"envoycert\"\
+            \ : secret \"envoycert\" not found"
+          logsHead: 'Error from server (BadRequest): container "envoy-initconfig"
+            in pod "contour-envoy-rqp28" is waiting to start: PodInitializing'
+          logsTail: 'Error from server (BadRequest): container "envoy-initconfig"
+            in pod "contour-envoy-rqp28" is waiting to start: PodInitializing'
+          blockedReason: missing-required-secret
+          missingSecret: envoycert
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 15
+      installerObjectCount: 20
+      missingFromInstaller: []
+      extraInInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: f42230fd70ff4719f817e9ceebadacd2e0bbdab39a74dffdf65e64f2b97c94b3
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 20
+      installerObjectCount: 16
+      missingFromInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 551f0ca9172d5b121034c267d679baf9a4c3a8b43d472341601a8c243acf63b5
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=0 extra=['apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io',
+      'apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io']
+      diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: failed pre-install: resource Job/default/contour-contour-certgen
+      not ready. status: InProgress, message: Job in progress
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/contour-contour   0/1   1     0     0s
+
+      daemonset.apps/contour-envoy   1     1     0     1     0     <none>   0s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=5 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 134 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 58 |
 | Two-cluster kind parity commands | 76 |
-| Watch/blocked/review rows | 78 |
-| Ready-to-run todo rows | 56 |
+| Watch/blocked/review rows | 79 |
+| Ready-to-run todo rows | 55 |
 
 ## By Work Type
 
@@ -38,8 +38,8 @@ For the cell-level completion count, use
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 22 |
-| `todo` | 76 |
+| `blocked` | 23 |
+| `todo` | 75 |
 | `watch` | 36 |
 
 ## By Run Readiness
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 4 |
 | `inspect-receipt-first` | 1 |
 | `model-or-stage-first` | 28 |
-| `ready-to-run` | 56 |
-| `review-target-first` | 45 |
+| `ready-to-run` | 55 |
+| `review-target-first` | 46 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
