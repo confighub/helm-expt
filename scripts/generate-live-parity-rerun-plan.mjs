@@ -210,6 +210,12 @@ function classifyLiveComparisonReason(spec) {
   if (message.includes("target topology requires at least") || message.includes("schedulable node")) {
     return "target-fit: minimum schedulable nodes not met";
   }
+  if (
+    message.includes('no matches for kind "apiservice"') &&
+    message.includes("apiregistration.k8s.io/v1beta1")
+  ) {
+    return "capability-profile: rendered APIService version is not served by target Kubernetes";
+  }
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
   const semanticPassed = Object.values(semantic).some(
@@ -302,6 +308,9 @@ function diagnosisForConfigHubOci(row) {
   if (row.reason?.startsWith("target-fit:")) {
     return targetTopologyDiagnosis(row) ?? "Semantic parity passed, but the proof target lacks a platform behavior required by this base.";
   }
+  if (row.reason?.startsWith("capability-profile:")) {
+    return "The base rendered a Kubernetes API version that the target no longer serves. Choose a capability-specific base or refresh the render profile before rerunning.";
+  }
   if (row.reason?.startsWith("remote-image:")) {
     return "Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect.";
   }
@@ -349,6 +358,7 @@ function followupForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
   if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
+  if (row.reason?.startsWith("capability-profile:")) return "Use the maintained capability-profile base for the target Kubernetes API set, then rerun live parity.";
   if (row.reason?.startsWith("remote-image:")) return "Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning.";
   if (row.reason?.startsWith("render-input:")) return "Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity.";
   if (row.reason?.startsWith("gitops-runtime:")) return "Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.";
@@ -426,6 +436,7 @@ function nextStepType(row) {
   if (reason.startsWith("parity:")) return "inspect-parity-diff";
   if (reason.startsWith("infra:")) return "clean-rerun";
   if (reason.startsWith("target-prerequisite:")) return "stage-prerequisite";
+  if (reason.startsWith("capability-profile:")) return "capability-profile-base";
   if (reason.startsWith("helm-hook:")) return "lifecycle-route";
   if (reason.startsWith("operate-policy:")) return "operating-policy";
   if (reason.startsWith("render-input:")) return "render-input-model";
@@ -443,6 +454,7 @@ function supportArtifactFor(row) {
   const candidates = [];
   if (reason.startsWith("infra:")) return "data/live-helm-confighub-compare/blocked-triage.md";
   if (reason.startsWith("target-prerequisite:")) candidates.push("target-prerequisite-plan.yaml");
+  if (reason.startsWith("capability-profile:")) candidates.push("CATALOG.md");
   if (reason.startsWith("render-input:")) candidates.push("value-model.yaml", "helm-plan.yaml");
   if (reason.startsWith("remote-image:")) return "data/image-digest-workdown/summary.md";
   if (reason.startsWith("helm-hook:")) candidates.push("lifecycle-policy.yaml");
@@ -524,6 +536,7 @@ function nextStepDescription(type) {
     "operating-policy": "Record the operating policy decision, then rerun only if the expected readiness changes.",
     "render-input-model": "Model the required Helm values as a real base before rerunning.",
     "image-retention-review": "Resolve missing or mutable images by digest, override, or catalog refresh before rerunning.",
+    "capability-profile-base": "Use the base rendered for the target Kubernetes API set before rerunning.",
     "target-fit-review": "Choose a target that provides the required platform behavior, or create a base that fits the target.",
     "gitops-runtime-review": "Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected.",
     "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",
@@ -540,6 +553,7 @@ function rerunReadiness(type) {
     "operating-policy": "model-or-stage-first",
     "render-input-model": "model-or-stage-first",
     "image-retention-review": "model-or-stage-first",
+    "capability-profile-base": "model-or-stage-first",
     "target-fit-review": "model-or-stage-first",
     "gitops-runtime-review": "review-target-first",
     "runtime-review": "review-target-first",

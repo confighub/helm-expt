@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 69
+rows: 70
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 28
+blocked: 29
 watch: 41
-configHub-oci-live-comparison: 38
+configHub-oci-live-comparison: 39
 two-cluster-kind-parity: 31
 semantic-parity-defects: 7
 infra-or-rig-rows: 0
@@ -65,6 +65,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `traefik/traefik@40.2.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
+| `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | The base rendered a Kubernetes API version that the target no longer serves. Choose a capability-specific base or refresh the render profile before rerunning. | Use the maintained capability-profile base for the target Kubernetes API set, then rerun live parity. |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `velero/velero@12.0.1` | default | blocked | Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled. | Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity. |
 | `velero/velero@12.0.1` | no-crds | blocked | Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled. | Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity. |
@@ -105,7 +106,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 38 | 0 | 33 | 5 | 0 |
+| configHub-oci-live-comparison | 39 | 0 | 33 | 6 | 0 |
 | two-cluster-kind-parity | 31 | 0 | 8 | 23 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -130,6 +131,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
+| capability-profile-base | 1 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | image-retention-review | 7 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 7 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
@@ -155,7 +157,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 26 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 27 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 34 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -227,6 +229,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml`](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds` |
+| 40 | model-or-stage-first | capability-profile-base | configHub-oci-live-comparison | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | [`recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md`](../../recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-adapter/5.3.0 --base cluster-metrics-readonly` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
 | 40 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `velero/velero@12.0.1` | default | blocked | render-input: required Velero provider values missing | [`recipes/velero/velero/12.0.1/value-model.yaml`](../../recipes/velero/velero/12.0.1/value-model.yaml) | `npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default` |
 | 40 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `velero/velero@12.0.1` | no-crds | blocked | render-input: required Velero provider values missing | [`recipes/velero/velero/12.0.1/value-model.yaml`](../../recipes/velero/velero/12.0.1/value-model.yaml) | `npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds` |

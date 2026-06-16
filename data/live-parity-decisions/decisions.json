@@ -10,6 +10,7 @@
     "target-prerequisite",
     "render-input",
     "remote-image",
+    "capability-profile",
     "semantic-model-gap"
   ],
   "note": "A watch row is known evidence with a named residue: semantic Helm-vs-ConfigHub parity passed; a GitOps/runtime/operate condition remains. It is not a pass and not a failure.",
@@ -475,6 +476,20 @@
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
       "support_artifact": "recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus-adapter",
+      "version": "5.3.0",
+      "variant": "cluster-metrics-readonly",
+      "result": "blocked",
+      "residue_category": "capability-profile",
+      "blocker_owner": "catalog",
+      "usable_today": "yes, use the capability-profile base",
+      "user_decision": "The selected base rendered a Kubernetes API version that the target no longer serves. This is a render-profile/base selection issue, not a runtime prerequisite and not a semantic ConfigHub-vs-Helm diff.",
+      "next_action": "Use or promote the base rendered for the target API set, then rerun live parity. For prometheus-adapter on modern Kubernetes, use the apiservice-v1-capability base.",
+      "reason": "capability-profile: rendered APIService version is not served by target Kubernetes",
+      "support_artifact": "recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md",
+      "receipt": "runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/receipt.yaml"
     },
     {
       "chart": "prometheus-community/prometheus",
