@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 16
-semantic parity pass: 131
+blocked: 17
+semantic parity pass: 132
 semantic parity defects: 5
-non-pass rows where semantic parity passed: 15
+non-pass rows where semantic parity passed: 16
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -33,7 +33,7 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 5 |
-| helm-runtime: upstream not ready (parity passed) | 3 |
+| helm-runtime: upstream not ready (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
@@ -167,6 +167,7 @@ broader support claim.
 | `nats/nats@2.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nats-default/receipt.yaml |
 | `nats/nats@2.14.0` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/nats-nats-ha/receipt.yaml |
 | `nats/surveyor@0.20.9` | default | blocked | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/nats-surveyor-default/receipt.yaml |
+| `nats/surveyor@0.20.9` | default-reviewed | blocked | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
