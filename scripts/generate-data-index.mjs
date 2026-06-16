@@ -85,6 +85,7 @@ function readme(rows) {
     ["I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/live-parity-decisions/summary.md; data/live-parity-decisions/decisions.csv; data/live-parity-decisions/decisions.json"],
     ["I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim).", "data/live-run-blocks/summary.md; data/live-run-blocks/run-blocks.csv; data/live-run-blocks/run-blocks.json"],
     ["I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action.", "data/matrix-completion-audit/summary.md; data/matrix-completion-audit/audit.csv; data/matrix-completion-audit/audit.json"],
+    ["I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug.", "data/variant-promotion-closeout/summary.md; data/variant-promotion-closeout/closeout.csv; data/variant-promotion-closeout/closeout.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -322,6 +323,7 @@ function audienceFor(path) {
   if (path.startsWith("data/live-matrix-burndown/")) return "user/front-door";
   if (path.startsWith("data/live-run-blocks/")) return "user/front-door";
   if (path.startsWith("data/matrix-completion-audit/")) return "user/front-door";
+  if (path.startsWith("data/variant-promotion-closeout/")) return "user/front-door";
   if (path.startsWith("data/gitops-health-residue/")) return "user/front-door";
   if (path.startsWith("data/large-config-operations/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
@@ -429,6 +431,7 @@ function roleFor(path) {
   if (path === "data/live-parity-decisions/decisions.csv") return "one row per non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) row: residue category, who fixes it, whether it is usable today, plain user decision, next action, and support artifact";
   if (path === "data/live-run-blocks/run-blocks.csv") return "one row per ready-to-run todo live row grouped into a run block: block id/goal, exact command, lane cells, predicted residue family + target profile (derived from committed evidence, never a claim) with basis and confidence, serial-safety notes, and why it matters for 99%";
   if (path === "data/matrix-completion-audit/audit.csv") return "one row per non-green/not-yet-run matrix cell: lane, state, product-readable reason, next action, support artifact, owner, and a completion class (needs-run / needs-target-or-prereq-fix / needs-modeling / already-decided)";
+  if (path === "data/variant-promotion-closeout/closeout.csv") return "one row per variant promotion cell: state, whether a server-side clone exists, promote readiness (ready-to-run / watch-grade / blocked-needs-confighub-proof), owner class (run-proof / fix-confighub-server / catalog-modeling), the changeset-bug blocker if any, evidence receipt, and exact next command";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -498,6 +501,7 @@ function familyRole(family) {
     "live-parity-decisions": "product-readable decisions for non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) rows: residue category, who owns the fix, usable-today answer, next action, and support artifact",
     "live-run-blocks": "read-only run-block plan for the ready-to-run todo rows: small ordered blocks (G/P before K, hard charts first) with a derived (never claimed) predicted residue family and target profile per row",
     "matrix-completion-audit": "read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided",
+    "variant-promotion-closeout": "actionable promotion queue: per variant, whether cub variant promote is ready-to-run / watch-grade / blocked by the ConfigHub changeset bug, the owner class, and the exact next command or fix",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -612,6 +616,7 @@ function commandMap() {
     "live-parity-decisions": { generate: "npm run live-parity:decisions", verify: "npm run live-parity:decisions:verify" },
     "live-run-blocks": { generate: "npm run live-run-blocks", verify: "npm run live-run-blocks:verify" },
     "matrix-completion-audit": { generate: "npm run matrix-completion-audit", verify: "npm run matrix-completion-audit:verify" },
+    "variant-promotion-closeout": { generate: "npm run variant-promotion-closeout", verify: "npm run variant-promotion-closeout:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },

@@ -51,6 +51,7 @@ smallest generated surface that answers it.
 | I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today. | [live-parity-decisions/summary.md](./live-parity-decisions/summary.md)<br>[live-parity-decisions/decisions.csv](./live-parity-decisions/decisions.csv)<br>[live-parity-decisions/decisions.json](./live-parity-decisions/decisions.json) |
 | I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim). | [live-run-blocks/summary.md](./live-run-blocks/summary.md)<br>[live-run-blocks/run-blocks.csv](./live-run-blocks/run-blocks.csv)<br>[live-run-blocks/run-blocks.json](./live-run-blocks/run-blocks.json) |
 | I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action. | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md)<br>[matrix-completion-audit/audit.csv](./matrix-completion-audit/audit.csv)<br>[matrix-completion-audit/audit.json](./matrix-completion-audit/audit.json) |
+| I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug. | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md)<br>[variant-promotion-closeout/closeout.csv](./variant-promotion-closeout/closeout.csv)<br>[variant-promotion-closeout/closeout.json](./variant-promotion-closeout/closeout.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -298,6 +299,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `variant-goldens` | - | golden work orders for derived-variant examples |
 | `variant-path-coverage` | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | chart/base/path proof status matrix |
 | `variant-promotion` | [variant-promotion/summary.md](./variant-promotion/summary.md) | server-side ConfigHub variant promotion status by chart/base |
+| `variant-promotion-closeout` | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md) | actionable promotion queue: per variant, whether cub variant promote is ready-to-run / watch-grade / blocked by the ConfigHub changeset bug, the owner class, and the exact next command or fix |
 | `webhook-cert-lifecycle` | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | webhook serving certificate lifecycle evidence and proof boundaries |
 
 ## Every CSV
@@ -308,7 +310,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 142 CSV files. Each row records the path, audience,
+It includes 143 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
