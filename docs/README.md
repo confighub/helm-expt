@@ -326,7 +326,7 @@ not the primary user path.
 | [large-machine-handover.md](./planning/large-machine-handover.md) | Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes. |
 | [large-machine-roadmap.md](./planning/large-machine-roadmap.md) | Outcome-driven roadmap for live parity, target-bound derived variants, chart quirks, and docs organization. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
-| [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Product planning for `cub install` as a no-login verified-install transcript and upgrade path into ConfigHub. |
+| [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Product planning for `cub installer` as a no-login verified-install transcript and upgrade path into ConfigHub. |
 | [verified-install-commercial-model.md](./planning/verified-install-commercial-model.md) | Paid-tier planning for scan receipts, image digest inventory, signed artifacts, private catalogs, and fleet-wide security operations. |
 | [robust-sceptic-plan.md](./planning/robust-sceptic-plan.md) | Attack model and adversarial test queue for public claims, lifecycle gaps, blast-radius prediction, and external reproduction. |
 | [issue-backlog.md](./planning/issue-backlog.md) | Issue index and execution order. |
