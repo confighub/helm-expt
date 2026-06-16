@@ -1,0 +1,374 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-apache-11.4.29-default-kind-parity-20260606
+spec:
+  chart: bitnami/apache
+  version: 11.4.29
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T13:12:55Z'
+  package:
+    path: packages/bitnami/apache/11.4.29
+  recipe:
+    path: recipes/bitnami/apache/11.4.29
+  variantRevision: recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-apache-0375f-ww48-helm
+    installerCluster: hx-apache-0375f-ww48-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-apache-0375f-ww48-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-apache-0375f-ww48-helm" ...
+
+          Deleted nodes: ["hx-apache-0375f-ww48-helm-control-plane"]'
+      - cluster: hx-apache-0375f-ww48-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-apache-0375f-ww48-installer" ...
+
+          Deleted nodes: ["hx-apache-0375f-ww48-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install apache apache --repo https://charts.bitnami.com/bitnami
+        --version 11.4.29 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-apache-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c
+      objectCount: 5
+      liveHelmManifestSHA256: a29668182ecc10e126d8d6b98903ef951d0a2ea20e0974c56e479b501a476ab5
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/apache   0/1   1     0     8m'
+        pods: '# default
+
+          apache-5fdf47cb6-ht82n   0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: apache-5fdf47cb6-ht82n
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: apache-5fdf47cb6-ht82n
+          result: blocked
+          detailHead: "Name:             apache-5fdf47cb6-ht82n\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  apache\nNode:     \
+            \        hx-apache-0375f-ww48-helm-control-plane/192.168.97.2\nStart Time:\
+            \       Tue, 16 Jun 2026 14:13:51 +0100\nLabels:           app.kubernetes.io/instance=apache\n\
+            \                  app.kubernetes.io/managed-by=Helm\n               \
+            \   app.kubernetes.io/name=apache\n                  app.kubernetes.io/version=2.4.65\n\
+            \                  helm.sh/chart=apache-11.4.29\n                  pod-template-hash=5fdf47cb6\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  ReplicaSet/apache-5fdf47cb6\n\
+            Init Containers:\n  preserve-logs-symlinks:\n    Container ID:    \n \
+            \   Image:           docker.io/bitnami/apache:2.4.65-debian-12-r2\n  \
+            \  Image ID:        \n    Port:            <none>\n    Host Port:    \
+            \   <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n      /bin/bash\n\
+            \    Args:\n      -ec\n      #!/bin/bash\n      \n      . /opt/bitnami/scripts/libfs.sh\n\
+            \      # We copy the logs folder because it has symlinks to stdout and\
+            \ stderr\n      if ! is_dir_empty /opt/bitnami/apache/logs; then\n   \
+            \     cp -r /opt/bitnami/apache/logs /emptydir/app-logs-dir\n      fi\n\
+            \      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /emptydir from empty-dir (rw)\n\
+            Containers:\n  apache:\n    Container ID:    \n    Image:           docker.io/bitnami/apache:2.4.65-debian-12-r2\n\
+            \    Image ID:        \n    Ports:           8080/TCP (http), 8443/TCP\
+            \ (https)\n    Host Ports:      0/TCP (http), 0/TCP (https)\n    SeccompProfile:\
+            \  RuntimeDefault\n    State:           Waiting\n      Reason:       \
+            \ PodInitializing\n    Ready:           False\n    Restart Count:   0\n\
+            \    Limits:\n      cpu:                150m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             192Mi\n    Requests:\n      cpu:   \
+            \             100m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         128Mi\n    Liveness:             tcp-socket :http delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:http/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Environment:\n      BITNAMI_DEBUG:             false\n\
+            \      APACHE_HTTP_PORT_NUMBER:   8080\n      APACHE_HTTPS_PORT_NUMBER:\
+            \  8443\n    Mounts:\n      /opt/bitnami/apache/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/apache/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /opt/bitnami/apache/var/run from empty-dir (rw,path=\"\
+            app-tmp-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n\
+            \  Type                        Status\n  PodReadyToStartContainers   True\
+            \ \n  Initialized                 False \n  Ready     "
+          detailTail: "s:           8080/TCP (http), 8443/TCP (https)\n    Host Ports:\
+            \      0/TCP (http), 0/TCP (https)\n    SeccompProfile:  RuntimeDefault\n\
+            \    State:           Waiting\n      Reason:        PodInitializing\n\
+            \    Ready:           False\n    Restart Count:   0\n    Limits:\n   \
+            \   cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Liveness:\
+            \             tcp-socket :http delay=180s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            http-get http://:http/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  BITNAMI_DEBUG:             false\n      APACHE_HTTP_PORT_NUMBER:  \
+            \ 8080\n      APACHE_HTTPS_PORT_NUMBER:  8443\n    Mounts:\n      /opt/bitnami/apache/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/apache/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/apache/var/run\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/apache-5fdf47cb6-ht82n\
+            \ to hx-apache-0375f-ww48-helm-control-plane\n  Normal   Pulling    5m5s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Pulling image \"docker.io/bitnami/apache:2.4.65-debian-12-r2\"\n  Warning\
+            \  Failed     5m5s (x5 over 7m59s)    kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Failed to pull image \"docker.io/bitnami/apache:2.4.65-debian-12-r2\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/apache:2.4.65-debian-12-r2\": failed to resolve reference\
+            \ \"docker.io/bitnami/apache:2.4.65-debian-12-r2\": docker.io/bitnami/apache:2.4.65-debian-12-r2:\
+            \ not found\n  Warning  Failed     5m5s (x5 over 7m59s)    kubelet   \
+            \         spec.initContainers{preserve-logs-symlinks}: Error: ErrImagePull\n\
+            \  Warning  Failed     2m49s (x20 over 7m58s)  kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m37s (x21 over 7m58s)\
+            \  kubelet            spec.initContainers{preserve-logs-symlinks}: Back-off\
+            \ pulling image \"docker.io/bitnami/apache:2.4.65-debian-12-r2\""
+          logsHead: 'Error from server (BadRequest): container "preserve-logs-symlinks"
+            in pod "apache-5fdf47cb6-ht82n" is waiting to start: trying and failing
+            to pull image'
+          logsTail: 'Error from server (BadRequest): container "preserve-logs-symlinks"
+            in pod "apache-5fdf47cb6-ht82n" is waiting to start: trying and failing
+            to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource Deployment/default/apache not ready. status: InProgress,
+        message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/apache/11.4.29
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-apache-0375f-ww48-apache
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: ea8fe97ad628eb2105a5f01533fe586266b7b79bcd71bfc0b1f9e59fb6420d39
+      objectCount: 6
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/apache   0/1   1     0     10s'
+        pods: '# default
+
+          apache-5fdf47cb6-hfgrl   0/1   Init:ErrImagePull   0     10s'
+        notReady:
+        - namespace: default
+          pod: apache-5fdf47cb6-hfgrl
+          ready: 0/1
+          status: Init:ErrImagePull
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: apache-5fdf47cb6-hfgrl
+          result: blocked
+          detailHead: "Name:             apache-5fdf47cb6-hfgrl\nNamespace:      \
+            \  default\nPriority:         0\nService Account:  apache\nNode:     \
+            \        hx-apache-0375f-ww48-installer-control-plane/192.168.97.3\nStart\
+            \ Time:       Tue, 16 Jun 2026 14:21:52 +0100\nLabels:           app.kubernetes.io/instance=apache\n\
+            \                  app.kubernetes.io/managed-by=Helm\n               \
+            \   app.kubernetes.io/name=apache\n                  app.kubernetes.io/version=2.4.65\n\
+            \                  helm.sh/chart=apache-11.4.29\n                  pod-template-hash=5fdf47cb6\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  ReplicaSet/apache-5fdf47cb6\n\
+            Init Containers:\n  preserve-logs-symlinks:\n    Container ID:    \n \
+            \   Image:           docker.io/bitnami/apache:2.4.65-debian-12-r2\n  \
+            \  Image ID:        \n    Port:            <none>\n    Host Port:    \
+            \   <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n      /bin/bash\n\
+            \    Args:\n      -ec\n      #!/bin/bash\n      \n      . /opt/bitnami/scripts/libfs.sh\n\
+            \      # We copy the logs folder because it has symlinks to stdout and\
+            \ stderr\n      if ! is_dir_empty /opt/bitnami/apache/logs; then\n   \
+            \     cp -r /opt/bitnami/apache/logs /emptydir/app-logs-dir\n      fi\n\
+            \      \n    State:          Waiting\n      Reason:       ErrImagePull\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:\n      /emptydir from empty-dir (rw)\n\
+            Containers:\n  apache:\n    Container ID:    \n    Image:           docker.io/bitnami/apache:2.4.65-debian-12-r2\n\
+            \    Image ID:        \n    Ports:           8080/TCP (http), 8443/TCP\
+            \ (https)\n    Host Ports:      0/TCP (http), 0/TCP (https)\n    SeccompProfile:\
+            \  RuntimeDefault\n    State:           Waiting\n      Reason:       \
+            \ PodInitializing\n    Ready:           False\n    Restart Count:   0\n\
+            \    Limits:\n      cpu:                150m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             192Mi\n    Requests:\n      cpu:   \
+            \             100m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         128Mi\n    Liveness:             tcp-socket :http delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:http/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Environment:\n      BITNAMI_DEBUG:             false\n\
+            \      APACHE_HTTP_PORT_NUMBER:   8080\n      APACHE_HTTPS_PORT_NUMBER:\
+            \  8443\n    Mounts:\n      /opt/bitnami/apache/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/apache/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /opt/bitnami/apache/var/run from empty-dir (rw,path=\"\
+            app-tmp-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n\
+            \  Type                        Status\n  PodReadyToStartContainers   True\
+            \ \n  Initialized                 False \n  Ready    "
+          detailTail: "ontainers:\n  apache:\n    Container ID:    \n    Image:  \
+            \         docker.io/bitnami/apache:2.4.65-debian-12-r2\n    Image ID:\
+            \        \n    Ports:           8080/TCP (http), 8443/TCP (https)\n  \
+            \  Host Ports:      0/TCP (http), 0/TCP (https)\n    SeccompProfile: \
+            \ RuntimeDefault\n    State:           Waiting\n      Reason:        PodInitializing\n\
+            \    Ready:           False\n    Restart Count:   0\n    Limits:\n   \
+            \   cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Liveness:\
+            \             tcp-socket :http delay=180s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            http-get http://:http/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  BITNAMI_DEBUG:             false\n      APACHE_HTTP_PORT_NUMBER:  \
+            \ 8080\n      APACHE_HTTPS_PORT_NUMBER:  8443\n    Mounts:\n      /opt/bitnami/apache/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/apache/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/apache/var/run\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/apache-5fdf47cb6-hfgrl to hx-apache-0375f-ww48-installer-control-plane\n\
+            \  Normal   Pulling    10s   kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Pulling image \"docker.io/bitnami/apache:2.4.65-debian-12-r2\"\n  Warning\
+            \  Failed     9s    kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Failed to pull image \"docker.io/bitnami/apache:2.4.65-debian-12-r2\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/apache:2.4.65-debian-12-r2\": failed to resolve reference\
+            \ \"docker.io/bitnami/apache:2.4.65-debian-12-r2\": docker.io/bitnami/apache:2.4.65-debian-12-r2:\
+            \ not found\n  Warning  Failed     9s    kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Error: ErrImagePull\n  Normal   BackOff    9s    kubelet           \
+            \ spec.initContainers{preserve-logs-symlinks}: Back-off pulling image\
+            \ \"docker.io/bitnami/apache:2.4.65-debian-12-r2\"\n  Warning  Failed\
+            \     9s    kubelet            spec.initContainers{preserve-logs-symlinks}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "preserve-logs-symlinks"
+            in pod "apache-5fdf47cb6-hfgrl" is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "preserve-logs-symlinks"
+            in pod "apache-5fdf47cb6-hfgrl" is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/default/apache not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/apache   0/1   1     0     10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

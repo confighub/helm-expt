@@ -9,7 +9,7 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 21,
+  "readyRowCount": 20,
   "blockCount": 5,
   "blocks": [
     {
@@ -37,7 +37,7 @@
           "prediction_status": "derived",
           "predicted_residue_family": "remote-image",
           "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
-          "prediction_basis": "family pattern — bitnami: 11/19 classified rows are remote-image",
+          "prediction_basis": "family pattern — bitnami: 12/20 classified rows are remote-image",
           "confidence": "medium",
           "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
         },
@@ -54,7 +54,7 @@
           "prediction_status": "derived",
           "predicted_residue_family": "remote-image",
           "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
-          "prediction_basis": "family pattern — bitnami: 11/19 classified rows are remote-image",
+          "prediction_basis": "family pattern — bitnami: 12/20 classified rows are remote-image",
           "confidence": "medium",
           "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use"
         },
@@ -182,26 +182,9 @@
       "predicted_residue_families": [
         "remote-image"
       ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted remote-image (bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
-        {
-          "work_type": "kind-parity",
-          "chart": "bitnami/apache",
-          "version": "11.4.29",
-          "base": "default",
-          "command": "npm run kind-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default",
-          "current_status": "todo",
-          "lane_cells": "K=todo",
-          "support_artifact": "",
-          "receipt": "",
-          "prediction_status": "derived",
-          "predicted_residue_family": "remote-image",
-          "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
-          "prediction_basis": "sibling receipt — bitnami/apache already classified remote-image (runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml)",
-          "confidence": "high",
-          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
         {
           "work_type": "kind-parity",
           "chart": "bitnami/elasticsearch",
@@ -296,7 +279,7 @@
           "prediction_status": "derived",
           "predicted_residue_family": "remote-image",
           "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
-          "prediction_basis": "family pattern — bitnami: 11/19 classified rows are remote-image",
+          "prediction_basis": "family pattern — bitnami: 12/20 classified rows are remote-image",
           "confidence": "medium",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
         },
@@ -313,7 +296,7 @@
           "prediction_status": "derived",
           "predicted_residue_family": "remote-image",
           "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
-          "prediction_basis": "family pattern — bitnami: 11/19 classified rows are remote-image",
+          "prediction_basis": "family pattern — bitnami: 12/20 classified rows are remote-image",
           "confidence": "medium",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use"
         },

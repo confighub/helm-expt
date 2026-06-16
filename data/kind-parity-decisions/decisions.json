@@ -61,6 +61,20 @@
       "receipt": "runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
     },
     {
+      "chart": "bitnami/apache",
+      "version": "11.4.29",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-apache-default/receipt.yaml"
+    },
+    {
       "chart": "bitnami/contour",
       "version": "21.1.4",
       "base": "default",

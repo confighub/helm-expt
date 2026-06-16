@@ -16,6 +16,7 @@ autoscaler/cluster-autoscaler,9.57.0,default,watch,pass,render-input: required H
 autoscaler/vertical-pod-autoscaler,0.9.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml
 autoscaler/vertical-pod-autoscaler,0.9.0,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,default,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml
+bitnami/apache,11.4.29,default,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-apache-default/receipt.yaml
 bitnami/contour,21.1.4,default,blocked,pass,helm-hook: pre-install certificate generation failed (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-contour-default/receipt.yaml
 bitnami/contour,21.1.4,no-crds,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml
 bitnami/elasticsearch,22.1.6,default,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml
