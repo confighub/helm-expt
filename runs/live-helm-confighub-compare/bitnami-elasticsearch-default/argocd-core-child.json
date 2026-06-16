@@ -1,0 +1,717 @@
+{
+  "metadata": {
+    "name": "elasticsearch-parity",
+    "namespace": "argocd",
+    "uid": "11738423-e666-4194-86d4-713bd3341bcb",
+    "resourceVersion": "4306",
+    "generation": 10,
+    "creationTimestamp": "2026-06-16T07:01:56Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster:argoproj.io/Application:argocd/elasticsearch-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "a5915d12-1e40-4269-95e5-196dcaa206fa",
+      "confighub.com/UnitSlug": "elasticsearch-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:01:56Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T07:08:54Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci",
+      "path": "./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "elasticsearch",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "elasticsearch-coordinating-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "elasticsearch-data-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "elasticsearch-ingest-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "elasticsearch-master-hl",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "elasticsearch-coordinating",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "elasticsearch-data",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "elasticsearch-ingest",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "elasticsearch-master",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "elasticsearch-coordinating",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "elasticsearch-data",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "elasticsearch-ingest",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "elasticsearch-master",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 2 pods to be ready..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "elasticsearch-coordinating",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "elasticsearch-data",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "elasticsearch-ingest",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "elasticsearch-master",
+        "status": "Synced"
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "elasticsearch-coordinating",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "elasticsearch-data",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "elasticsearch-ingest",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "elasticsearch-master",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:ec2f7f4eab84c9f4461ad827df813a7b668948dc4eb4555200fee4600d8d983e"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-16T07:01:59Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:ec2f7f4eab84c9f4461ad827df813a7b668948dc4eb4555200fee4600d8d983e",
+        "deployedAt": "2026-06-16T07:02:00Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T07:01:59Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T07:08:47Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:ec2f7f4eab84c9f4461ad827df813a7b668948dc4eb4555200fee4600d8d983e",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci",
+            "path": "./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "elasticsearch-master",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/elasticsearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "elasticsearch-coordinating",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/elasticsearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "elasticsearch-data",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/elasticsearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "elasticsearch-ingest",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/elasticsearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "elasticsearch-master",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/elasticsearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "elasticsearch-ingest",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/elasticsearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "elasticsearch-coordinating",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/elasticsearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "elasticsearch-data",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/elasticsearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "elasticsearch-master",
+            "status": "Synced",
+            "message": "serviceaccount/elasticsearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "elasticsearch-ingest",
+            "status": "Synced",
+            "message": "serviceaccount/elasticsearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "elasticsearch-data",
+            "status": "Synced",
+            "message": "serviceaccount/elasticsearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "elasticsearch-coordinating",
+            "status": "Synced",
+            "message": "serviceaccount/elasticsearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "elasticsearch",
+            "status": "Synced",
+            "message": "service/elasticsearch serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "elasticsearch-ingest-hl",
+            "status": "Synced",
+            "message": "service/elasticsearch-ingest-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "elasticsearch-master-hl",
+            "status": "Synced",
+            "message": "service/elasticsearch-master-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "elasticsearch-coordinating-hl",
+            "status": "Synced",
+            "message": "service/elasticsearch-coordinating-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "elasticsearch-data-hl",
+            "status": "Synced",
+            "message": "service/elasticsearch-data-hl serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "elasticsearch-coordinating",
+            "status": "Synced",
+            "message": "statefulset.apps/elasticsearch-coordinating serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "elasticsearch-data",
+            "status": "Synced",
+            "message": "statefulset.apps/elasticsearch-data serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "elasticsearch-ingest",
+            "status": "Synced",
+            "message": "statefulset.apps/elasticsearch-ingest serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "elasticsearch-master",
+            "status": "Synced",
+            "message": "statefulset.apps/elasticsearch-master serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+            ]
+          }
+        ],
+        "revision": "sha256:ec2f7f4eab84c9f4461ad827df813a7b668948dc4eb4555200fee4600d8d983e",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqga39vs-1kmw-cluster/oci",
+          "path": "./helm-expt-parity-elasticsearch-mqga39vs-1kmw-elasticsearch",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T07:01:59Z",
+      "finishedAt": "2026-06-16T07:02:00Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0",
+        "docker.io/bitnami/os-shell:12-debian-12-r50"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
