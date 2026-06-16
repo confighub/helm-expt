@@ -50,6 +50,7 @@ smallest generated surface that answers it.
 | I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today. | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md)<br>[kind-parity-decisions/decisions.csv](./kind-parity-decisions/decisions.csv)<br>[kind-parity-decisions/decisions.json](./kind-parity-decisions/decisions.json) |
 | I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today. | [live-parity-decisions/summary.md](./live-parity-decisions/summary.md)<br>[live-parity-decisions/decisions.csv](./live-parity-decisions/decisions.csv)<br>[live-parity-decisions/decisions.json](./live-parity-decisions/decisions.json) |
 | I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim). | [live-run-blocks/summary.md](./live-run-blocks/summary.md)<br>[live-run-blocks/run-blocks.csv](./live-run-blocks/run-blocks.csv)<br>[live-run-blocks/run-blocks.json](./live-run-blocks/run-blocks.json) |
+| I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action. | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md)<br>[matrix-completion-audit/audit.csv](./matrix-completion-audit/audit.csv)<br>[matrix-completion-audit/audit.json](./matrix-completion-audit/audit.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -262,6 +263,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `live-run-blocks` | [live-run-blocks/summary.md](./live-run-blocks/summary.md) | read-only run-block plan for the ready-to-run todo rows: small ordered blocks (G/P before K, hard charts first) with a derived (never claimed) predicted residue family and target profile per row |
 | `local-live-triage` | [local-live-triage/summary.md](./local-live-triage/summary.md) | front-door local live non-pass route classes and next actions |
 | `master-catalog-matrix` | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | supporting generated evidence |
+| `matrix-completion-audit` | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md) | read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided |
 | `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
@@ -306,7 +308,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 141 CSV files. Each row records the path, audience,
+It includes 142 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
