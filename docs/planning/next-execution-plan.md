@@ -60,40 +60,26 @@ production, or refresh counts by hand in this plan.
 | Which compact work rows are next? | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
 | Which top-20 production-support tasks can be assigned? | [data/production-support-decisions/work-items.csv](../../data/production-support-decisions/work-items.csv) |
 
-Current generated facts, at the time of this plan update
-(`2026-06-13`, after the Alloy no-crds and NATS HA live-parity receipts):
+Do not paste live, matrix, production, or refresh counts into this plan. Those
+counts move as live rows land and generated surfaces refresh. The current
+browser-readable status is:
 
 ```text
-108/110 maintained chart rows have model support.
-20/100 top-100 charts are catalog-supported for the current public catalog scope.
-80/100 top-100 charts are proof-grade non-catalog rows.
-191/191 chart/base rows have render parity.
-155/191 chart/base rows have in-ConfigHub proof.
-138/191 chart/base rows have local live proof.
-83/191 chart/base rows have GitOps/OCI live proof.
-83/191 chart/base rows have strict live Helm-vs-ConfigHub parity proof.
-81/191 chart/base rows have the complete core lane set.
-70/70 two-cluster kind parity rows pass semantic parity.
-38/42 top-20 base variants are start-here rows.
-17/20 top-20 charts have supported target-scoped production decisions; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
+data/master-catalog-matrix/matrix.html
 ```
 
-These numbers are a snapshot, not a second source of truth. The authoritative
-counts remain the generated sources named above.
-
-The current live parity rerun queue is deliberately small:
+The compact GitHub-readable status is:
 
 ```text
-1 GitOps/controller-health watch row
-0 render-input watch rows
-0 semantic parity defects
+data/status-dashboard/summary.md
+data/outcome-coverage/summary.md
+data/matrix-completion-audit/summary.md
+data/live-matrix-burndown/summary.md
+data/live-parity-rerun-plan/summary.md
 ```
 
-The former Cluster Autoscaler render-input watch row is closed. The
-`controller-default-reviewed` base is now a real values-profile rerender with
-`autoDiscovery.clusterName` and `awsRegion` pinned, and it has current live
-Helm-vs-ConfigHub parity across regular Helm, ConfigHub direct apply, and
-ConfigHub OCI/Argo.
+When a row moves from todo/watch/blocked to pass, update the relevant generated
+surface and let those files carry the number.
 
 ## Current 99% Goal Shape
 

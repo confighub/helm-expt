@@ -19,9 +19,10 @@ Three newer planning inputs sharpen this queue:
   reproduction.
 
 ## Where we actually are (so the queue is honest)
-- 100 proof-grade recipes + packages; **20 top charts catalog-supported (local-test)** with bespoke base
-  variants; 80 generated proofs (`next80`); 20/20 local-kind e2e + ConfigHub proof receipts; top-500
-  analysis done.
+- Use generated status surfaces for current counts:
+  `data/status-dashboard/summary.md`, `data/master-catalog-matrix/matrix.html`,
+  `data/outcome-coverage/summary.md`, and
+  `data/production-support-decisions/summary.md`.
 - `cub variant create` now exists and is the real current substrate for downstream ConfigHub variants.
   Local CLI truth also shows `cub variant promote` and `cub variant upload`; `cub variant release`
   is not current.
@@ -33,9 +34,9 @@ Three newer planning inputs sharpen this queue:
   proof creation.
 - Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113),
   3 template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
-- **1 target-scoped support decision recorded** (19 draft decisions remain;
-  20 production-review-ready disposition rows exist). P0 #76 is closed as a
-  verifier-backed import-path definition; downstream `cub installer import helm`
+- Production support decisions, draft state, and work items are generated data,
+  not hand-maintained queue text. P0 #76 is closed as a verifier-backed
+  import-path definition; downstream `cub installer import helm`
   implementation remains product work.
 
 ## Outcome standard for this queue
