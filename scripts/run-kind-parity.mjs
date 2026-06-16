@@ -373,6 +373,9 @@ function classifyReceipt(receipt) {
   if (text.includes("failed pre-install") && (text.includes("certgen") || text.includes("certificate"))) {
     return `helm-hook: pre-install certificate generation failed${paritySuffix}`;
   }
+  if (/imagepullbackoff|errimagepull|failed to pull image|pull access denied/.test(text)) {
+    return `remote-image: image pull failed or pinned image is unavailable${paritySuffix}`;
+  }
   if (
     (text.includes("missing-required-secret") || text.includes("mountvolume.setup failed")) &&
     text.includes("secret") &&

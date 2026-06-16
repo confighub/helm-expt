@@ -265,17 +265,18 @@ function buildCell({ row, lane, state, cell, live, kind, baseOut, burndown, runB
   } else if (lane.key === "G" || lane.key === "P") {
     const d = live.get(key);
     if (d) {
-      if (!reason) reason = clean(d.reason);
-      if (!nextAction) nextAction = clean(d.next_action);
-      if (!owner) owner = clean(d.blocker_owner);
-      support = clean(d.support_artifact);
+      reason = clean(d.reason) || reason;
+      nextAction = clean(d.next_action) || nextAction;
+      owner = clean(d.blocker_owner) || owner;
+      support = clean(d.support_artifact) || support;
     }
   } else if (lane.key === "K") {
     const d = kind.get(key);
     if (d) {
-      if (!reason) reason = clean(d.reason);
-      if (!nextAction) nextAction = clean(d.next_action);
-      if (!owner) owner = clean(d.blocker_owner);
+      reason = clean(d.reason) || reason;
+      nextAction = clean(d.next_action) || nextAction;
+      owner = clean(d.blocker_owner) || owner;
+      support = clean(d.receipt) || support;
     }
   }
 

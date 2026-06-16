@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 120
 watch: 9
-blocked: 26
-semantic parity pass: 139
+blocked: 27
+semantic parity pass: 140
 semantic parity defects: 8
-non-pass rows where semantic parity passed: 19
+non-pass rows where semantic parity passed: 20
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -35,13 +35,13 @@ data/live-parity-rerun-plan/summary.md
 | parity: semantic object diff | 8 |
 | target-prerequisite: CRDs missing | 4 |
 | helm-runtime: upstream not ready (parity passed) | 3 |
+| remote-image: image pull failed or pinned image is unavailable (parity passed) | 3 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
-| target-runtime: pods pending (parity passed) | 2 |
 | helm-hook: pre-install certificate generation failed (parity passed) | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
@@ -84,6 +84,7 @@ broader support claim.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | no-crds | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml |
+| `bitnami/elasticsearch@22.1.6` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml |
 | `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
@@ -149,8 +150,8 @@ broader support claim.
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
-| `istio/gateway@1.30.0` | controller-default-reviewed | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-controller-default-reviewed/receipt.yaml |
-| `istio/gateway@1.30.0` | default | blocked | pass | target-runtime: pods pending (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-default/receipt.yaml |
+| `istio/gateway@1.30.0` | controller-default-reviewed | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-controller-default-reviewed/receipt.yaml |
+| `istio/gateway@1.30.0` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-gateway-default/receipt.yaml |
 | `istio/istiod@1.30.0` | default | blocked | pass | target-prerequisite: required Namespace missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/istio-istiod-default/receipt.yaml |
 | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | unknown | target-prerequisite: cert-manager CRDs missing |  | inspect receipt | runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml |
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | unknown | target-prerequisite: cert-manager CRDs missing |  | inspect receipt | runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/receipt.yaml |

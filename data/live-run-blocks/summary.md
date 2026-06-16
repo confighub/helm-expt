@@ -24,9 +24,9 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   25
+ready-to-run rows:   24
 run blocks:          6  (G/P: 2, K: 4)
-derived predictions: 15
+derived predictions: 14
 unknown predictions: 10
 ```
 
@@ -64,14 +64,13 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-01 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 4 ready kind-parity row(s) with predicted remote-image (bitnami/apache@11.4.29, bitnami/elasticsearch@22.1.6, bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
 | bitnami/apache@11.4.29 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
-| bitnami/elasticsearch@22.1.6 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/elasticsearch@22.1.6 | ha | `npm run kind-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
 | bitnami/phpmyadmin@20.0.0 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
 | bitnami/spark@10.0.3 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
