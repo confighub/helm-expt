@@ -8,17 +8,17 @@
     "data/live-parity-rerun-plan/rerun-plan.csv",
     "runs/live-*/**/receipt.yaml"
   ],
-  "rowCount": 39,
+  "rowCount": 40,
   "byKind": {
     "unknown": 17,
     "crd": 10,
     "namespace": 5,
-    "external-api": 3,
+    "external-api": 4,
     "secret": 3,
     "topology": 1
   },
   "byOwner": {
-    "operator-review": 22,
+    "operator-review": 23,
     "user-stage": 16,
     "target-policy": 1
   },
@@ -172,6 +172,21 @@
       "recommended_next_action": "Review the runtime residue on the target (pod not ready / crash loop / ContainerCreating); stage any missing dependency, then rerun.",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default",
       "evidence_path": "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
+    },
+    {
+      "chart": "gitlab/gitlab-runner",
+      "version": "0.89.0",
+      "base": "default",
+      "lane": "K",
+      "result": "watch",
+      "prerequisite_kind": "external-api",
+      "prerequisite_name": "unknown",
+      "semantic_parity_passed": "yes",
+      "owner_class": "operator-review",
+      "support_artifact": "",
+      "recommended_next_action": "Provide the required upstream service/endpoint as a stack dependency or target fact, then rerun.",
+      "rerun_command": "",
+      "evidence_path": "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
     },
     {
       "chart": "grafana/pyroscope",

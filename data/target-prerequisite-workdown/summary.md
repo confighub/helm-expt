@@ -15,20 +15,20 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 39 target-prerequisite rows
+## 40 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
 | `unknown` | 17 |
 | `crd` | 10 |
 | `namespace` | 5 |
-| `external-api` | 3 |
+| `external-api` | 4 |
 | `secret` | 3 |
 | `topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 22 |
+| `operator-review` | 23 |
 | `user-stage` | 16 |
 | `target-policy` | 1 |
 
@@ -46,6 +46,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | fairwinds-stable/vpa@4.11.0 | default | K | unknown | unknown | operator-review | yes |
 | fairwinds-stable/vpa@4.11.0 | no-crds | K | crd | unknown | user-stage | yes |
 | fluent/fluentd@0.5.3 | default | G/P | unknown | unknown | operator-review | yes |
+| gitlab/gitlab-runner@0.89.0 | default | K | external-api | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | default | G/P | unknown | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | ha | G/P | unknown | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | no-crds | G/P | unknown | unknown | operator-review | yes |
