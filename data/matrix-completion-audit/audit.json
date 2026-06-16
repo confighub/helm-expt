@@ -4996,7 +4996,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/minio-operator/operator/7.1.1 --base default"
+      "command": ""
     },
     {
       "chart": "minio-operator/operator",
