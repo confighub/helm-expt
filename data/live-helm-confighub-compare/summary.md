@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 134
+pass: 135
 watch: 31
 blocked: 3
 not-started: 0
@@ -184,6 +184,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | - | runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml |
 |  | `stakater/reloader@2.2.12` | default | pass | - | runs/live-helm-confighub-compare/stakater-reloader-default/receipt.yaml |
 |  | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-default/receipt.yaml |
+|  | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | default | pass | - | runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml |
 |  | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml |
 |  | `vm/victoria-logs-single@0.12.5` | default | pass | - | runs/live-helm-confighub-compare/vm-victoria-logs-single-default/receipt.yaml |

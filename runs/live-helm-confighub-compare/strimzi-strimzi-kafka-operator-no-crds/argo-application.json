@@ -1,0 +1,30 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "name": "strimzi-kafka-operator-parity",
+    "namespace": "argocd"
+  },
+  "spec": {
+    "project": "default",
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+      "targetRevision": "latest",
+      "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true,
+        "prune": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  }
+}
