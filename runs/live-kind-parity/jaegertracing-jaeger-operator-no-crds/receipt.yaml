@@ -1,0 +1,165 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: jaegertracing-jaeger-operator-2.57.0-no-crds-kind-parity-20260606
+spec:
+  chart: jaegertracing/jaeger-operator
+  version: 2.57.0
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-16T02:11:20Z'
+  package:
+    path: packages/jaegertracing/jaeger-operator/2.57.0
+  recipe:
+    path: recipes/jaegertracing/jaeger-operator/2.57.0
+  variantRevision: recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-jaeger-6498b-a3d2-helm
+    installerCluster: hx-jaeger-6498b-a3d2-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-jaeger-6498b-a3d2-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-jaeger-6498b-a3d2-helm" ...
+
+          Deleted nodes: ["hx-jaeger-6498b-a3d2-helm-control-plane"]'
+      - cluster: hx-jaeger-6498b-a3d2-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-jaeger-6498b-a3d2-installer" ...
+
+          Deleted nodes: ["hx-jaeger-6498b-a3d2-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
+        --version 2.57.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975
+      objectCount: 10
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default'
+        pods: '# default'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
+        mapping not found for name: "jaeger-operator-service-cert" namespace: "default"
+        from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
+        namespace: "default" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+        ensure CRDs are installed first]'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id002 []
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 10
+      installerObjectCount: 0
+      missingFromInstaller:
+      - admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||jaeger-operator-mutating-webhook-configuration
+      - admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||jaeger-operator-validating-webhook-configuration
+      - apps/v1|Deployment|default|jaeger-operator
+      - cert-manager.io/v1|Certificate|default|jaeger-operator-service-cert
+      - cert-manager.io/v1|Issuer|default|selfsigned-issuer
+      - rbac.authorization.k8s.io/v1|RoleBinding|default|jaeger-operator
+      - rbac.authorization.k8s.io/v1|Role|default|jaeger-operator
+      - v1|ServiceAccount|default|jaeger-operator
+      - v1|Service|default|jaeger-operator-metrics
+      - v1|Service|default|jaeger-operator-webhook-service
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id002
+      comparisonSHA256: ef3b9470a0b765a609f72ba6f0c1104aab2494bbfef024bb9b52b1d3275c9e37
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=10 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
+      mapping not found for name: "jaeger-operator-service-cert" namespace: "default"
+      from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
+      namespace: "default" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first]'
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-jaeger-6498b-a3d2-jaeger-operator/out/manifests/certificate-default-jaeger-operator-service-cert.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
+      from "/tmp/helm-expt-kind-parity-hx-jaeger-6498b-a3d2-jaeger-operator/out/manifests/issuer-default-selfsigned-issuer.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
+      namespace: "default" from "/tmp/helm-expt-kind-parity-hx-jaeger-6498b-a3d2-jaeger-operator/out/manifests/certificate-default-jaeger-operator-service-cert.yaml":
+      no matches for kind "Certificate" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
+      from "/tmp/helm-expt-kind-parity-hx-jaeger-6498b-a3d2-jaeger-operator/out/manifests/issuer-default-selfsigned-issuer.yaml":
+      no matches for kind "Issuer" in version "cert-manager.io/v1"
+
+      ensure CRDs are installed first'
