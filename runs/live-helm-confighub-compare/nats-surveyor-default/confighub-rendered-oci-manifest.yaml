@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: surveyor
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: surveyor
+    app.kubernetes.io/version: 0.9.9
+    helm.sh/chart: surveyor-0.20.9
+  name: surveyor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: surveyor
+      app.kubernetes.io/name: surveyor
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: surveyor
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: surveyor
+        app.kubernetes.io/version: 0.9.9
+        helm.sh/chart: surveyor-0.20.9
+    spec:
+      containers:
+        - args:
+            - -p
+            - "7777"
+            - -s=nats://nats:4222
+            - --timeout=3s
+            - -c=1
+          env: null
+          image: natsio/nats-surveyor:0.9.9
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          name: surveyor
+          ports:
+            - containerPort: 7777
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources: {}
+          securityContext: {}
+          volumeMounts: null
+      securityContext: {}
+      serviceAccountName: surveyor
+      volumes: null
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default-oci
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: surveyor
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: surveyor
+    app.kubernetes.io/version: 0.9.9
+    helm.sh/chart: surveyor-0.20.9
+  name: surveyor
+spec:
+  ports:
+    - name: http
+      port: 7777
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/instance: surveyor
+    app.kubernetes.io/name: surveyor
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: surveyor
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: surveyor
+    app.kubernetes.io/version: 0.9.9
+    helm.sh/chart: surveyor-0.20.9
+  name: surveyor

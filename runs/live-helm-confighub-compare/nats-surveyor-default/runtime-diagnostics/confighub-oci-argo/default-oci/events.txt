@@ -1,0 +1,9 @@
+LAST SEEN   TYPE      REASON              OBJECT                         MESSAGE
+10m         Normal    Scheduled           pod/surveyor-c4759d87-h82kr    Successfully assigned default-oci/surveyor-c4759d87-h82kr to helm-expt-parity-surveyor-mqg0tl7v-z7u-control-plane
+10m         Normal    SuccessfulCreate    replicaset/surveyor-c4759d87   Created pod: surveyor-c4759d87-h82kr
+10m         Normal    ScalingReplicaSet   deployment/surveyor            Scaled up replica set surveyor-c4759d87 from 0 to 1
+9m46s       Warning   Unhealthy           pod/surveyor-c4759d87-h82kr    Readiness probe failed: Get "http://10.244.0.14:7777/healthz": dial tcp 10.244.0.14:7777: connect: connection refused
+4m53s       Normal    Pulled              pod/surveyor-c4759d87-h82kr    Container image "natsio/nats-surveyor:0.9.9" already present on machine and can be accessed by the pod
+4m53s       Normal    Created             pod/surveyor-c4759d87-h82kr    Container created
+4m53s       Normal    Started             pod/surveyor-c4759d87-h82kr    Container started
+55s         Warning   BackOff             pod/surveyor-c4759d87-h82kr    Back-off restarting failed container surveyor in pod surveyor-c4759d87-h82kr_default-oci(5b8a45a5-a2c4-43e1-b176-fe6e35ca28ba)

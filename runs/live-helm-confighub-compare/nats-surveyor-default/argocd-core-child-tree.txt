@@ -1,0 +1,21 @@
+Name:               argocd/surveyor-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:65407/applications/surveyor-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-surveyor-mqg0tl7v-z7u-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-surveyor-mqg0tl7v-z7u-surveyor
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                        STATUS  HEALTH       AGE    MESSAGE                                      REASON
+Deployment/surveyor              Synced  Progressing  7m3s   deployment.apps/surveyor serverside-applied  Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/surveyor-c4759d87           Progressing  7m3s                                                Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/surveyor-c4759d87-h82kr          Degraded     7m3s                                                back-off 5m0s restarting failed container=surveyor pod=surveyor-c4759d87-h82kr_default-oci(5b8a45a5-a2c4-43e1-b176-fe6e35ca28ba)
+Namespace/default-oci            Synced               7m42s
+Service/surveyor                 Synced  Healthy      7m3s   service/surveyor serverside-applied
+ServiceAccount/surveyor          Synced               7m3s   serviceaccount/surveyor serverside-applied

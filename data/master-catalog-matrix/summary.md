@@ -39,7 +39,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 67 / 82 / 158 / 120 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | 917 / 69 / 82 / 156 / 120 |
 | Variants with the complete core lane set | 120 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -255,7 +255,7 @@ when you want the user/product view with those columns visible.
 |  | no-crds | next80 | — | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `nats/nats@2.14.0` | default | next80 | `tpl` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | ha | next80 | `tpl` | — | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | ❌ | ⬜ | live-parity | ⬜ |
-| `nats/surveyor@0.20.9` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
+| `nats/surveyor@0.20.9` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ❌ | ⬜ | in-confighub | ⬜ |
 |  | default-reviewed | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ❌ | ⬜ | in-confighub | ⬜ |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | — | — | ✅ | ✅ | ❌ | — | ⬜ | ⬜ | ⬜ | ⬜ | in-confighub | ⬜ |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | next80 | — | — | — | ✅ | ✅ | ❌ | — | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
