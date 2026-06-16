@@ -1,0 +1,164 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-adapter-5.3.0-default-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus-adapter
+  version: 5.3.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T05:55:02Z'
+  package:
+    path: packages/prometheus-community/prometheus-adapter/5.3.0
+  recipe:
+    path: recipes/prometheus-community/prometheus-adapter/5.3.0
+  variantRevision: recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-prometheusadapter-mqg89rqi-1c3w
+    kubeContext: kind-helm-expt-parity-prometheusadapter-mqg89rqi-1c3w
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-prometheusadapter-mqg89rqi-1c3w
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheusadapter-mqg89rqi-1c3w"...
+
+        Deleting cluster "helm-expt-parity-prometheusadapter-mqg89rqi-1c3w" ...
+
+        Deleted nodes: ["helm-expt-parity-prometheusadapter-mqg89rqi-1c3w-control-plane"]
+
+        Deleting Space "helm-expt-parity-prometheusadapter-mqg89rqi-1c3w-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus-adapter prometheus-adapter --repo
+        https://prometheus-community.github.io/helm-charts --version 5.3.0 --namespace
+        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a
+      objectCount: 11
+      liveHelmManifestSHA256: 87bc75c5db973ea9ec0e964ba77460229b009d84f7d0f40cb1a491f25ea3cd5c
+      liveHelmManifestObjectCount: 11
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/prometheus-adapter   1/1   1     1     38s
+        pods: prometheus-adapter-6b8dc8dc6b-92gz7   1/1   Running   0     38s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-16T05:56:25Z'
+    finishedAt: '2026-06-16T05:57:05Z'
+    elapsedSeconds: 39.328
+    timeoutSeconds: 900
+    command: helm upgrade --install prometheus-adapter prometheus-adapter --repo https://prometheus-community.github.io/helm-charts
+      --version 5.3.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T05:57:10Z'
+    finishedAt: '2026-06-16T05:57:11Z'
+    elapsedSeconds: 0.492
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-adapter/5.3.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusadapter-mqg89rqi-1c3w-prometheus-adapter
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: blocked
+    startedAt: '2026-06-16T05:57:11Z'
+    finishedAt: '2026-06-16T05:57:11Z'
+    elapsedSeconds: 0.258
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg89rqi-1c3w.kubeconfig
+      --context kind-helm-expt-parity-prometheusadapter-mqg89rqi-1c3w apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/direct-apply-manifest.yaml
+    objectCount: 11
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-prometheusadapter-mqg89rqi-1c3w\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg89rqi-1c3w.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheusadapter-mqg89rqi-1c3w\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheusadapter-mqg89rqi-1c3w\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheusadapter-mqg89rqi-1c3w\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg89rqi-1c3w.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind."
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus-adapter\" does not exist. Installing it now.\nNAME:\
+      \ prometheus-adapter\nLAST DEPLOYED: Tue Jun 16 06:56:27 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nprometheus-adapter has been deployed.\nIn a few minutes you should be\
+      \ able to list metrics using the following command(s):\n\n  kubectl get --raw\
+      \ /apis/custom.metrics.k8s.io/v1beta1"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
+      namespace: "" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/direct-apply-manifest.yaml":
+      no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
+      namespace: "" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-default/direct-apply-manifest.yaml":
+      no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
+
+      ensure CRDs are installed first'

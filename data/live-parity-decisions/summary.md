@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-39 non-pass rows: 33 watch, 6 blocked.
-3 are resolved by the **user** (stage a prerequisite); 3
+40 non-pass rows: 33 watch, 7 blocked.
+3 are resolved by the **user** (stage a prerequisite); 4
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -37,8 +37,8 @@ passed — the residue is operational, not a config mismatch.
 | `target-runtime` | 9 |
 | `remote-image` | 7 |
 | `target-prerequisite` | 3 |
+| `capability-profile` | 2 |
 | `render-input` | 2 |
-| `capability-profile` | 1 |
 | `operate-policy` | 1 |
 
 | Who fixes it | Rows |
@@ -46,7 +46,7 @@ passed — the residue is operational, not a config mismatch.
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 9 |
 | `catalog or image publisher` | 7 |
-| `catalog` | 3 |
+| `catalog` | 4 |
 | `user` | 3 |
 | `needs operate review` | 1 |
 
@@ -88,6 +88,7 @@ passed — the residue is operational, not a config mismatch.
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | capability-profile | catalog | yes, use the capability-profile base |
+| prometheus-community/prometheus-adapter@5.3.0 | default | blocked | capability-profile | catalog | yes, use the capability-profile base |
 | prometheus-community/prometheus@29.9.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
