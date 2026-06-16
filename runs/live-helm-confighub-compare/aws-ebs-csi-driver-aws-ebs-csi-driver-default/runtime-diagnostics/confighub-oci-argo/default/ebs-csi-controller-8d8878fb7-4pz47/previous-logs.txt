@@ -1,0 +1,18 @@
+I0616 06:26:29.892836       1 main.go:174] "Initializing metadata"
+I0616 06:26:29.892870       1 metadata.go:75] "Attempting to retrieve instance metadata from IMDS"
+E0616 06:26:34.894618       1 metadata.go:81] "Retrieving IMDS metadata failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument, request canceled, context deadline exceeded"
+I0616 06:26:34.894664       1 metadata.go:92] "Attempting to retrieve instance metadata from Kubernetes API"
+I0616 06:26:34.894874       1 envvar.go:195] "Feature gate default state" feature="InOrderInformersBatchProcess" enabled=true
+I0616 06:26:34.894910       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0616 06:26:34.894915       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowTLSCacheGC" enabled=true
+I0616 06:26:34.894919       1 envvar.go:195] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0616 06:26:34.894922       1 envvar.go:195] "Feature gate default state" feature="InformerResourceVersion" enabled=true
+I0616 06:26:34.894925       1 envvar.go:195] "Feature gate default state" feature="UnlockWhileProcessingFIFO" enabled=true
+I0616 06:26:34.894928       1 envvar.go:195] "Feature gate default state" feature="AtomicFIFO" enabled=true
+I0616 06:26:34.894931       1 envvar.go:195] "Feature gate default state" feature="WatchListClient" enabled=true
+I0616 06:26:34.894934       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCARotation" enabled=true
+I0616 06:26:34.894937       1 envvar.go:195] "Feature gate default state" feature="InOrderInformers" enabled=true
+E0616 06:26:34.903071       1 metadata.go:98] "Retrieving Kubernetes metadata failed" err="did not find aws instance ID in node providerID string"
+E0616 06:26:34.903120       1 main.go:179] "Failed to initialize metadata when it is required" err="all specified --metadata-sources '[imds kubernetes]' are unavailable"
+I0616 06:26:34.903132       1 main.go:181] "The region can be manually supplied via the AWS_REGION environment variable"
+unable to retrieve container logs for containerd://0c3552206e1384d922c4a50926dc047fb93b06a269bc77ae498f019d75b303e3unable to retrieve container logs for containerd://3d208e1d4976020cd87462d8bf9982ea44c228fa1a46b5be21fcfd3bfc55ff0bunable to retrieve container logs for containerd://0629df7806ef1870729dbae2873d64a23900ade4a2fbb9f97cd461ee90f026b7

@@ -1,0 +1,7 @@
+I0616 06:12:59.128119       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+I0616 06:12:59.128150       1 main.go:146] "Running node-driver-registrar" mode=""
+I0616 06:12:59.128152       1 main.go:163] "Attempting to open a gRPC connection" csiAddress="/csi/csi.sock"
+I0616 06:13:09.131115       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:19.129726       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:13:29.129881       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+E0616 06:13:29.129910       1 main.go:167] "Error connecting to CSI driver" err="context deadline exceeded"

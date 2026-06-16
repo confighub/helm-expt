@@ -1,0 +1,1583 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default-live-parity-20260605
+spec:
+  chart: aws-ebs-csi-driver/aws-ebs-csi-driver
+  version: 2.60.1
+  base: default
+  result: watch
+  observedAt: '2026-06-16T06:00:01Z'
+  package:
+    path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+  recipe:
+    path: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+  variantRevision: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-awsebscsidriver-mqg8g6it-215u
+    kubeContext: kind-helm-expt-parity-awsebscsidriver-mqg8g6it-215u
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-awsebscsidriver-mqg8g6it-215u --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-awsebscsidriver-mqg8g6it-215u"...
+
+        Deleting cluster "helm-expt-parity-awsebscsidriver-mqg8g6it-215u" ...
+
+        Deleted nodes: ["helm-expt-parity-awsebscsidriver-mqg8g6it-215u-control-plane"]
+
+        Deleting Space "helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver --repo
+        https://kubernetes-sigs.github.io/aws-ebs-csi-driver --version 2.60.1 --namespace
+        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7
+      objectCount: 19
+      liveHelmManifestSHA256: c98d9092297f5c4440ad2abbaf3fad3972ba09d07363efc366acd598ed1d5654
+      liveHelmManifestObjectCount: 19
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: 'deployment.apps/ebs-csi-controller   0/2   2     0     8m
+
+          daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     8m
+
+          daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   8m'
+        pods: 'ebs-csi-controller-c69844876-lmwn7   1/5   CrashLoopBackOff   21 (94s
+          ago)   8m
+
+          ebs-csi-controller-c69844876-mzqxv   1/5   CrashLoopBackOff   21 (93s ago)   8m
+
+          ebs-csi-node-krjkc                   1/3   CrashLoopBackOff   11 (72s ago)   8m'
+        notReady:
+        - namespace: default-helm
+          pod: ebs-csi-controller-c69844876-lmwn7
+          ready: 1/5
+          status: CrashLoopBackOff
+        - namespace: default-helm
+          pod: ebs-csi-controller-c69844876-mzqxv
+          ready: 1/5
+          status: CrashLoopBackOff
+        - namespace: default-helm
+          pod: ebs-csi-node-krjkc
+          ready: 1/3
+          status: CrashLoopBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 8f4ae61c1155dda8259dacb0424a33007fde63098959402a35153588839d0ecd
+            bytes: 12663
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 1ed57af1ac05a77c9dfd49bdb0923e4bd1894718c58bbdbabd23c3c75edab18c
+            bytes: 15217
+          podArtifacts:
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-lmwn7
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-lmwn7/describe.txt
+            sha256: ed4edcf6fcb4212815562cfeecaa0a232abcb000afcdcd391f6f426357be7cb0
+            bytes: 20024
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-lmwn7
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-lmwn7/logs.txt
+            sha256: 99727e5426fe4b99508ef364f401a6446788509beb54bfe32010229f213de49c
+            bytes: 20034
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-lmwn7
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-lmwn7/previous-logs.txt
+            sha256: 6cf5b4ad575ff01c637e88efc1310b75c5a43232d51ce64dad257daa708b0987
+            bytes: 20034
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-mzqxv
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-mzqxv/describe.txt
+            sha256: 881ce5b743319c609ac7e413af36b62ad7095aedef0e9c59056859722fb0bc0e
+            bytes: 20024
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-mzqxv
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-mzqxv/logs.txt
+            sha256: 42df16546947f283e838eeb476bc10da3c5f6f3cf3952409f9c8921daf16b199
+            bytes: 20034
+          - namespace: default-helm
+            pod: ebs-csi-controller-c69844876-mzqxv
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-controller-c69844876-mzqxv/previous-logs.txt
+            sha256: a0d9e15c102c3fa490c41f953690f502ac408a2fb022613bb2c52137a92e1e0c
+            bytes: 15025
+          - namespace: default-helm
+            pod: ebs-csi-node-krjkc
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-node-krjkc/describe.txt
+            sha256: 5f4d02ba130867f8beeea38d12a7ec129588480bab379c244fc035713f68a365
+            bytes: 12792
+          - namespace: default-helm
+            pod: ebs-csi-node-krjkc
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-node-krjkc/logs.txt
+            sha256: 012fc2c2addf25a63b49b6e7e86b94e29e1cdcf08fa83cafa8b4423d98c545b5
+            bytes: 7114
+          - namespace: default-helm
+            pod: ebs-csi-node-krjkc
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/ebs-csi-node-krjkc/previous-logs.txt
+            sha256: d4a24651ec3347678bd661acc6680f941cfec440784a2a73de88b7769a5579fb
+            bytes: 2659
+      stderr: 'Error: resource DaemonSet/default-helm/ebs-csi-node not ready. status:
+        InProgress, message: Available: 0/1
+
+        resource Deployment/default-helm/ebs-csi-controller not ready. status: InProgress,
+        message: Available: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 1fe929af45ab1a360fa390fa3aeb6ead816d296f292903c2819bbddf23c49715
+      objectCount: 20
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/ebs-csi-controller   0/2   2     0     4m55s
+
+          daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     4m55s
+
+          daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   4m55s'
+        pods: '# default
+
+          ebs-csi-controller-8d8878fb7-4pz47   1/5   Error              17 (86s ago)   4m55s
+
+          ebs-csi-controller-8d8878fb7-cjhbb   1/5   Error              17 (97s ago)   4m55s
+
+          ebs-csi-node-mb2sb                   1/3   CrashLoopBackOff   9 (64s ago)    4m55s'
+        notReady:
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-4pz47
+          ready: 1/5
+          status: Error
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-cjhbb
+          ready: 1/5
+          status: Error
+        - namespace: default
+          pod: ebs-csi-node-mb2sb
+          ready: 1/3
+          status: CrashLoopBackOff
+        terminalReadinessBlockers: {}
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: eb3717a2bd3e17397417da49f6573a8104822362dff5b4016e65f78bb4b3c4a3
+            bytes: 13288
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: adcacc5e3baa0cde168e6b6701a98ce519ba3ab12bf5485112126bae65bf02aa
+            bytes: 14859
+          podArtifacts:
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-4pz47/describe.txt
+            sha256: 94e21b8c449a00a27a69b789c3c73c0481af21fae29cd09eb361d5408136154a
+            bytes: 20024
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-4pz47/logs.txt
+            sha256: 293c1ebc336e41307c686637aaa17c0f5570b5c113b16f2de00115098f655cc8
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-4pz47/previous-logs.txt
+            sha256: 1f3c64268cda4335ba80e077f7a00574adc5e88b168ac2fa4963fbb367859afd
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-cjhbb/describe.txt
+            sha256: ffb062eeab630de04e131436368711b3e8fff755f515c191f5454155387dedb0
+            bytes: 20024
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-cjhbb/logs.txt
+            sha256: 1f52851872a4a303f48a4a0db04085542ac11e5d7c71f0abd9553278e354a110
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-controller-8d8878fb7-cjhbb/previous-logs.txt
+            sha256: 1f52851872a4a303f48a4a0db04085542ac11e5d7c71f0abd9553278e354a110
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-node-mb2sb/describe.txt
+            sha256: d0416417efa0279d6998495de6efe9d921eed13c9acf018736d1b068429c9fc2
+            bytes: 11694
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-node-mb2sb/logs.txt
+            sha256: 6b0231653429f6ae89df18d90adf3b6ae499b26504d05c7333185ea71c704e2f
+            bytes: 5629
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/ebs-csi-node-mb2sb/previous-logs.txt
+            sha256: 556c607f1c2c3961133cacccdfc90873d2172e935902456fb58daa653028ed7f
+            bytes: 678
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 11
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "ebs-csi-node-role" deleted
+
+            clusterrole.rbac.authorization.k8s.io "ebs-external-attacher-role" deleted
+
+            clusterrole.rbac.authorization.k8s.io "ebs-external-provisioner-role"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "ebs-external-resizer-role" deleted
+
+            clusterrole.rbac.authorization.k8s.io "ebs-external-snapshotter-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "ebs-csi-attacher-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "ebs-csi-node-getter-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "ebs-csi-provisioner-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "ebs-csi-resizer-binding"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "ebs-csi-snapshotter-binding"
+            deleted
+
+            csidriver.storage.k8s.io "ebs.csi.aws.com" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|ebs-csi-node
+          - apps/v1|DaemonSet|default|ebs-csi-node-windows
+          - apps/v1|Deployment|default|ebs-csi-controller
+          - policy/v1|PodDisruptionBudget|default|ebs-csi-controller
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|ebs-csi-leases-rolebinding
+          - rbac.authorization.k8s.io/v1|Role|default|ebs-csi-leases-role
+          - v1|ServiceAccount|default|ebs-csi-controller-sa
+          - v1|ServiceAccount|default|ebs-csi-node-sa
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+      controller: Argo CD OCI
+      app: aws-ebs-csi-driver-parity
+      manifestSHA256: 95af06469b3fd506515c8b632a3dcdfd4c26242d5d3b7069ef6384f05ae31833
+      objectCount: 20
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+      sync: Synced
+      health: Degraded
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+              targetRevision: latest
+          revision: sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T06:21:10Z'
+          status: Degraded
+        summary:
+          images:
+          - public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6
+          - public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+          - public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5
+          - public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6
+          - public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+          - public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T06:21:10Z'
+          finishedAt: '2026-06-16T06:21:12Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 20
+          syncResultStatusCounts:
+            Synced: 20
+        history:
+        - id: 0
+          revision: sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+          deployedAt: '2026-06-16T06:21:12Z'
+          deployStartedAt: '2026-06-16T06:21:10Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: ebs-csi-controller-sa
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: ebs-csi-node-sa
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: ebs-csi-node
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: ebs-csi-node-windows
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: ebs-csi-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: ebs-csi-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: ebs-csi-node-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: ebs-external-attacher-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: ebs-external-provisioner-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: ebs-external-resizer-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: ebs-external-snapshotter-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: ebs-csi-attacher-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: ebs-csi-node-getter-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: ebs-csi-provisioner-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: ebs-csi-resizer-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: ebs-csi-snapshotter-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: ebs-csi-leases-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: ebs-csi-leases-rolebinding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: storage.k8s.io
+          kind: CSIDriver
+          namespace: ''
+          name: ebs.csi.aws.com
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         aws-ebs-csi-driver-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster:argoproj.io/Application:argocd/aws-ebs-csi-driver-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ b55098a0-c862-442b-bd57-0d01cc1cc210\n              confighub.com/UnitSlug:\
+              \ aws-ebs-csi-driver-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T06:21:08Z\n\
+              \  Generation:          10\n  Resource Version:    3650\n  UID:    \
+              \             1f1ba648-0e8d-4a87-8ddc-98f04cbcdb27\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T06:21:10Z\n\
+              \    Status:                Degraded\n  History:\n    Deploy Started\
+              \ At:  2026-06-16T06:21:10Z\n    Deployed At:        2026-06-16T06:21:12Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T06:21:12Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-16T06:21:10Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       policy\n        Hook\
+              \ Phase:  Running\n        Kind:        PodDisruptionBudget\n      \
+              \  Message:     poddisruptionbudget.policy/ebs-csi-controller serverside-applied\n\
+              \        Name:        ebs-csi-controller\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/ebs-csi-node-sa\
+              \ serverside-applied\n        Name:        ebs-csi-node-sa\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/ebs-csi-controller-sa serverside-applied\n    \
+              \    Name:        ebs-csi-controller-sa\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/ebs-csi-node-role reconciled.\
+              \ reconciliation required create\n                     missing rules\
+              \ added:\n                       {Verbs:[get list watch] APIGroups:[storage.k8s.io]\
+              \ Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get] APIGroups:[] Resources:[nodes]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[patch\
+              \ list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get] APIGroups:[storage.k8s.io] Resources:[csinodes]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-csi-node-role\
+              \ serverside-applied\n        Name:        ebs-csi-node-role\n     \
+              \   Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/ebs-external-attacher-role\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[get list watch patch]\
+              \ APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[storage.k8s.io]\
+              \ Resources:[csinodes] ResourceNames:[] NonResourceURLs:[]}\n      \
+              \                 {Verbs:[get list watch patch] APIGroups:[storage.k8s.io]\
+              \ Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[patch] APIGroups:[storage.k8s.io] Resources:[volumeattachments/status]\
+              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/ebs-external-attacher-role\
+              \ serverside-applied\n        Name:        ebs-external-attacher-role\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                  MESSAGE
+
+              6m51s       Normal   OperationStarted     application/aws-ebs-csi-driver-parity   Initiated
+              automated sync to ''sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a''
+
+              6m51s       Normal   ResourceUpdated      application/aws-ebs-csi-driver-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/aws-ebs-csi-driver-parity   Updated
+              health status:  -> Degraded
+
+              6m49s       Normal   OperationCompleted   application/aws-ebs-csi-driver-parity   Sync
+              operation to sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/aws-ebs-csi-driver-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Degraded
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 20
+              artifact:
+                path: argocd-core-child.json
+                sha256: a2ca61b9727cb1b087ae79cf698230f1c3bc81e63dec2c1c9e7b08d264e58b90
+                bytes: 27457
+              output: "{\n  \"metadata\": {\n    \"name\": \"aws-ebs-csi-driver-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"1f1ba648-0e8d-4a87-8ddc-98f04cbcdb27\"\
+                ,\n    \"resourceVersion\": \"3843\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-16T06:21:08Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster:argoproj.io/Application:argocd/aws-ebs-csi-driver-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"b55098a0-c862-442b-bd57-0d01cc1cc210\",\n      \"confighub.com/UnitSlug\"\
+                : \"aws-ebs-csi-driver-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T06:21:08Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T06:28:10Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"ebs-csi-controller-sa\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ServiceAccount\",\n        \"namespace\": \"default\",\n     \
+                \   \"name\": \"ebs-csi-node-sa\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"DaemonSet\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"ebs-csi-node\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Progressing\"\
+                ,\n          \"message\": \"Waiting for daemon set \\\"ebs-csi-node\\\
+                \" rollout to finish: 0 of 1 updated pods are available...\"\n   \
+                \     }\n      },\n      {\n        \"group\": \"apps\",\n       \
+                \ \"version\": \"v1\",\n        \"kind\": \"DaemonSet\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"ebs-csi-node-windows\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"apps\",\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Deployment\",\n        \"na"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 0d2a02798bf0c09620ab0e886f7cf599abd17b7c2a36f48cd5aa0706255a0b25
+                bytes: 6558
+              output: "Name:               argocd/aws-ebs-csi-driver-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:58359/applications/aws-ebs-csi-driver-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Degraded\n\nKIND/NAME                                        \
+                \     STATUS  HEALTH       AGE   MESSAGE                         \
+                \                                                                \
+                \                                                                \
+                \                                  REASON\nClusterRole/ebs-external-provisioner-role\
+                \             Synced               7m7s                          \
+                \                                                                \
+                \                                                                \
+                \                                          \nClusterRole/ebs-external-resizer-role\
+                \                 Synced               7m7s                      \
+                \                                                                \
+                \                                                                \
+                \                                              \nRole/ebs-csi-leases-role\
+                \                              Synced               18m   role.rbac.authorization.k8s.io/ebs-csi-leases-role\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/ebs-csi-leases-role\
+                \ serverside-applied                              \nServiceAccount/ebs-csi-node-sa\
+                \                        Synced               18m   serviceaccount/ebs-csi-node-sa\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                    \nDaemonSet/ebs-csi-node    \
+                \                            Synced  Progressing  18m   daemonset.apps/ebs-csi-node\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                       Waiting for daemon set \"\
+                ebs-csi-node\" rollout to finish: 0 of 1 updated pods are available...\n\
+                \u251C\u2500Pod/ebs-csi-node-mb2sb                               \
+                \       Degraded     18m                                         \
+                \                                                                \
+                \                                                                \
+                \                            back-off 5m0s restarting failed container=ebs-plugin\
+                \ pod=ebs-csi-node-mb2sb_default(6af70f2a-dc66-4955-bb5f-05fc69782ab5),\
+                \ back-off 5m0s restarting failed container=node-driver-registrar\
+                \ pod=ebs-csi-node-mb2sb_default(6af70f2a-dc66-4955-bb5f-05fc69782ab5)\n\
+                \u2514\u2500ControllerRevision/ebs-csi-node-6bc6dbfd9c           \
+                \                    18m                                         \
+                \                                                                \
+                \                                                                \
+                \                            \nDaemonSet/ebs-csi-node-windows    \
+                \                    Synced  Healthy      18m   daemonset.apps/ebs-csi-node-windows\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                               \n\u2514\u2500ControllerRevision/ebs-csi-node-windows-76c56b5dc6\
+                \                       18m                                      \
+                \                                                                \
+                \                                                                \
+                \                               \nClusterRole/ebs-external-attacher-role\
+                \                Synced               7m7s                       \
+                \                                                                \
+                \                                                                \
+                \                                             \nClusterRoleBinding/ebs-csi-attacher-binding\
+                \           Synced               7m7s                            \
+                \                                                                \
+                \                                                                \
+                \                                        \nClusterRoleBinding/ebs-csi-snapshotter-binding\
+                \        Synced               7m7s                               \
+                \                                                                \
+                \                                                                \
+                \                                     \nDeployment/ebs-csi-controller\
+                \                         Synced  Degraded     18m   deployment.apps/ebs-csi-controller\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                Deployment \"ebs-csi-controller\"\
+                \ exceeded its progress deadline\n\u2514\u2500ReplicaSet/ebs-csi-controller-8d8878fb7\
+                \                     Progressing  18m                           \
+                \                                                                \
+                \                                                                \
+                \                                          Waiting for rollout to\
+                \ finish: 0 out of 2 new replicas are available...\n  \u251C\u2500\
+                Pod/ebs-csi-controller-8d8878fb7-4pz47                    Degraded\
+                \     18m                                                        \
+                \                                                                \
+                \                                                                \
+                \             back-off 5m0s restarting failed container=csi-attacher\
+                \ pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f),\
+                \ back-off 5m0s restarting failed container=csi-provisioner pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f),\
+                \ back-off 5m0s restarting failed container=csi-resizer pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f),\
+                \ back-off 5m0s restarting failed container=ebs-plugin pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f)\n\
+                \  \u2514\u2500Pod/ebs-csi-controller-8d8878fb7-cjhbb            \
+                \        Degraded     18m                                        \
+                \                                                                \
+                \                                                                \
+                \                             back-off 5m0s restarting failed container=csi-attacher\
+                \ pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184),\
+                \ back-off 5m0s restarting failed container=csi-provisioner pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184),\
+                \ back-off 5m0s restarting failed container=csi-resizer pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184),\
+                \ back-off 5m0s restarting failed container=ebs-plugin pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184)\n\
+                ClusterRole/ebs-csi-node-role                         Synced     \
+                \          7m7s                                                  \
+                \                                                                \
+                \                                                                \
+                \                  \nClusterRole/ebs-external-snapshotter-role   \
+                \          Synced               7m7s                             \
+                \                                                                \
+                \                                                                \
+                \                                       \nClusterRoleBinding/ebs-csi-node-getter-binding\
+                \        Synced               7m7s                               \
+                \                                                                \
+                \                                                                \
+                \                                     \nClusterRoleBinding/ebs-csi-provisioner-binding\
+                \        Synced               7m7s                               \
+                \                                                                \
+                \                                                            "
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"aws-ebs-csi-driver-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": false,\n      \"stage\": \"apply\",\n      \"reason\"\
+              : \"Degraded\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/aws-ebs-csi-driver-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"aws-ebs-csi-driver-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+              targetRevision: latest
+          revision: sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T06:01:36Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T06:21:06Z'
+          finishedAt: '2026-06-16T06:21:08Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+          deployedAt: '2026-06-16T06:21:08Z'
+          deployStartedAt: '2026-06-16T06:21:06Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: aws-ebs-csi-driver-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-16T06:01:28Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        15\n  Resource Version:  3795\n  UID:        \
+              \       ad0b2308-04c9-4118-bb57-b58eeeacc187\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-16T06:01:36Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T06:21:06Z\n\
+              \    Deployed At:        2026-06-16T06:21:08Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T06:21:08Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-16T06:21:06Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/aws-ebs-csi-driver-parity\
+              \ serverside-applied\n        Name:        aws-ebs-csi-driver-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \      Source:\n        Path:              ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T06:27:32Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       aws-ebs-csi-driver-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n   \
+              \ Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     26m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     26m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m14s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a'\n\
+              \  Normal  ResourceUpdated     7m14s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m12s  argocd-application-controller  Sync operation to sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\
+              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                               MESSAGE
+
+              26m         Normal   ResourceUpdated      application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Updated
+              sync status:  -> Synced
+
+              26m         Normal   ResourceUpdated      application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Updated
+              health status:  -> Healthy
+
+              7m14s       Normal   OperationStarted     application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Initiated
+              automated sync to ''sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a''
+
+              7m14s       Normal   ResourceUpdated      application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m12s       Normal   OperationCompleted   application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Sync
+              operation to sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a
+              succeeded
+
+              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: b0f4b846c711a8e0adef8c93d7b18e2627782412415d7d41abb972bd555250c6
+                bytes: 10817
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ad0b2308-04c9-4118-bb57-b58eeeacc187\"\
+                ,\n    \"resourceVersion\": \"3871\",\n    \"generation\": 16,\n \
+                \   \"creationTimestamp\": \"2026-06-16T06:01:28Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\\\",\\\"\
+                repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T06:01:28Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-16T06:28:28Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoU"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 8745028bfe169dedeac3d9ef62d4662f8e481d8d4819157e48d0dc77a0d86376
+                bytes: 1213
+              output: "Name:               argocd/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:58478/applications/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                  STATUS  HEALTH  AGE    MESSAGE                \
+                \                                                                \
+                \            REASON\nApplication/aws-ebs-csi-driver-parity       \
+                \                        Synced          7m29s  application.argoproj.io/aws-ebs-csi-driver-parity\
+                \ serverside-applied                               \nApplication/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\
+                \  Synced          27m    application.argoproj.io/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"aws-ebs-csi-driver-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": false,\n      \"stage\": \"apply\",\n      \"reason\"\
+              : \"Degraded\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/aws-ebs-csi-driver-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:984f5637e0df40cfb4d884280a7c9e94c070672c6d4a2302706cb93c54b86b7a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"aws-ebs-csi-driver-parity\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/ebs-csi-controller   0/2   2     0     21m
+
+          daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     21m
+
+          daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   21m'
+        pods: '# default
+
+          ebs-csi-controller-8d8878fb7-4pz47   1/5   Error              32 (4m57s
+          ago)   21m
+
+          ebs-csi-controller-8d8878fb7-cjhbb   1/5   CrashLoopBackOff   33 (20s ago)     21m
+
+          ebs-csi-node-mb2sb                   1/3   CrashLoopBackOff   17 (19s ago)     21m'
+        notReady:
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-4pz47
+          ready: 1/5
+          status: Error
+        - namespace: default
+          pod: ebs-csi-controller-8d8878fb7-cjhbb
+          ready: 1/5
+          status: CrashLoopBackOff
+        - namespace: default
+          pod: ebs-csi-node-mb2sb
+          ready: 1/3
+          status: CrashLoopBackOff
+        terminalReadinessBlockers: {}
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: e301393d8de4dcb9ca8ec2d6faaead54613fd55693395ee66e8ac30923440c34
+            bytes: 13288
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: bd4442768a37458b90c2d31ceb03beaabbc625f356931cfd7d6c7a3058ee3efa
+            bytes: 15834
+          podArtifacts:
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-4pz47/describe.txt
+            sha256: a83f27b3a1e6ba9a8220678c409d4194b051b3e4c86fd23bbd196be287b1a84d
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-4pz47/logs.txt
+            sha256: f1b7d424eb206db1cf440643ebf2cbdea544d3503839ea4ac35724d376a0a9cb
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-4pz47
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-4pz47/previous-logs.txt
+            sha256: 268fd1d260d93d2d23aebabf60536e03b8ad4312b9b0ea4f239fc3b21cd2003f
+            bytes: 2447
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-cjhbb/describe.txt
+            sha256: b076adec041126fe4a6e23f03b86d194fb0467d821adc68e884465e59c1414ad
+            bytes: 20024
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-cjhbb/logs.txt
+            sha256: 3f9e9391719ab0a127d6dc89b344d03a924c9224f3dcb900a9df085f94dc0154
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-controller-8d8878fb7-cjhbb
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-controller-8d8878fb7-cjhbb/previous-logs.txt
+            sha256: 8f2eb9aeb3b2ce6cef9e9720849d588798d055e1e9722c20ff046859f9e35bf5
+            bytes: 20034
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-node-mb2sb/describe.txt
+            sha256: d980a669b21ec04acc54c37f634be8126cc3370f4bc052f3a080d63b3a023763
+            bytes: 11664
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-node-mb2sb/logs.txt
+            sha256: 441a8091d364128a9adb4ea922e6a431656c1c8ff9661d2cc9349344d7dee37c
+            bytes: 10579
+          - namespace: default
+            pod: ebs-csi-node-mb2sb
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/ebs-csi-node-mb2sb/previous-logs.txt
+            sha256: 5f2f800a49a11a9a4e2a9d77c25d671d0b47d04bd8144a96aa0d90295e56f793
+            bytes: 116
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T06:01:29Z'
+    finishedAt: '2026-06-16T06:09:31Z'
+    elapsedSeconds: 482.493
+    timeoutSeconds: 900
+    command: helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver --repo https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+      --version 2.60.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T06:09:37Z'
+    finishedAt: '2026-06-16T06:09:38Z'
+    elapsedSeconds: 0.561
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-16T06:09:38Z'
+    finishedAt: '2026-06-16T06:09:38Z'
+    elapsedSeconds: 0.165
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-awsebscsidriver-mqg8g6it-215u.kubeconfig
+      --context kind-helm-expt-parity-awsebscsidriver-mqg8g6it-215u apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/direct-apply-manifest.yaml
+    objectCount: 19
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-16T06:09:38Z'
+    finishedAt: '2026-06-16T06:14:43Z'
+    elapsedSeconds: 305.097
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-16T06:14:50Z'
+    finishedAt: '2026-06-16T06:14:50Z'
+    elapsedSeconds: 0.436
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-16T06:14:50Z'
+    finishedAt: '2026-06-16T06:15:48Z'
+    elapsedSeconds: 57.519
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+      --space helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver --target
+      helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+    objectCount: 20
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-16T06:15:48Z'
+    finishedAt: '2026-06-16T06:15:48Z'
+    elapsedSeconds: 0.59
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-16T06:15:48Z'
+    finishedAt: '2026-06-16T06:20:56Z'
+    elapsedSeconds: 307.88
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+      --unit <20 unit(s)> --wait --timeout 5m
+    unitCount: 20
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-16T06:20:56Z'
+    finishedAt: '2026-06-16T06:20:57Z'
+    elapsedSeconds: 1.096
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+      aws-ebs-csi-driver-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/argo-application.json
+      --target helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-16T06:20:57Z'
+    finishedAt: '2026-06-16T06:20:58Z'
+    elapsedSeconds: 0.976
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-16T06:20:58Z'
+    finishedAt: '2026-06-16T06:28:01Z'
+    elapsedSeconds: 422.273
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Degraded
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-16T06:28:37Z'
+    finishedAt: '2026-06-16T06:31:41Z'
+    elapsedSeconds: 183.172
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-awsebscsidriver-mqg8g6it-215u.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-awsebscsidriver-mqg8g6it-215u\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-awsebscsidriver-mqg8g6it-215u\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-awsebscsidriver-mqg8g6it-215u\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-awsebscsidriver-mqg8g6it-215u.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource DaemonSet/default-helm/ebs-csi-node not ready. status:
+      InProgress, message: Available: 0/1
+
+      resource Deployment/default-helm/ebs-csi-controller not ready. status: InProgress,
+      message: Available: 0/2
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/ebs-csi-controller   0/2   2     0     4m55s
+
+      daemonset.apps/ebs-csi-node           1     1     0     1     0     kubernetes.io/os=linux     4m55s
+
+      daemonset.apps/ebs-csi-node-windows   0     0     0     0     0     kubernetes.io/os=windows   4m55s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=11
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Degraded after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

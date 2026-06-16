@@ -1,0 +1,41 @@
+Name:               argocd/aws-ebs-csi-driver-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:58359/applications/aws-ebs-csi-driver-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-aws-ebs-csi-driver
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Degraded
+
+KIND/NAME                                             STATUS  HEALTH       AGE   MESSAGE                                                                                                                                                                                           REASON
+ClusterRole/ebs-external-provisioner-role             Synced               7m7s
+ClusterRole/ebs-external-resizer-role                 Synced               7m7s
+Role/ebs-csi-leases-role                              Synced               18m   role.rbac.authorization.k8s.io/ebs-csi-leases-role reconciled. reconciliation required update. role.rbac.authorization.k8s.io/ebs-csi-leases-role serverside-applied
+ServiceAccount/ebs-csi-node-sa                        Synced               18m   serviceaccount/ebs-csi-node-sa serverside-applied
+DaemonSet/ebs-csi-node                                Synced  Progressing  18m   daemonset.apps/ebs-csi-node serverside-applied                                                                                                                                                    Waiting for daemon set "ebs-csi-node" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/ebs-csi-node-mb2sb                                      Degraded     18m                                                                                                                                                                                                     back-off 5m0s restarting failed container=ebs-plugin pod=ebs-csi-node-mb2sb_default(6af70f2a-dc66-4955-bb5f-05fc69782ab5), back-off 5m0s restarting failed container=node-driver-registrar pod=ebs-csi-node-mb2sb_default(6af70f2a-dc66-4955-bb5f-05fc69782ab5)
+└─ControllerRevision/ebs-csi-node-6bc6dbfd9c                               18m
+DaemonSet/ebs-csi-node-windows                        Synced  Healthy      18m   daemonset.apps/ebs-csi-node-windows serverside-applied
+└─ControllerRevision/ebs-csi-node-windows-76c56b5dc6                       18m
+ClusterRole/ebs-external-attacher-role                Synced               7m7s
+ClusterRoleBinding/ebs-csi-attacher-binding           Synced               7m7s
+ClusterRoleBinding/ebs-csi-snapshotter-binding        Synced               7m7s
+Deployment/ebs-csi-controller                         Synced  Degraded     18m   deployment.apps/ebs-csi-controller serverside-applied                                                                                                                                             Deployment "ebs-csi-controller" exceeded its progress deadline
+└─ReplicaSet/ebs-csi-controller-8d8878fb7                     Progressing  18m                                                                                                                                                                                                     Waiting for rollout to finish: 0 out of 2 new replicas are available...
+  ├─Pod/ebs-csi-controller-8d8878fb7-4pz47                    Degraded     18m                                                                                                                                                                                                     back-off 5m0s restarting failed container=csi-attacher pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f), back-off 5m0s restarting failed container=csi-provisioner pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f), back-off 5m0s restarting failed container=csi-resizer pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f), back-off 5m0s restarting failed container=ebs-plugin pod=ebs-csi-controller-8d8878fb7-4pz47_default(9435328e-9226-46e5-af19-547753c04a2f)
+  └─Pod/ebs-csi-controller-8d8878fb7-cjhbb                    Degraded     18m                                                                                                                                                                                                     back-off 5m0s restarting failed container=csi-attacher pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184), back-off 5m0s restarting failed container=csi-provisioner pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184), back-off 5m0s restarting failed container=csi-resizer pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184), back-off 5m0s restarting failed container=ebs-plugin pod=ebs-csi-controller-8d8878fb7-cjhbb_default(4ba0bc76-2118-4464-88bc-0c6221585184)
+ClusterRole/ebs-csi-node-role                         Synced               7m7s
+ClusterRole/ebs-external-snapshotter-role             Synced               7m7s
+ClusterRoleBinding/ebs-csi-node-getter-binding        Synced               7m7s
+ClusterRoleBinding/ebs-csi-provisioner-binding        Synced               7m7s
+ClusterRoleBinding/ebs-csi-resizer-binding            Synced               7m7s
+RoleBinding/ebs-csi-leases-rolebinding                Synced               18m   rolebinding.rbac.authorization.k8s.io/ebs-csi-leases-rolebinding reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/ebs-csi-leases-rolebinding serverside-applied
+Namespace/default-oci                                 Synced               13m
+CSIDriver/ebs.csi.aws.com                             Synced               7m7s
+ServiceAccount/ebs-csi-controller-sa                  Synced               18m   serviceaccount/ebs-csi-controller-sa serverside-applied
+PodDisruptionBudget/ebs-csi-controller                Synced  Healthy      18m   poddisruptionbudget.policy/ebs-csi-controller serverside-applied                                                                                                                                  PodDisruptionBudget has InsufficientPods

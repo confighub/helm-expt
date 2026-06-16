@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:58478/applications/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                           STATUS  HEALTH  AGE    MESSAGE                                                                                            REASON
+Application/aws-ebs-csi-driver-parity                               Synced          7m29s  application.argoproj.io/aws-ebs-csi-driver-parity serverside-applied
+Application/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster  Synced          27m    application.argoproj.io/helm-expt-parity-awsebscsidriver-mqg8g6it-215u-cluster serverside-applied

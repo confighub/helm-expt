@@ -1,0 +1,23 @@
+I0616 06:08:14.883356       1 main.go:174] "Initializing metadata"
+I0616 06:08:14.883442       1 metadata.go:75] "Attempting to retrieve instance metadata from IMDS"
+E0616 06:08:19.888441       1 metadata.go:81] "Retrieving IMDS metadata failed" err="could not get IMDS metadata: operation error ec2imds: GetInstanceIdentityDocument, request canceled, context deadline exceeded"
+I0616 06:08:19.888504       1 metadata.go:92] "Attempting to retrieve instance metadata from Kubernetes API"
+I0616 06:08:19.888872       1 envvar.go:195] "Feature gate default state" feature="InOrderInformers" enabled=true
+I0616 06:08:19.888910       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCBOR" enabled=false
+I0616 06:08:19.888915       1 envvar.go:195] "Feature gate default state" feature="InOrderInformersBatchProcess" enabled=true
+I0616 06:08:19.888919       1 envvar.go:195] "Feature gate default state" feature="WatchListClient" enabled=true
+I0616 06:08:19.888922       1 envvar.go:195] "Feature gate default state" feature="AtomicFIFO" enabled=true
+I0616 06:08:19.888925       1 envvar.go:195] "Feature gate default state" feature="ClientsPreferCBOR" enabled=false
+I0616 06:08:19.888928       1 envvar.go:195] "Feature gate default state" feature="UnlockWhileProcessingFIFO" enabled=true
+I0616 06:08:19.888930       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowCARotation" enabled=true
+I0616 06:08:19.888933       1 envvar.go:195] "Feature gate default state" feature="ClientsAllowTLSCacheGC" enabled=true
+I0616 06:08:19.888936       1 envvar.go:195] "Feature gate default state" feature="InformerResourceVersion" enabled=true
+E0616 06:08:19.900385       1 metadata.go:98] "Retrieving Kubernetes metadata failed" err="did not find aws instance ID in node providerID string"
+E0616 06:08:19.900468       1 main.go:179] "Failed to initialize metadata when it is required" err="all specified --metadata-sources '[imds kubernetes]' are unavailable"
+I0616 06:07:19.888343       1 main.go:145] "Version" version="v2.16.0-eksbuild.6"
+I0616 06:07:19.888370       1 main.go:146] "Running node-driver-registrar" mode=""
+I0616 06:07:19.888372       1 main.go:163] "Attempting to open a gRPC connection" csiAddress="/csi/csi.sock"
+I0616 06:07:29.889958       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:07:39.888738       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+I0616 06:07:49.891556       1 connection.go:253] "Still connecting" address="unix:///csi/csi.sock"
+E0616 06:07:49.891647       1 main.go:167] "Error connecting to CSI driver" err="context deadline exceeded"

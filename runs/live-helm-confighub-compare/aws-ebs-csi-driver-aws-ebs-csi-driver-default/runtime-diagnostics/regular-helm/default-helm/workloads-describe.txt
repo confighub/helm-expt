@@ -1,0 +1,402 @@
+Name:                   ebs-csi-controller
+Namespace:              default-helm
+CreationTimestamp:      Tue, 16 Jun 2026 07:01:31 +0100
+Labels:                 app.kubernetes.io/component=csi-driver
+                        app.kubernetes.io/instance=aws-ebs-csi-driver
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=aws-ebs-csi-driver
+                        app.kubernetes.io/version=1.60.1
+                        helm.sh/chart=aws-ebs-csi-driver-2.60.1
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: aws-ebs-csi-driver
+                        meta.helm.sh/release-namespace: default-helm
+Selector:               app=ebs-csi-controller,app.kubernetes.io/instance=aws-ebs-csi-driver,app.kubernetes.io/name=aws-ebs-csi-driver
+Replicas:               2 desired | 2 updated | 2 total | 0 available | 2 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 25% max surge
+Pod Template:
+  Labels:           app=ebs-csi-controller
+                    app.kubernetes.io/component=csi-driver
+                    app.kubernetes.io/instance=aws-ebs-csi-driver
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=aws-ebs-csi-driver
+                    app.kubernetes.io/version=1.60.1
+                    helm.sh/chart=aws-ebs-csi-driver-2.60.1
+  Service Account:  ebs-csi-controller-sa
+  Containers:
+   ebs-plugin:
+    Image:           public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+    Port:            9808/TCP (healthz)
+    Host Port:       0/TCP (healthz)
+    SeccompProfile:  RuntimeDefault
+    Args:
+      controller
+      --endpoint=$(CSI_ENDPOINT)
+      --batching=true
+      --logging-format=text
+      --user-agent-extra=helm
+      --v=2
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:      10m
+      memory:   40Mi
+    Liveness:   http-get http://:healthz/healthz delay=10s timeout=60s period=10s #success=1 #failure=10
+    Readiness:  http-get http://:healthz/healthz delay=10s timeout=60s period=10s #success=1 #failure=5
+    Environment:
+      CSI_ENDPOINT:            unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+      CSI_NODE_NAME:            (v1:spec.nodeName)
+      AWS_ACCESS_KEY_ID:       <set to the key 'key_id' in secret 'aws-secret'>                Optional: true
+      AWS_SECRET_ACCESS_KEY:   <set to the key 'access_key' in secret 'aws-secret'>            Optional: true
+      AWS_EC2_ENDPOINT:        <set to the key 'endpoint' of config map 'aws-meta'>            Optional: true
+      AWS_SAGEMAKER_ENDPOINT:  <set to the key 'sagemaker_endpoint' of config map 'aws-meta'>  Optional: true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+   csi-provisioner:
+    Image:           public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=60s
+      --csi-address=$(ADDRESS)
+      --v=2
+      --feature-gates=Topology=true
+      --extra-create-metadata
+      --leader-election=true
+      --default-fstype=ext4
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --worker-threads=100
+      --retry-interval-max=30m
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:              /var/lib/csi/sockets/pluginproxy/csi.sock
+      ENABLE_VAC_FALLBACK:  true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+   csi-attacher:
+    Image:           public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=6m
+      --csi-address=$(ADDRESS)
+      --v=2
+      --leader-election=true
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --worker-threads=100
+      --retry-interval-max=5m
+      --feature-gates=MutableCSINodeAllocatableCount=true
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:  /var/lib/csi/sockets/pluginproxy/csi.sock
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+   csi-resizer:
+    Image:           public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Args:
+      --timeout=60s
+      --extra-modify-metadata
+      --csi-address=$(ADDRESS)
+      --v=2
+      --handle-volume-inuse-error=false
+      --leader-election=true
+      --kube-api-qps=20
+      --kube-api-burst=100
+      --workers=100
+      --retry-interval-max=30m
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:     10m
+      memory:  40Mi
+    Environment:
+      ADDRESS:              /var/lib/csi/sockets/pluginproxy/csi.sock
+      ENABLE_VAC_FALLBACK:  true
+    Mounts:
+      /var/lib/csi/sockets/pluginproxy/ from socket-dir (rw)
+   liveness-probe:
+    Image:      public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      --csi-address=/csi/csi.sock
+      --probe-timeout=60s
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:        10m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /csi from socket-dir (rw)
+  Volumes:
+   socket-dir:
+    Type:               EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:          <unset>
+  Priority Class Name:  system-cluster-critical
+  Node-Selectors:       kubernetes.io/os=linux
+  Tolerations:          :NoExecute op=Exists for 300s
+                        CriticalAddonsOnly op=Exists
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   ebs-csi-controller-c69844876 (2/2 replicas created)
+
+
+Name:           ebs-csi-node
+Namespace:      default-helm
+Selector:       app=ebs-csi-node,app.kubernetes.io/instance=aws-ebs-csi-driver,app.kubernetes.io/name=aws-ebs-csi-driver
+Node-Selector:  kubernetes.io/os=linux
+Labels:         app.kubernetes.io/component=csi-driver
+                app.kubernetes.io/instance=aws-ebs-csi-driver
+                app.kubernetes.io/managed-by=Helm
+                app.kubernetes.io/name=aws-ebs-csi-driver
+                app.kubernetes.io/version=1.60.1
+                helm.sh/chart=aws-ebs-csi-driver-2.60.1
+Annotations:    deprecated.daemonset.template.generation: 1
+                meta.helm.sh/release-name: aws-ebs-csi-driver
+                meta.helm.sh/release-namespace: default-helm
+Desired Number of Nodes Scheduled: 1
+Current Number of Nodes Scheduled: 1
+Number of Nodes Scheduled with Up-to-date Pods: 1
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app=ebs-csi-node
+                    app.kubernetes.io/component=csi-driver
+                    app.kubernetes.io/instance=aws-ebs-csi-driver
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=aws-ebs-csi-driver
+                    app.kubernetes.io/version=1.60.1
+                    helm.sh/chart=aws-ebs-csi-driver-2.60.1
+  Service Account:  ebs-csi-node-sa
+  Containers:
+   ebs-plugin:
+    Image:      public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+    Port:       9808/TCP (healthz)
+    Host Port:  0/TCP (healthz)
+    Args:
+      node
+      --endpoint=$(CSI_ENDPOINT)
+      --csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/
+      --logging-format=text
+      --v=2
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:      10m
+      memory:   40Mi
+    Liveness:   http-get http://:healthz/healthz delay=10s timeout=3s period=10s #success=1 #failure=5
+    Readiness:  http-get http://:healthz/healthz delay=0s timeout=3s period=5s #success=1 #failure=3
+    Environment:
+      CSI_ENDPOINT:   unix:/csi/csi.sock
+      CSI_NODE_NAME:   (v1:spec.nodeName)
+    Mounts:
+      /csi from plugin-dir (rw)
+      /dev from device-dir (rw)
+      /var/lib/kubelet from kubelet-dir (rw)
+   node-driver-registrar:
+    Image:      public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+    Port:       9809/TCP (healthz-ndr)
+    Host Port:  0/TCP (healthz-ndr)
+    Args:
+      --csi-address=$(ADDRESS)
+      --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+      --http-endpoint=0.0.0.0:9809
+      --v=2
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:     10m
+      memory:  32Mi
+    Liveness:  http-get http://:healthz-ndr/healthz delay=30s timeout=15s period=90s #success=1 #failure=3
+    Environment:
+      ADDRESS:               /csi/csi.sock
+      DRIVER_REG_SOCK_PATH:  /var/lib/kubelet/plugins/ebs.csi.aws.com/csi.sock
+    Mounts:
+      /csi from plugin-dir (rw)
+      /registration from registration-dir (rw)
+      /var/lib/kubelet/plugins/ebs.csi.aws.com/ from probe-dir (rw)
+   liveness-probe:
+    Image:      public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      --csi-address=/csi/csi.sock
+    Limits:
+      memory:  32Mi
+    Requests:
+      cpu:        10m
+      memory:     32Mi
+    Environment:  <none>
+    Mounts:
+      /csi from plugin-dir (rw)
+  Volumes:
+   kubelet-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet
+    HostPathType:  Directory
+   plugin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet/plugins/ebs.csi.aws.com/
+    HostPathType:  DirectoryOrCreate
+   registration-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet/plugins_registry/
+    HostPathType:  Directory
+   device-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /dev
+    HostPathType:  Directory
+   probe-dir:
+    Type:               EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:          <unset>
+  Priority Class Name:  system-node-critical
+  Node-Selectors:       kubernetes.io/os=linux
+  Tolerations:          op=Exists
+
+
+Name:           ebs-csi-node-windows
+Namespace:      default-helm
+Selector:       app=ebs-csi-node,app.kubernetes.io/instance=aws-ebs-csi-driver,app.kubernetes.io/name=aws-ebs-csi-driver
+Node-Selector:  kubernetes.io/os=windows
+Labels:         app.kubernetes.io/component=csi-driver
+                app.kubernetes.io/instance=aws-ebs-csi-driver
+                app.kubernetes.io/managed-by=Helm
+                app.kubernetes.io/name=aws-ebs-csi-driver
+                app.kubernetes.io/version=1.60.1
+                helm.sh/chart=aws-ebs-csi-driver-2.60.1
+Annotations:    deprecated.daemonset.template.generation: 1
+                meta.helm.sh/release-name: aws-ebs-csi-driver
+                meta.helm.sh/release-namespace: default-helm
+Desired Number of Nodes Scheduled: 0
+Current Number of Nodes Scheduled: 0
+Number of Nodes Scheduled with Up-to-date Pods: 0
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  0 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app=ebs-csi-node
+                    app.kubernetes.io/component=csi-driver
+                    app.kubernetes.io/instance=aws-ebs-csi-driver
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=aws-ebs-csi-driver
+                    app.kubernetes.io/version=1.60.1
+                    helm.sh/chart=aws-ebs-csi-driver-2.60.1
+  Service Account:  ebs-csi-node-sa
+  Containers:
+   ebs-plugin:
+    Image:      public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1
+    Port:       9808/TCP (healthz)
+    Host Port:  0/TCP (healthz)
+    Args:
+      node
+      --endpoint=$(CSI_ENDPOINT)
+      --logging-format=text
+      --v=2
+    Limits:
+      memory:  256Mi
+    Requests:
+      cpu:      10m
+      memory:   40Mi
+    Liveness:   http-get http://:healthz/healthz delay=10s timeout=3s period=10s #success=1 #failure=5
+    Readiness:  http-get http://:healthz/healthz delay=0s timeout=3s period=5s #success=1 #failure=3
+    Environment:
+      CSI_ENDPOINT:   unix:/csi/csi.sock
+      CSI_NODE_NAME:   (v1:spec.nodeName)
+    Mounts:
+      C:\csi from plugin-dir (rw)
+      C:\var\lib\kubelet from kubelet-dir (rw)
+      \\.\pipe\csi-proxy-disk-v1 from csi-proxy-disk-pipe (rw)
+      \\.\pipe\csi-proxy-filesystem-v1 from csi-proxy-filesystem-pipe (rw)
+      \\.\pipe\csi-proxy-volume-v1 from csi-proxy-volume-pipe (rw)
+   node-driver-registrar:
+    Image:      public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6
+    Port:       9809/TCP (healthz-ndr)
+    Host Port:  0/TCP (healthz-ndr)
+    Args:
+      --csi-address=$(ADDRESS)
+      --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+      --http-endpoint=0.0.0.0:9809
+      --v=2
+    Limits:
+      memory:  150Mi
+    Requests:
+      cpu:     10m
+      memory:  150Mi
+    Liveness:  http-get http://:healthz-ndr/healthz delay=30s timeout=15s period=90s #success=1 #failure=3
+    Environment:
+      ADDRESS:               unix:/csi/csi.sock
+      DRIVER_REG_SOCK_PATH:  C:\var\lib\kubelet\plugins\ebs.csi.aws.com\csi.sock
+    Mounts:
+      C:\csi from plugin-dir (rw)
+      C:\registration from registration-dir (rw)
+      C:\var\lib\kubelet\plugins\ebs.csi.aws.com from probe-dir (rw)
+   liveness-probe:
+    Image:      public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      --csi-address=unix:/csi/csi.sock
+    Limits:
+      memory:  150Mi
+    Requests:
+      cpu:        10m
+      memory:     150Mi
+    Environment:  <none>
+    Mounts:
+      C:\csi from plugin-dir (rw)
+  Volumes:
+   kubelet-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          C:\var\lib\kubelet
+    HostPathType:  Directory
+   plugin-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          C:\var\lib\kubelet\plugins\ebs.csi.aws.com
+    HostPathType:  DirectoryOrCreate
+   registration-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          C:\var\lib\kubelet\plugins_registry
+    HostPathType:  Directory
+   csi-proxy-disk-pipe:
+    Type:          HostPath (bare host directory volume)
+    Path:          \\.\pipe\csi-proxy-disk-v1
+    HostPathType:
+   csi-proxy-volume-pipe:
+    Type:          HostPath (bare host directory volume)
+    Path:          \\.\pipe\csi-proxy-volume-v1
+    HostPathType:
+   csi-proxy-filesystem-pipe:
+    Type:          HostPath (bare host directory volume)
+    Path:          \\.\pipe\csi-proxy-filesystem-v1
+    HostPathType:
+   probe-dir:
+    Type:               EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:          <unset>
+  Priority Class Name:  system-node-critical
+  Node-Selectors:       kubernetes.io/os=windows
+  Tolerations:          op=Exists

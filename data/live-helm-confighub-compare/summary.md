@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 33
+watch: 34
 blocked: 7
 not-started: 0
 ```
@@ -99,6 +99,7 @@ target-prerequisite: namespace missing (parity passed): 1
 |  | `autoscaler/cluster-autoscaler@9.57.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | default | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
 |  | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | - | runs/live-helm-confighub-compare/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
+|  | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
 |  | `bitnami/apache@11.4.29` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml |
 |  | `bitnami/contour@21.1.4` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml |
 |  | `bitnami/contour@21.1.4` | no-crds | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml |
