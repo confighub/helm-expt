@@ -8,7 +8,7 @@ completed row has a receipt under
 ```text
 pass: 135
 watch: 36
-blocked: 8
+blocked: 9
 not-started: 0
 ```
 
@@ -16,6 +16,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
 capability-profile: rendered APIService version is not served by target Kubernetes: 2
+crd-bootstrap: required CRDs missing before custom resources apply: 1
 render-input: required Velero provider values missing: 2
 target-prerequisite: cert-manager CRDs missing: 2
 target-prerequisite: namespace missing (parity passed): 2
@@ -173,6 +174,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `percona/psmdb-operator@1.22.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-no-crds/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | default | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-default/receipt.yaml |
 |  | `percona/pxc-operator@1.19.1` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/receipt.yaml |
+|  | `projectcalico/tigera-operator@v3.32.0` | default | blocked | crd-bootstrap: required CRDs missing before custom resources apply | runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/receipt.yaml |
 |  | `prometheus-community/alertmanager@1.37.0` | ha | pass | - | runs/live-helm-confighub-compare/prometheus-community-alertmanager-ha/receipt.yaml |
 |  | `prometheus-community/kube-state-metrics@7.4.0` | cluster-metrics-readonly | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-state-metrics-cluster-metrics-readonly/receipt.yaml |

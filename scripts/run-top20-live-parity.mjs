@@ -511,6 +511,9 @@ function classifyReason(receipt, target) {
       (regularMessage.includes('no matches for kind "certificate"') || regularMessage.includes('no matches for kind "issuer"'))) {
       return "target-prerequisite: cert-manager CRDs missing";
     }
+    if (regularMessage.includes("no matches for kind") && regularMessage.includes("ensure crds are installed first")) {
+      return "crd-bootstrap: required CRDs missing before custom resources apply";
+    }
     if (regularMessage.includes("namespaces ") && regularMessage.includes(" not found")) {
       return semanticPassed ? "target-prerequisite: namespace missing (parity passed)" : "target-prerequisite: namespace missing";
     }

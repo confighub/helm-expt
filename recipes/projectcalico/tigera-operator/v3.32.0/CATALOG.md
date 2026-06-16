@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/projectcalico/tigera-operator/v3.32.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/projectcalico/tigera-operator/v3.32.0](../../../../packages/projectcalico/tigera-operator/v3.32.0) |

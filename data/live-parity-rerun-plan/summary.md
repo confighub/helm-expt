@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 75
+rows: 76
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 31
+blocked: 32
 watch: 44
-configHub-oci-live-comparison: 44
+configHub-oci-live-comparison: 45
 two-cluster-kind-parity: 31
 semantic-parity-defects: 7
 infra-or-rig-rows: 0
@@ -30,6 +30,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Chart | Base | Current | Meaning | Next action |
 | --- | --- | --- | --- | --- |
+| `projectcalico/tigera-operator@v3.32.0` | default | blocked | The rendered custom resources cannot be accepted until their CRDs are established. Split or stage the CRD bootstrap before rerunning. | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases, then rerun. |
 | `argo-cd/argo-cd@9.5.17` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | The base declares target-fit requirements. The aws-ebs-csi-driver process initializes metadata from IMDS or Kubernetes node providerID before it can run | Use a target with the required platform behavior, or create a separate base that matches the proof target. |
 | `bitnami/apache@11.4.29` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
@@ -111,7 +112,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 44 | 0 | 36 | 8 | 0 |
+| configHub-oci-live-comparison | 45 | 0 | 36 | 9 | 0 |
 | two-cluster-kind-parity | 31 | 0 | 8 | 23 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -137,6 +138,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | Next step | Rows | What to do |
 | --- | ---: | --- |
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
+| crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | image-retention-review | 9 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 7 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
@@ -163,7 +165,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 7 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 32 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 33 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 34 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -200,6 +202,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | model-or-stage-first | crd-bootstrap | configHub-oci-live-comparison | `projectcalico/tigera-operator@v3.32.0` | default | blocked | crd-bootstrap: required CRDs missing before custom resources apply | [`recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml`](../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.17` | default | watch | gitops-runtime: child Argo Application not materialized (parity passed) | [`recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.17 --base default` |
 | 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | [`recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml`](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml) | `npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/apache@11.4.29` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
