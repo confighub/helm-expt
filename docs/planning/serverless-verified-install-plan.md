@@ -25,7 +25,11 @@ The right axis is capture versus live-graph, not serverless versus server. The c
 
 Of the roughly twenty-eight catalogued problems, about seventeen are Helm problems fixable in the capture layer. That is a real, sellable subset: the "verifiably replace Helm" half. The other eleven are System-of-Record problems that need the Server, and the serverless mode must not imply otherwise.
 
-The idea has both founders' fingerprints already. Alexis: the serverless option, if it can be made good enough, "is a nice entry wedge." Brian, independently: minimal scope, open source, no server, no GUI, config in git or OCI, no deployment functionality, rely on existing GitOps tools, CLI plus terminal AI agents. This design is that wedge made concrete, and it is the persona-1 wedge from the Helm community PRD: as fast as helm install, but you can see and prove more.
+The design follows the current product boundary: minimal scope, open source,
+no mandatory server, no GUI dependency, config in git or OCI, and delivery
+through existing Kubernetes and GitOps tools. It is the persona-1 wedge from
+the Helm community PRD: as fast as `helm install`, but with more visibility and
+proof.
 
 ## 3. What the repo already has
 
