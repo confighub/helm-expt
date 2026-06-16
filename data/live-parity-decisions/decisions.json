@@ -8,6 +8,7 @@
     "operate-policy",
     "target-runtime",
     "target-prerequisite",
+    "render-input",
     "semantic-model-gap"
   ],
   "note": "A watch row is known evidence with a named residue: semantic Helm-vs-ConfigHub parity passed; a GitOps/runtime/operate condition remains. It is not a pass and not a failure.",
@@ -487,6 +488,20 @@
       "reason": "gitops-runtime: Argo health Progressing (parity passed)",
       "support_artifact": "recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml",
       "receipt": "runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml"
+    },
+    {
+      "chart": "velero/velero",
+      "version": "12.0.1",
+      "variant": "default",
+      "result": "blocked",
+      "residue_category": "render-input",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs a better base",
+      "user_decision": "The selected base renders incomplete or invalid chart configuration because required Helm inputs are not modeled. This is not a user target prerequisite; the catalog needs a useful base that asks for or supplies the required inputs.",
+      "next_action": "Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.",
+      "reason": "render-input: required Velero provider values missing",
+      "support_artifact": "recipes/velero/velero/12.0.1/value-model.yaml",
+      "receipt": "runs/live-helm-confighub-compare/velero-velero-default/receipt.yaml"
     }
   ]
 }

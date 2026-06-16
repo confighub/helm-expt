@@ -221,6 +221,14 @@ function classifyLiveComparisonReason(spec) {
     if (regularMessage.includes("customresourcedefinition") && regularMessage.includes("cannot be imported")) {
       return "fixture: pre-existing CRDs owned by test controller";
     }
+    if (
+      regularMessage.includes("backupstoragelocation.velero.io") &&
+      regularMessage.includes("volumesnapshotlocation.velero.io") &&
+      regularMessage.includes("spec.provider") &&
+      regularMessage.includes("spec.credential")
+    ) {
+      return "render-input: required Velero provider values missing";
+    }
     if (regularMessage.includes("namespaces ") && regularMessage.includes(" not found")) {
       return semanticPassed ? "target-prerequisite: namespace missing (parity passed)" : "target-prerequisite: namespace missing";
     }

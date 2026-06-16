@@ -1,0 +1,191 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: velero-velero-12.0.1-default-live-parity-20260605
+spec:
+  chart: velero/velero
+  version: 12.0.1
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T03:39:35Z'
+  package:
+    path: packages/velero/velero/12.0.1
+  recipe:
+    path: recipes/velero/velero/12.0.1
+  variantRevision: recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+  run:
+    rig: helm-expt-parity-velero-mqg3fkmi-esz
+    kubeContext: kind-helm-expt-parity-velero-mqg3fkmi-esz
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-velero-mqg3fkmi-esz --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-velero-mqg3fkmi-esz"...
+
+        Deleting cluster "helm-expt-parity-velero-mqg3fkmi-esz" ...
+
+        Deleted nodes: ["helm-expt-parity-velero-mqg3fkmi-esz-control-plane"]
+
+        Deleting Space "helm-expt-parity-velero-mqg3fkmi-esz-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
+        --version 12.0.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b
+      objectCount: 23
+      liveHelmManifestSHA256: ba4bf09adec6e1fe14764ace537287f00d282a425bd773b05fd50c8f3b90ae1d
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/velero   1/1   1     1     41s
+        pods: velero-597c95894b-krd2f   1/1   Running   0     41s
+        notReady: []
+        ignoredJobPods: []
+      stderr: 'Error: BackupStorageLocation.velero.io "default" is invalid: [spec.provider:
+        Invalid value: "null": spec.provider in body must be of type string: "null",
+        spec.credential: Invalid value: "null": spec.credential in body must be of
+        type object: "null"]
+
+        VolumeSnapshotLocation.velero.io "default" is invalid: [spec.credential: Invalid
+        value: "null": spec.credential in body must be of type object: "null", spec.provider:
+        Invalid value: "null": spec.provider in body must be of type string: "null"]'
+      getManifestError: ''
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations:
+    - prune-null-fields
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T03:40:58Z'
+    finishedAt: '2026-06-16T03:41:17Z'
+    elapsedSeconds: 19.161
+    timeoutSeconds: 900
+    command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
+      --version 12.0.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T03:42:04Z'
+    finishedAt: '2026-06-16T03:42:04Z'
+    elapsedSeconds: 0.472
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/velero/velero/12.0.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-velero-mqg3fkmi-esz-velero
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-06-16T03:42:04Z'
+    finishedAt: '2026-06-16T03:42:05Z'
+    elapsedSeconds: 0.145
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
+      --context kind-helm-expt-parity-velero-mqg3fkmi-esz apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/confighub-rendered-crds.yaml
+    objectCount: 13
+  - name: configHub-direct-apply
+    result: blocked
+    startedAt: '2026-06-16T03:42:07Z'
+    finishedAt: '2026-06-16T03:42:07Z'
+    elapsedSeconds: 0.167
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
+      --context kind-helm-expt-parity-velero-mqg3fkmi-esz apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/direct-apply-manifest.yaml
+    objectCount: 10
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-velero-mqg3fkmi-esz\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-velero-mqg3fkmi-esz\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-velero-mqg3fkmi-esz\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-velero-mqg3fkmi-esz\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: BackupStorageLocation.velero.io "default" is invalid: [spec.provider:
+      Invalid value: "null": spec.provider in body must be of type string: "null",
+      spec.credential: Invalid value: "null": spec.credential in body must be of type
+      object: "null"]
+
+      VolumeSnapshotLocation.velero.io "default" is invalid: [spec.credential: Invalid
+      value: "null": spec.credential in body must be of type object: "null", spec.provider:
+      Invalid value: "null": spec.provider in body must be of type string: "null"]'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io
+      "default" is invalid: [spec.credential: Invalid value: "null": spec.credential
+      in body must be of type object: "null", spec.provider: Invalid value: "null":
+      spec.provider in body must be of type string: "null"]
+
+      Error from server (Invalid): VolumeSnapshotLocation.velero.io "default" is invalid:
+      [spec.credential: Invalid value: "null": spec.credential in body must be of
+      type object: "null", spec.provider: Invalid value: "null": spec.provider in
+      body must be of type string: "null"]'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: Error from server (Invalid): BackupStorageLocation.velero.io
+      "default" is invalid: [spec.credential: Invalid value: "null": spec.credential
+      in body must be of type object: "null", spec.provider: Invalid value: "null":
+      spec.provider in body must be of type string: "null"]
+
+      Error from server (Invalid): VolumeSnapshotLocation.velero.io "default" is invalid:
+      [spec.credential: Invalid value: "null": spec.credential in body must be of
+      type object: "null", spec.provider: Invalid value: "null": spec.provider in
+      body must be of type string: "null"]'
