@@ -13,7 +13,7 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 23
+blocked: 24
 semantic parity pass: 134
 semantic parity defects: 7
 non-pass rows where semantic parity passed: 18
@@ -33,8 +33,8 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 7 |
+| target-prerequisite: CRDs missing | 4 |
 | helm-runtime: upstream not ready (parity passed) | 3 |
-| target-prerequisite: CRDs missing | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
@@ -185,6 +185,7 @@ broader support claim.
 | `percona/psmdb-operator@1.22.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | no-crds | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml |
+| `projectcalico/tigera-operator@v3.32.0` | default | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |

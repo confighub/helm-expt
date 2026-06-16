@@ -38,19 +38,19 @@ const CATEGORIES = {
   "target-prerequisite-crds": {
     blocker_owner: "user",
     usable_today: "yes, after staging CRDs",
-    decision: "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+    decision: "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
     next_action: "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
   },
   "target-prerequisite-secret": {
     blocker_owner: "user",
     usable_today: "yes, after staging a Secret",
-    decision: "Usable once you stage the required Secret on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+    decision: "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
     next_action: "Stage the named Secret as a target fact, then the row can move to pass.",
   },
   "target-prerequisite-namespace": {
     blocker_owner: "user",
     usable_today: "yes, after creating the Namespace",
-    decision: "Usable once you create the required Namespace on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+    decision: "Usable once you create the required Namespace on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
     next_action: "Declare and stage the required Namespace as a target fact, then the row can move to pass.",
   },
   "hook-lifecycle": {
@@ -387,6 +387,12 @@ function checkInvariants(decisions) {
     if (d.semantic_parity === "defect") {
       check(d.blocker_owner === "catalog", `${d.chart}/${d.base}: semantic parity defect must stay catalog-owned`);
       check(!/^watch/.test(d.usable_today), `${d.chart}/${d.base}: semantic parity defect must not be presented as watch-grade`);
+    }
+    if (d.semantic_parity !== "pass") {
+      check(
+        !/semantic parity passed|objects match regular Helm|rendered config is correct|rendered object set matched regular Helm/i.test(d.user_decision),
+        `${d.chart}/${d.base}: decision text claims semantic parity without a passing semantic_parity field`,
+      );
     }
   }
 }

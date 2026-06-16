@@ -1,0 +1,191 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: projectcalico-tigera-operator-v3.32.0-default-kind-parity-20260606
+spec:
+  chart: projectcalico/tigera-operator
+  version: v3.32.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-16T10:53:16Z'
+  package:
+    path: packages/projectcalico/tigera-operator/v3.32.0
+  recipe:
+    path: recipes/projectcalico/tigera-operator/v3.32.0
+  variantRevision: recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-tigera-56588-xaot-helm
+    installerCluster: hx-tigera-56588-xaot-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-tigera-56588-xaot-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-tigera-56588-xaot-helm" ...
+
+          Deleted nodes: ["hx-tigera-56588-xaot-helm-control-plane"]'
+      - cluster: hx-tigera-56588-xaot-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-tigera-56588-xaot-installer" ...
+
+          Deleted nodes: ["hx-tigera-56588-xaot-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
+        --version v3.32.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/projectcalico-tigera-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350
+      objectCount: 10
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default'
+        pods: '# default'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
+        mapping not found for name: "default" namespace: "" from "": no matches for
+        kind "APIServer" in version "operator.tigera.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "default"
+        namespace: "" from "": no matches for kind "Goldmane" in version "operator.tigera.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "default"
+        namespace: "" from "": no matches for kind "Installation" in version "operator.tigera.io/v1"
+
+        ensure CRDs are installed first, resource mapping not found for name: "default"
+        namespace: "" from "": no matches for kind "Whisker" in version "operator.tigera.io/v1"
+
+        ensure CRDs are installed first]'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id002
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 10
+      installerObjectCount: 0
+      missingFromInstaller:
+      - apps/v1|Deployment|default|tigera-operator
+      - operator.tigera.io/v1|APIServer||default
+      - operator.tigera.io/v1|Goldmane||default
+      - operator.tigera.io/v1|Installation||default
+      - operator.tigera.io/v1|Whisker||default
+      - rbac.authorization.k8s.io/v1|ClusterRoleBinding||tigera-operator
+      - rbac.authorization.k8s.io/v1|ClusterRole||tigera-operator
+      - rbac.authorization.k8s.io/v1|ClusterRole||tigera-operator-secrets
+      - rbac.authorization.k8s.io/v1|RoleBinding|default|tigera-operator-secrets
+      - v1|ServiceAccount|default|tigera-operator
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id002
+      comparisonSHA256: ef3b9470a0b765a609f72ba6f0c1104aab2494bbfef024bb9b52b1d3275c9e37
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=10 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
+      mapping not found for name: "default" namespace: "" from "": no matches for
+      kind "APIServer" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "default"
+      namespace: "" from "": no matches for kind "Goldmane" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "default"
+      namespace: "" from "": no matches for kind "Installation" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first, resource mapping not found for name: "default"
+      namespace: "" from "": no matches for kind "Whisker" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first]'
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: resource mapping not found for name: "default"
+      namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/apiserver-default.yaml":
+      no matches for kind "APIServer" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/goldmane-default.yaml":
+      no matches for kind "Goldmane" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/installation-default.yaml":
+      no matches for kind "Installation" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/whisker-default.yaml"'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+  failure:
+    message: 'manifest apply failed: resource mapping not found for name: "default"
+      namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/apiserver-default.yaml":
+      no matches for kind "APIServer" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/goldmane-default.yaml":
+      no matches for kind "Goldmane" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/installation-default.yaml":
+      no matches for kind "Installation" in version "operator.tigera.io/v1"
+
+      ensure CRDs are installed first
+
+      resource mapping not found for name: "default" namespace: "" from "/tmp/helm-expt-kind-parity-hx-tigera-56588-xaot-tigera-operator/out/manifests/whisker-default.yaml":
+      no matches for kind "'

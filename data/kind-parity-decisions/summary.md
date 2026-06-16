@@ -23,15 +23,15 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-32 non-pass rows: 9 watch, 23 blocked.
-13 are resolved by the **user** (stage a prerequisite or supply
+33 non-pass rows: 9 watch, 24 blocked.
+14 are resolved by the **user** (stage a prerequisite or supply
 values); 10 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
+| `target-prerequisite-crds` | 8 |
 | `target-runtime` | 8 |
-| `target-prerequisite-crds` | 7 |
 | `model-gap-render` | 6 |
 | `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
@@ -43,7 +43,7 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `user` | 13 |
+| `user` | 14 |
 | `catalog` | 10 |
 | `needs runtime review` | 8 |
 | `needs readiness review` | 1 |
@@ -79,6 +79,7 @@ readiness review.
 | nats/surveyor@0.20.9 | default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | percona/pg-operator@3.0.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | watch | target-prerequisite-namespace | user | yes, after creating the Namespace |
