@@ -354,6 +354,13 @@ function classifyReceipt(receipt) {
   ) {
     return `render-input: required Helm values missing${paritySuffix}`;
   }
+  if (
+    text.includes("cert-manager.io/v1") &&
+    text.includes("no matches for kind") &&
+    (text.includes("certificate") || text.includes("issuer"))
+  ) {
+    return `target-prerequisite: cert-manager CRDs missing${paritySuffix}`;
+  }
   if (text.includes("no matches for kind") || text.includes("ensure crds are installed first") || text.includes("resource mapping not found")) {
     return `target-prerequisite: CRDs missing${paritySuffix}`;
   }
