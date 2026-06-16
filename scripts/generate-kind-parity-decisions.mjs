@@ -192,8 +192,16 @@ function authoritativeReason(row) {
         const match = receiptText.match(/docker\.io\/[A-Za-z0-9._/-]+:[A-Za-z0-9._-]+/);
         parts.push(match ? `runtime also fails to pull ${match[0]}` : "runtime also hits image pull failure");
       }
-      const secretNames = [...new Set([...receiptText.matchAll(/secret "([^"]+)" not found/gi)].map((m) => m[1]))].sort();
-      if (secretNames.length > 0) parts.push(`runtime also requires Secret(s): ${secretNames.join(", ")}`);
+      if (/failed pre-install/i.test(receiptText) && /certgen|certificate/i.test(receiptText)) {
+        parts.push("lifecycle also hits pre-install certificate-generation hook failure");
+      }
+      const secretNames = [
+        ...new Set([
+          ...[...receiptText.matchAll(/secret (?:\\?")([^"\\]+)(?:\\?") not found/gi)].map((m) => m[1]),
+          ...[...receiptText.matchAll(/missingSecret:\s*([A-Za-z0-9._-]+)/g)].map((m) => m[1]),
+        ]),
+      ].sort();
+      if (secretNames.length > 0) parts.push(`runtime also requires hook/target Secret(s): ${secretNames.join(", ")}`);
       return parts.join("; ");
     }
     if (spec.failure?.message) return String(spec.failure.message);
