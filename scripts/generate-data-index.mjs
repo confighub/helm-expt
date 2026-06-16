@@ -88,6 +88,7 @@ function readme(rows) {
     ["I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug.", "data/variant-promotion-closeout/summary.md; data/variant-promotion-closeout/closeout.csv; data/variant-promotion-closeout/closeout.json"],
     ["I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse.", "data/remote-image-runtime-workdown/summary.md; data/remote-image-runtime-workdown/workdown.csv; data/remote-image-runtime-workdown/workdown.json"],
     ["I want the ready-to-run variant promotions grouped into safe serial batches of commands to run once ConfigHub auth returns.", "data/variant-promotion-proof-batches/summary.md; data/variant-promotion-proof-batches/batches.csv; data/variant-promotion-proof-batches/batches.json"],
+    ["I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes.", "data/model-gap-workdown/summary.md; data/model-gap-workdown/workdown.csv; data/model-gap-workdown/workdown.json"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -328,6 +329,7 @@ function audienceFor(path) {
   if (path.startsWith("data/variant-promotion-closeout/")) return "user/front-door";
   if (path.startsWith("data/remote-image-runtime-workdown/")) return "user/front-door";
   if (path.startsWith("data/variant-promotion-proof-batches/")) return "user/front-door";
+  if (path.startsWith("data/model-gap-workdown/")) return "user/front-door";
   if (path.startsWith("data/gitops-health-residue/")) return "user/front-door";
   if (path.startsWith("data/large-config-operations/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
@@ -438,6 +440,7 @@ function roleFor(path) {
   if (path === "data/variant-promotion-closeout/closeout.csv") return "one row per variant promotion cell: state, whether a server-side clone exists, promote readiness (ready-to-run / watch-grade / blocked-needs-confighub-proof), owner class (run-proof / fix-confighub-server / catalog-modeling), the changeset-bug blocker if any, evidence receipt, and exact next command";
   if (path === "data/remote-image-runtime-workdown/workdown.csv") return "one row per remote-image watch row: exact missing image(s), where it fails (container/init/hook), whether both Helm and ConfigHub fail, candidate override path or unknown, recommended product action (refresh-chart-or-base / supported-image-override / pin-or-mirror-digest / route-lifecycle-image / watch-upstream / refuse), and owner class";
   if (path === "data/variant-promotion-proof-batches/batches.csv") return "one row per ready-to-run promotion, assigned to a safe serial batch (5-10 commands) with the exact node scripts/run-top20-confighub-proof.mjs variant-promotion command to run once ConfigHub auth returns";
+  if (path === "data/model-gap-workdown/workdown.csv") return "one row per catalog-owned model-gap (non-pass row needing a recipe/base change, not a re-run): model-gap kind (crd-lifecycle / missing-crd / object-set-shape / generated-fact / semantic-normalization / base-design), recommended action, owner class, a sibling base that already passes, the rerun command after the fix, and evidence path";
   if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
@@ -510,6 +513,7 @@ function familyRole(family) {
     "variant-promotion-closeout": "actionable promotion queue: per variant, whether cub variant promote is ready-to-run / watch-grade / blocked by the ConfigHub changeset bug, the owner class, and the exact next command or fix",
     "remote-image-runtime-workdown": "product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class",
     "variant-promotion-proof-batches": "run plan: the ready-to-run promotions grouped into safe serial batches of 5-10 cub variant promote proof commands to run once ConfigHub auth returns (not completed evidence)",
+    "model-gap-workdown": "catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes",
     "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "secret-lifecycle": "front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
@@ -627,6 +631,7 @@ function commandMap() {
     "variant-promotion-closeout": { generate: "npm run variant-promotion-closeout", verify: "npm run variant-promotion-closeout:verify" },
     "remote-image-runtime-workdown": { generate: "npm run remote-image-runtime-workdown", verify: "npm run remote-image-runtime-workdown:verify" },
     "variant-promotion-proof-batches": { generate: "npm run variant-promotion-proof-batches", verify: "npm run variant-promotion-proof-batches:verify" },
+    "model-gap-workdown": { generate: "npm run model-gap-workdown", verify: "npm run model-gap-workdown:verify" },
     "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },

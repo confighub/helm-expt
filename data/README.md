@@ -54,6 +54,7 @@ smallest generated surface that answers it.
 | I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which are watch-grade, and which are blocked by the ConfigHub server changeset bug. | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md)<br>[variant-promotion-closeout/closeout.csv](./variant-promotion-closeout/closeout.csv)<br>[variant-promotion-closeout/closeout.json](./variant-promotion-closeout/closeout.json) |
 | I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse. | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md)<br>[remote-image-runtime-workdown/workdown.csv](./remote-image-runtime-workdown/workdown.csv)<br>[remote-image-runtime-workdown/workdown.json](./remote-image-runtime-workdown/workdown.json) |
 | I want the ready-to-run variant promotions grouped into safe serial batches of commands to run once ConfigHub auth returns. | [variant-promotion-proof-batches/summary.md](./variant-promotion-proof-batches/summary.md)<br>[variant-promotion-proof-batches/batches.csv](./variant-promotion-proof-batches/batches.csv)<br>[variant-promotion-proof-batches/batches.json](./variant-promotion-proof-batches/batches.json) |
+| I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes. | [model-gap-workdown/summary.md](./model-gap-workdown/summary.md)<br>[model-gap-workdown/workdown.csv](./model-gap-workdown/workdown.csv)<br>[model-gap-workdown/workdown.json](./model-gap-workdown/workdown.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
@@ -268,6 +269,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `master-catalog-matrix` | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | supporting generated evidence |
 | `matrix-completion-audit` | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md) | read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided |
 | `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
+| `model-gap-workdown` | [model-gap-workdown/summary.md](./model-gap-workdown/summary.md) | catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes |
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
 | `nginx-config-checks` | [nginx-config-checks/summary.md](./nginx-config-checks/summary.md) | NGINX supported-base config extension checks |
@@ -314,7 +316,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 145 CSV files. Each row records the path, audience,
+It includes 146 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
