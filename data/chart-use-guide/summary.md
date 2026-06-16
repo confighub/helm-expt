@@ -33,7 +33,7 @@ base variant and proof lane.
 
 | Chart | Recommended base | Evidence | First action |
 | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `argo-cd/argo-cd@9.5.15` | `no-crds (try-with-proof)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `bitnami/mongodb@19.0.7` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `bitnami/mysql@14.0.3` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `bitnami/nginx@24.0.2` | `http-clusterip` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
@@ -108,10 +108,10 @@ or a limitation decision before they should be treated as catalog offers.
 | `kedacore/keda@2.19.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `prometheus-community/kube-state-metrics@7.4.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `elastic/eck-operator@3.4.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
-| `elastic/kibana@8.5.1` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `elastic/kibana@8.5.1` | `not-yet-user-ready` | `in-confighub-proof` | Design at least one useful base variant before catalog promotion. |
 | `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `live-helm-vs-confighub-parity` | Design at least one useful base variant before catalog promotion. |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
-| `bitnami/elasticsearch@22.1.6` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `bitnami/elasticsearch@22.1.6` | `decision-needed-first` | `in-confighub-proof` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
 | `stakater/reloader@2.2.12` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 
 ## Boundaries

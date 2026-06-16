@@ -291,7 +291,7 @@ function buildSite(generatedAt) {
     html: chartPageHtml(catalog, entry),
   }));
   return {
-    catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
+    catalogJson: `${JSON.stringify(siteSafe(catalog), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
@@ -473,7 +473,7 @@ function html(catalog) {
       <div class="door">
         <span class="kicker">Run it</span>
         <h3><a href="./try.html">Try the catalog in 5 minutes</a></h3>
-        <p>Render, review, and apply Redis from the public catalog — locally, no account.</p>
+        <p>Render, review, and apply Redis from the public catalog - locally, no account.</p>
         <pre><code>cub installer setup \\
   --pull packages/bitnami/redis/25.5.3 \\
   --base default --work-dir .tmp/redis \\
@@ -483,7 +483,7 @@ function html(catalog) {
       <div class="door">
         <span class="kicker">See the state</span>
         <h3><a href="./matrix.html">The whole catalog, one matrix</a></h3>
-        <p>Every chart variant against every proof lane — render parity, ConfigHub, local live, GitOps, parity — colored by committed evidence. Grey means not yet run, never hidden.</p>
+        <p>Every chart variant against every proof lane - render parity, ConfigHub, local live, GitOps, parity - colored by committed evidence. Grey means not yet run, never hidden.</p>
         <span class="go"><a href="./matrix.html">Open the status matrix →</a></span>
       </div>
       <div class="door">
@@ -503,7 +503,7 @@ function html(catalog) {
     <div class="grid">
       ${userValueRows.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n      ")}
     </div>
-    <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> renders and installs it. This catalog adds a per-chart, per-variant <strong>proof</strong> chain — rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
+    <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> renders and installs it. This catalog adds a per-chart, per-variant <strong>proof</strong> chain - rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
     <h2>The chain of proof</h2>
     <div class="chain">
       <a href="../docs/user/verify-it-yourself.md">Helm-equivalent render, byte-compared</a>
@@ -516,12 +516,12 @@ function html(catalog) {
     <h2>Where it goes from free</h2>
     <div class="tiers">
       <div class="tier"><span class="stage">tier 0</span><h3>Public catalog</h3><p>Top charts, proof-grade recipes and packages, with committed receipts that can be checked locally.</p><span class="badge now">available</span></div>
-      <div class="tier"><span class="stage">tier 1</span><h3>Verified install</h3><p>Resolve, verify, apply, and record an in-cluster receipt — before any login.</p><span class="badge planned">planned</span></div>
+      <div class="tier"><span class="stage">tier 1</span><h3>Verified install</h3><p>Resolve, verify, apply, and record an in-cluster receipt - before any login.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 2</span><h3>Catalog subscription</h3><p>Refresh cadence, CVE turnaround, and the attestation pack per variant.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
       <div class="tier"><span class="stage">tier 4</span><h3>ConfigHub Server</h3><p>Fleet inventory, variants, promotions, gates, and live operations at estate scale.</p><span class="badge planned">planned</span></div>
     </div>
-    <p>Tier boundaries and what each one proves are spelled out on the <a href="./tiers.html">tiers page</a>; planned tiers are plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+    <p>Tier boundaries and what each one proves are spelled out on the <a href="./tiers.html">tiers page</a>; planned tiers are plans, not shipped behavior - the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
   </header>
   <main>
     <section aria-labelledby="first-time">
@@ -860,12 +860,12 @@ function offeringHtml(catalog) {
     ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
   ];
   const frontierRows = [
-    ["Field provenance", "Some value-to-object and blast-radius evidence exists; not every rendered field in every chart has provenance."],
+    ["Field provenance", "Blast-radius prediction is scored by a generated accuracy harness: 13 measured cases, 9 passing, 4 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance."],
     ["Change authority", "ConfigHub records and gates operations; full per-field authority for every user or agent is not yet proven."],
     ["Live-to-desired flow", "Live observations are recorded; authorized live fixes flowing back into desired state are future product work."],
     ["Hook execution", "Hooks are inventoried, routed, observed, refused, or marked per-target; universal hook execution is not claimed."],
     ["Fleet propagation", "Derived variants, blast-radius cases, and promotion examples exist; complete fleet propagation is still being built."],
-    ["Signatures as trust", "Digests and signatures prove origin and integrity only when signer, authority, and verification context are known."],
+    ["Signatures as trust", "The claims register enforces reviewer guardrails: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context."],
   ];
   const pathRows = [
     ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
@@ -1494,7 +1494,7 @@ function tiersHtml(catalog) {
 
     <section aria-labelledby="journey">
       <h2 id="journey">User Journey</h2>
-      <p>This page is the tier and boundary reference. The step-by-step path a user actually walks — inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins — is on the <a href="./journey.html">Journey page</a>, with the exact command at each stage.</p>
+      <p>This page is the tier and boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="./journey.html">Journey page</a>, with the exact command at each stage.</p>
       ${markdownLikeTable([
         ["Stage", "What happens"],
         ...workRows,
@@ -1537,7 +1537,7 @@ function journeyHtml(catalog) {
       n: "0",
       badge: "free · no account",
       badgeClass: "now",
-      title: "Inspect — see the objects before any cluster",
+      title: "Inspect - see the objects before any cluster",
       action: "cub helm template <chart>",
       code: null,
       get: "The exact Kubernetes objects a chart produces, plus this catalog's per-variant proof boundary on the <a href=\"./matrix.html\">status matrix</a> and <a href=\"./charts/index.html\">chart pages</a>. No install, no login.",
@@ -1547,47 +1547,47 @@ function journeyHtml(catalog) {
       n: "1",
       badge: "free · no account",
       badgeClass: "now",
-      title: "Serverless try-out — verified install on your own machine",
+      title: "Serverless try-out - verified install on your own machine",
       action: "cub installer setup --pull <package> --base <base>",
       code: startCommand,
-      get: "<code>cub installer</code> pulls the reviewed package, renders it locally, and verifies it against the committed receipts. You apply the rendered manifests with plain <code>kubectl</code>/kustomize, and an in-cluster receipt records what actually landed. The whole proof machinery travels to your laptop — nothing is uploaded, no account exists yet.",
-      next: "When one machine and one render stop being enough — a teammate, an overlay, a policy, durable shared state — sign up.",
+      get: "<code>cub installer</code> pulls the reviewed package, renders it locally, and verifies it against the committed receipts. You apply the rendered manifests with plain <code>kubectl</code>/kustomize, and an in-cluster receipt records what actually landed. The whole proof machinery travels to your laptop - nothing is uploaded, no account exists yet.",
+      next: "When one machine and one render stop being enough - a teammate, an overlay, a policy, durable shared state - sign up.",
     },
     {
       n: "2",
       badge: "free tier · first sign-up",
       badgeClass: "now",
-      title: "First sign-up — your rendered chart becomes ConfigHub Units",
+      title: "First sign-up - your rendered chart becomes ConfigHub Units",
       action: "cub helm install  /  cub installer import",
       code: "cub auth login\ncub installer import helm --package packages/bitnami/redis/25.5.3 --base default",
-      get: "An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share — plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.",
+      get: "An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share - plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.",
       next: "Try the managed graph itself: derived variants, scans, and pull-based delivery.",
     },
     {
       n: "3",
       badge: "ConfigHub Server · try-out",
       badgeClass: "now",
-      title: "ConfigHub Server try-out — the managed desired-state graph",
+      title: "ConfigHub Server try-out - the managed desired-state graph",
       action: "cub variant create  ·  scan  ·  OCI + GitOps",
       code: "cub variant create redis-prod-us-east --from redis/default\ncub unit diff redis-prod-us-east\n# publish via OCI; an Argo or Flux controller reconciles it",
-      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here — the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph — not a pile of YAML — is now the source of truth.",
+      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here - the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph - not a pile of YAML - is now the source of truth.",
       next: "Once day-1 is comfortable, run it like an estate: approvals, live observation, upgrades.",
     },
     {
       n: "4",
       badge: "ConfigHub Server · day-2",
       badgeClass: "now",
-      title: "Next steps with ConfigHub — day-2 operations",
+      title: "Next steps with ConfigHub - day-2 operations",
       action: "promote · gate · observe · upgrade · roll back",
       code: null,
-      get: "Approvals and policy gates before apply; promotion across environments, regions, and customers from one base; live observation with receipts (Helm-vs-ConfigHub parity, GitOps health); upgrades and rollbacks; and fleet-wide queries — \"where does this image run, and who changed that field?\" This is where the per-install story becomes an estate story.",
+      get: "Approvals and policy gates before apply; promotion across environments, regions, and customers from one base; live observation with receipts (Helm-vs-ConfigHub parity, GitOps health); upgrades and rollbacks; and fleet-wide queries - \"where does this image run, and who changed that field?\" This is where the per-install story becomes an estate story.",
       next: "Where production responsibility and scale begin, paid features carry the weight.",
     },
     {
       n: "5",
       badge: "paid · planned where noted",
       badgeClass: "planned",
-      title: "Paid features — SLA, private catalog, estate scale",
+      title: "Paid features - SLA, private catalog, estate scale",
       action: "subscription · private catalog · Server at scale",
       code: null,
       get: "What is bought is the SLA and the queries, not the bits. <strong>Catalog subscription:</strong> guaranteed refresh cadence, CVE-response turnaround, the attestation pack per variant (SBOM, scan receipts, digest inventory, signatures), hardened variants, and old-version support. <strong>Private catalog:</strong> your own charts, wrapper charts, and overlays through the same render-scan-sign pipeline. <strong>ConfigHub Server at estate scale:</strong> fleet inventory, authority on every change, the ledger, gates before apply, continuous observation. Each tier's claim is backed by a receipt the tier below can re-run.",
@@ -1636,7 +1636,7 @@ function journeyHtml(catalog) {
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>From a one-line try-out to a managed estate.</h1>
     ${generatedStamp(catalog, "user journey")}
-    <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid — so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
+    <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid - so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
       <a href="#s1">1 · Serverless try-out</a>
@@ -1653,17 +1653,17 @@ ${cards}
     </section>
 
     <section aria-labelledby="boundary">
-      <h2 id="boundary">Free, account, paid — the boundary in one table</h2>
+      <h2 id="boundary">Free, account, paid - the boundary in one table</h2>
       ${markdownLikeTable([
         ["Stage", "Boundary", "What it costs you"],
-        ["0 Inspect", "free, no account", "nothing — public pages and cub helm template"],
-        ["1 Serverless try-out", "free, no account", "nothing — runs entirely on your machine"],
+        ["0 Inspect", "free, no account", "nothing - public pages and cub helm template"],
+        ["1 Serverless try-out", "free, no account", "nothing - runs entirely on your machine"],
         ["2 First sign-up", "free tier", "a ConfigHub account; no payment for first hands-on use"],
         ["3 Server try-out", "free tier (limits apply)", "account/rate limits when server compute or stored receipts are used"],
         ["4 Day-2 operations", "free tier → paid as scope grows", "paid begins with production responsibility, private inputs, or fleet scale"],
         ["5 Paid features", "paid (planned where noted)", "an SLA subscription, a private catalog, or the Server product"],
       ])}
-      <p>The exact tier shape and what is deliberately <em>not</em> sold too early are on the <a href="./tiers.html">Tiers page</a>; the commercial model and the serverless plan are linked there. Planned features are described as plans, not shipped behavior — the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
+      <p>The exact tier shape and what is deliberately <em>not</em> sold too early are on the <a href="./tiers.html">Tiers page</a>; the commercial model and the serverless plan are linked there. Planned features are described as plans, not shipped behavior - the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
     </section>
 
     <section aria-labelledby="start">
@@ -1687,7 +1687,7 @@ function day1OperationsHtml(catalog) {
       boundary: "ConfigHub · free tier",
       action: "cub variant create <name> <upstream-space>",
       code: "cub variant create redis-prod-us-east redis-base",
-      get: "A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer — without running Helm again and without a new installer base. This is the day-1 customization most teams need first.",
+      get: "A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer - without running Helm again and without a new installer base. This is the day-1 customization most teams need first.",
       see: ["creating-variants.md", "cub-variant-command-surface.md"],
     },
     {
@@ -1696,7 +1696,7 @@ function day1OperationsHtml(catalog) {
       boundary: "ConfigHub · free tier",
       action: "review the variant's object diff vs its base",
       code: null,
-      get: "Every derived variant carries an exact, reviewable object diff against the base it came from — so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.",
+      get: "Every derived variant carries an exact, reviewable object diff against the base it came from - so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.",
       see: ["change-routing-before-oci.md"],
     },
     {
@@ -1723,7 +1723,7 @@ function day1OperationsHtml(catalog) {
       boundary: "free to run · standard Argo/Flux",
       action: "publish content-addressed OCI; a controller reconciles",
       code: null,
-      get: "Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it — pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.",
+      get: "Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.",
       see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md"],
     },
     {
@@ -1741,7 +1741,7 @@ function day1OperationsHtml(catalog) {
       boundary: "free for your own charts · paid for managed private catalog",
       action: "wrapper charts, platform values, customer overlays, internal charts",
       code: null,
-      get: "Your own charts — wrapper charts, platform values, customer overlay values, internal-only charts — run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.",
+      get: "Your own charts - wrapper charts, platform values, customer overlay values, internal-only charts - run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.",
       see: ["custom-overlays.md", "product-support-tiers.md"],
     },
   ];
@@ -1785,9 +1785,9 @@ function day1OperationsHtml(catalog) {
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Day-1 operations — the work between a first variant and a running estate.</h1>
+    <h1>Day-1 operations - the work between a first variant and a running estate.</h1>
     ${generatedStamp(catalog, "day-1 operations")}
-    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs — each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
@@ -1861,7 +1861,7 @@ function evidenceDepthSummary(lanes) {
   const parts = [];
   if (proven.length) parts.push(`Fully proven: ${proven.join(", ")}.`);
   if (partial.length) parts.push(`Proven on some bases: ${partial.join(", ")}.`);
-  if (notYet.length) parts.push(`Not yet tested: ${notYet.join(", ")} — a fresh cluster run would prove these.`);
+  if (notYet.length) parts.push(`Not yet tested: ${notYet.join(", ")} - a fresh cluster run would prove these.`);
   return parts.join(" ") || "No lane evidence recorded yet.";
 }
 
@@ -1913,7 +1913,7 @@ function chartPageHtml(catalog, entry) {
     row.quirk_class,
     row.route_name,
     executionModePlain(row.execution_mode),
-    (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "—",
+    (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "-",
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
   const skillRows = chartSkill?.applicable?.map((skill) => [
@@ -1943,7 +1943,7 @@ function chartPageHtml(catalog, entry) {
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
-    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> — discovery and tooling live upstream; this page adds the proof.</p>
+    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
   </header>
@@ -2608,9 +2608,20 @@ function countBy(rows, field) {
 }
 
 function escapeHtml(value) {
-  return String(value ?? "")
+  return siteText(value)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function siteText(value) {
+  return String(value ?? "").replaceAll("\u2014", "-");
+}
+
+function siteSafe(value) {
+  if (Array.isArray(value)) return value.map((entry) => siteSafe(entry));
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, siteSafe(entry)]));
+  if (typeof value === "string") return siteText(value);
+  return value;
 }

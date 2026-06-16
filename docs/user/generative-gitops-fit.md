@@ -55,12 +55,12 @@ These are not complete product claims yet:
 
 | Frontier | Current status |
 | --- | --- |
-| Field-complete provenance | Some value-to-object and blast-radius evidence exists, but not every rendered field in every chart has provenance. |
+| Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 9 passing, 4 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
 | Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
 | Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
 | Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
-| Signatures as trust | Digests and signatures help with integrity and transport. They only create trust when the signer, authority, and verification context are known. |
+| Signatures as trust | The [claims register](../../data/claims-register/summary.md) enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context. |
 
 ## Sceptic-Proofing Status
 
@@ -72,7 +72,7 @@ fixtures, receipts, or explicit refusals:
 
 | Attack question | Current evidence | Limit |
 | --- | --- | --- |
-| Did a value-source map predict the real blast radius? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | Measured cases are still a small slice of the catalog, and whole-release identity paths currently expose known misses. |
+| Did a value-source map predict the real blast radius? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | 13 measured cases are scored today: 9 pass, 4 fail, and 0 value-source rows are unmeasured. Whole-release identity paths currently expose known misses. |
 | Does rendering change across timezone, locale, or flag profiles? | [Environment-Determinism Matrix](../../data/environment-matrix/summary.md) | The current matrix covers one platform, one Helm version, and four chart versions. |
 | What happens when a chart is designed to break the model? | [Synthetic Torture Suite](../../data/torture-suite/summary.md) | The fixture suite is intentionally small and should grow as new failure modes are found. |
 | Which public claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md) | Partial claims stay partial until coverage expands or the product boundary changes. |

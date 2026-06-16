@@ -4,7 +4,7 @@
 // The corpus has two kinds of markdown. Generated docs (data/, recipes/,
 // packages/, runs/, tests/, CATALOG.md, site/) cannot go stale silently:
 // their generators' --verify modes fail the build when they drift from their
-// sources. Authored docs (README.md, docs/**) CAN go stale silently — they
+// sources. Authored docs (README.md, docs/**) CAN go stale silently - they
 // describe evidence that keeps moving. This generator closes that gap:
 //
 // 1. Every authored doc's repo-relative markdown links to data/, scripts/,
@@ -19,7 +19,7 @@
 // The committed snapshot records which commit it was computed at. --verify
 // is a completeness gate, not a wall-clock gate: it fails when the authored
 // doc set changes without regenerating, when a listed trigger path vanishes,
-// or when the summary drifts from the CSV — and it stays quiet as history
+// or when the summary drifts from the CSV - and it stays quiet as history
 // moves, so the build does not break on every unrelated merge. Refresh the
 // snapshot with --generate (cheap; ride it on any docs PR).
 //
@@ -41,7 +41,7 @@ const outputs = {
   generatedAt: join(outputRoot, "generated-at.txt"),
 };
 // Hand-maintained acknowledgments: a row here says "I reviewed this doc on
-// this date and it is still accurate" — it clears review-due without a
+// this date and it is still accurate" - it clears review-due without a
 // cosmetic doc edit. Reviewing-by-editing and reviewing-by-acknowledging are
 // both legitimate; this file records the second kind.
 const reviewedPath = join(outputRoot, "reviewed.csv");
@@ -208,17 +208,17 @@ function summary(rows) {
         .join("\n")
     : "| _none_ | | | | |";
 
-  return `# Doc Freshness — when to update the authored docs
+  return `# Doc Freshness - when to update the authored docs
 
 The corpus's generated docs cannot go stale silently: their verifiers fail
-the build. The authored docs (README, docs/) CAN — they describe evidence
+the build. The authored docs (README, docs/) CAN - they describe evidence
 that keeps moving. This snapshot answers "which authored doc needs review
 right now": a doc is **review-due** when an evidence source it links to
 (under ${EVIDENCE_ROOTS.map((root) => `\`${root.replace(/\/$/, "")}\``).join(", ")})
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of ${asOf}. Refresh with \`npm run doc-freshness\` — cheap, ride
+Snapshot as of ${asOf}. Refresh with \`npm run doc-freshness\` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -250,7 +250,7 @@ ${dueTable}
 ## Docs with no linked evidence sources
 
 These cannot be auto-triggered by source changes. Either they are timeless,
-or they should link the evidence they describe — linking is what wires a doc
+or they should link the evidence they describe - linking is what wires a doc
 into this freshness model.
 
 ${unlinked.length ? unlinked.map((row) => `- [${row.doc}](../../${row.doc})`).join("\n") : "_none_"}
@@ -309,7 +309,7 @@ td.note code{font-size:11px}
 </style>
 </head>
 <body>
-<h1>Doc Freshness — when to update the authored docs</h1>
+<h1>Doc Freshness - when to update the authored docs</h1>
 <p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed docs, linked evidence files, and git history.</p>
 <p class="sub">${rows.length} authored docs · <b>${due} review-due</b> · ${fresh} fresh · ${unlinked} with no linked evidence sources. Snapshot as of ${escapeHtml(asOf)}; refresh with <code>npm run doc-freshness</code>. A review-due doc is cleared by editing it or acknowledging it in reviewed.csv ("reviewed on this date, still accurate").</p>
 <table>

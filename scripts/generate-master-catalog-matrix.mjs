@@ -3,14 +3,14 @@
 // per (chart, version, variant), joining the per-variant lane results with
 // chart-level translation attributes (tier, adoption bucket, quirk features,
 // hook disposition, production decision, outcome level). It invents no new
-// truth — every cell is a join over committed sources, and the verifier fails
+// truth - every cell is a join over committed sources, and the verifier fails
 // when this view goes stale against them.
 //
 // Three renderings of the same rows:
-//   matrix.csv  — machine/spreadsheet import (words, not colors: CSV cannot
+//   matrix.csv  - machine/spreadsheet import (words, not colors: CSV cannot
 //                 carry formatting; open matrix.html for the colored cells)
-//   summary.md  — GitHub-readable compact table with icons
-//   matrix.html — self-contained colored-cell rendering for a browser
+//   summary.md  - GitHub-readable compact table with icons
+//   matrix.html - self-contained colored-cell rendering for a browser
 //
 // Cell vocabulary:
 //   yes (pass)            -> green
@@ -55,7 +55,7 @@ const SOURCES = {
 
 // Spine columns come from base-outcomes (the derived lane superset).
 // lane-test-matrix/variant-lanes.csv is its upstream intermediate and is no
-// longer read here — rationalization plan R1.
+// longer read here - rationalization plan R1.
 const LANE_COLUMNS = [
   ["lane_render_parity", "render_parity"],
   ["lane_confighub_scan_ops", "in_confighub"],
@@ -65,7 +65,7 @@ const LANE_COLUMNS = [
   ["lane_live_dual_parity", "live_helm_vs_confighub_parity"],
 ];
 
-// What each joined source carries into this view and what stays behind —
+// What each joined source carries into this view and what stays behind -
 // rendered into the summary so the compression is documented, not silent.
 const COLUMN_PROVENANCE = [
   {
@@ -219,7 +219,7 @@ function buildReport(generatedAt) {
       const ready = readiness.get(chartAtVersion);
       // Hook evidence joins by exact chart@version when available; otherwise
       // it falls back to the chart family's disposition row and SAYS SO via
-      // hook_evidence_version — family evidence must not read as evidence
+      // hook_evidence_version - family evidence must not read as evidence
       // for this exact version.
       const hookExact = hooksExact.get(chartAtVersion);
       const selectedHookRouteExactBase = selectedHookRoutesExactBase.get(`${chartAtVersion}|${variant}`);
@@ -245,7 +245,7 @@ function buildReport(generatedAt) {
       const active = chooseActiveProofRow(activeRows);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
-      // is UNROUTED — rendering it as "no hooks" would hide exactly the gap
+      // is UNROUTED - rendering it as "no hooks" would hide exactly the gap
       // the hook-disposition completeness gate exists to surface.
       const hookFlagged = (ready?.source_features ?? "").split(";").includes("hooks");
       const row = {
@@ -352,7 +352,7 @@ function icon(value) {
   if (value === "watch") return "⚠️";
   if (value === "no") return "❌";
   if (value === "todo") return "⬜";
-  if (value === "n/a" || value === "") return "—";
+  if (value === "n/a" || value === "") return "-";
   return value;
 }
 
@@ -459,13 +459,13 @@ function summary(rows, charts, unmatchedReadiness) {
         row.hook_disposition === "unrouted"
           ? "unrouted ⚠️"
           : row.hook_count === ""
-            ? "—"
+            ? "-"
             : row.hook_count === "0"
-              ? "0 —"
+              ? "0 -"
               : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
-      const route = row.lifecycle_route_contract === "n/a" ? "—" : icon(row.lifecycle_route_contract);
-      const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "—";
-      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
+      const route = row.lifecycle_route_contract === "n/a" ? "-" : icon(row.lifecycle_route_contract);
+      const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "-";
+      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "-"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
 
@@ -475,12 +475,12 @@ function summary(rows, charts, unmatchedReadiness) {
 
 ONE view of the whole catalog: one row per supported variant, grouped by chart
 and version, with the translation attributes and per-lane status joined from
-the committed sources below. This file invents no new truth — every cell comes
+the committed sources below. This file invents no new truth - every cell comes
 from a source the verifier checks this view against.
 
 Three renderings of the same rows: this summary (GitHub),
 [matrix.csv](matrix.csv) for spreadsheet import (CSV carries words, not
-colors), and [matrix.html](matrix.html) — open it in a browser for the
+colors), and [matrix.html](matrix.html) - open it in a browser for the
 literal red/green/grey colored cells.
 
 ## Legend
@@ -488,10 +488,10 @@ literal red/green/grey colored cells.
 | Icon | Meaning |
 | --- | --- |
 | ✅ | yes / pass |
-| ⚠️ | watch — passing with a recorded caution |
+| ⚠️ | watch - passing with a recorded caution |
 | ❌ | no / blocked |
-| ⬜ | not yet run — absence of evidence, not a failure |
-| — | not applicable — this lane does not apply to this base |
+| ⬜ | not yet run - absence of evidence, not a failure |
+| - | not applicable - this lane does not apply to this base |
 
 Lane columns: **R** render parity (helm template vs installer setup) ·
 **C** ConfigHub upload + scan + safe ops · **L** local kind apply ·
@@ -500,7 +500,7 @@ Lane columns: **R** render parity (helm template vs installer setup) ·
 **K** two-cluster kind parity · **V** server-side ConfigHub variant promotion.
 Hooks column: source hook count, disposition route, live-rehearsal status.
 **Route** is the generated lifecycle route/off-ramp contract: ✅ all route rows
-observed, ⚠️ route/executor named with cautions, ⬜ route work still todo, —
+observed, ⚠️ route/executor named with cautions, ⬜ route work still todo, -
 no route row applies.
 \`unrouted ⚠️\` marks a chart whose source scan flags hooks but that has no
 hook-disposition row yet; \`(from @x.y.z)\` marks chart-family evidence taken
@@ -512,7 +512,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | ${charts} |
 | Variant rows | ${rows.length} |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / — | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} / ${counts.na} |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} / ${counts.na} |
 | Variants with the complete core lane set | ${complete} |
 | Variants with a SUPPORTED production decision | ${supported} |
 | Recorded production decisions (supported / superseded / rejected) | ${supported} / ${superseded} / ${rejected} |
@@ -624,7 +624,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
             ? `<td class="s na">–</td>`
             : row.hook_count === "0"
               ? `<td class="s na" title="no source hooks">0</td>`
-              : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}${row.hook_evidence_version ? ` — evidence from @${row.hook_evidence_version} (chart-family, not this version)` : ""}`, row.hook_count);
+              : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}${row.hook_evidence_version ? ` - evidence from @${row.hook_evidence_version} (chart-family, not this version)` : ""}`, row.hook_count);
       const routeText = lifecycleRouteSummary(row);
       const routeCell = statusCell(row.lifecycle_route_contract, routeText.title, routeText.label);
       const nextAction = row.next_action ? `<td class="note" title="${escapeHtml(row.next_action)}">${escapeHtml(row.next_action.length > 70 ? `${row.next_action.slice(0, 67)}...` : row.next_action)}</td>` : `<td class="note"></td>`;
@@ -705,7 +705,7 @@ function escapeHtml(text) {
 function tierShort(tier) {
   if (tier === "top20-catalog-supported") return "top20";
   if (tier === "next80-proof-grade") return "next80";
-  return tier || "—";
+  return tier || "-";
 }
 
 function useShort(bucket) {
@@ -713,7 +713,7 @@ function useShort(bucket) {
   if (bucket === "promote-after-review") return "review";
   if (bucket === "needs-useful-variant") return "needs variant";
   if (bucket === "limitation-decision-first") return "limit first";
-  return "—";
+  return "-";
 }
 
 function evidenceShort(evidence) {
@@ -722,7 +722,7 @@ function evidenceShort(evidence) {
   if (evidence === "local-kubernetes-live") return "local live";
   if (evidence === "in-confighub-proof") return "ConfigHub";
   if (evidence === "render-parity") return "render";
-  return evidence || "—";
+  return evidence || "-";
 }
 
 function compactText(text, limit) {
@@ -776,7 +776,7 @@ function productQueues(rows) {
 }
 
 function examples(rows, limit = 3, markdown = true) {
-  if (rows.length === 0) return "—";
+  if (rows.length === 0) return "-";
   return rows
     .slice(0, limit)
     .map((row) => {

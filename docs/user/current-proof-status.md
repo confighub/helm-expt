@@ -55,12 +55,12 @@ these frontiers remains open.
 
 | Frontier | Current status |
 | --- | --- |
-| Field-complete provenance | Some value-to-object and blast-radius evidence exists, but not every rendered field in every chart has provenance. |
+| Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 9 passing, 4 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
 | Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
 | Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
 | Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
-| Signatures as trust | Digests and signatures help with integrity and transport. They only create trust when the signer, authority, and verification context are known. |
+| Signatures as trust | The [claims register](../../data/claims-register/summary.md) enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context. |
 
 The sceptic-proofing work is also not finished. The claims register,
 blast-radius scoreboard, torture suite, and environment matrix exist today.
@@ -80,7 +80,7 @@ not rely on prose summaries for counts.
 | Which latest chart versions are ready for promotion work? | [Promotion Work Orders](../../data/latest-top20-refresh/promotion-work-orders.md) | Per-candidate work orders for newer upstream versions. |
 | Which top-100 charts are covered, partial, or decision-needed? | [Top-100 Coverage](../../data/top100-coverage/summary.md) and [Top-100 Readiness](../../data/top100-readiness/summary.md) | Coverage-contract status per chart, and the adoption bucket with next action. |
 | Which hard chart shows the model under serious Helm complexity? | [Serious Chart Proof](./serious-chart-proof.md), [kube-prometheus-stack catalog page](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md), [Webhook Certificate Lifecycle Evidence](../../data/webhook-cert-lifecycle/summary.md), and [Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | CRDs, webhooks, RBAC, generated facts, dependency locks, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts. |
-| Is value-change blast radius measured or assumed? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | The measured KPS CRD, Redis existing-secret, and NGINX existing-TLS ingress base-pair cases, plus the unmeasured value-source-map backlog. |
+| Is value-change blast radius measured or assumed? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | The generated harness currently scores 13 measured cases: 9 pass, 4 fail, and 0 value-source rows are unmeasured. |
 | Which watch/blocked rows are trust signals, not failures? | [cub-scout Watchlist](../../data/live-e2e/cub-scout-watchlist.md) and [What We Refuse To Claim](./what-we-refuse-to-claim.md) | Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model. |
 | Which public claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md) | One row per claim with evidence paths, scoped verifier, and the limit that keeps the claim honest. |
 | Which sceptic attacks have fixtures, and which are still partial? | [Generative GitOps Fit](./generative-gitops-fit.md#sceptic-proofing-status), [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md), [Environment-Determinism Matrix](../../data/environment-matrix/summary.md), and [Synthetic Torture Suite](../../data/torture-suite/summary.md) | The built attack fixtures for blast radius, environment determinism, and breaker charts, plus the open cluster-matrix, external-reproduction, time-travel, and upgrade-gauntlet work. |
