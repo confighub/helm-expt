@@ -256,6 +256,20 @@
       "receipt": "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
     },
     {
+      "chart": "jaegertracing/jaeger-operator",
+      "version": "2.57.0",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "unknown",
+      "residue_category": "target-prerequisite-crds",
+      "blocker_owner": "user",
+      "usable_today": "yes, after staging CRDs",
+      "user_decision": "Usable once you stage the required CRDs on the target. The rendered object set matched regular Helm (semantic parity passed); only the cluster prerequisite is missing.",
+      "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
+      "reason": "target-prerequisite: CRDs missing",
+      "receipt": "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+    },
+    {
       "chart": "kedacore/keda",
       "version": "2.19.0",
       "base": "no-crds",
