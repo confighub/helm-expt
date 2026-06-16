@@ -86,6 +86,20 @@
       "receipt": "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
     },
     {
+      "chart": "elastic/filebeat",
+      "version": "8.5.1",
+      "base": "node-or-cluster-collector",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "helm-runtime: upstream not ready (parity passed)",
+      "receipt": "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+    },
+    {
       "chart": "fairwinds-stable/vpa",
       "version": "4.11.0",
       "base": "default",
