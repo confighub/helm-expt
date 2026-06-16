@@ -6732,7 +6732,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-run",
-      "command": "npm run kind-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds"
+      "command": ""
     },
     {
       "chart": "traefik/traefik",
