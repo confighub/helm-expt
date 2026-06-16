@@ -1,0 +1,1395 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-contour-21.1.4-no-crds-live-parity-20260605
+spec:
+  chart: bitnami/contour
+  version: 21.1.4
+  base: no-crds
+  result: watch
+  observedAt: '2026-06-16T05:14:59Z'
+  package:
+    path: packages/bitnami/contour/21.1.4
+  recipe:
+    path: recipes/bitnami/contour/21.1.4
+  variantRevision: recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-contour-mqg6u9si-jv7
+    kubeContext: kind-helm-expt-parity-contour-mqg6u9si-jv7
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-contour-mqg6u9si-jv7 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-contour-mqg6u9si-jv7"...
+
+        Deleting cluster "helm-expt-parity-contour-mqg6u9si-jv7" ...
+
+        Deleted nodes: ["helm-expt-parity-contour-mqg6u9si-jv7-control-plane"]
+
+        Deleting Space "helm-expt-parity-contour-mqg6u9si-jv7-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install contour oci://registry-1.docker.io/bitnamicharts/contour
+        --version 21.1.4 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-contour-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f
+      objectCount: 15
+      liveHelmManifestSHA256: 9eb875a01f3fa87258d9c7f1d7e970d3fb104b3ff8b1a953b6164f3364e60ac3
+      liveHelmManifestObjectCount: 20
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: ''
+        pods: contour-contour-certgen-ld7qr   0/1   ImagePullBackOff   0     8m
+        notReady:
+        - namespace: default-helm
+          pod: contour-contour-certgen-ld7qr
+          ready: 0/1
+          status: ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: e2e28c7bd58d7c39c5f01e3589751323eb5328f5e527d443cb03bd0cd2c38176
+            bytes: 1282
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 195b0f8308f9c6df93b281adc3ab6fffbd026374d79790360e636ccf6660390c
+            bytes: 2775
+          podArtifacts:
+          - namespace: default-helm
+            pod: contour-contour-certgen-ld7qr
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/contour-contour-certgen-ld7qr/describe.txt
+            sha256: a9f1cdcf852f50f733467da99d39c43aea6610eb704b720425f6b4fc243db105
+            bytes: 4199
+          - namespace: default-helm
+            pod: contour-contour-certgen-ld7qr
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/contour-contour-certgen-ld7qr/logs.txt
+            sha256: 8a5858a8205352a4c92a5d93cbaf8dffcbeecab3a863b938f250ef1a9a2a077b
+            bytes: 144
+          - namespace: default-helm
+            pod: contour-contour-certgen-ld7qr
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/contour-contour-certgen-ld7qr/previous-logs.txt
+            sha256: 67d7dc49187ad78f1bce921ab9d3e72ac89abc8f92b3f692d4e868fad9911be0
+            bytes: 120
+      stderr: 'Pulled: registry-1.docker.io/bitnamicharts/contour:21.1.4
+
+        Digest: sha256:ff853d2dcce7978030e3db0c1a814c8239a689ded507e2aebeb64b8355ba32d9
+
+        Error: failed pre-install: resource Job/default-helm/contour-contour-certgen
+        not ready. status: InProgress, message: Job in progress
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/contour/21.1.4
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-contour-mqg6u9si-jv7-contour
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: e8438e0a7ce8d15d9b68c48154f44befbc07e04174f17fc043d9c521c660df4a
+      objectCount: 16
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/contour-contour   0/1   1     0     4m54s
+
+          daemonset.apps/contour-envoy   1     1     0     1     0     <none>   4m54s'
+        pods: '# default
+
+          contour-contour-6f88fd5fc6-z8lqj   0/1   ContainerCreating   0     4m54s
+
+          contour-envoy-k2vrp                0/2   Init:0/1            0     4m54s'
+        notReady:
+        - namespace: default
+          pod: contour-contour-6f88fd5fc6-z8lqj
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default
+          pod: contour-envoy-k2vrp
+          ready: 0/2
+          status: Init:0/1
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 4209fd1f87366e5051e6d2b7b25bd0c0643d304da7b79a95cfb0b885868b2119
+            bytes: 3343
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 8e973b89c0535ab4da2023f9c83cf171fdd8d2132117af3bece2b2e3951f76ad
+            bytes: 7758
+          podArtifacts:
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-contour-6f88fd5fc6-z8lqj/describe.txt
+            sha256: 04a7813ece6cb871191689f2951f2a240f12535730ef325e9c717d7d928baa90
+            bytes: 4038
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-contour-6f88fd5fc6-z8lqj/logs.txt
+            sha256: 82acf4139fcf956a9016771c45d82eac2fa7e921fbbf9f43e74d12a7dc059d71
+            bytes: 132
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-contour-6f88fd5fc6-z8lqj/previous-logs.txt
+            sha256: 76b480026a7d3f6c10a8ab006c21c66ea21f4727c3c38b7f36b5c5c74e61d0d6
+            bytes: 123
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-envoy-k2vrp/describe.txt
+            sha256: 9d00df74c7e6e347a279697597b13c6520ad0691087753cd4d1d7795a66d4980
+            bytes: 5534
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-envoy-k2vrp/logs.txt
+            sha256: 4fdb6b2447a59d53db4a0c7d01664169186280cb33fe31ebc13420e4b8a57bb9
+            bytes: 126
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/contour-envoy-k2vrp/previous-logs.txt
+            sha256: c0701e21eded3f4fe3c3c45b3963dae5020139fd727e04bdf282d5cccb59fd9f
+            bytes: 119
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "contour-contour" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "contour-contour" deleted
+
+            ingressclass.networking.k8s.io "contour" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|DaemonSet|default|contour-envoy
+          - apps/v1|Deployment|default|contour-contour
+          - networking.k8s.io/v1|NetworkPolicy|default|contour-contour
+          - networking.k8s.io/v1|NetworkPolicy|default|contour-contour-certgen
+          - networking.k8s.io/v1|NetworkPolicy|default|contour-envoy
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|contour-contour-role
+          - rbac.authorization.k8s.io/v1|Role|default|contour-contour
+          - v1|ConfigMap|default|contour
+          - v1|ServiceAccount|default|contour-contour
+          - v1|ServiceAccount|default|contour-envoy
+          - v1|Service|default|contour
+          - v1|Service|default|contour-envoy
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-contour-mqg6u9si-jv7-contour
+      controller: Argo CD OCI
+      app: contour-parity
+      manifestSHA256: 848b2957f8d7d7b2799ad137c7dac3b653d43133053afbd2c6bb111aefb8d0da
+      objectCount: 16
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+      sync: Synced
+      health: Degraded
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-contour-mqg6u9si-jv7-contour
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+              targetRevision: latest
+          revision: sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T05:34:12Z'
+          status: Degraded
+        summary:
+          images:
+          - docker.io/bitnami/contour:1.32.1-debian-12-r0
+          - docker.io/bitnami/envoy:1.34.5-debian-12-r0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T05:30:31Z'
+          finishedAt: '2026-06-16T05:30:34Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 16
+          syncResultStatusCounts:
+            Synced: 16
+        history:
+        - id: 0
+          revision: sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+          deployedAt: '2026-06-16T05:30:34Z'
+          deployStartedAt: '2026-06-16T05:30:31Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-contour-mqg6u9si-jv7-contour
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: contour-envoy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: contour-envoy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default
+          name: contour-envoy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: IngressClass
+          namespace: ''
+          name: contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: contour-contour-certgen
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: contour-envoy
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: contour-contour
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: contour-contour-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         contour-parity\nNamespace:    argocd\nLabels: \
+              \      <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-contour-mqg6u9si-jv7-cluster:argoproj.io/Application:argocd/contour-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 4532495c-7965-41f5-9e62-51c1a5dcef9d\n              confighub.com/UnitSlug:\
+              \ contour-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:    \
+              \     Application\nMetadata:\n  Creation Timestamp:  2026-06-16T05:30:29Z\n\
+              \  Generation:          11\n  Resource Version:    2673\n  UID:    \
+              \             85f264ee-f27c-4990-b962-16e1a170c36b\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-contour\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T05:34:12Z\n\
+              \    Status:                Degraded\n  History:\n    Deploy Started\
+              \ At:  2026-06-16T05:30:31Z\n    Deployed At:        2026-06-16T05:30:34Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \    Source:\n      Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-contour\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T05:30:34Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \        Source:\n          Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-contour\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-16T05:30:31Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/contour-envoy serverside-applied\n\
+              \        Name:        contour-envoy\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       networking.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        NetworkPolicy\n        Message:   \
+              \  networkpolicy.networking.k8s.io/contour-contour-certgen serverside-applied\n\
+              \        Name:        contour-contour-certgen\n        Namespace:  \
+              \ default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/contour-contour\
+              \ serverside-applied\n        Name:        contour-contour\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/contour-envoy serverside-applied\n        Name:\
+              \        contour-envoy\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ServiceAccount\n        Message:     serviceaccount/contour-contour\
+              \ serverside-applied\n        Name:        contour-contour\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ConfigMap\n        Message:\
+              \     configmap/contour serverside-applied\n        Name:        contour\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/contour-contour\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[create get list update\
+              \ watch] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[] Resources:[endpoints]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[] Resources:[secrets]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[] Resources:[services] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[networking.k8s.io]\
+              \ Resources:[ingressclasses] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[networking.k8s.io]\
+              \ Resources:[ingresses] ResourceNames:[] NonResourceURLs:[]}\n     \
+              \                  {Verbs:[create get update] APIGroups:[networking.k8s.io]\
+              \ Resources:[ingresses/status] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list wa"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                       MESSAGE
+
+              6m47s       Normal   OperationStarted     application/contour-parity   Initiated
+              automated sync to ''sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072''
+
+              6m47s       Normal   ResourceUpdated      application/contour-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m47s       Normal   ResourceUpdated      application/contour-parity   Updated
+              health status:  -> Progressing
+
+              6m44s       Normal   OperationCompleted   application/contour-parity   Sync
+              operation to sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+              succeeded
+
+              6m38s       Normal   ResourceUpdated      application/contour-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              3m6s        Normal   ResourceUpdated      application/contour-parity   Updated
+              health status: Progressing -> Degraded'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Degraded
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 16
+              artifact:
+                path: argocd-core-child.json
+                sha256: e41d8c66e2c95a5620a58e204201e7b511850cd5993ed2d550758e8ee6d44170
+                bytes: 20166
+              output: "{\n  \"metadata\": {\n    \"name\": \"contour-parity\",\n \
+                \   \"namespace\": \"argocd\",\n    \"uid\": \"85f264ee-f27c-4990-b962-16e1a170c36b\"\
+                ,\n    \"resourceVersion\": \"2740\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-16T05:30:29Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-contour-mqg6u9si-jv7-cluster:argoproj.io/Application:argocd/contour-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"4532495c-7965-41f5-9e62-51c1a5dcef9d\",\n      \"confighub.com/UnitSlug\"\
+                : \"contour-parity-app\"\n    },\n    \"managedFields\": [\n     \
+                \ {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-16T05:30:29Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T05:37:26Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-contour-mqg6u9si-jv7-contour\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"contour\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"contour\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"contour-envoy\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\"\n        }\n      },\n      {\n \
+                \       \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"contour-contour\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"contour-envoy\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"apps\",\n  \
+                \      \"version\": \"v1\",\n        \"kind\": \"DaemonSet\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"contour-envoy\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n       "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: a127b0d06fe305a13afab3e62439401e7fdfb0e0d15c2ae9ebed23450c0e1f09
+                bytes: 3876
+              output: "Name:               argocd/contour-parity\nProject:       \
+                \     default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:55907/applications/contour-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-contour\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Degraded\n\nKIND/NAME                                      STATUS\
+                \  HEALTH       AGE    MESSAGE                                   \
+                \                                                                \
+                \                                                                \
+                \            REASON\nClusterRoleBinding/contour-contour          \
+                \   Synced               7m1s                                    \
+                \                                                                \
+                \                                                                \
+                \                     \nNamespace/default-oci                    \
+                \      Synced               8m15s                                \
+                \                                                                \
+                \                                                                \
+                \                        \nDaemonSet/contour-envoy               \
+                \         Synced  Progressing  13m    daemonset.apps/contour-envoy\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                          Waiting for daemon set \"contour-envoy\"\
+                \ rollout to finish: 0 of 1 updated pods are available...\n\u251C\u2500\
+                Pod/contour-envoy-k2vrp                              Progressing \
+                \ 13m                                                            \
+                \                                                                \
+                \                                                              \n\u2514\
+                \u2500ControllerRevision/contour-envoy-7745bbb45d                \
+                \       13m                                                      \
+                \                                                                \
+                \                                                                \
+                \    \nIngressClass/contour                           Synced     \
+                \          7m1s                                                  \
+                \                                                                \
+                \                                                                \
+                \       \nNetworkPolicy/contour-envoy                    Synced  \
+                \             13m    networkpolicy.networking.k8s.io/contour-envoy\
+                \ serverside-applied                                             \
+                \                                                                \
+                \         \nClusterRole/contour-contour                    Synced\
+                \               7m1s                                             \
+                \                                                                \
+                \                                                                \
+                \            \nRole/contour-contour                           Synced\
+                \               13m    role.rbac.authorization.k8s.io/contour-contour\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/contour-contour\
+                \ serverside-applied                          \nRoleBinding/contour-contour-role\
+                \               Synced               13m    rolebinding.rbac.authorization.k8s.io/contour-contour-role\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/contour-contour-role\
+                \ serverside-applied  \nDeployment/contour-contour               \
+                \      Synced  Degraded     13m    deployment.apps/contour-contour\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                       Deployment \"contour-contour\" exceeded its\
+                \ progress deadline\n\u2514\u2500ReplicaSet/contour-contour-6f88fd5fc6\
+                \                Progressing  13m                                \
+                \                                                                \
+                \                                                                \
+                \                          Waiting for rollout to finish: 0 out of\
+                \ 1 new replicas are available...\n  \u2514\u2500Pod/contour-contour-6f88fd5fc6-z8lqj\
+                \               Progressing  13m                                 \
+                \                                                                \
+                \                                                                \
+                \                         \nNetworkPolicy/contour-contour        \
+                \          Synced               13m    networkpolicy.networking.k8s.io/contour-contour\
+                \ serverside-applied                                             \
+                \                                                                \
+                \       \nConfigMap/contour                              Synced  \
+                \             13m    configmap/contour serverside-applied        \
+                \                                                                \
+                \                                                                \
+                \          \nServiceAccount/contour-envoy                   Synced\
+                \               13m    serviceaccount/contour-envoy serverside-applied\
+                \                                                                \
+                \                                                                \
+                \       \nNetworkPolicy/contour-contour-certgen          Synced  \
+                \             13m    networkpolicy.networking.k8s.io/contour-contour-certgen\
+                \ serverside-applied                                             \
+                \                                                               \n\
+                Service/contour                                Synced  Healthy   \
+                \   13m    service/contour serverside-applied                    \
+                \                                                                \
+                \                                                                \n\
+                Service/contour-envoy                          Synced  Progressing\
+                \  13m    service/contour-envoy serverside-applied               \
+                \                                                                \
+                \                                                               \n\
+                ServiceAccount/contour-contour                 Synced            \
+                \   13m    serviceaccount/contour-contour serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"contour-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"apply\",\n      \"reason\": \"Degraded\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/contour-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\",\n \
+              \     \"lastAttemptedRevision\": \"sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-contour-mqg6u9si-jv7-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-contour-mqg6u9si-jv7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"contour-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-contour-mqg6u9si-jv7-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-contour-mqg6u9si-jv7-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+              targetRevision: latest
+          revision: sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T05:16:01Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T05:30:24Z'
+          finishedAt: '2026-06-16T05:30:29Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+          deployedAt: '2026-06-16T05:30:29Z'
+          deployStartedAt: '2026-06-16T05:30:24Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-contour-mqg6u9si-jv7-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: contour-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-contour-mqg6u9si-jv7-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-16T05:15:55Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  2518\n  UID:        \
+              \       2e646d7a-a0ef-476c-b315-de71fe7087e1\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-16T05:16:01Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T05:30:24Z\n\
+              \    Deployed At:        2026-06-16T05:30:29Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \    Source:\n      Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T05:30:29Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \        Source:\n          Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-16T05:30:24Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/contour-parity serverside-applied\n\
+              \        Name:        contour-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-contour-mqg6u9si-jv7-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \      Source:\n        Path:              ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T05:34:38Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       contour-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     21m    argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     21m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  ResourceUpdated   \
+              \  19m    argocd-application-controller  Updated sync status: Unknown\
+              \ -> Synced\n  Normal  OperationStarted    7m12s  argocd-application-controller\
+              \  Initiated automated sync to 'sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m7s   argocd-application-controller  Sync operation to sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\
+              \ succeeded\n  Normal  ResourceUpdated     7m5s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Updated
+              sync status:  -> Unknown
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Updated
+              health status:  -> Healthy
+
+              19m         Normal   ResourceUpdated      application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Updated
+              sync status: Unknown -> Synced
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Initiated
+              automated sync to ''sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m7s        Normal   OperationCompleted   application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Sync
+              operation to sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072
+              succeeded
+
+              7m5s        Normal   ResourceUpdated      application/helm-expt-parity-contour-mqg6u9si-jv7-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: aea176394ce3275c512c447e823d82d45a4ccd04bcd88126e7948f0fc981f6bb
+                bytes: 10631
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-contour-mqg6u9si-jv7-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2e646d7a-a0ef-476c-b315-de71fe7087e1\"\
+                ,\n    \"resourceVersion\": \"2764\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-16T05:15:55Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-contour-mqg6u9si-jv7-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-contour-mqg6u9si-jv7-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T05:15:55Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-16T05:37:43Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:44"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: e868359b44913aa2ffa449a98cd66a4c0625b30d19ab735463a464055f832719
+                bytes: 1121
+              output: "Name:               argocd/helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:56024/applications/helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-contour-mqg6u9si-jv7-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \         STATUS  HEALTH  AGE    MESSAGE                         \
+                \                                                          REASON\n\
+                Application/contour-parity                                 Synced\
+                \          7m23s  application.argoproj.io/contour-parity serverside-applied\
+                \                                 \nApplication/helm-expt-parity-contour-mqg6u9si-jv7-cluster\
+                \  Synced          21m    application.argoproj.io/helm-expt-parity-contour-mqg6u9si-jv7-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"contour-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"apply\",\n      \"reason\": \"Degraded\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/contour-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Degraded\",\n \
+              \     \"lastAttemptedRevision\": \"sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-contour-mqg6u9si-jv7-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-contour-mqg6u9si-jv7-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c627594e01ca47247efb28a086bfbbc30e673de86aa12709ba227c6ff75fa072\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"contour-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-contour-mqg6u9si-jv7-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/contour-contour   0/1   1     0     16m
+
+          daemonset.apps/contour-envoy   1     1     0     1     0     <none>   16m'
+        pods: '# default
+
+          contour-contour-6f88fd5fc6-z8lqj   0/1   ContainerCreating   0     16m
+
+          contour-envoy-k2vrp                0/2   Init:0/1            0     16m'
+        notReady:
+        - namespace: default
+          pod: contour-contour-6f88fd5fc6-z8lqj
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default
+          pod: contour-envoy-k2vrp
+          ready: 0/2
+          status: Init:0/1
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: c9f09566fbde69cdcdd882f67d5b1f90590eb747b968d7ea69c948d32d15e8be
+            bytes: 3343
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: bc7580ecc3f0411afa5d41e557c84d84b9bc2a9f8dd5b8da5fc0b394ee80d9f4
+            bytes: 8389
+          podArtifacts:
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-contour-6f88fd5fc6-z8lqj/describe.txt
+            sha256: 628db47c46b2a9b9ef38147fb2a823fdb41ce0dfa8086277991d12299d772874
+            bytes: 4034
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-contour-6f88fd5fc6-z8lqj/logs.txt
+            sha256: 82acf4139fcf956a9016771c45d82eac2fa7e921fbbf9f43e74d12a7dc059d71
+            bytes: 132
+          - namespace: default
+            pod: contour-contour-6f88fd5fc6-z8lqj
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-contour-6f88fd5fc6-z8lqj/previous-logs.txt
+            sha256: 76b480026a7d3f6c10a8ab006c21c66ea21f4727c3c38b7f36b5c5c74e61d0d6
+            bytes: 123
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-envoy-k2vrp/describe.txt
+            sha256: b826c3285f302c6a497fd197dcbdc54b1efe36597f1ff055558a95eca468a019
+            bytes: 5530
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-envoy-k2vrp/logs.txt
+            sha256: 4fdb6b2447a59d53db4a0c7d01664169186280cb33fe31ebc13420e4b8a57bb9
+            bytes: 126
+          - namespace: default
+            pod: contour-envoy-k2vrp
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/contour-envoy-k2vrp/previous-logs.txt
+            sha256: c0701e21eded3f4fe3c3c45b3963dae5020139fd727e04bdf282d5cccb59fd9f
+            bytes: 119
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 15
+      configHubObjectCount: 16
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 15
+      configHubObjectCount: 16
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-16T05:15:55Z'
+    finishedAt: '2026-06-16T05:23:58Z'
+    elapsedSeconds: 483.421
+    timeoutSeconds: 900
+    command: helm upgrade --install contour oci://registry-1.docker.io/bitnamicharts/contour
+      --version 21.1.4 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-contour-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T05:24:09Z'
+    finishedAt: '2026-06-16T05:24:10Z'
+    elapsedSeconds: 0.363
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/contour/21.1.4
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-contour-mqg6u9si-jv7-contour
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-16T05:24:10Z'
+    finishedAt: '2026-06-16T05:24:10Z'
+    elapsedSeconds: 0.186
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-contour-mqg6u9si-jv7.kubeconfig
+      --context kind-helm-expt-parity-contour-mqg6u9si-jv7 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-contour-no-crds/direct-apply-manifest.yaml
+    objectCount: 15
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-16T05:24:10Z'
+    finishedAt: '2026-06-16T05:29:14Z'
+    elapsedSeconds: 303.646
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-16T05:29:20Z'
+    finishedAt: '2026-06-16T05:29:20Z'
+    elapsedSeconds: 0.336
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/contour/21.1.4
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-contour-mqg6u9si-jv7-contour
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-16T05:29:20Z'
+    finishedAt: '2026-06-16T05:30:04Z'
+    elapsedSeconds: 43.762
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-contour-mqg6u9si-jv7-contour
+      --space helm-expt-parity-contour-mqg6u9si-jv7-contour --target helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci
+    objectCount: 16
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-16T05:30:04Z'
+    finishedAt: '2026-06-16T05:30:05Z'
+    elapsedSeconds: 0.545
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-contour-mqg6u9si-jv7-contour
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-16T05:30:05Z'
+    finishedAt: '2026-06-16T05:30:13Z'
+    elapsedSeconds: 8.455
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-contour-mqg6u9si-jv7-contour
+      --unit <16 unit(s)> --wait --timeout 5m
+    unitCount: 16
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-16T05:30:13Z'
+    finishedAt: '2026-06-16T05:30:15Z'
+    elapsedSeconds: 1.711
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-contour-mqg6u9si-jv7-cluster
+      contour-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-contour-no-crds/argo-application.json
+      --target helm-expt-parity-contour-mqg6u9si-jv7-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-16T05:30:15Z'
+    finishedAt: '2026-06-16T05:30:16Z'
+    elapsedSeconds: 1.201
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-contour-mqg6u9si-jv7-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-16T05:30:16Z'
+    finishedAt: '2026-06-16T05:37:18Z'
+    elapsedSeconds: 422.24
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Degraded
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-16T05:37:52Z'
+    finishedAt: '2026-06-16T05:40:55Z'
+    elapsedSeconds: 182.247
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-contour-mqg6u9si-jv7\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-contour-mqg6u9si-jv7.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-contour-mqg6u9si-jv7\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-contour-mqg6u9si-jv7\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-contour-mqg6u9si-jv7\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-contour-mqg6u9si-jv7.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argoc"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/contour:21.1.4
+
+      Digest: sha256:ff853d2dcce7978030e3db0c1a814c8239a689ded507e2aebeb64b8355ba32d9
+
+      Error: failed pre-install: resource Job/default-helm/contour-contour-certgen
+      not ready. status: InProgress, message: Job in progress
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/contour-contour   0/1   1     0     4m54s
+
+      daemonset.apps/contour-envoy   1     1     0     1     0     <none>   4m54s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Degraded after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

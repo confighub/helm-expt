@@ -1,0 +1,18 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                     MESSAGE
+25m         Normal    Starting                  node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane
+25m         Normal    Starting                  node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Starting kubelet.
+25m         Normal    NodeHasSufficientPID      node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane status is now: NodeHasSufficientPID
+25m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane status is now: NodeHasNoDiskPressure
+25m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane status is now: NodeHasSufficientMemory
+25m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Updated Node Allocatable limit across pods
+25m         Normal    RegisteredNode            node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane event: Registered Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane in Controller
+25m         Normal    NodeReady                 node/helm-expt-parity-contour-mqg6u9si-jv7-control-plane   Node helm-expt-parity-contour-mqg6u9si-jv7-control-plane status is now: NodeReady
+16m         Normal    ScalingReplicaSet         deployment/contour-contour                                 Scaled up replica set contour-contour-6f88fd5fc6 from 0 to 1
+16m         Normal    SuccessfulCreate          daemonset/contour-envoy                                    Created pod: contour-envoy-k2vrp
+16m         Warning   FailedCreate              daemonset/contour-envoy                                    Error creating: pods "contour-envoy-" is forbidden: error looking up service account default/contour-envoy: serviceaccount "contour-envoy" not found
+16m         Normal    Scheduled                 pod/contour-envoy-k2vrp                                    Successfully assigned default/contour-envoy-k2vrp to helm-expt-parity-contour-mqg6u9si-jv7-control-plane
+16m         Normal    Scheduled                 pod/contour-contour-6f88fd5fc6-z8lqj                       Successfully assigned default/contour-contour-6f88fd5fc6-z8lqj to helm-expt-parity-contour-mqg6u9si-jv7-control-plane
+16m         Normal    SuccessfulCreate          replicaset/contour-contour-6f88fd5fc6                      Created pod: contour-contour-6f88fd5fc6-z8lqj
+16m         Warning   FailedCreate              replicaset/contour-contour-6f88fd5fc6                      Error creating: pods "contour-contour-6f88fd5fc6-" is forbidden: error looking up service account default/contour-contour: serviceaccount "contour-contour" not found
+22s         Warning   FailedMount               pod/contour-envoy-k2vrp                                    MountVolume.SetUp failed for volume "envoycert" : secret "envoycert" not found
+22s         Warning   FailedMount               pod/contour-contour-6f88fd5fc6-z8lqj                       MountVolume.SetUp failed for volume "contourcert" : secret "contourcert" not found

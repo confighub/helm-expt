@@ -1,0 +1,85 @@
+Name:             contour-contour-certgen-ld7qr
+Namespace:        default-helm
+Priority:         0
+Service Account:  contour-contour-certgen
+Node:             helm-expt-parity-contour-mqg6u9si-jv7-control-plane/192.168.97.2
+Start Time:       Tue, 16 Jun 2026 06:15:58 +0100
+Labels:           app.kubernetes.io/component=contour-certgen
+                  app.kubernetes.io/instance=contour
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=contour
+                  app.kubernetes.io/version=1.32.1
+                  batch.kubernetes.io/controller-uid=857332e7-cc88-48d3-b47a-52c205a5b2de
+                  batch.kubernetes.io/job-name=contour-contour-certgen
+                  controller-uid=857332e7-cc88-48d3-b47a-52c205a5b2de
+                  helm.sh/chart=contour-21.1.4
+                  job-name=contour-contour-certgen
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.12
+IPs:
+  IP:           10.244.0.12
+Controlled By:  Job/contour-contour-certgen
+Containers:
+  contour:
+    Container ID:
+    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0
+    Image ID:
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      contour
+    Args:
+      certgen
+      --kube
+      --incluster
+      --overwrite
+      --secrets-format=compact
+      --namespace=$(CONTOUR_NAMESPACE)
+      --certificate-lifetime=365
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:                150m
+      ephemeral-storage:  2Gi
+      memory:             192Mi
+    Requests:
+      cpu:                100m
+      ephemeral-storage:  50Mi
+      memory:             128Mi
+    Liveness:             exec [pgrep contour] delay=120s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            exec [pgrep contour] delay=15s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      CONTOUR_NAMESPACE:  default-helm (v1:metadata.namespace)
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rl4s6 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  kube-api-access-rl4s6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                     From               Message
+  ----     ------     ----                    ----               -------
+  Normal   Scheduled  8m                      default-scheduler  Successfully assigned default-helm/contour-contour-certgen-ld7qr to helm-expt-parity-contour-mqg6u9si-jv7-control-plane
+  Normal   Pulling    4m57s (x5 over 8m)      kubelet            spec.containers{contour}: Pulling image "docker.io/bitnami/contour:1.32.1-debian-12-r0"
+  Warning  Failed     4m56s (x5 over 7m52s)   kubelet            spec.containers{contour}: Failed to pull image "docker.io/bitnami/contour:1.32.1-debian-12-r0": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/contour:1.32.1-debian-12-r0": failed to resolve reference "docker.io/bitnami/contour:1.32.1-debian-12-r0": docker.io/bitnami/contour:1.32.1-debian-12-r0: not found
+  Warning  Failed     4m56s (x5 over 7m52s)   kubelet            spec.containers{contour}: Error: ErrImagePull
+  Warning  Failed     2m44s (x20 over 7m51s)  kubelet            spec.containers{contour}: Error: ImagePullBackOff
+  Normal   BackOff    2m33s (x21 over 7m51s)  kubelet            spec.containers{contour}: Back-off pulling image "docker.io/bitnami/contour:1.32.1-debian-12-r0"

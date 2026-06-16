@@ -1,0 +1,67 @@
+Name:             contour-contour-certgen
+Namespace:        default-helm
+Selector:         batch.kubernetes.io/controller-uid=857332e7-cc88-48d3-b47a-52c205a5b2de
+Labels:           app.kubernetes.io/component=contour-certgen
+                  app.kubernetes.io/instance=contour
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=contour
+                  app.kubernetes.io/version=1.32.1
+                  helm.sh/chart=contour-21.1.4
+Annotations:      helm.sh/hook: pre-install,pre-upgrade
+                  helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+                  helm.sh/hook-weight: 1
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    1
+Start Time:       Tue, 16 Jun 2026 06:15:58 +0100
+Pods Statuses:    1 Active (0 Ready) / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/component=contour-certgen
+                    app.kubernetes.io/instance=contour
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=contour
+                    app.kubernetes.io/version=1.32.1
+                    batch.kubernetes.io/controller-uid=857332e7-cc88-48d3-b47a-52c205a5b2de
+                    batch.kubernetes.io/job-name=contour-contour-certgen
+                    controller-uid=857332e7-cc88-48d3-b47a-52c205a5b2de
+                    helm.sh/chart=contour-21.1.4
+                    job-name=contour-contour-certgen
+  Service Account:  contour-contour-certgen
+  Containers:
+   contour:
+    Image:           docker.io/bitnami/contour:1.32.1-debian-12-r0
+    Port:            <none>
+    Host Port:       <none>
+    SeccompProfile:  RuntimeDefault
+    Command:
+      contour
+    Args:
+      certgen
+      --kube
+      --incluster
+      --overwrite
+      --secrets-format=compact
+      --namespace=$(CONTOUR_NAMESPACE)
+      --certificate-lifetime=365
+    Limits:
+      cpu:                150m
+      ephemeral-storage:  2Gi
+      memory:             192Mi
+    Requests:
+      cpu:                100m
+      ephemeral-storage:  50Mi
+      memory:             128Mi
+    Liveness:             exec [pgrep contour] delay=120s timeout=5s period=20s #success=1 #failure=6
+    Readiness:            exec [pgrep contour] delay=15s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      CONTOUR_NAMESPACE:   (v1:metadata.namespace)
+    Mounts:               <none>
+  Volumes:                <none>
+  Node-Selectors:         <none>
+  Tolerations:            <none>
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  8m    job-controller  Created pod: contour-contour-certgen-ld7qr

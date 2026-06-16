@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-37 non-pass rows: 32 watch, 5 blocked.
+38 non-pass rows: 33 watch, 5 blocked.
 3 are resolved by the **user** (stage a prerequisite); 2
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -35,7 +35,7 @@ passed — the residue is operational, not a config mismatch.
 | --- | ---: |
 | `gitops-runtime` | 16 |
 | `target-runtime` | 9 |
-| `remote-image` | 6 |
+| `remote-image` | 7 |
 | `target-prerequisite` | 3 |
 | `render-input` | 2 |
 | `operate-policy` | 1 |
@@ -44,7 +44,7 @@ passed — the residue is operational, not a config mismatch.
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 9 |
-| `catalog or image publisher` | 6 |
+| `catalog or image publisher` | 7 |
 | `user` | 3 |
 | `catalog` | 2 |
 | `needs operate review` | 1 |
@@ -56,6 +56,7 @@ passed — the residue is operational, not a config mismatch.
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
