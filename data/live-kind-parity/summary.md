@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 116
 watch: 9
-blocked: 15
-semantic parity pass: 130
+blocked: 16
+semantic parity pass: 131
 semantic parity defects: 5
-non-pass rows where semantic parity passed: 14
+non-pass rows where semantic parity passed: 15
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -33,10 +33,10 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | parity: semantic object diff | 5 |
+| helm-runtime: upstream not ready (parity passed) | 3 |
 | target-prerequisite: CRDs missing | 3 |
 | target-prerequisite: required Secret missing (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
-| helm-runtime: upstream not ready (parity passed) | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | target-runtime: pods pending (parity passed) | 2 |
@@ -102,6 +102,7 @@ broader support claim.
 | `elastic/eck-operator@3.4.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-ha/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml |
 | `elastic/filebeat@8.5.1` | default | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-filebeat-default/receipt.yaml |
+| `elastic/filebeat@8.5.1` | node-or-cluster-collector | blocked | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-ha/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml |

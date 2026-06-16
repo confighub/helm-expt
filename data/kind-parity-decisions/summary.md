@@ -23,14 +23,14 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-24 non-pass rows: 9 watch, 15 blocked.
+25 non-pass rows: 9 watch, 16 blocked.
 9 are resolved by the **user** (stage a prerequisite or supply
 values); 7 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
-| `target-runtime` | 7 |
+| `target-runtime` | 8 |
 | `target-prerequisite-crds` | 5 |
 | `model-gap-render` | 4 |
 | `target-prerequisite-secret` | 3 |
@@ -42,8 +42,8 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `user` | 9 |
+| `needs runtime review` | 8 |
 | `catalog` | 7 |
-| `needs runtime review` | 7 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -55,6 +55,7 @@ readiness review.
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
+| elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | grafana/rollout-operator@0.49.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
