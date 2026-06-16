@@ -1,0 +1,720 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-global
+rules:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-leader-election
+rules:
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - coordination.k8s.io
+    resourceNames:
+      - strimzi-cluster-operator
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - delete
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-namespaced
+rules:
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - rolebindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - roles
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - serviceaccounts
+      - configmaps
+      - services
+      - endpoints
+      - secrets
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - pods/resize
+    verbs:
+      - patch
+      - update
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - apps
+    resources:
+      - deployments/scale
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+  - apiGroups:
+      - build.openshift.io
+    resources:
+      - buildconfigs
+      - buildconfigs/instantiate
+      - builds
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - networkpolicies
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+      - routes/custom-host
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - image.openshift.io
+    resources:
+      - imagestreams
+    verbs:
+      - get
+  - apiGroups:
+      - policy
+    resources:
+      - poddisruptionbudgets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-watched
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - watch
+      - list
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkas
+      - kafkanodepools
+      - kafkaconnects
+      - kafkaconnectors
+      - kafkabridges
+      - kafkamirrormaker2s
+      - kafkarebalances
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkas/status
+      - kafkanodepools/status
+      - kafkaconnects/status
+      - kafkaconnectors/status
+      - kafkabridges/status
+      - kafkamirrormaker2s/status
+      - kafkarebalances/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkas/finalizers
+      - kafkanodepools/finalizers
+      - kafkaconnects/finalizers
+      - kafkaconnectors/finalizers
+      - kafkabridges/finalizers
+      - kafkamirrormaker2s/finalizers
+      - kafkarebalances/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - core.strimzi.io
+    resources:
+      - strimzipodsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+  - apiGroups:
+      - core.strimzi.io
+    resources:
+      - strimzipodsets/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - core.strimzi.io
+    resources:
+      - strimzipodsets/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkarebalances
+    verbs:
+      - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: entity-operator-role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-entity-operator
+rules:
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkatopics
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+      - delete
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkausers
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - update
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkatopics/status
+      - kafkausers/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - kafka.strimzi.io
+    resources:
+      - kafkatopics/finalizers
+      - kafkausers/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: broker-role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-kafka-broker
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: client-role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-kafka-client
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: broker-role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-kafka-broker-delegation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-kafka-broker
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: client-role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-kafka-client-delegation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-kafka-client
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-cluster-operator-global
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: v1
+data:
+  log4j2.properties: |
+    name = COConfig
+    monitorInterval = 30
+
+    appender.console.type = Console
+    appender.console.name = STDOUT
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+
+    rootLogger.level = ${env:STRIMZI_LOG_LEVEL:-INFO}
+    rootLogger.appenderRefs = stdout
+    rootLogger.appenderRef.console.ref = STDOUT
+
+    # Kafka AdminClient logging is a bit noisy at INFO level
+    logger.kafka.name = org.apache.kafka
+    logger.kafka.level = WARN
+
+    # Keeps separate level for Netty logging -> to not be changed by the root logger
+    logger.netty.name = io.netty
+    logger.netty.level = INFO
+kind: ConfigMap
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: logging-config-map
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: deployment
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: strimzi-cluster-operator
+      strimzi.io/kind: cluster-operator
+  template:
+    metadata:
+      labels:
+        name: strimzi-cluster-operator
+        strimzi.io/kind: cluster-operator
+    spec:
+      containers:
+        - args:
+            - /opt/strimzi/bin/cluster_operator_run.sh
+          env:
+            - name: STRIMZI_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+              value: "120000"
+            - name: STRIMZI_OPERATION_TIMEOUT_MS
+              value: "300000"
+            - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
+              value: quay.io/strimzi/kafka:1.0.0-kafka-4.2.0
+            - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
+              value: quay.io/strimzi/kafka:1.0.0-kafka-4.2.0
+            - name: STRIMZI_KAFKA_IMAGES
+              value: |
+                4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0
+                4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1
+                4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2
+                4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0
+            - name: STRIMZI_KAFKA_CONNECT_IMAGES
+              value: |
+                4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0
+                4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1
+                4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2
+                4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0
+            - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
+              value: |
+                4.1.0=quay.io/strimzi/kafka:1.0.0-kafka-4.1.0
+                4.1.1=quay.io/strimzi/kafka:1.0.0-kafka-4.1.1
+                4.1.2=quay.io/strimzi/kafka:1.0.0-kafka-4.1.2
+                4.2.0=quay.io/strimzi/kafka:1.0.0-kafka-4.2.0
+            - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
+              value: quay.io/strimzi/operator:1.0.0
+            - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
+              value: quay.io/strimzi/operator:1.0.0
+            - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
+              value: quay.io/strimzi/operator:1.0.0
+            - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
+              value: quay.io/strimzi/kafka-bridge:1.0.0
+            - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE
+              value: quay.io/strimzi/kaniko-executor:1.0.0
+            - name: STRIMZI_DEFAULT_BUILDAH_IMAGE
+              value: quay.io/strimzi/buildah:1.0.0
+            - name: STRIMZI_DEFAULT_MAVEN_BUILDER
+              value: quay.io/strimzi/maven-builder:1.0.0
+            - name: STRIMZI_OPERATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_FEATURE_GATES
+              value: ""
+            - name: STRIMZI_LEADER_ELECTION_ENABLED
+              value: "true"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
+              value: strimzi-cluster-operator
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_LEADER_ELECTION_IDENTITY
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          image: quay.io/strimzi/operator:1.0.0
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          name: strimzi-cluster-operator
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 384Mi
+            requests:
+              cpu: 200m
+              memory: 384Mi
+          volumeMounts:
+            - mountPath: /tmp
+              name: strimzi-tmp
+            - mountPath: /opt/strimzi/custom-config/
+              name: co-config-volume
+      serviceAccountName: strimzi-cluster-operator
+      volumes:
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
+          name: strimzi-tmp
+        - configMap:
+            name: strimzi-cluster-operator
+          name: co-config-volume
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default-apply
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: entity-operator-role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-entity-operator-delegation
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-entity-operator
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-leader-election
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-cluster-operator-leader-election
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-watched
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-cluster-operator-watched
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-cluster-operator-namespaced
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-1.0.0
+    component: service-account
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator
+  namespace: default

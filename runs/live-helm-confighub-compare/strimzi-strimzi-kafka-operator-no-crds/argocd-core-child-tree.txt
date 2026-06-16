@@ -1,0 +1,35 @@
+Name:               argocd/strimzi-kafka-operator-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:51030/applications/strimzi-kafka-operator-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                            STATUS  HEALTH   AGE    MESSAGE                                                                                                                                                                                                                                             REASON
+ServiceAccount/strimzi-cluster-operator                              Synced           2m34s  serviceaccount/strimzi-cluster-operator serverside-applied
+ClusterRoleBinding/strimzi-cluster-operator-kafka-broker-delegation  Synced           25s
+RoleBinding/strimzi-cluster-operator-entity-operator-delegation      Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation serverside-applied
+ConfigMap/strimzi-cluster-operator                                   Synced           2m34s  configmap/strimzi-cluster-operator serverside-applied
+Namespace/default-oci                                                Synced           108s
+ClusterRole/strimzi-cluster-operator-leader-election                 Synced           25s
+ClusterRole/strimzi-cluster-operator-namespaced                      Synced           25s
+ClusterRoleBinding/strimzi-cluster-operator-kafka-client-delegation  Synced           25s
+ClusterRole/strimzi-kafka-broker                                     Synced           25s
+ClusterRole/strimzi-kafka-client                                     Synced           25s
+RoleBinding/strimzi-cluster-operator-leader-election                 Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election serverside-applied
+RoleBinding/strimzi-cluster-operator-watched                         Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched serverside-applied
+Deployment/strimzi-cluster-operator                                  Synced  Healthy  2m34s  deployment.apps/strimzi-cluster-operator serverside-applied
+└─ReplicaSet/strimzi-cluster-operator-57856f5f9b                             Healthy  2m34s
+  └─Pod/strimzi-cluster-operator-57856f5f9b-26p2t                            Healthy  2m34s
+ClusterRole/strimzi-cluster-operator-global                          Synced           25s
+ClusterRole/strimzi-cluster-operator-watched                         Synced           25s
+ClusterRole/strimzi-entity-operator                                  Synced           25s
+ClusterRoleBinding/strimzi-cluster-operator                          Synced           25s
+RoleBinding/strimzi-cluster-operator                                 Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator serverside-applied

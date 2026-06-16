@@ -1,0 +1,584 @@
+{
+  "metadata": {
+    "name": "strimzi-kafka-operator-parity",
+    "namespace": "argocd",
+    "uid": "40d10d3a-830d-46cc-9e87-de89eb381d54",
+    "resourceVersion": "1454",
+    "generation": 8,
+    "creationTimestamp": "2026-06-16T03:35:23Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster:argoproj.io/Application:argocd/strimzi-kafka-operator-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "b7f24073-612a-4462-a97b-f60d356a25ec",
+      "confighub.com/UnitSlug": "strimzi-kafka-operator-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T03:35:23Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-16T03:35:42Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+      "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-cluster-operator-global",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-cluster-operator-leader-election",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-cluster-operator-namespaced",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-cluster-operator-watched",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-entity-operator",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-kafka-broker",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "strimzi-kafka-client",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "strimzi-cluster-operator",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "strimzi-cluster-operator-kafka-broker-delegation",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "strimzi-cluster-operator-kafka-client-delegation",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator-entity-operator-delegation",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator-leader-election",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "strimzi-cluster-operator-watched",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+          "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-16T03:35:25Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a",
+        "deployedAt": "2026-06-16T03:35:27Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+          "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-16T03:35:25Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-16T03:35:35Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+            "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator",
+            "status": "Synced",
+            "message": "serviceaccount/strimzi-cluster-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator",
+            "status": "Synced",
+            "message": "configmap/strimzi-cluster-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-watched",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-watched reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[watch list] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create patch update] APIGroups:[kafka.strimzi.io] Resources:[kafkas kafkanodepools kafkaconnects kafkaconnectors kafkabridges kafkamirrormaker2s kafkarebalances] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[kafka.strimzi.io] Resources:[kafkas/status kafkanodepools/status kafkaconnects/status kafkaconnectors/status kafkabridges/status kafkamirrormaker2s/status kafkarebalances/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[kafka.strimzi.io] Resources:[kafkas/finalizers kafkanodepools/finalizers kafkaconnects/finalizers kafkaconnectors/finalizers kafkabridges/finalizers kafkamirrormaker2s/finalizers kafkarebalances/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[core.strimzi.io] Resources:[strimzipodsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[core.strimzi.io] Resources:[strimzipodsets/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[core.strimzi.io] Resources:[strimzipodsets/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[delete] APIGroups:[kafka.strimzi.io] Resources:[kafkarebalances] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-watched serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-leader-election",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch delete patch update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[strimzi-cluster-operator] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-kafka-client",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-kafka-client reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-kafka-client serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-entity-operator",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-entity-operator reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create patch update delete] APIGroups:[kafka.strimzi.io] Resources:[kafkatopics] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create patch update] APIGroups:[kafka.strimzi.io] Resources:[kafkausers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[kafka.strimzi.io] Resources:[kafkatopics/status kafkausers/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[kafka.strimzi.io] Resources:[kafkatopics/finalizers kafkausers/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-entity-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-kafka-broker",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-kafka-broker reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-kafka-broker serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-namespaced",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-namespaced reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[rbac.authorization.k8s.io] Resources:[rolebindings] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[rbac.authorization.k8s.io] Resources:[roles] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[] Resources:[pods serviceaccounts configmaps services endpoints secrets persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[patch update] APIGroups:[] Resources:[pods/resize] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[apps] Resources:[deployments replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[apps] Resources:[deployments/scale] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[events.k8s.io] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[build.openshift.io] Resources:[buildconfigs buildconfigs/instantiate builds] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[networking.k8s.io] Resources:[networkpolicies ingresses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[route.openshift.io] Resources:[routes routes/custom-host] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[image.openshift.io] Resources:[imagestreams] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-namespaced serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-global",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-global reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch create delete patch update] APIGroups:[rbac.authorization.k8s.io] Resources:[clusterrolebindings] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-global serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-kafka-client-delegation",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-client-delegation reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:strimzi-cluster-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-client-delegation serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator-kafka-broker-delegation",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-broker-delegation reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:strimzi-cluster-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-broker-delegation serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "strimzi-cluster-operator",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:strimzi-cluster-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator-entity-operator-delegation",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator-leader-election",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator-watched",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "strimzi-cluster-operator",
+            "status": "Synced",
+            "message": "deployment.apps/strimzi-cluster-operator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/strimzi/operator:1.0.0"
+            ]
+          }
+        ],
+        "revision": "sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci",
+          "path": "./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-16T03:35:25Z",
+      "finishedAt": "2026-06-16T03:35:27Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/strimzi/operator:1.0.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

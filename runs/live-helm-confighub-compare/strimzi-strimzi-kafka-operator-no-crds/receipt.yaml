@@ -1,0 +1,1250 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: strimzi-strimzi-kafka-operator-1.0.0-no-crds-live-parity-20260605
+spec:
+  chart: strimzi/strimzi-kafka-operator
+  version: 1.0.0
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-16T03:30:39Z'
+  package:
+    path: packages/strimzi/strimzi-kafka-operator/1.0.0
+  recipe:
+    path: recipes/strimzi/strimzi-kafka-operator/1.0.0
+  variantRevision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8
+    kubeContext: kind-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8"...
+
+        Deleting cluster "helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8" ...
+
+        Deleted nodes: ["helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-control-plane"]
+
+        Deleting Space "helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install strimzi-kafka-operator strimzi-kafka-operator
+        --repo https://strimzi.io/charts/ --version 1.0.0 --namespace default-helm
+        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d
+      objectCount: 17
+      liveHelmManifestSHA256: d035c2579842e357305a49e5c881a73c042a5a0673e4f0010f0528f189fcf7b7
+      liveHelmManifestObjectCount: 17
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/strimzi-cluster-operator   1/1   1     1     60s
+        pods: strimzi-cluster-operator-57856f5f9b-dbwng   1/1   Running   0     60s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 16bf4d899d68606e1700db60f951f291d43bcdd1fe27064bb5c390a12a85af8f
+      objectCount: 18
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     40s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-26p2t   1/1   Running   0     40s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 10
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "strimzi-cluster-operator-global"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-cluster-operator-leader-election"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-cluster-operator-namespaced"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-cluster-operator-watched"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-entity-operator" deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-kafka-broker" deleted
+
+            clusterrole.rbac.authorization.k8s.io "strimzi-kafka-client" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "strimzi-cluster-operator-kafka-broker-delegation"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "strimzi-cluster-operator-kafka-client-delegation"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "strimzi-cluster-operator"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|strimzi-cluster-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-entity-operator-delegation
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-leader-election
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-watched
+          - v1|ConfigMap|default|strimzi-cluster-operator
+          - v1|ServiceAccount|default|strimzi-cluster-operator
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      controller: Argo CD OCI
+      app: strimzi-kafka-operator-parity
+      manifestSHA256: 77f9c976de63d9f9ead0084d87ccdfe577aa1e57dd15239d022cb3c89a669396
+      objectCount: 18
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+              targetRevision: latest
+          revision: sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T03:35:25Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/strimzi/operator:1.0.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T03:35:25Z'
+          finishedAt: '2026-06-16T03:35:27Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 18
+          syncResultStatusCounts:
+            Synced: 18
+        history:
+        - id: 0
+          revision: sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+          deployedAt: '2026-06-16T03:35:27Z'
+          deployStartedAt: '2026-06-16T03:35:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: strimzi-cluster-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: strimzi-cluster-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: strimzi-cluster-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-cluster-operator-global
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-cluster-operator-leader-election
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-cluster-operator-namespaced
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-cluster-operator-watched
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-entity-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-kafka-broker
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: strimzi-kafka-client
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: strimzi-cluster-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: strimzi-cluster-operator-kafka-broker-delegation
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: strimzi-cluster-operator-kafka-client-delegation
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: strimzi-cluster-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: strimzi-cluster-operator-entity-operator-delegation
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: strimzi-cluster-operator-leader-election
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: strimzi-cluster-operator-watched
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         strimzi-kafka-operator-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
+              \                helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster:argoproj.io/Application:argocd/strimzi-kafka-operator-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ b7f24073-612a-4462-a97b-f60d356a25ec\n              confighub.com/UnitSlug:\
+              \ strimzi-kafka-operator-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T03:35:23Z\n\
+              \  Generation:          7\n  Resource Version:    1426\n  UID:     \
+              \            40d10d3a-830d-46cc-9e87-de89eb381d54\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T03:35:25Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-16T03:35:25Z\n    Deployed At:        2026-06-16T03:35:27Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T03:35:27Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-16T03:35:25Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/strimzi-cluster-operator serverside-applied\n   \
+              \     Name:        strimzi-cluster-operator\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ConfigMap\n        Message:     configmap/strimzi-cluster-operator\
+              \ serverside-applied\n        Name:        strimzi-cluster-operator\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-watched\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[watch list] APIGroups:[]\
+              \ Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n          \
+              \             {Verbs:[get list watch create patch update] APIGroups:[kafka.strimzi.io]\
+              \ Resources:[kafkas kafkanodepools kafkaconnects kafkaconnectors kafkabridges\
+              \ kafkamirrormaker2s kafkarebalances] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get patch update] APIGroups:[kafka.strimzi.io]\
+              \ Resources:[kafkas/status kafkanodepools/status kafkaconnects/status\
+              \ kafkaconnectors/status kafkabridges/status kafkamirrormaker2s/status\
+              \ kafkarebalances/status] ResourceNames:[] NonResourceURLs:[]}\n   \
+              \                    {Verbs:[update] APIGroups:[kafka.strimzi.io] Resources:[kafkas/finalizers\
+              \ kafkanodepools/finalizers kafkaconnects/finalizers kafkaconnectors/finalizers\
+              \ kafkabridges/finalizers kafkamirrormaker2s/finalizers kafkarebalances/finalizers]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch create delete patch update] APIGroups:[core.strimzi.io]\
+              \ Resources:[strimzipodsets] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get patch update] APIGroups:[core.strimzi.io]\
+              \ Resources:[strimzipodsets/status] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[update] APIGroups:[core.strimzi.io]\
+              \ Resources:[strimzipodsets/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[delete] APIGroups:[kafka.strimzi.io]\
+              \ Resources:[kafkarebalances] ResourceNames:[] NonResourceURLs:[]}.\
+              \ clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-watched\
+              \ serverside-applied\n        Name:        strimzi-cluster-operator-watched\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[create] APIGroups:[coordination.k8s."
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                      MESSAGE
+
+              9s          Normal   OperationStarted     application/strimzi-kafka-operator-parity   Initiated
+              automated sync to ''sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a''
+
+              9s          Normal   ResourceUpdated      application/strimzi-kafka-operator-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/strimzi-kafka-operator-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/strimzi-kafka-operator-parity   Sync
+              operation to sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/strimzi-kafka-operator-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 18
+              artifact:
+                path: argocd-core-child.json
+                sha256: b773cda3703831f7b65cda18eeead6a105a66d59f838d77771a7e7afa5a9f5fb
+                bytes: 26148
+              output: "{\n  \"metadata\": {\n    \"name\": \"strimzi-kafka-operator-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"40d10d3a-830d-46cc-9e87-de89eb381d54\"\
+                ,\n    \"resourceVersion\": \"1454\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-06-16T03:35:23Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster:argoproj.io/Application:argocd/strimzi-kafka-operator-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"b7f24073-612a-4462-a97b-f60d356a25ec\",\n      \"confighub.com/UnitSlug\"\
+                : \"strimzi-kafka-operator-parity-app\"\n    },\n    \"managedFields\"\
+                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
+                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T03:35:23Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T03:35:42Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"strimzi-cluster-operator\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"strimzi-cluster-operator\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"strimzi-cluster-operator\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRole\",\n        \"name\": \"\
+                strimzi-cluster-operator-global\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRole\"\
+                ,\n        \"name\": \"strimzi-cluster-operator-leader-election\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"rbac.a"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b910c138fb8bec8f0057eafffe681b4198715db160527e67e88518179e2338c0
+                bytes: 3860
+              output: "Name:               argocd/strimzi-kafka-operator-parity\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:51030/applications/strimzi-kafka-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                   STATUS  HEALTH   AGE    MESSAGE              \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                               REASON\nServiceAccount/strimzi-cluster-operator\
+                \                              Synced           2m34s  serviceaccount/strimzi-cluster-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \             \nClusterRoleBinding/strimzi-cluster-operator-kafka-broker-delegation\
+                \  Synced           25s                                          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \              \nRoleBinding/strimzi-cluster-operator-entity-operator-delegation\
+                \      Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation\
+                \ serverside-applied  \nConfigMap/strimzi-cluster-operator       \
+                \                            Synced           2m34s  configmap/strimzi-cluster-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \                  \nNamespace/default-oci                       \
+                \                         Synced           108s                  \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                     \nClusterRole/strimzi-cluster-operator-leader-election\
+                \                 Synced           25s                           \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                             \nClusterRole/strimzi-cluster-operator-namespaced\
+                \                      Synced           25s                      \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                  \nClusterRoleBinding/strimzi-cluster-operator-kafka-client-delegation\
+                \  Synced           25s                                          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \              \nClusterRole/strimzi-kafka-broker                \
+                \                     Synced           25s                       \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                 \nClusterRole/strimzi-kafka-client\
+                \                                     Synced           25s       \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                                 \nRoleBinding/strimzi-cluster-operator-leader-election\
+                \                 Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-leader-election\
+                \ serverside-applied                        \nRoleBinding/strimzi-cluster-operator-watched\
+                \                         Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-watched\
+                \ serverside-applied                                        \nDeployment/strimzi-cluster-operator\
+                \                                  Synced  Healthy  2m34s  deployment.apps/strimzi-cluster-operator\
+                \ serverside-applied                                             \
+                \                                                                \
+                \                                                                \
+                \            \n\u2514\u2500ReplicaSet/strimzi-cluster-operator-57856f5f9b\
+                \                             Healthy  2m34s                     \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                 \n  \u2514\u2500Pod/strimzi-cluster-operator-57856f5f9b-26p2t\
+                \                            Healthy  2m34s                      \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                \nClusterRole/strimzi-cluster-operator-global\
+                \                          Synced           25s                  \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                      \nClusterRole/strimzi-cluster-operator-watched\
+                \                         Synced           25s                   \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                     \nClusterRole/strimzi-entity-operator\
+                \                                  Synced           25s          \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                              \nClusterRoleBinding/strimzi-cluster-operator\
+                \                          Synced           25s                  \
+                \                                                                \
+                \                                                                \
+                \                                                                \
+                \                                      \nRoleBinding/strimzi-cluster-operator\
+                \                                 Synced           2m34s  rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              strimzi-kafka-operator-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/strimzi-kafka-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"strimzi-kafka-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+              targetRevision: latest
+          revision: sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-16T03:32:17Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-16T03:35:22Z'
+          finishedAt: '2026-06-16T03:35:23Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+          deployedAt: '2026-06-16T03:35:23Z'
+          deployStartedAt: '2026-06-16T03:35:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: strimzi-kafka-operator-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-16T03:32:07Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1373\n  UID:         \
+              \      40827264-64f1-4b6a-9e02-1cd30537382f\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-16T03:32:17Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T03:35:22Z\n\
+              \    Deployed At:        2026-06-16T03:35:23Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-16T03:35:23Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-16T03:35:22Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/strimzi-kafka-operator-parity\
+              \ serverside-applied\n        Name:        strimzi-kafka-operator-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \      Source:\n        Path:              ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T03:35:23Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       strimzi-kafka-operator-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     3m35s  argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     3m35s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s    argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a'\n\
+              \  Normal  ResourceUpdated     30s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s    argocd-application-controller  Sync operation to sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\
+              \ succeeded\n  Normal  ResourceUpdated     27s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
+
+              3m35s       Normal   ResourceUpdated      application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Updated
+              sync status:  -> Synced
+
+              3m35s       Normal   ResourceUpdated      application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Initiated
+              automated sync to ''sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Sync
+              operation to sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 5806ada383534f11459ddbb6b9d852ccc8eca77f4e97fe1ab34af85f953b3532
+                bytes: 10879
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"40827264-64f1-4b6a-9e02-1cd30537382f\"\
+                ,\n    \"resourceVersion\": \"1496\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-16T03:32:07Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\\\"\
+                ,\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-16T03:32:07Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-16T03:36:03Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \ "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 497ad0349a9b66211d11e8781ed58b854e7c36cb437620287b8a07d3aab480ed
+                bytes: 1241
+              output: "Name:               argocd/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51148/applications/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \                     STATUS  HEALTH  AGE   MESSAGE              \
+                \                                                                \
+                \                 REASON\nApplication/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\
+                \  Synced          4m7s  application.argoproj.io/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\
+                \ serverside-applied  \nApplication/strimzi-kafka-operator-parity\
+                \                              Synced          51s   application.argoproj.io/strimzi-kafka-operator-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              strimzi-kafka-operator-parity\",\n      \"namespace\": \"argocd\",\n\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/strimzi-kafka-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:8abb1baa875a2632558faa87cc459dc68234bdc49abd8c5168674b0d29e1fe7a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"strimzi-kafka-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     2m58s'
+        pods: '# default
+
+          strimzi-cluster-operator-57856f5f9b-26p2t   1/1   Running   1 (2m6s ago)   2m58s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 17
+      configHubObjectCount: 18
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 17
+      configHubObjectCount: 18
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-16T03:32:07Z'
+    finishedAt: '2026-06-16T03:33:10Z'
+    elapsedSeconds: 62.89
+    timeoutSeconds: 900
+    command: helm upgrade --install strimzi-kafka-operator strimzi-kafka-operator
+      --repo https://strimzi.io/charts/ --version 1.0.0 --namespace default-helm --create-namespace
+      --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-16T03:33:16Z'
+    finishedAt: '2026-06-16T03:33:16Z'
+    elapsedSeconds: 0.457
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-16T03:33:16Z'
+    finishedAt: '2026-06-16T03:33:17Z'
+    elapsedSeconds: 0.136
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8.kubeconfig
+      --context kind-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/direct-apply-manifest.yaml
+    objectCount: 17
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-16T03:33:17Z'
+    finishedAt: '2026-06-16T03:33:57Z'
+    elapsedSeconds: 40.593
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-16T03:34:03Z'
+    finishedAt: '2026-06-16T03:34:03Z'
+    elapsedSeconds: 0.307
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-16T03:34:03Z'
+    finishedAt: '2026-06-16T03:35:00Z'
+    elapsedSeconds: 57.369
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      --space helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      --target helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci
+    objectCount: 18
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-16T03:35:00Z'
+    finishedAt: '2026-06-16T03:35:01Z'
+    elapsedSeconds: 0.587
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-16T03:35:01Z'
+    finishedAt: '2026-06-16T03:35:12Z'
+    elapsedSeconds: 10.617
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-strimzi-kafka-operator
+      --unit <18 unit(s)> --wait --timeout 5m
+    unitCount: 18
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-16T03:35:12Z'
+    finishedAt: '2026-06-16T03:35:13Z'
+    elapsedSeconds: 1.002
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster
+      strimzi-kafka-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/strimzi-strimzi-kafka-operator-no-crds/argo-application.json
+      --target helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-16T03:35:13Z'
+    finishedAt: '2026-06-16T03:35:14Z'
+    elapsedSeconds: 1.241
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-16T03:35:14Z'
+    finishedAt: '2026-06-16T03:35:34Z'
+    elapsedSeconds: 20.161
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-16T03:36:15Z'
+    finishedAt: '2026-06-16T03:36:15Z'
+    elapsedSeconds: 0.101
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-strimzikafkao1b937-mqg342zq-1ym8.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https:/"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "strimzi-kafka-operator" does not exist. Installing it now.
+
+      NAME: strimzi-kafka-operator
+
+      LAST DEPLOYED: Tue Jun 16 04:32:10 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      Thank you for installing strimzi-kafka-operator-1.0.0
+
+
+      To create a Kafka cluster refer to the following documentation.
+
+
+      https://strimzi.io/docs/operators/latest/deploying.html#deploying-cluster-operator-helm-chart-str'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/strimzi-cluster-operator   1/1   1     1     40s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=10
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
