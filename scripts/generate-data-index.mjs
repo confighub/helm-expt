@@ -55,6 +55,7 @@ function readme(rows) {
     ["I want the broad chart/version/base status in one browser sheet.", "data/master-catalog-matrix/matrix.html; data/master-catalog-matrix/summary.md; data/master-catalog-matrix/matrix.csv"],
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
     ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
+    ["I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check.", "data/chart-fact-sheets/summary.md; data/chart-fact-sheets/fact-sheets.html; data/chart-fact-sheets/fact-sheets.csv"],
     ["I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions.", "data/chart-evidence-router/summary.md; data/chart-evidence-router/router.csv"],
     ["I want to know what outcomes are actually promised and proven.", "data/outcome-evidence-contract/summary.md; data/outcome-evidence-contract/outcomes.csv"],
     ["I want the next work queues.", "data/status-dashboard/next-work-queues.csv; data/status-dashboard/active-proof-queue.csv"],
@@ -323,6 +324,7 @@ function audienceFor(path) {
   if (path.startsWith("data/environment-matrix/")) return "user/front-door";
   if (path.startsWith("data/torture-suite/")) return "user/front-door";
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
+  if (path.startsWith("data/chart-fact-sheets/")) return "user/front-door";
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";

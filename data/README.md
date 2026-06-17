@@ -21,6 +21,7 @@ smallest generated surface that answers it.
 | I want the broad chart/version/base status in one browser sheet. | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html)<br>[master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md)<br>[master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
 | I want to know if I can use a specific chart. | [chart-use-guide/summary.md](./chart-use-guide/summary.md)<br>[chart-use-guide/chart-use-guide.csv](./chart-use-guide/chart-use-guide.csv) |
+| I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md)<br>[chart-fact-sheets/fact-sheets.html](./chart-fact-sheets/fact-sheets.html)<br>[chart-fact-sheets/fact-sheets.csv](./chart-fact-sheets/fact-sheets.csv) |
 | I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
 | I want the next work queues. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) |
@@ -231,6 +232,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
 | `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
+| `chart-fact-sheets` | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md) | supporting generated evidence |
 | `chart-facts` | [chart-facts/summary.md](./chart-facts/summary.md) | per-chart feature, quirk, and hard-gap facts |
 | `chart-skills` | [chart-skills/summary.md](./chart-skills/summary.md) | advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why |
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
@@ -322,7 +324,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 149 CSV files. Each row records the path, audience,
+It includes 150 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
