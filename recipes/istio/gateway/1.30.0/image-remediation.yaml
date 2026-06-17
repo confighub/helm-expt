@@ -1,0 +1,38 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ImageRemediation
+metadata:
+  name: istio-gateway-1.30.0-image-remediation
+  chart: istio/gateway
+  version: 1.30.0
+spec:
+  residue: remote-image
+  semantic_parity: passed
+  remediation_class: needs-decision
+  recommended: "Decide between two paths. (A) image-override: set a concrete, pullable proxy image in the base (e.g. docker.io/istio/proxyv2:1.30.0) so the pod resolves without istiod — simpler for a GitOps-only gateway, but the pod loses sidecar-injection-managed mTLS/telemetry. (B) stack-dependency: deploy istio/istiod@1.30.0 so its mutating webhook rewrites image: auto at admission — preserves full Istio semantics but imposes an ordering dependency and requires the webhook on the target. The live run shows a vanilla target (no istiod) cannot run the chart as rendered."
+  override_path: "chart top-level image value (renders image: auto by default) — set to a concrete proxy image; NOT captured in committed effective-values, so treat as TO VERIFY against the chart values schema."
+  digest_resolution: "n/a — image: auto is a sidecar-injection placeholder, not a removed registry tag; resolution is by the istiod injector or a concrete override, not a digest pin."
+  verify_non_live: "Render the base with a concrete image override and confirm the gateway pod spec no longer renders image: auto (render only, no cluster); a live rerun then confirms readiness."
+  bases:
+    - base: controller-default-reviewed
+      lane: G/P
+      missing_images: "auto"
+      image_location: container
+      failure_signature: "remote-image: the chart renders image: auto (Istio sidecar-injection placeholder); on a target without the istiod injector the gateway pod cannot resolve a concrete image; semantic object parity passed per the live comparison — a runtime image-resolution issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed"
+    - base: default
+      lane: G/P
+      missing_images: "auto"
+      image_location: container
+      failure_signature: "remote-image: the chart renders image: auto (Istio sidecar-injection placeholder); on a target without the istiod injector the gateway pod cannot resolve a concrete image; semantic object parity passed per the live comparison — a runtime image-resolution issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/istio-gateway-controller-default-reviewed/receipt.yaml
+    - runs/live-helm-confighub-compare/istio-gateway-default/receipt.yaml
+    - data/remote-image-runtime-workdown/workdown.csv
+  cross_reference: "istio/gateway 1.30.0 is also blocked on the two-cluster-kind (K) lane for the same image gap (runs/live-kind-parity/istio-gateway-default/receipt.yaml, runs/live-kind-parity/istio-gateway-controller-default-reviewed/receipt.yaml); this card scopes the G/P live-parity rows tracked in the remote-image workdown. istio/istiod is itself covered separately (runs/live-kind-parity/istio-istiod-default)."
+  not_claimed:
+    - "This card does not prove the cell passes; it requires either applying a concrete image override or deploying istiod, then a fresh live rerun."
+    - "It does not choose between the image-override and istiod-dependency paths; that is a base-design decision."

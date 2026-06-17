@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ImageRemediation
+metadata:
+  name: opensearch-2.0.10-image-remediation
+  chart: bitnami/opensearch
+  version: 2.0.10
+spec:
+  residue: remote-image
+  semantic_parity: passed
+  remediation_class: registry-remap
+  recommended: "Remap the removed docker.io/bitnami main and os-shell init images to docker.io/bitnamilegacy — Bitnami's documented migration registry for the legacy free images it stopped publishing under docker.io/bitnami in Aug 2025. Verify the exact tags are retained under docker.io/bitnamilegacy and pin their digests."
+  override_path: "global.imageRegistry: docker.io/bitnamilegacy (Bitnami common-chart convention) covers both the opensearch and os-shell init images — NOT present in committed recipe artifacts (effective-values are chart-defaults; the workdown records candidate_override_path as unknown), so treat as remediation TO VERIFY against the chart values schema."
+  digest_resolution: "unknown — data/image-digest-workdown has no resolved digest for these images (resolution receipts missing); pin retained digests once confirmed."
+  verify_non_live: "Render each base with global.imageRegistry=docker.io/bitnamilegacy and confirm both the opensearch and os-shell refs resolve to docker.io/bitnamilegacy (render only, no cluster); a live rerun then confirms pullability."
+  bases:
+    - base: default
+      lane: G/P
+      missing_images: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r51"
+      image_location: init-container
+      failure_signature: "remote-image: the pinned image(s) above could not be pulled on the target (init-container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts"
+    - base: ha
+      lane: G/P
+      missing_images: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r51"
+      image_location: init-container
+      failure_signature: "remote-image: the pinned image(s) above could not be pulled on the target (init-container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/bitnami-opensearch-default/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml
+    - data/remote-image-runtime-workdown/workdown.csv
+    - data/image-digest-workdown/summary.md
+  cross_reference: "recipes/bitnami/opensearch/2.0.10/model-gap-fix.yaml addresses a separate residue (Service spec.trafficDistribution normalization); this card is only the image pull."
+  not_claimed:
+    - "This card does not prove the images are pullable or that the cells pass; it requires applying the override and a fresh live rerun."
+    - "It does not verify that docker.io/bitnamilegacy retains the exact pinned tags; that must be confirmed against the registry before the remap is considered stable."
+    - "The override value path is not present in committed recipe artifacts; global.imageRegistry is the Bitnami convention to verify against the chart values schema."
