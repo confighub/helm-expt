@@ -19,73 +19,73 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 172 | A clone exists (or a prerequisite proof can run); record the proof. Engineering/CI. |
-| `fix-confighub-server` | 20 | Blocked on the ConfigHub server changeset add-new-units bug (https://github.com/confighub/helm-expt/issues/682). |
+| `run-proof` | 163 | A clone exists (or a prerequisite proof can run); record the proof. Engineering/CI. |
+| `fix-confighub-server` | 29 | Blocked on the ConfigHub server changeset add-new-units bug (https://github.com/confighub/helm-expt/issues/682). |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 0 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `ready-to-run` | 172 |
-| `watch-grade` | 20 |
+| `ready-to-run` | 163 |
+| `watch-grade` | 29 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `todo` | 172 |
-| `watch` | 20 |
+| `todo` | 163 |
+| `watch` | 29 |
 
-## Ready to run now (172)
+## Ready to run now (163)
 
 These variants already have a server-side clone and ConfigHub upload proof; only
 the `cub variant promote` receipt is missing. **A representative set of commands
 (not run here — promotion is a ConfigHub-server action):**
 
 ```text
-# aqua/trivy-operator@0.32.1 / default
-node scripts/run-top20-confighub-proof.mjs --charts trivy-operator --base default --variant-promotion-proof --cleanup-spaces
 # argo-cd/argo-cd@9.5.15 / no-crds
-node scripts/run-top20-confighub-proof.mjs --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces
-# argo-cd/argo-events@2.4.21 / default
-node scripts/run-top20-confighub-proof.mjs --charts argo-events --base default --variant-promotion-proof --cleanup-spaces
-# argo-cd/argo-rollouts@2.40.9 / default
-node scripts/run-top20-confighub-proof.mjs --charts argo-rollouts --base default --variant-promotion-proof --cleanup-spaces
-# argo-cd/argo-workflows@1.0.14 / controller-default-reviewed
-node scripts/run-top20-confighub-proof.mjs --charts argo-workflows --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-cd --base no-crds --variant-promotion-proof --cleanup-spaces
+# argo-cd/argo-workflows@1.0.14 / default
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argo-workflows --base default --variant-promotion-proof --cleanup-spaces
 # argo-cd/argocd-image-updater@1.2.2 / default
-node scripts/run-top20-confighub-proof.mjs --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts argocd-image-updater --base default --variant-promotion-proof --cleanup-spaces
 # autoscaler/cluster-autoscaler@9.57.0 / controller-default-reviewed
-node scripts/run-top20-confighub-proof.mjs --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts cluster-autoscaler --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces
 # autoscaler/vertical-pod-autoscaler@0.9.0 / default
-node scripts/run-top20-confighub-proof.mjs --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts vertical-pod-autoscaler --base default --variant-promotion-proof --cleanup-spaces
 # aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 / default
-node scripts/run-top20-confighub-proof.mjs --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts aws-ebs-csi-driver --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/apache@11.4.29 / default
-node scripts/run-top20-confighub-proof.mjs --charts apache --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts apache --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/contour@21.1.4 / default
-node scripts/run-top20-confighub-proof.mjs --charts contour --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts contour --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/elasticsearch@22.1.6 / default
-node scripts/run-top20-confighub-proof.mjs --charts elasticsearch --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts elasticsearch --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/memcached@8.5.5 / default
-node scripts/run-top20-confighub-proof.mjs --charts memcached --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts memcached --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/mongodb@19.0.7 / existing-secret-replicaset
-node scripts/run-top20-confighub-proof.mjs --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mongodb --base existing-secret-replicaset --variant-promotion-proof --cleanup-spaces
 # bitnami/mysql@14.0.3 / existing-secret
-node scripts/run-top20-confighub-proof.mjs --charts mysql --base existing-secret --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts mysql --base existing-secret --variant-promotion-proof --cleanup-spaces
 # bitnami/nginx@24.0.2 / existing-tls-ingress
-node scripts/run-top20-confighub-proof.mjs --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts nginx --base existing-tls-ingress --variant-promotion-proof --cleanup-spaces
 # bitnami/opensearch@2.0.10 / default
-node scripts/run-top20-confighub-proof.mjs --charts opensearch --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts opensearch --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/phpmyadmin@20.0.0 / default
-node scripts/run-top20-confighub-proof.mjs --charts phpmyadmin --base default --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts phpmyadmin --base default --variant-promotion-proof --cleanup-spaces
 # bitnami/postgresql@18.6.10 / existing-secret
-node scripts/run-top20-confighub-proof.mjs --charts postgresql --base existing-secret --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts postgresql --base existing-secret --variant-promotion-proof --cleanup-spaces
 # bitnami/rabbitmq@16.0.14 / existing-secret
-node scripts/run-top20-confighub-proof.mjs --charts rabbitmq --base existing-secret --variant-promotion-proof --cleanup-spaces
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rabbitmq --base existing-secret --variant-promotion-proof --cleanup-spaces
+# bitnami/redis@25.5.3 / reuse-existing-secret
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts redis --base reuse-existing-secret --variant-promotion-proof --cleanup-spaces
+# bitnami/spark@10.0.3 / default
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts spark --base default --variant-promotion-proof --cleanup-spaces
+# bitnami/zookeeper@13.8.7 / default
+node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts zookeeper --base default --variant-promotion-proof --cleanup-spaces
 ```
 
-The full 172-row ready-to-run set is in [closeout.csv](./closeout.csv).
+The full 163-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — changeset path blocked by the server bug (20)
+## Watch-grade — changeset path blocked by the server bug (29)
 
 Server-side promotion mechanics are proven for these, but the changeset-bound
 (add-new-units) promote path fails on https://github.com/confighub/helm-expt/issues/682. They are usable for the
@@ -93,7 +93,16 @@ proven mechanics; the changeset path needs the ConfigHub server fix.
 
 | Chart | Base | Evidence |
 | --- | --- | --- |
+| aqua/trivy-operator@0.32.1 | default | runs/trivy-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| aqua/trivy-operator@0.32.1 | no-crds | runs/trivy-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | argo-cd/argo-cd@9.5.15 | default | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-cd@9.5.17 | default | runs/argo-cd-9517-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-cd@9.5.17 | no-crds | runs/argo-cd-9517-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-events@2.4.21 | default | runs/argo-events-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-events@2.4.21 | no-crds | runs/argo-events-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-rollouts@2.40.9 | default | runs/argo-rollouts-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-rollouts@2.40.9 | no-crds | runs/argo-rollouts-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | runs/argo-workflows-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.7 | generated-passwords | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mysql@14.0.3 | generated-passwords | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.2 | http-clusterip | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "trivy-operator-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "aqua/trivy-operator"
+    chartVersion: "0.32.1"
+    packagePath: "packages/aqua/trivy-operator/0.32.1"
+    variant: "no-crds"
+    upstreamSpace: "helm-trivy-operator-no-crds-confighub-proof"
+    downstreamSpace: "TrivyOperator-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-trivy-operator runs/trivy-operator-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-trivy-operator-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-trivy-operator-no-crds runs/trivy-operator-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-trivy-operator-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote TrivyOperator-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create trivy-operator-no-crds-variant-promote-20260527 --space TrivyOperator-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote TrivyOperator-no-crds-staging --changeset TrivyOperator-no-crds-staging/trivy-operator-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote TrivyOperator-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-trivy-operator"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=trivy-operator-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-trivy-operator-no-crds"
+    upstreamUnitID: "f401949d-d397-47d1-837b-f21a15841343"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-trivy-operator-no-crds"
+  changeset:
+    slug: "trivy-operator-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset trivy-operator-no-crds-variant-promote-20260527 (e0a7a2af-ad3c-49de-9510-9e08b61cb276)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-trivy-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-trivy-operator-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-trivy-operator-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "f401949d-d397-47d1-837b-f21a15841343"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

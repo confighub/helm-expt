@@ -1,48 +1,51 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: LiveHelmInstallerKindParityReceipt
 metadata:
-  name: argo-cd-argo-cd-9.5.15-no-crds-kind-parity-20260606
+  name: argo-cd-argo-cd-9.5.17-no-crds-kind-parity-20260606
 spec:
   chart: argo-cd/argo-cd
-  version: 9.5.15
+  version: 9.5.17
   base: no-crds
   result: pass
-  observedAt: '2026-06-09T09:03:02Z'
+  observedAt: '2026-06-16T18:38:38Z'
   package:
-    path: packages/argo-cd/argo-cd/9.5.15
+    path: packages/argo-cd/argo-cd/9.5.17
   recipe:
-    path: recipes/argo-cd/argo-cd/9.5.15
-  variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml
+    path: recipes/argo-cd/argo-cd/9.5.17
+  variantRevision: recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-argocd-937ab-wl5a-helm
-    installerCluster: hx-argocd-937ab-wl5a-installer
+    helmCluster: hx-argocd-768fb-jrhe-helm
+    installerCluster: hx-argocd-768fb-jrhe-installer
     namespace: argocd
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-argocd-937ab-wl5a-helm
+      - cluster: hx-argocd-768fb-jrhe-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-argocd-937ab-wl5a-helm" ...
+        detail: 'Deleting cluster "hx-argocd-768fb-jrhe-helm" ...
 
-          Deleted nodes: ["hx-argocd-937ab-wl5a-helm-control-plane"]'
-      - cluster: hx-argocd-937ab-wl5a-installer
+          Deleted nodes: ["hx-argocd-768fb-jrhe-helm-control-plane"]'
+      - cluster: hx-argocd-768fb-jrhe-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-argocd-937ab-wl5a-installer" ...
+        detail: 'Deleting cluster "hx-argocd-768fb-jrhe-installer" ...
 
-          Deleted nodes: ["hx-argocd-937ab-wl5a-installer-control-plane"]'
+          Deleted nodes: ["hx-argocd-768fb-jrhe-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
-        --version 9.5.15 --namespace argocd --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
+        --version 9.5.17 --namespace argocd --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: argocd
-      manifestSHA256: 23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71
+      manifestSHA256: 58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec
       objectCount: 46
-      liveHelmManifestSHA256: 4e4266ee6bcd019dd592c1cb58987112aa4de3d82a8ee8fc8af15674b7e95c32
+      liveHelmManifestSHA256: b36ec4d7d513092d39a720b52103cb3e09a127cd4526b9d9c6de05562976e256
       liveHelmManifestObjectCount: 46
       runtimeNamespaces: &id001
       - argocd
@@ -51,46 +54,52 @@ spec:
         namespaces: *id001
         workloads: '# argocd
 
-          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     14s
 
-          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     14s
 
-          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     14s
 
-          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     14s
 
-          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     14s
 
-          deployment.apps/argo-cd-argocd-server                      1/1   1     1     65s
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     14s
 
-          statefulset.apps/argo-cd-argocd-application-controller   1/1   65s'
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   14s'
         pods: '# argocd
 
-          argo-cd-argocd-application-controller-0                    1/1   Running   0     65s
+          argo-cd-argocd-application-controller-0                    1/1   Running     0     14s
 
-          argo-cd-argocd-applicationset-controller-d7b84547c-t6f47   1/1   Running   0     65s
+          argo-cd-argocd-applicationset-controller-f898765c5-hfgzr   1/1   Running     0     14s
 
-          argo-cd-argocd-dex-server-676f75f567-xvrbg                 1/1   Running   0     65s
+          argo-cd-argocd-dex-server-5c76c6ccd5-sngc5                 1/1   Running     0     14s
 
-          argo-cd-argocd-notifications-controller-c6fb5b58f-j4bng    1/1   Running   0     65s
+          argo-cd-argocd-notifications-controller-59c87779b5-lc75q   1/1   Running     0     14s
 
-          argo-cd-argocd-redis-6d948d65cb-77xtt                      1/1   Running   0     65s
+          argo-cd-argocd-redis-6c9c67bf6f-xzp54                      1/1   Running     0     14s
 
-          argo-cd-argocd-repo-server-84d4bc7ddd-nncsv                1/1   Running   0     65s
+          argo-cd-argocd-redis-secret-init-vrq45                     0/1   Completed   0     40s
 
-          argo-cd-argocd-server-7b67f47f47-v5dlb                     1/1   Running   0     65s'
+          argo-cd-argocd-repo-server-765d9d5bd8-vdqmc                1/1   Running     0     14s
+
+          argo-cd-argocd-server-5b4bd9977b-464hr                     1/1   Running     0     14s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argocd-937ab-wl5a-argo-cd
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/argo-cd/argo-cd/9.5.17
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argocd-768fb-jrhe-argo-cd
         --non-interactive --namespace argocd
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: argocd
-      manifestSHA256: 9aa58f051c3b42403ede3fee15b66780db77a92d115161820c4335e9cda5c403
+      manifestSHA256: 32c70f494deeb94f6b9bb7cc1a1f5f9360613e173a22519d07d4b8405bd19795
       objectCount: 47
       manifestNamespaces:
       - argocd
@@ -101,40 +110,53 @@ spec:
         namespaces: *id002
         workloads: '# argocd
 
-          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     61s
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     52s
 
-          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     60s
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     52s
 
-          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     60s
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     52s
 
-          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     60s
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     52s
 
-          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     60s
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     52s
 
-          deployment.apps/argo-cd-argocd-server                      1/1   1     1     60s
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     52s
 
-          statefulset.apps/argo-cd-argocd-application-controller   1/1   60s'
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   52s'
         pods: '# argocd
 
-          argo-cd-argocd-application-controller-0                    1/1   Running   0     60s
+          argo-cd-argocd-application-controller-0                    1/1   Running   0     52s
 
-          argo-cd-argocd-applicationset-controller-d7b84547c-mfr7x   1/1   Running   0     60s
+          argo-cd-argocd-applicationset-controller-f898765c5-2nxpd   1/1   Running   0     52s
 
-          argo-cd-argocd-dex-server-676f75f567-grb7t                 1/1   Running   0     60s
+          argo-cd-argocd-dex-server-5c76c6ccd5-gq65m                 1/1   Running   0     52s
 
-          argo-cd-argocd-notifications-controller-c6fb5b58f-hqxqq    1/1   Running   0     60s
+          argo-cd-argocd-notifications-controller-59c87779b5-x99jg   1/1   Running   0     52s
 
-          argo-cd-argocd-redis-6d948d65cb-rcc7f                      1/1   Running   0     60s
+          argo-cd-argocd-redis-6c9c67bf6f-km7r8                      1/1   Running   0     52s
 
-          argo-cd-argocd-repo-server-84d4bc7ddd-chf9n                1/1   Running   0     60s
+          argo-cd-argocd-repo-server-765d9d5bd8-n9xdm                1/1   Running   0     52s
 
-          argo-cd-argocd-server-7b67f47f47-prfnv                     1/1   Running   0     60s'
+          argo-cd-argocd-server-5b4bd9977b-8klhd                     1/1   Running   0     52s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||argocd
     semanticNormalizations: &id003
     - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 46
+      installerObjectCount: 46
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 46
@@ -154,14 +176,20 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=3
+    detail: secrets=0 crds=3 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=1 crds=3
+    detail: secrets=1 crds=3 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
-      LAST DEPLOYED: Tue Jun  9 10:04:02 2026\nNAMESPACE: argocd\nSTATUS: deployed\n\
+      LAST DEPLOYED: Tue Jun 16 19:39:38 2026\nNAMESPACE: argocd\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
       \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
       \ service/argo-cd-argocd-server -n argocd 8080:443\n\n    and then open the\
@@ -172,23 +200,26 @@ spec:
       \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
       \n\nAfter reaching the UI the first time you can login with username: admin\
       \ and the random password generated during the installation. You can f"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# argocd
 
-      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     61s
+      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     52s
 
-      deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     60s
+      deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     52s
 
-      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     60s
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     52s
 
-      deployment.apps/argo-cd-argocd-redis                       1/1   1     1     60s
+      deployment.apps/argo-cd-argocd-redis                       1/1   1     1     52s
 
-      deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     60s
+      deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     52s
 
-      deployment.apps/argo-cd-argocd-server                      1/1   1     1     60s
+      deployment.apps/argo-cd-argocd-server                      1/1   1     1     52s
 
-      statefulset.apps/argo-cd-argocd-application-controller   1/1   60s'
+      statefulset.apps/argo-cd-argocd-application-controller   1/1   52s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||argocd'] diffs=0
@@ -206,7 +237,9 @@ spec:
       - name: appprojects.argoproj.io
         sourceVariant: default
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-helm.yaml
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -225,4 +258,14 @@ spec:
       - name: appprojects.argoproj.io
         sourceVariant: default
         lane: cubInstallerApply
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-installer.yaml
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

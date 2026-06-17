@@ -1,48 +1,51 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: LiveHelmInstallerKindParityReceipt
 metadata:
-  name: bitnami-mongodb-19.0.7-existing-secret-replicaset-kind-parity-20260606
+  name: bitnami-mongodb-19.1.0-existing-secret-replicaset-kind-parity-20260606
 spec:
   chart: bitnami/mongodb
-  version: 19.0.7
+  version: 19.1.0
   base: existing-secret-replicaset
   result: pass
-  observedAt: '2026-06-10T01:35:35Z'
+  observedAt: '2026-06-16T18:48:13Z'
   package:
-    path: packages/bitnami/mongodb/19.0.7
+    path: packages/bitnami/mongodb/19.1.0
   recipe:
-    path: recipes/bitnami/mongodb/19.0.7
-  variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
+    path: recipes/bitnami/mongodb/19.1.0
+  variantRevision: recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-mongod-b95c6-d02q-helm
-    installerCluster: hx-mongod-b95c6-d02q-installer
+    helmCluster: hx-mongod-0b56d-w33m-helm
+    installerCluster: hx-mongod-0b56d-w33m-installer
     namespace: mongodb
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-mongod-b95c6-d02q-helm
+      - cluster: hx-mongod-0b56d-w33m-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-d02q-helm" ...
+        detail: 'Deleting cluster "hx-mongod-0b56d-w33m-helm" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-d02q-helm-control-plane"]'
-      - cluster: hx-mongod-b95c6-d02q-installer
+          Deleted nodes: ["hx-mongod-0b56d-w33m-helm-control-plane"]'
+      - cluster: hx-mongod-0b56d-w33m-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-d02q-installer" ...
+        detail: 'Deleting cluster "hx-mongod-0b56d-w33m-installer" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-d02q-installer-control-plane"]'
+          Deleted nodes: ["hx-mongod-0b56d-w33m-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
-        --version 19.0.7 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
+        --version 19.1.0 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mongodb
-      manifestSHA256: 3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231
+      manifestSHA256: b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd
       objectCount: 10
-      liveHelmManifestSHA256: 691f8b02f1b4a0ffe4973795631264602113ee5796dc6d5d2344b5c80a4775b9
+      liveHelmManifestSHA256: 178505565f24ebaf1ca1938e603e76578af8f01a72e1c47758385acf3ff222cc
       liveHelmManifestObjectCount: 10
       runtimeNamespaces: &id001
       - mongodb
@@ -51,28 +54,32 @@ spec:
         namespaces: *id001
         workloads: '# mongodb
 
-          statefulset.apps/mongodb           2/2   85s
+          statefulset.apps/mongodb           2/2   66s
 
-          statefulset.apps/mongodb-arbiter   1/1   85s'
+          statefulset.apps/mongodb-arbiter   1/1   66s'
         pods: '# mongodb
 
-          mongodb-0           1/1   Running   0     85s
+          mongodb-0           1/1   Running   0     66s
 
-          mongodb-1           1/1   Running   0     36s
+          mongodb-1           1/1   Running   0     16s
 
-          mongodb-arbiter-0   1/1   Running   0     85s'
+          mongodb-arbiter-0   1/1   Running   0     66s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
-        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-d02q-mongodb
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/mongodb/19.1.0
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-0b56d-w33m-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: mongodb
-      manifestSHA256: 58291f7cc46103866ccabcdd70e7e7825ed4c026c0be0c621ca2bfbd49f5dded
+      manifestSHA256: 1bc1aeb8061dac93ba123ddc82386a0cb5242918158d9c3ce8555273834af539
       objectCount: 11
       manifestNamespaces:
       - mongodb
@@ -83,22 +90,35 @@ spec:
         namespaces: *id002
         workloads: '# mongodb
 
-          statefulset.apps/mongodb           2/2   91s
+          statefulset.apps/mongodb           2/2   92s
 
-          statefulset.apps/mongodb-arbiter   1/1   91s'
+          statefulset.apps/mongodb-arbiter   1/1   92s'
         pods: '# mongodb
 
-          mongodb-0           1/1   Running   0     91s
+          mongodb-0           1/1   Running   0     92s
 
-          mongodb-1           1/1   Running   0     44s
+          mongodb-1           1/1   Running   0     45s
 
-          mongodb-arbiter-0   1/1   Running   0     91s'
+          mongodb-arbiter-0   1/1   Running   0     92s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||mongodb
     semanticNormalizations: &id003
     - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 10
@@ -118,22 +138,31 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=1 crds=0
+    detail: secrets=1 crds=0 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=1 crds=0
+    detail: secrets=1 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
   - name: regular-helm-live
     result: pass
-    detail: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.1.0
 
-      Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec'
+      Digest: sha256:c71876be69ea7d85710c377c12a2b23022046c7170a7dc3b439229b5d0030c2a'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# mongodb
 
-      statefulset.apps/mongodb           2/2   91s
+      statefulset.apps/mongodb           2/2   92s
 
-      statefulset.apps/mongodb-arbiter   1/1   91s'
+      statefulset.apps/mongodb-arbiter   1/1   92s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0
@@ -148,7 +177,9 @@ spec:
         - mongodb-root-password
         lane: regularHelm
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -159,4 +190,14 @@ spec:
         - mongodb-root-password
         lane: cubInstallerApply
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml
+      stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

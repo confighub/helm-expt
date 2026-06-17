@@ -1,48 +1,51 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: LiveHelmInstallerKindParityReceipt
 metadata:
-  name: prometheus-community-prometheus-29.8.0-server-only-ephemeral-kind-parity-20260606
+  name: prometheus-community-prometheus-29.9.0-server-only-ephemeral-kind-parity-20260606
 spec:
   chart: prometheus-community/prometheus
-  version: 29.8.0
+  version: 29.9.0
   base: server-only-ephemeral
   result: pass
-  observedAt: '2026-06-06T08:15:57Z'
+  observedAt: '2026-06-16T19:34:40Z'
   package:
-    path: packages/prometheus-community/prometheus/29.8.0
+    path: packages/prometheus-community/prometheus/29.9.0
   recipe:
-    path: recipes/prometheus-community/prometheus/29.8.0
-  variantRevision: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml
+    path: recipes/prometheus-community/prometheus/29.9.0
+  variantRevision: recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-promet-c7e13-whag-helm
-    installerCluster: hx-promet-c7e13-whag-installer
+    helmCluster: hx-promet-c91c0-jtja-helm
+    installerCluster: hx-promet-c91c0-jtja-installer
     namespace: monitoring
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-promet-c7e13-whag-helm
+      - cluster: hx-promet-c91c0-jtja-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-promet-c7e13-whag-helm" ...
+        detail: 'Deleting cluster "hx-promet-c91c0-jtja-helm" ...
 
-          Deleted nodes: ["hx-promet-c7e13-whag-helm-control-plane"]'
-      - cluster: hx-promet-c7e13-whag-installer
+          Deleted nodes: ["hx-promet-c91c0-jtja-helm-control-plane"]'
+      - cluster: hx-promet-c91c0-jtja-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-promet-c7e13-whag-installer" ...
+        detail: 'Deleting cluster "hx-promet-c91c0-jtja-installer" ...
 
-          Deleted nodes: ["hx-promet-c7e13-whag-installer-control-plane"]'
+          Deleted nodes: ["hx-promet-c91c0-jtja-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
       result: pass
       command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-        --version 29.8.0 --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
+        --version 29.9.0 --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: monitoring
-      manifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
+      manifestSHA256: a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b
       objectCount: 6
-      liveHelmManifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
+      liveHelmManifestSHA256: a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b
       liveHelmManifestObjectCount: 6
       runtimeNamespaces: &id001
       - monitoring
@@ -51,22 +54,26 @@ spec:
         namespaces: *id001
         workloads: '# monitoring
 
-          deployment.apps/prometheus-server   1/1   1     1     54s'
+          deployment.apps/prometheus-server   1/1   1     1     57s'
         pods: '# monitoring
 
-          prometheus-server-766fbf4f7-pxgnr   2/2   Running   0     54s'
+          prometheus-server-7575787876-ghz5r   2/2   Running   0     57s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
-        --base server-only-ephemeral --work-dir /tmp/helm-expt-kind-parity-hx-promet-c7e13-whag-prometheus
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/prometheus/29.9.0
+        --base server-only-ephemeral --work-dir /tmp/helm-expt-kind-parity-hx-promet-c91c0-jtja-prometheus
         --non-interactive --namespace monitoring
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: monitoring
-      manifestSHA256: 31ba9464f8da744ef7e1ee724009fdf63241723e1ced0dba04c76ee2947bcd2d
+      manifestSHA256: 25785173babdfbee3dbce6ec0af2671cf570dc7a976cdda30ae6b9ed6e4341d2
       objectCount: 7
       manifestNamespaces:
       - monitoring
@@ -80,11 +87,26 @@ spec:
           deployment.apps/prometheus-server   1/1   1     1     61s'
         pods: '# monitoring
 
-          prometheus-server-766fbf4f7-wphcr   2/2   Running   0     61s'
+          prometheus-server-7575787876-k2cxp   2/2   Running   0     62s'
         notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 6
@@ -93,7 +115,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||monitoring
       semanticDiffs: []
-      comparisonSHA256: ca460f8fdf5af8446152ce8783dacc1e44e13a7b336bad6e16f01f618b01ca50
+      semanticNormalizations: *id003
+      comparisonSHA256: 3f2c1e1bbf8a7e191f39bca794d0ac2ec61b3a1490da34eca38570a32b1d8136
   checks:
   - name: kind-create-helm
     result: pass
@@ -101,10 +124,22 @@ spec:
   - name: kind-create-installer
     result: pass
     detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
-      LAST DEPLOYED: Sat Jun  6 09:16:47 2026\nNAMESPACE: monitoring\nSTATUS: deployed\n\
+      LAST DEPLOYED: Tue Jun 16 20:35:30 2026\nNAMESPACE: monitoring\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe Prometheus\
       \ server can be accessed via port 80 on the following DNS name from within your\
       \ cluster:\nprometheus-server.monitoring.svc.cluster.local\n\n\nGet the Prometheus\
@@ -115,6 +150,9 @@ spec:
       ######   WARNING: Persistence is disabled!!! You will lose your data when  \
       \ #####\n######            the Server pod is terminated.                   \
       \          #####\n#######################################################################"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
   - name: cub-installer-apply-live
     result: pass
     detail: '# monitoring
@@ -123,3 +161,24 @@ spec:
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
