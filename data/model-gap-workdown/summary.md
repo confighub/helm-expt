@@ -16,20 +16,20 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 non-green triage (which rows are runs vs fixes vs decided) see
 [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 14 model-gap rows
+## 13 model-gap rows
 
 | Model-gap kind | Rows |
 | --- | ---: |
 | `semantic-normalization` | 4 |
 | `base-design` | 3 |
-| `crd-lifecycle` | 3 |
+| `crd-lifecycle` | 2 |
 | `object-set-shape` | 2 |
 | `generated-fact` | 1 |
 | `missing-crd` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `catalog-modeling` | 13 |
+| `catalog-modeling` | 12 |
 | `recipe-generator` | 1 |
 
 ## Rows
@@ -41,7 +41,6 @@ non-green triage (which rows are runs vs fixes vs decided) see
 | bitnami/contour@21.1.4 | no-crds | K | missing-crd | design-new-base | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | default | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | ha | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
-| hashicorp/terraform@1.1.2 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | none |
 | nats/nack@0.34.0 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | no-crds (K pass) |
 | nats/nats@2.14.0 | ha | K | object-set-shape | add-semantic-normalization | catalog-modeling | default (K pass) |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | G/P | semantic-normalization | add-semantic-normalization | catalog-modeling | apiservice-v1-capability (G/P pass) |
