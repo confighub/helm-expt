@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-memcached-8-5-5-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/memcached"
+    chartVersion: "8.5.5"
+    packagePath: "packages/bitnami/memcached/8.5.5"
+    variant: "default"
+    upstreamSpace: "helm-cl-memcached-8-5-5-default-confighub-proof"
+    downstreamSpace: "Memcached855-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-memcached runs/cl-memcached-8-5-5-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-memcached-8-5-5-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-memcached-8-5-5-default runs/cl-memcached-8-5-5-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-memcached-8-5-5-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Memcached855-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-memcached-8-5-5-default-variant-promote-20260527 --space Memcached855-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Memcached855-default-staging --changeset Memcached855-default-staging/cl-memcached-8-5-5-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Memcached855-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-memcached"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-memcached-8-5-5-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-memcached-8-5-5-default"
+    upstreamUnitID: "093706e4-a64a-4a2e-82fe-1b44170f373c"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-memcached-8-5-5-default"
+  changeset:
+    slug: "cl-memcached-8-5-5-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-memcached-8-5-5-default-variant-promote-20260527 (01c3fdc0-4531-40b5-95ae-98dc253bf085)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-memcached\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-memcached-8-5-5-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-memcached-8-5-5-default"
+    addedUnitDownstreamUpstreamUnitID: "093706e4-a64a-4a2e-82fe-1b44170f373c"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

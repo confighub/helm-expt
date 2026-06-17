@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "opentelemetry-operator-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "open-telemetry/opentelemetry-operator"
+    chartVersion: "0.114.0"
+    packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    variant: "no-crds"
+    upstreamSpace: "helm-opentelemetry-operator-no-crds-confighub-proof"
+    downstreamSpace: "OpenTelemetryOperator-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-opentelemetry-operator runs/opentelemetry-operator-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-opentelemetry-operator-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-opentelemetry-operator-no-crds runs/opentelemetry-operator-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-opentelemetry-operator-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote OpenTelemetryOperator-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create opentelemetry-operator-no-crds-variant-promote-20260527 --space OpenTelemetryOperator-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote OpenTelemetryOperator-no-crds-staging --changeset OpenTelemetryOperator-no-crds-staging/opentelemetry-operator-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote OpenTelemetryOperator-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-opentelemetry-operator"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=opentelemetry-operator-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-opentelemetry-operator-no-crds"
+    upstreamUnitID: "057fa7dc-31a7-4454-81ed-21a5ef135e38"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-opentelemetry-operator-no-crds"
+  changeset:
+    slug: "opentelemetry-operator-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset opentelemetry-operator-no-crds-variant-promote-20260527 (d88114b3-15e4-4bf2-b108-47b7cf0d3a36)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-opentelemetry-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-opentelemetry-operator-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-opentelemetry-operator-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "057fa7dc-31a7-4454-81ed-21a5ef135e38"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

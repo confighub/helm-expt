@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "keda-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "kedacore/keda"
+    chartVersion: "2.19.0"
+    packagePath: "packages/kedacore/keda/2.19.0"
+    variant: "default"
+    upstreamSpace: "helm-keda-default-confighub-proof"
+    downstreamSpace: "KEDA-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-keda-admission-webhooks runs/keda-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-keda-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-keda-default runs/keda-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-keda-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote KEDA-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create keda-default-variant-promote-20260527 --space KEDA-default-staging --description ... --allow-exists"
+    promote: "cub variant promote KEDA-default-staging --changeset KEDA-default-staging/keda-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote KEDA-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-keda-admission-webhooks"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=keda-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-keda-default"
+    upstreamUnitID: "a179f559-8afc-4c03-a11a-1edb6d82a6da"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-keda-default"
+  changeset:
+    slug: "keda-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset keda-default-variant-promote-20260527 (297bfa36-2c64-496b-a1db-0ce8288a7d0a)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-keda-admission-webhooks\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-keda-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-keda-default"
+    addedUnitDownstreamUpstreamUnitID: "a179f559-8afc-4c03-a11a-1edb6d82a6da"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

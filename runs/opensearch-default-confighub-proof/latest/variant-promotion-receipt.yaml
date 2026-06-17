@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "opensearch-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/opensearch"
+    chartVersion: "2.0.10"
+    packagePath: "packages/bitnami/opensearch/2.0.10"
+    variant: "default"
+    upstreamSpace: "helm-opensearch-default-confighub-proof"
+    downstreamSpace: "OpenSearch-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-opensearch-data runs/opensearch-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-opensearch-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-opensearch-default runs/opensearch-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-opensearch-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote OpenSearch-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create opensearch-default-variant-promote-20260527 --space OpenSearch-default-staging --description ... --allow-exists"
+    promote: "cub variant promote OpenSearch-default-staging --changeset OpenSearch-default-staging/opensearch-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote OpenSearch-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-opensearch-data"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=opensearch-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-opensearch-default"
+    upstreamUnitID: "dc945dcb-a0ea-4424-a0a1-d5781baf2db5"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-opensearch-default"
+  changeset:
+    slug: "opensearch-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset opensearch-default-variant-promote-20260527 (4d9cb67e-31c7-485a-85e2-a43ad28f3823)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-opensearch-data\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-opensearch-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-opensearch-default"
+    addedUnitDownstreamUpstreamUnitID: "dc945dcb-a0ea-4424-a0a1-d5781baf2db5"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

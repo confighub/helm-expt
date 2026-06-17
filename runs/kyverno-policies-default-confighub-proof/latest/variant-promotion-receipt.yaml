@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "kyverno-policies-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "kyverno/kyverno-policies"
+    chartVersion: "3.8.0"
+    packagePath: "packages/kyverno/kyverno-policies/3.8.0"
+    variant: "default"
+    upstreamSpace: "helm-kyverno-policies-default-confighub-proof"
+    downstreamSpace: "KyvernoPolicies-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update clusterpolicy-disallow-capabilities runs/kyverno-policies-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-kyverno-policies-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-kyverno-policies-default runs/kyverno-policies-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-kyverno-policies-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote KyvernoPolicies-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create kyverno-policies-default-variant-promote-20260527 --space KyvernoPolicies-default-staging --description ... --allow-exists"
+    promote: "cub variant promote KyvernoPolicies-default-staging --changeset KyvernoPolicies-default-staging/kyverno-policies-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote KyvernoPolicies-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "clusterpolicy-disallow-capabilities"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=kyverno-policies-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-kyverno-policies-default"
+    upstreamUnitID: "42fba535-bf04-4cb0-9264-2a7321404e33"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-kyverno-policies-default"
+  changeset:
+    slug: "kyverno-policies-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset kyverno-policies-default-variant-promote-20260527 (f31c87ff-f0b8-4ce1-9728-0c695e73194a)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: clusterpolicy-disallow-capabilities\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-kyverno-policies-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-kyverno-policies-default"
+    addedUnitDownstreamUpstreamUnitID: "42fba535-bf04-4cb0-9264-2a7321404e33"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

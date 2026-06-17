@@ -9,7 +9,7 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 16,
+  "readyRowCount": 17,
   "blockCount": 4,
   "blocks": [
     {
@@ -262,7 +262,7 @@
         "target-runtime",
         "unknown"
       ],
-      "block_goal": "K: run the 4 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, opencost/opencost@2.5.21); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 5 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, hashicorp/terraform@1.1.2, opencost/opencost@2.5.21); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -315,6 +315,23 @@
           "prediction_basis": "sibling receipt — grafana/pyroscope already classified target-runtime (runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters); HA/multi-replica base — higher resource use"
+        },
+        {
+          "work_type": "kind-parity",
+          "chart": "hashicorp/terraform",
+          "version": "1.1.2",
+          "base": "default",
+          "command": "npm run kind-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "target-runtime",
+          "predicted_target_profile": "vanilla kind proof rig — runtime convergence to review",
+          "prediction_basis": "sibling receipt — hashicorp/terraform already classified target-runtime (runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
         },
         {
           "work_type": "kind-parity",

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "opencost-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "opencost/opencost"
+    chartVersion: "2.5.21"
+    packagePath: "packages/opencost/opencost/2.5.21"
+    variant: "default"
+    upstreamSpace: "helm-opencost-default-confighub-proof"
+    downstreamSpace: "Opencost-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-opencost runs/opencost-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-opencost-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-opencost-default runs/opencost-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-opencost-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Opencost-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create opencost-default-variant-promote-20260527 --space Opencost-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Opencost-default-staging --changeset Opencost-default-staging/opencost-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Opencost-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-opencost"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=opencost-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-opencost-default"
+    upstreamUnitID: "557f8f86-6757-40b0-a14a-6fc7e3ab3819"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-opencost-default"
+  changeset:
+    slug: "opencost-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset opencost-default-variant-promote-20260527 (239c414a-47da-4659-a8a5-4e37ea766fdf)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-opencost\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-opencost-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-opencost-default"
+    addedUnitDownstreamUpstreamUnitID: "557f8f86-6757-40b0-a14a-6fc7e3ab3819"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

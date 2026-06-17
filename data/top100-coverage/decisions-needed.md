@@ -9,7 +9,7 @@ decision rows: 7
 
 ## bitnami/contour@21.1.4
 
-Current evidence: render-parity.
+Current evidence: in-confighub-proof.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -34,7 +34,7 @@ recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml;reci
 
 ## bitnami/elasticsearch@22.1.6
 
-Current evidence: render-parity.
+Current evidence: in-confighub-proof.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -59,7 +59,7 @@ recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yam
 
 ## bitnami/spark@10.0.3
 
-Current evidence: render-parity.
+Current evidence: in-confighub-proof.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -84,7 +84,7 @@ recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml;recipe
 
 ## bitnami/zookeeper@13.8.7
 
-Current evidence: render-parity.
+Current evidence: in-confighub-proof.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 
@@ -109,7 +109,7 @@ recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml;re
 
 ## grafana/pyroscope@2.0.2
 
-Current evidence: local-kubernetes-live.
+Current evidence: two-cluster-kind-parity.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 

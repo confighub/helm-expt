@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "pyroscope-ha-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "grafana/pyroscope"
+    chartVersion: "2.0.2"
+    packagePath: "packages/grafana/pyroscope/2.0.2"
+    variant: "ha"
+    upstreamSpace: "helm-pyroscope-ha-confighub-proof"
+    downstreamSpace: "Pyroscope-ha-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-pyroscope-alloy runs/pyroscope-ha-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-pyroscope-ha-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-pyroscope-ha runs/pyroscope-ha-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-pyroscope-ha-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Pyroscope-ha-staging --dry-run -o mutations"
+    changeset: "cub changeset create pyroscope-ha-variant-promote-20260527 --space Pyroscope-ha-staging --description ... --allow-exists"
+    promote: "cub variant promote Pyroscope-ha-staging --changeset Pyroscope-ha-staging/pyroscope-ha-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Pyroscope-ha-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-pyroscope-alloy"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=pyroscope-ha-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-pyroscope-ha"
+    upstreamUnitID: "a894738a-9308-4e60-8e04-87dd34263079"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-pyroscope-ha"
+  changeset:
+    slug: "pyroscope-ha-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset pyroscope-ha-variant-promote-20260527 (3a47acd4-8c2e-42bd-8c66-e99cae2d37bb)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-pyroscope-alloy\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-pyroscope-ha\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-pyroscope-ha"
+    addedUnitDownstreamUpstreamUnitID: "a894738a-9308-4e60-8e04-87dd34263079"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

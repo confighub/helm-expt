@@ -36,7 +36,7 @@ spec:
     catalogStatus: "proof-grade"
     strongestEvidence: "live-helm-vs-confighub-parity"
     scanHigh: 0
-    scanMedium: 2
+    scanMedium: 4
     gateDecisions:
       - "warn"
     featureFocus:
@@ -55,7 +55,7 @@ spec:
     -
       workType: "scan-and-gate-disposition"
       reviewer: "security reviewer"
-      reason: "Scan/gate state is high=0, medium=2, gates=warn."
+      reason: "Scan/gate state is high=0, medium=4, gates=warn."
       doneWhen: "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support."
       evidence: "data/catalog-promotion-review/review.csv"
     -

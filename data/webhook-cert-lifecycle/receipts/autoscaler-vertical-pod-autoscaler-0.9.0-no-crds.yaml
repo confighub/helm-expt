@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "WebhookCertLifecycleStagingReceipt"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0.9.0-no-crds-webhook-cert-staging"
+spec:
+  chart: "autoscaler/vertical-pod-autoscaler"
+  version: "0.9.0"
+  base: "no-crds"
+  result: "pass"
+  observedAt: "2026-06-17T10:21:14.782Z"
+  route: "generated-fact-staged-secret"
+  stagedSecret:
+    namespace: "default"
+    name: "vpa-tls-certs"
+    keys:
+      - "ca"
+      - "cert"
+      - "key"
+  generation:
+    method: "local-self-signed-certificate"
+    secretMaterialCommitted: false
+  pairedObservation:
+    receipt: "runs/next80-local-kind/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/observation-receipt.yaml"
+    result: "pass"
+    target: "claude-helm-expt-certlc"
+    namespace: "default"
+  proofBoundary:
+    - "Proves an explicit staged serving certificate Secret can replace a hidden chart lifecycle side effect for this local kind target."
+    - "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management."

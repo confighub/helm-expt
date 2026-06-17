@@ -107,6 +107,36 @@ const cases = [
     pairedObservation: "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml",
     productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety.",
   },
+  {
+    id: "autoscaler-vertical-pod-autoscaler-0.9.0-default",
+    chart: "autoscaler/vertical-pod-autoscaler",
+    version: "0.9.0",
+    base: "default",
+    route: "generated-fact-staged-secret",
+    stagedSecret: {
+      namespace: "default",
+      name: "vpa-tls-certs",
+      keys: ["ca", "cert", "key"],
+    },
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/autoscaler-vertical-pod-autoscaler-0.9.0-default/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management.",
+  },
+  {
+    id: "autoscaler-vertical-pod-autoscaler-0.9.0-no-crds",
+    chart: "autoscaler/vertical-pod-autoscaler",
+    version: "0.9.0",
+    base: "no-crds",
+    route: "generated-fact-staged-secret",
+    stagedSecret: {
+      namespace: "default",
+      name: "vpa-tls-certs",
+      keys: ["ca", "cert", "key"],
+    },
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management.",
+  },
 ];
 
 if (mode === "--generate") {

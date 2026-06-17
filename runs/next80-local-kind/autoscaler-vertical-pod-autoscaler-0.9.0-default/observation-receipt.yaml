@@ -3,8 +3,6 @@ kind: "ObservationReceipt"
 metadata:
   name: "autoscaler-vertical-pod-autoscaler-0.9.0-default-local-kind"
 spec:
-  blockedReasons:
-    - "deployment/vertical-pod-autoscaler-admission-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (vertical-pod-autoscaler-admission-controller-b7787b7f8-4bj9g[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-q)"
   checks:
     -
       name: "crds-applied-and-established"
@@ -17,8 +15,7 @@ spec:
     -
       name: "workload-converged"
       object: "Deployment|default|vertical-pod-autoscaler-admission-controller"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): vertical-pod-autoscaler-admission-controller-b7787b7f8-4bj9g[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-q6wz5[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-recommender-65cf99b9bd-crgkx[ ready=true restarts=0;] vertical-pod-a"
-      result: "blocked"
+      result: "pass"
     -
       name: "workload-converged"
       object: "Deployment|default|vertical-pod-autoscaler-recommender"
@@ -31,19 +28,44 @@ spec:
   freshnessTTL: "1h"
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "066fe8b0659fb41757bf29a435522e822a5f269656f344fa6f81a4393cb68198"
-  observedAt: "2026-06-11T10:01:19.323Z"
+    sha256: "b352b8ed188d9d7e5f9fee2708ab40f6ebb58c555fb8833ec646c9902466d4fd"
+  observedAt: "2026-06-17T10:20:40.239Z"
   observer:
     method: "kubectl-kind"
     name: "next80-local-live"
     version: "0.1.0"
   renderedObjectSetSHA256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
-  result: "blocked"
+  result: "pass"
   target:
-    context: "kind-claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-certlc"
     kind: "kind"
-    name: "claude-helm-expt-next80"
+    name: "claude-helm-expt-certlc"
     namespace: "default"
+  targetFacts:
+    requiredSecrets:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        name: "vpa-tls-certs"
+        namespace: "default"
+        purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+        suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
   variant: "default"
   variantRevision: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
   workloads: 3
+  stagedTargetFactSecrets:
+    -
+      namespace: "default"
+      name: "vpa-tls-certs"
+      keys:
+        - "ca"
+        - "cert"
+        - "key"
+      generation: "local-self-signed-certificate"

@@ -16,12 +16,12 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-100 of 110 charts have at least one applicable skill. A chart
+101 of 110 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
-| [Live Parity](../../docs/skills/live-parity.md) | 87 |
+| [Live Parity](../../docs/skills/live-parity.md) | 89 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 54 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 41 |
 | [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 22 |
@@ -104,11 +104,11 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | ingress-nginx/ingress-nginx@4.15.1 | 3 | hook-and-secret-lifecycle | webhooks; live |
 | istio/gateway@1.30.0 | 0 | none | — |
 | istio/istiod@1.30.0 | 0 | none | — |
-| jaegertracing/jaeger-operator@2.57.0 | 4 | serious-chart-playbooks | crds+webhooks; webhooks; crds |
+| jaegertracing/jaeger-operator@2.57.0 | 5 | serious-chart-playbooks | crds+webhooks; webhooks; crds; live |
 | jaegertracing/jaeger@4.8.0 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | jetstack/cert-manager-csi-driver@v0.14.0 | 1 | live-parity | live |
 | jetstack/cert-manager@v1.20.2 | 3 | serious-chart-playbooks | named-serious; live |
-| jetstack/trust-manager@v0.22.1 | 0 | none | — |
+| jetstack/trust-manager@v0.22.1 | 1 | live-parity | live |
 | kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; webhooks; crds; live |
 | kyverno/kyverno-policies@3.8.0 | 2 | target-facts-and-lifecycle | lookup; live |
 | kyverno/kyverno@3.8.1 | 4 | hook-and-secret-lifecycle | hooks:8; generated-facts; crds; lookup; stateful-storage; live |

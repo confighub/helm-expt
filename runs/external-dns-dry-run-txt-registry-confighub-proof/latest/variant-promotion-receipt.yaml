@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "external-dns-dry-run-txt-registry-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "external-dns/external-dns"
+    chartVersion: "1.21.1"
+    packagePath: "packages/external-dns/external-dns/1.21.1"
+    variant: "dry-run-txt-registry"
+    upstreamSpace: "helm-external-dns-dry-run-txt-registry-confighub-proof"
+    downstreamSpace: "ExternalDNS-dry-run-txt-registry-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-external-dns runs/external-dns-dry-run-txt-registry-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-external-dns-dry-run-txt-registry-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-external-dns-dry-run-txt-registry runs/external-dns-dry-run-txt-registry-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-external-dns-dry-run-txt-registry-confighub-proof --allow-exists"
+    dryRun: "cub variant promote ExternalDNS-dry-run-txt-registry-staging --dry-run -o mutations"
+    changeset: "cub changeset create external-dns-dry-run-txt-registry-variant-promote-20260527 --space ExternalDNS-dry-run-txt-registry-staging --description ... --allow-exists"
+    promote: "cub variant promote ExternalDNS-dry-run-txt-registry-staging --changeset ExternalDNS-dry-run-txt-registry-staging/external-dns-dry-run-txt-registry-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote ExternalDNS-dry-run-txt-registry-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-external-dns"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=external-dns-dry-run-txt-registry-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-external-dns-dry-run-txt-registry"
+    upstreamUnitID: "d04c05ba-d4eb-436b-82cd-7c4dbfbfee3a"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-external-dns-dry-run-txt-registry"
+  changeset:
+    slug: "external-dns-dry-run-txt-registry-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset external-dns-dry-run-txt-registry-variant-promote-20260527 (14d21871-255c-4a58-95ac-9b538c0de22a)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-external-dns\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-external-dns-dry-run-txt-registry\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-external-dns-dry-run-txt-registry"
+    addedUnitDownstreamUpstreamUnitID: "d04c05ba-d4eb-436b-82cd-7c4dbfbfee3a"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

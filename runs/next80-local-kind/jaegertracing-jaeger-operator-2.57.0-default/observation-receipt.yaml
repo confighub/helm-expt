@@ -3,39 +3,44 @@ kind: "ObservationReceipt"
 metadata:
   name: "jaegertracing-jaeger-operator-2.57.0-default-local-kind"
 spec:
-  variantRevision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
-  renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
-  observer:
-    name: "next80-local-live"
-    version: "0.1.0"
-    method: "kubectl-kind"
-  target:
-    kind: "kind"
-    name: "claude-helm-expt-codex-crd-prereq"
-    context: "kind-claude-helm-expt-codex-crd-prereq"
-    namespace: "default"
-  observedAt: "2026-06-11T16:43:50.559Z"
-  freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "existing"
-  variant: "default"
-  workloads: 1
-  kubectlObjects:
-    path: "observed-objects.yaml"
-    sha256: "4bc0725e41a0953a6e88cd3f3c0204b1b04dbb7f14cd1611253bf22655e6c83b"
   checks:
     -
       name: "crds-applied-and-established"
-      result: "pass"
       object: "1 CustomResourceDefinition(s)"
+      result: "pass"
     -
       name: "rendered-objects-applied"
-      result: "pass"
       object: "11 object(s) from recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
     -
       name: "workload-converged"
-      result: "blocked"
       object: "Deployment|default|jaeger-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): jaeger-operator-b44465548-9bsgh[ContainerCreating ready=false restarts=0;] node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;] scan-v"
-  blockedReasons:
-    - "deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-9bsgh[ContainerCreating ready=false restarts=0;] node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityr)"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7faf2962784349681581036b9df4b6c0703329f048e594d02c2b703b08920d71"
+  observedAt: "2026-06-17T10:36:47.158Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-certlc2"
+    kind: "kind"
+    name: "claude-helm-expt-certlc2"
+    namespace: "default"
+  targetFacts:
+    {}
+  variant: "default"
+  variantRevision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
+  workloads: 1
+  stagedPrerequisites:
+    -
+      kind: "controller"
+      apiGroup: "cert-manager.io"
+      name: "cert-manager"
+      note: "Installed on the target to issue jaeger-operator-service-cert (the operator webhook serving certificate) from the chart's rendered Certificate + inject-ca-from. The config-only render cannot create the cert-manager-managed Secret itself; convergence required cert-manager as a target prerequisite."

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    chartVersion: "2.60.1"
+    packagePath: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    variant: "default"
+    upstreamSpace: "helm-aws-ebs-csi-driver-default-confighub-proof"
+    downstreamSpace: "AwsEbsCsiDriver-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-ebs-csi-controller runs/aws-ebs-csi-driver-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-aws-ebs-csi-driver-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-aws-ebs-csi-driver-default runs/aws-ebs-csi-driver-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-aws-ebs-csi-driver-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote AwsEbsCsiDriver-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create aws-ebs-csi-driver-default-variant-promote-20260527 --space AwsEbsCsiDriver-default-staging --description ... --allow-exists"
+    promote: "cub variant promote AwsEbsCsiDriver-default-staging --changeset AwsEbsCsiDriver-default-staging/aws-ebs-csi-driver-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote AwsEbsCsiDriver-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-ebs-csi-controller"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=aws-ebs-csi-driver-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-aws-ebs-csi-driver-default"
+    upstreamUnitID: "93c21804-963f-4bae-9882-035c2b5eeb8f"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-aws-ebs-csi-driver-default"
+  changeset:
+    slug: "aws-ebs-csi-driver-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset aws-ebs-csi-driver-default-variant-promote-20260527 (85d64577-4626-4661-8732-af724f1c9ec7)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-ebs-csi-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-aws-ebs-csi-driver-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-aws-ebs-csi-driver-default"
+    addedUnitDownstreamUpstreamUnitID: "93c21804-963f-4bae-9882-035c2b5eeb8f"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

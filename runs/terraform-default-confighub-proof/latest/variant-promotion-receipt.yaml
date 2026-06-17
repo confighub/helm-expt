@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "terraform-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "hashicorp/terraform"
+    chartVersion: "1.1.2"
+    packagePath: "packages/hashicorp/terraform/1.1.2"
+    variant: "default"
+    upstreamSpace: "helm-terraform-default-confighub-proof"
+    downstreamSpace: "Terraform-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-terraform-terraform-sync-workspace runs/terraform-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-terraform-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-terraform-default runs/terraform-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-terraform-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Terraform-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create terraform-default-variant-promote-20260527 --space Terraform-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Terraform-default-staging --changeset Terraform-default-staging/terraform-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Terraform-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-terraform-terraform-sync-workspace"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=terraform-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-terraform-default"
+    upstreamUnitID: "0c84cb7b-c9f6-4b3a-ad8c-89197e5c7e66"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-terraform-default"
+  changeset:
+    slug: "terraform-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset terraform-default-variant-promote-20260527 (2e4e3421-8dde-4a52-8b41-4c68dafcb8b6)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-terraform-terraform-sync-workspace\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-terraform-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-terraform-default"
+    addedUnitDownstreamUpstreamUnitID: "0c84cb7b-c9f6-4b3a-ad8c-89197e5c7e66"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

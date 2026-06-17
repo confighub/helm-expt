@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "vault-ha-raft-ui-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "hashicorp/vault"
+    chartVersion: "0.32.0"
+    packagePath: "packages/hashicorp/vault/0.32.0"
+    variant: "ha-raft-ui"
+    upstreamSpace: "helm-vault-ha-raft-ui-confighub-proof"
+    downstreamSpace: "Vault-ha-raft-ui-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-vault-vault runs/vault-ha-raft-ui-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-vault-ha-raft-ui-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-vault-ha-raft-ui runs/vault-ha-raft-ui-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-vault-ha-raft-ui-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Vault-ha-raft-ui-staging --dry-run -o mutations"
+    changeset: "cub changeset create vault-ha-raft-ui-variant-promote-20260527 --space Vault-ha-raft-ui-staging --description ... --allow-exists"
+    promote: "cub variant promote Vault-ha-raft-ui-staging --changeset Vault-ha-raft-ui-staging/vault-ha-raft-ui-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Vault-ha-raft-ui-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-vault-vault"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=vault-ha-raft-ui-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-vault-ha-raft-ui"
+    upstreamUnitID: "2f10507b-192a-47d2-b99d-3a4d61d370ab"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-vault-ha-raft-ui"
+  changeset:
+    slug: "vault-ha-raft-ui-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset vault-ha-raft-ui-variant-promote-20260527 (dd338eaa-77c6-4481-b3f6-d9ea687edd3b)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-vault-vault\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-vault-ha-raft-ui\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-vault-ha-raft-ui"
+    addedUnitDownstreamUpstreamUnitID: "2f10507b-192a-47d2-b99d-3a4d61d370ab"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

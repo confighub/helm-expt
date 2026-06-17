@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "consul-secure-mesh-existing-secrets-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "hashicorp/consul"
+    chartVersion: "2.0.0"
+    packagePath: "packages/hashicorp/consul/2.0.0"
+    variant: "secure-mesh-existing-secrets"
+    upstreamSpace: "helm-consul-secure-mesh-existing-secrets-confighub-proof"
+    downstreamSpace: "Consul-secure-mesh-existing-secrets-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-consul-consul-consul-server runs/consul-secure-mesh-existing-secrets-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-consul-secure-mesh-existing-secrets-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-consul-secure-mesh-existing-secrets runs/consul-secure-mesh-existing-secrets-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-consul-secure-mesh-existing-secrets-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Consul-secure-mesh-existing-secrets-staging --dry-run -o mutations"
+    changeset: "cub changeset create consul-secure-mesh-existing-secrets-variant-promote-20260527 --space Consul-secure-mesh-existing-secrets-staging --description ... --allow-exists"
+    promote: "cub variant promote Consul-secure-mesh-existing-secrets-staging --changeset Consul-secure-mesh-existing-secrets-staging/consul-secure-mesh-existing-secrets-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Consul-secure-mesh-existing-secrets-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-consul-consul-consul-server"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=consul-secure-mesh-existing-secrets-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-consul-secure-mesh-existing-secrets"
+    upstreamUnitID: "9935a0c4-2ca7-459c-a307-c9dc6cc59959"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-consul-secure-mesh-existing-secrets"
+  changeset:
+    slug: "consul-secure-mesh-existing-secrets-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset consul-secure-mesh-existing-secrets-variant-promote-20260527 (99645d08-5c5d-4e85-b9ee-c7ecbc4155cc)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-consul-consul-consul-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-consul-secure-mesh-existing-secrets\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-consul-secure-mesh-existing-secrets"
+    addedUnitDownstreamUpstreamUnitID: "9935a0c4-2ca7-459c-a307-c9dc6cc59959"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

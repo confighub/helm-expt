@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "filebeat-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "elastic/filebeat"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/filebeat/8.5.1"
+    variant: "default"
+    upstreamSpace: "helm-filebeat-default-confighub-proof"
+    downstreamSpace: "Filebeat-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update configmap-filebeat-filebeat-daemonset-config runs/filebeat-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-filebeat-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-filebeat-default runs/filebeat-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-filebeat-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Filebeat-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create filebeat-default-variant-promote-20260527 --space Filebeat-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Filebeat-default-staging --changeset Filebeat-default-staging/filebeat-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Filebeat-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "configmap-filebeat-filebeat-daemonset-config"
+    beforeHeadRevisionNum: 1
+    afterHeadRevisionNum: 2
+    annotation: "helm-expt.confighub.com/promotion-proof=filebeat-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-filebeat-default"
+    upstreamUnitID: "2942a6da-4979-4585-aa02-00cf31c6f148"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-filebeat-default"
+  changeset:
+    slug: "filebeat-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset filebeat-default-variant-promote-20260527 (8b6e284c-a290-4d11-b646-d0574725d1ea)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: configmap-filebeat-filebeat-daemonset-config\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-filebeat-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 2
+    downstreamUpstreamRevisionNumBefore: 1
+    downstreamUpstreamRevisionNumAfter: 2
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-filebeat-default"
+    addedUnitDownstreamUpstreamUnitID: "2942a6da-4979-4585-aa02-00cf31c6f148"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

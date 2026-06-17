@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-nginx-25-0-0-http-clusterip-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/nginx"
+    chartVersion: "25.0.0"
+    packagePath: "packages/bitnami/nginx/25.0.0"
+    variant: "http-clusterip"
+    upstreamSpace: "helm-cl-nginx-25-0-0-http-clusterip-confighub-proof"
+    downstreamSpace: "Nginx2500-http-clusterip-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-nginx-nginx runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-nginx-25-0-0-http-clusterip-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-nginx-25-0-0-http-clusterip runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-nginx-25-0-0-http-clusterip-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Nginx2500-http-clusterip-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-nginx-25-0-0-http-clusterip-variant-promote-20260527 --space Nginx2500-http-clusterip-staging --description ... --allow-exists"
+    promote: "cub variant promote Nginx2500-http-clusterip-staging --changeset Nginx2500-http-clusterip-staging/cl-nginx-25-0-0-http-clusterip-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Nginx2500-http-clusterip-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-nginx-nginx"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-nginx-25-0-0-http-clusterip-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-nginx-25-0-0-http-clusterip"
+    upstreamUnitID: "b619822c-4553-45bd-894e-8621576c66d9"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-nginx-25-0-0-http-clusterip"
+  changeset:
+    slug: "cl-nginx-25-0-0-http-clusterip-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-nginx-25-0-0-http-clusterip-variant-promote-20260527 (9783f24c-1f66-4425-b9e9-21e00d10d793)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-nginx-nginx\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-nginx-25-0-0-http-clusterip\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-nginx-25-0-0-http-clusterip"
+    addedUnitDownstreamUpstreamUnitID: "b619822c-4553-45bd-894e-8621576c66d9"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

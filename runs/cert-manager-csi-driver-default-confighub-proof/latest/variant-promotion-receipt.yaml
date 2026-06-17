@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cert-manager-csi-driver-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "jetstack/cert-manager-csi-driver"
+    chartVersion: "v0.14.0"
+    packagePath: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
+    variant: "default"
+    upstreamSpace: "helm-cert-manager-csi-driver-default-confighub-proof"
+    downstreamSpace: "CertManagerCsiDriver-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update daemonset-default-cert-manager-csi-driver runs/cert-manager-csi-driver-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cert-manager-csi-driver-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cert-manager-csi-driver-default runs/cert-manager-csi-driver-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cert-manager-csi-driver-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote CertManagerCsiDriver-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create cert-manager-csi-driver-default-variant-promote-20260527 --space CertManagerCsiDriver-default-staging --description ... --allow-exists"
+    promote: "cub variant promote CertManagerCsiDriver-default-staging --changeset CertManagerCsiDriver-default-staging/cert-manager-csi-driver-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote CertManagerCsiDriver-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "daemonset-default-cert-manager-csi-driver"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cert-manager-csi-driver-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cert-manager-csi-driver-default"
+    upstreamUnitID: "2e4f8ef8-518c-4f1e-b332-2cf539244d2f"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cert-manager-csi-driver-default"
+  changeset:
+    slug: "cert-manager-csi-driver-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cert-manager-csi-driver-default-variant-promote-20260527 (d67f9131-fedd-4242-8f50-ab61bf6219fc)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: daemonset-default-cert-manager-csi-driver\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cert-manager-csi-driver-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cert-manager-csi-driver-default"
+    addedUnitDownstreamUpstreamUnitID: "2e4f8ef8-518c-4f1e-b332-2cf539244d2f"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

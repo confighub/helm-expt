@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "fluentd-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "fluent/fluentd"
+    chartVersion: "0.5.3"
+    packagePath: "packages/fluent/fluentd/0.5.3"
+    variant: "default"
+    upstreamSpace: "helm-fluentd-default-confighub-proof"
+    downstreamSpace: "Fluentd-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update daemonset-fluentd runs/fluentd-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-fluentd-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-fluentd-default runs/fluentd-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-fluentd-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Fluentd-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create fluentd-default-variant-promote-20260527 --space Fluentd-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Fluentd-default-staging --changeset Fluentd-default-staging/fluentd-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Fluentd-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "daemonset-fluentd"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=fluentd-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-fluentd-default"
+    upstreamUnitID: "6a25c976-c7c7-4a0a-9dcc-f2a10df603fe"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-fluentd-default"
+  changeset:
+    slug: "fluentd-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset fluentd-default-variant-promote-20260527 (ba858329-33c7-4d9a-8e6c-771b54e50df8)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: daemonset-fluentd\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-fluentd-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-fluentd-default"
+    addedUnitDownstreamUpstreamUnitID: "6a25c976-c7c7-4a0a-9dcc-f2a10df603fe"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "pxc-operator-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "percona/pxc-operator"
+    chartVersion: "1.19.1"
+    packagePath: "packages/percona/pxc-operator/1.19.1"
+    variant: "no-crds"
+    upstreamSpace: "helm-pxc-operator-no-crds-confighub-proof"
+    downstreamSpace: "PerconaPXCOperator-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-pxc-operator runs/pxc-operator-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-pxc-operator-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-pxc-operator-no-crds runs/pxc-operator-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-pxc-operator-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote PerconaPXCOperator-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create pxc-operator-no-crds-variant-promote-20260527 --space PerconaPXCOperator-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote PerconaPXCOperator-no-crds-staging --changeset PerconaPXCOperator-no-crds-staging/pxc-operator-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote PerconaPXCOperator-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-pxc-operator"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=pxc-operator-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-pxc-operator-no-crds"
+    upstreamUnitID: "b0fa1d4d-af53-4640-a6ee-e391a52041cc"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-pxc-operator-no-crds"
+  changeset:
+    slug: "pxc-operator-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset pxc-operator-no-crds-variant-promote-20260527 (cf84677f-48c0-4bae-a3a1-14b31c5d9141)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-pxc-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-pxc-operator-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-pxc-operator-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "b0fa1d4d-af53-4640-a6ee-e391a52041cc"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

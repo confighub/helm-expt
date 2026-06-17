@@ -6,28 +6,28 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator"
       namespace: "default"
-      resourceVersion: "3948"
-      uid: "3419370e-d830-413f-a4d1-8f3771aa894e"
+      resourceVersion: "711"
+      uid: "2c409271-23b5-45c9-b569-fa4a44899660"
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
     kind: "Role"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\",\"jobs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"console.openshift.io\"],\"resources\":[\"consolelinks\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"get\",\"list\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"persistentvolumeclaims\",\"pods\",\"secrets\",\"serviceaccounts\",\"services\",\"services/finalizers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"extensions\"],\"resources\":[\"ingresses\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"image.openshift.io\"],\"resources\":[\"imagestreams\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"jaegertracing.io\"],\"resources\":[\"jaegers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"jaegertracing.io\"],\"resources\":[\"jaegers/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"jaegertracing.io\"],\"resources\":[\"jaegers/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"kafka.strimzi.io\"],\"resources\":[\"kafkas\",\"kafkausers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"logging.openshift.io\"],\"resources\":[\"elasticsearch\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"logging.openshift.io\"],\"resources\":[\"elasticsearches\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"servicemonitors\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingressclasses\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterrolebindings\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"route.openshift.io\"],\"resources\":[\"routes\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator"
       namespace: "default"
-      resourceVersion: "3949"
-      uid: "207b75e3-0056-444f-a8c2-b5ee35a6259c"
+      resourceVersion: "712"
+      uid: "d0ea2b65-265c-4e17-b531-d79ab0e8617f"
     rules:
       -
         apiGroups:
@@ -315,14 +315,14 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"jaeger-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"jaeger-operator\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator"
       namespace: "default"
-      resourceVersion: "3950"
-      uid: "b3b141fb-afa2-4c24-8cb0-27501653ea05"
+      resourceVersion: "713"
+      uid: "99b62e73-2bd3-4697-8a71-8442085dc04d"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "Role"
@@ -338,18 +338,18 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics\",\"port\":8383,\"protocol\":\"TCP\",\"targetPort\":8383}],\"selector\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"type\":\"ClusterIP\"}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator-metrics"
       namespace: "default"
-      resourceVersion: "3952"
-      uid: "19f3ac0c-65f4-4a80-ac4f-c68ec1ea3821"
+      resourceVersion: "715"
+      uid: "9b8f0d80-e26b-4275-8861-57500fc40746"
     spec:
-      clusterIP: "10.96.251.222"
+      clusterIP: "10.96.251.22"
       clusterIPs:
-        - "10.96.251.222"
+        - "10.96.251.22"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -374,18 +374,18 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":443,\"protocol\":\"TCP\",\"targetPort\":9443}],\"selector\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"}}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator-webhook-service"
       namespace: "default"
-      resourceVersion: "3956"
-      uid: "e171f381-1416-4e71-8354-d7a7c0757502"
+      resourceVersion: "719"
+      uid: "0681d4e6-9caf-4a77-8879-f92a4222263e"
     spec:
-      clusterIP: "10.96.10.248"
+      clusterIP: "10.96.160.117"
       clusterIPs:
-        - "10.96.10.248"
+        - "10.96.160.117"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -410,15 +410,15 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator\"},\"spec\":{\"containers\":[{\"args\":[\"start\",\"--metrics-port=8383\",\"--webhook-bind-port=9443\"],\"env\":[{\"name\":\"WATCH_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"OPERATOR_NAME\",\"value\":\"jaeger-operator\"}],\"image\":\"jaegertracing/jaeger-operator:1.61.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"jaeger-operator\",\"ports\":[{\"containerPort\":8383,\"name\":\"metrics\"},{\"containerPort\":9443,\"name\":\"webhook-server\",\"protocol\":\"TCP\"}],\"resources\":{},\"volumeMounts\":[{\"mountPath\":\"/tmp/k8s-webhook-server/serving-certs\",\"name\":\"cert\",\"readOnly\":true}]}],\"serviceAccountName\":\"jaeger-operator\",\"volumes\":[{\"name\":\"cert\",\"secret\":{\"defaultMode\":420,\"secretName\":\"jaeger-operator-service-cert\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator"
       namespace: "default"
-      resourceVersion: "3972"
-      uid: "02ef3a90-7127-46e0-a2b5-7e623d38f1c2"
+      resourceVersion: "796"
+      uid: "bfa10953-145c-4c86-a8d5-e10c2e88d11a"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -503,25 +503,26 @@ items:
                 defaultMode: 420
                 secretName: "jaeger-operator-service-cert"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T16:36:49Z"
-          lastUpdateTime: "2026-06-11T16:36:49Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-17T10:36:46Z"
+          lastUpdateTime: "2026-06-17T10:36:46Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T16:36:49Z"
-          lastUpdateTime: "2026-06-11T16:36:49Z"
-          message: "ReplicaSet \"jaeger-operator-b44465548\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-17T10:36:32Z"
+          lastUpdateTime: "2026-06-17T10:36:46Z"
+          message: "ReplicaSet \"jaeger-operator-b44465548\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "cert-manager.io/v1"
@@ -529,12 +530,12 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Certificate\",\"metadata\":{\"annotations\":{},\"name\":\"jaeger-operator-service-cert\",\"namespace\":\"default\"},\"spec\":{\"dnsNames\":[\"jaeger-operator-webhook-service.default.svc\",\"jaeger-operator-webhook-service.default.svc.cluster.local\"],\"issuerRef\":{\"kind\":\"Issuer\",\"name\":\"selfsigned-issuer\"},\"secretName\":\"jaeger-operator-service-cert\",\"subject\":{\"organizationalUnits\":[\"jaeger-operator\"]}}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       generation: 1
       name: "jaeger-operator-service-cert"
       namespace: "default"
-      resourceVersion: "3962"
-      uid: "533a711c-4e09-4718-a2ef-9d7f17b2af79"
+      resourceVersion: "764"
+      uid: "2cabb562-bc57-4d45-866c-9c56d3572661"
     spec:
       dnsNames:
         - "jaeger-operator-webhook-service.default.svc"
@@ -546,21 +547,42 @@ items:
       subject:
         organizationalUnits:
           - "jaeger-operator"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-17T10:36:32Z"
+          message: "Certificate is up to date and has not expired"
+          observedGeneration: 1
+          reason: "Ready"
+          status: "True"
+          type: "Ready"
+      notAfter: "2026-09-15T10:36:32Z"
+      notBefore: "2026-06-17T10:36:32Z"
+      renewalTime: "2026-08-16T10:36:32Z"
+      revision: 1
   -
     apiVersion: "cert-manager.io/v1"
     kind: "Issuer"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Issuer\",\"metadata\":{\"annotations\":{},\"name\":\"selfsigned-issuer\",\"namespace\":\"default\"},\"spec\":{\"selfSigned\":{}}}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:32Z"
       generation: 1
       name: "selfsigned-issuer"
       namespace: "default"
-      resourceVersion: "3967"
-      uid: "c0943c24-bb7b-4459-bb85-393c7043108d"
+      resourceVersion: "736"
+      uid: "098a7687-5db5-4a25-af06-5982ad4dfda2"
     spec:
       selfSigned:
         {}
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-17T10:36:32Z"
+          observedGeneration: 1
+          reason: "IsReady"
+          status: "True"
+          type: "Ready"
 kind: "List"
 metadata:
   resourceVersion: ""
@@ -571,14 +593,14 @@ items:
     apiVersion: "apiextensions.k8s.io/v1"
     kind: "CustomResourceDefinition"
     metadata:
-      creationTimestamp: "2026-06-11T16:36:49Z"
+      creationTimestamp: "2026-06-17T10:36:31Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaegers.jaegertracing.io"
-      resourceVersion: "3947"
-      uid: "38ab4fa3-f0cb-4966-9a3c-faf80829d4ba"
+      resourceVersion: "709"
+      uid: "0408a497-a0ad-435d-839f-f220a0aeab28"
     spec:
       conversion:
         strategy: "None"
@@ -15661,13 +15683,13 @@ items:
         singular: "jaeger"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T16:36:49Z"
+          lastTransitionTime: "2026-06-17T10:36:31Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T16:36:49Z"
+          lastTransitionTime: "2026-06-17T10:36:32Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -15681,19 +15703,20 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/jaeger-operator-service-cert"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/jaeger-operator-service-cert\"},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator-mutating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/mutate-v1-deployment\"}},\"failurePolicy\":\"Ignore\",\"name\":\"deployment.sidecar-injector.jaegertracing.io\",\"objectSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/name\",\"operator\":\"NotIn\",\"values\":[\"jaeger-operator\"]}]},\"rules\":[{\"apiGroups\":[\"apps\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"deployments\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/mutate-jaegertracing-io-v1-jaeger\"}},\"failurePolicy\":\"Fail\",\"name\":\"mjaeger.kb.io\",\"rules\":[{\"apiGroups\":[\"jaegertracing.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"jaegers\"]}],\"sideEffects\":\"None\"}]}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
-      generation: 1
+      creationTimestamp: "2026-06-17T10:36:32Z"
+      generation: 2
       labels:
         app.kubernetes.io/instance: "jaeger-operator"
         app.kubernetes.io/name: "jaeger-operator"
       name: "jaeger-operator-mutating-webhook-configuration"
-      resourceVersion: "3974"
-      uid: "af2628e9-491a-4780-a192-bd620e85742d"
+      resourceVersion: "758"
+      uid: "d784bc3a-0013-4da7-8c66-b51a92a6cbc1"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURVekNDQWp1Z0F3SUJBZ0lRUnRxLzZFdjJRS3BnWlRIRWZxbjI5VEFOQmdrcWhraUc5dzBCQVFzRkFEQWEKTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3SGhjTk1qWXdOakUzTVRBek5qTXlXaGNOTWpZdwpPVEUxTVRBek5qTXlXakFhTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURYMm16TVlqVUdhWXluNmRId0E2SWxVV3M4K0RUeENzdHMKYmFCbkZVeWg0R3ZsUGxEeFRITlk1b29tR1VLYlYybGpZcW52bUpFeVk0TGs5MVZTamYzVzRUTjc1Z2FHa0tMVApURFJoLzE5OWdlMmM4OHN6eUUzUmU4MkJ5OWFobS9aSVFZWkM2ZDlOcVZwRzNsVEh5V3ZiUWFjU1h4bTM2SDkxCnRoeDdkOGVPZlczNEVmaHV4UzQwMlpvOW11RGYzRjhWd2Z5OFJrQ3g0SUpsbzNlYzJjbHUvbkpjS0oxS01oZUkKQWMrbVI1MERXY0twZzg4Z1hBQ0dsbHEzTDNCcktoRG1mOHpJc09RaHVURkNoamwyL0hnTWhKTm1YN2hRemIzZgovWDM0NlBTaTZYN3JUWVRpYTEzZ2RpTDdvQmUvdmZsK2NlQ1o1R1JZMW1tbWZjM2lDbWR6QWdNQkFBR2pnWlF3CmdaRXdEZ1lEVlIwUEFRSC9CQVFEQWdXZ01Bd0dBMVVkRXdFQi93UUNNQUF3Y1FZRFZSMFJCR293YUlJcmFtRmwKWjJWeUxXOXdaWEpoZEc5eUxYZGxZbWh2YjJzdGMyVnlkbWxqWlM1a1pXWmhkV3gwTG5OMlk0STVhbUZsWjJWeQpMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3RjMlZ5ZG1salpTNWtaV1poZFd4MExuTjJZeTVqYkhWemRHVnlMbXh2ClkyRnNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNSSGY2TlA0TEYrUFhLSzNERGZjUEdSOFc5cVQ3a2NJZDUKMmFzM09UTHE2SjdORkpuVUZ5NXpxNndvdUZjaVlJTnNZV2pLR1BIN0ZLNTc3L2ZkUzRQcDU0akgrMlhDQXZqMQpkRkg1NDFWZWNSS3UxZitZQWpSSVAwQTVKZDNhZ3FVcFFjTS9qTGdQS3c4bFlpTzZTZXJ1MDRkTXhEKy9yVEFCCjhmZ2dMbXBEZVE2U3IwUEEwMmkrdEpMdkVsdE9ncmRZSnluS3I1UnpXK0QrME1TdUlYaVRXS2Q3NVhtc0hmQlEKTTRTUE5CVmdGc0lsNXFEWnVTN0Q0dDB4cmE0aWZveS9lT3RPOG56N1RCNUlMQ1JZWlQrNFZVbWo0b2xyMitqTApwd3RVb0VnNjlkdDBoMXpMbE1KcDg2OXVkMWcrUVlyTVRpcmRGRk1IQVhjOVFwUE8rS2pLCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
           service:
             name: "jaeger-operator-webhook-service"
             namespace: "default"
@@ -15730,6 +15753,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURVekNDQWp1Z0F3SUJBZ0lRUnRxLzZFdjJRS3BnWlRIRWZxbjI5VEFOQmdrcWhraUc5dzBCQVFzRkFEQWEKTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3SGhjTk1qWXdOakUzTVRBek5qTXlXaGNOTWpZdwpPVEUxTVRBek5qTXlXakFhTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURYMm16TVlqVUdhWXluNmRId0E2SWxVV3M4K0RUeENzdHMKYmFCbkZVeWg0R3ZsUGxEeFRITlk1b29tR1VLYlYybGpZcW52bUpFeVk0TGs5MVZTamYzVzRUTjc1Z2FHa0tMVApURFJoLzE5OWdlMmM4OHN6eUUzUmU4MkJ5OWFobS9aSVFZWkM2ZDlOcVZwRzNsVEh5V3ZiUWFjU1h4bTM2SDkxCnRoeDdkOGVPZlczNEVmaHV4UzQwMlpvOW11RGYzRjhWd2Z5OFJrQ3g0SUpsbzNlYzJjbHUvbkpjS0oxS01oZUkKQWMrbVI1MERXY0twZzg4Z1hBQ0dsbHEzTDNCcktoRG1mOHpJc09RaHVURkNoamwyL0hnTWhKTm1YN2hRemIzZgovWDM0NlBTaTZYN3JUWVRpYTEzZ2RpTDdvQmUvdmZsK2NlQ1o1R1JZMW1tbWZjM2lDbWR6QWdNQkFBR2pnWlF3CmdaRXdEZ1lEVlIwUEFRSC9CQVFEQWdXZ01Bd0dBMVVkRXdFQi93UUNNQUF3Y1FZRFZSMFJCR293YUlJcmFtRmwKWjJWeUxXOXdaWEpoZEc5eUxYZGxZbWh2YjJzdGMyVnlkbWxqWlM1a1pXWmhkV3gwTG5OMlk0STVhbUZsWjJWeQpMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3RjMlZ5ZG1salpTNWtaV1poZFd4MExuTjJZeTVqYkhWemRHVnlMbXh2ClkyRnNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNSSGY2TlA0TEYrUFhLSzNERGZjUEdSOFc5cVQ3a2NJZDUKMmFzM09UTHE2SjdORkpuVUZ5NXpxNndvdUZjaVlJTnNZV2pLR1BIN0ZLNTc3L2ZkUzRQcDU0akgrMlhDQXZqMQpkRkg1NDFWZWNSS3UxZitZQWpSSVAwQTVKZDNhZ3FVcFFjTS9qTGdQS3c4bFlpTzZTZXJ1MDRkTXhEKy9yVEFCCjhmZ2dMbXBEZVE2U3IwUEEwMmkrdEpMdkVsdE9ncmRZSnluS3I1UnpXK0QrME1TdUlYaVRXS2Q3NVhtc0hmQlEKTTRTUE5CVmdGc0lsNXFEWnVTN0Q0dDB4cmE0aWZveS9lT3RPOG56N1RCNUlMQ1JZWlQrNFZVbWo0b2xyMitqTApwd3RVb0VnNjlkdDBoMXpMbE1KcDg2OXVkMWcrUVlyTVRpcmRGRk1IQVhjOVFwUE8rS2pLCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
           service:
             name: "jaeger-operator-webhook-service"
             namespace: "default"
@@ -15764,16 +15788,17 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/jaeger-operator-service-cert"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/jaeger-operator-service-cert\"},\"name\":\"jaeger-operator-validating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/validate-jaegertracing-io-v1-jaeger\"}},\"failurePolicy\":\"Fail\",\"name\":\"vjaeger.kb.io\",\"rules\":[{\"apiGroups\":[\"jaegertracing.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"jaegers\"]}],\"sideEffects\":\"None\"}]}\n"
-      creationTimestamp: "2026-06-11T16:36:49Z"
-      generation: 1
+      creationTimestamp: "2026-06-17T10:36:32Z"
+      generation: 2
       name: "jaeger-operator-validating-webhook-configuration"
-      resourceVersion: "3975"
-      uid: "2c3a6bca-ed7f-4254-b7fd-02f05ded0240"
+      resourceVersion: "759"
+      uid: "5e61e31b-8bc8-44aa-a1ec-81de5020740e"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURVekNDQWp1Z0F3SUJBZ0lRUnRxLzZFdjJRS3BnWlRIRWZxbjI5VEFOQmdrcWhraUc5dzBCQVFzRkFEQWEKTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3SGhjTk1qWXdOakUzTVRBek5qTXlXaGNOTWpZdwpPVEUxTVRBek5qTXlXakFhTVJnd0ZnWURWUVFMRXc5cVlXVm5aWEl0YjNCbGNtRjBiM0l3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURYMm16TVlqVUdhWXluNmRId0E2SWxVV3M4K0RUeENzdHMKYmFCbkZVeWg0R3ZsUGxEeFRITlk1b29tR1VLYlYybGpZcW52bUpFeVk0TGs5MVZTamYzVzRUTjc1Z2FHa0tMVApURFJoLzE5OWdlMmM4OHN6eUUzUmU4MkJ5OWFobS9aSVFZWkM2ZDlOcVZwRzNsVEh5V3ZiUWFjU1h4bTM2SDkxCnRoeDdkOGVPZlczNEVmaHV4UzQwMlpvOW11RGYzRjhWd2Z5OFJrQ3g0SUpsbzNlYzJjbHUvbkpjS0oxS01oZUkKQWMrbVI1MERXY0twZzg4Z1hBQ0dsbHEzTDNCcktoRG1mOHpJc09RaHVURkNoamwyL0hnTWhKTm1YN2hRemIzZgovWDM0NlBTaTZYN3JUWVRpYTEzZ2RpTDdvQmUvdmZsK2NlQ1o1R1JZMW1tbWZjM2lDbWR6QWdNQkFBR2pnWlF3CmdaRXdEZ1lEVlIwUEFRSC9CQVFEQWdXZ01Bd0dBMVVkRXdFQi93UUNNQUF3Y1FZRFZSMFJCR293YUlJcmFtRmwKWjJWeUxXOXdaWEpoZEc5eUxYZGxZbWh2YjJzdGMyVnlkbWxqWlM1a1pXWmhkV3gwTG5OMlk0STVhbUZsWjJWeQpMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3RjMlZ5ZG1salpTNWtaV1poZFd4MExuTjJZeTVqYkhWemRHVnlMbXh2ClkyRnNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNSSGY2TlA0TEYrUFhLSzNERGZjUEdSOFc5cVQ3a2NJZDUKMmFzM09UTHE2SjdORkpuVUZ5NXpxNndvdUZjaVlJTnNZV2pLR1BIN0ZLNTc3L2ZkUzRQcDU0akgrMlhDQXZqMQpkRkg1NDFWZWNSS3UxZitZQWpSSVAwQTVKZDNhZ3FVcFFjTS9qTGdQS3c4bFlpTzZTZXJ1MDRkTXhEKy9yVEFCCjhmZ2dMbXBEZVE2U3IwUEEwMmkrdEpMdkVsdE9ncmRZSnluS3I1UnpXK0QrME1TdUlYaVRXS2Q3NVhtc0hmQlEKTTRTUE5CVmdGc0lsNXFEWnVTN0Q0dDB4cmE0aWZveS9lT3RPOG56N1RCNUlMQ1JZWlQrNFZVbWo0b2xyMitqTApwd3RVb0VnNjlkdDBoMXpMbE1KcDg2OXVkMWcrUVlyTVRpcmRGRk1IQVhjOVFwUE8rS2pLCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
           service:
             name: "jaeger-operator-webhook-service"
             namespace: "default"

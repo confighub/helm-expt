@@ -23,7 +23,7 @@ average coverage: 88%
 | d | pain report and quirk axes | 100 | 0 | 0 |
 | e | facts declared | 100 | 0 | 0 |
 | f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 83 | 17 | 0 |
+| g | live witness or routed reason | 85 | 15 | 0 |
 | h | catalog and site entry | 100 | 0 | 0 |
 
 ## Coverage By Bucket
@@ -50,11 +50,11 @@ average coverage: 88%
 | `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
 | `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
 | `istio/istiod@1.30.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `jaegertracing/jaeger-operator@2.57.0` | 75% | `promote-after-review` | run catalog promotion review |
-| `jetstack/trust-manager@v0.22.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `nats/surveyor@0.20.9` | 75% | `promote-after-review` | run catalog promotion review |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `opencost/opencost@2.5.21` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `projectcalico/tigera-operator@v3.32.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `velero/velero@12.0.1` | 75% | `promote-after-review` | run catalog promotion review |
 
 ## Files
 

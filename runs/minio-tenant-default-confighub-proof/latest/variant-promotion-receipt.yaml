@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "minio-tenant-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "minio-operator/tenant"
+    chartVersion: "7.1.1"
+    packagePath: "packages/minio-operator/tenant/7.1.1"
+    variant: "default"
+    upstreamSpace: "helm-minio-tenant-default-confighub-proof"
+    downstreamSpace: "MinioTenant-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update namespace-default runs/minio-tenant-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-minio-tenant-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-minio-tenant-default runs/minio-tenant-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-minio-tenant-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote MinioTenant-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create minio-tenant-default-variant-promote-20260527 --space MinioTenant-default-staging --description ... --allow-exists"
+    promote: "cub variant promote MinioTenant-default-staging --changeset MinioTenant-default-staging/minio-tenant-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote MinioTenant-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "namespace-default"
+    beforeHeadRevisionNum: 1
+    afterHeadRevisionNum: 2
+    annotation: "helm-expt.confighub.com/promotion-proof=minio-tenant-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-minio-tenant-default"
+    upstreamUnitID: "bcfbc3f1-ffea-49d7-8319-c644db3117e6"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-minio-tenant-default"
+  changeset:
+    slug: "minio-tenant-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset minio-tenant-default-variant-promote-20260527 (5ecdf4ee-6d70-403d-bee5-0d87a909cf61)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: namespace-default\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-minio-tenant-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 2
+    downstreamUpstreamRevisionNumBefore: 1
+    downstreamUpstreamRevisionNumAfter: 2
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-minio-tenant-default"
+    addedUnitDownstreamUpstreamUnitID: "bcfbc3f1-ffea-49d7-8319-c644db3117e6"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

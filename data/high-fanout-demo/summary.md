@@ -7,8 +7,8 @@ belong in reviewed base variants instead of ad hoc post-render edits.
 
 | Base | User choice | Helm objects | CRDs | Webhook configs | Monitoring custom resources | Current proof chain |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `default` | install the stack including Prometheus Operator CRDs | 124 | 10 | 2 | 50 | render `pass`; two-cluster kind `pass`; strict ConfigHub OCI/Argo `pass`; production `supported-for-declared-target-scope` |
-| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | render `pass`; two-cluster kind `pass`; strict ConfigHub OCI/Argo `pass`; production `support-evidence-present` |
+| `default` | install the stack including Prometheus Operator CRDs | 124 | 10 | 2 | 50 | render `pass`; two-cluster kind `missing`; strict ConfigHub OCI/Argo `pass`; production `supported-for-declared-target-scope` |
+| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | render `pass`; two-cluster kind `missing`; strict ConfigHub OCI/Argo `pass`; production `support-evidence-present` |
 
 The `no-crds` base changes one render-time choice:
 
@@ -30,7 +30,7 @@ where those prerequisites are absent.
 | --- | --- | --- | --- |
 | Render parity | `pass` | `pass` | Helm-equivalence receipts under `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/*/r001/receipts/`. |
 | ConfigHub proof | chart-level `pass` | chart-level `pass` | `runs/kube-prometheus-stack-confighub-proof/latest/`. |
-| Two-cluster kind parity | `pass` | `pass` | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-*/receipt.yaml`. |
+| Two-cluster kind parity | `missing` | `missing` | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-*/receipt.yaml`. |
 | ConfigHub OCI/GitOps | strict live `pass` | current runtime wave `pass` with staged target facts; older Flux blocker preserved separately | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`, `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`, `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml`, and `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/flux-blocked-2026-06-05.yaml`. |
 | Production support | `supported-for-declared-target-scope` | `support-evidence-present` | `data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml`, `data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml`, and `data/production-disposition/top20.csv`. |
 

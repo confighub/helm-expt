@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "vault-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "hashicorp/vault"
+    chartVersion: "0.32.0"
+    packagePath: "packages/hashicorp/vault/0.32.0"
+    variant: "default"
+    upstreamSpace: "helm-vault-default-confighub-proof"
+    downstreamSpace: "Vault-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-vault-vault runs/vault-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-vault-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-vault-default runs/vault-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-vault-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Vault-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create vault-default-variant-promote-20260527 --space Vault-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Vault-default-staging --changeset Vault-default-staging/vault-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Vault-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-vault-vault"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=vault-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-vault-default"
+    upstreamUnitID: "1ab39761-17bc-4b37-a470-435eb65fe2c3"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-vault-default"
+  changeset:
+    slug: "vault-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset vault-default-variant-promote-20260527 (3ae57c93-976c-4b00-a935-cfe963bfe1bc)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-vault-vault\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-vault-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-vault-default"
+    addedUnitDownstreamUpstreamUnitID: "1ab39761-17bc-4b37-a470-435eb65fe2c3"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

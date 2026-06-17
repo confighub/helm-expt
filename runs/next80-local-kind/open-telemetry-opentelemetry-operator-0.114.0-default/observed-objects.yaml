@@ -7,7 +7,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -18,15 +18,15 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator"
       namespace: "default"
-      resourceVersion: "6764"
-      uid: "cec22b36-50d3-4b0e-9305-43c2ff54be59"
+      resourceVersion: "838"
+      uid: "42a92815-37b9-4914-ba68-0993eed574eb"
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
     kind: "Role"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-leader-election\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"pods\",\"serviceaccounts\",\"services\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\",\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"statefulsets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"config.openshift.io\"],\"resources\":[\"infrastructures\",\"infrastructures/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"get\",\"list\",\"update\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"podmonitors\",\"servicemonitors\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"instrumentations\",\"opentelemetrycollectors\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges\",\"targetallocators\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges/status\",\"opentelemetrycollectors/finalizers\",\"opentelemetrycollectors/status\",\"targetallocators/status\",\"targetallocators/finalizers\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"route.openshift.io\"],\"resources\":[\"routes\",\"routes/custom-host\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -37,8 +37,8 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-leader-election"
       namespace: "default"
-      resourceVersion: "6765"
-      uid: "aca48ecd-7088-4ef2-bc3b-82ed3cebb452"
+      resourceVersion: "839"
+      uid: "9d8157bc-2fe9-44dd-83f5-8bd3c575497d"
     rules:
       -
         apiGroups:
@@ -246,7 +246,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-leader-election\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"opentelemetry-operator-leader-election\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"opentelemetry-operator\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -257,8 +257,8 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-leader-election"
       namespace: "default"
-      resourceVersion: "6766"
-      uid: "8f7f048d-fec3-498c-80a3-8a6252c09aec"
+      resourceVersion: "840"
+      uid: "7d12a913-c3ef-4f75-8a2a-abdc2b03f8eb"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "Role"
@@ -274,7 +274,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics\",\"port\":8443,\"protocol\":\"TCP\",\"targetPort\":\"metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/name\":\"opentelemetry-operator\"}}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -285,12 +285,12 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator"
       namespace: "default"
-      resourceVersion: "6768"
-      uid: "03c6923a-0a33-4381-9d01-5fc6bb8622b3"
+      resourceVersion: "842"
+      uid: "0182d9e5-b84c-4c64-9c63-84db13797794"
     spec:
-      clusterIP: "10.96.172.249"
+      clusterIP: "10.96.222.17"
       clusterIPs:
-        - "10.96.172.249"
+        - "10.96.222.17"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -315,7 +315,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"webhook-server\"}],\"selector\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/name\":\"opentelemetry-operator\"}}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -326,12 +326,12 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-webhook"
       namespace: "default"
-      resourceVersion: "6772"
-      uid: "e4dbae99-8ec0-497f-9725-3ed5de589c2d"
+      resourceVersion: "846"
+      uid: "2db13232-094a-48cc-8f89-15c3a5932983"
     spec:
-      clusterIP: "10.96.236.97"
+      clusterIP: "10.96.90.118"
       clusterIPs:
-        - "10.96.236.97"
+        - "10.96.90.118"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -356,7 +356,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/name\":\"opentelemetry-operator\"}},\"template\":{\"metadata\":{\"annotations\":{\"kubectl.kubernetes.io/default-container\":\"manager\"},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--metrics-addr=0.0.0.0:8443\",\"--metrics-secure=true\",\"--enable-leader-election\",\"--health-probe-addr=:8081\",\"--webhook-port=9443\",\"--collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.152.1\"],\"command\":[\"/manager\"],\"env\":[{\"name\":\"SERVICE_ACCOUNT_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.serviceAccountName\"}}},{\"name\":\"ENABLE_WEBHOOKS\",\"value\":\"true\"}],\"image\":\"ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":8081},\"initialDelaySeconds\":15,\"periodSeconds\":20},\"name\":\"manager\",\"ports\":[{\"containerPort\":8443,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9443,\"name\":\"webhook-server\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/readyz\",\"port\":8081},\"initialDelaySeconds\":5,\"periodSeconds\":10},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp/k8s-webhook-server/serving-certs\",\"name\":\"cert\",\"readOnly\":true}]}],\"hostNetwork\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"serviceAccountName\":\"opentelemetry-operator\",\"terminationGracePeriodSeconds\":10,\"volumes\":[{\"name\":\"cert\",\"secret\":{\"defaultMode\":420,\"secretName\":\"opentelemetry-operator-controller-manager-service-cert\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "controller-manager"
@@ -368,8 +368,8 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator"
       namespace: "default"
-      resourceVersion: "6788"
-      uid: "faa7193f-e3c6-4a4a-99df-a26fcea4cc1d"
+      resourceVersion: "938"
+      uid: "23faef18-0d00-4837-ba9e-710e00658b43"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -487,25 +487,26 @@ items:
                 defaultMode: 420
                 secretName: "opentelemetry-operator-controller-manager-service-cert"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T17:04:54Z"
-          lastUpdateTime: "2026-06-11T17:04:54Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-17T10:37:04Z"
+          lastUpdateTime: "2026-06-17T10:37:04Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T17:04:54Z"
-          lastUpdateTime: "2026-06-11T17:04:54Z"
-          message: "ReplicaSet \"opentelemetry-operator-7b79f764b\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-17T10:36:48Z"
+          lastUpdateTime: "2026-06-17T10:37:04Z"
+          message: "ReplicaSet \"opentelemetry-operator-7b79f764b\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "cert-manager.io/v1"
@@ -513,7 +514,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Certificate\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-serving-cert\",\"namespace\":\"default\"},\"spec\":{\"dnsNames\":[\"opentelemetry-operator-webhook.default.svc\",\"opentelemetry-operator-webhook.default.svc.cluster.local\"],\"issuerRef\":{\"kind\":\"Issuer\",\"name\":\"opentelemetry-operator-selfsigned-issuer\"},\"secretName\":\"opentelemetry-operator-controller-manager-service-cert\",\"subject\":{\"organizationalUnits\":[\"opentelemetry-operator\"]}}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "webhook"
@@ -525,8 +526,8 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-serving-cert"
       namespace: "default"
-      resourceVersion: "6777"
-      uid: "6fa40fe7-35e1-4adc-aa1b-24feaa7f54c9"
+      resourceVersion: "894"
+      uid: "c91a27f3-2be0-4192-818f-6a619b56fffa"
     spec:
       dnsNames:
         - "opentelemetry-operator-webhook.default.svc"
@@ -538,13 +539,26 @@ items:
       subject:
         organizationalUnits:
           - "opentelemetry-operator"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-17T10:36:48Z"
+          message: "Certificate is up to date and has not expired"
+          observedGeneration: 1
+          reason: "Ready"
+          status: "True"
+          type: "Ready"
+      notAfter: "2026-09-15T10:36:48Z"
+      notBefore: "2026-06-17T10:36:48Z"
+      renewalTime: "2026-08-16T10:36:48Z"
+      revision: 1
   -
     apiVersion: "cert-manager.io/v1"
     kind: "Issuer"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Issuer\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-selfsigned-issuer\",\"namespace\":\"default\"},\"spec\":{\"selfSigned\":{}}}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "webhook"
@@ -556,11 +570,19 @@ items:
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-selfsigned-issuer"
       namespace: "default"
-      resourceVersion: "6781"
-      uid: "66270814-8099-4ea6-ab15-57c1752d8977"
+      resourceVersion: "862"
+      uid: "1dad0afd-6a12-482e-896a-d5490098e2a1"
     spec:
       selfSigned:
         {}
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-17T10:36:48Z"
+          observedGeneration: 1
+          reason: "IsReady"
+          status: "True"
+          type: "Ready"
 kind: "List"
 metadata:
   resourceVersion: ""
@@ -573,13 +595,13 @@ items:
     metadata:
       annotations:
         controller-gen.kubebuilder.io/version: "v0.21.0"
-      creationTimestamp: "2026-06-11T17:04:53Z"
+      creationTimestamp: "2026-06-17T10:36:47Z"
       generation: 1
       labels:
         app.kubernetes.io/name: "opentelemetry-operator"
       name: "opampbridges.opentelemetry.io"
-      resourceVersion: "6749"
-      uid: "e4cb999f-400f-4d43-aeb3-fcb1fa39c77b"
+      resourceVersion: "825"
+      uid: "a8c1613c-9ba4-4c51-86c7-1b2cab4cdde2"
     spec:
       conversion:
         strategy: "None"
@@ -2412,13 +2434,13 @@ items:
         singular: "opampbridge"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -2431,13 +2453,13 @@ items:
     metadata:
       annotations:
         controller-gen.kubebuilder.io/version: "v0.21.0"
-      creationTimestamp: "2026-06-11T17:04:53Z"
+      creationTimestamp: "2026-06-17T10:36:47Z"
       generation: 1
       labels:
         app.kubernetes.io/name: "opentelemetry-operator"
       name: "targetallocators.opentelemetry.io"
-      resourceVersion: "6751"
-      uid: "9c396be0-d044-41ba-890a-df71106a0fcc"
+      resourceVersion: "827"
+      uid: "2d26b379-4138-4cfa-8d36-85d5bf91e7b1"
     spec:
       conversion:
         strategy: "None"
@@ -6396,13 +6418,13 @@ items:
         singular: "targetallocator"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -6416,18 +6438,19 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/opentelemetry-operator-serving-cert"
         controller-gen.kubebuilder.io/version: "v0.21.0"
-      creationTimestamp: "2026-06-11T17:04:53Z"
-      generation: 1
+      creationTimestamp: "2026-06-17T10:36:47Z"
+      generation: 2
       labels:
         app.kubernetes.io/name: "opentelemetry-operator"
       name: "opentelemetrycollectors.opentelemetry.io"
-      resourceVersion: "6757"
-      uid: "be2cc980-260a-43a6-be5e-1e461b2e64b3"
+      resourceVersion: "895"
+      uid: "cdb09ea8-dcd6-4842-892a-3d8a0c93b043"
     spec:
       conversion:
         strategy: "Webhook"
         webhook:
           clientConfig:
+            caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
             service:
               name: "opentelemetry-operator-webhook"
               namespace: "default"
@@ -16557,13 +16580,13 @@ items:
         singular: "opentelemetrycollector"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:48Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -16576,13 +16599,13 @@ items:
     metadata:
       annotations:
         controller-gen.kubebuilder.io/version: "v0.21.0"
-      creationTimestamp: "2026-06-11T17:04:53Z"
+      creationTimestamp: "2026-06-17T10:36:47Z"
       generation: 1
       labels:
         app.kubernetes.io/name: "opentelemetry-operator"
       name: "instrumentations.opentelemetry.io"
-      resourceVersion: "6758"
-      uid: "8bfd87a9-24ff-4b35-9bc9-7fe6f926bb11"
+      resourceVersion: "834"
+      uid: "93bb91c1-0ce1-47fa-ae21-3833770525f0"
     spec:
       conversion:
         strategy: "None"
@@ -18893,13 +18916,13 @@ items:
         singular: "instrumentation"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:47Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T17:04:53Z"
+          lastTransitionTime: "2026-06-17T10:36:48Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -18912,7 +18935,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"persistentvolumeclaims\",\"persistentvolumes\",\"pods\",\"serviceaccounts\",\"services\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/spec\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"resourcequotas\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"statefulsets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\",\"extensions\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\"],\"resources\":[\"daemonsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\"],\"resources\":[\"deployments\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/proxy\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/stats\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"config.openshift.io\"],\"resources\":[\"infrastructures\",\"infrastructures/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"get\",\"list\",\"update\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"list\"]},{\"apiGroups\":[\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"gateway.networking.k8s.io\"],\"resources\":[\"httproutes\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"podmonitors\",\"servicemonitors\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\",\"networkpolicies\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"instrumentations\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opampbridges/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opentelemetrycollectors\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opentelemetrycollectors/finalizers\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"opentelemetrycollectors/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"route.openshift.io\"],\"resources\":[\"routes\",\"routes/custom-host\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"targetallocators\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"targetallocators/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"opentelemetry.io\"],\"resources\":[\"targetallocators/finalizers\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"issuers\",\"certificaterequests\",\"certificates\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"authentication.k8s.io\"],\"resources\":[\"tokenreviews\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -18922,8 +18945,8 @@ items:
         app.kubernetes.io/version: "0.152.0"
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-manager"
-      resourceVersion: "6790"
-      uid: "302d48d4-2e76-4873-ba80-18dbb6fe49ab"
+      resourceVersion: "868"
+      uid: "d5aab979-4e34-4a0a-a985-0c222105498e"
     rules:
       -
         apiGroups:
@@ -19345,7 +19368,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-metrics\"},\"rules\":[{\"nonResourceURLs\":[\"/metrics\"],\"verbs\":[\"get\"]}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -19355,8 +19378,8 @@ items:
         app.kubernetes.io/version: "0.152.0"
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-metrics"
-      resourceVersion: "6791"
-      uid: "24240520-62cb-4a58-a37a-35f3ac9704de"
+      resourceVersion: "869"
+      uid: "eecd504e-a4e7-405a-9c0e-489dbb1fed0f"
     rules:
       -
         nonResourceURLs:
@@ -19369,7 +19392,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"opentelemetry-operator-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"opentelemetry-operator\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
+      creationTimestamp: "2026-06-17T10:36:48Z"
       labels:
         app.kubernetes.io/component: "controller-manager"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -19379,8 +19402,8 @@ items:
         app.kubernetes.io/version: "0.152.0"
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-manager"
-      resourceVersion: "6792"
-      uid: "b8eaee3c-112f-4016-846b-a3ea27ec8efd"
+      resourceVersion: "870"
+      uid: "a891a07f-92e5-4258-955d-933eafbefc18"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -19397,8 +19420,8 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/opentelemetry-operator-serving-cert"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/opentelemetry-operator-serving-cert\"},\"labels\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-mutation\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/mutate-opentelemetry-io-v1alpha1-instrumentation\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"minstrumentation.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"instrumentations\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/mutate-opentelemetry-io-v1beta1-opentelemetrycollector\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"mopentelemetrycollectorbeta.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"opentelemetrycollectors\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/mutate-v1-pod\",\"port\":443}},\"failurePolicy\":\"Ignore\",\"name\":\"mpod.kb.io\",\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"pods\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
-      generation: 1
+      creationTimestamp: "2026-06-17T10:36:48Z"
+      generation: 2
       labels:
         app.kubernetes.io/component: "webhook"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -19408,13 +19431,14 @@ items:
         app.kubernetes.io/version: "0.152.0"
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-mutation"
-      resourceVersion: "6793"
-      uid: "c3cc9914-8d6e-40d9-8210-a99460895e28"
+      resourceVersion: "889"
+      uid: "42af9e42-f899-48e0-af65-6ba844f8ab25"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19446,6 +19470,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19477,6 +19502,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19510,8 +19536,8 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/opentelemetry-operator-serving-cert"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/opentelemetry-operator-serving-cert\"},\"labels\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"opentelemetry-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opentelemetry-operator\",\"app.kubernetes.io/part-of\":\"opentelemetry-operator\",\"app.kubernetes.io/version\":\"0.152.0\",\"helm.sh/chart\":\"opentelemetry-operator-0.114.0\"},\"name\":\"opentelemetry-operator-validation\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-opentelemetry-io-v1alpha1-instrumentation\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"vinstrumentationcreateupdate.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"instrumentations\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-opentelemetry-io-v1alpha1-instrumentation\",\"port\":443}},\"failurePolicy\":\"Ignore\",\"name\":\"vinstrumentationdelete.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"DELETE\"],\"resources\":[\"instrumentations\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-opentelemetry-io-v1beta1-opentelemetrycollector\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"vopentelemetrycollectorcreateupdatebeta.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"opentelemetrycollectors\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"opentelemetry-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-opentelemetry-io-v1beta1-opentelemetrycollector\",\"port\":443}},\"failurePolicy\":\"Ignore\",\"name\":\"vopentelemetrycollectordeletebeta.kb.io\",\"rules\":[{\"apiGroups\":[\"opentelemetry.io\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"DELETE\"],\"resources\":[\"opentelemetrycollectors\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
-      creationTimestamp: "2026-06-11T17:04:54Z"
-      generation: 1
+      creationTimestamp: "2026-06-17T10:36:48Z"
+      generation: 2
       labels:
         app.kubernetes.io/component: "webhook"
         app.kubernetes.io/instance: "opentelemetry-operator"
@@ -19521,13 +19547,14 @@ items:
         app.kubernetes.io/version: "0.152.0"
         helm.sh/chart: "opentelemetry-operator-0.114.0"
       name: "opentelemetry-operator-validation"
-      resourceVersion: "6794"
-      uid: "885e7ce3-3d17-46cc-a7ca-39499b392e55"
+      resourceVersion: "890"
+      uid: "765a5568-ad74-434c-8d78-34c63142f8b7"
     webhooks:
       -
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19558,6 +19585,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19587,6 +19615,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"
@@ -19617,6 +19646,7 @@ items:
         admissionReviewVersions:
           - "v1"
         clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURYekNDQWtlZ0F3SUJBZ0lRSlhnTEZRU2gzNVR5VmlzdGN1cUZhREFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMk1EWXhOekV3TXpZMApPRm9YRFRJMk1Ea3hOVEV3TXpZME9Gb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFPWGIyR3RzcnZLMXdtcXUKS3VjbFhKRmRPbGZJOG5qRGJWYVFUN0ZXR0U1RFFzd2Z6clMvZmRnRE9DY01lQkdyS3lCK0NuelU2elljQ3ZPbwowWE5ybXYwUk0wR0ovT0ROQWQ4eCtMdDZJK3duNkx0RXFCVDZIU1pzUkhjUE13Nys2a0FaWk50b21ZV1JaL1QwCmlTM3NCNUhmTXFpMWlIN3VFR2gxTG0ydGFKZWJiTzlIS1oxdTNLMXYza05VZzV4NnB6OHlZd2Y2YVpRYkJ1ZEsKeXhxUUorcVJDWm5taFVTRFNaejdHYkltcklwaE0wRWhib2YyazNFME8zZ0xCYVBMUGpUMGZOcmsvTFE4eWJXbgpSK3RjMWVsZzNlMEhsVlc0S0o5K0pXb0xoeERMbE9CZzZwMG4ycUVEWkl2SjJIMjgyRWR5WUNqNmF6OWNqc1NaClNHbmtGUjBDQXdFQUFhT0JrakNCanpBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQnYKQmdOVkhSRUVhREJtZ2lwdmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWGRsWW1odmIyc3VaR1ZtWVhWcwpkQzV6ZG1PQ09HOXdaVzUwWld4bGJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTVrWldaaGRXeDBMbk4yCll5NWpiSFZ6ZEdWeUxteHZZMkZzTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDNEFTTVZOd1d5ZWRXbmk0aWQKWDk4UEpXc0hQMzJCdHByS1lMUHJBbG5tdTRPMG1uVGFweTcrVXE2Yk1GYlJBU0VSUmwvSXoyWUNWUWFhcXdEdgptYitrbC9xcGVJVzM2SnRSYkN1N3p1OTc5MDgzMzZCNU44bm1kNmR6dG5JZVViUGxxSXF0Rm1wQXluNkJFVTJ1CkdpSWFGNVVsWmFuRXdlZ05GejV1M1hmNW1wRnJ3RUVlNzlrMGlLMlVGZFRsUEsrOUtxUjhRT2Rsd0NETEVrb0EKa1lkbi9Tb242d1ZlQS9XUG9XYkxJV3BHZ3lrandLd1BnNjFiVUxudUlJbWM4K3VVMURYQmFPdmVZd0RtTEdJWAprSU5RV00zMXp2VmxlMlp6azBRZFJmdXM4WnhEb3B1UlZJVzZoakpJV2VqNWVIUm1CNG95cDR5RTNaaTZrR3lVCm8vMTAKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
           service:
             name: "opentelemetry-operator-webhook"
             namespace: "default"

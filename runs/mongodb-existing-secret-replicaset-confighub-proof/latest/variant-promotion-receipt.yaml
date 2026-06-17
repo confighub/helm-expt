@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "mongodb-existing-secret-replicaset-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.7"
+    packagePath: "packages/bitnami/mongodb/19.0.7"
+    variant: "existing-secret-replicaset"
+    upstreamSpace: "helm-mongodb-existing-secret-replicaset-confighub-proof"
+    downstreamSpace: "MongoDB-existing-secret-replicaset-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-mongodb-mongodb-arbiter runs/mongodb-existing-secret-replicaset-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-mongodb-existing-secret-replicaset-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-mongodb-existing-secret-replicaset runs/mongodb-existing-secret-replicaset-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-mongodb-existing-secret-replicaset-confighub-proof --allow-exists"
+    dryRun: "cub variant promote MongoDB-existing-secret-replicaset-staging --dry-run -o mutations"
+    changeset: "cub changeset create mongodb-existing-secret-replicaset-variant-promote-20260527 --space MongoDB-existing-secret-replicaset-staging --description ... --allow-exists"
+    promote: "cub variant promote MongoDB-existing-secret-replicaset-staging --changeset MongoDB-existing-secret-replicaset-staging/mongodb-existing-secret-replicaset-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote MongoDB-existing-secret-replicaset-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-mongodb-mongodb-arbiter"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=mongodb-existing-secret-replicaset-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-mongodb-existing-secret-replicaset"
+    upstreamUnitID: "21f4dfb0-1ecf-46d2-be64-bb1a005c807e"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-mongodb-existing-secret-replicaset"
+  changeset:
+    slug: "mongodb-existing-secret-replicaset-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset mongodb-existing-secret-replicaset-variant-promote-20260527 (79efafbd-62e3-4172-9be8-f0b9513411e1)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-mongodb-mongodb-arbiter\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-mongodb-existing-secret-replicaset\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-mongodb-existing-secret-replicaset"
+    addedUnitDownstreamUpstreamUnitID: "21f4dfb0-1ecf-46d2-be64-bb1a005c807e"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

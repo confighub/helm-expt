@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-mongodb-19-0-9-generated-passwords-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.9"
+    packagePath: "packages/bitnami/mongodb/19.0.9"
+    variant: "generated-passwords"
+    upstreamSpace: "helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof"
+    downstreamSpace: "Mongodb1909-generated-passwords-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-mongodb-mongodb runs/cl-mongodb-19-0-9-generated-passwords-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-mongodb-19-0-9-generated-passwords runs/cl-mongodb-19-0-9-generated-passwords-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Mongodb1909-generated-passwords-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-mongodb-19-0-9-generated-passwords-variant-promote-20260527 --space Mongodb1909-generated-passwords-staging --description ... --allow-exists"
+    promote: "cub variant promote Mongodb1909-generated-passwords-staging --changeset Mongodb1909-generated-passwords-staging/cl-mongodb-19-0-9-generated-passwords-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Mongodb1909-generated-passwords-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-mongodb-mongodb"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-mongodb-19-0-9-generated-passwords-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-mongodb-19-0-9-generated-passwords"
+    upstreamUnitID: "1950c49f-680e-4e44-b46a-8f162aa9d2c6"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-mongodb-19-0-9-generated-passwords"
+  changeset:
+    slug: "cl-mongodb-19-0-9-generated-passwords-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-mongodb-19-0-9-generated-passwords-variant-promote-20260527 (b76eb8f9-5011-4102-9b83-32f6ede8c2eb)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-mongodb-mongodb\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-mongodb-19-0-9-generated-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-mongodb-19-0-9-generated-passwords"
+    addedUnitDownstreamUpstreamUnitID: "1950c49f-680e-4e44-b46a-8f162aa9d2c6"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

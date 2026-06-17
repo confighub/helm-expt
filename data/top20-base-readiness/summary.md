@@ -15,9 +15,9 @@ or runtime review.
 
 ~~~text
 base variants: 42
-start-here: 37
-try-with-proof: 3
-runtime-watch: 1
+start-here: 26
+try-with-proof: 0
+runtime-watch: 3
 runtime-review-needed: 0
 operating-policy-needed: 0
 target-fit-needed: 0
@@ -25,15 +25,15 @@ target-prerequisite-needed: 0
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 0
 prerequisite-observed: 0
-render-only: 1
+render-only: 13
 ~~~
 
 Live rerun readiness for non-pass rows:
 
 ~~~text
 ready-to-collect: 0
-model-or-stage-first: 0
-review-target-first: 1
+model-or-stage-first: 1
+review-target-first: 2
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -58,20 +58,20 @@ rerun-now-after-cleanup: 0
 
 | Chart | Base | First | Readiness | Rerun readiness | Why | Next action | Support artifact |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
-| `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply | - |
-| `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `argo-cd/argo-cd@9.5.15` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `argo-cd/argo-cd@9.5.15` | no-crds | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/mongodb@19.0.7` | generated-passwords | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/mysql@14.0.3` | existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/nginx@24.0.2` | http-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/nginx@24.0.2` | existing-tls-ingress | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/postgresql@18.6.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/postgresql@18.6.7` | existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `bitnami/nginx@24.0.2` | http-clusterip | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/nginx@24.0.2` | existing-tls-ingress | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/postgresql@18.6.7` | generated-passwords | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/postgresql@18.6.7` | existing-secret | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/redis@25.5.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `bitnami/redis@25.5.3` | reuse-existing-secret | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `bitnami/redis@25.5.3` | default | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `bitnami/redis@25.5.3` | reuse-existing-secret | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `external-secrets/external-secrets@2.5.0` | no-crds | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
@@ -79,12 +79,12 @@ rerun-now-after-cleanup: 0
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/loki@7.0.0` | simple-scalable-minio | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/tempo@1.24.4` | s3-query-observability | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
+| `grafana/tempo@1.24.4` | s3-query-observability | no | runtime-watch | review-target-first | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-watch | review-target-first | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `hashicorp/vault@0.32.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/vault@0.32.0` | dev-mode | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `hashicorp/vault@0.32.0` | ha-raft-ui | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | complete the missing lane(s): local kind kubectl apply, confighub oci argo live, live helm vs confighub dual compare | - |
+| `hashicorp/vault@0.32.0` | ha-raft-ui | no | runtime-watch | model-or-stage-first | object parity passed, but a live GitOps/controller condition needs review | inspect the live parity receipt before rerunning; decide whether this is target behavior, controller timing, or a support boundary | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
@@ -94,10 +94,10 @@ rerun-now-after-cleanup: 0
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `metrics-server/metrics-server@3.13.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `prometheus-community/prometheus@29.8.0` | default | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
+| `prometheus-community/prometheus@29.8.0` | default | no | render-only | - | render parity exists, but two-cluster live parity has no committed receipt for this base | run two-cluster kind parity and then add ConfigHub/live lanes as needed | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 
