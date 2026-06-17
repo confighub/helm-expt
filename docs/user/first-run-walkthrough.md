@@ -71,6 +71,37 @@ NAME                              READY   STATUS    RESTARTS   AGE
 sealed-secrets-657974dfb4-fq8fb   1/1     Running   0          16s
 ```
 
+## 4. Verify it is *working*, not just *created* — with cub-scout
+
+`kubectl get pods` shows the objects were created. To prove the release is
+actually *working* — the desired objects are present with matching fields, its
+prerequisites are met, and its workloads converged — use
+[cub-scout](https://github.com/confighub/cub-scout) (v2.4.0+), the standalone
+live witness. No ConfigHub account is needed:
+
+```sh
+cub-scout receipt verify \
+  --file .tmp/firstrun/out/manifests \
+  --scope namespace/default \
+  --predicate object-set-matches \
+  --ttl 1h \
+  --out .tmp/firstrun/object-set.receipt.json
+
+cub-scout receipt verify --file .tmp/firstrun/out/manifests \
+  --scope namespace/default --predicate workloads-converged \
+  --ttl 1h --out .tmp/firstrun/workloads.receipt.json
+```
+
+| Predicate | Answers |
+| --- | --- |
+| `object-set-matches` | Are the desired objects present, and do authored fields match? |
+| `prerequisites-met` | Are required target facts (Secrets, CRDs) present? |
+| `workloads-converged` | Did the workloads reach the expected live state? |
+
+This closes the "created vs working" gap with evidence: a receipt you can
+re-check later (`cub-scout receipt validate <receipt.json>`) and that expires
+via `--ttl`, instead of eyeballing pod status.
+
 That is the whole serverless try-out: a reviewed package became running
 Kubernetes objects on your own cluster, verified against the catalog's
 committed receipts, with nothing uploaded and no login. The two-cluster
