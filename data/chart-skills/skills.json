@@ -1519,7 +1519,8 @@
       "matched_signals": [
         "crds+webhooks",
         "webhooks",
-        "crds"
+        "crds",
+        "live"
       ],
       "applicable": [
         {
@@ -1545,6 +1546,12 @@
           "title": "Large App Evidence Funnel",
           "doc": "docs/skills/large-app-evidence-funnel.md",
           "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -1626,9 +1633,18 @@
     {
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
-      "top_skill": "none",
-      "matched_signals": [],
-      "applicable": []
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
     },
     {
       "chart": "kedacore/keda",

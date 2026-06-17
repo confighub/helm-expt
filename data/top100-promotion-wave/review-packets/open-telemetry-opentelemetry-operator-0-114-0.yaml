@@ -29,6 +29,7 @@ spec:
     installGate: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/install-gate.yaml"
     packageBase: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default/kustomization.yaml"
     twoClusterKindParity: "runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml"
+    liveHelmConfigHubParity: "runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml"
   currentState:
     supportLevel: "machine-proof-only"
     productionReadiness: "not-reviewed-for-production"

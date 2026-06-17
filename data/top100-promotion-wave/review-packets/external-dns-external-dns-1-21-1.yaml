@@ -29,6 +29,7 @@ spec:
     scanReceipt: "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/receipts/scan-receipt.yaml"
     installGate: "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/receipts/install-gate.yaml"
     packageBase: "packages/external-dns/external-dns/1.21.1/bases/default/kustomization.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml"
     liveHelmConfigHubParity: "runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml"
   currentState:
     supportLevel: "machine-proof-only"

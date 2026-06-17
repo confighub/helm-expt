@@ -8,17 +8,17 @@
     "data/master-catalog-matrix/matrix.csv",
     "data/live-parity-rerun-plan/rerun-plan.csv"
   ],
-  "rowCount": 13,
+  "rowCount": 14,
   "byKind": {
     "semantic-normalization": 4,
     "base-design": 3,
-    "crd-lifecycle": 2,
+    "crd-lifecycle": 3,
     "object-set-shape": 2,
     "generated-fact": 1,
     "missing-crd": 1
   },
   "byOwner": {
-    "catalog-modeling": 12,
+    "catalog-modeling": 13,
     "recipe-generator": 1
   },
   "rows": [
@@ -119,6 +119,20 @@
       "owner_class": "catalog-modeling",
       "rerun_command": "npm run kind-parity:run -- --chart nats/nats --version 2.14.0 --base ha",
       "evidence_path": "runs/live-kind-parity/nats-nats-ha/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "86.1.0",
+      "base": "default",
+      "lane": "K",
+      "result": "blocked",
+      "model_gap_kind": "crd-lifecycle",
+      "failure_signature": "semantic object parity issue: missing=0 extra=11 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com; api",
+      "sibling_base_passes": "no-crds (K pass)",
+      "recommended_action": "split-lifecycle-objects",
+      "owner_class": "catalog-modeling",
+      "rerun_command": "npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 86.1.0 --base default",
+      "evidence_path": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
     },
     {
       "chart": "prometheus-community/prometheus-adapter",

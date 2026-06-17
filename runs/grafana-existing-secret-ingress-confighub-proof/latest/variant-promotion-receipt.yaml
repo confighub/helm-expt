@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "grafana-existing-secret-ingress-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "grafana/grafana"
+    chartVersion: "10.5.15"
+    packagePath: "packages/grafana/grafana/10.5.15"
+    variant: "existing-secret-ingress"
+    upstreamSpace: "helm-grafana-existing-secret-ingress-confighub-proof"
+    downstreamSpace: "Grafana-existing-secret-ingress-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-grafana-grafana runs/grafana-existing-secret-ingress-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-grafana-existing-secret-ingress-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-grafana-existing-secret-ingress runs/grafana-existing-secret-ingress-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-grafana-existing-secret-ingress-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Grafana-existing-secret-ingress-staging --dry-run -o mutations"
+    changeset: "cub changeset create grafana-existing-secret-ingress-variant-promote-20260527 --space Grafana-existing-secret-ingress-staging --description ... --allow-exists"
+    promote: "cub variant promote Grafana-existing-secret-ingress-staging --changeset Grafana-existing-secret-ingress-staging/grafana-existing-secret-ingress-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Grafana-existing-secret-ingress-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-grafana-grafana"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=grafana-existing-secret-ingress-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-grafana-existing-secret-ingress"
+    upstreamUnitID: "c22b819a-69a2-44b3-ae73-8cfe3a4fbdc0"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-grafana-existing-secret-ingress"
+  changeset:
+    slug: "grafana-existing-secret-ingress-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset grafana-existing-secret-ingress-variant-promote-20260527 (ddcc58b3-9e13-4bd9-8976-50d5f1f30d24)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-grafana-grafana\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-grafana-existing-secret-ingress\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-grafana-existing-secret-ingress"
+    addedUnitDownstreamUpstreamUnitID: "c22b819a-69a2-44b3-ae73-8cfe3a4fbdc0"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

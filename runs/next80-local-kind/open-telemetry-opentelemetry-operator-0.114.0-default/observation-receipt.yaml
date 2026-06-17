@@ -11,19 +11,70 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-crd-prereq"
-    context: "kind-claude-helm-expt-codex-crd-prereq"
+    name: "claude-helm-expt-certlc2"
+    context: "kind-claude-helm-expt-certlc2"
     namespace: "default"
-  observedAt: "2026-06-11T17:11:55.460Z"
+  observedAt: "2026-06-17T10:37:05.445Z"
   freshnessTTL: "1h"
   result: "blocked"
   clusterStatus: "existing"
   variant: "default"
+  targetFacts:
+    requiredCRDs:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "certificates.cert-manager.io"
+        purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        name: "issuers.cert-manager.io"
+        purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+    requiredSecrets:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        name: "opentelemetry-operator-controller-manager-service-cert"
+        namespace: "default"
+        purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+        suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "3f6296de5f77c54741fb7ad8fb9235d9622f0745089db0b99c08df802925ecfa"
+    sha256: "9d5e623100ac399aa1c4560f380687dec64db5f1a52bfbe4453d074ab6f8d715"
   checks:
+    -
+      name: "target-fact-crds-staged"
+      result: "blocked"
+      object: "2 required CRD target fact(s)"
+      reason: "source variant jetstack/cert-manager@v1.20.2/crds-enabled render missing"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||certificates.cert-manager.io"
+    -
+      name: "target-fact-crd-present"
+      result: "pass"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||issuers.cert-manager.io"
     -
       name: "crds-applied-and-established"
       result: "pass"
@@ -34,8 +85,7 @@ spec:
       object: "17 object(s) from recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|default|opentelemetry-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-dzb92[ContainerCreating ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;]"
   blockedReasons:
-    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-dzb92[ContainerCreating ready=false restarts=0;] scan-vulnera)"
+    - "target fact CRDs: source variant jetstack/cert-manager@v1.20.2/crds-enabled render missing"

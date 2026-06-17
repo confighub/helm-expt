@@ -33,8 +33,8 @@ current recipe version differs from retained source-scan row: 21
 no current recipe proof: 409
 catalog-supported: 20
 proof-grade: 71
-multi-variant proofs: 50
-default-only proofs: 41
+multi-variant proofs: 60
+default-only proofs: 31
 catalog-supported production-blocked: 0
 catalog-supported production-review-ready: 20
 ```
@@ -71,7 +71,7 @@ catalog-supported production-review-ready: 20
   `scripts/generate-variant-proof.mjs` captures a `helm template` render as a package
   base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all
   bookkeeping; `scripts/run-variant-wave.mjs` drives it in resumable waves. Three waves
-  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 50.
+  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 60.
 - **Hooks are routed through lifecycle policy.** Render equivalence does not prove hook
   execution. A chart with hooks still needs a lifecycle disposition for the chosen route,
   such as plain applied resources, GitOps-controller behavior, or an operator-reviewed
@@ -114,15 +114,15 @@ These are high-rank proof-grade rows that need real variants before promotion.
 | Rank | Chart | Current version | Source features | Next action |
 | ---: | --- | --- | --- | --- |
 | 21 | `gitlab/gitlab-runner` | 0.89.0 | generated-facts;tpl;capabilities | add user-shaped variants before catalog promotion |
-| 33 | `cluster-autoscaler/cluster-autoscaler` | 9.57.0 | tpl;capabilities;cluster-rbac | add user-shaped variants before catalog promotion |
 | 35 | `istio-official/istiod` | 1.30.0 | tpl;cluster-rbac;webhooks | add user-shaped variants before catalog promotion |
-| 36 | `argo/argo-workflows` | 1.0.14 | tpl;capabilities;crds;cluster-rbac | add user-shaped variants before catalog promotion |
 | 42 | `fluent/fluent-bit` | 0.57.6 | tpl;capabilities;hooks;cluster-rbac | add user-shaped variants before catalog promotion |
 | 45 | `runix/pgadmin4` | 1.62.0 | tpl;capabilities;stateful-storage | add user-shaped variants before catalog promotion |
 | 51 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner` | 4.0.18 | capabilities;cluster-rbac;stateful-storage | add user-shaped variants before catalog promotion |
-| 58 | `prometheus-community/kube-state-metrics` | 7.4.0 | generated-facts;tpl;capabilities;cluster-rbac;stateful-storage | add user-shaped variants before catalog promotion |
 | 62 | `elastic/kibana` | 8.5.1 | tpl | add user-shaped variants before catalog promotion |
 | 64 | `descheduler/descheduler` | 0.36.0 | tpl;cluster-rbac | add user-shaped variants before catalog promotion |
+| 70 | `jaegertracing/jaeger` | 4.8.0 | lookup;generated-facts;tpl;capabilities | add user-shaped variants before catalog promotion |
+| 80 | `dex/dex` | 0.24.0 | tpl;capabilities;cluster-rbac | add user-shaped variants before catalog promotion |
+| 81 | `argo/argocd-image-updater` | 1.2.2 | tpl;cluster-rbac | add user-shaped variants before catalog promotion |
 
 ## First Rows Without Current Proof
 

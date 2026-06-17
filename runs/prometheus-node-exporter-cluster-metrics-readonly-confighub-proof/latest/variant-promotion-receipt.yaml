@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "prometheus-node-exporter-cluster-metrics-readonly-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "prometheus-community/prometheus-node-exporter"
+    chartVersion: "4.55.0"
+    packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
+    variant: "cluster-metrics-readonly"
+    upstreamSpace: "helm-prometheus-node-exporter-cluster-metrics-readonly-confighub-proof"
+    downstreamSpace: "PrometheusNodeExporter-cluster-metrics-readonly-staging"
+  commands:
+    upstreamUpdate: "cub unit update daemonset-default-prometheus-node-exporter runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-prometheus-node-exporter-cluster-metrics-readonly-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-prometheus-node-exporter-cluster-metrics-readonly runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-prometheus-node-exporter-cluster-metrics-readonly-confighub-proof --allow-exists"
+    dryRun: "cub variant promote PrometheusNodeExporter-cluster-metrics-readonly-staging --dry-run -o mutations"
+    changeset: "cub changeset create prometheus-node-exporter-cluster-metrics-readonly-variant-promote-20260527 --space PrometheusNodeExporter-cluster-metrics-readonly-staging --description ... --allow-exists"
+    promote: "cub variant promote PrometheusNodeExporter-cluster-metrics-readonly-staging --changeset PrometheusNodeExporter-cluster-metrics-readonly-staging/prometheus-node-exporter-cluster-metrics-readonly-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote PrometheusNodeExporter-cluster-metrics-readonly-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "daemonset-default-prometheus-node-exporter"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=prometheus-node-exporter-cluster-metrics-readonly-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-prometheus-node-exporter-cluster-metrics-readonly"
+    upstreamUnitID: "4f9d5908-457c-4670-8767-d9c141a72ceb"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-prometheus-node-exporter-cluster-metrics-readonly"
+  changeset:
+    slug: "prometheus-node-exporter-cluster-metrics-readonly-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset prometheus-node-exporter-cluster-metrics-readonly-variant-promote-20260527 (c4b41639-b99f-4f28-9498-dd61f274eaf7)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: daemonset-default-prometheus-node-exporter\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-prometheus-node-exporter-cluster-metrics-readonly\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-prometheus-node-exporter-cluster-metrics-readonly"
+    addedUnitDownstreamUpstreamUnitID: "4f9d5908-457c-4670-8767-d9c141a72ceb"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

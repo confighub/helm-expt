@@ -62,6 +62,30 @@ const DECISIONS = {
     meaning:
       "No ConfigHub upload proof yet (the chart is not in ConfigHub), so there is no clone to promote. The ConfigHub proof lane has to run first.",
   },
+  "proven": {
+    promote_readiness: "promotion-proven",
+    owner_class: "not-applicable-if-any",
+    server_clone_exists: "yes",
+    blocked_by: "",
+    meaning:
+      "Full variant promotion proven end to end, including the changeset-bound add-new-units path. Nothing left to run.",
+  },
+  "blocked": {
+    promote_readiness: "blocked-proof-failed",
+    owner_class: "run-proof",
+    server_clone_exists: "yes",
+    blocked_by: "",
+    meaning:
+      "The promotion proof ran but failed its own assertions (for example the no-changeset fallback could not demonstrate changed-unit catch-up). Inspect the recorded receipt blocker and resolve it before the cell can be proven.",
+  },
+  "needs-server-variant": {
+    promote_readiness: "blocked-needs-server-variant",
+    owner_class: "run-proof",
+    server_clone_exists: "no",
+    blocked_by: "",
+    meaning:
+      "The base has a ConfigHub upload proof, but no server-side variant clone exists yet to promote. The promotion-candidate setup that creates the variant clone must run before this cell can be promoted.",
+  },
 };
 
 const OWNER_CLASSES = new Set(["run-proof", "fix-confighub-server", "catalog-modeling", "not-applicable-if-any"]);

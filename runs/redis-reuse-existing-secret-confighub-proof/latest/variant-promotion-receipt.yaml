@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "redis-reuse-existing-secret-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    packagePath: "packages/bitnami/redis/25.5.3"
+    variant: "reuse-existing-secret"
+    upstreamSpace: "helm-redis-reuse-existing-secret-confighub-proof"
+    downstreamSpace: "Redis-reuse-existing-secret-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-redis-redis-master runs/redis-reuse-existing-secret-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-redis-reuse-existing-secret-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-redis-reuse-existing-secret runs/redis-reuse-existing-secret-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-redis-reuse-existing-secret-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Redis-reuse-existing-secret-staging --dry-run -o mutations"
+    changeset: "cub changeset create redis-reuse-existing-secret-variant-promote-20260527 --space Redis-reuse-existing-secret-staging --description ... --allow-exists"
+    promote: "cub variant promote Redis-reuse-existing-secret-staging --changeset Redis-reuse-existing-secret-staging/redis-reuse-existing-secret-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Redis-reuse-existing-secret-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-redis-redis-master"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=redis-reuse-existing-secret-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-redis-reuse-existing-secret"
+    upstreamUnitID: "0cc93e77-d597-4239-918e-24ae408b8c42"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-redis-reuse-existing-secret"
+  changeset:
+    slug: "redis-reuse-existing-secret-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset redis-reuse-existing-secret-variant-promote-20260527 (7cfd43bc-0afe-4dc5-9199-40d962879206)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-redis-redis-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-redis-reuse-existing-secret\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-redis-reuse-existing-secret"
+    addedUnitDownstreamUpstreamUnitID: "0cc93e77-d597-4239-918e-24ae408b8c42"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

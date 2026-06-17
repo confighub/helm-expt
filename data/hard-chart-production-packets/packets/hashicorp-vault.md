@@ -34,7 +34,7 @@ Keep dev-mode as the local/demo first path only; create a separate Vault product
 | --- | --- | --- | --- | --- |
 | `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault` |
 | `dev-mode` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault` |
-| `ha-raft-ui` | try-with-proof | render=pass; confighub=pass; local=blocked; gitops=missing; live-parity=missing; two-cluster=pass | see variant targetFacts | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault` |
+| `ha-raft-ui` | runtime-watch | render=pass; confighub=pass; local=blocked; gitops=watch; live-parity=watch; two-cluster=pass | topology minSchedulableNodes=3 | `cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault` |
 
 ## Quirks And Inputs
 

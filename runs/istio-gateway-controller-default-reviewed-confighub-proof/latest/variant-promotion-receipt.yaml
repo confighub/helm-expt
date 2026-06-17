@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "istio-gateway-controller-default-reviewed-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "istio/gateway"
+    chartVersion: "1.30.0"
+    packagePath: "packages/istio/gateway/1.30.0"
+    variant: "controller-default-reviewed"
+    upstreamSpace: "helm-istio-gateway-controller-default-reviewed-confighub-proof"
+    downstreamSpace: "IstioGateway-controller-default-reviewed-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-gateway runs/istio-gateway-controller-default-reviewed-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-istio-gateway-controller-default-reviewed-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-istio-gateway-controller-default-reviewed runs/istio-gateway-controller-default-reviewed-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-istio-gateway-controller-default-reviewed-confighub-proof --allow-exists"
+    dryRun: "cub variant promote IstioGateway-controller-default-reviewed-staging --dry-run -o mutations"
+    changeset: "cub changeset create istio-gateway-controller-default-reviewed-variant-promote-20260527 --space IstioGateway-controller-default-reviewed-staging --description ... --allow-exists"
+    promote: "cub variant promote IstioGateway-controller-default-reviewed-staging --changeset IstioGateway-controller-default-reviewed-staging/istio-gateway-controller-default-reviewed-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote IstioGateway-controller-default-reviewed-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-gateway"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=istio-gateway-controller-default-reviewed-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-istio-gateway-controller-default-reviewed"
+    upstreamUnitID: "9dea1d27-d1ed-48bd-90b1-1cee34dfcf0a"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-istio-gateway-controller-default-reviewed"
+  changeset:
+    slug: "istio-gateway-controller-default-reviewed-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset istio-gateway-controller-default-reviewed-variant-promote-20260527 (fa99b728-55d3-4d9d-8d68-1171b7e6e51f)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-gateway\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-istio-gateway-controller-default-reviewed\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-istio-gateway-controller-default-reviewed"
+    addedUnitDownstreamUpstreamUnitID: "9dea1d27-d1ed-48bd-90b1-1cee34dfcf0a"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

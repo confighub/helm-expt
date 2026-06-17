@@ -8,19 +8,19 @@ the status per chart, base variant, derived variant, and Helm feature.
 
 ```text
 charts with model support:           108/110
-variant-rich charts:                 74/110
+variant-rich charts:                 75/110
 chart/base rows:                     192
-complete core lane rows:             120/192
+complete core lane rows:             127/192
 render parity rows:                  192/192
 in-ConfigHub proof rows:             192/192
-local live rows:                     139/192
+local live rows:                     142/192
 GitOps/OCI live pass rows:           135/192
 GitOps/OCI non-pass receipts:        49
 live Helm-vs-ConfigHub pass rows:    135/192
-live Helm-vs-ConfigHub non-pass receipts: 49
-lifecycle observation rows:          10/10
+live Helm-vs-ConfigHub non-pass receipts: 50
+lifecycle observation rows:          12/12
 selected live parity receipts:       135 pass, 40 watch, 9 blocked
-two-cluster kind parity receipts:    116 pass, 9 watch, 23 blocked
+two-cluster kind parity receipts:    121 pass, 10 watch, 31 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      10/10
+related lifecycle observations:      12/12
 ```
 
 ## Outcome Promises And Proving Tests
@@ -62,12 +62,12 @@ related lifecycle observations:      10/10
 | Chart | Variants | Model | In-ConfigHub | Local live | Lifecycle | GitOps live | Live parity | Two-cluster parity | Hard gap |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 2/2 | 1/2 | 0/2 | 2/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
+| `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
+| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
+| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
@@ -78,8 +78,8 @@ related lifecycle observations:      10/10
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 
 ## How To Read This

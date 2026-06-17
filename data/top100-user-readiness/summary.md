@@ -46,18 +46,18 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
-| external-dns/external-dns@1.21.1 | dry-run-txt-registry (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
+| external-dns/external-dns@1.21.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | run catalog promotion review |
-| prometheus-community/kube-state-metrics@7.4.0 | cluster-metrics-readonly (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time | run catalog promotion review |
+| prometheus-community/kube-state-metrics@7.4.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time | run catalog promotion review |
 | elastic/eck-operator@3.4.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; mandatory chart inputs | run catalog promotion review |
 | nats/nats@2.14.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); mandatory chart inputs | run catalog promotion review |
-| prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs | run catalog promotion review |
+| prometheus-community/prometheus-node-exporter@4.55.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs | run catalog promotion review |
 | gatekeeper/gatekeeper@3.22.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
 | aqua/trivy-operator@0.32.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | bitnami/opensearch@2.0.10 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | run catalog promotion review |
 | jetstack/trust-manager@v0.22.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
-| nats/nack@0.34.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
+| nats/nack@0.34.0 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | open-telemetry/opentelemetry-operator@0.114.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | sealed-secrets/sealed-secrets@2.18.6 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | velero/velero@12.0.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
@@ -67,12 +67,12 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
 | kedacore/keda@2.19.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
-| prometheus-community/prometheus-blackbox-exporter@11.10.0 | cluster-metrics-readonly (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
-| stakater/reloader@2.2.12 | controller-default-reviewed (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
+| prometheus-community/prometheus-blackbox-exporter@11.10.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
+| stakater/reloader@2.2.12 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | grafana/alloy@1.8.2 | default (unreviewed first guess) | a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | prometheus-community/alertmanager@1.37.0 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | elastic/logstash@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
-| prometheus-community/prometheus-adapter@5.3.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
+| prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability (unreviewed first guess) | nothing beyond a cluster and namespace | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
 | elastic/filebeat@8.5.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | hashicorp/terraform@1.1.2 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
@@ -82,7 +82,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | argo-cd/argo-events@2.4.21 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | argo-cd/argo-rollouts@2.40.9 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
+| autoscaler/cluster-autoscaler@9.57.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | grafana/rollout-operator@0.49.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | istio/gateway@1.30.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | nats/surveyor@0.20.9 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |

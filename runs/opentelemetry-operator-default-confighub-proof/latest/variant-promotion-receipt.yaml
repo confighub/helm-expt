@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "opentelemetry-operator-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "open-telemetry/opentelemetry-operator"
+    chartVersion: "0.114.0"
+    packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    variant: "default"
+    upstreamSpace: "helm-opentelemetry-operator-default-confighub-proof"
+    downstreamSpace: "OpenTelemetryOperator-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-opentelemetry-operator runs/opentelemetry-operator-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-opentelemetry-operator-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-opentelemetry-operator-default runs/opentelemetry-operator-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-opentelemetry-operator-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote OpenTelemetryOperator-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create opentelemetry-operator-default-variant-promote-20260527 --space OpenTelemetryOperator-default-staging --description ... --allow-exists"
+    promote: "cub variant promote OpenTelemetryOperator-default-staging --changeset OpenTelemetryOperator-default-staging/opentelemetry-operator-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote OpenTelemetryOperator-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-opentelemetry-operator"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=opentelemetry-operator-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-opentelemetry-operator-default"
+    upstreamUnitID: "7e4fb66a-e3e9-4a2e-8007-8b6e78bddd98"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-opentelemetry-operator-default"
+  changeset:
+    slug: "opentelemetry-operator-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset opentelemetry-operator-default-variant-promote-20260527 (1d1aac62-2aae-4b53-b94d-7965ee6097a7)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-opentelemetry-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-opentelemetry-operator-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-opentelemetry-operator-default"
+    addedUnitDownstreamUpstreamUnitID: "7e4fb66a-e3e9-4a2e-8007-8b6e78bddd98"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

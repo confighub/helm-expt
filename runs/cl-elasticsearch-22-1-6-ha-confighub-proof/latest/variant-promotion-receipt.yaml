@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-elasticsearch-22-1-6-ha-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/elasticsearch"
+    chartVersion: "22.1.6"
+    packagePath: "packages/bitnami/elasticsearch/22.1.6"
+    variant: "ha"
+    upstreamSpace: "helm-cl-elasticsearch-22-1-6-ha-confighub-proof"
+    downstreamSpace: "Elasticsearch2216-ha-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-elasticsearch-data runs/cl-elasticsearch-22-1-6-ha-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-elasticsearch-22-1-6-ha runs/cl-elasticsearch-22-1-6-ha-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Elasticsearch2216-ha-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-elasticsearch-22-1-6-ha-variant-promote-20260527 --space Elasticsearch2216-ha-staging --description ... --allow-exists"
+    promote: "cub variant promote Elasticsearch2216-ha-staging --changeset Elasticsearch2216-ha-staging/cl-elasticsearch-22-1-6-ha-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Elasticsearch2216-ha-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-elasticsearch-data"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-elasticsearch-22-1-6-ha-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-elasticsearch-22-1-6-ha"
+    upstreamUnitID: "44536f87-a2d8-4c9c-aee1-32a4d5b2386f"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-elasticsearch-22-1-6-ha"
+  changeset:
+    slug: "cl-elasticsearch-22-1-6-ha-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-elasticsearch-22-1-6-ha-variant-promote-20260527 (f3e68612-4764-4318-9be5-fe06c56769c7)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-elasticsearch-data\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-elasticsearch-22-1-6-ha\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-elasticsearch-22-1-6-ha"
+    addedUnitDownstreamUpstreamUnitID: "44536f87-a2d8-4c9c-aee1-32a4d5b2386f"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

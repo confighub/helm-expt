@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "keda-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "kedacore/keda"
+    chartVersion: "2.19.0"
+    packagePath: "packages/kedacore/keda/2.19.0"
+    variant: "no-crds"
+    upstreamSpace: "helm-keda-no-crds-confighub-proof"
+    downstreamSpace: "KEDA-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-keda-admission-webhooks runs/keda-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-keda-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-keda-no-crds runs/keda-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-keda-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote KEDA-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create keda-no-crds-variant-promote-20260527 --space KEDA-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote KEDA-no-crds-staging --changeset KEDA-no-crds-staging/keda-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote KEDA-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-keda-admission-webhooks"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=keda-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-keda-no-crds"
+    upstreamUnitID: "615c31c6-1859-4174-aa03-e4a2da8913e7"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-keda-no-crds"
+  changeset:
+    slug: "keda-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset keda-no-crds-variant-promote-20260527 (d66d0a85-401e-450d-b6e0-10db922c90b1)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-keda-admission-webhooks\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-keda-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-keda-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "615c31c6-1859-4174-aa03-e4a2da8913e7"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

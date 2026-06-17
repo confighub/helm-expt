@@ -4,7 +4,7 @@ argo-cd/argo-cd@9.5.15,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,p
 argo-cd/argo-cd@9.5.17,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/argo-cd/argo-cd/9.5.17
 argo-cd/argo-events@2.4.21,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-events/2.4.21
 argo-cd/argo-rollouts@2.40.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-rollouts/2.40.9
-argo-cd/argo-workflows@1.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-workflows/1.0.14
+argo-cd/argo-workflows@1.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-workflows/1.0.14
 argo-cd/argocd-image-updater@1.2.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argocd-image-updater/1.2.2
 autoscaler/cluster-autoscaler@9.57.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/autoscaler/cluster-autoscaler/9.57.0
 autoscaler/vertical-pod-autoscaler@0.9.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/autoscaler/vertical-pod-autoscaler/0.9.0
@@ -91,9 +91,9 @@ prometheus-community/alertmanager@1.37.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,p
 prometheus-community/kube-prometheus-stack@85.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/kube-prometheus-stack/85.3.3
 prometheus-community/kube-prometheus-stack@86.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/prometheus-community/kube-prometheus-stack/86.1.0
 prometheus-community/kube-state-metrics@7.4.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/kube-state-metrics/7.4.0
-prometheus-community/prometheus-adapter@5.3.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-adapter/5.3.0
+prometheus-community/prometheus-adapter@5.3.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-adapter/5.3.0
 prometheus-community/prometheus-blackbox-exporter@11.10.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0
-prometheus-community/prometheus-node-exporter@4.55.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-node-exporter/4.55.0
+prometheus-community/prometheus-node-exporter@4.55.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-node-exporter/4.55.0
 prometheus-community/prometheus-operator-crds@29.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-operator-crds/29.0.0
 prometheus-community/prometheus-pushgateway@3.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-pushgateway/3.6.0
 prometheus-community/prometheus@29.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/prometheus/29.8.0

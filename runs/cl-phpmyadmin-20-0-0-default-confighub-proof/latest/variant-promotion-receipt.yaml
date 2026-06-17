@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-phpmyadmin-20-0-0-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "bitnami/phpmyadmin"
+    chartVersion: "20.0.0"
+    packagePath: "packages/bitnami/phpmyadmin/20.0.0"
+    variant: "default"
+    upstreamSpace: "helm-cl-phpmyadmin-20-0-0-default-confighub-proof"
+    downstreamSpace: "Phpmyadmin2000-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-phpmyadmin runs/cl-phpmyadmin-20-0-0-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-phpmyadmin-20-0-0-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-phpmyadmin-20-0-0-default runs/cl-phpmyadmin-20-0-0-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-phpmyadmin-20-0-0-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Phpmyadmin2000-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-phpmyadmin-20-0-0-default-variant-promote-20260527 --space Phpmyadmin2000-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Phpmyadmin2000-default-staging --changeset Phpmyadmin2000-default-staging/cl-phpmyadmin-20-0-0-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Phpmyadmin2000-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-phpmyadmin"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-phpmyadmin-20-0-0-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-phpmyadmin-20-0-0-default"
+    upstreamUnitID: "be2b0cb6-e9ec-4e38-86b7-c5da8454efe8"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-phpmyadmin-20-0-0-default"
+  changeset:
+    slug: "cl-phpmyadmin-20-0-0-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-phpmyadmin-20-0-0-default-variant-promote-20260527 (2c30b5a9-d2f2-4e5b-b0ab-c0fe32b35c58)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-phpmyadmin\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-phpmyadmin-20-0-0-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-phpmyadmin-20-0-0-default"
+    addedUnitDownstreamUpstreamUnitID: "be2b0cb6-e9ec-4e38-86b7-c5da8454efe8"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

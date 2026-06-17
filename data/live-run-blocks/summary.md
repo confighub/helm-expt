@@ -24,9 +24,9 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   16
+ready-to-run rows:   17
 run blocks:          4  (G/P: 2, K: 2)
-derived predictions: 14
+derived predictions: 15
 unknown predictions: 2
 ```
 
@@ -77,7 +77,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-02 — K · app
 
-**Goal:** K: run the 4 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, opencost/opencost@2.5.21); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, hashicorp/terraform@1.1.2, opencost/opencost@2.5.21); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -86,6 +86,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | elastic/kibana@8.5.1 | default | `npm run kind-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters) |
 | elastic/metricbeat@8.5.1 | default | `npm run kind-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters) |
 | grafana/pyroscope@2.0.2 | ha | `npm run kind-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha` | target-runtime | high | two-cluster kind run (provisions two clusters); HA/multi-replica base — higher resource use |
+| hashicorp/terraform@1.1.2 | default | `npm run kind-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default` | target-runtime | high | two-cluster kind run (provisions two clusters) |
 | opencost/opencost@2.5.21 | default | `npm run kind-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## Boundaries

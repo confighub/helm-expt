@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "external-secrets-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "external-secrets/external-secrets"
+    chartVersion: "2.5.0"
+    packagePath: "packages/external-secrets/external-secrets/2.5.0"
+    variant: "no-crds"
+    upstreamSpace: "helm-external-secrets-no-crds-confighub-proof"
+    downstreamSpace: "ExternalSecrets-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-external-secrets-external-secrets-cert-controller runs/external-secrets-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-external-secrets-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-external-secrets-no-crds runs/external-secrets-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-external-secrets-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote ExternalSecrets-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create external-secrets-no-crds-variant-promote-20260527 --space ExternalSecrets-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote ExternalSecrets-no-crds-staging --changeset ExternalSecrets-no-crds-staging/external-secrets-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote ExternalSecrets-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-external-secrets-external-secrets-cert-controller"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=external-secrets-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-external-secrets-no-crds"
+    upstreamUnitID: "d5234763-2dc7-4f3a-ad80-864b94411298"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-external-secrets-no-crds"
+  changeset:
+    slug: "external-secrets-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset external-secrets-no-crds-variant-promote-20260527 (4afd41b4-b264-4aa4-abe5-38ab85f2383e)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-external-secrets-external-secrets-cert-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-external-secrets-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-external-secrets-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "d5234763-2dc7-4f3a-ad80-864b94411298"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -8,8 +8,8 @@ generated facts. They do not claim production certificate management.
 ## Snapshot
 
 ~~~text
-staged certificate routes: 6
-passing observations:     6
+staged certificate routes: 8
+passing observations:     8
 routes with staged CRDs:  3
 ~~~
 
@@ -23,6 +23,8 @@ routes with staged CRDs:  3
 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | `generated-fact-staged-secret` | `monitoring/kube-prometheus-stack-admission` | 0 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-default/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-86.1.0-default.yaml) |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | no-crds | `target-facts-staged-crds-and-secret` | `monitoring/kube-prometheus-stack-admission` | 10 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-86.1.0-no-crds.yaml) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | `target-facts-staged-crds-and-secret` | `monitoring/kube-prometheus-stack-admission` | 10 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-85.3.3-no-crds.yaml) |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | `generated-fact-staged-secret` | `default/vpa-tls-certs` | 0 | [observation](../../runs/next80-local-kind/autoscaler-vertical-pod-autoscaler-0.9.0-default/observation-receipt.yaml) | [staging receipt](./receipts/autoscaler-vertical-pod-autoscaler-0.9.0-default.yaml) |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | `generated-fact-staged-secret` | `default/vpa-tls-certs` | 0 | [observation](../../runs/next80-local-kind/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds.yaml) |
 
 ## What This Proves
 

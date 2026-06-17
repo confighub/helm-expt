@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "terraform-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "hashicorp/terraform"
+    chartVersion: "1.1.2"
+    packagePath: "packages/hashicorp/terraform/1.1.2"
+    variant: "no-crds"
+    upstreamSpace: "helm-terraform-no-crds-confighub-proof"
+    downstreamSpace: "Terraform-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-terraform-terraform-sync-workspace runs/terraform-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-terraform-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-terraform-no-crds runs/terraform-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-terraform-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Terraform-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create terraform-no-crds-variant-promote-20260527 --space Terraform-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote Terraform-no-crds-staging --changeset Terraform-no-crds-staging/terraform-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Terraform-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-terraform-terraform-sync-workspace"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=terraform-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-terraform-no-crds"
+    upstreamUnitID: "177776a6-f19f-43ec-9286-39772150220a"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-terraform-no-crds"
+  changeset:
+    slug: "terraform-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset terraform-no-crds-variant-promote-20260527 (c4b8d597-21d0-48c4-9ea2-f887603ab515)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-terraform-terraform-sync-workspace\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-terraform-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-terraform-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "177776a6-f19f-43ec-9286-39772150220a"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

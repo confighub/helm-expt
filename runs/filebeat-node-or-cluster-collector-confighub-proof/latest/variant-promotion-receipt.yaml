@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "filebeat-node-or-cluster-collector-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.79"
+  subject:
+    chart: "elastic/filebeat"
+    chartVersion: "8.5.1"
+    packagePath: "packages/elastic/filebeat/8.5.1"
+    variant: "node-or-cluster-collector"
+    upstreamSpace: "helm-filebeat-node-or-cluster-collector-confighub-proof"
+    downstreamSpace: "Filebeat-node-or-cluster-collector-staging"
+  commands:
+    upstreamUpdate: "cub unit update configmap-filebeat-filebeat-daemonset-config runs/filebeat-node-or-cluster-collector-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-filebeat-node-or-cluster-collector-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-filebeat-node-or-cluster-collector runs/filebeat-node-or-cluster-collector-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-filebeat-node-or-cluster-collector-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Filebeat-node-or-cluster-collector-staging --dry-run -o mutations"
+    changeset: "cub changeset create filebeat-node-or-cluster-collector-variant-promote-20260527 --space Filebeat-node-or-cluster-collector-staging --description ... --allow-exists"
+    promote: "cub variant promote Filebeat-node-or-cluster-collector-staging --changeset Filebeat-node-or-cluster-collector-staging/filebeat-node-or-cluster-collector-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Filebeat-node-or-cluster-collector-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "configmap-filebeat-filebeat-daemonset-config"
+    beforeHeadRevisionNum: 1
+    afterHeadRevisionNum: 2
+    annotation: "helm-expt.confighub.com/promotion-proof=filebeat-node-or-cluster-collector-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-filebeat-node-or-cluster-collector"
+    upstreamUnitID: "feade2dd-b441-498f-8f35-4c257bc9bfd9"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-filebeat-node-or-cluster-collector"
+  changeset:
+    slug: "filebeat-node-or-cluster-collector-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset filebeat-node-or-cluster-collector-variant-promote-20260527 (3c28f891-7f71-45e7-8cf2-215f01c74030)"
+  promote:
+    result: "fail"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: configmap-filebeat-filebeat-daemonset-config\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
+  fallbackPromote:
+    used: true
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-filebeat-node-or-cluster-collector\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 2
+    downstreamUpstreamRevisionNumBefore: 1
+    downstreamUpstreamRevisionNumAfter: 2
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-filebeat-node-or-cluster-collector"
+    addedUnitDownstreamUpstreamUnitID: "feade2dd-b441-498f-8f35-4c257bc9bfd9"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "watch"
+  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."
