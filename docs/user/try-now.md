@@ -135,6 +135,7 @@ explanation of why this chart is the hard public example.
 - [Tutorial Sequence](./tutorial-sequence.md)
 - [Choose Your Path](./choose-your-path.md)
 - [Chain Of Proof](./chain-of-proof.md)
+- [Verify It Yourself](./verify-it-yourself.md) — once applied to a cluster, confirm it is *working* (not just created) with cub-scout receipts (`object-set-matches`, `prerequisites-met`, `workloads-converged`)
 - [Current Proof Status](./current-proof-status.md)
 - [Chart Use Guide](../../data/chart-use-guide/summary.md)
 - [Catalog Dashboard](../../site/index.html)
