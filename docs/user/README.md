@@ -22,6 +22,7 @@ If your first question is "why is this better than `cub helm install` or
 | --- | --- | --- |
 | 1 | [ConfigHub Helm Catalog Offering](./offering.md) | The public value story in one short read. |
 | 2 | [Generative GitOps Fit](./generative-gitops-fit.md) | How this repo maps to the broader generated-config and AI/GitOps thesis. |
+| 2a | [Reverse-Reconcile Design](./reverse-reconcile-design.md) | The live-to-desired frontier: what is machine-checkable today and what requires a new `cub` write-back capability. |
 | 3 | [Try Now](./try-now.md) | The shortest Redis and kube-prometheus-stack paths. |
 | 4 | [Choose Your Path](./choose-your-path.md) | Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations. |
 | 5 | [What You Get](./what-you-get.md) | The product model in one short read. |

@@ -1,0 +1,62 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ReverseReconcileReceipt
+metadata:
+  name: redis-prod-us-east-replica-incident
+spec:
+  # design-example: the live observation is a fixture and the write-back is
+  # manual; the authority + bounds + round-trip are real, machine-checked
+  # properties of this receipt. Flips to "proven" when a real cub reverse-
+  # reconcile command performs the gated write-back end-to-end on a cluster.
+  status: design-example
+  chart: bitnami/redis
+  version: "25.5.3"
+  environment: prod-us-east
+  unit:
+    space: helm-redis-mapping-prod-us-east
+    desiredRender: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+  trigger:
+    class: authorized-live-change
+    actor: platform-sre
+    role: platform-sre
+    intent: "incident-fix: scale replicas to absorb a load spike"
+    at: "2026-06-18T12:00:00Z"
+  observation:
+    source: cub-scout
+    predicate: object-state-observed
+    receiptRef: "(frontier) a cub-scout observation receipt witnessing the live value"
+    object: "apps/v1|StatefulSet|redis|redis-replicas"
+    field: spec.replicas
+    valuePath: replica.replicaCount
+    liveValue: 4
+    desiredValueBefore: 3
+  authority:
+    policyRef: data/reverse-reconcile/authority-policy.yaml
+    decision: allow
+    matchedRule: "platform-sre may accept replica.replicaCount on the redis replicas StatefulSet in prod"
+  bounds:
+    changedFields:
+      - object: "apps/v1|StatefulSet|redis|redis-replicas"
+        field: spec.replicas
+        valuePath: replica.replicaCount
+        from: 3
+        to: 4
+    unauthorizedFieldsChanged: []
+    withinAuthorizedScope: true
+  writeBack:
+    method: manual-fixture
+    desiredValueAfter: 4
+    newRevision: "(frontier) a new desired-state revision r002 attributing the accepted change"
+    provenance:
+      who: platform-sre
+      when: "2026-06-18T12:00:05Z"
+      operation: reverse-reconcile
+      authority: data/reverse-reconcile/authority-policy.yaml
+      intent: "incident-fix: scale replicas to absorb a load spike"
+  roundTrip:
+    desiredAfterMatchesObserved: true
+    residualDrift: []
+    result: closed
+  notClaimed:
+    - "Design example. The live observation is a fixture and the write-back is manual; the automated, authorized cub reverse-reconcile flow is the named frontier (move 2, #974)."
+    - "Does not claim ConfigHub performs reverse reconciliation today."
+    - "Authority, bounds, and round-trip are real machine-checked properties of this receipt; the missing piece is the cub command that performs the gated write-back."

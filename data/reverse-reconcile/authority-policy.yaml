@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ReverseReconcilePolicy
+metadata:
+  name: redis-reverse-reconcile-authority
+spec:
+  chart: bitnami/redis
+  # Default-deny: an observed live change is unauthorized drift unless a rule
+  # below explicitly permits that role to accept that value path, on that
+  # object, in that environment. This is what separates accepting a governed
+  # fix from blindly trusting the cluster.
+  default: deny
+  rules:
+    - role: platform-sre
+      reason: >
+        SRE may absorb a load spike by scaling replicas live; the scale is then
+        accepted back into desired state so the next forward apply does not
+        revert the fix. Scope is deliberately narrow: replica count only, on the
+        redis replicas StatefulSet, in production environments.
+      mayAccept:
+        - valuePath: replica.replicaCount
+          field: spec.replicas
+          objects:
+            - "apps/v1|StatefulSet|redis|redis-replicas"
+          environments:
+            - prod-us-east
+            - prod-eu-west
