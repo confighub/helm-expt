@@ -157,7 +157,8 @@ disposition + an honest "what's watch/blocked and why."
 build the **per-chart fact sheets + public site** (matrix/residue → chart pages,
 `dedicated-website-plan`) → close **#753** + put **cub-scout in the onboarding
 path** + work the **#679** punch-list → stand up the sceptic apparatus (claims
-register, fix the 4 failing blast-radius cases, torture suite) and **run external
+register, keep expanding blast-radius cases beyond the now-green 13-case set,
+torture suite) and **run external
 reproduction** (`outside-user-test`, the single biggest trust gap).
 
 **Phase C — Productize** (the commercial wedge):
