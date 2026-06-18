@@ -55,7 +55,7 @@ These are not complete product claims yet:
 
 | Frontier | Current status |
 | --- | --- |
-| Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 9 passing, 4 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
+| Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
 | Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
 | Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
 | Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
@@ -73,7 +73,7 @@ frontier. Closing these is tracked in
 | --- | --- | --- |
 | **1. Checking a generated change is a query, not a review.** Ask the system what changed, under whose authority, and with what blast radius instead of relying only on manual diff review. | **Strong for import and variants; partial for governed promotion.** The rendered object set, render parity, variant lineage, and the dev-to-prod compare/diff are queryable evidence. | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html), per-revision receipts, and the Redis dev-to-prod promotion. **Gap:** the server-side promotion answer is capped at `watch` by ConfigHub #682 (160 cells), tracked as step 1 in #974. |
 | **2. A generated fix to the live system sticks.** An authorized live change flows back into desired state instead of being overwritten as drift. | **Frontier, not yet demonstrated.** Live state is witnessed by cub-scout receipts, but the reverse flow is not yet proven. | cub-scout `workloads-converged` and `object-set-matches` receipts witness live state. **Gap:** live-to-desired reconciliation under authority, tracked as step 2 in #974. |
-| **3. A fleet-wide change shows its blast radius before it happens.** Propagate across environments, see exactly what it touches, and stop at overrides. | **Partial.** Variant edges are recovered and one governed dev-to-prod promotion carries override protection; blast radius is measured, not assumed, on 9 of 13 cases. | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) (9/13 pass; 4 whole-release paths under-predict), derived-variant lineage. **Gap:** honest whole-release scope plus a fleet-scale demo, tracked as step 3 in #974. |
+| **3. A fleet-wide change shows its blast radius before it happens.** Propagate across environments, see exactly what it touches, and stop at overrides. | **Partial.** Variant edges are recovered and one governed dev-to-prod promotion carries override protection; blast radius is measured, not assumed, on 13 of 13 recorded cases. | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) (13/13 pass; the whole-release Redis namespace/releaseName misses are now closed), derived-variant lineage. **Gap:** more charts, more value paths, and a fleet-scale demo, tracked as step 3 in #974. |
 
 The point of listing the misses next to the hits is the same as the rest of
 this page: a scenario the model cannot yet demonstrate is a named frontier with
@@ -89,7 +89,7 @@ fixtures, receipts, or explicit refusals:
 
 | Attack question | Current evidence | Limit |
 | --- | --- | --- |
-| Did a value-source map predict the real blast radius? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | 13 measured cases are scored today: 9 pass, 4 fail, and 0 value-source rows are unmeasured. Whole-release identity paths currently expose known misses. |
+| Did a value-source map predict the real blast radius? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | 13 measured cases are scored today: 13 pass, 0 fail, and 0 value-source rows are unmeasured. The claim is still limited to recorded cases and should expand across more charts and value paths. |
 | Does rendering change across timezone, locale, or flag profiles? | [Environment-Determinism Matrix](../../data/environment-matrix/summary.md) | The current matrix covers one platform, one Helm version, and four chart versions. |
 | What happens when a chart is designed to break the model? | [Synthetic Torture Suite](../../data/torture-suite/summary.md) | The fixture suite is intentionally small and should grow as new failure modes are found. |
 | Which public claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md) | Partial claims stay partial until coverage expands or the product boundary changes. |

@@ -865,7 +865,7 @@ function offeringHtml(catalog) {
     ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
   ];
   const frontierRows = [
-    ["Field provenance", "Blast-radius prediction is scored by a generated accuracy harness: 13 measured cases, 9 passing, 4 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance."],
+    ["Field provenance", "Blast-radius prediction is scored by a generated accuracy harness: 13 measured cases, 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance."],
     ["Change authority", "ConfigHub records and gates operations; full per-field authority for every user or agent is not yet proven."],
     ["Live-to-desired flow", "Live observations are recorded; authorized live fixes flowing back into desired state are future product work."],
     ["Hook execution", "Hooks are inventoried, routed, observed, refused, or marked per-target; universal hook execution is not claimed."],
