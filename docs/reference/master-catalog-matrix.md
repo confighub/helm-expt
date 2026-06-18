@@ -44,10 +44,14 @@ next action:
 | `Prod` and `Scope` | Whether there is a target-scoped production support decision, and what it covers. |
 | `Hooks`, `Quirks`, and `Gap` | The visible reasons the row is easy, risky, incomplete, or needs a product decision. |
 | `Active proof` | The current non-pass live parity action when the row is in the rerun plan, including readiness, reason, support artifact, and command in the tooltip. |
+| `Action` | The current completion-plan overlay for non-green cells: run, stage, model, image, upstream, scope, or deferred. `Deferred` means the row has an accepted `watch` or `n/a` disposition and should not consume live-run time until scope changes. |
 | `Next action` | The shortest useful work item for the row. |
 
 The matrix should not hide weakness. A `fail` lane is red. A missing receipt is
 grey `todo`. A lane that does not apply should be neutral `n/a`, not blank.
+`Deferred` is not a proof-lane state. It is an action overlay from the coverage
+completion plan for cells whose current non-green status is already an accepted
+product disposition.
 
 Every row must correspond to real catalog artifacts. The generator checks that
 the recipe source lock, per-chart catalog, variant YAML, package base, and
