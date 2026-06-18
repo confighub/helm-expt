@@ -1942,7 +1942,7 @@ function day1OperationsHtml(catalog) {
       boundary: "ConfigHub Server",
       action: "cub variant promote <space>",
       code: "cub variant promote <space> --dry-run -o mutations\ncub variant promote <space>",
-      get: "Promotion moves a downstream variant toward its upstream Space as a first-class ConfigHub operation. The current receipts prove the core mechanics on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The status is watch because the changeset-bound path currently hits a server error; use the matrix V column and variant-promotion status before treating it as a production gate.",
+      get: "Promotion moves a downstream variant toward its upstream Space as a first-class ConfigHub operation. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. Older watch rows remain visible until their receipts are rerun on the fixed ConfigHub server; use the matrix V column and variant-promotion status before treating a row as proven.",
       see: ["../data/variant-promotion/summary.md", "prometheus-overlay-promotion-example.md"],
     },
     {

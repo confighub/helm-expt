@@ -26,6 +26,7 @@ const outputs = {
 const OUTCOMES = "data/outcome-coverage/base-outcomes.csv";
 const RECEIPT_KIND = "VariantPromotionReceipt";
 const CHANGESET_PROMOTION_ISSUE = "https://github.com/confighub/helm-expt/issues/682";
+const CHANGESET_FIX_NOTE = "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass";
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -83,7 +84,7 @@ function buildReport() {
                 status: "proven-with-watch",
                 matrix: "watch",
                 reason: receipt.reason || "server-side promotion mechanics passed with a recorded product caution",
-                next: `resolve ${CHANGESET_PROMOTION_ISSUE}, then rerun the promotion receipt for a full pass`,
+                next: CHANGESET_FIX_NOTE,
               }
             : {
                 status: "blocked",
@@ -225,7 +226,7 @@ function summary(rows) {
   const watchRows = rows.filter((row) => row.matrix_value === "watch");
   const watchByReason = [...countBy(watchRows, (row) => row.reason).entries()]
     .sort((a, b) => b[1] - a[1])
-    .map(([reason, count]) => `| ${count} | ${reason} | [#682](${CHANGESET_PROMOTION_ISSUE}) |`)
+    .map(([reason, count]) => `| ${count} | ${reason} | [#682 fixed; rerun required](${CHANGESET_PROMOTION_ISSUE}) |`)
     .join("\n");
   const watchExamples = watchRows
     .slice(0, 10)
@@ -272,8 +273,9 @@ ${[...byMatrix.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([status,
 ## Watch Rows
 
 Watch means a receipt proved useful mechanics but recorded a named product
-caution. Do not treat watch as a production gate until the linked issue is
-resolved and the receipt reruns as pass.
+caution. For the changeset fallback rows, the server fix is now present in
+ConfigHub v0.1.80; those rows remain watch until their receipts are rerun and
+show the changeset-bound path passing.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |

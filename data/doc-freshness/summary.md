@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-18 (commit `db89c763`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-06-18 (commit `a9b82067`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 180 |
-| Fresh (no linked source newer than the doc) | 12 |
-| **Review-due** | 47 |
+| Fresh (no linked source newer than the doc) | 13 |
+| **Review-due** | 46 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
 ## Review queue
@@ -72,7 +72,6 @@ most recently changed triggers.
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 2 | `data/image-digest-workdown/summary.md (2026-06-17)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 2 | `data/model-gap-workdown/summary.md (2026-06-18)`<br>`data/target-prerequisite-actions/summary.md (2026-06-18)`<br>`data/target-prerequisite-workdown/summary.md (2026-06-18)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-18 | 1 | `CATALOG.md (2026-06-18)`<br>`data/master-catalog-matrix/matrix.html (2026-06-18)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.csv (2026-06-18)`<br>`data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/master-catalog-matrix/summary.md (2026-06-18)` |

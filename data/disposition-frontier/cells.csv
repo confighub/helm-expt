@@ -119,12 +119,24 @@ bitnami/apache@11.4.29,default,local_live,L,blocked,blocked,no,,,
 bitnami/apache@11.4.29,default,gitops_oci_live,G,watch,watch,no,,,
 bitnami/apache@11.4.29,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/apache@11.4.29,default,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
+bitnami/apache@11.4.29,legacy,render_parity,R,pass,pass,no,,,
+bitnami/apache@11.4.29,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/apache@11.4.29 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/apache@11.4.29,legacy,local_live,L,pass,pass,no,,,
+bitnami/apache@11.4.29,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+bitnami/apache@11.4.29,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/apache@11.4.29,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/contour@21.1.4,default,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,default,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,default,local_live,L,blocked,blocked,no,,,
 bitnami/contour@21.1.4,default,gitops_oci_live,G,watch,watch,no,,,
 bitnami/contour@21.1.4,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/contour@21.1.4,default,two_cluster_kind_parity,K,blocked,blocked,no,helm-hook: pre-install certificate generation failed (parity passed),,kind-parity
+bitnami/contour@21.1.4,legacy,render_parity,R,pass,pass,no,,,
+bitnami/contour@21.1.4,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/contour@21.1.4 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/contour@21.1.4,legacy,local_live,L,blocked,blocked,no,,,
+bitnami/contour@21.1.4,legacy,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/contour@21.1.4,legacy,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/contour@21.1.4,legacy,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
 bitnami/contour@21.1.4,no-crds,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,no-crds,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,no-crds,local_live,L,blocked,blocked,no,,,
@@ -143,6 +155,12 @@ bitnami/elasticsearch@22.1.6,ha,local_live,L,fail,fail,no,,,
 bitnami/elasticsearch@22.1.6,ha,gitops_oci_live,G,watch,watch,no,,,
 bitnami/elasticsearch@22.1.6,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/elasticsearch@22.1.6,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
+bitnami/elasticsearch@22.1.6,legacy,render_parity,R,pass,pass,no,,,
+bitnami/elasticsearch@22.1.6,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/elasticsearch@22.1.6 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/elasticsearch@22.1.6,legacy,local_live,L,pass,pass,no,,,
+bitnami/elasticsearch@22.1.6,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+bitnami/elasticsearch@22.1.6,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/elasticsearch@22.1.6,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/memcached@8.5.5,default,render_parity,R,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,in_confighub,C,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,local_live,L,pass,pass,no,,,
@@ -245,12 +263,24 @@ bitnami/opensearch@2.0.10,ha,local_live,L,fail,fail,no,,,
 bitnami/opensearch@2.0.10,ha,gitops_oci_live,G,watch,watch,no,,,
 bitnami/opensearch@2.0.10,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/opensearch@2.0.10,ha,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
+bitnami/opensearch@2.0.10,legacy,render_parity,R,pass,pass,no,,,
+bitnami/opensearch@2.0.10,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/opensearch@2.0.10 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/opensearch@2.0.10,legacy,local_live,L,pass,pass,no,,,
+bitnami/opensearch@2.0.10,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+bitnami/opensearch@2.0.10,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/opensearch@2.0.10,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/phpmyadmin@20.0.0,default,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,local_live,L,blocked,blocked,no,,,
 bitnami/phpmyadmin@20.0.0,default,gitops_oci_live,G,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
+bitnami/phpmyadmin@20.0.0,legacy,render_parity,R,pass,pass,no,,,
+bitnami/phpmyadmin@20.0.0,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/phpmyadmin@20.0.0 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/phpmyadmin@20.0.0,legacy,local_live,L,pass,pass,no,,,
+bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/phpmyadmin@20.0.0,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
@@ -335,6 +365,12 @@ bitnami/spark@10.0.3,ha,local_live,L,blocked,blocked,no,,,
 bitnami/spark@10.0.3,ha,gitops_oci_live,G,watch,watch,no,,,
 bitnami/spark@10.0.3,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
+bitnami/spark@10.0.3,legacy,render_parity,R,pass,pass,no,,,
+bitnami/spark@10.0.3,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/spark@10.0.3 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/spark@10.0.3,legacy,local_live,L,pass,pass,no,,,
+bitnami/spark@10.0.3,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
+bitnami/spark@10.0.3,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/spark@10.0.3,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,local_live,L,blocked,blocked,no,,,
@@ -347,7 +383,7 @@ bitnami/zookeeper@13.8.7,ha,local_live,L,blocked,blocked,no,,,
 bitnami/zookeeper@13.8.7,ha,gitops_oci_live,G,watch,watch,no,,,
 bitnami/zookeeper@13.8.7,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/zookeeper@13.8.7,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
-bitnami/zookeeper@13.8.7,legacy,render_parity,R,fail,fail,no,,,
+bitnami/zookeeper@13.8.7,legacy,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/zookeeper@13.8.7 legacy (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 bitnami/zookeeper@13.8.7,legacy,local_live,L,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either

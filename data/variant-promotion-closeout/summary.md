@@ -4,10 +4,9 @@
 `scripts/generate-variant-promotion-closeout.mjs`. Do not hand-edit. Regenerate
 with `npm run variant-promotion-closeout`.
 
-The master matrix promotion column reads **0 proven / 20 watch / 172 todo**.
-This surface turns that into a product-and-engineering queue: for every variant,
-whether `cub variant promote` is **ready to run now**, **watch-grade**, or
-**blocked** by the known ConfigHub server bug — with the exact next command or fix
+This surface turns the master matrix promotion column into a product-and-engineering queue:
+for every variant, whether `cub variant promote` is **ready to run now**,
+**watch-grade pending receipt rerun**, or **blocked** by a proof prerequisite, with the exact next command or fix
 and the owner who has to act.
 
 Promotion is a **ConfigHub server value**, not a helm-expt-only trick:
@@ -19,23 +18,23 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 18 | A clone exists (or a prerequisite proof can run); record the proof. Engineering/CI. |
-| `fix-confighub-server` | 160 | Blocked on the ConfigHub server changeset add-new-units bug (https://github.com/confighub/helm-expt/issues/682). |
+| `run-proof` | 182 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 14 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 17 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `watch-grade` | 160 |
+| `watch-grade` | 157 |
+| `promotion-proven` | 17 |
 | `ready-to-run` | 16 |
-| `promotion-proven` | 14 |
+| `blocked-needs-confighub-proof` | 7 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `watch` | 160 |
-| `todo` | 16 |
-| `yes` | 14 |
+| `watch` | 157 |
+| `todo` | 23 |
+| `yes` | 17 |
 | `no` | 2 |
 
 ## Ready to run now (16)
@@ -69,11 +68,12 @@ node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts seale
 
 The full 16-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — changeset path blocked by the server bug (160)
+## Watch-grade — rerun on the fixed server (157)
 
-Server-side promotion mechanics are proven for these, but the changeset-bound
-(add-new-units) promote path fails on https://github.com/confighub/helm-expt/issues/682. They are usable for the
-proven mechanics; the changeset path needs the ConfigHub server fix.
+Server-side promotion mechanics are proven for these, but the committed receipts
+were recorded before the changeset-bound add-new-units server fix. The next action is:
+
+> ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass.
 
 | Chart | Base | Evidence |
 | --- | --- | --- |
@@ -111,7 +111,6 @@ proven mechanics; the changeset path needs the ConfigHub server fix.
 | bitnami/mysql@14.0.3 | existing-secret | runs/mysql-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mysql@14.0.3 | generated-passwords | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.2 | existing-tls-ingress | runs/nginx-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/nginx@24.0.2 | http-clusterip | runs/nginx-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | http-clusterip | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -127,7 +126,6 @@ proven mechanics; the changeset path needs the ConfigHub server fix.
 | bitnami/postgresql@18.7.0 | generated-passwords | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/rabbitmq@16.0.14 | existing-secret | runs/rabbitmq-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/rabbitmq@16.0.14 | generated-passwords | runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/redis@25.5.3 | default | runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@25.5.3 | reuse-existing-secret | runs/redis-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -230,7 +228,6 @@ proven mechanics; the changeset path needs the ConfigHub server fix.
 | projectcalico/tigera-operator@v3.32.0 | default | runs/tigera-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/alertmanager@1.37.0 | default | runs/alertmanager-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/alertmanager@1.37.0 | ha | runs/alertmanager-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | runs/kube-prometheus-stack-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | default | runs/prometheus-blackbox-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | runs/prometheus-node-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -238,11 +235,25 @@ proven mechanics; the changeset path needs the ConfigHub server fix.
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml |
 
+## Blocked — needs the ConfigHub proof first (7)
+
+No ConfigHub upload proof exists yet, so there is no clone to promote.
+
+| Chart | Base | Next action |
+| --- | --- | --- |
+| bitnami/apache@11.4.29 | legacy | run the ConfigHub proof lane first |
+| bitnami/contour@21.1.4 | legacy | run the ConfigHub proof lane first |
+| bitnami/elasticsearch@22.1.6 | legacy | run the ConfigHub proof lane first |
+| bitnami/opensearch@2.0.10 | legacy | run the ConfigHub proof lane first |
+| bitnami/phpmyadmin@20.0.0 | legacy | run the ConfigHub proof lane first |
+| bitnami/spark@10.0.3 | legacy | run the ConfigHub proof lane first |
+| bitnami/zookeeper@13.8.7 | legacy | run the ConfigHub proof lane first |
+
 ## Boundaries
 
 - Read-only projection over `variant-promotion/status.csv`. No live run, no
   ConfigHub-server call, no `runs/` edit, and no status changed.
 - `ready-to-run` lists the command; it does not run it. Promotion is a ConfigHub
   server action and is executed deliberately, not by this surface.
-- A `watch-grade` row is a recorded decision (mechanics proven, changeset path
-  blocked), never silently rounded to proven.
+- A `watch-grade` row is a recorded decision (mechanics proven, old receipt still
+  used the fallback), never silently rounded to proven.

@@ -185,8 +185,8 @@ function classify(cell, idx) {
         "pass or watch", "npm run … (data/variant-promotion-proof-batches: 18 serial batches)", "",
         "variant-promotion-closeout", ["#948"]);
     }
-    return fam("refuse-or-scope", "promotion-changeset-bug", "upstream-implementation", false,
-      "watch (verified); pass once the server fix lands", "", "ConfigHub changeset add-new-units fix",
+    return fam("run-promotion", "promotion-rerun-after-server-fix", "Codex-live", true,
+      "pass after rerun on ConfigHub v0.1.80+", "", "rerun old fallback receipts on the fixed server",
       "variant-promotion-closeout", ["#682", "#948"]);
   }
 
@@ -406,9 +406,15 @@ function buildSummary(families) {
   lines.push("## Variant promotion (first-class family)");
   lines.push("");
   lines.push(`The promotion (V) lane is the loudest hole: **${promotion.proven} proven / ${promotion.watch} watch / ${promotion.todo} todo / ${promotion.blocked} blocked / ${promotion.nA} n/a**.`);
-  const promoRun = families.find((f) => f.action_type === "run-promotion");
+  const promoRuns = families.filter((f) => f.action_type === "run-promotion");
   const promoBug = families.find((f) => f.action_type === "refuse-or-scope");
-  if (promoRun) lines.push(`- \`${promoRun.action_id}\` **run-promotion** — ${promoRun.affected_cell_count} ready promotions via the serial ConfigHub lane (#948); run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md).`);
+  for (const promoRun of promoRuns) {
+    const note =
+      promoRun.sub_group === "promotion-rerun-after-server-fix"
+        ? "old fallback receipts to rerun on ConfigHub v0.1.80+"
+        : "ready promotions via the serial ConfigHub lane; run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md)";
+    lines.push(`- \`${promoRun.action_id}\` **run-promotion** - ${promoRun.affected_cell_count} ${note}.`);
+  }
   if (promoBug) lines.push(`- \`${promoBug.action_id}\` **refuse-or-scope** — ${promoBug.affected_cell_count} watch rows blocked on the ConfigHub changeset add-new-units bug (#682); upstream server fix.`);
   lines.push("");
   lines.push("## All action families");

@@ -4,10 +4,10 @@
 `scripts/generate-variant-promotion-proof-batches.mjs`. Do not hand-edit. Regenerate
 with `npm run variant-promotion-proof-batches`.
 
-A **run plan**, not evidence. The 30 `ready-to-run` promotion rows from the
+A **run plan**, not evidence. The 16 `ready-to-run` promotion rows from the
 [promotion closeout](../variant-promotion-closeout/summary.md) — each already has a
 server-side clone and ConfigHub upload proof and only needs the `cub variant promote`
-receipt — grouped here into 3 safe serial batches to run **once `cub
+receipt — grouped here into 2 safe serial batches to run **once `cub
 auth login` is restored**. These are the batches we should run; nothing here is
 completed promotion evidence.
 
@@ -16,13 +16,11 @@ returns. Run batches serially — each command mutates ConfigHub server state.
 
 **Stop condition (every batch):** Run serially once `cub auth login` is restored; each command records one server-side cub variant promote receipt. Stop on the first failure and inspect before continuing. Do not run in parallel -- each mutates ConfigHub server state.
 
-## B01 (10)
+## B01 (8)
 
-Run 10 ready variant-promotion proofs serially once cub auth returns: prometheus-community/kube-prometheus-stack, prometheus-community/kube-state-metrics, prometheus-community/prometheus-adapter, prometheus-community/prometheus-blackbox-exporter, prometheus-community/prometheus-operator-crds.
+Run 8 ready variant-promotion proofs serially once cub auth returns: prometheus-community/kube-prometheus-stack, prometheus-community/kube-state-metrics, prometheus-community/prometheus-adapter, prometheus-community/prometheus-blackbox-exporter, prometheus-community/prometheus-operator-crds.
 
 ```bash
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base default --variant-promotion-proof --cleanup-spaces
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base default --variant-promotion-proof --cleanup-spaces
@@ -33,9 +31,9 @@ node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prome
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-operator-crds --base default --variant-promotion-proof --cleanup-spaces
 ```
 
-## B02 (10)
+## B02 (8)
 
-Run 10 ready variant-promotion proofs serially once cub auth returns: prometheus-community/prometheus, rook-release/rook-ceph-cluster, rook-release/rook-ceph, runix/pgadmin4, sealed-secrets/sealed-secrets, secrets-store-csi-driver/secrets-store-csi-driver, stakater/reloader.
+Run 8 ready variant-promotion proofs serially once cub auth returns: prometheus-community/prometheus, rook-release/rook-ceph-cluster, rook-release/rook-ceph, runix/pgadmin4, sealed-secrets/sealed-secrets.
 
 ```bash
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces
@@ -46,25 +44,6 @@ node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts secrets-store-csi-driver --base sync-secret-rotation --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts reloader --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces
-```
-
-## B03 (10)
-
-Run 10 ready variant-promotion proofs serially once cub auth returns: stakater/reloader, strimzi/strimzi-kafka-operator, traefik/traefik, velero/velero, vm/victoria-logs-single, vm/victoria-metrics-single.
-
-```bash
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts reloader --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts strimzi-kafka-operator --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts strimzi-kafka-operator --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts traefik --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts traefik --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts velero --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts velero --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-logs-single --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default-reviewed --variant-promotion-proof --cleanup-spaces
 ```
 
 ## Boundaries

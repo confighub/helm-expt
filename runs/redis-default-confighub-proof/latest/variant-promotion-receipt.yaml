@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "bitnami/redis"
     chartVersion: "25.5.3"
@@ -17,20 +17,21 @@ spec:
     upstreamSpace: "helm-redis-default-confighub-proof"
     downstreamSpace: "Redis-default-staging"
   commands:
-    upstreamUpdate: "cub unit update statefulset-redis-redis-replicas runs/redis-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-redis-default-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update statefulset-redis-redis-master runs/redis-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-redis-default-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-redis-default runs/redis-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-redis-default-confighub-proof --allow-exists"
     dryRun: "cub variant promote Redis-default-staging --dry-run -o mutations"
     changeset: "cub changeset create redis-default-variant-promote-20260527 --space Redis-default-staging --description ... --allow-exists"
     promote: "cub variant promote Redis-default-staging --changeset Redis-default-staging/redis-default-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Redis-default-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "statefulset-redis-redis-replicas"
+    changedUnit: "statefulset-redis-redis-master"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=redis-default-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-redis-default"
+    upstreamUnitID: "ddcddf0b-1ab7-4411-9634-2cdcd5766474"
     result: "pass"
     proofOnly: true
   preview:
@@ -39,14 +40,14 @@ spec:
   changeset:
     slug: "redis-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset redis-default-variant-promote-20260527 (03f5d9da-3526-4672-8bd8-f7ffac60bf15)"
+    output: "Successfully created changeset redis-default-variant-promote-20260527 (2648d391-a87f-4b39-9ba9-75eb8c786495)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-redis-redis-replicas\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-redis-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-redis-redis-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-redis-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -54,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-redis-default"
-    addedUnitDownstreamUpstreamUnitID: "7f88e039-342d-4eda-af71-58079341e80f"
+    addedUnitDownstreamUpstreamUnitID: "ddcddf0b-1ab7-4411-9634-2cdcd5766474"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."
