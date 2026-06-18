@@ -227,6 +227,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | --- | --- | --- |
 | `adversarial10` | [adversarial10/summary.md](./adversarial10/summary.md) | hard-chart readiness and control-point analysis |
 | `apiservice-coverage` | [apiservice-coverage/summary.md](./apiservice-coverage/summary.md) | top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations |
+| `app-readiness` | [app-readiness/summary.md](./app-readiness/summary.md) | supporting generated evidence |
 | `attack-plan-workdown` | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | execution workdown across gaps and proof lanes |
 | `blast-radius-accuracy` | [blast-radius-accuracy/summary.md](./blast-radius-accuracy/summary.md) | front-door measured blast-radius accuracy seed and backlog |
 | `blast-radius-fleet` | [blast-radius-fleet/summary.md](./blast-radius-fleet/summary.md) | supporting generated evidence |
@@ -329,7 +330,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 154 CSV files. Each row records the path, audience,
+It includes 155 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
