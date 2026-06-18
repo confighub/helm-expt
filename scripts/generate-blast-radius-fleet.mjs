@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Fleet blast-radius demo: the paper's scenario #3 ("a fleet-wide change shows
-// its blast radius before it happens") as data. For each committed fleet spec
+// Fleet blast-radius demo: a base change across environment variants, with
+// override protection shown before the change ships. For each committed fleet spec
 // (recipes/**/fleet.yaml), and each candidate base-value change, compute which
 // rendered objects the change touches in each environment, and which
 // environments are SHIELDED by an override (override-protection).
@@ -100,7 +100,7 @@ function csv(rows) {
 function summaryMd(fleets) {
   const out = [];
   out.push("# Fleet Blast-Radius Demo", "");
-  out.push("This generated surface shows the paper's third scenario — *a fleet-wide change shows its blast radius before it happens* — as data: for a base config promoted across a fleet of environment variants, which rendered objects a base-value change would touch in each environment, and which environments are **shielded by an override** (override-protection).", "");
+  out.push("This generated surface shows a fleet-wide base change as data: for a base config promoted across a fleet of environment variants, which rendered objects a base-value change would touch in each environment, and which environments are **shielded by an override** (override protection).", "");
   out.push("The per-environment object set is the *predicted* blast radius from each chart's `value-source-map`, which [`data/blast-radius-accuracy`](../blast-radius-accuracy/summary.md) proves accurate (13/13 recorded cases). An environment that pins a value via an override is shielded from a base change to that value: its explicit choice wins. Re-rendering each environment to confirm the prediction is the rigor upgrade (see *Next*).", "");
   for (const f of fleets) {
     out.push(`## ${f.chart}@${f.version}`, "");
@@ -127,8 +127,8 @@ function summaryMd(fleets) {
     out.push("");
   }
   out.push("## How to read this", "");
-  out.push("- **N objects** — the environment inherits the base change; those N rendered objects change there.");
-  out.push("- **shielded** — the environment pins that value via an override, so the base change does not reach it. This is the bounded, override-protected case the paper describes: the fleet-wide change is contained *before* it ships.");
+  out.push("- **N objects**: the environment inherits the base change; those N rendered objects change there.");
+  out.push("- **shielded**: the environment pins that value via an override, so the base change does not reach it. This is the bounded, override-protected case: the fleet-wide change is contained *before* it ships.");
   out.push("");
   out.push("## Next (rigor upgrade)", "");
   out.push("- Re-render each environment (base + overrides) before/after the change and diff, like `scripts/record-blast-radius-case.mjs`, to confirm the predicted set against an actual render per environment.");
@@ -146,7 +146,7 @@ function html(fleets) {
   p.push("<!doctype html><html><head><meta charset=\"utf-8\"><title>Fleet Blast-Radius Demo</title>");
   p.push("<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23;background:#fff}h1{font-size:20px}h2{font-size:16px;margin-top:28px}table{border-collapse:collapse;margin:10px 0 18px}th,td{border:1px solid #d0d7de;padding:6px 10px;font-size:13px;text-align:center}th{background:#f6f8fa}td.change{text-align:left;font-family:ui-monospace,Menlo,monospace;white-space:nowrap}.shield{background:#d6f5d6;color:#0a5d0a;font-weight:600}.prop{font-weight:600}.note{color:#57606a;font-size:13px;max-width:62em}.sub{font-weight:400;color:#57606a;font-size:11px}</style></head><body>");
   p.push("<h1>Fleet Blast-Radius Demo</h1>");
-  p.push("<p class=\"note\">The paper&#39;s scenario #3 as data: a base change&#39;s blast radius across a fleet of environments, and where an override <b>shields</b> an environment from it. Per-environment object sets are the predicted blast radius from each chart&#39;s value-source-map (proven 13/13 in blast-radius-accuracy). <span class=\"shield\">&nbsp;Green&nbsp;</span> = shielded by an override; red intensity scales with the number of objects touched.</p>");
+  p.push("<p class=\"note\">A fleet-wide base change as data: the change&#39;s blast radius across environment variants, and where an override <b>shields</b> an environment from it. Per-environment object sets are the predicted blast radius from each chart&#39;s value-source-map (proven 13/13 in blast-radius-accuracy). <span class=\"shield\">&nbsp;Green&nbsp;</span> = shielded by an override; red intensity scales with the number of objects touched.</p>");
   for (const f of fleets) {
     p.push(`<h2>${esc(f.chart)}@${esc(f.version)}</h2>`);
     if (f.note) p.push(`<p class="note">${esc(f.note)}</p>`);

@@ -1,6 +1,6 @@
 # Fleet Blast-Radius Demo
 
-This generated surface shows the paper's third scenario — *a fleet-wide change shows its blast radius before it happens* — as data: for a base config promoted across a fleet of environment variants, which rendered objects a base-value change would touch in each environment, and which environments are **shielded by an override** (override-protection).
+This generated surface shows a fleet-wide base change as data: for a base config promoted across a fleet of environment variants, which rendered objects a base-value change would touch in each environment, and which environments are **shielded by an override** (override protection).
 
 The per-environment object set is the *predicted* blast radius from each chart's `value-source-map`, which [`data/blast-radius-accuracy`](../blast-radius-accuracy/summary.md) proves accurate (13/13 recorded cases). An environment that pins a value via an override is shielded from a base change to that value: its explicit choice wins. Re-rendering each environment to confirm the prediction is the rigor upgrade (see *Next*).
 
@@ -33,8 +33,8 @@ Objects each change touches where it propagates:
 
 ## How to read this
 
-- **N objects** — the environment inherits the base change; those N rendered objects change there.
-- **shielded** — the environment pins that value via an override, so the base change does not reach it. This is the bounded, override-protected case the paper describes: the fleet-wide change is contained *before* it ships.
+- **N objects**: the environment inherits the base change; those N rendered objects change there.
+- **shielded**: the environment pins that value via an override, so the base change does not reach it. This is the bounded, override-protected case: the fleet-wide change is contained *before* it ships.
 
 ## Next (rigor upgrade)
 
