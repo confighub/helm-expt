@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "bitnami-contour-21-1-4-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/contour"
+    confighub.io/chart-version: "21.1.4"
+    confighub.io/image-source: "bitnamilegacy"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+  result: "pass"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 0
+    low: 0
+    info: 0
+  findings:
+    []

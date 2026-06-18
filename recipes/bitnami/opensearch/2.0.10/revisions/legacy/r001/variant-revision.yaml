@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variant: "../../../variants/legacy/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "e3b08fed13658e109c0b9f3e0166eb3f652a062149c77e5c7a7143cce7cecd1a"
+    renderedObjectSetSHA256: "ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 18

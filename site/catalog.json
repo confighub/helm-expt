@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-18T14:50:39.219Z",
+  "generatedAt": "2026-06-18T15:10:40.657Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -414,8 +414,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "192",
-      "total": "193",
+      "value": "199",
+      "total": "199",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -424,7 +424,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "192",
-      "total": "193",
+      "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -432,8 +432,8 @@
     {
       "section": "proof lanes",
       "metric": "local live rows",
-      "value": "143",
-      "total": "193",
+      "value": "148",
+      "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -451,7 +451,7 @@
       "section": "proof lanes",
       "metric": "local live non-pass rows classified",
       "value": "50",
-      "total": "50",
+      "total": "51",
       "status": "good",
       "source": "data/local-live-triage/triage.csv",
       "note": "Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
@@ -460,7 +460,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "135",
-      "total": "193",
+      "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "57 rows have non-pass GitOps/OCI receipts."
@@ -469,7 +469,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "135",
-      "total": "193",
+      "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "57 rows have non-pass live parity receipts."
@@ -496,7 +496,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "127",
-      "total": "193",
+      "total": "199",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."

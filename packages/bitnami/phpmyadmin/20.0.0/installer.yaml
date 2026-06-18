@@ -6,6 +6,10 @@ metadata:
 spec:
   bases:
     -
+      name: "legacy"
+      path: "bases/legacy"
+      description: "bitnami/phpmyadmin legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/phpmyadmin@20.0.0"
+    -
       name: "default"
       path: "bases/default"
       default: true

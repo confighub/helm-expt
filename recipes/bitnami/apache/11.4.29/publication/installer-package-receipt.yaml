@@ -4,13 +4,16 @@ metadata:
   name: "bitnami-apache-11-4-29"
 spec:
   chart:
-    repository: "bitnami"
     name: "apache"
+    repository: "bitnami"
     version: "11.4.29"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11.4.29.tgz"
+    sha256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
   package:
-    path: "packages/bitnami/apache/11.4.29"
     name: "bitnami-apache"
-    version: "11.4.29"
+    path: "packages/bitnami/apache/11.4.29"
     sourceFiles:
       -
         path: "README.md"
@@ -25,18 +28,33 @@ spec:
         sha256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
         bytes: 7171
       -
+        path: "bases/legacy/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/legacy/upstream.yaml"
+        sha256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+        bytes: 7183
+      -
         path: "installer.yaml"
-        sha256: "eb7a503d3243099908b75061e5cce6538911bd4d699994a46106ee241054b7d8"
-        bytes: 299
-  deterministicBundle:
-    command: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11-4-29.tgz"
-    sha256: "0d97fbe6c57b4b8f47d7f4c163e1db33a0558dea2e1d879f8004e3440f53687f"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "98f2df2ba4dc7c152617bbaba61ab15b156464e27c379879e7b274b5e51c2b68"
+        bytes: 500
+    version: "11.4.29"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      base: "legacy"
+      variant: "legacy"
+      command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

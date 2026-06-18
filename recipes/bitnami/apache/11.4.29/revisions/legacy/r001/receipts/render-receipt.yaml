@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-apache-11-4-29-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/image-source: "bitnamilegacy"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "4c65aef42c51db90d16cd7ae14d8888764111f42e53b5b48b7431fb667025ad7"
+    dependencyLockSHA256: "a45cabe6426eda7c6079a538750941d56a5e0d8f70de6c90e6fceb05bcf72b25"
+    effectiveValuesSHA256: "99a998eb7d2154f7a96bd93451c98cd8ef4ce73f6109c136ee1fe1e3b39b4d56"
+  imageRemap:
+    note: "Post-render registry remap docker.io/bitnami -> docker.io/bitnamilegacy applied to the committed default render; object count and structure are unchanged except image registry namespace fields."
+    from: "docker.io/bitnami/"
+    to: "docker.io/bitnamilegacy/"
+    images:
+      -
+        from: "docker.io/bitnami/apache:2.4.65-debian-12-r2"
+        to: "docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2"
+    deprecated: true
+    deprecationNote: "docker.io/bitnamilegacy is a frozen, deprecated mirror (no new tags, no security patches). Fine for a parity/runtime proof; production users should mirror these images into their own registry."
+  outputs:
+    renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+    renderedObjectInventorySHA256: "9ef286f5164699b619b89f2c754a2188024eb26111f1f98d9eb75cee87df9163"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

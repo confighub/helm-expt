@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-opensearch-2.0.10-legacy-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-legacy"
+    context: "kind-claude-helm-expt-legacy"
+    namespace: "default"
+  observedAt: "2026-06-18T11:37:27.647Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "legacy"
+  targetFacts:
+    {}
+  workloads: 4
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "f6aeb72481d08c30cdd091243127f8607fd190c8474ec957bfbe7dab9613b6a1"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "18 object(s) from recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|opensearch-coordinating"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|opensearch-data"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|opensearch-ingest"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|opensearch-master"

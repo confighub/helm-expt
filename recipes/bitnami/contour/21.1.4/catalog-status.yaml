@@ -15,6 +15,7 @@ spec:
   candidateVariants:
     - "default"
     - "no-crds"
+    - "legacy"
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"

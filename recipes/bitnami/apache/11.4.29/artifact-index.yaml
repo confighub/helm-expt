@@ -46,6 +46,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "legacy"
     deferredVariants:
       []
   proofSummary:
@@ -65,9 +66,14 @@ spec:
     path: "packages/bitnami/apache/11.4.29"
     installer: "packages/bitnami/apache/11.4.29/installer.yaml"
     receipt: "recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0d97fbe6c57b4b8f47d7f4c163e1db33a0558dea2e1d879f8004e3440f53687f"
+    deterministicBundleSHA256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
     deterministicAcrossTwoLocalBundles: true
     bases:
+      -
+        name: "legacy"
+        path: "packages/bitnami/apache/11.4.29/bases/legacy"
+        default: false
+        description: "bitnami/apache legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/apache@11.4.29"
       -
         name: "default"
         path: "packages/bitnami/apache/11.4.29/bases/default"
@@ -136,3 +142,65 @@ spec:
               path: "recipes/bitnami/apache/11.4.29/revisions/default/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+    -
+      name: "legacy"
+      variant: "recipes/bitnami/apache/11.4.29/variants/legacy/variant.yaml"
+      namespace: "default"
+      releaseName: "apache"
+      valuesProfile: "recipes/bitnami/apache/11.4.29/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "legacy"
+        path: "packages/bitnami/apache/11.4.29/bases/legacy"
+        default: false
+        description: "bitnami/apache legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/apache@11.4.29"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "legacy-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+          renderedObjects: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"

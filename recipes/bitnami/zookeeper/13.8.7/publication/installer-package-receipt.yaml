@@ -69,3 +69,13 @@ spec:
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
       variant: "ha"
+    -
+      base: "legacy"
+      variant: "legacy"
+      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

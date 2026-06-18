@@ -50,13 +50,13 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "1/1"
       localLive: "1/1"
-      gitopsLive: "0/1"
-      liveParity: "0/1"
+      gitopsLive: "1/1"
+      liveParity: "1/1"
     featureSummary: "required-values;extension-slots"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"

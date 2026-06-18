@@ -20,6 +20,15 @@ spec:
       failure_signature: "remote-image: the pinned image above could not be pulled on the target (init-container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
       receipt: runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml
       rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default --repo-url oci://registry-1.docker.io/bitnamicharts"
+  remediated_variant:
+    name: legacy
+    variant: recipes/bitnami/phpmyadmin/20.0.0/variants/legacy/variant.yaml
+    variant_revision: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml
+    rendered_object_set_sha256: "401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942"
+    lane: L
+    result: pass
+    receipt: runs/next80-local-kind/bitnami-phpmyadmin-20.0.0-legacy/observation-receipt.yaml
+    note: "The legacy variant remaps the default render docker.io/bitnami phpmyadmin image(s) to the verified-pullable docker.io/bitnamilegacy mirror; its local-live (L) cell is PASS — the image(s) pull and the workload(s) reach Ready on kind. The core default variant (and ha, where present) is intentionally left as an honest image-blocked watch row documenting the Aug-2025 Bitnami deprecation."
   automatic: false
   evidence:
     - runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml

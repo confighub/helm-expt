@@ -4,17 +4,16 @@ metadata:
   name: "bitnami-opensearch-2-0-10"
 spec:
   chart:
-    repository: "bitnami"
     name: "opensearch"
+    repository: "bitnami"
     version: "2.0.10"
   deterministicBundle:
-    command: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
-    sha256: "a4d64a3569ce5187989d12d86a764de64dee1664f60f21acd860b41448c658a6"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
+    sha256: "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8"
   package:
-    path: "packages/bitnami/opensearch/2.0.10"
     name: "bitnami-opensearch"
-    version: "2.0.10"
+    path: "packages/bitnami/opensearch/2.0.10"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,18 @@ spec:
         sha256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
         bytes: 43123
       -
+        path: "bases/legacy/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/legacy/upstream.yaml"
+        sha256: "ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+        bytes: 43115
+      -
         path: "installer.yaml"
-        sha256: "f6446fc21b20045ce3c995bf9b3beefa45109c5980538364b4868ac9482448b1"
-        bytes: 446
+        sha256: "e05007e1b5c55d047437f1717766b7434d52d8f2b3330be76a1a81c639420181"
+        bytes: 654
+    version: "2.0.10"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,9 +60,19 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "ha"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "ha"
       command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      variant: "ha"
+    -
+      base: "legacy"
+      variant: "legacy"
+      command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base legacy --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
       semanticObjectMatches: "18/18"

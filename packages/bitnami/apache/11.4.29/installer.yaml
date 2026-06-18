@@ -6,6 +6,10 @@ metadata:
 spec:
   bases:
     -
+      name: "legacy"
+      path: "bases/legacy"
+      description: "bitnami/apache legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/apache@11.4.29"
+    -
       name: "default"
       path: "bases/default"
       default: true

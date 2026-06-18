@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-spark-10.0.3-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/spark"
+    confighub.io/chart-version: "10.0.3"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373"
+  objectCount: 10
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|spark-master"
+      kind: "StatefulSet"
+      name: "spark-master"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|spark-worker"
+      kind: "StatefulSet"
+      name: "spark-worker"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|spark-master"
+      kind: "NetworkPolicy"
+      name: "spark-master"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|spark-worker"
+      kind: "NetworkPolicy"
+      name: "spark-worker"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|spark-master"
+      kind: "PodDisruptionBudget"
+      name: "spark-master"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|spark-worker"
+      kind: "PodDisruptionBudget"
+      name: "spark-worker"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|default|spark-secret"
+      kind: "Secret"
+      name: "spark-secret"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|spark"
+      kind: "ServiceAccount"
+      name: "spark"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|spark-headless"
+      kind: "Service"
+      name: "spark-headless"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|spark-master-svc"
+      kind: "Service"
+      name: "spark-master-svc"
+      namespace: "default"

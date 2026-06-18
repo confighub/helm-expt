@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-opensearch-2.0.10-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+  objectCount: 18
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|opensearch-coordinating"
+      kind: "StatefulSet"
+      name: "opensearch-coordinating"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|opensearch-data"
+      kind: "StatefulSet"
+      name: "opensearch-data"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|opensearch-ingest"
+      kind: "StatefulSet"
+      name: "opensearch-ingest"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|opensearch-master"
+      kind: "StatefulSet"
+      name: "opensearch-master"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|opensearch-coordinating"
+      kind: "NetworkPolicy"
+      name: "opensearch-coordinating"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|opensearch-dashboards"
+      kind: "NetworkPolicy"
+      name: "opensearch-dashboards"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|opensearch-data"
+      kind: "NetworkPolicy"
+      name: "opensearch-data"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|opensearch-ingest"
+      kind: "NetworkPolicy"
+      name: "opensearch-ingest"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|opensearch-master"
+      kind: "NetworkPolicy"
+      name: "opensearch-master"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|opensearch-coordinating"
+      kind: "PodDisruptionBudget"
+      name: "opensearch-coordinating"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|opensearch-data"
+      kind: "PodDisruptionBudget"
+      name: "opensearch-data"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|opensearch-ingest"
+      kind: "PodDisruptionBudget"
+      name: "opensearch-ingest"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|opensearch-master"
+      kind: "PodDisruptionBudget"
+      name: "opensearch-master"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opensearch"
+      kind: "Service"
+      name: "opensearch"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opensearch-coordinating-hl"
+      kind: "Service"
+      name: "opensearch-coordinating-hl"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opensearch-data-hl"
+      kind: "Service"
+      name: "opensearch-data-hl"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opensearch-ingest-hl"
+      kind: "Service"
+      name: "opensearch-ingest-hl"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opensearch-master-hl"
+      kind: "Service"
+      name: "opensearch-master-hl"
+      namespace: "default"

@@ -25,3 +25,4 @@ spec:
       - "default"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/legacy/variant.yaml"

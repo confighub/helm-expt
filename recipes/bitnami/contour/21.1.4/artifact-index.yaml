@@ -50,6 +50,7 @@ spec:
     candidateVariants:
       - "default"
       - "no-crds"
+      - "legacy"
     deferredVariants:
       []
   proofSummary:
@@ -69,9 +70,14 @@ spec:
     path: "packages/bitnami/contour/21.1.4"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "70d216ab590c865e0ffeaff17382cb24379a141f05499e85c99c1f0466bb31ac"
+    deterministicBundleSHA256: "ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a"
     deterministicAcrossTwoLocalBundles: true
     bases:
+      -
+        name: "legacy"
+        path: "packages/bitnami/contour/21.1.4/bases/legacy"
+        default: false
+        description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
       -
         name: "default"
         path: "packages/bitnami/contour/21.1.4/bases/default"
@@ -207,3 +213,65 @@ spec:
               path: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+    -
+      name: "legacy"
+      variant: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+      namespace: "default"
+      releaseName: "contour"
+      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "legacy"
+        path: "packages/bitnami/contour/21.1.4/bases/legacy"
+        default: false
+        description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/contour/21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 20
+        cubInstallObjectCountIncludingSupport: 21
+        semanticObjectMatches: "20/20"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "legacy-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+          renderedObjects: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/object-inventory.yaml"
+          objectCount: 20
+          helmObjectCount: 20
+          cubInstallObjectCountIncludingSupport: 21
+          semanticObjectMatches: "20/20"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"

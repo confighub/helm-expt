@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-contour-21-1-4-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/contour"
+    confighub.io/chart-version: "21.1.4"
+    confighub.io/image-source: "bitnamilegacy"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "9ef02ea0ab9f62101c3cec881b5f9630b9e18b87924cf22e3b7001361b5acdea"
+    dependencyLockSHA256: "99f371ff59494404dc5408edcb377a0df1864c37054578e66e576eda8d33a7af"
+    effectiveValuesSHA256: "04ec361a360fd83fc5b554f9e6bf0eb5198a3365ed70e158f4bffe315490e3a4"
+  imageRemap:
+    note: "Post-render registry remap docker.io/bitnami -> docker.io/bitnamilegacy applied to the committed default render; object count and structure are unchanged except image registry namespace fields."
+    from: "docker.io/bitnami/"
+    to: "docker.io/bitnamilegacy/"
+    images:
+      -
+        from: "docker.io/bitnami/contour:1.32.1-debian-12-r0"
+        to: "docker.io/bitnamilegacy/contour:1.32.1-debian-12-r0"
+      -
+        from: "docker.io/bitnami/envoy:1.34.5-debian-12-r0"
+        to: "docker.io/bitnamilegacy/envoy:1.34.5-debian-12-r0"
+    deprecated: true
+    deprecationNote: "docker.io/bitnamilegacy is a frozen, deprecated mirror (no new tags, no security patches). Fine for a parity/runtime proof; production users should mirror these images into their own registry."
+  outputs:
+    renderedObjectSetSHA256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
+    renderedObjectInventorySHA256: "6e87a305884c1b2954d7e9db273c15ede0640554271290ed3a57921f0dd9bfe0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 20
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

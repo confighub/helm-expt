@@ -6,6 +6,10 @@ metadata:
 spec:
   bases:
     -
+      name: "legacy"
+      path: "bases/legacy"
+      description: "bitnami/spark legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/spark@10.0.3"
+    -
       default: true
       description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
       name: "default"

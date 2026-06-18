@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | not-ready |
 | User status | proof-grade-compatible-base-needs-standard-lanes |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 3/3; ConfigHub 2/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 1/3; GitOps live 1/3; live parity 1/3 |
 | Feature summary | extension-slots |
 | Hard gap | - |
 | Next action | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |

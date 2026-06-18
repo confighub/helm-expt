@@ -26,3 +26,4 @@ spec:
   variants:
     - "variants/default/variant.yaml"
     - "variants/ha/variant.yaml"
+    - "variants/legacy/variant.yaml"

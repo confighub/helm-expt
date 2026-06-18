@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/elasticsearch"
+    confighub.io/chart-version: "22.1.6"
+    confighub.io/image-source: "bitnamilegacy"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "84bdbaf1a905f282a240ad1a5d355a257dd11617d4921411b1a7397738923e60"
+  decision: "allow"
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  reasons:
+    - "regular Helm output matches cub installer setup for bitnami/elasticsearch@22.1.6 (legacy image-remap variant)"
+    - "21 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"
+    - "local-live lane confirms workload readiness after remapping images to the verified-pullable docker.io/bitnamilegacy namespace"

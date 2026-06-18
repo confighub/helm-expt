@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, ha |
+| Candidate variants | default, ha, legacy |
 | Control points | capability-profile, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary

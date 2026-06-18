@@ -53,13 +53,13 @@ spec:
   proofSummary:
     adoptionBucket: "not-ready"
     userStatus: "proof-grade-compatible-base-needs-standard-lanes"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "3/3"
-      inConfigHub: "2/3"
+      inConfigHub: "3/3"
       localLive: "1/3"
-      gitopsLive: "0/3"
-      liveParity: "0/3"
+      gitopsLive: "1/3"
+      liveParity: "1/3"
     featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion."

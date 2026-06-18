@@ -48,6 +48,7 @@ spec:
     candidateVariants:
       - "default"
       - "ha"
+      - "legacy"
     deferredVariants:
       []
   proofSummary:
@@ -230,13 +231,13 @@ spec:
         default: false
         description: "bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7"
       setupCheck:
-        command: ""
-        helmReleaseObjectCount: ""
-        cubInstallObjectCountIncludingSupport: ""
-        semanticObjectMatches: ""
-        separatedSecretCount: ""
+        command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
         allowedCubOnlyObjects:
-          []
+          - "v1|Namespace||default"
       revisions:
         -
           name: "legacy-r001"

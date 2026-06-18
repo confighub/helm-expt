@@ -60,24 +60,24 @@ The `Start Base Status` column uses the same generated readiness labels.
 
 | Chart | Start With | Start Base Status | Evidence | Hard Gap | Variants | Package | Catalog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bitnami/redis@25.5.3 | default | start-here | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | [packages/bitnami/redis/25.5.3](packages/bitnami/redis/25.5.3) | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
+| bitnami/redis@25.5.3 | default | render-only | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | [packages/bitnami/redis/25.5.3](packages/bitnami/redis/25.5.3) | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
 | metrics-server/metrics-server@3.13.0 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, external-tls-ca | [packages/metrics-server/metrics-server/3.13.0](packages/metrics-server/metrics-server/3.13.0) | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | start-here | live-helm-vs-confighub-parity | - | default, admission-disabled, internal-clusterip | [packages/ingress-nginx/ingress-nginx/4.15.1](packages/ingress-nginx/ingress-nginx/4.15.1) | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
 | jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | [packages/jetstack/cert-manager/v1.20.2](packages/jetstack/cert-manager/v1.20.2) | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
 | external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | [packages/external-secrets/external-secrets/2.5.0](packages/external-secrets/external-secrets/2.5.0) | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
-| argo-cd/argo-cd@9.5.15 | default | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | generated-passwords | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/rabbitmq/16.0.14](packages/bitnami/rabbitmq/16.0.14) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, no-crds | [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3) | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, no-crds | [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3) | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
 | grafana/loki@7.0.0 | single-binary-filesystem | start-here | live-helm-vs-confighub-parity | - | single-binary-filesystem, simple-scalable-minio | [packages/grafana/loki/7.0.0](packages/grafana/loki/7.0.0) | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
 | longhorn/longhorn@1.11.2 | default | start-here | live-helm-vs-confighub-parity | - | default, ui-ingress | [packages/longhorn/longhorn/1.11.2](packages/longhorn/longhorn/1.11.2) | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
 | bitnami/mysql@14.0.3 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/mysql/14.0.3](packages/bitnami/mysql/14.0.3) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
 | grafana/grafana@10.5.15 | existing-secret-ingress | start-here | live-helm-vs-confighub-parity | - | generated-passwords, existing-secret-ingress | [packages/grafana/grafana/10.5.15](packages/grafana/grafana/10.5.15) | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
 | hashicorp/vault@0.32.0 | default | start-here | live-helm-vs-confighub-parity | - | dev-mode, default, ha-raft-ui | [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0) | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | start-here | live-helm-vs-confighub-parity | - | default, sync-secret-rotation | [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0](packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0) | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | [packages/prometheus-community/prometheus/29.8.0](packages/prometheus-community/prometheus/29.8.0) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
-| bitnami/mongodb@19.0.7 | generated-passwords | start-here | live-helm-vs-confighub-parity | - | generated-passwords, existing-secret-replicaset | [packages/bitnami/mongodb/19.0.7](packages/bitnami/mongodb/19.0.7) | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
-| bitnami/nginx@24.0.2 | http-clusterip | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | http-clusterip, existing-tls-ingress | [packages/bitnami/nginx/24.0.2](packages/bitnami/nginx/24.0.2) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
+| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | [packages/prometheus-community/prometheus/29.8.0](packages/prometheus-community/prometheus/29.8.0) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
+| bitnami/mongodb@19.0.7 | generated-passwords | render-only | live-helm-vs-confighub-parity | - | generated-passwords, existing-secret-replicaset | [packages/bitnami/mongodb/19.0.7](packages/bitnami/mongodb/19.0.7) | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
+| bitnami/nginx@24.0.2 | http-clusterip | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | http-clusterip, existing-tls-ingress | [packages/bitnami/nginx/24.0.2](packages/bitnami/nginx/24.0.2) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
 | grafana/tempo@1.24.4 | local-persistent | start-here | live-helm-vs-confighub-parity | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | local-persistent, s3-query-observability | [packages/grafana/tempo/1.24.4](packages/grafana/tempo/1.24.4) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
 | hashicorp/consul@2.0.0 | default-control-plane | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default-control-plane, secure-mesh-existing-secrets | [packages/hashicorp/consul/2.0.0](packages/hashicorp/consul/2.0.0) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
 
@@ -99,7 +99,7 @@ The `Start Base Status` column uses the same generated readiness labels.
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
@@ -118,7 +118,7 @@ Variants:
 ##### default (recommended first)
 
 When to use: Redis default variant rendered from bitnami/redis@25.5.3
-Readiness: start-here
+Readiness: render-only
 Namespace: redis
 Target facts: none
 Package base: [packages/bitnami/redis/25.5.3/bases/default](packages/bitnami/redis/25.5.3/bases/default)
@@ -130,7 +130,7 @@ Receipts: [per-chart receipts](recipes/bitnami/redis/25.5.3/CATALOG.md)
 ##### reuse-existing-secret
 
 When to use: Redis variant that uses an existing Secret target fact
-Readiness: start-here
+Readiness: render-only
 Namespace: redis
 Target facts: required Secret redis/redis-existing-secret keys redis-password
 Package base: [packages/bitnami/redis/25.5.3/bases/reuse-existing-secret](packages/bitnami/redis/25.5.3/bases/reuse-existing-secret)
@@ -336,7 +336,7 @@ Receipts: [per-chart receipts](recipes/external-secrets/external-secrets/2.5.0/C
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: render-only
+Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
@@ -355,7 +355,7 @@ Variants:
 ##### default (recommended first)
 
 When to use: argo-cd default variant rendered from argo-cd/argo-cd@9.5.15
-Readiness: render-only
+Readiness: start-here
 Namespace: argocd
 Target facts: required Secret argocd/argocd-redis keys auth
 Package base: [packages/argo-cd/argo-cd/9.5.15/bases/default](packages/argo-cd/argo-cd/9.5.15/bases/default)
@@ -367,7 +367,7 @@ Receipts: [per-chart receipts](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
 ##### no-crds
 
 When to use: argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.15
-Readiness: try-with-proof
+Readiness: render-only
 Namespace: argocd
 Target facts: required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io
 Package base: [packages/argo-cd/argo-cd/9.5.15/bases/no-crds](packages/argo-cd/argo-cd/9.5.15/bases/no-crds)
@@ -381,7 +381,7 @@ Receipts: [per-chart receipts](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
@@ -400,7 +400,7 @@ Variants:
 ##### generated-passwords (recommended first)
 
 When to use: postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7
-Readiness: start-here
+Readiness: render-only
 Namespace: postgresql
 Target facts: none
 Package base: [packages/bitnami/postgresql/18.6.7/bases/generated-passwords](packages/bitnami/postgresql/18.6.7/bases/generated-passwords)
@@ -412,7 +412,7 @@ Receipts: [per-chart receipts](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
 ##### existing-secret
 
 When to use: postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7
-Readiness: start-here
+Readiness: render-only
 Namespace: postgresql
 Target facts: required Secret postgresql/postgresql-auth keys postgres-password
 Package base: [packages/bitnami/postgresql/18.6.7/bases/existing-secret](packages/bitnami/postgresql/18.6.7/bases/existing-secret)
@@ -471,7 +471,7 @@ Receipts: [per-chart receipts](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md)
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: existing-secret (chart ships no Secret toggle)
@@ -490,7 +490,7 @@ Variants:
 ##### default (recommended first)
 
 When to use: kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3
-Readiness: start-here
+Readiness: render-only
 Namespace: monitoring
 Target facts: required Secret monitoring/kube-prometheus-stack-admission keys cert,key
 Package base: [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default](packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default)
@@ -502,7 +502,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/kube-prometheus-stac
 ##### no-crds
 
 When to use: kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3
-Readiness: start-here
+Readiness: render-only
 Namespace: monitoring
 Target facts: required Secret monitoring/kube-prometheus-stack-admission keys cert,key; required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com
 Package base: [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds](packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds)
@@ -739,7 +739,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 ##### ha-raft-ui
 
 When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0
-Readiness: try-with-proof
+Readiness: runtime-watch
 Namespace: vault
 Target facts: topology minSchedulableNodes=3
 Package base: [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](packages/hashicorp/vault/0.32.0/bases/ha-raft-ui)
@@ -798,7 +798,7 @@ Receipts: [per-chart receipts](recipes/secrets-store-csi-driver/secrets-store-cs
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
@@ -817,7 +817,7 @@ Variants:
 ##### default
 
 When to use: prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0
-Readiness: start-here
+Readiness: render-only
 Namespace: monitoring
 Target facts: none
 Package base: [packages/prometheus-community/prometheus/29.8.0/bases/default](packages/prometheus-community/prometheus/29.8.0/bases/default)
@@ -829,7 +829,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/prometheus/29.8.0/CA
 ##### server-only-ephemeral (recommended first)
 
 When to use: prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0
-Readiness: start-here
+Readiness: render-only
 Namespace: monitoring
 Target facts: none
 Package base: [packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral](packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral)
@@ -843,7 +843,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/prometheus/29.8.0/CA
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: -
@@ -862,7 +862,7 @@ Variants:
 ##### generated-passwords (recommended first)
 
 When to use: mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7
-Readiness: start-here
+Readiness: render-only
 Namespace: mongodb
 Target facts: none
 Package base: [packages/bitnami/mongodb/19.0.7/bases/generated-passwords](packages/bitnami/mongodb/19.0.7/bases/generated-passwords)
@@ -874,7 +874,7 @@ Receipts: [per-chart receipts](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 ##### existing-secret-replicaset
 
 When to use: mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7
-Readiness: start-here
+Readiness: render-only
 Namespace: mongodb
 Target facts: required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key
 Package base: [packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset](packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset)
@@ -888,7 +888,7 @@ Receipts: [per-chart receipts](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: start-here
+Start base readiness: render-only
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2
 Hard gap: existing-secret (chart ships no Secret toggle)
@@ -907,7 +907,7 @@ Variants:
 ##### http-clusterip (recommended first)
 
 When to use: nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2
-Readiness: start-here
+Readiness: render-only
 Namespace: nginx
 Target facts: none
 Package base: [packages/bitnami/nginx/24.0.2/bases/http-clusterip](packages/bitnami/nginx/24.0.2/bases/http-clusterip)
@@ -919,7 +919,7 @@ Receipts: [per-chart receipts](recipes/bitnami/nginx/24.0.2/CATALOG.md)
 ##### existing-tls-ingress
 
 When to use: nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2
-Readiness: start-here
+Readiness: render-only
 Namespace: nginx
 Target facts: required Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt; required Secret nginx/nginx-ingress-tls keys tls.crt,tls.key
 Package base: [packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress](packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress)
@@ -964,7 +964,7 @@ Receipts: [per-chart receipts](recipes/grafana/tempo/1.24.4/CATALOG.md)
 ##### s3-query-observability
 
 When to use: tempo S3 query and observability variant rendered from grafana/tempo@1.24.4
-Readiness: try-with-proof
+Readiness: runtime-watch
 Namespace: tempo
 Target facts: required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)
 Package base: [packages/grafana/tempo/1.24.4/bases/s3-query-observability](packages/grafana/tempo/1.24.4/bases/s3-query-observability)
@@ -1055,14 +1055,14 @@ need catalog promotion review before support is claimed.
 | argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
 | argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
 | argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
-| argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
+| argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
 | autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
 | bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
 | bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
 | bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
-| bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
+| bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
 | bitnami/mongodb@19.0.9 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
 | bitnami/mongodb@19.1.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
 | bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
@@ -1075,7 +1075,7 @@ need catalog promotion review before support is claimed.
 | bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
 | bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
-| coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
+| coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
 | descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
 | dex/dex@0.24.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
@@ -1085,33 +1085,33 @@ need catalog promotion review before support is claimed.
 | elastic/logstash@8.5.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
 | elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
 | external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
-| fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
+| fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
 | fairwinds-stable/vpa@4.11.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md) |
-| falcosecurity/falco@9.0.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/falcosecurity/falco/9.0.0/CATALOG.md) |
-| falcosecurity/falcosidekick@0.13.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md) |
+| falcosecurity/falco@9.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/falcosecurity/falco/9.0.0/CATALOG.md) |
+| falcosecurity/falcosidekick@0.13.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md) |
 | fluent/fluent-bit@0.57.6 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/fluent/fluent-bit/0.57.6/CATALOG.md) |
-| fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
+| fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
 | gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
 | gitlab/gitlab-runner@0.89.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md) |
 | grafana/alloy@1.8.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
-| grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |
-| grafana/pyroscope@2.0.2 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/grafana/pyroscope/2.0.2/CATALOG.md) |
-| grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
-| haproxytech/kubernetes-ingress@1.52.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md) |
+| grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |
+| grafana/pyroscope@2.0.2 | proof-grade | limitation-decision-first | two-cluster-kind-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/grafana/pyroscope/2.0.2/CATALOG.md) |
+| grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
+| haproxytech/kubernetes-ingress@1.52.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md) |
 | hashicorp/terraform@1.1.2 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/hashicorp/terraform/1.1.2/CATALOG.md) |
 | istio/gateway@1.30.0 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/istio/gateway/1.30.0/CATALOG.md) |
 | istio/istiod@1.30.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/istio/istiod/1.30.0/CATALOG.md) |
-| jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
-| jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
-| jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
-| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
+| jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
+| jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
+| jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
+| jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
 | kedacore/keda@2.19.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
 | kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
 | kyverno/kyverno@3.8.1 | proof-grade | limitation-decision-first | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
-| linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
-| minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
-| minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
-| nats/nack@0.34.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
+| linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
+| minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
+| minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
+| nats/nack@0.34.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
 | nats/nats@2.14.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
 | nats/surveyor@0.20.9 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
@@ -1124,19 +1124,19 @@ need catalog promotion review before support is claimed.
 | prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
 | prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
-| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | not-ready | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
+| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | not-ready | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
 | prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
-| prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
-| prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
+| prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
+| prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.9.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/prometheus/29.9.0/CATALOG.md) |
 | rook-release/rook-ceph-cluster@v1.19.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md) |
-| rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
-| runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
+| rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
+| runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
 | sealed-secrets/sealed-secrets@2.18.6 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md) |
 | stakater/reloader@2.2.12 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
 | strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
 | traefik/traefik@40.2.0 | proof-grade | limitation-decision-first | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
 | velero/velero@12.0.1 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
-| vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
-| vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |
+| vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
+| vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |
