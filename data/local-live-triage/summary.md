@@ -8,12 +8,12 @@ clear without turning every non-pass row into a product defect.
 ## Snapshot
 
 ~~~text
-chart/base rows:          191
-local live observed rows: 191
-local live pass rows:     138
-local live non-pass rows: 53
-classified non-pass rows: 53
-needs manual inspection:  0
+chart/base rows:          193
+local live observed rows: 193
+local live pass rows:     143
+local live non-pass rows: 50
+classified non-pass rows: 49
+needs manual inspection:  1
 ~~~
 
 ## Route Classes
@@ -22,11 +22,12 @@ needs manual inspection:  0
 | --- | ---: | --- | --- |
 | `runtime-readiness` | 22 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| `webhook-cert-lifecycle` | 8 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
+| `webhook-cert-lifecycle` | 4 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `admission-or-rbac` | 3 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `api-version-unsupported` | 2 | The rendered objects use a Kubernetes API version that the tested target no longer serves. | Use a supported chart version, compatibility base, or target Kubernetes profile before rerun. |
 | `cloud-or-provider-prerequisite` | 2 | The chart expects provider credentials, cloud APIs, buckets, DNS, volumes, or another external system. | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
+| `inspect-receipt` | 1 | The receipt has useful failure evidence, but the automatic classifier does not yet have a precise route. | Read the receipt and add a classifier rule only after the product route is clear. |
 | `lifecycle-ordering` | 1 | The rendered objects are valid, but the target needs a staged lifecycle sequence instead of one bulk apply. | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
 
 ## First Rows To Inspect
@@ -46,6 +47,7 @@ needs manual inspection:  0
 | `bitnami/zookeeper@13.8.7` | ha | blocked | `image-dependency` | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. | [receipt](../../runs/next80-local-kind/bitnami-zookeeper-13.8.7-ha/observation-receipt.yaml) |
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | `image-dependency` | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. | [receipt](../../runs/next80-local-kind/istio-gateway-1.30.0-controller-default-reviewed/observation-receipt.yaml) |
 | `istio/gateway@1.30.0` | default | blocked | `image-dependency` | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. | [receipt](../../runs/next80-local-kind/istio-gateway-1.30.0-default/observation-receipt.yaml) |
+| `open-telemetry/opentelemetry-operator@0.114.0` | default | blocked | `inspect-receipt` | Read the receipt and add a classifier rule only after the product route is clear. | [receipt](../../runs/next80-local-kind/open-telemetry-opentelemetry-operator-0.114.0-default/observation-receipt.yaml) |
 | `projectcalico/tigera-operator@v3.32.0` | default | blocked | `lifecycle-ordering` | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. | [receipt](../../runs/next80-local-kind/projectcalico-tigera-operator-v3.32.0-default/observation-receipt.yaml) |
 | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/observation-receipt.yaml) |
 | `argo-cd/argo-workflows@1.0.14` | default | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-default/observation-receipt.yaml) |
@@ -62,7 +64,6 @@ needs manual inspection:  0
 | `grafana/rollout-operator@0.49.0` | no-crds | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/grafana-rollout-operator-0.49.0-no-crds/observation-receipt.yaml) |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/hashicorp-terraform-1.1.2-no-crds/observation-receipt.yaml) |
 | `istio/istiod@1.30.0` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/istio-istiod-1.30.0-default/observation-receipt.yaml) |
-| `jetstack/trust-manager@v0.22.1` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/jetstack-trust-manager-v0.22.1-default/observation-receipt.yaml) |
 
 ## How To Use This
 

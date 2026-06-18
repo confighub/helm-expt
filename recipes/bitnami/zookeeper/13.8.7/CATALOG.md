@@ -59,6 +59,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/bitnami/zookeeper/13.8.7/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/zookeeper/13.8.7/bases/default](../../../../packages/bitnami/zookeeper/13.8.7/bases/default) | [recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | pass | allow | none |
 | ha | [recipes/bitnami/zookeeper/13.8.7/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/bitnami/zookeeper/13.8.7/bases/ha](../../../../packages/bitnami/zookeeper/13.8.7/bases/ha) | [recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 7 |  | 7/7 | pass |  | allow | none |
+| legacy | [recipes/bitnami/zookeeper/13.8.7/variants/legacy/variant.yaml](variants/legacy/variant.yaml) | [packages/bitnami/zookeeper/13.8.7/bases/legacy](../../../../packages/bitnami/zookeeper/13.8.7/bases/legacy) | [recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml](revisions/legacy/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | pass | allow | none |
 
 ## Package Bases
 
@@ -66,6 +67,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- |
 | default | [packages/bitnami/zookeeper/13.8.7/bases/default](../../../../packages/bitnami/zookeeper/13.8.7/bases/default) | yes | bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7 |
 | ha | [packages/bitnami/zookeeper/13.8.7/bases/ha](../../../../packages/bitnami/zookeeper/13.8.7/bases/ha) | no | bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7 |
+| legacy | [packages/bitnami/zookeeper/13.8.7/bases/legacy](../../../../packages/bitnami/zookeeper/13.8.7/bases/legacy) | no | bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7 |
 
 ## Receipts
 
@@ -79,6 +81,10 @@ for exact base-variant evidence.
 | ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
 | ha | r001 | scan | ScanReceipt |  | [recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
 | ha | r001 | installGate | InstallGate | allow | [recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
+| legacy | r001 | render | RenderReceipt | recorded | [recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/render-receipt.yaml](revisions/legacy/r001/receipts/render-receipt.yaml) |
+| legacy | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml](revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml) |
+| legacy | r001 | scan | ScanReceipt | pass | [recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/scan-receipt.yaml](revisions/legacy/r001/receipts/scan-receipt.yaml) |
+| legacy | r001 | installGate | InstallGate | allow | [recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/install-gate.yaml](revisions/legacy/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

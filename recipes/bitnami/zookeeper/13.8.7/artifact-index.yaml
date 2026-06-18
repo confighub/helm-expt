@@ -67,7 +67,7 @@ spec:
     path: "packages/bitnami/zookeeper/13.8.7"
     installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"
     receipt: "recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b5607b35b457faecf1abe73ccf4a5d6b1d78d1de6f963ef866385aa80380cdeb"
+    deterministicBundleSHA256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -80,6 +80,11 @@ spec:
         path: "packages/bitnami/zookeeper/13.8.7/bases/ha"
         default: false
         description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"
+      -
+        name: "legacy"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/legacy"
+        default: false
+        description: "bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7"
   variants:
     -
       name: "default"
@@ -205,3 +210,65 @@ spec:
               path: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+    -
+      name: "legacy"
+      variant: "recipes/bitnami/zookeeper/13.8.7/variants/legacy/variant.yaml"
+      namespace: "default"
+      releaseName: "zookeeper"
+      valuesProfile: "recipes/bitnami/zookeeper/13.8.7/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "legacy"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/legacy"
+        default: false
+        description: "bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7"
+      setupCheck:
+        command: ""
+        helmReleaseObjectCount: ""
+        cubInstallObjectCountIncludingSupport: ""
+        semanticObjectMatches: ""
+        separatedSecretCount: ""
+        allowedCubOnlyObjects:
+          []
+      revisions:
+        -
+          name: "legacy-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml"
+          digest: "cb29752cc67f9a42d2102362e58cc12df82ce623562b2732ab857e923c670977"
+          renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+          renderedObjects: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"

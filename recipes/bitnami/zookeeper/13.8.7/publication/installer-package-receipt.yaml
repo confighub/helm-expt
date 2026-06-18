@@ -4,17 +4,16 @@ metadata:
   name: "bitnami-zookeeper-13-8-7"
 spec:
   chart:
-    repository: "bitnami"
     name: "zookeeper"
+    repository: "bitnami"
     version: "13.8.7"
   deterministicBundle:
-    command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13.8.7.tgz"
-    sha256: "b5607b35b457faecf1abe73ccf4a5d6b1d78d1de6f963ef866385aa80380cdeb"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13.8.7.tgz"
+    sha256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
   package:
-    path: "packages/bitnami/zookeeper/13.8.7"
     name: "bitnami-zookeeper"
-    version: "13.8.7"
+    path: "packages/bitnami/zookeeper/13.8.7"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,18 @@ spec:
         sha256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
         bytes: 10918
       -
+        path: "bases/legacy/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/legacy/upstream.yaml"
+        sha256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+        bytes: 10520
+      -
         path: "installer.yaml"
-        sha256: "afebb219a04c517fd9b442d01f4113480d328650e20d74c66cbc2012eba8a24f"
-        bytes: 441
+        sha256: "37f8fe382496418bea572ddea5735c27cd9c1182313b2d7ec5b5c0854da732f1"
+        bytes: 647
+    version: "13.8.7"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +60,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "ha"
-      base: "ha"
-      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "ha"
+      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "ha"
