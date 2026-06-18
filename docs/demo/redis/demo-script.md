@@ -1,5 +1,7 @@
 # Redis Five-Minute Demo Script
 
+> **Where this fits:** the helm-expt [user story](../../user/user-story.md) — *Helm serverless → add server → add app → changes + variants → day-1 → day-2*, for any chart.
+
 This is the current Redis happy path using only real commands. It does not use
 future shorthand such as `cub installer redis`.
 

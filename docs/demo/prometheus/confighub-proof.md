@@ -1,5 +1,7 @@
 # Prometheus ConfigHub Proof
 
+> **Where this fits:** the helm-expt [user story](../../user/user-story.md) — *Helm serverless → add server → add app → changes + variants → day-1 → day-2*, for any chart.
+
 ## Purpose
 
 This proof lane shows the current ConfigHub path for `prometheus-community/prometheus@29.8.0`

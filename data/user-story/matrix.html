@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>User Story Spine</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23}h1{font-size:20px}h2{font-size:15px;margin-top:22px}table{border-collapse:collapse;margin:8px 0 16px}th,td{border:1px solid #d0d7de;padding:6px 10px;font-size:12.5px;text-align:left}th{background:#f6f8fa}.note{color:#57606a;font-size:13px;max-width:62em}</style></head><body>
+<h1>User Story Spine</h1>
+<p class="note">Chart-agnostic: each stage's reach is counted across the catalog. <span style="background:#d6f5d6">&nbsp;catalog-wide&nbsp;</span> <span style="background:#ffe1c2">&nbsp;anchor-only&nbsp;</span> <span style="background:#f8d7da">&nbsp;gap&nbsp;</span> <span style="background:#eef1f4">&nbsp;qualitative&nbsp;</span></p>
+<table><tr><th>Stage</th><th>Coverage</th><th>Reach</th><th>Evidence</th></tr>
+<tr style="background:#e7f7d6"><td><b>Helm, serverless</b><br><span class="note">Render and apply a chart with no server: cub installer pulls the package and applies the reviewed object set.</span></td><td>110</td><td>broad</td><td>installer packages + render parity</td></tr>
+<tr style="background:#e7f7d6"><td><b>Add server</b><br><span class="note">Upload the reviewed object set into ConfigHub as governed Units (the desired-state store).</span></td><td>110</td><td>broad</td><td>confighub scan / upload lane</td></tr>
+<tr style="background:#e7f7d6"><td><b>Add app - load brown</b><br><span class="note">Import an existing Helm chart: render once, hold as data, recover its variants.</span></td><td>110</td><td>broad</td><td>the import path (recipes)</td></tr>
+<tr style="background:#f8d7da"><td><b>Add app - write green</b><br><span class="note">Author a new app directly as ConfigHub data (greenfield), with no chart to import.</span></td><td>0</td><td>gap</td><td>greenfield authored units</td></tr>
+<tr style="background:#e7f7d6"><td><b>Make changes + variants</b><br><span class="note">Edit the held data directly (not re-render) and fork governed variants for environment, region, or customer.</span></td><td>199</td><td>broad</td><td>variants + value-source-map</td></tr>
+<tr style="background:#d6f5d6"><td><b>Day-1: preview</b><br><span class="note">See exactly what will deploy, pre-deploy, with cluster-dependence captured as data (capability profile, target facts).</span></td><td>199/199</td><td>catalog-wide</td><td>preview-readiness (#988)</td></tr>
+<tr style="background:#ffe1c2"><td><b>Day-1: dry-run</b><br><span class="note">See what a change touches before applying: value provenance + fleet blast-radius + override-protection (better than ArgoCD's diff).</span></td><td>4</td><td>anchor-only</td><td>blast-radius (#982) + fleet (#985)</td></tr>
+<tr style="background:#e7f7d6"><td><b>Day-1: lifecycle + other functions</b><br><span class="note">Stage prerequisites, route hooks, witness convergence - the things plain Helm hides inside one install step.</span></td><td>50/199</td><td>broad</td><td>target facts + hook routes + cub-scout</td></tr>
+<tr style="background:#eef1f4"><td><b>Day-2</b><br><span class="note">Upgrade, rollback (revisions), drift, and authorized reverse-reconcile back into desired state.</span></td><td>qualitative</td><td>qualitative</td><td>reverse-reconcile design (#986) + upgrade lanes + revisions</td></tr>
+</table>
+<h2>Visibility</h2><p class="note">46/190 docs reference the user story; 45/45 demo pages carry the spine. Driving this to 100% is tracked in the summary.</p>
+</body></html>

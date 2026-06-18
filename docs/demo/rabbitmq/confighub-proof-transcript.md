@@ -1,5 +1,7 @@
 # RabbitMQ ConfigHub Proof Transcript
 
+> **Where this fits:** the helm-expt [user story](../../user/user-story.md) — *Helm serverless → add server → add app → changes + variants → day-1 → day-2*, for any chart.
+
 Run date: 2026-05-27
 
 Receipts:

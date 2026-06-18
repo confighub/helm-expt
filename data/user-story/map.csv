@@ -1,0 +1,10 @@
+stage_id,title,coverage_signal,coverage_count,coverage_of,reach,evidence
+helm-serverless,"Helm, serverless",installer-packages,110,,broad,"installer packages + render parity"
+add-server,"Add server",recipes,110,,broad,"confighub scan / upload lane"
+add-app-brown,"Add app - load brown",recipes,110,,broad,"the import path (recipes)"
+add-app-green,"Add app - write green",greenfield,0,,gap,"greenfield authored units"
+changes-variants,"Make changes + variants",variants,199,,broad,"variants + value-source-map"
+day1-preview,"Day-1: preview",capability-profile,199,199,catalog-wide,"preview-readiness (#988)"
+day1-dryrun,"Day-1: dry-run",value-source-maps,4,,anchor-only,"blast-radius (#982) + fleet (#985)"
+day1-lifecycle,"Day-1: lifecycle + other functions",target-fact-variants,50,199,broad,"target facts + hook routes + cub-scout"
+day2,"Day-2",reverse-reconcile-design,,,qualitative,"reverse-reconcile design (#986) + upgrade lanes + revisions"

@@ -1,0 +1,72 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UserStorySpine
+metadata:
+  name: helm-expt-user-story
+spec:
+  # The canonical user story. Chart-agnostic by construction: every stage is a
+  # capability proven across the catalog, never tied to one chart. The
+  # coverageSignal on each stage is counted across all recipes by
+  # scripts/generate-user-story.mjs so "works for all" is measured, not asserted.
+  oneLine: >
+    Helm serverless -> add server -> add app (write green | load brown) ->
+    make changes + variants -> day-1 (preview, dry-run, lifecycle, ...) ->
+    day-2 — for ANY chart, cross-cut by SecOps, platforms, fleets, stacks, and
+    other groups.
+  chartAgnostic: true
+  stages:
+    - id: helm-serverless
+      title: "Helm, serverless"
+      story: "Render and apply a chart with no server: cub installer pulls the package and applies the reviewed object set."
+      evidence: "installer packages + render parity"
+      coverageSignal: installer-packages
+    - id: add-server
+      title: "Add server"
+      story: "Upload the reviewed object set into ConfigHub as governed Units (the desired-state store)."
+      evidence: "confighub scan / upload lane"
+      coverageSignal: recipes
+    - id: add-app-brown
+      title: "Add app - load brown"
+      story: "Import an existing Helm chart: render once, hold as data, recover its variants."
+      evidence: "the import path (recipes)"
+      coverageSignal: recipes
+    - id: add-app-green
+      title: "Add app - write green"
+      story: "Author a new app directly as ConfigHub data (greenfield), with no chart to import."
+      evidence: "greenfield authored units"
+      coverageSignal: greenfield
+    - id: changes-variants
+      title: "Make changes + variants"
+      story: "Edit the held data directly (not re-render) and fork governed variants for environment, region, or customer."
+      evidence: "variants + value-source-map"
+      coverageSignal: variants
+    - id: day1-preview
+      title: "Day-1: preview"
+      story: "See exactly what will deploy, pre-deploy, with cluster-dependence captured as data (capability profile, target facts)."
+      evidence: "preview-readiness (#988)"
+      coverageSignal: capability-profile
+    - id: day1-dryrun
+      title: "Day-1: dry-run"
+      story: "See what a change touches before applying: value provenance + fleet blast-radius + override-protection (better than ArgoCD's diff)."
+      evidence: "blast-radius (#982) + fleet (#985)"
+      coverageSignal: value-source-maps
+    - id: day1-lifecycle
+      title: "Day-1: lifecycle + other functions"
+      story: "Stage prerequisites, route hooks, witness convergence - the things plain Helm hides inside one install step."
+      evidence: "target facts + hook routes + cub-scout"
+      coverageSignal: target-fact-variants
+    - id: day2
+      title: "Day-2"
+      story: "Upgrade, rollback (revisions), drift, and authorized reverse-reconcile back into desired state."
+      evidence: "reverse-reconcile design (#986) + upgrade lanes + revisions"
+      coverageSignal: reverse-reconcile-design
+  crossCutting:
+    - id: secops
+      lens: "Scan lanes, the reverse-reconcile authority model, separated secrets, signatures."
+    - id: platforms
+      lens: "Catalog + recipe/installer + target facts (platform prerequisites)."
+    - id: fleets
+      lens: "Fleet blast-radius + promotion across environments (#985)."
+    - id: stacks
+      lens: "Dependency-lock / closure; multi-chart app bundles as a first-class stack is a gap."
+    - id: groups
+      lens: "Authority / RBAC - who can change what; seeded by the reverse-reconcile policy."
