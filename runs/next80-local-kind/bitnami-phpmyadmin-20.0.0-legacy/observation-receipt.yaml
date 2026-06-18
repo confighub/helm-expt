@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-phpmyadmin-20.0.0-legacy-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-legacy"
+    context: "kind-claude-helm-expt-legacy"
+    namespace: "default"
+  observedAt: "2026-06-18T11:22:47.505Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "legacy"
+  targetFacts:
+    {}
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "8f3bd34a5c5f134707b2d3a5786debb3062f3d9ff7628682ec474d14dcf58533"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|phpmyadmin"

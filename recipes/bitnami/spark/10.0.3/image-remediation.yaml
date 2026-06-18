@@ -27,6 +27,15 @@ spec:
       failure_signature: "remote-image: the pinned image above could not be pulled on the target (container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
       receipt: runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml
       rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
+  remediated_variant:
+    name: legacy
+    variant: recipes/bitnami/spark/10.0.3/variants/legacy/variant.yaml
+    variant_revision: recipes/bitnami/spark/10.0.3/revisions/legacy/r001/variant-revision.yaml
+    rendered_object_set_sha256: "05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373"
+    lane: L
+    result: pass
+    receipt: runs/next80-local-kind/bitnami-spark-10.0.3-legacy/observation-receipt.yaml
+    note: "The legacy variant remaps the default render docker.io/bitnami spark image(s) to the verified-pullable docker.io/bitnamilegacy mirror; its local-live (L) cell is PASS — the image(s) pull and the workload(s) reach Ready on kind. The core default variant (and ha, where present) is intentionally left as an honest image-blocked watch row documenting the Aug-2025 Bitnami deprecation."
   automatic: false
   evidence:
     - runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml

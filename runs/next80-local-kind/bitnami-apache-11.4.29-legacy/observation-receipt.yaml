@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-apache-11.4.29-legacy-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-legacy"
+    context: "kind-claude-helm-expt-legacy"
+    namespace: "default"
+  observedAt: "2026-06-18T11:21:08.539Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "legacy"
+  targetFacts:
+    {}
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "0a8124e522b216d4907860d9dbc9516d35a6b7ac193f86909baa0017bc36550e"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/bitnami/apache/11.4.29/revisions/legacy/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|apache"

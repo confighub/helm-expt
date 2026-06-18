@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-phpmyadmin-20.0.0-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/phpmyadmin"
+    confighub.io/chart-version: "20.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|phpmyadmin"
+      kind: "Deployment"
+      name: "phpmyadmin"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|phpmyadmin"
+      kind: "NetworkPolicy"
+      name: "phpmyadmin"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|phpmyadmin"
+      kind: "PodDisruptionBudget"
+      name: "phpmyadmin"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|phpmyadmin"
+      kind: "ServiceAccount"
+      name: "phpmyadmin"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|phpmyadmin"
+      kind: "Service"
+      name: "phpmyadmin"
+      namespace: "default"

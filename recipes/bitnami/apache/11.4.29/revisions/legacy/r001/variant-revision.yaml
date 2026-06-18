@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variant: "../../../variants/legacy/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "e3b08fed13658e109c0b9f3e0166eb3f652a062149c77e5c7a7143cce7cecd1a"
+    renderedObjectSetSHA256: "1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

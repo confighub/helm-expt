@@ -6,6 +6,10 @@ metadata:
 spec:
   bases:
     -
+      name: "legacy"
+      path: "bases/legacy"
+      description: "bitnami/elasticsearch legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/elasticsearch@22.1.6"
+    -
       default: true
       description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
       name: "default"
