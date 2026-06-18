@@ -4,18 +4,39 @@
 
 The master catalog matrix
 ([data/master-catalog-matrix/matrix.html](../../data/master-catalog-matrix/matrix.html))
-has one row per chart / version / base variant or downstream ConfigHub-derived
-variant. Each row answers two questions: **can I use this row, and how much is
-proven?** This page explains the lane columns, the `G` / `P` / `K` shorthands,
-and the cell states. When a row is not green, it shows where to look to
-understand why.
+has one row per chart / version / catalog layer. Each row answers two
+questions: **what is this path, and how much is proven?** This page explains
+the F1-F4 layers, the `G` / `P` / `K` shorthands, and the cell states. When a
+row is not green, it shows where to look to understand why.
+
+## The layers
+
+The `Layer` column shows where the row sits in the Helm-to-ConfigHub flow.
+
+| Layer | What it means |
+| --- | --- |
+| `F1` | Upstream Helm chart source. Pick or create a base before installing it. |
+| `F2a` | Honest default base. This is the simplest rendered installer base when the chart default is useful. |
+| `F2b` | Rendered standard fork. Helm values change the object set, so it belongs in the recipe/package path. |
+| `F2c` | Candidate useful or parameterized base. The matrix shows the planned path, but it is not proof-backed yet. |
+| `F3` | Target prerequisite or fill candidate: Secret, CRD, namespace, cloud value, target fact, or similar input needed before delivery. |
+| `F4a` | Derived ConfigHub clone. Post-render changes such as target, region, labels, links, approvals, or observation policy. |
+| `F4b` | Target-bound derived variant. A downstream ConfigHub variant with a committed target run receipt. |
 
 The `Kind` column matters:
 
 | Kind | Meaning |
 | --- | --- |
+| `source` | The upstream chart/version source row. This is not an install row. |
 | `base` | An installer base variant. This is the render-time install shape: values, rendered objects, package base, and recipe evidence. |
+| `candidate` | A planned F2/F3 path from committed work-order data. This is useful product guidance, not a proof claim. |
+| `candidate discussion` | A non-default or target-specific candidate that needs discussion with the ConfigHub team before it becomes runnable. |
 | `derived from <base>` | A ConfigHub-derived variant cloned from a base. This is post-render customization for a target, customer, environment, or region. It should not imply a Helm rerender. |
+
+Candidate rows are intentionally colored separately in the HTML view. They show
+where the catalog could go next: more useful bases, target prerequisite fills,
+and custom paths. They do not claim render parity, live parity, or target-run
+evidence until a real base or derived variant is committed.
 
 ## The proof lanes
 

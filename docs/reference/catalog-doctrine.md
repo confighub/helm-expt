@@ -27,6 +27,22 @@ recipe ─┬─ default base            (concrete, zero placeholders, works OOT
                                    each a real, rendered, Helm-equivalent, pinned shape
 ```
 
+The generated master matrix uses this same flow:
+
+| Layer | Role |
+| --- | --- |
+| `F1` | upstream chart/version source |
+| `F2a` | honest default rendered base |
+| `F2b` | rendered standard fork |
+| `F2c` | candidate useful or parameterized base |
+| `F3` | target prerequisite or fill candidate |
+| `F4a` | derived ConfigHub clone |
+| `F4b` | target-bound derived variant |
+
+`F2c` and `F3` candidate rows are planning rows. They show useful paths and
+custom-discussion cases without claiming that render parity or live evidence
+already exists.
+
 ## Outcome Bar
 
 The outcome is not "we generated chart files." The outcome is:
