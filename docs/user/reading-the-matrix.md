@@ -4,10 +4,18 @@
 
 The master catalog matrix
 ([data/master-catalog-matrix/matrix.html](../../data/master-catalog-matrix/matrix.html))
-has one row per chart / version / base variant. Each row answers two questions:
-**can I use this chart/base, and how much is proven?** This page explains the
-lane columns, the `G` / `P` / `K` shorthands, and the cell states — and, when a
-row is not green, exactly where to look to understand why.
+has one row per chart / version / base variant or downstream ConfigHub-derived
+variant. Each row answers two questions: **can I use this row, and how much is
+proven?** This page explains the lane columns, the `G` / `P` / `K` shorthands,
+and the cell states. When a row is not green, it shows where to look to
+understand why.
+
+The `Kind` column matters:
+
+| Kind | Meaning |
+| --- | --- |
+| `base` | An installer base variant. This is the render-time install shape: values, rendered objects, package base, and recipe evidence. |
+| `derived from <base>` | A ConfigHub-derived variant cloned from a base. This is post-render customization for a target, customer, environment, or region. It should not imply a Helm rerender. |
 
 ## The proof lanes
 
@@ -30,11 +38,11 @@ Full lane definitions: [verification-lanes.md](./verification-lanes.md).
 
 | In the matrix | What it means |
 | --- | --- |
-| `yes` | **pass** — this lane is proven for this base. |
+| `yes` | **pass** — this lane is proven for this row. |
 | `watch` | **known evidence with a named residue** — the semantic comparison passed (the delivered objects match regular Helm), but a runtime, controller-health, or operational condition still needs review. **Not a pass, and not a failure.** |
 | `todo` | **not yet run** — queued in the live burn-down. Backlog, not a failure. |
 | `no` | **blocked or not reached** — a prerequisite, model gap, failed live condition, or unsupported route stopped this lane from passing. The decision surfaces below say which. |
-| `n/a` | **not applicable** — this lane does not apply to this base. |
+| `n/a` | **not applicable** — this lane does not apply to this row. |
 | (blank) | not recorded for this row. |
 
 The key distinction: `todo`, `n/a`, and blank are **not failures**. They mean
@@ -54,7 +62,7 @@ work remains, using the coverage completion plan:
 | `model` | Change the recipe, base variant, semantic normalization, or target-fact model. |
 | `image` | Refresh or mirror an image before rerunning the lane. |
 | `upstream` | Wait for or complete an upstream implementation fix, such as a ConfigHub server change. |
-| `scope` | Make a product or support-scope decision before rerunning. |
+| `scope` | Decide the target run scope before rerunning. |
 | `deferred` | No current run/fix work. The non-green cell already has an accepted `watch` or `n/a` disposition and should not consume live-run time until the product scope changes. |
 
 This is the matrix version of "do nothing for now": visible, recorded, and
@@ -64,7 +72,7 @@ reversible when the scope changes, but not part of the active burn-down.
 
 | Your question | Go to |
 | --- | --- |
-| Can I use this chart/base? | the matrix row and its chart page |
+| Can I use this chart/base or derived variant? | the matrix row and its chart page |
 | What still needs live proof? | [live-matrix-burndown](../../data/live-matrix-burndown/summary.md) |
 | Why is this **K** (two-cluster kind) row watch/blocked — who fixes it, can I use it today? | [kind-parity-decisions](../../data/kind-parity-decisions/summary.md) |
 | Why is this **G/P** (GitOps/OCI + live Helm-vs-ConfigHub) row watch/blocked — who fixes it, can I use it today? | [live-parity-decisions](../../data/live-parity-decisions/summary.md) |
