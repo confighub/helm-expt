@@ -8,17 +8,19 @@
     "data/master-catalog-matrix/matrix.csv",
     "data/live-parity-rerun-plan/rerun-plan.csv"
   ],
-  "rowCount": 14,
+  "rowCount": 17,
   "byKind": {
+    "crd-lifecycle": 5,
     "semantic-normalization": 4,
     "base-design": 3,
-    "crd-lifecycle": 3,
     "object-set-shape": 2,
     "generated-fact": 1,
-    "missing-crd": 1
+    "missing-crd": 1,
+    "unknown": 1
   },
   "byOwner": {
-    "catalog-modeling": 13,
+    "catalog-modeling": 15,
+    "operator-review": 1,
     "recipe-generator": 1
   },
   "rows": [
@@ -93,6 +95,34 @@
       "evidence_path": "runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml"
     },
     {
+      "chart": "grafana/pyroscope",
+      "version": "2.0.2",
+      "base": "ha",
+      "lane": "K",
+      "result": "blocked",
+      "model_gap_kind": "crd-lifecycle",
+      "failure_signature": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com; v1|Namespace||d",
+      "sibling_base_passes": "default (K pass); no-crds (K pass)",
+      "recommended_action": "split-lifecycle-objects",
+      "owner_class": "catalog-modeling",
+      "rerun_command": "npm run kind-parity:run -- --chart grafana/pyroscope --version 2.0.2 --base ha",
+      "evidence_path": "runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml"
+    },
+    {
+      "chart": "hashicorp/terraform",
+      "version": "1.1.2",
+      "base": "default",
+      "lane": "K",
+      "result": "blocked",
+      "model_gap_kind": "crd-lifecycle",
+      "failure_signature": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||defa",
+      "sibling_base_passes": "none",
+      "recommended_action": "split-lifecycle-objects",
+      "owner_class": "catalog-modeling",
+      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base default",
+      "evidence_path": "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+    },
+    {
       "chart": "nats/nack",
       "version": "0.34.0",
       "base": "default",
@@ -119,6 +149,20 @@
       "owner_class": "catalog-modeling",
       "rerun_command": "npm run kind-parity:run -- --chart nats/nats --version 2.14.0 --base ha",
       "evidence_path": "runs/live-kind-parity/nats-nats-ha/receipt.yaml"
+    },
+    {
+      "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+      "version": "4.0.18",
+      "base": "default",
+      "lane": "G/P",
+      "result": "blocked",
+      "model_gap_kind": "unknown",
+      "failure_signature": "helm-runtime: upstream leg blocked",
+      "sibling_base_passes": "none",
+      "recommended_action": "operator-review",
+      "owner_class": "operator-review",
+      "rerun_command": "npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default",
+      "evidence_path": "runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",

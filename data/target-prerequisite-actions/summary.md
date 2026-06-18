@@ -13,22 +13,22 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 40 action packets
+## 48 action packets
 
 | Action kind | Rows |
 | --- | ---: |
-| `operator-review` | 15 |
+| `operator-review` | 21 |
 | `install-crds` | 10 |
 | `create-namespace` | 5 |
-| `provide-external-service` | 4 |
-| `stage-secret` | 3 |
+| `provide-external-service` | 5 |
+| `stage-secret` | 4 |
 | `unknown-preflight` | 2 |
 | `provide-storage-or-topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 23 |
-| `user-stage` | 16 |
+| `operator-review` | 30 |
+| `user-stage` | 17 |
 | `target-policy` | 1 |
 
 ## Packets
@@ -37,14 +37,20 @@ for the sibling image story, and
 | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | unknown-preflight | the missing Helm input value(s) | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default` |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | G/P | provide-storage-or-topology | AWS/EKS metadata + node providerID | `npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default` |
+| dex/dex@0.24.0 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` |
 | dex/dex@0.24.0 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart dex/dex --version 0.24.0 --base default` |
 | elastic/filebeat@8.5.1 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default` |
 | elastic/filebeat@8.5.1 | default | K | stage-secret | Secret elasticsearch-master-certs | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base default` |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector` |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector` |
+| elastic/kibana@8.5.1 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` |
+| elastic/kibana@8.5.1 | default | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart elastic/kibana --version 8.5.1 --base default` |
+| elastic/metricbeat@8.5.1 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` |
+| elastic/metricbeat@8.5.1 | default | K | stage-secret | Secret elasticsearch-master-certs | `npm run kind-parity:run -- --chart elastic/metricbeat --version 8.5.1 --base default` |
 | fairwinds-stable/vpa@4.11.0 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
 | fairwinds-stable/vpa@4.11.0 | no-crds | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | fluent/fluentd@0.5.3 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default` |
+| gitlab/gitlab-runner@0.89.0 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default` |
 | gitlab/gitlab-runner@0.89.0 | default | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default` |
 | grafana/pyroscope@2.0.2 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default` |
 | grafana/pyroscope@2.0.2 | ha | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha` |
@@ -66,6 +72,8 @@ for the sibling image story, and
 | nats/surveyor@0.20.9 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default` |
 | nats/surveyor@0.20.9 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default` |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown-preflight | value nfs.server | `npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default` |
+| opencost/opencost@2.5.21 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` |
+| opencost/opencost@2.5.21 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default` |
 | percona/pg-operator@3.0.0 | no-crds | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds` |
 | percona/pxc-operator@1.19.1 | no-crds | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart percona/pxc-operator --version 1.19.1 --base no-crds` |
 | projectcalico/tigera-operator@v3.32.0 | default | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default` |

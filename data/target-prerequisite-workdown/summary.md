@@ -15,21 +15,21 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 40 target-prerequisite rows
+## 48 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
-| `unknown` | 17 |
+| `unknown` | 23 |
 | `crd` | 10 |
+| `external-api` | 5 |
 | `namespace` | 5 |
-| `external-api` | 4 |
-| `secret` | 3 |
+| `secret` | 4 |
 | `topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 23 |
-| `user-stage` | 16 |
+| `operator-review` | 30 |
+| `user-stage` | 17 |
 | `target-policy` | 1 |
 
 ## Rows
@@ -38,14 +38,20 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | --- | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | unknown | unknown | user-stage | yes |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | G/P | topology | AWS/EKS metadata + node providerID | target-policy | yes |
+| dex/dex@0.24.0 | default | G/P | unknown | unknown | operator-review | yes |
 | dex/dex@0.24.0 | default | K | unknown | unknown | operator-review | yes |
 | elastic/filebeat@8.5.1 | default | G/P | unknown | unknown | operator-review | yes |
 | elastic/filebeat@8.5.1 | default | K | secret | Secret elasticsearch-master-certs | user-stage | yes |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | G/P | unknown | unknown | operator-review | yes |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | K | external-api | unknown | operator-review | yes |
+| elastic/kibana@8.5.1 | default | G/P | unknown | unknown | operator-review | yes |
+| elastic/kibana@8.5.1 | default | K | external-api | unknown | operator-review | yes |
+| elastic/metricbeat@8.5.1 | default | G/P | unknown | unknown | operator-review | yes |
+| elastic/metricbeat@8.5.1 | default | K | secret | Secret elasticsearch-master-certs | user-stage | yes |
 | fairwinds-stable/vpa@4.11.0 | default | K | unknown | unknown | operator-review | yes |
 | fairwinds-stable/vpa@4.11.0 | no-crds | K | crd | unknown | user-stage | yes |
 | fluent/fluentd@0.5.3 | default | G/P | unknown | unknown | operator-review | yes |
+| gitlab/gitlab-runner@0.89.0 | default | G/P | unknown | unknown | operator-review | yes |
 | gitlab/gitlab-runner@0.89.0 | default | K | external-api | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | default | G/P | unknown | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | ha | G/P | unknown | unknown | operator-review | yes |
@@ -67,6 +73,8 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | nats/surveyor@0.20.9 | default | G/P | unknown | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default | K | unknown | unknown | operator-review | yes |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown | value nfs.server | user-stage | unknown |
+| opencost/opencost@2.5.21 | default | G/P | unknown | unknown | operator-review | yes |
+| opencost/opencost@2.5.21 | default | K | unknown | unknown | operator-review | yes |
 | percona/pg-operator@3.0.0 | no-crds | K | crd | unknown | user-stage | yes |
 | percona/pxc-operator@1.19.1 | no-crds | K | external-api | unknown | operator-review | yes |
 | projectcalico/tigera-operator@v3.32.0 | default | K | crd | unknown | user-stage | unknown |
