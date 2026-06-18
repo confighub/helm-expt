@@ -8,7 +8,7 @@ The path to **100% verified disposition** of the master matrix — *not* 100% gr
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
 action is a valid product answer. This collapses the 488 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
-**20 action families**, ranked by cells-cleared-per-action, so a large
+**21 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
 
 Predictions (expected status after a run/fix/stage) are marked `prediction`;
@@ -21,13 +21,13 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | CCP-01 | refuse-or-scope | promotion-changeset-bug | 176 | upstream-implementation | ConfigHub changeset add-new-units fix |
 | CCP-02 | record-decision | verified-watch | 80 | product-decision | — |
 | CCP-03 | record-decision | lifecycle-not-applicable | 54 | product-decision | — |
-| CCP-04 | refresh-image | remote-image-refresh | 48 | Claude-non-live | a pullable image or retained digest |
-| CCP-05 | stage-prereq | local-kind-apply-harness | 35 | upstream-implementation | local-kind kubectl-apply harness fix |
-| CCP-06 | run-kind | kind-ready | 19 | Codex-live | npm run kind-parity:run … (data/live-run-blocks) |
+| CCP-04 | refresh-image | remote-image-refresh | 50 | Claude-non-live | a pullable image or retained digest |
+| CCP-05 | run-kind | kind-ready | 19 | Codex-live | npm run kind-parity:run … (data/live-run-blocks) |
+| CCP-06 | stage-prereq | operator-review | 19 | product-decision | runtime review or target-specific support decision |
 | CCP-07 | run-promotion | promotion-ready | 16 | Codex-live | npm run … (data/variant-promotion-proof-batches: 18 serial batches) |
 | CCP-08 | fix-model | model-gap | 14 | Claude-non-live | — |
-| CCP-09 | stage-prereq | install-crds | 8 | Claude-non-live | cert-manager CRDs |
-| CCP-10 | lifecycle-observe | lifecycle-route | 7 | Codex-live | data/lifecycle-route-actions (route/action packets) |
+| CCP-09 | lifecycle-observe | lifecycle-route | 8 | Codex-live | data/lifecycle-route-actions (route/action packets) |
+| CCP-10 | stage-prereq | install-crds | 8 | Claude-non-live | cert-manager CRDs |
 
 ## Cells by action type
 
@@ -35,25 +35,25 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | --- | ---: |
 | `refuse-or-scope` | 176 |
 | `record-decision` | 134 |
-| `stage-prereq` | 59 |
-| `refresh-image` | 48 |
+| `stage-prereq` | 56 |
+| `refresh-image` | 50 |
 | `fix-model` | 29 |
 | `run-kind` | 19 |
 | `run-promotion` | 16 |
-| `lifecycle-observe` | 7 |
+| `lifecycle-observe` | 8 |
 
 ## Cells by owner lane
 
 | Owner lane | Cells |
 | --- | ---: |
-| `upstream-implementation` | 211 |
-| `product-decision` | 142 |
-| `Claude-non-live` | 93 |
-| `Codex-live` | 42 |
+| `upstream-implementation` | 176 |
+| `product-decision` | 163 |
+| `Claude-non-live` | 106 |
+| `Codex-live` | 43 |
 
 ## Variant promotion (first-class family)
 
-The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.
+The promotion (V) lane is the loudest hole: **14 proven / 160 watch / 16 todo / 2 blocked / 0 n/a**.
 - `CCP-07` **run-promotion** — 16 ready promotions via the serial ConfigHub lane (#948); run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md).
 - `CCP-01` **refuse-or-scope** — 176 watch rows blocked on the ConfigHub changeset add-new-units bug (#682); upstream server fix.
 
@@ -64,23 +64,24 @@ The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.
 | CCP-01 | refuse-or-scope | promotion-changeset-bug | 176 | promotion | upstream-implementation | watch (verified); pass once the server fix lands | variant-promotion-closeout | #682; #948 |
 | CCP-02 | record-decision | verified-watch | 80 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |
 | CCP-03 | record-decision | lifecycle-not-applicable | 54 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
-| CCP-04 | refresh-image | remote-image-refresh | 48 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
-| CCP-05 | stage-prereq | local-kind-apply-harness | 35 | L | upstream-implementation | pass after the local-kind apply harness is fixed (prediction) | outcome-coverage/base-outcomes | #248; #753 |
-| CCP-06 | run-kind | kind-ready | 19 | K | Codex-live | pass or watch (prediction) | kind-parity-decisions | #248; #753 |
+| CCP-04 | refresh-image | remote-image-refresh | 50 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | local-live-triage; remote-image-runtime-workdown | #753 |
+| CCP-05 | run-kind | kind-ready | 19 | K | Codex-live | pass or watch (prediction) | kind-parity-decisions | #248; #753 |
+| CCP-06 | stage-prereq | operator-review | 19 | K/L | product-decision | pass after the runtime residue is reviewed or a better base is selected (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
 | CCP-07 | run-promotion | promotion-ready | 16 | promotion | Codex-live | pass or watch (prediction) | variant-promotion-closeout | #948 |
 | CCP-08 | fix-model | model-gap | 14 | G/K/L/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-09 | stage-prereq | install-crds | 8 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-10 | lifecycle-observe | lifecycle-route | 7 | lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions | #248; #753 |
-| CCP-11 | stage-prereq | create-namespace | 6 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-12 | fix-model | base-design | 5 | G/K/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-13 | fix-model | semantic-normalization | 4 | G/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-14 | stage-prereq | stage-prereq-other | 4 | K | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-15 | fix-model | crd-lifecycle | 3 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-16 | fix-model | object-set-shape | 2 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-17 | stage-prereq | operator-review | 2 | K | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-18 | stage-prereq | provide-external-service | 2 | K | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-19 | stage-prereq | stage-secret | 2 | K | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-20 | fix-model | generated-fact | 1 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-09 | lifecycle-observe | lifecycle-route | 8 | L/lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions; local-live-triage | #248; #753 |
+| CCP-10 | stage-prereq | install-crds | 8 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
+| CCP-11 | stage-prereq | stage-secret | 8 | K/L | Claude-non-live | pass after the prerequisite is staged (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
+| CCP-12 | stage-prereq | create-namespace | 6 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
+| CCP-13 | fix-model | base-design | 5 | G/K/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-14 | stage-prereq | webhook-cert-lifecycle | 5 | L | Claude-non-live | pass after the certificate lifecycle is modeled and observed (prediction) | local-live-triage | #248; #753 |
+| CCP-15 | fix-model | semantic-normalization | 4 | G/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-16 | stage-prereq | provide-external-service | 4 | K/L | product-decision | pass after the provider prerequisite is modeled and staged (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
+| CCP-17 | stage-prereq | stage-prereq-other | 4 | K | product-decision | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
+| CCP-18 | fix-model | crd-lifecycle | 3 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-19 | fix-model | object-set-shape | 2 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-20 | stage-prereq | admission-or-rbac | 2 | L | product-decision | pass after a target policy decision or base change (prediction) | local-live-triage | #248; #753 |
+| CCP-21 | fix-model | generated-fact | 1 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
 
 ## Boundaries
 
@@ -90,4 +91,4 @@ The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.
   the cell stays at its current disposition until a fresh receipt proves otherwise.
 - Owner lanes: `Codex-live` runs the serial live/promotion lane; `Claude-non-live`
   is catalog/recipe/decision PR work; `product-decision` needs a scope/refuse call;
-  `upstream-implementation` needs a ConfigHub-server or harness fix.
+  `upstream-implementation` needs the ConfigHub server changeset fix.
