@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, no-crds |
+| Candidate variants | default, no-crds, legacy |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -59,11 +59,13 @@ for exact base-variant evidence.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/bitnami/contour/21.1.4/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/default](../../../../packages/bitnami/contour/21.1.4/bases/default) | [recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | warn | warn | none |
 | no-crds | [recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/no-crds](../../../../packages/bitnami/contour/21.1.4/bases/no-crds) | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 15 |  | 15/15 | pass |  | allow | none |
+| legacy | [recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml](variants/legacy/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/legacy](../../../../packages/bitnami/contour/21.1.4/bases/legacy) | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml](revisions/legacy/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | pass | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
+| legacy | [packages/bitnami/contour/21.1.4/bases/legacy](../../../../packages/bitnami/contour/21.1.4/bases/legacy) | no | bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4 |
 | default | [packages/bitnami/contour/21.1.4/bases/default](../../../../packages/bitnami/contour/21.1.4/bases/default) | yes | bitnami/contour default variant rendered from bitnami/contour@21.1.4 |
 | no-crds | [packages/bitnami/contour/21.1.4/bases/no-crds](../../../../packages/bitnami/contour/21.1.4/bases/no-crds) | no | bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4 |
 
@@ -79,6 +81,10 @@ for exact base-variant evidence.
 | no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
 | no-crds | r001 | scan | ScanReceipt |  | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | no-crds | r001 | installGate | InstallGate | allow | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
+| legacy | r001 | render | RenderReceipt | recorded | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/render-receipt.yaml](revisions/legacy/r001/receipts/render-receipt.yaml) |
+| legacy | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml](revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml) |
+| legacy | r001 | scan | ScanReceipt | pass | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/scan-receipt.yaml](revisions/legacy/r001/receipts/scan-receipt.yaml) |
+| legacy | r001 | installGate | InstallGate | allow | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/install-gate.yaml](revisions/legacy/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

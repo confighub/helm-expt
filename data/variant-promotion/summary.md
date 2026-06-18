@@ -24,6 +24,7 @@ Status values:
 | --- | ---: |
 | available-needs-receipt | 16 |
 | blocked | 2 |
+| missing-confighub-proof | 7 |
 | proven | 14 |
 | proven-with-watch | 160 |
 
@@ -32,7 +33,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 16 |
+| todo | 23 |
 | watch | 160 |
 | yes | 14 |
 
@@ -63,6 +64,13 @@ resolved and the receipt reruns as pass.
 
 | Row | Status | Next action |
 | --- | --- | --- |
+| `bitnami/apache@11.4.29/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/contour@21.1.4/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/elasticsearch@22.1.6/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/opensearch@2.0.10/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/phpmyadmin@20.0.0/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/spark@10.0.3/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `bitnami/zookeeper@13.8.7/legacy` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `prometheus-community/kube-prometheus-stack@86.1.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces |
 | `prometheus-community/kube-state-metrics@7.4.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base default --variant-promotion-proof --cleanup-spaces |
@@ -76,9 +84,6 @@ resolved and the receipt reruns as pass.
 | `prometheus-community/prometheus@29.9.0/server-only-ephemeral` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base server-only-ephemeral --variant-promotion-proof --cleanup-spaces |
 | `rook-release/rook-ceph-cluster@v1.19.5/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph-cluster --base default --variant-promotion-proof --cleanup-spaces |
 | `rook-release/rook-ceph@v1.19.5/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph --base default --variant-promotion-proof --cleanup-spaces |
-| `runix/pgadmin4@1.62.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces |
-| `sealed-secrets/sealed-secrets@2.18.6/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces |
-| `sealed-secrets/sealed-secrets@2.18.6/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base no-crds --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 

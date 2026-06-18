@@ -30,7 +30,7 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | limitation-decision-first |
 | User status | proof-grade-with-named-limitation |
-| Strongest evidence | local-kubernetes-live |
+| Strongest evidence | two-cluster-kind-parity |
 | Proof lanes | render parity 3/3; ConfigHub 3/3; local live 2/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | generated-secrets;crds;required-values;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle) |

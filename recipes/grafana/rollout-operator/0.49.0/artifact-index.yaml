@@ -52,13 +52,13 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "2/2"
+      liveParity: "2/2"
     featureSummary: "crds;extension-slots"
     hardGap: "-"
     nextAction: "run catalog promotion review"

@@ -57,7 +57,7 @@ spec:
   proofSummary:
     adoptionBucket: "limitation-decision-first"
     userStatus: "proof-grade-with-named-limitation"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "3/3"

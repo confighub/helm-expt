@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "bitnami-spark-10-0-3-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/spark"
+    confighub.io/chart-version: "10.0.3"
+    confighub.io/image-source: "bitnamilegacy"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373"
+  decision: "allow"
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  reasons:
+    - "regular Helm output matches cub installer setup for bitnami/spark@10.0.3 (legacy image-remap variant)"
+    - "10 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"
+    - "local-live lane confirms workload readiness after remapping images to the verified-pullable docker.io/bitnamilegacy namespace"

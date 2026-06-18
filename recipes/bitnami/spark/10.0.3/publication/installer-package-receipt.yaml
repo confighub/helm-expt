@@ -4,17 +4,16 @@ metadata:
   name: "bitnami-spark-10-0-3"
 spec:
   chart:
-    repository: "bitnami"
     name: "spark"
+    repository: "bitnami"
     version: "10.0.3"
   deterministicBundle:
-    command: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10.0.3.tgz"
-    sha256: "4cf8194410dbb69e797932629d6fc3296bf52f8e68ebacc512af4de208c66f64"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10.0.3.tgz"
+    sha256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
   package:
-    path: "packages/bitnami/spark/10.0.3"
     name: "bitnami-spark"
-    version: "10.0.3"
+    path: "packages/bitnami/spark/10.0.3"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,18 @@ spec:
         sha256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
         bytes: 13071
       -
+        path: "bases/legacy/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/legacy/upstream.yaml"
+        sha256: "05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373"
+        bytes: 13083
+      -
         path: "installer.yaml"
-        sha256: "d264811c9775d330e040f03acb2044b3d372b25888278ff1e73a5c3593168147"
-        bytes: 421
+        sha256: "3a3e24f04cc2efe498f684cb83cb5eb585bd515fe07fce6b14caeedd652e3366"
+        bytes: 619
+    version: "10.0.3"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,9 +60,19 @@ spec:
       separatedSecretCount: 1
       variant: "default"
     -
-      variant: "ha"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "ha"
       command: "cub installer setup --pull packages/bitnami/spark/10.0.3 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 1
+      variant: "ha"
+    -
+      base: "legacy"
+      variant: "legacy"
+      command: "cub installer setup --pull packages/bitnami/spark/10.0.3 --base legacy --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
       semanticObjectMatches: "10/10"

@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, legacy |
 | Control points | capability-profile, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,11 +58,13 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/bitnami/phpmyadmin/20.0.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/phpmyadmin/20.0.0/bases/default](../../../../packages/bitnami/phpmyadmin/20.0.0/bases/default) | [recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | pass | allow | none |
+| legacy | [recipes/bitnami/phpmyadmin/20.0.0/variants/legacy/variant.yaml](variants/legacy/variant.yaml) | [packages/bitnami/phpmyadmin/20.0.0/bases/legacy](../../../../packages/bitnami/phpmyadmin/20.0.0/bases/legacy) | [recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml](revisions/legacy/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | pass | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
+| legacy | [packages/bitnami/phpmyadmin/20.0.0/bases/legacy](../../../../packages/bitnami/phpmyadmin/20.0.0/bases/legacy) | no | bitnami/phpmyadmin legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/phpmyadmin@20.0.0 |
 | default | [packages/bitnami/phpmyadmin/20.0.0/bases/default](../../../../packages/bitnami/phpmyadmin/20.0.0/bases/default) | yes | bitnami/phpmyadmin default variant rendered from bitnami/phpmyadmin@20.0.0 |
 
 ## Receipts
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | pass | [recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | allow | [recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| legacy | r001 | render | RenderReceipt | recorded | [recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/receipts/render-receipt.yaml](revisions/legacy/r001/receipts/render-receipt.yaml) |
+| legacy | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml](revisions/legacy/r001/receipts/helm-equivalence-receipt.yaml) |
+| legacy | r001 | scan | ScanReceipt | pass | [recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/receipts/scan-receipt.yaml](revisions/legacy/r001/receipts/scan-receipt.yaml) |
+| legacy | r001 | installGate | InstallGate | allow | [recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/receipts/install-gate.yaml](revisions/legacy/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 
