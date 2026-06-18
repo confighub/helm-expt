@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "name": "dex-parity",
+    "namespace": "argocd",
+    "uid": "707b518e-3c87-43d1-be20-d2a85ced009c",
+    "resourceVersion": "2371",
+    "generation": 11,
+    "creationTimestamp": "2026-06-17T16:26:34Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-dex-mqi9w9e2-2b4-cluster:argoproj.io/Application:argocd/dex-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "1849c5f2-1700-464b-ad1d-b3e2a0917b5a",
+      "confighub.com/UnitSlug": "dex-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T16:26:34Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T16:33:36Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci",
+      "path": "./helm-expt-parity-dex-mqi9w9e2-2b4-dex",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "dex",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "dex",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "dex",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "dex",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "dex-cluster",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default",
+        "name": "dex",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default",
+        "name": "dex",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci",
+          "path": "./helm-expt-parity-dex-mqi9w9e2-2b4-dex",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-17T16:26:36Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850",
+        "deployedAt": "2026-06-17T16:26:37Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci",
+          "path": "./helm-expt-parity-dex-mqi9w9e2-2b4-dex",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T16:26:36Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T16:33:28Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci",
+            "path": "./helm-expt-parity-dex-mqi9w9e2-2b4-dex",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "dex",
+            "status": "Synced",
+            "message": "serviceaccount/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "dex",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/dex reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[list create] APIGroups:[apiextensions.k8s.io] Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "dex-cluster",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/dex-cluster reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:dex Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/dex-cluster serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default",
+            "name": "dex",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/dex reconciled. reconciliation required update. role.rbac.authorization.k8s.io/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default",
+            "name": "dex",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/dex reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "dex",
+            "status": "Synced",
+            "message": "service/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "dex",
+            "status": "Synced",
+            "message": "deployment.apps/dex serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/dexidp/dex:v2.44.0"
+            ]
+          }
+        ],
+        "revision": "sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci",
+          "path": "./helm-expt-parity-dex-mqi9w9e2-2b4-dex",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T16:26:36Z",
+      "finishedAt": "2026-06-17T16:26:37Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/dexidp/dex:v2.44.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

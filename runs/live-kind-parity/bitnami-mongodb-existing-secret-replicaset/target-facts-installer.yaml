@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: mongodb-auth
+    namespace: mongodb
+  type: Opaque
+  stringData:
+    mongodb-root-password: helm-expt-password
+    mongodb-replica-set-key: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=

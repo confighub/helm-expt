@@ -1,0 +1,8 @@
+LAST SEEN   TYPE      REASON              OBJECT                                              MESSAGE
+7m24s       Normal    Scheduled           pod/metricbeat-metricbeat-jz6w6                     Successfully assigned default-oci/metricbeat-metricbeat-jz6w6 to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+7m24s       Normal    Scheduled           pod/metricbeat-metricbeat-metrics-746dc864-cbfht    Successfully assigned default-oci/metricbeat-metricbeat-metrics-746dc864-cbfht to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+7m24s       Normal    SuccessfulCreate    replicaset/metricbeat-metricbeat-metrics-746dc864   Created pod: metricbeat-metricbeat-metrics-746dc864-cbfht
+7m24s       Normal    ScalingReplicaSet   deployment/metricbeat-metricbeat-metrics            Scaled up replica set metricbeat-metricbeat-metrics-746dc864 from 0 to 1
+7m24s       Normal    SuccessfulCreate    daemonset/metricbeat-metricbeat                     Created pod: metricbeat-metricbeat-jz6w6
+72s         Warning   FailedMount         pod/metricbeat-metricbeat-jz6w6                     MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found
+72s         Warning   FailedMount         pod/metricbeat-metricbeat-metrics-746dc864-cbfht    MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

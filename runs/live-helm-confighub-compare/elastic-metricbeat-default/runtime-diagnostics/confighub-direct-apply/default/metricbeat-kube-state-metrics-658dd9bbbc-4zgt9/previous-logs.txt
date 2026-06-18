@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "kube-state-metrics" in pod "metricbeat-kube-state-metrics-658dd9bbbc-4zgt9" not found

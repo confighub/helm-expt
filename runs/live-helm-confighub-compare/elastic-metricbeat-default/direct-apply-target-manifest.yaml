@@ -1,0 +1,752 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/part-of: kube-state-metrics
+    app.kubernetes.io/version: 2.4.1
+    helm.sh/chart: kube-state-metrics-4.7.0
+  name: metricbeat-kube-state-metrics
+rules:
+- apiGroups:
+  - certificates.k8s.io
+  resources:
+  - certificatesigningrequests
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - configmaps
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - daemonsets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - endpoints
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - limitranges
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - namespaces
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - persistentvolumes
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - pods
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - replicationcontrollers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - resourcequotas
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - secrets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - services
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - validatingwebhookconfigurations
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-cluster-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - nodes
+  - namespaces
+  - events
+  - pods
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - deployments
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes/stats
+  verbs:
+  - get
+- apiGroups:
+  - ''
+  resources:
+  - nodes/stats
+  verbs:
+  - get
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/part-of: kube-state-metrics
+    app.kubernetes.io/version: 2.4.1
+    helm.sh/chart: kube-state-metrics-4.7.0
+  name: metricbeat-kube-state-metrics
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metricbeat-kube-state-metrics
+subjects:
+- kind: ServiceAccount
+  name: metricbeat-kube-state-metrics
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metricbeat-metricbeat-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: metricbeat-metricbeat
+  namespace: default
+---
+apiVersion: v1
+data:
+  metricbeat.yml: "metricbeat.modules:\n- module: kubernetes\n  metricsets:\n    -\
+    \ container\n    - node\n    - pod\n    - system\n    - volume\n  period: 10s\n\
+    \  host: \"${NODE_NAME}\"\n  hosts: [\"https://${NODE_NAME}:10250\"]\n  bearer_token_file:\
+    \ /var/run/secrets/kubernetes.io/serviceaccount/token\n  ssl.verification_mode:\
+    \ \"none\"\n  # If using Red Hat OpenShift remove ssl.verification_mode entry\
+    \ and\n  # uncomment these settings:\n  #ssl.certificate_authorities:\n    #-\
+    \ /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt\n  processors:\n\
+    \  - add_kubernetes_metadata: ~\n- module: kubernetes\n  enabled: true\n  metricsets:\n\
+    \    - event\n- module: system\n  period: 10s\n  metricsets:\n    - cpu\n    -\
+    \ load\n    - memory\n    - network\n    - process\n    - process_summary\n  processes:\
+    \ ['.*']\n  process.include_top_n:\n    by_cpu: 5\n    by_memory: 5\n- module:\
+    \ system\n  period: 1m\n  metricsets:\n    - filesystem\n    - fsstat\n  processors:\n\
+    \  - drop_event.when.regexp:\n      system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'\n\
+    output.elasticsearch:\n  hosts: '[\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\"\
+    ]'\n  ssl.enabled: true\n  ssl.certificate_authorities: [\"/usr/share/metricbeat/certs/ca.crt\"\
+    ]\n  username: '${ELASTICSEARCH_USERNAME}'\n  password: '${ELASTICSEARCH_PASSWORD}'\n"
+kind: ConfigMap
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-daemonset-config
+  namespace: default-apply
+---
+apiVersion: v1
+data:
+  metricbeat.yml: "metricbeat.modules:\n- module: kubernetes\n  enabled: true\n  metricsets:\n\
+    \    - state_node\n    - state_deployment\n    - state_replicaset\n    - state_pod\n\
+    \    - state_container\n  period: 10s\n  hosts: [\"${KUBE_STATE_METRICS_HOSTS}\"\
+    ]\noutput.elasticsearch:\n  hosts: '[\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\"\
+    ]'\n  username: '${ELASTICSEARCH_USERNAME}'\n  password: '${ELASTICSEARCH_PASSWORD}'\n\
+    \  ssl.enabled: true\n  ssl.certificate_authorities: [\"/usr/share/metricbeat/certs/ca.crt\"\
+    ]\n"
+kind: ConfigMap
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-deployment-config
+  namespace: default-apply
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat
+  namespace: default-apply
+spec:
+  selector:
+    matchLabels:
+      app: metricbeat-metricbeat
+      release: metricbeat
+  template:
+    metadata:
+      annotations:
+        configChecksum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3
+      labels:
+        app: metricbeat-metricbeat
+        chart: metricbeat-8.5.1
+        heritage: Helm
+        release: metricbeat
+      name: metricbeat-metricbeat
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - -e
+        - -E
+        - http.enabled=true
+        - --system.hostfs=/hostfs
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: elasticsearch-master-credentials
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: elasticsearch-master-credentials
+        envFrom: []
+        image: docker.elastic.co/beats/metricbeat:8.5.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - '#!/usr/bin/env bash -e
+
+              curl --fail 127.0.0.1:5066
+
+              '
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        name: metricbeat
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - '#!/usr/bin/env bash -e
+
+              metricbeat test output
+
+              '
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        securityContext:
+          privileged: false
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /usr/share/metricbeat/certs/
+          name: elasticsearch-master-certs
+        - mountPath: /usr/share/metricbeat/metricbeat.yml
+          name: metricbeat-config
+          readOnly: true
+          subPath: metricbeat.yml
+        - mountPath: /usr/share/metricbeat/data
+          name: data
+        - mountPath: /var/run/docker.sock
+          name: varrundockersock
+          readOnly: true
+        - mountPath: /hostfs/proc
+          name: proc
+          readOnly: true
+        - mountPath: /hostfs/sys/fs/cgroup
+          name: cgroup
+          readOnly: true
+      nodeSelector: {}
+      serviceAccountName: metricbeat-metricbeat
+      terminationGracePeriodSeconds: 30
+      tolerations: []
+      volumes:
+      - name: elasticsearch-master-certs
+        secret:
+          secretName: elasticsearch-master-certs
+      - configMap:
+          defaultMode: 384
+          name: metricbeat-metricbeat-daemonset-config
+        name: metricbeat-config
+      - hostPath:
+          path: /var/lib/metricbeat-metricbeat-default-data
+          type: DirectoryOrCreate
+        name: data
+      - hostPath:
+          path: /var/run/docker.sock
+        name: varrundockersock
+      - hostPath:
+          path: /proc
+        name: proc
+      - hostPath:
+          path: /sys/fs/cgroup
+        name: cgroup
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/part-of: kube-state-metrics
+    app.kubernetes.io/version: 2.4.1
+    helm.sh/chart: kube-state-metrics-4.7.0
+  name: metricbeat-kube-state-metrics
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: metricbeat
+      app.kubernetes.io/name: kube-state-metrics
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: metrics
+        app.kubernetes.io/instance: metricbeat
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: kube-state-metrics
+        app.kubernetes.io/part-of: kube-state-metrics
+        app.kubernetes.io/version: 2.4.1
+        helm.sh/chart: kube-state-metrics-4.7.0
+    spec:
+      containers:
+      - args:
+        - --port=8080
+        - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+        - --telemetry-port=8081
+        image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        name: kube-state-metrics
+        ports:
+        - containerPort: 8080
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+      hostNetwork: false
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsUser: 65534
+      serviceAccountName: metricbeat-kube-state-metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metricbeat-metricbeat-metrics
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-metrics
+  namespace: default-apply
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metricbeat-metricbeat-metrics
+      release: metricbeat
+  template:
+    metadata:
+      annotations:
+        configChecksum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3
+      labels:
+        app: metricbeat-metricbeat-metrics
+        chart: metricbeat-8.5.1
+        release: metricbeat
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - -e
+        - -E
+        - http.enabled=true
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: KUBE_STATE_METRICS_HOSTS
+          value: $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: elasticsearch-master-credentials
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: elasticsearch-master-credentials
+        envFrom: []
+        image: docker.elastic.co/beats/metricbeat:8.5.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - '#!/usr/bin/env bash -e
+
+              curl --fail 127.0.0.1:5066
+
+              '
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        name: metricbeat
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - '#!/usr/bin/env bash -e
+
+              metricbeat test output
+
+              '
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        securityContext:
+          privileged: false
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /usr/share/metricbeat/certs/
+          name: elasticsearch-master-certs
+        - mountPath: /usr/share/metricbeat/metricbeat.yml
+          name: metricbeat-config
+          readOnly: true
+          subPath: metricbeat.yml
+      nodeSelector: {}
+      serviceAccountName: metricbeat-metricbeat
+      terminationGracePeriodSeconds: 30
+      tolerations: []
+      volumes:
+      - name: elasticsearch-master-certs
+        secret:
+          secretName: elasticsearch-master-certs
+      - configMap:
+          defaultMode: 384
+          name: metricbeat-metricbeat-deployment-config
+        name: metricbeat-config
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default-apply
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+  name: metricbeat-metricbeat-role
+  namespace: default-apply
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - create
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat-role-binding
+  namespace: default-apply
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metricbeat-metricbeat-role
+subjects:
+- kind: ServiceAccount
+  name: metricbeat-metricbeat
+  namespace: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/part-of: kube-state-metrics
+    app.kubernetes.io/version: 2.4.1
+    helm.sh/chart: kube-state-metrics-4.7.0
+  name: metricbeat-kube-state-metrics
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/name: kube-state-metrics
+  type: ClusterIP
+---
+apiVersion: v1
+imagePullSecrets: []
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: metricbeat
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/part-of: kube-state-metrics
+    app.kubernetes.io/version: 2.4.1
+    helm.sh/chart: kube-state-metrics-4.7.0
+  name: metricbeat-kube-state-metrics
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: metricbeat-metricbeat
+    chart: metricbeat-8.5.1
+    heritage: Helm
+    release: metricbeat
+  name: metricbeat-metricbeat
+  namespace: default-apply

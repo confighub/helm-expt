@@ -1,0 +1,209 @@
+Name:                   metricbeat-kube-state-metrics
+Namespace:              default-helm
+CreationTimestamp:      Wed, 17 Jun 2026 18:45:21 +0100
+Labels:                 app.kubernetes.io/component=metrics
+                        app.kubernetes.io/instance=metricbeat
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=kube-state-metrics
+                        app.kubernetes.io/part-of=kube-state-metrics
+                        app.kubernetes.io/version=2.4.1
+                        helm.sh/chart=kube-state-metrics-4.7.0
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: metricbeat
+                        meta.helm.sh/release-namespace: default-helm
+Selector:               app.kubernetes.io/instance=metricbeat,app.kubernetes.io/name=kube-state-metrics
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app.kubernetes.io/component=metrics
+                    app.kubernetes.io/instance=metricbeat
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=kube-state-metrics
+                    app.kubernetes.io/part-of=kube-state-metrics
+                    app.kubernetes.io/version=2.4.1
+                    helm.sh/chart=kube-state-metrics-4.7.0
+  Service Account:  metricbeat-kube-state-metrics
+  Containers:
+   kube-state-metrics:
+    Image:      k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1
+    Port:       8080/TCP (http)
+    Host Port:  0/TCP (http)
+    Args:
+      --port=8080
+      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+      --telemetry-port=8081
+    Liveness:      http-get http://:8080/healthz delay=5s timeout=5s period=10s #success=1 #failure=3
+    Readiness:     http-get http://:8080/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   metricbeat-kube-state-metrics-658dd9bbbc (1/1 replicas created)
+
+
+Name:                   metricbeat-metricbeat-metrics
+Namespace:              default-helm
+CreationTimestamp:      Wed, 17 Jun 2026 18:45:21 +0100
+Labels:                 app=metricbeat-metricbeat-metrics
+                        app.kubernetes.io/managed-by=Helm
+                        chart=metricbeat-8.5.1
+                        heritage=Helm
+                        release=metricbeat
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: metricbeat
+                        meta.helm.sh/release-namespace: default-helm
+Selector:               app=metricbeat-metricbeat-metrics,release=metricbeat
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app=metricbeat-metricbeat-metrics
+                    chart=metricbeat-8.5.1
+                    release=metricbeat
+  Annotations:      configChecksum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3
+  Service Account:  metricbeat-metricbeat
+  Containers:
+   metricbeat:
+    Image:      docker.elastic.co/beats/metricbeat:8.5.1
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      -e
+      -E
+      http.enabled=true
+    Limits:
+      cpu:     1
+      memory:  200Mi
+    Requests:
+      cpu:     100m
+      memory:  100Mi
+    Liveness:  exec [sh -c #!/usr/bin/env bash -e
+curl --fail 127.0.0.1:5066
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:  exec [sh -c #!/usr/bin/env bash -e
+metricbeat test output
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAMESPACE:              (v1:metadata.namespace)
+      KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)
+      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:    <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+    Mounts:
+      /usr/share/metricbeat/certs/ from elasticsearch-master-certs (rw)
+      /usr/share/metricbeat/metricbeat.yml from metricbeat-config (ro,path="metricbeat.yml")
+  Volumes:
+   elasticsearch-master-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+   metricbeat-config:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          metricbeat-metricbeat-deployment-config
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   metricbeat-metricbeat-metrics-746dc864 (1/1 replicas created)
+
+
+Name:           metricbeat-metricbeat
+Namespace:      default-helm
+Selector:       app=metricbeat-metricbeat,release=metricbeat
+Node-Selector:  <none>
+Labels:         app=metricbeat-metricbeat
+                app.kubernetes.io/managed-by=Helm
+                chart=metricbeat-8.5.1
+                heritage=Helm
+                release=metricbeat
+Annotations:    deprecated.daemonset.template.generation: 1
+                meta.helm.sh/release-name: metricbeat
+                meta.helm.sh/release-namespace: default-helm
+Desired Number of Nodes Scheduled: 1
+Current Number of Nodes Scheduled: 1
+Number of Nodes Scheduled with Up-to-date Pods: 1
+Number of Nodes Scheduled with Available Pods: 0
+Number of Nodes Misscheduled: 0
+Pods Status:  0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app=metricbeat-metricbeat
+                    chart=metricbeat-8.5.1
+                    heritage=Helm
+                    release=metricbeat
+  Annotations:      configChecksum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3
+  Service Account:  metricbeat-metricbeat
+  Containers:
+   metricbeat:
+    Image:      docker.elastic.co/beats/metricbeat:8.5.1
+    Port:       <none>
+    Host Port:  <none>
+    Args:
+      -e
+      -E
+      http.enabled=true
+      --system.hostfs=/hostfs
+    Limits:
+      cpu:     1
+      memory:  200Mi
+    Requests:
+      cpu:     100m
+      memory:  100Mi
+    Liveness:  exec [sh -c #!/usr/bin/env bash -e
+curl --fail 127.0.0.1:5066
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:  exec [sh -c #!/usr/bin/env bash -e
+metricbeat test output
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAMESPACE:            (v1:metadata.namespace)
+      NODE_NAME:                (v1:spec.nodeName)
+      ELASTICSEARCH_USERNAME:  <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:  <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+    Mounts:
+      /hostfs/proc from proc (ro)
+      /hostfs/sys/fs/cgroup from cgroup (ro)
+      /usr/share/metricbeat/certs/ from elasticsearch-master-certs (rw)
+      /usr/share/metricbeat/data from data (rw)
+      /usr/share/metricbeat/metricbeat.yml from metricbeat-config (ro,path="metricbeat.yml")
+      /var/run/docker.sock from varrundockersock (ro)
+  Volumes:
+   elasticsearch-master-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+   metricbeat-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      metricbeat-metricbeat-daemonset-config
+    Optional:  false
+   data:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/metricbeat-metricbeat-default-helm-data
+    HostPathType:  DirectoryOrCreate
+   varrundockersock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/docker.sock
+    HostPathType:  
+   proc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc
+    HostPathType:  
+   cgroup:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/cgroup
+    HostPathType:  
+  Node-Selectors:  <none>
+  Tolerations:     <none>

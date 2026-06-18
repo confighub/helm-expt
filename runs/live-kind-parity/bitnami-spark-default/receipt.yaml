@@ -1,0 +1,581 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-spark-10.0.3-default-kind-parity-20260606
+spec:
+  chart: bitnami/spark
+  version: 10.0.3
+  base: default
+  result: blocked
+  observedAt: '2026-06-17T16:13:20Z'
+  package:
+    path: packages/bitnami/spark/10.0.3
+  recipe:
+    path: recipes/bitnami/spark/10.0.3
+  variantRevision: recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-spark-2280f-sr8n-helm
+    installerCluster: hx-spark-2280f-sr8n-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-spark-2280f-sr8n-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-spark-2280f-sr8n-helm" ...
+
+          Deleted nodes: ["hx-spark-2280f-sr8n-helm-control-plane"]'
+      - cluster: hx-spark-2280f-sr8n-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-spark-2280f-sr8n-installer" ...
+
+          Deleted nodes: ["hx-spark-2280f-sr8n-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
+        --version 10.0.3 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-spark-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55
+      objectCount: 10
+      liveHelmManifestSHA256: 30d4aec887d81dfb777938ff87da1eb5fed169daedaa7a40579eebb8335d0a97
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/spark-master   0/1   8m
+
+          statefulset.apps/spark-worker   0/2   8m'
+        pods: '# default
+
+          spark-master-0   0/1   ImagePullBackOff   0     8m
+
+          spark-worker-0   0/1   ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: spark-master-0
+          ready: 0/1
+          status: ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: spark-worker-0
+          ready: 0/1
+          status: ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: spark-master-0
+          result: blocked
+          detailHead: "Name:             spark-master-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  spark\nNode:             hx-spark-2280f-sr8n-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 17:14:16 +0100\nLabels:           app.kubernetes.io/component=master\n\
+            \                  app.kubernetes.io/instance=spark\n                \
+            \  app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=spark\n\
+            \                  app.kubernetes.io/version=4.0.0\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=spark-master-5dd99f5654\n\
+            \                  helm.sh/chart=spark-10.0.3\n                  statefulset.kubernetes.io/pod-name=spark-master-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.6\nIPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/spark-master\n\
+            Containers:\n  spark-master:\n    Container ID:    \n    Image:      \
+            \     docker.io/bitnami/spark:4.0.0-debian-12-r20\n    Image ID:     \
+            \   \n    Ports:           8080/TCP (http), 7077/TCP (cluster)\n    Host\
+            \ Ports:      0/TCP (http), 0/TCP (cluster)\n    SeccompProfile:  RuntimeDefault\n\
+            \    State:           Waiting\n      Reason:        ImagePullBackOff\n\
+            \    Ready:           False\n    Restart Count:   0\n    Limits:\n   \
+            \   cpu:                750m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             768Mi\n    Requests:\n      cpu:                500m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             512Mi\n    Liveness:\
+            \             tcp-socket :8080 delay=180s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  BITNAMI_DEBUG:            false\n      SPARK_MODE:               master\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_MASTER_PORT:        7077\n\
+            \      SPARK_MASTER_WEBUI_PORT:  8080\n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m1s\
+            \                    default-schedul"
+          detailTail: "  Host Ports:      0/TCP (http), 0/TCP (cluster)\n    SeccompProfile:\
+            \  RuntimeDefault\n    State:           Waiting\n      Reason:       \
+            \ ImagePullBackOff\n    Ready:           False\n    Restart Count:   0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             768Mi\n    Requests:\n      cpu:   \
+            \             500m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         512Mi\n    Liveness:             tcp-socket :8080 delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Environment:\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_MODE:               master\n      SPARK_DAEMON_MEMORY:  \
+            \    \n      SPARK_MASTER_PORT:        7077\n      SPARK_MASTER_WEBUI_PORT:\
+            \  8080\n    Mounts:\n      /opt/bitnami/spark/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/spark/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /opt/bitnami/spark/tmp from empty-dir (rw,path=\"\
+            app-tmp-dir\")\n      /opt/bitnami/spark/work from empty-dir (rw,path=\"\
+            app-work-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n\
+            \  Type                        Status\n  PodReadyToStartContainers   True\
+            \ \n  Initialized                 True \n  Ready                     \
+            \  False \n  ContainersReady             False \n  PodScheduled      \
+            \          True \nVolumes:\n  empty-dir:\n    Type:        EmptyDir (a\
+            \ temporary directory that shares a pod's lifetime)\n    Medium:     \
+            \ \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m1s\
+            \                    default-scheduler  Successfully assigned default/spark-master-0\
+            \ to hx-spark-2280f-sr8n-helm-control-plane\n  Normal   Pulling    5m3s\
+            \ (x5 over 8m)       kubelet            spec.containers{spark-master}:\
+            \ Pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\n  Warning\
+            \  Failed     5m2s (x5 over 7m58s)    kubelet            spec.containers{spark-master}:\
+            \ Failed to pull image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/spark:4.0.0-debian-12-r20\": failed to resolve reference\
+            \ \"docker.io/bitnami/spark:4.0.0-debian-12-r20\": docker.io/bitnami/spark:4.0.0-debian-12-r20:\
+            \ not found\n  Warning  Failed     5m2s (x5 over 7m58s)    kubelet   \
+            \         spec.containers{spark-master}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m52s (x20 over 7m58s)  kubelet            spec.containers{spark-master}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m41s (x21 over 7m58s)\
+            \  kubelet            spec.containers{spark-master}: Back-off pulling\
+            \ image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\""
+          logsHead: 'Error from server (BadRequest): container "spark-master" in pod
+            "spark-master-0" is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "spark-master" in pod
+            "spark-master-0" is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: spark-worker-0
+          result: blocked
+          detailHead: "Name:             spark-worker-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  spark\nNode:             hx-spark-2280f-sr8n-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 17:14:16 +0100\nLabels:           app.kubernetes.io/component=worker\n\
+            \                  app.kubernetes.io/instance=spark\n                \
+            \  app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=spark\n\
+            \                  app.kubernetes.io/version=4.0.0\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=spark-worker-6c889fbf84\n\
+            \                  helm.sh/chart=spark-10.0.3\n                  statefulset.kubernetes.io/pod-name=spark-worker-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  StatefulSet/spark-worker\n\
+            Containers:\n  spark-worker:\n    Container ID:    \n    Image:      \
+            \     docker.io/bitnami/spark:4.0.0-debian-12-r20\n    Image ID:     \
+            \   \n    Port:            8080/TCP (http)\n    Host Port:       0/TCP\
+            \ (http)\n    SeccompProfile:  RuntimeDefault\n    State:           Waiting\n\
+            \      Reason:        ImagePullBackOff\n    Ready:           False\n \
+            \   Restart Count:   0\n    Limits:\n      cpu:                750m\n\
+            \      ephemeral-storage:  2Gi\n      memory:             768Mi\n    Requests:\n\
+            \      cpu:                500m\n      ephemeral-storage:  50Mi\n    \
+            \  memory:             512Mi\n    Liveness:             tcp-socket :8080\
+            \ delay=180s timeout=5s period=20s #success=1 #failure=6\n    Readiness:\
+            \            http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Startup:              http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  SPARK_MODE:               worker\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_WORKER_WEBUI_PORT:  8080\n\
+            \      SPARK_DAEMON_JAVA_OPTS:   \n      SPARK_MASTER_URL:         spark://spark-master-svc:7077\n\
+            \      SPARK_WORKER_OPTS:        \n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From"
+          detailTail: "nt:   0\n    Limits:\n      cpu:                750m\n    \
+            \  ephemeral-storage:  2Gi\n      memory:             768Mi\n    Requests:\n\
+            \      cpu:                500m\n      ephemeral-storage:  50Mi\n    \
+            \  memory:             512Mi\n    Liveness:             tcp-socket :8080\
+            \ delay=180s timeout=5s period=20s #success=1 #failure=6\n    Readiness:\
+            \            http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Startup:              http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  SPARK_MODE:               worker\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_WORKER_WEBUI_PORT:  8080\n\
+            \      SPARK_DAEMON_JAVA_OPTS:   \n      SPARK_MASTER_URL:         spark://spark-master-svc:7077\n\
+            \      SPARK_WORKER_OPTS:        \n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m1s\
+            \                    default-scheduler  Successfully assigned default/spark-worker-0\
+            \ to hx-spark-2280f-sr8n-helm-control-plane\n  Normal   Pulling    5m10s\
+            \ (x5 over 8m)      kubelet            spec.containers{spark-worker}:\
+            \ Pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\n  Warning\
+            \  Failed     5m9s (x5 over 7m59s)    kubelet            spec.containers{spark-worker}:\
+            \ Failed to pull image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/spark:4.0.0-debian-12-r20\": failed to resolve reference\
+            \ \"docker.io/bitnami/spark:4.0.0-debian-12-r20\": docker.io/bitnami/spark:4.0.0-debian-12-r20:\
+            \ not found\n  Warning  Failed     5m9s (x5 over 7m59s)    kubelet   \
+            \         spec.containers{spark-worker}: Error: ErrImagePull\n  Normal\
+            \   BackOff    2m53s (x21 over 7m59s)  kubelet            spec.containers{spark-worker}:\
+            \ Back-off pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            \n  Warning  Failed     2m53s (x21 over 7m59s)  kubelet            spec.containers{spark-worker}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "spark-worker" in pod
+            "spark-worker-0" is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "spark-worker" in pod
+            "spark-worker-0" is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource StatefulSet/default/spark-master not ready. status:
+        InProgress, message: Ready: 0/1
+
+        resource StatefulSet/default/spark-worker not ready. status: InProgress, message:
+        Replicas: 1/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/spark/10.0.3
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-spark-2280f-sr8n-spark
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 265d59b9b0db7751fc5d3fca2c002379bc9998b8c0f8305a010cec7248e95d41
+      objectCount: 11
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/spark-master   0/1   10s
+
+          statefulset.apps/spark-worker   0/2   10s'
+        pods: '# default
+
+          spark-master-0   0/1   ErrImagePull   0     10s
+
+          spark-worker-0   0/1   ErrImagePull   0     10s'
+        notReady:
+        - namespace: default
+          pod: spark-master-0
+          ready: 0/1
+          status: ErrImagePull
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: spark-worker-0
+          ready: 0/1
+          status: ErrImagePull
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: spark-master-0
+          result: blocked
+          detailHead: "Name:             spark-master-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  spark\nNode:             hx-spark-2280f-sr8n-installer-control-plane/192.168.97.4\n\
+            Start Time:       Wed, 17 Jun 2026 17:22:18 +0100\nLabels:           app.kubernetes.io/component=master\n\
+            \                  app.kubernetes.io/instance=spark\n                \
+            \  app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=spark\n\
+            \                  app.kubernetes.io/version=4.0.0\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=spark-master-5dd99f5654\n\
+            \                  helm.sh/chart=spark-10.0.3\n                  statefulset.kubernetes.io/pod-name=spark-master-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.5\nIPs:\n  IP:           10.244.0.5\nControlled By:  StatefulSet/spark-master\n\
+            Containers:\n  spark-master:\n    Container ID:    \n    Image:      \
+            \     docker.io/bitnami/spark:4.0.0-debian-12-r20\n    Image ID:     \
+            \   \n    Ports:           8080/TCP (http), 7077/TCP (cluster)\n    Host\
+            \ Ports:      0/TCP (http), 0/TCP (cluster)\n    SeccompProfile:  RuntimeDefault\n\
+            \    State:           Waiting\n      Reason:        ErrImagePull\n   \
+            \ Ready:           False\n    Restart Count:   0\n    Limits:\n      cpu:\
+            \                750m\n      ephemeral-storage:  2Gi\n      memory:  \
+            \           768Mi\n    Requests:\n      cpu:                500m\n   \
+            \   ephemeral-storage:  50Mi\n      memory:             512Mi\n    Liveness:\
+            \             tcp-socket :8080 delay=180s timeout=5s period=20s #success=1\
+            \ #failure=6\n    Readiness:            http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  BITNAMI_DEBUG:            false\n      SPARK_MODE:               master\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_MASTER_PORT:        7077\n\
+            \      SPARK_MASTER_WEBUI_PORT:  8080\n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/spark-master-0 to h"
+          detailTail: " Image:           docker.io/bitnami/spark:4.0.0-debian-12-r20\n\
+            \    Image ID:        \n    Ports:           8080/TCP (http), 7077/TCP\
+            \ (cluster)\n    Host Ports:      0/TCP (http), 0/TCP (cluster)\n    SeccompProfile:\
+            \  RuntimeDefault\n    State:           Waiting\n      Reason:       \
+            \ ErrImagePull\n    Ready:           False\n    Restart Count:   0\n \
+            \   Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             768Mi\n    Requests:\n      cpu:   \
+            \             500m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         512Mi\n    Liveness:             tcp-socket :8080 delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Environment:\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_MODE:               master\n      SPARK_DAEMON_MEMORY:  \
+            \    \n      SPARK_MASTER_PORT:        7077\n      SPARK_MASTER_WEBUI_PORT:\
+            \  8080\n    Mounts:\n      /opt/bitnami/spark/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/spark/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /opt/bitnami/spark/tmp from empty-dir (rw,path=\"\
+            app-tmp-dir\")\n      /opt/bitnami/spark/work from empty-dir (rw,path=\"\
+            app-work-dir\")\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n\
+            \  Type                        Status\n  PodReadyToStartContainers   True\
+            \ \n  Initialized                 True \n  Ready                     \
+            \  False \n  ContainersReady             False \n  PodScheduled      \
+            \          True \nVolumes:\n  empty-dir:\n    Type:        EmptyDir (a\
+            \ temporary directory that shares a pod's lifetime)\n    Medium:     \
+            \ \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/spark-master-0 to hx-spark-2280f-sr8n-installer-control-plane\n\
+            \  Normal   Pulling    10s   kubelet            spec.containers{spark-master}:\
+            \ Pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\n  Warning\
+            \  Failed     9s    kubelet            spec.containers{spark-master}:\
+            \ Failed to pull image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/spark:4.0.0-debian-12-r20\": failed to resolve reference\
+            \ \"docker.io/bitnami/spark:4.0.0-debian-12-r20\": docker.io/bitnami/spark:4.0.0-debian-12-r20:\
+            \ not found\n  Warning  Failed     9s    kubelet            spec.containers{spark-master}:\
+            \ Error: ErrImagePull\n  Normal   BackOff    9s    kubelet           \
+            \ spec.containers{spark-master}: Back-off pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            \n  Warning  Failed     9s    kubelet            spec.containers{spark-master}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "spark-master" in pod
+            "spark-master-0" is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "spark-master" in pod
+            "spark-master-0" is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: spark-worker-0
+          result: blocked
+          detailHead: "Name:             spark-worker-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  spark\nNode:             hx-spark-2280f-sr8n-installer-control-plane/192.168.97.4\n\
+            Start Time:       Wed, 17 Jun 2026 17:22:18 +0100\nLabels:           app.kubernetes.io/component=worker\n\
+            \                  app.kubernetes.io/instance=spark\n                \
+            \  app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=spark\n\
+            \                  app.kubernetes.io/version=4.0.0\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=spark-worker-6c889fbf84\n\
+            \                  helm.sh/chart=spark-10.0.3\n                  statefulset.kubernetes.io/pod-name=spark-worker-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.6\nIPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/spark-worker\n\
+            Containers:\n  spark-worker:\n    Container ID:    \n    Image:      \
+            \     docker.io/bitnami/spark:4.0.0-debian-12-r20\n    Image ID:     \
+            \   \n    Port:            8080/TCP (http)\n    Host Port:       0/TCP\
+            \ (http)\n    SeccompProfile:  RuntimeDefault\n    State:           Waiting\n\
+            \      Reason:        ErrImagePull\n    Ready:           False\n    Restart\
+            \ Count:   0\n    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             768Mi\n    Requests:\n      cpu:   \
+            \             500m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         512Mi\n    Liveness:             tcp-socket :8080 delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Startup:              http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  SPARK_MODE:               worker\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_WORKER_WEBUI_PORT:  8080\n\
+            \      SPARK_DAEMON_JAVA_OPTS:   \n      SPARK_MASTER_URL:         spark://spark-master-svc:7077\n\
+            \      SPARK_WORKER_OPTS:        \n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Me"
+          detailTail: "  SeccompProfile:  RuntimeDefault\n    State:           Waiting\n\
+            \      Reason:        ErrImagePull\n    Ready:           False\n    Restart\
+            \ Count:   0\n    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             768Mi\n    Requests:\n      cpu:   \
+            \             500m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         512Mi\n    Liveness:             tcp-socket :8080 delay=180s\
+            \ timeout=5s period=20s #success=1 #failure=6\n    Readiness:        \
+            \    http-get http://:8080/ delay=30s timeout=5s period=10s #success=1\
+            \ #failure=6\n    Startup:              http-get http://:8080/ delay=30s\
+            \ timeout=5s period=10s #success=1 #failure=6\n    Environment:\n    \
+            \  SPARK_MODE:               worker\n      BITNAMI_DEBUG:            false\n\
+            \      SPARK_DAEMON_MEMORY:      \n      SPARK_WORKER_WEBUI_PORT:  8080\n\
+            \      SPARK_DAEMON_JAVA_OPTS:   \n      SPARK_MASTER_URL:         spark://spark-master-svc:7077\n\
+            \      SPARK_WORKER_OPTS:        \n    Mounts:\n      /opt/bitnami/spark/conf\
+            \ from empty-dir (rw,path=\"app-conf-dir\")\n      /opt/bitnami/spark/logs\
+            \ from empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/spark/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /opt/bitnami/spark/work\
+            \ from empty-dir (rw,path=\"app-work-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 True\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  10s   default-scheduler  Successfully assigned\
+            \ default/spark-worker-0 to hx-spark-2280f-sr8n-installer-control-plane\n\
+            \  Normal   Pulling    10s   kubelet            spec.containers{spark-worker}:\
+            \ Pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\n  Warning\
+            \  Failed     8s    kubelet            spec.containers{spark-worker}:\
+            \ Failed to pull image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/spark:4.0.0-debian-12-r20\": failed to resolve reference\
+            \ \"docker.io/bitnami/spark:4.0.0-debian-12-r20\": docker.io/bitnami/spark:4.0.0-debian-12-r20:\
+            \ not found\n  Warning  Failed     8s    kubelet            spec.containers{spark-worker}:\
+            \ Error: ErrImagePull\n  Normal   BackOff    8s    kubelet           \
+            \ spec.containers{spark-worker}: Back-off pulling image \"docker.io/bitnami/spark:4.0.0-debian-12-r20\"\
+            \n  Warning  Failed     8s    kubelet            spec.containers{spark-worker}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "spark-worker" in pod
+            "spark-worker-0" is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "spark-worker" in pod
+            "spark-worker-0" is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource StatefulSet/default/spark-master not ready. status: InProgress,
+      message: Ready: 0/1
+
+      resource StatefulSet/default/spark-worker not ready. status: InProgress, message:
+      Replicas: 1/2
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      statefulset.apps/spark-master   0/1   10s
+
+      statefulset.apps/spark-worker   0/2   10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

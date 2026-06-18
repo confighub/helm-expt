@@ -1,0 +1,14 @@
+LAST SEEN   TYPE      REASON                  OBJECT                                   MESSAGE
+8m1s        Normal    NoPods                  poddisruptionbudget/zookeeper            No matching pods found
+8m1s        Normal    ExternalProvisioning    persistentvolumeclaim/data-zookeeper-0   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+8m1s        Normal    Provisioning            persistentvolumeclaim/data-zookeeper-0   External provisioner is provisioning volume for claim "default-helm/data-zookeeper-0"
+8m1s        Normal    WaitForFirstConsumer    persistentvolumeclaim/data-zookeeper-0   waiting for first consumer to be created before binding
+8m1s        Normal    SuccessfulCreate        statefulset/zookeeper                    Create Pod zookeeper-0 in StatefulSet zookeeper successful
+8m1s        Normal    SuccessfulCreate        statefulset/zookeeper                    Create Claim data-zookeeper-0 Pod zookeeper-0 in StatefulSet zookeeper success
+7m58s       Normal    ProvisioningSucceeded   persistentvolumeclaim/data-zookeeper-0   Successfully provisioned volume pvc-2f8148a0-2931-4ed1-b8fd-4efd476dabfb
+7m58s       Normal    Scheduled               pod/zookeeper-0                          Successfully assigned default-helm/zookeeper-0 to helm-expt-parity-zookeeper-mqi88eet-1wxh-control-plane
+4m52s       Normal    Pulling                 pod/zookeeper-0                          Pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+4m51s       Warning   Failed                  pod/zookeeper-0                          Failed to pull image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+4m51s       Warning   Failed                  pod/zookeeper-0                          Error: ErrImagePull
+2m53s       Warning   Failed                  pod/zookeeper-0                          Error: ImagePullBackOff
+2m38s       Normal    BackOff                 pod/zookeeper-0                          Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"

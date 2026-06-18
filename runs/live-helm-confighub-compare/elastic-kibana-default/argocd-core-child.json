@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "name": "kibana-parity",
+    "namespace": "argocd",
+    "uid": "1b36dd54-1d77-4d81-9d73-48f96ebfed0a",
+    "resourceVersion": "2695",
+    "generation": 10,
+    "creationTimestamp": "2026-06-17T17:36:21Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kibana-mqic7mim-7ud-cluster:argoproj.io/Application:argocd/kibana-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "36512abb-60c4-4639-958e-72533f31f19f",
+      "confighub.com/UnitSlug": "kibana-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T17:36:21Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T17:43:22Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci",
+      "path": "./helm-expt-parity-kibana-mqic7mim-7ud-kibana",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default-oci",
+        "name": "kibana-kibana",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default-oci",
+        "name": "kibana-kibana",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci",
+          "path": "./helm-expt-parity-kibana-mqic7mim-7ud-kibana",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-17T17:36:25Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442",
+        "deployedAt": "2026-06-17T17:36:24Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci",
+          "path": "./helm-expt-parity-kibana-mqic7mim-7ud-kibana",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T17:36:22Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T17:43:14Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci",
+            "path": "./helm-expt-parity-kibana-mqic7mim-7ud-kibana",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default-oci",
+            "name": "kibana-kibana",
+            "status": "Synced",
+            "message": "service/kibana-kibana serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default-oci",
+            "name": "kibana-kibana",
+            "status": "Synced",
+            "message": "deployment.apps/kibana-kibana serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.elastic.co/kibana/kibana:8.5.1"
+            ]
+          }
+        ],
+        "revision": "sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci",
+          "path": "./helm-expt-parity-kibana-mqic7mim-7ud-kibana",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T17:36:22Z",
+      "finishedAt": "2026-06-17T17:36:24Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.elastic.co/kibana/kibana:8.5.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+  name: pgadmin4
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: pgadmin4
+      app.kubernetes.io/name: pgadmin4
+  template:
+    metadata:
+      annotations:
+        checksum/secret: f051ba8327fad1a5a826eeed22fcbe3d5914d859153b920e6a854191183d3b6c
+      labels:
+        app.kubernetes.io/instance: pgadmin4
+        app.kubernetes.io/name: pgadmin4
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+              value: "False"
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: chart@domain.com
+            - name: PGADMIN_DEFAULT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: pgadmin4
+          image: docker.io/dpage/pgadmin4:9.13
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /misc/ping
+              port: http
+              scheme: HTTP
+            periodSeconds: 20
+            timeoutSeconds: 5
+          name: pgadmin4
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /misc/ping
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 3
+          resources: {}
+          startupProbe:
+            failureThreshold: 18
+            httpGet:
+              path: /misc/ping
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+          volumeMounts:
+            - mountPath: /var/lib/pgadmin
+              name: pgadmin-data
+              subPath: ""
+      securityContext:
+        fsGroup: 5050
+        runAsGroup: 5050
+        runAsUser: 5050
+      volumes:
+        - name: pgadmin-data
+          persistentVolumeClaim:
+            claimName: pgadmin4
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+  name: pgadmin4
+  namespace: default
+spec:
+  ingress:
+    - ports:
+        - port: 80
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: pgadmin4
+      app.kubernetes.io/name: pgadmin4
+  policyTypes:
+    - Ingress
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+  name: pgadmin4
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+  name: pgadmin4
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/name: pgadmin4
+  type: ClusterIP
+---
+apiVersion: v1
+data:
+  password: U3VwZXJTZWNyZXQ=
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgadmin4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: "9.13"
+    helm.sh/chart: pgadmin4-1.62.0
+  name: pgadmin4
+  namespace: default
+type: Opaque

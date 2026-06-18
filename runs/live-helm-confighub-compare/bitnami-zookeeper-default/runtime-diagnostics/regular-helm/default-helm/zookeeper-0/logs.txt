@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "zookeeper" in pod "zookeeper-0" is waiting to start: trying and failing to pull image

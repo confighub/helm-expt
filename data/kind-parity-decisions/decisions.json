@@ -159,6 +159,76 @@
       "receipt": "runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml"
     },
     {
+      "chart": "bitnami/phpmyadmin",
+      "version": "20.0.0",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-phpmyadmin-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/spark",
+      "version": "10.0.3",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-spark-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/spark",
+      "version": "10.0.3",
+      "base": "ha",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-spark-ha/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-zookeeper-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "base": "ha",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — objects match, image unavailable",
+      "user_decision": "The rendered config matches regular Helm (semantic parity passed), but the workload cannot start because a referenced image is unavailable from the registry. This is an image retention/base refresh issue, not a Helm-vs-installer parity defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "receipt": "runs/live-kind-parity/bitnami-zookeeper-ha/receipt.yaml"
+    },
+    {
       "chart": "dex/dex",
       "version": "0.24.0",
       "base": "default",
@@ -199,6 +269,34 @@
       "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
       "reason": "helm-runtime: upstream not ready (parity passed)",
       "receipt": "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+    },
+    {
+      "chart": "elastic/kibana",
+      "version": "8.5.1",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "helm-runtime: upstream not ready (parity passed)",
+      "receipt": "runs/live-kind-parity/elastic-kibana-default/receipt.yaml"
+    },
+    {
+      "chart": "elastic/metricbeat",
+      "version": "8.5.1",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-prerequisite-secret",
+      "blocker_owner": "user",
+      "usable_today": "yes, after staging a Secret",
+      "user_decision": "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
+      "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
+      "reason": "target-prerequisite: required Secret missing (parity passed)",
+      "receipt": "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
     },
     {
       "chart": "fairwinds-stable/vpa",
@@ -243,6 +341,20 @@
       "receipt": "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
     },
     {
+      "chart": "grafana/pyroscope",
+      "version": "2.0.2",
+      "base": "ha",
+      "result": "blocked",
+      "semantic_parity": "defect",
+      "residue_category": "model-gap-render",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+      "reason": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com; v1|Namespace||default",
+      "receipt": "runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml"
+    },
+    {
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "base": "no-crds",
@@ -255,6 +367,20 @@
       "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
       "reason": "target-runtime: installer-applied workload not ready at observation cutoff (parity passed)",
       "receipt": "runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml"
+    },
+    {
+      "chart": "hashicorp/terraform",
+      "version": "1.1.2",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "defect",
+      "residue_category": "model-gap-render",
+      "blocker_owner": "catalog",
+      "usable_today": "no — needs catalog work",
+      "user_decision": "Not usable on this base yet, and not a user action: the installer package's rendered object model does not match the live Helm result. Catalog/model work.",
+      "next_action": "Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun.",
+      "reason": "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||default; runtime also requires hook/target Secret(s): terraformrc, workspacesecrets",
+      "receipt": "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
     },
     {
       "chart": "hashicorp/terraform",
@@ -437,6 +563,20 @@
       "next_action": "Provide the required values in the base/variant, then the row can move to pass.",
       "reason": "render-input: required Helm values missing",
       "receipt": "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
+    },
+    {
+      "chart": "opencost/opencost",
+      "version": "2.5.21",
+      "base": "default",
+      "result": "blocked",
+      "semantic_parity": "pass",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config is correct (semantic parity passed), but the workload did not converge on the test target. This is a runtime/target residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact.",
+      "reason": "target-runtime: pod crash loop (parity passed)",
+      "receipt": "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
     },
     {
       "chart": "percona/pg-operator",

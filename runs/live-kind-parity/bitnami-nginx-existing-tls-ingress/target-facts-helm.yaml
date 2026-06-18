@@ -1,0 +1,248 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: nginx-backend-tls
+    namespace: nginx
+  type: kubernetes.io/tls
+  stringData:
+    tls.crt: '-----BEGIN CERTIFICATE-----
+
+      MIIDFTCCAf2gAwIBAgIUCB05vX+SbhC4r0IOgNE3Z41z3uswDQYJKoZIhvcNAQEL
+
+      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjE4NTUzOVoX
+
+      DTI2MDYxNzE4NTUzOVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
+
+      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0rFQ/al8i6aZsWB9AO40Y7enw8Il
+
+      CPqvl2cIh6ZHo+uoGG7nQ6ZL/pCH7ShGI9lvnH07oEBrpYaRVqOdeIoHI/wYo0ri
+
+      a7dESavvfpt1iOhkBejp3Qa0bZXPmDqTrlN/v1VuFyrf1Bc8/nWQLYZwsQh1rYrx
+
+      rGVvLwYRCdgfwLDHZJsqwKko5/PMOOHf5D1TpYdQ6G+p/W/MHltiQkvTW5mTQcyo
+
+      gUxr2svwa+5iTtBSnkccufyHtez4RymS5ddi1DcKiesgxlc39spQlEDTACqj4OjY
+
+      9zF2faA4QPf3wtRzdv2eEoP4VySGouxkB5jDAoqTEgsNa6uOTO95pedK9wIDAQAB
+
+      o1MwUTAdBgNVHQ4EFgQUpXk2UaXYC3Ss0345edzyNurzOf8wHwYDVR0jBBgwFoAU
+
+      pXk2UaXYC3Ss0345edzyNurzOf8wDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B
+
+      AQsFAAOCAQEAIZrQPrFwEb4kYZaY6J7OvJdGjo2JVGBuw4MV3DRe9LVGu1vW6DDT
+
+      OmERVPdHa+I2IROGWIflFOIzRe15U9D+qfOPYRPWnLCpgMTHX97m8x9DWw9/VOlH
+
+      MqpzUrW7i2O8XmCCY29DlClNrJyb7+6yDKEduauJn7+K/GSG/ZnunsxgNnCdbQmk
+
+      bWRSVDie2beGYvT269lSlkVmFlb2eMoQjj5zjRAqBNsyLk+Mf2KQOo1xfBX0JW6S
+
+      55Lw+KjnddlZcNhlVnjU+uDuJ1dTs6+WyYuXIsvmMMCWwcS0K/s5oePTz3opQm7d
+
+      vrts0tWeC2VESPM9L5h3adXnNhAL1eoi4Q==
+
+      -----END CERTIFICATE-----
+
+      '
+    tls.key: '-----BEGIN PRIVATE KEY-----
+
+      MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDSsVD9qXyLppmx
+
+      YH0A7jRjt6fDwiUI+q+XZwiHpkej66gYbudDpkv+kIftKEYj2W+cfTugQGulhpFW
+
+      o514igcj/BijSuJrt0RJq+9+m3WI6GQF6OndBrRtlc+YOpOuU3+/VW4XKt/UFzz+
+
+      dZAthnCxCHWtivGsZW8vBhEJ2B/AsMdkmyrAqSjn88w44d/kPVOlh1Dob6n9b8we
+
+      W2JCS9NbmZNBzKiBTGvay/Br7mJO0FKeRxy5/Ie17PhHKZLl12LUNwqJ6yDGVzf2
+
+      ylCUQNMAKqPg6Nj3MXZ9oDhA9/fC1HN2/Z4Sg/hXJIai7GQHmMMCipMSCw1rq45M
+
+      73ml50r3AgMBAAECggEAWLohgGFyuKDVUpRusAigeWnrNY456HkhnyHdvrpwqwBf
+
+      zsJNk/ihQjf9dgsi1pAH55/5jzfx3Ug5RoIqm4uNDENq4MF1bqVEFb5ZYjj3m0s6
+
+      bB609caQDyIqxVHNxXkWcC366bi9f+S1Y/eAWxuls3f7jrTXp6Ej3GqynDGu1YcZ
+
+      D5y0vVZM178C52wkiDxTD0PZgyjmR5XhEia937kDxe16jaOaTtTcTTEZ1m8e+g06
+
+      RC6vupiKlrbJTbOJxSEuvTMP7uhqZuP/lWkInkOBZbXAON+XICGV6912ejn5fuK7
+
+      yhyd/Or3gNrzgmVwkfkPWym9+MI57v8UZuOtuQhjMQKBgQDvMN8zE6zfGFxtn4Yx
+
+      xebC+VWI4ux7zSynCyQ9cginjhUZmCui0OIcSGzrHwOexDxSsJshFJSvm3Q40N7n
+
+      Su8L2hXOenP9proaalyhqSQg68VZAb+hzHV0oQ3/MVcB6N36jVWvIYDNq9VLfw3+
+
+      zUp/iJXkHH9jUdP9F5R7y+ZW2QKBgQDhf8AxpgAi1YBSmf9qSoUGPJSwrwzA5dLF
+
+      3ndb9me0F1cmVCIos2tGNkv++C8Vto/EXYckB6a9rxCcBj4ibgz9P+wJiTSnyBzD
+
+      YC16BC7jbwSTTMOvB7PousRYeLC9q3iKBx8BLCn2iDl+otp/+/xYyjVOVF6DYdJE
+
+      YMrz8EOuTwKBgDui38OIYE2vcTwTzg2S3ho2uFDM41Fqsntjl8GKMQY1sqUS/640
+
+      jmum0yE8Nlbbbn7fcY4p53hxNeUEjs70K+20jkNQ3KKdc0Eqy7WyykM7BZVPjkv1
+
+      AkP189twndToDpBttLNZkxe0hBWys/aXkL+DenvJbymAOW6c9nR3PhLhAoGALrx6
+
+      ig+8sXuMmBIg1NfTEELYEnKFcylu8OG13VKJldLMlj4TwlnFXwz73UF1CMwIqgs0
+
+      aixHy8KP77Z/hEVI3eg0tJlCV4/rHjc91a8uRKcKzLi5SfqPuCmVbjy9bOIwHnNx
+
+      Yp3TqKv9NpjsLmB8oa5vM+famuJYYSGqjrp6XJMCgYALg6jP3JJJhZds3iBvlru2
+
+      eAW8395f8fyQXdIoPWAbP7ud+1oHlHIF+he6NtwduWSphhNKEv35Zlsh5IQ8Jmpm
+
+      GiUtg6f3vqyQxHeEdTUs5veWK96CrQHTuq+bslk0lweQlUbzqhjfUikONVbdLIDq
+
+      s4NuTpVH/2u0bw7tUYXnjw==
+
+      -----END PRIVATE KEY-----
+
+      '
+    ca.crt: '-----BEGIN CERTIFICATE-----
+
+      MIIDFTCCAf2gAwIBAgIUCB05vX+SbhC4r0IOgNE3Z41z3uswDQYJKoZIhvcNAQEL
+
+      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjE4NTUzOVoX
+
+      DTI2MDYxNzE4NTUzOVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
+
+      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0rFQ/al8i6aZsWB9AO40Y7enw8Il
+
+      CPqvl2cIh6ZHo+uoGG7nQ6ZL/pCH7ShGI9lvnH07oEBrpYaRVqOdeIoHI/wYo0ri
+
+      a7dESavvfpt1iOhkBejp3Qa0bZXPmDqTrlN/v1VuFyrf1Bc8/nWQLYZwsQh1rYrx
+
+      rGVvLwYRCdgfwLDHZJsqwKko5/PMOOHf5D1TpYdQ6G+p/W/MHltiQkvTW5mTQcyo
+
+      gUxr2svwa+5iTtBSnkccufyHtez4RymS5ddi1DcKiesgxlc39spQlEDTACqj4OjY
+
+      9zF2faA4QPf3wtRzdv2eEoP4VySGouxkB5jDAoqTEgsNa6uOTO95pedK9wIDAQAB
+
+      o1MwUTAdBgNVHQ4EFgQUpXk2UaXYC3Ss0345edzyNurzOf8wHwYDVR0jBBgwFoAU
+
+      pXk2UaXYC3Ss0345edzyNurzOf8wDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B
+
+      AQsFAAOCAQEAIZrQPrFwEb4kYZaY6J7OvJdGjo2JVGBuw4MV3DRe9LVGu1vW6DDT
+
+      OmERVPdHa+I2IROGWIflFOIzRe15U9D+qfOPYRPWnLCpgMTHX97m8x9DWw9/VOlH
+
+      MqpzUrW7i2O8XmCCY29DlClNrJyb7+6yDKEduauJn7+K/GSG/ZnunsxgNnCdbQmk
+
+      bWRSVDie2beGYvT269lSlkVmFlb2eMoQjj5zjRAqBNsyLk+Mf2KQOo1xfBX0JW6S
+
+      55Lw+KjnddlZcNhlVnjU+uDuJ1dTs6+WyYuXIsvmMMCWwcS0K/s5oePTz3opQm7d
+
+      vrts0tWeC2VESPM9L5h3adXnNhAL1eoi4Q==
+
+      -----END CERTIFICATE-----
+
+      '
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: nginx-ingress-tls
+    namespace: nginx
+  type: kubernetes.io/tls
+  stringData:
+    tls.crt: '-----BEGIN CERTIFICATE-----
+
+      MIIDFTCCAf2gAwIBAgIUCB05vX+SbhC4r0IOgNE3Z41z3uswDQYJKoZIhvcNAQEL
+
+      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjE4NTUzOVoX
+
+      DTI2MDYxNzE4NTUzOVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
+
+      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0rFQ/al8i6aZsWB9AO40Y7enw8Il
+
+      CPqvl2cIh6ZHo+uoGG7nQ6ZL/pCH7ShGI9lvnH07oEBrpYaRVqOdeIoHI/wYo0ri
+
+      a7dESavvfpt1iOhkBejp3Qa0bZXPmDqTrlN/v1VuFyrf1Bc8/nWQLYZwsQh1rYrx
+
+      rGVvLwYRCdgfwLDHZJsqwKko5/PMOOHf5D1TpYdQ6G+p/W/MHltiQkvTW5mTQcyo
+
+      gUxr2svwa+5iTtBSnkccufyHtez4RymS5ddi1DcKiesgxlc39spQlEDTACqj4OjY
+
+      9zF2faA4QPf3wtRzdv2eEoP4VySGouxkB5jDAoqTEgsNa6uOTO95pedK9wIDAQAB
+
+      o1MwUTAdBgNVHQ4EFgQUpXk2UaXYC3Ss0345edzyNurzOf8wHwYDVR0jBBgwFoAU
+
+      pXk2UaXYC3Ss0345edzyNurzOf8wDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B
+
+      AQsFAAOCAQEAIZrQPrFwEb4kYZaY6J7OvJdGjo2JVGBuw4MV3DRe9LVGu1vW6DDT
+
+      OmERVPdHa+I2IROGWIflFOIzRe15U9D+qfOPYRPWnLCpgMTHX97m8x9DWw9/VOlH
+
+      MqpzUrW7i2O8XmCCY29DlClNrJyb7+6yDKEduauJn7+K/GSG/ZnunsxgNnCdbQmk
+
+      bWRSVDie2beGYvT269lSlkVmFlb2eMoQjj5zjRAqBNsyLk+Mf2KQOo1xfBX0JW6S
+
+      55Lw+KjnddlZcNhlVnjU+uDuJ1dTs6+WyYuXIsvmMMCWwcS0K/s5oePTz3opQm7d
+
+      vrts0tWeC2VESPM9L5h3adXnNhAL1eoi4Q==
+
+      -----END CERTIFICATE-----
+
+      '
+    tls.key: '-----BEGIN PRIVATE KEY-----
+
+      MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDSsVD9qXyLppmx
+
+      YH0A7jRjt6fDwiUI+q+XZwiHpkej66gYbudDpkv+kIftKEYj2W+cfTugQGulhpFW
+
+      o514igcj/BijSuJrt0RJq+9+m3WI6GQF6OndBrRtlc+YOpOuU3+/VW4XKt/UFzz+
+
+      dZAthnCxCHWtivGsZW8vBhEJ2B/AsMdkmyrAqSjn88w44d/kPVOlh1Dob6n9b8we
+
+      W2JCS9NbmZNBzKiBTGvay/Br7mJO0FKeRxy5/Ie17PhHKZLl12LUNwqJ6yDGVzf2
+
+      ylCUQNMAKqPg6Nj3MXZ9oDhA9/fC1HN2/Z4Sg/hXJIai7GQHmMMCipMSCw1rq45M
+
+      73ml50r3AgMBAAECggEAWLohgGFyuKDVUpRusAigeWnrNY456HkhnyHdvrpwqwBf
+
+      zsJNk/ihQjf9dgsi1pAH55/5jzfx3Ug5RoIqm4uNDENq4MF1bqVEFb5ZYjj3m0s6
+
+      bB609caQDyIqxVHNxXkWcC366bi9f+S1Y/eAWxuls3f7jrTXp6Ej3GqynDGu1YcZ
+
+      D5y0vVZM178C52wkiDxTD0PZgyjmR5XhEia937kDxe16jaOaTtTcTTEZ1m8e+g06
+
+      RC6vupiKlrbJTbOJxSEuvTMP7uhqZuP/lWkInkOBZbXAON+XICGV6912ejn5fuK7
+
+      yhyd/Or3gNrzgmVwkfkPWym9+MI57v8UZuOtuQhjMQKBgQDvMN8zE6zfGFxtn4Yx
+
+      xebC+VWI4ux7zSynCyQ9cginjhUZmCui0OIcSGzrHwOexDxSsJshFJSvm3Q40N7n
+
+      Su8L2hXOenP9proaalyhqSQg68VZAb+hzHV0oQ3/MVcB6N36jVWvIYDNq9VLfw3+
+
+      zUp/iJXkHH9jUdP9F5R7y+ZW2QKBgQDhf8AxpgAi1YBSmf9qSoUGPJSwrwzA5dLF
+
+      3ndb9me0F1cmVCIos2tGNkv++C8Vto/EXYckB6a9rxCcBj4ibgz9P+wJiTSnyBzD
+
+      YC16BC7jbwSTTMOvB7PousRYeLC9q3iKBx8BLCn2iDl+otp/+/xYyjVOVF6DYdJE
+
+      YMrz8EOuTwKBgDui38OIYE2vcTwTzg2S3ho2uFDM41Fqsntjl8GKMQY1sqUS/640
+
+      jmum0yE8Nlbbbn7fcY4p53hxNeUEjs70K+20jkNQ3KKdc0Eqy7WyykM7BZVPjkv1
+
+      AkP189twndToDpBttLNZkxe0hBWys/aXkL+DenvJbymAOW6c9nR3PhLhAoGALrx6
+
+      ig+8sXuMmBIg1NfTEELYEnKFcylu8OG13VKJldLMlj4TwlnFXwz73UF1CMwIqgs0
+
+      aixHy8KP77Z/hEVI3eg0tJlCV4/rHjc91a8uRKcKzLi5SfqPuCmVbjy9bOIwHnNx
+
+      Yp3TqKv9NpjsLmB8oa5vM+famuJYYSGqjrp6XJMCgYALg6jP3JJJhZds3iBvlru2
+
+      eAW8395f8fyQXdIoPWAbP7ud+1oHlHIF+he6NtwduWSphhNKEv35Zlsh5IQ8Jmpm
+
+      GiUtg6f3vqyQxHeEdTUs5veWK96CrQHTuq+bslk0lweQlUbzqhjfUikONVbdLIDq
+
+      s4NuTpVH/2u0bw7tUYXnjw==
+
+      -----END PRIVATE KEY-----
+
+      '

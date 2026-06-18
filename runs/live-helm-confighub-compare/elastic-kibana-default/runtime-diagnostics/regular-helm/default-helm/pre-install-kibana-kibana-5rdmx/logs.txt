@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "create-kibana-token" in pod "pre-install-kibana-kibana-5rdmx" is waiting to start: ContainerCreating

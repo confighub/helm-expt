@@ -1,0 +1,53 @@
+Name:             pre-install-kibana-kibana
+Namespace:        default-helm
+Selector:         batch.kubernetes.io/controller-uid=2942b707-a7c4-4f08-9be3-e8fd4bc13ee8
+Labels:           app=kibana
+                  heritage=Helm
+                  release=kibana
+Annotations:      helm.sh/hook: pre-install,pre-upgrade
+                  helm.sh/hook-delete-policy: hook-succeeded
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Suspend:          false
+Backoff Limit:    20
+Start Time:       Wed, 17 Jun 2026 18:22:22 +0100
+Pods Statuses:    1 Active (0 Ready) / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           batch.kubernetes.io/controller-uid=2942b707-a7c4-4f08-9be3-e8fd4bc13ee8
+                    batch.kubernetes.io/job-name=pre-install-kibana-kibana
+                    controller-uid=2942b707-a7c4-4f08-9be3-e8fd4bc13ee8
+                    job-name=pre-install-kibana-kibana
+  Service Account:  pre-install-kibana-kibana
+  Containers:
+   create-kibana-token:
+    Image:      docker.elastic.co/kibana/kibana:8.5.1
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      /usr/share/kibana/node/bin/node
+    Args:
+      /usr/share/kibana/helm-scripts/manage-es-token.js
+      create
+    Environment:
+      ELASTICSEARCH_USERNAME:                    <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:                    <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES:  /usr/share/kibana/config/certs/ca.crt
+    Mounts:
+      /usr/share/kibana/config/certs from elasticsearch-certs (ro)
+      /usr/share/kibana/helm-scripts from kibana-helm-scripts (rw)
+  Volumes:
+   elasticsearch-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+   kibana-helm-scripts:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          kibana-kibana-helm-scripts
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  8m1s  job-controller  Created pod: pre-install-kibana-kibana-9m896

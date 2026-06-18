@@ -1,0 +1,69 @@
+Name:                   gitlab-runner
+Namespace:              default-helm
+CreationTimestamp:      Wed, 17 Jun 2026 19:03:45 +0100
+Labels:                 app=gitlab-runner
+                        app.kubernetes.io/managed-by=Helm
+                        chart=gitlab-runner-0.89.0
+                        heritage=Helm
+                        release=gitlab-runner
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: gitlab-runner
+                        meta.helm.sh/release-namespace: default-helm
+Selector:               app=gitlab-runner
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=gitlab-runner
+                chart=gitlab-runner-0.89.0
+                heritage=Helm
+                release=gitlab-runner
+  Annotations:  checksum/configmap: dd7fe40b0ed47cdaa079d851569e6d4380396bd21d769b44e06be11974396ec0
+  Containers:
+   gitlab-runner:
+    Image:      registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0
+    Port:       9252/TCP (metrics)
+    Host Port:  0/TCP (metrics)
+    Command:
+      /usr/bin/dumb-init
+      --
+      /bin/bash
+      /configmaps/entrypoint
+    Liveness:   exec [/bin/bash /configmaps/check-live 3] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Readiness:  exec [/usr/bin/pgrep gitlab.*runner] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Environment:
+      CI_SERVER_URL:           
+      RUNNER_EXECUTOR:         kubernetes
+      REGISTER_LOCKED:         true
+      RUNNER_TAG_LIST:         
+      SESSION_SERVER_ADDRESS:  
+    Mounts:
+      /configmaps from configmaps (rw)
+      /home/gitlab-runner/.gitlab-runner from etc-gitlab-runner (rw)
+  Volumes:
+   runner-secrets:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+   etc-gitlab-runner:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+   configmaps:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          gitlab-runner
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   gitlab-runner-7969dd69c9 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  8m1s  deployment-controller  Scaled up replica set gitlab-runner-7969dd69c9 from 0 to 1

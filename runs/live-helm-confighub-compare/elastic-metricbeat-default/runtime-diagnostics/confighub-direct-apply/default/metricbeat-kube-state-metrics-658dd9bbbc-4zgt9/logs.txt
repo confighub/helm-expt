@@ -1,0 +1,1 @@
+Error from server (BadRequest): container "kube-state-metrics" in pod "metricbeat-kube-state-metrics-658dd9bbbc-4zgt9" is waiting to start: ContainerCreating

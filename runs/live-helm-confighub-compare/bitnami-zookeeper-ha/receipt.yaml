@@ -1,0 +1,1316 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-zookeeper-13.8.7-ha-live-parity-20260605
+spec:
+  chart: bitnami/zookeeper
+  version: 13.8.7
+  base: ha
+  result: watch
+  observedAt: '2026-06-17T15:52:48Z'
+  package:
+    path: packages/bitnami/zookeeper/13.8.7
+  recipe:
+    path: recipes/bitnami/zookeeper/13.8.7
+  variantRevision: recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-zookeeper-mqi92c73-22pt
+    kubeContext: kind-helm-expt-parity-zookeeper-mqi92c73-22pt
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-zookeeper-mqi92c73-22pt --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-zookeeper-mqi92c73-22pt"...
+
+        Deleting cluster "helm-expt-parity-zookeeper-mqi92c73-22pt" ...
+
+        Deleted nodes: ["helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane"]
+
+        Deleting Space "helm-expt-parity-zookeeper-mqi92c73-22pt-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
+        --version 13.8.7 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f
+      objectCount: 7
+      liveHelmManifestSHA256: ba571ec5531f38c0cc23cdc1a2e891038b94d940df5e196ed1dcbd6fed816311
+      liveHelmManifestObjectCount: 7
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: statefulset.apps/zookeeper   0/1   8m
+        pods: zookeeper-0   0/1   ImagePullBackOff   0     8m
+        notReady:
+        - namespace: default-helm
+          pod: zookeeper-0
+          ready: 0/1
+          status: ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: a201d1e6c48b5d45041ba077b82197f4cce9657668a75f0520fdcf33cab68a31
+            bytes: 2452
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 676bc5740bc6a77c5bd9fd5aba8456d855eb4ae581e847458f2f41cf7ad8f0c2
+            bytes: 4317
+          podArtifacts:
+          - namespace: default-helm
+            pod: zookeeper-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/zookeeper-0/describe.txt
+            sha256: 51c85453a643212015f960f583a8988b91e19f591f642c303d57cca96be977bd
+            bytes: 5373
+          - namespace: default-helm
+            pod: zookeeper-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/zookeeper-0/logs.txt
+            sha256: 0fab6c06273e523ec7c8de4a384a323bdcd59b49ddc1e57eb952b641ec30805e
+            bytes: 128
+          - namespace: default-helm
+            pod: zookeeper-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/zookeeper-0/previous-logs.txt
+            sha256: 47b8acfcf3fb222c81c0f889eb973e286975cba8ffa43d5081e0931dfe99967e
+            bytes: 104
+      stderr: 'Error: resource StatefulSet/default-helm/zookeeper not ready. status:
+        InProgress, message: Ready: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+        --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 9d9a3d47396a96658bcc720839c39ef9f3390e17b7465d21d13696971f51b15c
+      objectCount: 8
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/zookeeper   0/3   10s'
+        pods: '# default
+
+          zookeeper-0   0/1   ErrImagePull   0     10s
+
+          zookeeper-1   0/1   ErrImagePull   0     10s
+
+          zookeeper-2   0/1   ErrImagePull   0     10s'
+        notReady:
+        - namespace: default
+          pod: zookeeper-0
+          ready: 0/1
+          status: ErrImagePull
+        - namespace: default
+          pod: zookeeper-1
+          ready: 0/1
+          status: ErrImagePull
+        - namespace: default
+          pod: zookeeper-2
+          ready: 0/1
+          status: ErrImagePull
+        terminalReadinessBlockers:
+          default: image pull failure
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 9bd0ec88abbbc3cb683a0bd9cfc4ce8ad8469ac7e142f784d55ba28479f5c20f
+            bytes: 10166
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 991009535c503c8f0fd1d7d05afba434246f077fec30c08398c6a96adee878a7
+            bytes: 4938
+          podArtifacts:
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-0/describe.txt
+            sha256: 5d96e13a4947e4b8408098ad13967cc131c3b4a3ea2635e98e74406d04e2a7ec
+            bytes: 5428
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-0/logs.txt
+            sha256: 479e3967c7d10a776272d36b79b68538c4bd14585d8cd0d8e6a599296f9d1ec8
+            bytes: 117
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-0/previous-logs.txt
+            sha256: 47b8acfcf3fb222c81c0f889eb973e286975cba8ffa43d5081e0931dfe99967e
+            bytes: 104
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-1/describe.txt
+            sha256: 3ff2d1d0f246f14c78c572ed312fe7c9542d4c666bb333bc93244a334f536046
+            bytes: 5428
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-1/logs.txt
+            sha256: f6c4adacfd6df5248818105ed58bfb86f4d0761db2df2e8c104bf74a9cdc04ae
+            bytes: 117
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-1/previous-logs.txt
+            sha256: fd80e0221af5b2389663948cddab5f02fd786d243df04f58533425b5811eaf7c
+            bytes: 104
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-2/describe.txt
+            sha256: 5bd5735f4c87c5c7de4932b41566446ae6e031befe500bcfb0dfae831f3b829f
+            bytes: 5428
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-2/logs.txt
+            sha256: 86b83615e8b941f76e8863e5b9c6be080f1eb1b945b8c399e8de11f9e59020aa
+            bytes: 117
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/zookeeper-2/previous-logs.txt
+            sha256: be430adf9c9f50534be0aa6c649cacb42eeb554ab663f9d9fd8ac4a0d55396e2
+            bytes: 104
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|zookeeper
+          - networking.k8s.io/v1|NetworkPolicy|default|zookeeper
+          - policy/v1|PodDisruptionBudget|default|zookeeper
+          - v1|ConfigMap|default|zookeeper-scripts
+          - v1|ServiceAccount|default|zookeeper
+          - v1|Service|default|zookeeper
+          - v1|Service|default|zookeeper-headless
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+      controller: Argo CD OCI
+      app: zookeeper-parity
+      manifestSHA256: 255ba9d3043a5e6de09080adf04d3d60adb6efeaf724ac596f9b6de0552dc15f
+      objectCount: 8
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+              targetRevision: latest
+          revision: sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T16:08:34Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.io/bitnami/zookeeper:3.9.3-debian-12-r21
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T16:08:34Z'
+          finishedAt: '2026-06-17T16:08:36Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 8
+          syncResultStatusCounts:
+            Synced: 8
+        history:
+        - id: 0
+          revision: sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+          deployedAt: '2026-06-17T16:08:36Z'
+          deployStartedAt: '2026-06-17T16:08:34Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: zookeeper-scripts
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: zookeeper
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: zookeeper-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: zookeeper
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: zookeeper
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: zookeeper
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: zookeeper
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         zookeeper-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-zookeeper-mqi92c73-22pt-cluster:argoproj.io/Application:argocd/zookeeper-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ b58fd4d2-7336-4ef3-a0ff-1b01dcea9a4f\n              confighub.com/UnitSlug:\
+              \ zookeeper-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:  \
+              \       Application\nMetadata:\n  Creation Timestamp:  2026-06-17T16:08:32Z\n\
+              \  Generation:          9\n  Resource Version:    2840\n  UID:     \
+              \            063a4804-cca2-471d-afa6-60a29d436a36\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T16:08:34Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T16:08:34Z\n    Deployed At:        2026-06-17T16:08:36Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \    Source:\n      Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T16:08:36Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \        Source:\n          Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T16:08:34Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/zookeeper serverside-applied\n\
+              \        Name:        zookeeper\n        Namespace:   default\n    \
+              \    Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/zookeeper\
+              \ serverside-applied\n        Name:        zookeeper\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/zookeeper serverside-applied\n        Name:     \
+              \   zookeeper\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/zookeeper-scripts serverside-applied\n\
+              \        Name:        zookeeper-scripts\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        Service\n        Message:     service/zookeeper serverside-applied\n\
+              \        Name:        zookeeper\n        Namespace:   default\n    \
+              \    Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        Service\n        Message:     service/zookeeper-headless\
+              \ serverside-applied\n        Name:        zookeeper-headless\n    \
+              \    Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/zookeeper\
+              \ serverside-applied\n        Name:        zookeeper\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \      Source:\n        Path:              ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T16:12:37Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       zookeeper-scripts\n    Namespace:  default\n    Status:\
+              \     Synced\n    Version:    v1\n    Kind:       Namespace\n    Name:\
+              \       default-oci\n    Status:     Synced\n    Version:    v1\n  \
+              \  Kind:       Service\n    Name:       zookeeper\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       Service\n\
+              \    Name:       zookeeper-headless\n    Namespace:  default\n    Status:\
+              \     Synced\n    Version:    v1\n    Kind:       ServiceAccount\n \
+              \   Name:       zookeeper\n    Namespace:  default\n    Status:    \
+              \ Synced\n    Version:    v1\n    Group:      app"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                         MESSAGE
+
+              6m52s       Normal   OperationStarted     application/zookeeper-parity   Initiated
+              automated sync to ''sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b''
+
+              6m52s       Normal   ResourceUpdated      application/zookeeper-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/zookeeper-parity   Updated
+              health status:  -> Progressing
+
+              6m50s       Normal   OperationCompleted   application/zookeeper-parity   Sync
+              operation to sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/zookeeper-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 8
+              artifact:
+                path: argocd-core-child.json
+                sha256: 158733a5a88a479b6823d1267cb749ee3aea736f02c4c8db7d6042078ec227ae
+                bytes: 12299
+              output: "{\n  \"metadata\": {\n    \"name\": \"zookeeper-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"063a4804-cca2-471d-afa6-60a29d436a36\"\
+                ,\n    \"resourceVersion\": \"3083\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-17T16:08:32Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster:argoproj.io/Application:argocd/zookeeper-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"b58fd4d2-7336-4ef3-a0ff-1b01dcea9a4f\",\n      \"confighub.com/UnitSlug\"\
+                : \"zookeeper-parity-app\"\n    },\n    \"managedFields\": [\n   \
+                \   {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-17T16:08:32Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T16:15:34Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"zookeeper-scripts\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"zookeeper\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"zookeeper-headless\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"zookeeper\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"StatefulSet\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"zookeeper\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for 3 pods to be ready...\"\n        }\n      },\n      {\n    \
+                \    \"group\": \"networking.k8s.i"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 108d26ad02be6781a41c8d83c08b56c91548d34a686e8ed0d562569a081fe70c
+                bytes: 3443
+              output: "Name:               argocd/zookeeper-parity\nProject:     \
+                \       default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:52269/applications/zookeeper-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                  STATUS\
+                \  HEALTH       AGE  MESSAGE                                     \
+                \                  REASON\nServiceAccount/zookeeper              \
+                \     Synced               13m  serviceaccount/zookeeper serverside-applied\
+                \                   \nStatefulSet/zookeeper                      Synced\
+                \  Progressing  13m  statefulset.apps/zookeeper serverside-applied\
+                \                 Waiting for 3 pods to be ready...\n\u251C\u2500\
+                PersistentVolumeClaim/data-zookeeper-0           Healthy      13m\
+                \                                                                \n\
+                \u251C\u2500PersistentVolumeClaim/data-zookeeper-1           Healthy\
+                \      13m                                                       \
+                \         \n\u251C\u2500PersistentVolumeClaim/data-zookeeper-2   \
+                \        Healthy      13m                                        \
+                \                        \n\u251C\u2500Pod/zookeeper-0           \
+                \                       Degraded     13m                         \
+                \                                       Back-off pulling image \"\
+                docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": ErrImagePull: rpc\
+                \ error: code = NotFound desc = failed to pull and unpack image \"\
+                docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": failed to resolve\
+                \ reference \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21:\
+                \ not found\n\u251C\u2500Pod/zookeeper-1                         \
+                \         Degraded     13m                                       \
+                \                         Back-off pulling image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : ErrImagePull: rpc error: code = NotFound desc = failed to pull and\
+                \ unpack image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : failed to resolve reference \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found\n\u251C\
+                \u2500Pod/zookeeper-2                                  Degraded  \
+                \   13m                                                          \
+                \      Back-off pulling image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : ErrImagePull: rpc error: code = NotFound desc = failed to pull and\
+                \ unpack image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : failed to resolve reference \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+                : docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found\n\u2514\
+                \u2500ControllerRevision/zookeeper-6595b489c4                    \
+                \   13m                                                          \
+                \      \nNetworkPolicy/zookeeper                    Synced       \
+                \        13m  networkpolicy.networking.k8s.io/zookeeper serverside-applied\
+                \  \nPodDisruptionBudget/zookeeper              Synced  Healthy  \
+                \    13m  poddisruptionbudget.policy/zookeeper serverside-applied\
+                \       PodDisruptionBudget has InsufficientPods\nConfigMap/zookeeper-scripts\
+                \                Synced               13m  configmap/zookeeper-scripts\
+                \ serverside-applied                \nNamespace/default-oci      \
+                \                Synced               12m                        \
+                \                                        \nService/zookeeper     \
+                \                     Synced  Healthy      13m  service/zookeeper\
+                \ serverside-applied                          \nService/zookeeper-headless\
+                \                 Synced  Healthy      13m  service/zookeeper-headless\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              zookeeper-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/zookeeper-parity\",\n    \
+              \  \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"zookeeper-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+              targetRevision: latest
+          revision: sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T15:54:24Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T16:08:31Z'
+          finishedAt: '2026-06-17T16:08:32Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+          deployedAt: '2026-06-17T16:08:32Z'
+          deployStartedAt: '2026-06-17T16:08:31Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: zookeeper-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-17T15:54:16Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  2972\n  UID:        \
+              \       7b7cd285-0fb8-4985-96c3-c14829b013fd\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T15:54:24Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T16:08:31Z\n\
+              \    Deployed At:        2026-06-17T16:08:32Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \    Source:\n      Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T16:08:32Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \        Source:\n          Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T16:08:31Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/zookeeper-parity serverside-applied\n\
+              \        Name:        zookeeper-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \      Source:\n        Path:              ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T16:14:09Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       zookeeper-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     21m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     21m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Updated
+              sync status:  -> Synced
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Initiated
+              automated sync to ''sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Sync
+              operation to sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 60921ec7158c965159cb7a7931cad2c4223ab19e144826a4633cd7f876ca6925
+                bytes: 10688
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"7b7cd285-0fb8-4985-96c3-c14829b013fd\"\
+                ,\n    \"resourceVersion\": \"3109\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-06-17T15:54:16Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T15:54:16Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T16:15:50Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 762fe566a459c255c6944641b58bb5f75f6d2b37f7fa9b2cd03dd15c9d55a6cc
+                bytes: 1150
+              output: "Name:               argocd/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:52384/applications/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster  Synced\
+                \          21m    application.argoproj.io/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\
+                \ serverside-applied  \nApplication/zookeeper-parity             \
+                \                     Synced          7m27s  application.argoproj.io/zookeeper-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              zookeeper-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/zookeeper-parity\",\n    \
+              \  \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"zookeeper-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/zookeeper   0/3   13m'
+        pods: '# default
+
+          zookeeper-0   0/1   ImagePullBackOff   0     13m
+
+          zookeeper-1   0/1   ImagePullBackOff   0     13m
+
+          zookeeper-2   0/1   ImagePullBackOff   0     13m'
+        notReady:
+        - namespace: default
+          pod: zookeeper-0
+          ready: 0/1
+          status: ImagePullBackOff
+        - namespace: default
+          pod: zookeeper-1
+          ready: 0/1
+          status: ImagePullBackOff
+        - namespace: default
+          pod: zookeeper-2
+          ready: 0/1
+          status: ImagePullBackOff
+        terminalReadinessBlockers:
+          default: image pull failure
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: fd3200accc6392631323ccb126bb6bf42c010b8cc20d196428577079bbcb835e
+            bytes: 10166
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: b33435685e885a45e690318899ab7fad53b268e8744d840bd5ca2e48cda11210
+            bytes: 5218
+          podArtifacts:
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-0/describe.txt
+            sha256: 70e5de4c8f6d871df98f8e7dc31ddceb6b90db8a1fa68e4f6d0c48530c3a4dc1
+            bytes: 5560
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-0/logs.txt
+            sha256: 0fab6c06273e523ec7c8de4a384a323bdcd59b49ddc1e57eb952b641ec30805e
+            bytes: 128
+          - namespace: default
+            pod: zookeeper-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-0/previous-logs.txt
+            sha256: 47b8acfcf3fb222c81c0f889eb973e286975cba8ffa43d5081e0931dfe99967e
+            bytes: 104
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-1/describe.txt
+            sha256: e8511b1aed54e6263472e2bef8eb583d2577d5925961c2ba482acf9f5a4f6518
+            bytes: 5560
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-1/logs.txt
+            sha256: 4f8d1698919bef86621f203f4085c9ffff1cb8f4c5474f3e4300e0e93450a0ef
+            bytes: 128
+          - namespace: default
+            pod: zookeeper-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-1/previous-logs.txt
+            sha256: fd80e0221af5b2389663948cddab5f02fd786d243df04f58533425b5811eaf7c
+            bytes: 104
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-2/describe.txt
+            sha256: 3e7800f7111e8612d32fd8a3c96c23c3995a4da2c1a2aecadb9a49c5b966d28a
+            bytes: 5560
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-2/logs.txt
+            sha256: eb75fdf0f20a71688840fe0f2594fb77e0bd13f73ab6efac5266c99632519932
+            bytes: 128
+          - namespace: default
+            pod: zookeeper-2
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/zookeeper-2/previous-logs.txt
+            sha256: be430adf9c9f50534be0aa6c649cacb42eeb554ab663f9d9fd8ac4a0d55396e2
+            bytes: 104
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-17T15:54:16Z'
+    finishedAt: '2026-06-17T16:02:22Z'
+    elapsedSeconds: 486.437
+    timeoutSeconds: 900
+    command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
+      --version 13.8.7 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T16:02:33Z'
+    finishedAt: '2026-06-17T16:02:33Z'
+    elapsedSeconds: 0.427
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+      --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T16:02:33Z'
+    finishedAt: '2026-06-17T16:02:34Z'
+    elapsedSeconds: 0.127
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig
+      --context kind-helm-expt-parity-zookeeper-mqi92c73-22pt apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/direct-apply-manifest.yaml
+    objectCount: 7
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T16:02:34Z'
+    finishedAt: '2026-06-17T16:02:44Z'
+    elapsedSeconds: 10.24
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T16:02:50Z'
+    finishedAt: '2026-06-17T16:02:50Z'
+    elapsedSeconds: 0.259
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+      --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T16:02:50Z'
+    finishedAt: '2026-06-17T16:03:17Z'
+    elapsedSeconds: 26.814
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+      --space helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper --target helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+    objectCount: 8
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T16:03:17Z'
+    finishedAt: '2026-06-17T16:03:17Z'
+    elapsedSeconds: 0.556
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T16:03:17Z'
+    finishedAt: '2026-06-17T16:08:21Z'
+    elapsedSeconds: 303.9
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+      --unit <8 unit(s)> --wait --timeout 5m
+    unitCount: 8
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T16:08:21Z'
+    finishedAt: '2026-06-17T16:08:22Z'
+    elapsedSeconds: 0.943
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
+      zookeeper-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/argo-application.json
+      --target helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T16:08:22Z'
+    finishedAt: '2026-06-17T16:08:23Z'
+    elapsedSeconds: 1.08
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T16:08:23Z'
+    finishedAt: '2026-06-17T16:15:25Z'
+    elapsedSeconds: 422.137
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T16:15:59Z'
+    finishedAt: '2026-06-17T16:15:59Z'
+    elapsedSeconds: 0.113
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-zookeeper-mqi92c73-22pt\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-zookeeper-mqi92c73-22pt\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-zookeeper-mqi92c73-22pt\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-zookeeper-mqi92c73-22pt\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nC"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource StatefulSet/default-helm/zookeeper not ready. status:
+      InProgress, message: Ready: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      statefulset.apps/zookeeper   0/3   10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

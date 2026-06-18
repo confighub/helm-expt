@@ -1,0 +1,13 @@
+LAST SEEN   TYPE      REASON              OBJECT                                MESSAGE
+8m1s        Normal    Scheduled           pod/gitlab-runner-7969dd69c9-wx9w9    Successfully assigned default-helm/gitlab-runner-7969dd69c9-wx9w9 to helm-expt-parity-gitlabrunner-mqidot8c-937-control-plane
+8m1s        Normal    SuccessfulCreate    replicaset/gitlab-runner-7969dd69c9   Created pod: gitlab-runner-7969dd69c9-wx9w9
+8m1s        Normal    ScalingReplicaSet   deployment/gitlab-runner              Scaled up replica set gitlab-runner-7969dd69c9 from 0 to 1
+8m          Normal    Pulling             pod/gitlab-runner-7969dd69c9-wx9w9    Pulling image "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0"
+7m49s       Normal    Pulled              pod/gitlab-runner-7969dd69c9-wx9w9    Successfully pulled image "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0" in 11.145s (11.145s including waiting). Image size: 64326780 bytes.
+3m          Normal    Killing             pod/gitlab-runner-7969dd69c9-wx9w9    Container gitlab-runner failed liveness probe, will be restarted
+60s         Warning   Unhealthy           pod/gitlab-runner-7969dd69c9-wx9w9    Liveness probe failed:
+35s         Warning   Unhealthy           pod/gitlab-runner-7969dd69c9-wx9w9    Readiness probe failed:
+33s         Warning   BackOff             pod/gitlab-runner-7969dd69c9-wx9w9    Back-off restarting failed container gitlab-runner in pod gitlab-runner-7969dd69c9-wx9w9_default-helm(16e316b1-9810-453f-8849-a7d90f94eb82)
+7s          Normal    Created             pod/gitlab-runner-7969dd69c9-wx9w9    Container created
+7s          Normal    Started             pod/gitlab-runner-7969dd69c9-wx9w9    Container started
+7s          Normal    Pulled              pod/gitlab-runner-7969dd69c9-wx9w9    Container image "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0" already present on machine and can be accessed by the pod

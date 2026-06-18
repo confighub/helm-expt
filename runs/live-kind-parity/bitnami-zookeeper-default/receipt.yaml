@@ -1,0 +1,369 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-zookeeper-13.8.7-default-kind-parity-20260606
+spec:
+  chart: bitnami/zookeeper
+  version: 13.8.7
+  base: default
+  result: blocked
+  observedAt: '2026-06-17T15:09:52Z'
+  package:
+    path: packages/bitnami/zookeeper/13.8.7
+  recipe:
+    path: recipes/bitnami/zookeeper/13.8.7
+  variantRevision: recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-zookee-a9e1f-j56t-helm
+    installerCluster: hx-zookee-a9e1f-j56t-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-zookee-a9e1f-j56t-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-zookee-a9e1f-j56t-helm" ...
+
+          Deleted nodes: ["hx-zookee-a9e1f-j56t-helm-control-plane"]'
+      - cluster: hx-zookee-a9e1f-j56t-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-zookee-a9e1f-j56t-installer" ...
+
+          Deleted nodes: ["hx-zookee-a9e1f-j56t-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
+        --version 13.8.7 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-zookeeper-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb
+      objectCount: 7
+      liveHelmManifestSHA256: b269c5c4bb03b2c6b257a60a937ffabaf8dd7b574e99c925cfe4e2e9997674ea
+      liveHelmManifestObjectCount: 7
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/zookeeper   0/1   8m'
+        pods: '# default
+
+          zookeeper-0   0/1   ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: zookeeper-0
+          ready: 0/1
+          status: ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: zookeeper-0
+          result: blocked
+          detailHead: "Name:             zookeeper-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  zookeeper\nNode:             hx-zookee-a9e1f-j56t-helm-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 16:10:58 +0100\nLabels:           app.kubernetes.io/component=zookeeper\n\
+            \                  app.kubernetes.io/instance=zookeeper\n            \
+            \      app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=zookeeper\n\
+            \                  app.kubernetes.io/version=3.9.3\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=zookeeper-5dcff68554\n\
+            \                  helm.sh/chart=zookeeper-13.8.7\n                  statefulset.kubernetes.io/pod-name=zookeeper-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.6\nIPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/zookeeper\n\
+            Containers:\n  zookeeper:\n    Container ID:    \n    Image:         \
+            \  docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\n    Image ID:    \
+            \    \n    Ports:           2181/TCP (client), 8080/TCP (http-admin)\n\
+            \    Host Ports:      0/TCP (client), 0/TCP (http-admin)\n    SeccompProfile:\
+            \  RuntimeDefault\n    Command:\n      /scripts/setup.sh\n    State: \
+            \         Waiting\n      Reason:       ImagePullBackOff\n    Ready:  \
+            \        False\n    Restart Count:  0\n    Limits:\n      cpu:       \
+            \         375m\n      ephemeral-storage:  2Gi\n      memory:         \
+            \    384Mi\n    Requests:\n      cpu:                250m\n      ephemeral-storage:\
+            \  50Mi\n      memory:             256Mi\n    Liveness:             exec\
+            \ [/bin/bash -ec ZOO_HC_TIMEOUT=3 /opt/bitnami/scripts/zookeeper/healthcheck.sh]\
+            \ delay=30s timeout=5s period=10s #success=1 #failure=6\n    Readiness:\
+            \            exec [/bin/bash -ec ZOO_HC_TIMEOUT=2 /opt/bitnami/scripts/zookeeper/healthcheck.sh]\
+            \ delay=5s timeout=5s period=10s #success=1 #failure=6\n    Environment:\n\
+            \      BITNAMI_DEBUG:                 false\n      ZOO_DATA_LOG_DIR: \
+            \             \n      ZOO_PORT_NUMBER:               2181\n      ZOO_TICK_TIME:\
+            \                 2000\n      ZOO_INIT_LIMIT:                10\n    \
+            \  ZOO_SYNC_LIMIT:                5\n      ZOO_PRE_ALLOC_SIZE:       \
+            \     65536\n      ZOO_SNAPCOUNT:                 100000\n      ZOO_MAX_CLIENT_CNXNS:\
+            \          60\n      ZOO_4LW_COMMANDS_WHITELIST:    srvr, mntr, ruok\n\
+            \      ZOO_LISTEN_ALLIPS_ENABLED:     no\n      ZOO_AUTOPURGE_INTERVAL:\
+            \        1\n      ZOO_AUTOPURGE_RETAIN_COUNT:    10\n      ZOO_MAX_SESSION_TIMEOUT:\
+            \       40000\n      ZOO_SERVERS:                   zookeeper-0.zookeeper-headless.default.svc.cluster.local:2888:3888::1\n\
+            \      ZOO_ENABLE_AUTH:               no\n      ZOO_ENABLE_QUORUM_AUTH:\
+            \        no\n      ZOO_HEAP_SIZE:                 1024\n      ZOO_LOG_LEVEL:\
+            \                 ERROR\n      ALLOW_ANONYMOUS_LOGIN:         yes\n  \
+            \    POD_NAME:                      zookeeper-0 (v1:metadata.name)\n \
+            \     ZOO_ADMIN_SERVER_PORT_NUMBER:  8080\n    Mounts:\n      /bitnami/zookeeper\
+            \ from data (rw)\n      /opt/bitnami/zookeeper/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")"
+          detailTail: " no\n      ZOO_AUTOPURGE_INTERVAL:        1\n      ZOO_AUTOPURGE_RETAIN_COUNT:\
+            \    10\n      ZOO_MAX_SESSION_TIMEOUT:       40000\n      ZOO_SERVERS:\
+            \                   zookeeper-0.zookeeper-headless.default.svc.cluster.local:2888:3888::1\n\
+            \      ZOO_ENABLE_AUTH:               no\n      ZOO_ENABLE_QUORUM_AUTH:\
+            \        no\n      ZOO_HEAP_SIZE:                 1024\n      ZOO_LOG_LEVEL:\
+            \                 ERROR\n      ALLOW_ANONYMOUS_LOGIN:         yes\n  \
+            \    POD_NAME:                      zookeeper-0 (v1:metadata.name)\n \
+            \     ZOO_ADMIN_SERVER_PORT_NUMBER:  8080\n    Mounts:\n      /bitnami/zookeeper\
+            \ from data (rw)\n      /opt/bitnami/zookeeper/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/zookeeper/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /scripts/setup.sh from scripts (rw,path=\"setup.sh\"\
+            )\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n  Type\
+            \                        Status\n  PodReadyToStartContainers   True \n\
+            \  Initialized                 True \n  Ready                       False\
+            \ \n  ContainersReady             False \n  PodScheduled             \
+            \   True \nVolumes:\n  data:\n    Type:       PersistentVolumeClaim (a\
+            \ reference to a PersistentVolumeClaim in the same namespace)\n    ClaimName:\
+            \  data-zookeeper-0\n    ReadOnly:   false\n  empty-dir:\n    Type:  \
+            \     EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  scripts:\n    Type:    \
+            \    ConfigMap (a volume populated by a ConfigMap)\n    Name:        zookeeper-scripts\n\
+            \    Optional:    false\nQoS Class:       Burstable\nNode-Selectors: \
+            \ <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  7m55s\
+            \                   default-scheduler  Successfully assigned default/zookeeper-0\
+            \ to hx-zookee-a9e1f-j56t-helm-control-plane\n  Normal   Pulling    5m4s\
+            \ (x5 over 7m55s)    kubelet            spec.containers{zookeeper}: Pulling\
+            \ image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\n  Warning\
+            \  Failed     5m4s (x5 over 7m54s)    kubelet            spec.containers{zookeeper}:\
+            \ Failed to pull image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": failed to resolve reference\
+            \ \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21:\
+            \ not found\n  Warning  Failed     5m4s (x5 over 7m54s)    kubelet   \
+            \         spec.containers{zookeeper}: Error: ErrImagePull\n  Warning \
+            \ Failed     2m45s (x20 over 7m53s)  kubelet            spec.containers{zookeeper}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m34s (x21 over 7m53s)\
+            \  kubelet            spec.containers{zookeeper}: Back-off pulling image\
+            \ \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\""
+          logsHead: 'Error from server (BadRequest): container "zookeeper" in pod
+            "zookeeper-0" is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "zookeeper" in pod
+            "zookeeper-0" is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource StatefulSet/default/zookeeper not ready. status: InProgress,
+        message: Ready: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-zookee-a9e1f-j56t-zookeeper
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 9f2b2c64dd35c685170996b5ed42d2d0643cbfe707c800fa128c45c559926c22
+      objectCount: 8
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/zookeeper   0/1   10s'
+        pods: '# default
+
+          zookeeper-0   0/1   ErrImagePull   0     10s'
+        notReady:
+        - namespace: default
+          pod: zookeeper-0
+          ready: 0/1
+          status: ErrImagePull
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: zookeeper-0
+          result: blocked
+          detailHead: "Name:             zookeeper-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  zookeeper\nNode:             hx-zookee-a9e1f-j56t-installer-control-plane/192.168.97.5\n\
+            Start Time:       Wed, 17 Jun 2026 16:18:57 +0100\nLabels:           app.kubernetes.io/component=zookeeper\n\
+            \                  app.kubernetes.io/instance=zookeeper\n            \
+            \      app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=zookeeper\n\
+            \                  app.kubernetes.io/version=3.9.3\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=zookeeper-5dcff68554\n\
+            \                  helm.sh/chart=zookeeper-13.8.7\n                  statefulset.kubernetes.io/pod-name=zookeeper-0\n\
+            Annotations:      <none>\nStatus:           Pending\nIP:             \
+            \  10.244.0.6\nIPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/zookeeper\n\
+            Containers:\n  zookeeper:\n    Container ID:    \n    Image:         \
+            \  docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\n    Image ID:    \
+            \    \n    Ports:           2181/TCP (client), 8080/TCP (http-admin)\n\
+            \    Host Ports:      0/TCP (client), 0/TCP (http-admin)\n    SeccompProfile:\
+            \  RuntimeDefault\n    Command:\n      /scripts/setup.sh\n    State: \
+            \         Waiting\n      Reason:       ErrImagePull\n    Ready:      \
+            \    False\n    Restart Count:  0\n    Limits:\n      cpu:           \
+            \     375m\n      ephemeral-storage:  2Gi\n      memory:             384Mi\n\
+            \    Requests:\n      cpu:                250m\n      ephemeral-storage:\
+            \  50Mi\n      memory:             256Mi\n    Liveness:             exec\
+            \ [/bin/bash -ec ZOO_HC_TIMEOUT=3 /opt/bitnami/scripts/zookeeper/healthcheck.sh]\
+            \ delay=30s timeout=5s period=10s #success=1 #failure=6\n    Readiness:\
+            \            exec [/bin/bash -ec ZOO_HC_TIMEOUT=2 /opt/bitnami/scripts/zookeeper/healthcheck.sh]\
+            \ delay=5s timeout=5s period=10s #success=1 #failure=6\n    Environment:\n\
+            \      BITNAMI_DEBUG:                 false\n      ZOO_DATA_LOG_DIR: \
+            \             \n      ZOO_PORT_NUMBER:               2181\n      ZOO_TICK_TIME:\
+            \                 2000\n      ZOO_INIT_LIMIT:                10\n    \
+            \  ZOO_SYNC_LIMIT:                5\n      ZOO_PRE_ALLOC_SIZE:       \
+            \     65536\n      ZOO_SNAPCOUNT:                 100000\n      ZOO_MAX_CLIENT_CNXNS:\
+            \          60\n      ZOO_4LW_COMMANDS_WHITELIST:    srvr, mntr, ruok\n\
+            \      ZOO_LISTEN_ALLIPS_ENABLED:     no\n      ZOO_AUTOPURGE_INTERVAL:\
+            \        1\n      ZOO_AUTOPURGE_RETAIN_COUNT:    10\n      ZOO_MAX_SESSION_TIMEOUT:\
+            \       40000\n      ZOO_SERVERS:                   zookeeper-0.zookeeper-headless.default.svc.cluster.local:2888:3888::1\n\
+            \      ZOO_ENABLE_AUTH:               no\n      ZOO_ENABLE_QUORUM_AUTH:\
+            \        no\n      ZOO_HEAP_SIZE:                 1024\n      ZOO_LOG_LEVEL:\
+            \                 ERROR\n      ALLOW_ANONYMOUS_LOGIN:         yes\n  \
+            \    POD_NAME:                      zookeeper-0 (v1:metadata.name)\n \
+            \     ZOO_ADMIN_SERVER_PORT_NUMBER:  8080\n    Mounts:\n      /bitnami/zookeeper\
+            \ from data (rw)\n      /opt/bitnami/zookeeper/conf from empty-dir (rw,path=\"\
+            app-conf-dir\""
+          detailTail: "  100000\n      ZOO_MAX_CLIENT_CNXNS:          60\n      ZOO_4LW_COMMANDS_WHITELIST:\
+            \    srvr, mntr, ruok\n      ZOO_LISTEN_ALLIPS_ENABLED:     no\n     \
+            \ ZOO_AUTOPURGE_INTERVAL:        1\n      ZOO_AUTOPURGE_RETAIN_COUNT:\
+            \    10\n      ZOO_MAX_SESSION_TIMEOUT:       40000\n      ZOO_SERVERS:\
+            \                   zookeeper-0.zookeeper-headless.default.svc.cluster.local:2888:3888::1\n\
+            \      ZOO_ENABLE_AUTH:               no\n      ZOO_ENABLE_QUORUM_AUTH:\
+            \        no\n      ZOO_HEAP_SIZE:                 1024\n      ZOO_LOG_LEVEL:\
+            \                 ERROR\n      ALLOW_ANONYMOUS_LOGIN:         yes\n  \
+            \    POD_NAME:                      zookeeper-0 (v1:metadata.name)\n \
+            \     ZOO_ADMIN_SERVER_PORT_NUMBER:  8080\n    Mounts:\n      /bitnami/zookeeper\
+            \ from data (rw)\n      /opt/bitnami/zookeeper/conf from empty-dir (rw,path=\"\
+            app-conf-dir\")\n      /opt/bitnami/zookeeper/logs from empty-dir (rw,path=\"\
+            app-logs-dir\")\n      /scripts/setup.sh from scripts (rw,path=\"setup.sh\"\
+            )\n      /tmp from empty-dir (rw,path=\"tmp-dir\")\nConditions:\n  Type\
+            \                        Status\n  PodReadyToStartContainers   True \n\
+            \  Initialized                 True \n  Ready                       False\
+            \ \n  ContainersReady             False \n  PodScheduled             \
+            \   True \nVolumes:\n  data:\n    Type:       PersistentVolumeClaim (a\
+            \ reference to a PersistentVolumeClaim in the same namespace)\n    ClaimName:\
+            \  data-zookeeper-0\n    ReadOnly:   false\n  empty-dir:\n    Type:  \
+            \     EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  scripts:\n    Type:    \
+            \    ConfigMap (a volume populated by a ConfigMap)\n    Name:        zookeeper-scripts\n\
+            \    Optional:    false\nQoS Class:       Burstable\nNode-Selectors: \
+            \ <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age   From      \
+            \         Message\n  ----     ------     ----  ----               -------\n\
+            \  Normal   Scheduled  7s    default-scheduler  Successfully assigned\
+            \ default/zookeeper-0 to hx-zookee-a9e1f-j56t-installer-control-plane\n\
+            \  Normal   Pulling    7s    kubelet            spec.containers{zookeeper}:\
+            \ Pulling image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\n\
+            \  Warning  Failed     6s    kubelet            spec.containers{zookeeper}:\
+            \ Failed to pull image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": failed to resolve reference\
+            \ \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21:\
+            \ not found\n  Warning  Failed     6s    kubelet            spec.containers{zookeeper}:\
+            \ Error: ErrImagePull\n  Normal   BackOff    5s    kubelet           \
+            \ spec.containers{zookeeper}: Back-off pulling image \"docker.io/bitnami/zookeeper:3.9.3-debian-12-r21\"\
+            \n  Warning  Failed     5s    kubelet            spec.containers{zookeeper}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "zookeeper" in pod
+            "zookeeper-0" is waiting to start: image can''t be pulled'
+          logsTail: 'Error from server (BadRequest): container "zookeeper" in pod
+            "zookeeper-0" is waiting to start: image can''t be pulled'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource StatefulSet/default/zookeeper not ready. status: InProgress,
+      message: Ready: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      statefulset.apps/zookeeper   0/1   10s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

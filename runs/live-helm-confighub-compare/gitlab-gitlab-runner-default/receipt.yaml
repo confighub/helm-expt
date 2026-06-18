@@ -1,0 +1,1076 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: gitlab-gitlab-runner-0.89.0-default-live-parity-20260605
+spec:
+  chart: gitlab/gitlab-runner
+  version: 0.89.0
+  base: default
+  result: watch
+  observedAt: '2026-06-17T18:35:41Z'
+  package:
+    path: packages/gitlab/gitlab-runner/0.89.0
+  recipe:
+    path: recipes/gitlab/gitlab-runner/0.89.0
+  variantRevision: recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-gitlabrunner-mqievt8e-9ps
+    kubeContext: kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-gitlabrunner-mqievt8e-9ps --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-gitlabrunner-mqievt8e-9ps"...
+
+        Deleting cluster "helm-expt-parity-gitlabrunner-mqievt8e-9ps" ...
+
+        Deleted nodes: ["helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane"]
+
+        Deleting Space "helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
+        --version 0.89.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e
+      objectCount: 2
+      liveHelmManifestSHA256: 2533fd3e0c591d9ff58567abc861dc577a289b6f953045337cc90906f0b5b40e
+      liveHelmManifestObjectCount: 2
+      namespace: default-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/gitlab-runner   1/1   1     1     5m1s
+        pods: gitlab-runner-7969dd69c9-g6c67   1/1   Running   1 (2m23s ago)   5m1s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0a959b9e87ad464d9983d5d956cdb81d807f050ec1a664f9c6615821b751d097
+      objectCount: 3
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/gitlab-runner   0/1   1     0     4m55s'
+        pods: '# default
+
+          gitlab-runner-844d54c8cc-bvqfd   0/1   Running   2 (55s ago)   4m55s'
+        notReady:
+        - namespace: default
+          pod: gitlab-runner-844d54c8cc-bvqfd
+          ready: 0/1
+          status: Running
+        terminalReadinessBlockers: {}
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: a1a1058ecfc61db3c7ee7764dcb3c3b8638394f16edd202f109dba323ed9921d
+            bytes: 3134
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 44c0fb6ffdf0744ddc2e21e2e1bc9c96cb67722fe5702d533932d1225ea153d3
+            bytes: 2685
+          podArtifacts:
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/gitlab-runner-844d54c8cc-bvqfd/describe.txt
+            sha256: 9cf762e8b010b8ed6bf5aba26e6c98d8cc4527cd0a4600f165fbd99a763957c0
+            bytes: 4491
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/gitlab-runner-844d54c8cc-bvqfd/logs.txt
+            sha256: 5872e4d15d7e3277b8f044b84d92a25656417d0e6abe415b85817ea9d30331d2
+            bytes: 5737
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/gitlab-runner-844d54c8cc-bvqfd/previous-logs.txt
+            sha256: 01170b915d3c64f74aad8178934dd3c53efabab8ad059751e8a83f456d355b18
+            bytes: 5718
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|gitlab-runner
+          - v1|ConfigMap|default|gitlab-runner
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+      controller: Argo CD OCI
+      app: gitlab-runner-parity
+      manifestSHA256: fa13ef62fc411975a268f9e66c1015514a59ab936744c69f1de2539b7577b77e
+      objectCount: 3
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+              targetRevision: latest
+          revision: sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T18:47:55Z'
+          status: Progressing
+        summary:
+          images:
+          - registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T18:47:55Z'
+          finishedAt: '2026-06-17T18:47:57Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+          deployedAt: '2026-06-17T18:47:57Z'
+          deployStartedAt: '2026-06-17T18:47:55Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: gitlab-runner
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: gitlab-runner
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         gitlab-runner-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster:argoproj.io/Application:argocd/gitlab-runner-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ c977826d-d7f8-4c54-931a-f3b38b1dab0f\n              confighub.com/UnitSlug:\
+              \ gitlab-runner-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-17T18:47:53Z\n\
+              \  Generation:          9\n  Resource Version:    2236\n  UID:     \
+              \            199f0ebf-b621-44ba-99fc-e900de5f56f8\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T18:47:55Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T18:47:55Z\n    Deployed At:        2026-06-17T18:47:57Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T18:47:57Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T18:47:55Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ConfigMap\n        Message:     configmap/gitlab-runner\
+              \ serverside-applied\n        Name:        gitlab-runner\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/gitlab-runner\
+              \ serverside-applied\n        Name:        gitlab-runner\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \      Source:\n        Path:              ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T18:52:43Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       ConfigMap\n\
+              \    Name:       gitlab-runner\n    Namespace:  default\n    Status:\
+              \     Synced\n    Version:    v1\n    Kind:       Namespace\n    Name:\
+              \       default-oci\n    Status:     Synced\n    Version:    v1\n  \
+              \  Group:      apps\n    Kind:       Deployment\n    Name:       gitlab-runner\n\
+              \    Namespace:  default\n    Status:     Synced\n    Version:    v1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Images:\n\
+              \      registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    6m52s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a'\n\
+              \  Normal  ResourceUpdated     6m52s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  6m52s  argocd-application-controller  Updated health status:  ->\
+              \ Progressing\n  Normal  OperationCompleted  6m50s  argocd-application-controller\
+              \  Sync operation to sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\
+              \ succeeded\n  Normal  ResourceUpdated     6m48s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                             MESSAGE
+
+              6m52s       Normal   OperationStarted     application/gitlab-runner-parity   Initiated
+              automated sync to ''sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a''
+
+              6m52s       Normal   ResourceUpdated      application/gitlab-runner-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/gitlab-runner-parity   Updated
+              health status:  -> Progressing
+
+              6m50s       Normal   OperationCompleted   application/gitlab-runner-parity   Sync
+              operation to sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/gitlab-runner-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-child.json
+                sha256: 58cfed893041183051a2820da48195af01ed96970b51c56dd796ea4e53c4f49d
+                bytes: 9454
+              output: "{\n  \"metadata\": {\n    \"name\": \"gitlab-runner-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"199f0ebf-b621-44ba-99fc-e900de5f56f8\"\
+                ,\n    \"resourceVersion\": \"2413\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-17T18:47:53Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster:argoproj.io/Application:argocd/gitlab-runner-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"c977826d-d7f8-4c54-931a-f3b38b1dab0f\",\n      \"confighub.com/UnitSlug\"\
+                : \"gitlab-runner-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T18:47:53Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T18:54:55Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"gitlab-runner\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"group\": \"apps\",\n        \"version\": \"v1\",\n    \
+                \    \"kind\": \"Deployment\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"gitlab-runner\",\n        \"status\": \"Synced\"\
+                ,\n        \"health\": {\n          \"status\": \"Progressing\",\n\
+                \          \"message\": \"Waiting for rollout to finish: 0 of 1 updated\
+                \ replicas are available...\"\n        }\n      }\n    ],\n    \"\
+                sync\": {\n      \"status\": \"Synced\",\n      \"comparedTo\": {\n\
+                \        \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\"\
+                ,\n          \"targetRevision\": \"latest\"\n        },\n        \"\
+                destination\": {\n          \"server\": \"https://kubernetes.default.svc\"\
+                ,\n          \"namespace\": \"default-oci\"\n        }\n      },\n\
+                \      \"revision\": \"sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\"\
+                \n    },\n    \"health\": {\n      \"s"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 5b81438962aaee3fe91429edecb30550ac37f3ded33753a202974b944a1a335d
+                bytes: 1370
+              output: "Name:               argocd/gitlab-runner-parity\nProject: \
+                \           default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:55758/applications/gitlab-runner-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                               STATUS\
+                \  HEALTH       AGE    MESSAGE                                   \
+                \        REASON\nConfigMap/gitlab-runner                 Synced  \
+                \             12m    configmap/gitlab-runner serverside-applied  \
+                \      \nNamespace/default-oci                   Synced          \
+                \     7m37s                                                    \n\
+                Deployment/gitlab-runner                Synced  Progressing  12m \
+                \   deployment.apps/gitlab-runner serverside-applied  Waiting for\
+                \ rollout to finish: 0 of 1 updated replicas are available...\n\u2514\
+                \u2500ReplicaSet/gitlab-runner-844d54c8cc           Progressing  12m\
+                \                                                      Waiting for\
+                \ rollout to finish: 0 out of 1 new replicas are available...\n  \u2514\
+                \u2500Pod/gitlab-runner-844d54c8cc-bvqfd          Degraded     12m"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"gitlab-runner-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
+              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/gitlab-runner-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"gitlab-runner-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+              targetRevision: latest
+          revision: sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T18:37:14Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T18:47:52Z'
+          finishedAt: '2026-06-17T18:47:53Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+          deployedAt: '2026-06-17T18:47:53Z'
+          deployStartedAt: '2026-06-17T18:47:52Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: gitlab-runner-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-17T18:37:06Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  2415\n  UID:        \
+              \       eaa4ff98-f529-44e6-93d1-7f368659a63e\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T18:37:14Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T18:47:52Z\n\
+              \    Deployed At:        2026-06-17T18:47:53Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \    Source:\n      Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T18:47:53Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \        Source:\n          Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T18:47:52Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/gitlab-runner-parity serverside-applied\n\
+              \        Name:        gitlab-runner-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \      Source:\n        Path:              ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T18:54:54Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       gitlab-runner-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     17m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     17m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                           MESSAGE
+
+              17m         Normal   ResourceUpdated      application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Updated
+              sync status:  -> Synced
+
+              17m         Normal   ResourceUpdated      application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Initiated
+              automated sync to ''sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Sync
+              operation to sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 5c0f3c70146a4a6ae85b26ccff3c96b36486c20773122c6c86bf77c614615333
+                bytes: 10734
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"eaa4ff98-f529-44e6-93d1-7f368659a63e\"\
+                ,\n    \"resourceVersion\": \"2439\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-06-17T18:37:06Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T18:37:06Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T18:55:13Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci."
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 672ae7428956aedb7c2354e573caedaf53ec1c492ea4228b07b795635a9bd410
+                bytes: 1172
+              output: "Name:               argocd/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:55870/applications/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \              STATUS  HEALTH  AGE    MESSAGE                    \
+                \                                                                \
+                \    REASON\nApplication/gitlab-runner-parity                    \
+                \            Synced          7m33s  application.argoproj.io/gitlab-runner-parity\
+                \ serverside-applied                                \nApplication/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\
+                \  Synced          18m    application.argoproj.io/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"gitlab-runner-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
+              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/gitlab-runner-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:9081777c30e6f0f1b805b583bdbd7070caff926f3e3fac9d769e72ac147f258a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"gitlab-runner-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/gitlab-runner   0/1   1     0     16m'
+        pods: '# default
+
+          gitlab-runner-844d54c8cc-bvqfd   0/1   Running   6 (2m3s ago)   16m'
+        notReady:
+        - namespace: default
+          pod: gitlab-runner-844d54c8cc-bvqfd
+          ready: 0/1
+          status: Running
+        terminalReadinessBlockers: {}
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: 830d08f081821d624c4c86b9db1e94401a4d60b35adcfb3a3a667b1636664520
+            bytes: 3381
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: 92f490dea60bac0e96d9f412a2787cc0e89edc21a3539963f54998c9673725f6
+            bytes: 3018
+          podArtifacts:
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/gitlab-runner-844d54c8cc-bvqfd/describe.txt
+            sha256: f9bb58502226bd83a43724708ddfb25d60b348bffe4e7cc3d2d87f3b62da6c3e
+            bytes: 4749
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/gitlab-runner-844d54c8cc-bvqfd/logs.txt
+            sha256: d696530db235d47986b8cd06d1cdf4e386b6cd9837c7aa41a326ae75fc03466f
+            bytes: 5742
+          - namespace: default
+            pod: gitlab-runner-844d54c8cc-bvqfd
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/gitlab-runner-844d54c8cc-bvqfd/previous-logs.txt
+            sha256: 1bfb4ac47c293f875cdc91a10f533923162474b844098a87c286c5fb5c50ac1b
+            bytes: 5718
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-17T18:37:06Z'
+    finishedAt: '2026-06-17T18:42:10Z'
+    elapsedSeconds: 303.38
+    timeoutSeconds: 900
+    command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
+      --version 0.89.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T18:42:15Z'
+    finishedAt: '2026-06-17T18:42:16Z'
+    elapsedSeconds: 0.448
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T18:42:16Z'
+    finishedAt: '2026-06-17T18:42:16Z'
+    elapsedSeconds: 0.071
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig
+      --context kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/direct-apply-manifest.yaml
+    objectCount: 2
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T18:42:16Z'
+    finishedAt: '2026-06-17T18:47:21Z'
+    elapsedSeconds: 304.857
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T18:47:26Z'
+    finishedAt: '2026-06-17T18:47:26Z'
+    elapsedSeconds: 0.402
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T18:47:27Z'
+    finishedAt: '2026-06-17T18:47:40Z'
+    elapsedSeconds: 13.319
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+      --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner --target helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+    objectCount: 3
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T18:47:40Z'
+    finishedAt: '2026-06-17T18:47:40Z'
+    elapsedSeconds: 0.537
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T18:47:40Z'
+    finishedAt: '2026-06-17T18:47:42Z'
+    elapsedSeconds: 2.071
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+      --unit <3 unit(s)> --wait --timeout 5m
+    unitCount: 3
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T18:47:42Z'
+    finishedAt: '2026-06-17T18:47:44Z'
+    elapsedSeconds: 1.042
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
+      gitlab-runner-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/argo-application.json
+      --target helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T18:47:44Z'
+    finishedAt: '2026-06-17T18:47:45Z'
+    elapsedSeconds: 0.996
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T18:47:45Z'
+    finishedAt: '2026-06-17T18:54:47Z'
+    elapsedSeconds: 422.485
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T18:55:26Z'
+    finishedAt: '2026-06-17T18:58:29Z'
+    elapsedSeconds: 182.935
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-gitlabrunner-mqievt8e-9ps\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-gitlabrunner-mqievt8e-9ps\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo C"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"gitlab-runner\" does not exist. Installing it now.\nNAME: gitlab-runner\n\
+      LAST DEPLOYED: Wed Jun 17 19:37:09 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n#############################################################################################\n\
+      ## WARNING: You did not specify an gitlabUrl in your 'helm install' call.  \
+      \                ##\n#############################################################################################\n\
+      \nThis deployment will be incomplete until you provide the URL that your\nGitLab\
+      \ instance is reachable at:\n\n    helm upgrade gitlab-runner \\\n        --set\
+      \ gitlabUrl=http://gitlab.your-domain.com,runnerRegistrationToken=your-registration-token\
+      \ \\\n        gitlab/gitlab-runner\n\nRunner namespace \"default-helm\" was\
+      \ found in runners.config template."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/gitlab-runner   0/1   1     0     4m55s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

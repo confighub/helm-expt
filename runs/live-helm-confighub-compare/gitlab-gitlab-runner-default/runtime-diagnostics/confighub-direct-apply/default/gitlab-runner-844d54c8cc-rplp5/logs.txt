@@ -1,0 +1,80 @@
+Registration attempt 6 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=88 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 7 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=102 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 8 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=114 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 9 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=132 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 10 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=145 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 11 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=160 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 12 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=175 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m 
+Registration attempt 13 of 30
+Runtime platform                                  [0;m  arch[0;m=arm64 os[0;m=linux pid[0;m=213 revision[0;m=d4bac16c version[0;m=19.0.0
+[0;33mWARNING: Running in user-mode.                    [0;m 
+[0;33mWARNING: The user-mode requires you to manually start builds processing:[0;m 
+[0;33mWARNING: $ gitlab-runner run                      [0;m 
+[0;33mWARNING: Use sudo for system-mode:                [0;m 
+[0;33mWARNING: $ sudo gitlab-runner...                  [0;m 
+                                                  [0;m 
+Merging configuration from template file "/configmaps/config.template.toml"[0;m 
+[31;1mPANIC: The url needs to be entered                [0;m

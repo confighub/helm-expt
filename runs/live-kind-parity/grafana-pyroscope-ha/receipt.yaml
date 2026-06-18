@@ -1,0 +1,755 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-pyroscope-2.0.2-ha-kind-parity-20260606
+spec:
+  chart: grafana/pyroscope
+  version: 2.0.2
+  base: ha
+  result: blocked
+  observedAt: '2026-06-17T19:39:44Z'
+  package:
+    path: packages/grafana/pyroscope/2.0.2
+  recipe:
+    path: recipes/grafana/pyroscope/2.0.2
+  variantRevision: recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-pyrosc-91492-66ua-helm
+    installerCluster: hx-pyrosc-91492-66ua-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-pyrosc-91492-66ua-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-pyrosc-91492-66ua-helm" ...
+
+          Deleted nodes: ["hx-pyrosc-91492-66ua-helm-control-plane"]'
+      - cluster: hx-pyrosc-91492-66ua-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-pyrosc-91492-66ua-installer" ...
+
+          Deleted nodes: ["hx-pyrosc-91492-66ua-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts
+        --version 2.0.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/grafana-pyroscope-ha/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf
+      objectCount: 18
+      liveHelmManifestSHA256: 3d2f0af94c4094e73fdf02ec7b10bad30049df3da08583e6b1401bce493cb1ac
+      liveHelmManifestObjectCount: 17
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/pyroscope         0/2   8m31s
+
+          statefulset.apps/pyroscope-alloy   1/1   8m31s'
+        pods: '# default
+
+          pyroscope-0         0/1   Error     2 (2m55s ago)   8m31s
+
+          pyroscope-1         0/1   Error     2 (2m50s ago)   8m31s
+
+          pyroscope-alloy-0   2/2   Running   0               8m31s'
+        notReady:
+        - namespace: default
+          pod: pyroscope-0
+          ready: 0/1
+          status: Error
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: pyroscope-1
+          ready: 0/1
+          status: Error
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: pyroscope-0
+          result: blocked
+          detailHead: "Name:             pyroscope-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  pyroscope\nNode:             hx-pyrosc-91492-66ua-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 20:40:36 +0100\nLabels:           app.kubernetes.io/component=all\n\
+            \                  app.kubernetes.io/instance=pyroscope\n            \
+            \      app.kubernetes.io/name=pyroscope\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=pyroscope-84c4bcbb57\n   \
+            \               name=pyroscope\n                  statefulset.kubernetes.io/pod-name=pyroscope-0\n\
+            Annotations:      checksum/config: 8a4f819897979ed0bc3d732a2380b919c0688ecafd39ceb238856b74223db8ab\n\
+            \                  profiles.grafana.com/cpu.port_name: http2\n       \
+            \           profiles.grafana.com/cpu.scrape: true\n                  profiles.grafana.com/goroutine.port_name:\
+            \ http2\n                  profiles.grafana.com/goroutine.scrape: true\n\
+            \                  profiles.grafana.com/memory.port_name: http2\n    \
+            \              profiles.grafana.com/memory.scrape: true\n            \
+            \      profiles.grafana.com/service_git_ref: v2.0.2\n                \
+            \  profiles.grafana.com/service_repository: https://github.com/grafana/pyroscope\n\
+            Status:           Running\nIP:               10.244.0.7\nIPs:\n  IP: \
+            \          10.244.0.7\nControlled By:  StatefulSet/pyroscope\nContainers:\n\
+            \  pyroscope:\n    Container ID:  containerd://b2bbca95e0883298da08f8d3730416c623c1b508e212bf600cbc9ac5ae45d21f\n\
+            \    Image:         grafana/pyroscope:2.0.2\n    Image ID:      docker.io/grafana/pyroscope@sha256:644515bfa06cb3779b8666514b1bab2295bd11f1e1a53834bd9584a43f77c4f5\n\
+            \    Ports:         4040/TCP (http2), 7946/TCP (memberlist), 9095/TCP\
+            \ (grpc), 9099/TCP (raft)\n    Host Ports:    0/TCP (http2), 0/TCP (memberlist),\
+            \ 0/TCP (grpc), 0/TCP (raft)\n    Args:\n      -target=all\n      -self-profiling.disable-push=true\n\
+            \      -server.http-listen-port=4040\n      -memberlist.cluster-label=default-pyroscope\n\
+            \      -memberlist.join=dns+pyroscope-memberlist.default.svc.cluster.local.:7946\n\
+            \      -config.file=/etc/pyroscope/config.yaml\n      -runtime-config.file=/etc/pyroscope/overrides/overrides.yaml\n\
+            \      -log.level=debug\n      -query-backend.address=dns:///_grpc._tcp.pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.address=kubernetes:///pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.data-dir=./data-metastore/data\n      -metastore.raft.dir=./data-metastore/raft\n\
+            \      -metastore.raft.snapshots-dir=./data-metastore/raft\n      -metastore.raft.bind-address=:9099\n\
+            \      -metastore.raft.server-id=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.advertise-address=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.bootstrap-peers=dnssrvnoa+_raft._tcp.$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -architecture.storage=v2\n    State:          Terminated\n    \
+            \  Reason:       Error\n      Exit Code:    1\n      Started:      Wed,\
+            \ 17 Jun 2026 20:46:27 +0100\n      Finished:     Wed, 17 Jun 2026 20:49:05\
+            \ +0100\n   "
+          detailTail: "ailure=3\n    Environment:\n      POD_NAME:               \
+            \      pyroscope-0 (v1:metadata.name)\n      NAMESPACE_FQDN:         \
+            \      default.svc.cluster.local.\n      PYROSCOPE_METASTORE_SERVICE:\
+            \  pyroscope-headless.default.svc.cluster.local.:9099\n    Mounts:\n \
+            \     /data from data (rw)\n      /data-metastore from data (rw,path=\"\
+            .metastore\")\n      /etc/pyroscope/config.yaml from config (rw,path=\"\
+            config.yaml\")\n      /etc/pyroscope/overrides/ from overrides-config\
+            \ (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-d94tq\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  config:\n    Type:      ConfigMap\
+            \ (a volume populated by a ConfigMap)\n    Name:      pyroscope-config\n\
+            \    Optional:  false\n  overrides-config:\n    Type:      ConfigMap (a\
+            \ volume populated by a ConfigMap)\n    Name:      pyroscope-overrides-config\n\
+            \    Optional:  false\n  data:\n    Type:       EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:     \n    SizeLimit:\
+            \  <unset>\n  kube-api-access-d94tq:\n    Type:                    Projected\
+            \ (a volume that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m31s\
+            \                   default-scheduler  Successfully assigned default/pyroscope-0\
+            \ to hx-pyrosc-91492-66ua-helm-control-plane\n  Normal   Pulling    8m31s\
+            \                   kubelet            spec.containers{pyroscope}: Pulling\
+            \ image \"grafana/pyroscope:2.0.2\"\n  Normal   Pulled     8m1s      \
+            \              kubelet            spec.containers{pyroscope}: Successfully\
+            \ pulled image \"grafana/pyroscope:2.0.2\" in 899ms (29.787s including\
+            \ waiting). Image size: 54297512 bytes.\n  Warning  Unhealthy  2m58s (x35\
+            \ over 7m59s)  kubelet            spec.containers{pyroscope}: Readiness\
+            \ probe failed: Get \"http://10.244.0.7:4040/ready\": context deadline\
+            \ exceeded (Client.Timeout exceeded while awaiting headers)\n  Normal\
+            \   Created    2m41s (x3 over 8m1s)    kubelet            spec.containers{pyroscope}:\
+            \ Container created\n  Normal   Pulled     2m41s (x2 over 5m27s)   kubelet\
+            \            spec.containers{pyroscope}: Container image \"grafana/pyroscope:2.0.2\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Started    2m40s (x3 over 8m1s)    kubelet            spec.containers{pyroscope}:\
+            \ Container started"
+          logsHead: 'ts=2026-06-17T19:46:27.071889407Z caller=register_options.go:152
+            level=debug msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.071890115Z caller=memberlist_client.go:741 level=info
+            msg="fast-joining node failed" node=10.244.0.6:7946 err="1 error occurred:\n\t*
+            failed to join 10.244.0.6:7946: dial tcp 10.244.0.6:7946: connect: connection
+            refused\n\n"
+
+            ts=2026-06-17T19:46:27.071904948Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles/download
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.071917698Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles/call-tree
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.071933531Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/index
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.071945573Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/symbols
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.072006156Z caller=netutil.go:85 level=debug msg="looking
+            for addresses" inf=[eth0] inet6enabled=false
+
+            ts=2026-06-17T19:46:27.072024239Z caller=netutil.go:102 level=debug msg="detected
+            highest quality address" ipAddr=10.244.0.7 inf=eth0
+
+            ts=2026-06-17T19:46:27.072034406Z caller=log.go:244 level=debug msg="Initiating
+            push/pull sync with:  10.244.0.7:7946"
+
+            ts=2026-06-17T19:46:27.072192196Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/pyroscope/render auth=true
+            gzip=true
+
+            ts=2026-06-17T19:46:27.072197571Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/pyroscope/render-diff auth=true
+            gzip=true
+
+            ts=2026-06-17T19:46:27.072202696Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/pyroscope/label-values
+            auth=true gzip=true
+
+            ts=2026-06-17T19:46:27.072430402Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET,POST path=/ring-segment-writer
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:27.072475235Z caller=netutil.go:85 level=debug component=segment-writer
+            msg="looking for addresses" inf=[eth0] inet6enabled=false
+
+            ts=2026-06-17T19:46:27.072491693Z caller=netutil.go:102 level=debug component=segment-writer
+            msg="detected highest quality address" ipAddr=10.244.0.7 inf=eth0
+
+            ts=2026-06-17T19:46:27.073521768Z caller=metastore.go:217 level=info component=metastore
+            msg="no state snapshots found"
+
+            ts=2026-06-17T19:46:27.073541101Z caller=fsm.go:154 level=info component=metastore
+            msg="restoring state" term=0 applied_index=0
+
+            ts=2026-06-17T19:46:27.073708516Z caller=log.go:244 level=debug msg="Stream
+            co'
+          logsTail: 'less.default.svc.cluster.local.:9099 Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:46.52642356Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:46.526480601Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:56.461939567Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:56.462002608Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:56.496340817Z caller=log.go:244 level=debug msg="Initiating
+            push/pull sync with: pyroscope-1-c046d243 10.244.0.6:7946"
+
+            ts=2026-06-17T19:49:00.210686229Z caller=log.go:244 level=debug msg="Stream
+            connection from=10.244.0.6:34194"
+
+            failed running pyroscope: error initialising module: metastore: failed
+            to initialize raft: failed to bootstrap cluster: failed to resolve peers:
+            failed to resolve bootstrap peers after 20 retries expected number of
+            bootstrap peers not reached: got 2, expected 1
+
+            [{Suffrage:Voter ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: pyroscope-1
+          result: blocked
+          detailHead: "Name:             pyroscope-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  pyroscope\nNode:             hx-pyrosc-91492-66ua-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 20:40:36 +0100\nLabels:           app.kubernetes.io/component=all\n\
+            \                  app.kubernetes.io/instance=pyroscope\n            \
+            \      app.kubernetes.io/name=pyroscope\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=pyroscope-84c4bcbb57\n   \
+            \               name=pyroscope\n                  statefulset.kubernetes.io/pod-name=pyroscope-1\n\
+            Annotations:      checksum/config: 8a4f819897979ed0bc3d732a2380b919c0688ecafd39ceb238856b74223db8ab\n\
+            \                  profiles.grafana.com/cpu.port_name: http2\n       \
+            \           profiles.grafana.com/cpu.scrape: true\n                  profiles.grafana.com/goroutine.port_name:\
+            \ http2\n                  profiles.grafana.com/goroutine.scrape: true\n\
+            \                  profiles.grafana.com/memory.port_name: http2\n    \
+            \              profiles.grafana.com/memory.scrape: true\n            \
+            \      profiles.grafana.com/service_git_ref: v2.0.2\n                \
+            \  profiles.grafana.com/service_repository: https://github.com/grafana/pyroscope\n\
+            Status:           Running\nIP:               10.244.0.6\nIPs:\n  IP: \
+            \          10.244.0.6\nControlled By:  StatefulSet/pyroscope\nContainers:\n\
+            \  pyroscope:\n    Container ID:  containerd://1991d0873e3f4cec60c38e296b4688a3335b8d2c1a12b27eecadb26a4d2d3c41\n\
+            \    Image:         grafana/pyroscope:2.0.2\n    Image ID:      docker.io/grafana/pyroscope@sha256:644515bfa06cb3779b8666514b1bab2295bd11f1e1a53834bd9584a43f77c4f5\n\
+            \    Ports:         4040/TCP (http2), 7946/TCP (memberlist), 9095/TCP\
+            \ (grpc), 9099/TCP (raft)\n    Host Ports:    0/TCP (http2), 0/TCP (memberlist),\
+            \ 0/TCP (grpc), 0/TCP (raft)\n    Args:\n      -target=all\n      -self-profiling.disable-push=true\n\
+            \      -server.http-listen-port=4040\n      -memberlist.cluster-label=default-pyroscope\n\
+            \      -memberlist.join=dns+pyroscope-memberlist.default.svc.cluster.local.:7946\n\
+            \      -config.file=/etc/pyroscope/config.yaml\n      -runtime-config.file=/etc/pyroscope/overrides/overrides.yaml\n\
+            \      -log.level=debug\n      -query-backend.address=dns:///_grpc._tcp.pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.address=kubernetes:///pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.data-dir=./data-metastore/data\n      -metastore.raft.dir=./data-metastore/raft\n\
+            \      -metastore.raft.snapshots-dir=./data-metastore/raft\n      -metastore.raft.bind-address=:9099\n\
+            \      -metastore.raft.server-id=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.advertise-address=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.bootstrap-peers=dnssrvnoa+_raft._tcp.$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -architecture.storage=v2\n    State:          Terminated\n    \
+            \  Reason:       Error\n      Exit Code:    1\n      Started:      Wed,\
+            \ 17 Jun 2026 20:46:31 +0100\n      Finished:     Wed, 17 Jun 2026 20:49:03\
+            \ +0100\n   "
+          detailTail: "ess=1 #failure=3\n    Environment:\n      POD_NAME:       \
+            \              pyroscope-1 (v1:metadata.name)\n      NAMESPACE_FQDN: \
+            \              default.svc.cluster.local.\n      PYROSCOPE_METASTORE_SERVICE:\
+            \  pyroscope-headless.default.svc.cluster.local.:9099\n    Mounts:\n \
+            \     /data from data (rw)\n      /data-metastore from data (rw,path=\"\
+            .metastore\")\n      /etc/pyroscope/config.yaml from config (rw,path=\"\
+            config.yaml\")\n      /etc/pyroscope/overrides/ from overrides-config\
+            \ (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4l9qm\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  config:\n    Type:      ConfigMap\
+            \ (a volume populated by a ConfigMap)\n    Name:      pyroscope-config\n\
+            \    Optional:  false\n  overrides-config:\n    Type:      ConfigMap (a\
+            \ volume populated by a ConfigMap)\n    Name:      pyroscope-overrides-config\n\
+            \    Optional:  false\n  data:\n    Type:       EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:     \n    SizeLimit:\
+            \  <unset>\n  kube-api-access-4l9qm:\n    Type:                    Projected\
+            \ (a volume that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \       From               Message\n  ----     ------     ----       \
+            \            ----               -------\n  Normal   Scheduled  8m31s \
+            \                 default-scheduler  Successfully assigned default/pyroscope-1\
+            \ to hx-pyrosc-91492-66ua-helm-control-plane\n  Normal   Pulling    8m31s\
+            \                  kubelet            spec.containers{pyroscope}: Pulling\
+            \ image \"grafana/pyroscope:2.0.2\"\n  Normal   Pulled     8m2s      \
+            \             kubelet            spec.containers{pyroscope}: Successfully\
+            \ pulled image \"grafana/pyroscope:2.0.2\" in 8.784s (28.895s including\
+            \ waiting). Image size: 54297512 bytes.\n  Warning  Unhealthy  2m53s (x36\
+            \ over 8m)    kubelet            spec.containers{pyroscope}: Readiness\
+            \ probe failed: Get \"http://10.244.0.6:4040/ready\": context deadline\
+            \ exceeded (Client.Timeout exceeded while awaiting headers)\n  Normal\
+            \   Created    2m37s (x3 over 8m2s)   kubelet            spec.containers{pyroscope}:\
+            \ Container created\n  Normal   Pulled     2m37s (x2 over 5m23s)  kubelet\
+            \            spec.containers{pyroscope}: Container image \"grafana/pyroscope:2.0.2\"\
+            \ already present on machine and can be accessed by the pod\n  Normal\
+            \   Started    2m36s (x3 over 8m2s)   kubelet            spec.containers{pyroscope}:\
+            \ Container started"
+          logsHead: 'ts=2026-06-17T19:46:31.055142873Z caller=register_options.go:152
+            level=debug msg="api: registering route" methods=POST path=/query-diagnostics/api/import
+            auth=false gzip=false
+
+            ts=2026-06-17T19:46:31.055182289Z caller=memberlist_client.go:755 level=info
+            msg="memberlist fast-join finished" joined_nodes=2 elapsed_time=3.611136ms
+
+            ts=2026-06-17T19:46:31.055189164Z caller=memberlist_client.go:773 level=info
+            phase=startup msg="joining memberlist cluster" join_members=dns+pyroscope-memberlist.default.svc.cluster.local.:7946
+
+            ts=2026-06-17T19:46:31.055286913Z caller=modules.go:589 level=info msg="initializing
+            v2 admin (metastore-based)"
+
+            ts=2026-06-17T19:46:31.055291163Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055303705Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.05532433Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055349205Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055369454Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055387204Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles/download
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055410746Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/profiles/call-tree
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055416704Z caller=kuberesolver.go:85 level=debug
+            target=kubernetes:///pyroscope-headless.default.svc.cluster.local.:9095
+            component=kuberesolver-discovery msg=resolved ip=10.244.0.6 targetRef="&{Kind:Pod
+            Name:pyroscope-1 Namespace:default}"
+
+            ts=2026-06-17T19:46:31.055424579Z caller=kuberesolver.go:85 level=debug
+            target=kubernetes:///pyroscope-headless.default.svc.cluster.local.:9095
+            component=kuberesolver-discovery msg=resolved ip=10.244.0.7 targetRef="&{Kind:Pod
+            Name:pyroscope-0 Namespace:default}"
+
+            ts=2026-06-17T19:46:31.055429787Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods=GET path=/ops/object-store/tenants/{tenant}/blocks/{block}/datasets/index
+            auth=false gzip=true
+
+            ts=2026-06-17T19:46:31.055438204Z caller=log.go:244 level=debug msg="Stream
+            connection from=10.244.0.6:57108"
+
+            ts=2026-06-17T19:46:31.055447037Z caller=register_options.go:152 level=debug
+            msg="api: registering route" methods'
+          logsTail: 'ess.default.svc.cluster.local.:9099 Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:46.345166096Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:46.345223137Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:55.007483762Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:55.007683968Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:48:56.496409191Z caller=log.go:244 level=debug msg="Stream
+            connection from=10.244.0.7:60230"
+
+            ts=2026-06-17T19:49:00.210670896Z caller=log.go:244 level=debug msg="Initiating
+            push/pull sync with: pyroscope-0-03bb3005 10.244.0.7:7946"
+
+            failed running pyroscope: error initialising module: metastore: failed
+            to initialize raft: failed to bootstrap cluster: failed to resolve peers:
+            failed to resolve bootstrap peers after 20 retries expected number of
+            bootstrap peers not reached: got 2, expected 1
+
+            [{Suffrage:Voter ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource StatefulSet/default/pyroscope not ready. status: InProgress,
+        message: Ready: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/grafana/pyroscope/2.0.2
+        --base ha --work-dir /tmp/helm-expt-kind-parity-hx-pyrosc-91492-66ua-pyroscope
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: d4c3db3177d30d3203e7227ae5d2fc9fcc59fcd53efcaa17c2290367e841946d
+      objectCount: 19
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/pyroscope         1/2   5m47s
+
+          statefulset.apps/pyroscope-alloy   1/1   5m47s'
+        pods: '# default
+
+          pyroscope-0         0/1   Error     1 (2m37s ago)   5m47s
+
+          pyroscope-1         1/1   Running   0               5m47s
+
+          pyroscope-alloy-0   2/2   Running   0               5m47s'
+        notReady:
+        - namespace: default
+          pod: pyroscope-0
+          ready: 0/1
+          status: Error
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: pyroscope-0
+          result: blocked
+          detailHead: "Name:             pyroscope-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  pyroscope\nNode:             hx-pyrosc-91492-66ua-installer-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 20:49:08 +0100\nLabels:           app.kubernetes.io/component=all\n\
+            \                  app.kubernetes.io/instance=pyroscope\n            \
+            \      app.kubernetes.io/name=pyroscope\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=pyroscope-84c4bcbb57\n   \
+            \               name=pyroscope\n                  statefulset.kubernetes.io/pod-name=pyroscope-0\n\
+            Annotations:      checksum/config: 8a4f819897979ed0bc3d732a2380b919c0688ecafd39ceb238856b74223db8ab\n\
+            \                  profiles.grafana.com/cpu.port_name: http2\n       \
+            \           profiles.grafana.com/cpu.scrape: true\n                  profiles.grafana.com/goroutine.port_name:\
+            \ http2\n                  profiles.grafana.com/goroutine.scrape: true\n\
+            \                  profiles.grafana.com/memory.port_name: http2\n    \
+            \              profiles.grafana.com/memory.scrape: true\n            \
+            \      profiles.grafana.com/service_git_ref: v2.0.2\n                \
+            \  profiles.grafana.com/service_repository: https://github.com/grafana/pyroscope\n\
+            Status:           Running\nIP:               10.244.0.5\nIPs:\n  IP: \
+            \          10.244.0.5\nControlled By:  StatefulSet/pyroscope\nContainers:\n\
+            \  pyroscope:\n    Container ID:  containerd://fde3024b8cc604b31f198675e8febac6127b374ff0e577b89355b5098789b1e2\n\
+            \    Image:         grafana/pyroscope:2.0.2\n    Image ID:      docker.io/grafana/pyroscope@sha256:644515bfa06cb3779b8666514b1bab2295bd11f1e1a53834bd9584a43f77c4f5\n\
+            \    Ports:         4040/TCP (http2), 7946/TCP (memberlist), 9095/TCP\
+            \ (grpc), 9099/TCP (raft)\n    Host Ports:    0/TCP (http2), 0/TCP (memberlist),\
+            \ 0/TCP (grpc), 0/TCP (raft)\n    Args:\n      -target=all\n      -self-profiling.disable-push=true\n\
+            \      -server.http-listen-port=4040\n      -memberlist.cluster-label=default-pyroscope\n\
+            \      -memberlist.join=dns+pyroscope-memberlist.default.svc.cluster.local.:7946\n\
+            \      -config.file=/etc/pyroscope/config.yaml\n      -runtime-config.file=/etc/pyroscope/overrides/overrides.yaml\n\
+            \      -log.level=debug\n      -query-backend.address=dns:///_grpc._tcp.pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.address=kubernetes:///pyroscope-headless.$(NAMESPACE_FQDN):9095\n\
+            \      -metastore.data-dir=./data-metastore/data\n      -metastore.raft.dir=./data-metastore/raft\n\
+            \      -metastore.raft.snapshots-dir=./data-metastore/raft\n      -metastore.raft.bind-address=:9099\n\
+            \      -metastore.raft.server-id=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.advertise-address=$(POD_NAME).$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -metastore.raft.bootstrap-peers=dnssrvnoa+_raft._tcp.$(PYROSCOPE_METASTORE_SERVICE)\n\
+            \      -architecture.storage=v2\n    State:          Terminated\n    \
+            \  Reason:       Error\n      Exit Code:    1\n      Started:      Wed,\
+            \ 17 Jun 2026 20:52:19 +0100\n      Finished:     Wed, 17 Jun 2026 20:54:52\
+            \ +010"
+          detailTail: " #failure=3\n    Environment:\n      POD_NAME:            \
+            \         pyroscope-0 (v1:metadata.name)\n      NAMESPACE_FQDN:      \
+            \         default.svc.cluster.local.\n      PYROSCOPE_METASTORE_SERVICE:\
+            \  pyroscope-headless.default.svc.cluster.local.:9099\n    Mounts:\n \
+            \     /data from data (rw)\n      /data-metastore from data (rw,path=\"\
+            .metastore\")\n      /etc/pyroscope/config.yaml from config (rw,path=\"\
+            config.yaml\")\n      /etc/pyroscope/overrides/ from overrides-config\
+            \ (rw)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fvtxf\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   True \n  Initialized                 True \n  Ready              \
+            \         False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  config:\n    Type:      ConfigMap\
+            \ (a volume populated by a ConfigMap)\n    Name:      pyroscope-config\n\
+            \    Optional:  false\n  overrides-config:\n    Type:      ConfigMap (a\
+            \ volume populated by a ConfigMap)\n    Name:      pyroscope-overrides-config\n\
+            \    Optional:  false\n  data:\n    Type:       EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:     \n    SizeLimit:\
+            \  <unset>\n  kube-api-access-fvtxf:\n    Type:                    Projected\
+            \ (a volume that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \       From               Message\n  ----     ------     ----       \
+            \            ----               -------\n  Normal   Scheduled  5m47s \
+            \                 default-scheduler  Successfully assigned default/pyroscope-0\
+            \ to hx-pyrosc-91492-66ua-installer-control-plane\n  Normal   Pulling\
+            \    5m47s                  kubelet            spec.containers{pyroscope}:\
+            \ Pulling image \"grafana/pyroscope:2.0.2\"\n  Normal   Pulled     5m17s\
+            \                  kubelet            spec.containers{pyroscope}: Successfully\
+            \ pulled image \"grafana/pyroscope:2.0.2\" in 1.008s (29.795s including\
+            \ waiting). Image size: 54297512 bytes.\n  Normal   Created    2m36s (x2\
+            \ over 5m17s)  kubelet            spec.containers{pyroscope}: Container\
+            \ created\n  Normal   Started    2m36s (x2 over 5m17s)  kubelet      \
+            \      spec.containers{pyroscope}: Container started\n  Normal   Pulled\
+            \     2m36s                  kubelet            spec.containers{pyroscope}:\
+            \ Container image \"grafana/pyroscope:2.0.2\" already present on machine\
+            \ and can be accessed by the pod\n  Warning  Unhealthy  14s (x35 over\
+            \ 5m15s)   kubelet            spec.containers{pyroscope}: Readiness probe\
+            \ failed: Get \"http://10.244.0.5:4040/ready\": context deadline exceeded\
+            \ (Client.Timeout exceeded while awaiting headers)"
+          logsHead: "ts=2026-06-17T19:52:19.4532221Z caller=memberlist_client.go:773\
+            \ level=info phase=startup msg=\"joining memberlist cluster\" join_members=dns+pyroscope-memberlist.default.svc.cluster.local.:7946\n\
+            ts=2026-06-17T19:52:19.453305695Z caller=metastore.go:217 level=info component=metastore\
+            \ msg=\"no state snapshots found\"\nts=2026-06-17T19:52:19.453320322Z\
+            \ caller=fsm.go:154 level=info component=metastore msg=\"restoring state\"\
+            \ term=0 applied_index=0\nts=2026-06-17T19:52:19.453403417Z caller=log.go:244\
+            \ level=debug msg=\"Initiating push/pull sync with:  10.244.0.7:7946\"\
+            \nts=2026-06-17T19:52:19.453609822Z caller=log.go:244 level=debug msg=\"\
+            Initiating push/pull sync with:  10.244.0.5:7946\"\nts=2026-06-17T19:52:19.453632367Z\
+            \ caller=log.go:244 level=debug msg=\"Stream connection from=10.244.0.5:45676\"\
+            \nts=2026-06-17T19:52:19.453724547Z caller=memberlist_client.go:780 level=info\
+            \ phase=startup msg=\"joining memberlist cluster succeeded\" reached_nodes=2\
+            \ elapsed_time=500.572\xB5s\nts=2026-06-17T19:52:19.455654617Z caller=observer.go:39\
+            \ level=debug component=metastore msg=\"registering raft state observer\"\
+            \nts=2026-06-17T19:52:19.45565966Z caller=observer.go:80 level=debug component=metastore\
+            \ msg=\"raft state changed\" raft_state=Follower\nts=2026-06-17T19:52:19.455671536Z\
+            \ caller=node.go:212 level=info component=metastore msg=\"no existing\
+            \ state found and auto-join is disabled, bootstrapping raft cluster...\"\
+            \nts=2026-06-17T19:52:19.45587244Z caller=node_bootstrap.go:49 level=debug\
+            \ component=metastore msg=\"resolving bootstrap peers\" peers=[] err=\"\
+            expected number of bootstrap peers not reached: got 2, expected 1\\n[{Suffrage:Voter\
+            \ ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}\
+            \ {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099\
+            \ Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]\"\
+            \nts=2026-06-17T19:52:19.455878524Z caller=node_bootstrap.go:51 level=error\
+            \ component=metastore msg=\"failed to resolve bootstrap peers\" err=\"\
+            expected number of bootstrap peers not reached: got 2, expected 1\\n[{Suffrage:Voter\
+            \ ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}\
+            \ {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099\
+            \ Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]\"\
+            \n2026-06-17T19:52:20.626Z [WARN]  raft: no known peers, aborting election\n\
+            ts=2026-06-17T19:52:21.352378324Z caller=node_bootstrap.go:49 level=debug\
+            \ component=metastore msg=\"resolving bootstrap peers\" peers=[] err=\"\
+            expected number of bootstrap peers not reached: got 2, expected 1\\n[{Suffrage:Voter\
+            \ ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}\
+            \ {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099\
+            \ Address:pyroscope-1.pyroscope-headless.default.svc.cluster."
+          logsTail: 'less.default.svc.cluster.local.:9099 Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:54:32.038653572Z caller=log.go:244 level=debug msg="Stream
+            connection from=10.244.0.7:59380"
+
+            ts=2026-06-17T19:54:32.892513266Z caller=log.go:244 level=debug msg="Initiating
+            push/pull sync with: pyroscope-1-dccfacae 10.244.0.7:7946"
+
+            ts=2026-06-17T19:54:33.94768929Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:54:33.947812926Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:54:42.084635979Z caller=node_bootstrap.go:49 level=debug
+            component=metastore msg="resolving bootstrap peers" peers=[] err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            ts=2026-06-17T19:54:42.084698984Z caller=node_bootstrap.go:51 level=error
+            component=metastore msg="failed to resolve bootstrap peers" err="expected
+            number of bootstrap peers not reached: got 2, expected 1\n[{Suffrage:Voter
+            ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099 Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]"
+
+            failed running pyroscope: error initialising module: metastore: failed
+            to initialize raft: failed to bootstrap cluster: failed to resolve peers:
+            failed to resolve bootstrap peers after 20 retries expected number of
+            bootstrap peers not reached: got 2, expected 1
+
+            [{Suffrage:Voter ID:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-0.pyroscope-headless.default.svc.cluster.local.:9099}
+            {Suffrage:Voter ID:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099
+            Address:pyroscope-1.pyroscope-headless.default.svc.cluster.local.:9099}]'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 18
+      installerObjectCount: 17
+      missingFromInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 2478ccdeb836e045107d86bc7d6fd2ba10c0ddd43d538e4b70e45fda5a0a878e
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 17
+      installerObjectCount: 19
+      missingFromInstaller: []
+      extraInInstaller:
+      - apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: a2202446caaeeb394c2c6a4bd3a57ced034a431a72dedbeff96f0b033bb41f4e
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=1 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource StatefulSet/default/pyroscope not ready. status: InProgress,
+      message: Ready: 0/2
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      statefulset.apps/pyroscope         1/2   5m47s
+
+      statefulset.apps/pyroscope-alloy   1/1   5m47s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com',
+      'v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

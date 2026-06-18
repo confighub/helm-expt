@@ -7,8 +7,8 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 40
-blocked: 9
+watch: 47
+blocked: 10
 not-started: 0
 ```
 
@@ -17,6 +17,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 ```text
 capability-profile: rendered APIService version is not served by target Kubernetes: 2
 crd-bootstrap: required CRDs missing before custom resources apply: 1
+helm-runtime: upstream leg blocked: 1
 render-input: required Velero provider values missing: 2
 target-prerequisite: cert-manager CRDs missing: 2
 target-prerequisite: namespace missing (parity passed): 2
@@ -112,18 +113,23 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `bitnami/phpmyadmin@20.0.0` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml |
 |  | `bitnami/spark@10.0.3` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml |
 |  | `bitnami/spark@10.0.3` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml |
+|  | `bitnami/zookeeper@13.8.7` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml |
+|  | `bitnami/zookeeper@13.8.7` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 |  | `coredns/coredns@1.45.2` | default | pass | - | runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml |
 |  | `crossplane-stable/crossplane@2.3.1` | default | pass | - | runs/live-helm-confighub-compare/crossplane-stable-crossplane-default/receipt.yaml |
 |  | `descheduler/descheduler@0.36.0` | default | pass | - | runs/live-helm-confighub-compare/descheduler-descheduler-default/receipt.yaml |
+|  | `dex/dex@0.24.0` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/dex-dex-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | default | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-default/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | ha | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-ha/receipt.yaml |
 |  | `elastic/eck-operator@3.4.0` | no-crds | pass | - | runs/live-helm-confighub-compare/elastic-eck-operator-no-crds/receipt.yaml |
 |  | `elastic/filebeat@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml |
 |  | `elastic/filebeat@8.5.1` | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml |
+|  | `elastic/kibana@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-kibana-default/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
 |  | `elastic/logstash@8.5.1` | ha | pass | - | runs/live-helm-confighub-compare/elastic-logstash-ha/receipt.yaml |
+|  | `elastic/metricbeat@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | default | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-default/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 |  | `external-dns/external-dns@1.21.1` | no-crds | pass | - | runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/receipt.yaml |
@@ -136,6 +142,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `fluent/fluentd@0.5.3` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | default | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-default/receipt.yaml |
 |  | `gatekeeper/gatekeeper@3.22.2` | no-crds | pass | - | runs/live-helm-confighub-compare/gatekeeper-gatekeeper-no-crds/receipt.yaml |
+|  | `gitlab/gitlab-runner@0.89.0` | default | watch | target-runtime: ConfigHub workload not ready (parity passed) | runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | default | pass | - | runs/live-helm-confighub-compare/grafana-alloy-default/receipt.yaml |
 |  | `grafana/alloy@1.8.2` | no-crds | pass | - | runs/live-helm-confighub-compare/grafana-alloy-no-crds/receipt.yaml |
 |  | `grafana/promtail@6.17.1` | default | pass | - | runs/live-helm-confighub-compare/grafana-promtail-default/receipt.yaml |
@@ -170,8 +177,10 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `nats/nats@2.14.0` | ha | pass | - | runs/live-helm-confighub-compare/nats-nats-ha/receipt.yaml |
 |  | `nats/surveyor@0.20.9` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml |
 |  | `nats/surveyor@0.20.9` | default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml |
+|  | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | helm-runtime: upstream leg blocked | runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
+|  | `opencost/opencost@2.5.21` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-no-crds/receipt.yaml |
 |  | `percona/psmdb-operator@1.22.0` | default | pass | - | runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml |

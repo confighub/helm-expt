@@ -1,0 +1,10 @@
+LAST SEEN   TYPE      REASON              OBJECT                                              MESSAGE
+1s          Normal    Scheduled           pod/metricbeat-metricbeat-89nzl                     Successfully assigned default-apply/metricbeat-metricbeat-89nzl to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+1s          Normal    Scheduled           pod/metricbeat-metricbeat-metrics-746dc864-8w4gn    Successfully assigned default-apply/metricbeat-metricbeat-metrics-746dc864-8w4gn to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+1s          Warning   FailedCreate        replicaset/metricbeat-metricbeat-metrics-746dc864   Error creating: pods "metricbeat-metricbeat-metrics-746dc864-" is forbidden: error looking up service account default-apply/metricbeat-metricbeat: serviceaccount "metricbeat-metricbeat" not found
+1s          Normal    SuccessfulCreate    replicaset/metricbeat-metricbeat-metrics-746dc864   Created pod: metricbeat-metricbeat-metrics-746dc864-8w4gn
+1s          Normal    ScalingReplicaSet   deployment/metricbeat-metricbeat-metrics            Scaled up replica set metricbeat-metricbeat-metrics-746dc864 from 0 to 1
+1s          Warning   FailedCreate        daemonset/metricbeat-metricbeat                     Error creating: pods "metricbeat-metricbeat-" is forbidden: error looking up service account default-apply/metricbeat-metricbeat: serviceaccount "metricbeat-metricbeat" not found
+1s          Normal    SuccessfulCreate    daemonset/metricbeat-metricbeat                     Created pod: metricbeat-metricbeat-89nzl
+0s          Warning   FailedMount         pod/metricbeat-metricbeat-89nzl                     MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found
+0s          Warning   FailedMount         pod/metricbeat-metricbeat-metrics-746dc864-8w4gn    MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

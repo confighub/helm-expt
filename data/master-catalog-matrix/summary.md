@@ -39,14 +39,14 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 192 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 929 / 90 / 101 / 105 / 119 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 929 / 104 / 111 / 81 / 119 |
 | Variants with the complete core lane set | 127 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 0 / 160 / 30 / 2 / 0 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 14 / 160 / 16 / 2 / 0 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 182 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
-| Variants currently in the active proof queue | 64 |
+| Variants currently in the active proof queue | 69 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/prometheus@29.9.0`.
 
@@ -78,7 +78,7 @@ otherwise.
 | Design a more useful base | 35 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/apache@11.4.29/default` |
 | Decide a limitation first | 15 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/no-crds`, `bitnami/elasticsearch@22.1.6/default` |
 | Complete the core proof lane | 65 | Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-workflows@1.0.14/default` |
-| Active proof queue | 64 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
+| Active proof queue | 69 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
 | Record or finish production scope | 172 | Rows without a target-scoped supported, superseded, or rejected production decision. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 43 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
@@ -156,7 +156,7 @@ when you want the user/product view with those columns visible.
 |  | http-clusterip | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `bitnami/opensearch@2.0.10` | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 |  | ha | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
-| `bitnami/phpmyadmin@20.0.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `bitnami/phpmyadmin@20.0.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `bitnami/postgresql@18.6.7` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ✅ |
 | `bitnami/postgresql@18.6.10` | existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ⬜ |
@@ -169,25 +169,25 @@ when you want the user/product view with those columns visible.
 |  | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ⬜ |
 | `bitnami/redis@27.0.0` | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | reuse-existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
-| `bitnami/spark@10.0.3` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⬜ | ⚠️ | in-confighub | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⬜ | ⚠️ | in-confighub | ⬜ |
-| `bitnami/zookeeper@13.8.7` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⬜ | ⚠️ | in-confighub | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `bitnami/spark@10.0.3` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
+| `bitnami/zookeeper@13.8.7` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `coredns/coredns@1.45.2` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `crossplane-stable/crossplane@2.3.1` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
-| `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ❌ | ⚠️ | in-confighub | ⬜ |
+| `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `elastic/filebeat@8.5.1` | default | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 |  | node-or-cluster-collector | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
-| `elastic/kibana@8.5.1` | default | next80 | `tpl` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `elastic/kibana@8.5.1` | default | next80 | `tpl` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `elastic/logstash@8.5.1` | default | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | ha | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
-| `elastic/metricbeat@8.5.1` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `elastic/metricbeat@8.5.1` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `external-dns/external-dns@1.21.1` | default | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | dry-run-txt-registry | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
@@ -202,7 +202,7 @@ when you want the user/product view with those columns visible.
 | `fluent/fluentd@0.5.3` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
 | `gatekeeper/gatekeeper@3.22.2` | default | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
-| `gitlab/gitlab-runner@0.89.0` | default | next80 | `generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⚠️ | ⚠️ | in-confighub | ⬜ |
+| `gitlab/gitlab-runner@0.89.0` | default | next80 | `generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⚠️ | ⚠️ | in-confighub | ⬜ |
 | `grafana/alloy@1.8.2` | default | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ❌ | live-parity | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ❌ | live-parity | ⬜ |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
@@ -211,7 +211,7 @@ when you want the user/product view with those columns visible.
 |  | single-binary-filesystem | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 | `grafana/promtail@6.17.1` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `grafana/pyroscope@2.0.2` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⚠️ | in-confighub | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
 | `grafana/rollout-operator@0.49.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ⚠️ | ⚠️ | live-parity | ⬜ |
@@ -220,7 +220,7 @@ when you want the user/product view with those columns visible.
 | `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `hashicorp/consul@2.0.0` | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
 |  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
-| `hashicorp/terraform@1.1.2` | default | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `hashicorp/terraform@1.1.2` | default | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 |  | no-crds | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `hashicorp/vault@0.32.0` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | live-parity | ❌ |
@@ -260,7 +260,7 @@ when you want the user/product view with those columns visible.
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
 |  | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | two-cluster-kind-parity | ⬜ |
-| `opencost/opencost@2.5.21` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⬜ | ⬜ | ⬜ | ⚠️ | in-confighub | ⬜ |
+| `opencost/opencost@2.5.21` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | in-confighub | ⬜ |
 | `percona/pg-operator@3.0.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⚠️ | ⚠️ | live-parity | ⬜ |
 | `percona/psmdb-operator@1.22.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
@@ -271,8 +271,8 @@ when you want the user/product view with those columns visible.
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 |  | ha | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | live-parity | ✅ |
-|  | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ | live-parity | ⬜ |
-| `prometheus-community/kube-prometheus-stack@86.1.0` | default | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ⬜ | live-parity | ⬜ |
+|  | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | live-parity | ⬜ |
+| `prometheus-community/kube-prometheus-stack@86.1.0` | default | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | live-parity | ⬜ |
 |  | no-crds | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `prometheus-community/kube-state-metrics@7.4.0` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
@@ -295,18 +295,18 @@ when you want the user/product view with those columns visible.
 | `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 |  | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | live-parity | ✅ |
-|  | sync-secret-rotation | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `stakater/reloader@2.2.12` | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `strimzi/strimzi-kafka-operator@1.0.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ⚠️ | ⬜ | live-parity | ⬜ |
-| `traefik/traefik@40.2.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ❌ | ⬜ | live-parity | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ⬜ | two-cluster-kind-parity | ⬜ |
-| `velero/velero@12.0.1` | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ⬜ | in-confighub | ⬜ |
-|  | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ⬜ | in-confighub | ⬜ |
-| `vm/victoria-logs-single@0.12.5` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-| `vm/victoria-metrics-single@0.39.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
-|  | default-reviewed | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | live-parity | ⬜ |
+|  | sync-secret-rotation | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+| `stakater/reloader@2.2.12` | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+|  | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+| `strimzi/strimzi-kafka-operator@1.0.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ⚠️ | ✅ | live-parity | ⬜ |
+| `traefik/traefik@40.2.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ❌ | ✅ | live-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | two-cluster-kind-parity | ⬜ |
+| `velero/velero@12.0.1` | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | in-confighub | ⬜ |
+|  | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | in-confighub | ⬜ |
+| `vm/victoria-logs-single@0.12.5` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+| `vm/victoria-metrics-single@0.39.0` | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
+|  | default-reviewed | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | live-parity | ⬜ |
 
 ## Regenerate
 

@@ -1,0 +1,55 @@
+Name:                   dex
+Namespace:              default
+CreationTimestamp:      Wed, 17 Jun 2026 17:25:37 +0100
+Labels:                 app.kubernetes.io/instance=dex
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=dex
+                        app.kubernetes.io/version=2.44.0
+                        helm.sh/chart=dex-0.24.0
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app.kubernetes.io/instance=dex,app.kubernetes.io/name=dex
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app.kubernetes.io/instance=dex
+                    app.kubernetes.io/name=dex
+  Annotations:      checksum/config: 3ef3e2f13ba337b9bed36692407b0430de9700da27c206e17a78f35e411f3ff2
+  Service Account:  dex
+  Containers:
+   dex:
+    Image:       ghcr.io/dexidp/dex:v2.44.0
+    Ports:       5556/TCP (http), 5558/TCP (telemetry)
+    Host Ports:  0/TCP (http), 0/TCP (telemetry)
+    Args:
+      dex
+      serve
+      --web-http-addr
+      0.0.0.0:5556
+      --telemetry-addr
+      0.0.0.0:5558
+      /etc/dex/config.yaml
+    Liveness:     http-get http://:telemetry/healthz/live delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:telemetry/healthz/ready delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/dex from config (ro)
+  Volumes:
+   config:
+    Type:          Secret (a volume populated by a Secret)
+    SecretName:    dex
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   dex-854b786b7 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  11s   deployment-controller  Scaled up replica set dex-854b786b7 from 0 to 1

@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   17
-run blocks:          4  (G/P: 2, K: 2)
-derived predictions: 15
-unknown predictions: 2
+ready-to-run rows:   0
+run blocks:          0  (G/P: 0, K: 0)
+derived predictions: 0
+unknown predictions: 0
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -35,59 +35,6 @@ cells), then two-cluster kind-parity blocks; within each, hard charts
 (operators, CRD/webhook/lifecycle, platform/networking) before ordinary apps,
 then by predicted residue family and chart family. Blocks are capped at
 5 commands.
-
-## GP-01 — G/P · app
-
-**Goal:** G/P: run the 4 ready live-parity row(s) with predicted remote-image / target-runtime (bitnami/zookeeper@13.8.7, dex/dex@0.24.0, elastic/kibana@8.5.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
-
-**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
-
-| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
-| --- | --- | --- | --- | --- | --- |
-| bitnami/zookeeper@13.8.7 | default | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| bitnami/zookeeper@13.8.7 | ha | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
-| dex/dex@0.24.0 | default | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` | target-runtime | high | light controller — safe within a block |
-| elastic/kibana@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |
-
-## GP-02 — G/P · app
-
-**Goal:** G/P: run the 3 ready live-parity row(s) with predicted target-runtime / unknown (elastic/metricbeat@8.5.1, gitlab/gitlab-runner@0.89.0, opencost/opencost@2.5.21); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
-
-**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
-
-| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
-| --- | --- | --- | --- | --- | --- |
-| elastic/metricbeat@8.5.1 | default | `npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` | target-runtime | medium | light controller — safe within a block |
-| gitlab/gitlab-runner@0.89.0 | default | `npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default` | target-runtime | high | light controller — safe within a block |
-| opencost/opencost@2.5.21 | default | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` | unknown | unknown | light controller — safe within a block |
-
-## K-01 — K · app
-
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted remote-image (bitnami/phpmyadmin@20.0.0, bitnami/spark@10.0.3, bitnami/zookeeper@13.8.7); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
-
-**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
-
-| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
-| --- | --- | --- | --- | --- | --- |
-| bitnami/phpmyadmin@20.0.0 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default` | remote-image | high | two-cluster kind run (provisions two clusters) |
-| bitnami/spark@10.0.3 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| bitnami/spark@10.0.3 | ha | `npm run kind-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha` | remote-image | high | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
-| bitnami/zookeeper@13.8.7 | default | `npm run kind-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default` | remote-image | medium | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| bitnami/zookeeper@13.8.7 | ha | `npm run kind-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha` | remote-image | medium | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup; HA/multi-replica base — higher resource use |
-
-## K-02 — K · app
-
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted target-runtime / unknown (elastic/kibana@8.5.1, elastic/metricbeat@8.5.1, grafana/pyroscope@2.0.2, hashicorp/terraform@1.1.2, opencost/opencost@2.5.21); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
-
-**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
-
-| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
-| --- | --- | --- | --- | --- | --- |
-| elastic/kibana@8.5.1 | default | `npm run kind-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters) |
-| elastic/metricbeat@8.5.1 | default | `npm run kind-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters) |
-| grafana/pyroscope@2.0.2 | ha | `npm run kind-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha` | target-runtime | high | two-cluster kind run (provisions two clusters); HA/multi-replica base — higher resource use |
-| hashicorp/terraform@1.1.2 | default | `npm run kind-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default` | target-runtime | high | two-cluster kind run (provisions two clusters) |
-| opencost/opencost@2.5.21 | default | `npm run kind-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## Boundaries
 

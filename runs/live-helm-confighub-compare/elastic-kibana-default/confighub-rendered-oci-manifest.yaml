@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kibana
+    heritage: Helm
+    release: kibana
+  name: kibana-kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+      release: kibana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: null
+      labels:
+        app: kibana
+        release: kibana
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - env:
+            - name: ELASTICSEARCH_HOSTS
+              value: https://elasticsearch-master:9200
+            - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
+              value: /usr/share/kibana/config/certs/ca.crt
+            - name: SERVER_HOST
+              value: 0.0.0.0
+            - name: ELASTICSEARCH_SERVICEACCOUNTTOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: kibana-kibana-es-token
+                  optional: false
+            - name: NODE_OPTIONS
+              value: --max-old-space-size=1800
+          image: docker.elastic.co/kibana/kibana:8.5.1
+          imagePullPolicy: IfNotPresent
+          name: kibana
+          ports:
+            - containerPort: 5601
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - |
+                  #!/usr/bin/env bash -e
+
+                  # Disable nss cache to avoid filling dentry cache when calling curl
+                  # This is required with Kibana Docker using nss < 3.52
+                  export NSS_SDB_USE_CACHE=no
+
+                  http () {
+                      local path="${1}"
+                      set -- -XGET -s --fail -L
+
+                      if [ -n "${ELASTICSEARCH_USERNAME}" ] && [ -n "${ELASTICSEARCH_PASSWORD}" ]; then
+                        set -- "$@" -u "${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}"
+                      fi
+
+                      STATUS=$(curl --output /dev/null --write-out "%{http_code}" -k "$@" "http://localhost:5601${path}")
+                      if [[ "${STATUS}" -eq 200 ]]; then
+                        exit 0
+                      fi
+
+                      echo "Error: Got HTTP code ${STATUS} but expected a 200"
+                      exit 1
+                  }
+
+                  http "/app/kibana"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 3
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /usr/share/kibana/config/certs
+              name: elasticsearch-certs
+              readOnly: true
+            - mountPath: /usr/share/kibana/config/tokens
+              name: kibana-tokens
+              readOnly: true
+      initContainers: null
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - emptyDir: {}
+          name: kibana-tokens
+        - name: elasticsearch-certs
+          secret:
+            secretName: elasticsearch-master-certs
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default-oci
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kibana
+    heritage: Helm
+    release: kibana
+  name: kibana-kibana
+spec:
+  ports:
+    - name: http
+      port: 5601
+      protocol: TCP
+      targetPort: 5601
+  selector:
+    app: kibana
+    release: kibana
+  type: ClusterIP

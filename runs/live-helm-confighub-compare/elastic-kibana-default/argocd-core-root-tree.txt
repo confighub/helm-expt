@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-kibana-mqic7mim-7ud-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:54230/applications/helm-expt-parity-kibana-mqic7mim-7ud-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                 STATUS  HEALTH  AGE    MESSAGE                                                                                  REASON
+Application/helm-expt-parity-kibana-mqic7mim-7ud-cluster  Synced          21m    application.argoproj.io/helm-expt-parity-kibana-mqic7mim-7ud-cluster serverside-applied
+Application/kibana-parity                                 Synced          7m26s  application.argoproj.io/kibana-parity serverside-applied

@@ -24,8 +24,8 @@ For the cell-level completion count, use
 | Live commands remaining | 128 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 57 |
 | Two-cluster kind parity commands | 71 |
-| Watch/blocked/review rows | 111 |
-| Ready-to-run todo rows | 17 |
+| Watch/blocked/review rows | 128 |
+| Ready-to-run todo rows | 0 |
 
 ## By Work Type
 
@@ -38,19 +38,18 @@ For the cell-level completion count, use
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 41 |
-| `todo` | 37 |
-| `watch` | 50 |
+| `blocked` | 51 |
+| `todo` | 20 |
+| `watch` | 57 |
 
 ## By Run Readiness
 
 | Readiness | Rows |
 | --- | ---: |
-| `inspect-diff-first` | 8 |
+| `inspect-diff-first` | 10 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 64 |
-| `ready-to-run` | 17 |
-| `review-target-first` | 37 |
+| `model-or-stage-first` | 72 |
+| `review-target-first` | 44 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -80,25 +79,17 @@ claim.
 | live-parity | bitnami/phpmyadmin | 20.0.0 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/spark | 10.0.3 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/spark | 10.0.3 | ha | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts |
+| live-parity | bitnami/zookeeper | 13.8.7 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
+| live-parity | bitnami/zookeeper | 13.8.7 | ha | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts |
+| live-parity | dex/dex | 0.24.0 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) |  | [runs/live-helm-confighub-compare/dex-dex-default/receipt.yaml](../../runs/live-helm-confighub-compare/dex-dex-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default |
 | live-parity | elastic/filebeat | 8.5.1 | default | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default |
-| live-parity | elastic/filebeat | 8.5.1 | node-or-cluster-collector | G=watch;P=watch | target-runtime: pod ContainerCreating (parity passed) | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | [runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml](../../runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml) | npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector |
-| live-parity | fluent/fluentd | 0.5.3 | default | G=watch;P=watch | target-runtime: pod config/runtime errors (parity passed) | [recipes/fluent/fluentd/0.5.3/runtime-review.yaml](../../recipes/fluent/fluentd/0.5.3/runtime-review.yaml) | [runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml](../../runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default |
-| live-parity | grafana/pyroscope | 2.0.2 | default | G=watch;P=watch | target-runtime: ConfigHub workload not ready (parity passed) | [recipes/grafana/pyroscope/2.0.2/runtime-review.yaml](../../recipes/grafana/pyroscope/2.0.2/runtime-review.yaml) | [runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml](../../runs/live-helm-confighub-compare/grafana-pyroscope-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default |
 
 ## Next Ready Live-Parity Commands
 
 These are the first non-watch GitOps/OCI + live Helm-vs-ConfigHub rows by the
 generated priority. They are good candidates for a serial live block.
 
-| Chart | Version | Base | Catalog Tier | Lane Cells | Command |
-| --- | --- | --- | --- | --- | --- |
-| bitnami/zookeeper | 13.8.7 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default |
-| bitnami/zookeeper | 13.8.7 | ha | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha |
-| dex/dex | 0.24.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default |
-| elastic/kibana | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/kibana/8.5.1 --base default |
-| elastic/metricbeat | 8.5.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default |
-| gitlab/gitlab-runner | 0.89.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default |
-| opencost/opencost | 2.5.21 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default |
+_None._
 
 ## Full Queue
 

@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "victoria-logs-single-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "vm/victoria-logs-single"
+    chartVersion: "0.12.5"
+    packagePath: "packages/vm/victoria-logs-single/0.12.5"
+    variant: "default"
+    upstreamSpace: "helm-victoria-logs-single-default-confighub-proof"
+    downstreamSpace: "VictoriaLogsSingle-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-victoria-logs-single-server runs/victoria-logs-single-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-victoria-logs-single-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-victoria-logs-single-default runs/victoria-logs-single-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-victoria-logs-single-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote VictoriaLogsSingle-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create victoria-logs-single-default-variant-promote-20260527 --space VictoriaLogsSingle-default-staging --description ... --allow-exists"
+    promote: "cub variant promote VictoriaLogsSingle-default-staging --changeset VictoriaLogsSingle-default-staging/victoria-logs-single-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote VictoriaLogsSingle-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-victoria-logs-single-server"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=victoria-logs-single-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-victoria-logs-single-default"
+    upstreamUnitID: "222b32d7-e8e1-4c72-9cae-9ecda0695890"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-victoria-logs-single-default"
+  changeset:
+    slug: "victoria-logs-single-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset victoria-logs-single-default-variant-promote-20260527 (d258016e-12d5-4bd1-9427-1add69bca7e8)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-victoria-logs-single-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-victoria-logs-single-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-victoria-logs-single-default"
+    addedUnitDownstreamUpstreamUnitID: "222b32d7-e8e1-4c72-9cae-9ecda0695890"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

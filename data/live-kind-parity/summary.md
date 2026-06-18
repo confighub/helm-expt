@@ -13,10 +13,10 @@ the same live outcome as cub installer output?
 ```text
 pass: 121
 watch: 10
-blocked: 31
-semantic parity pass: 145
-semantic parity defects: 8
-non-pass rows where semantic parity passed: 24
+blocked: 41
+semantic parity pass: 153
+semantic parity defects: 10
+non-pass rows where semantic parity passed: 32
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -32,13 +32,13 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 8 |
-| remote-image: image pull failed or pinned image is unavailable (parity passed) | 5 |
-| helm-runtime: upstream not ready (parity passed) | 4 |
+| parity: semantic object diff | 10 |
+| remote-image: image pull failed or pinned image is unavailable (parity passed) | 10 |
+| helm-runtime: upstream not ready (parity passed) | 5 |
 | target-prerequisite: CRDs missing | 4 |
+| target-prerequisite: required Secret missing (parity passed) | 4 |
+| target-runtime: pod crash loop (parity passed) | 4 |
 | target-prerequisite: required Namespace missing (parity passed) | 3 |
-| target-prerequisite: required Secret missing (parity passed) | 3 |
-| target-runtime: pod crash loop (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
@@ -97,12 +97,17 @@ broader support claim.
 | `bitnami/nginx@25.0.0` | http-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml |
 | `bitnami/opensearch@2.0.10` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml |
 | `bitnami/opensearch@2.0.10` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml |
+| `bitnami/phpmyadmin@20.0.0` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-phpmyadmin-default/receipt.yaml |
 | `bitnami/postgresql@18.7.0` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml |
 | `bitnami/postgresql@18.7.0` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml |
 | `bitnami/redis@27.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@27.0.0` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
+| `bitnami/spark@10.0.3` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-spark-default/receipt.yaml |
+| `bitnami/spark@10.0.3` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-spark-ha/receipt.yaml |
+| `bitnami/zookeeper@13.8.7` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-zookeeper-default/receipt.yaml |
+| `bitnami/zookeeper@13.8.7` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-zookeeper-ha/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 | `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |
@@ -114,8 +119,10 @@ broader support claim.
 | `elastic/eck-operator@3.4.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-no-crds/receipt.yaml |
 | `elastic/filebeat@8.5.1` | default | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-filebeat-default/receipt.yaml |
 | `elastic/filebeat@8.5.1` | node-or-cluster-collector | blocked | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml |
+| `elastic/kibana@8.5.1` | default | blocked | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-kibana-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-ha/receipt.yaml |
+| `elastic/metricbeat@8.5.1` | default | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-no-crds/receipt.yaml |
@@ -139,6 +146,7 @@ broader support claim.
 | `grafana/loki@7.0.0` | single-binary-filesystem | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
 | `grafana/promtail@6.17.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-promtail-default/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml |
+| `grafana/pyroscope@2.0.2` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml |
 | `grafana/rollout-operator@0.49.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml |
 | `grafana/rollout-operator@0.49.0` | no-crds | watch | pass | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml |
@@ -147,6 +155,7 @@ broader support claim.
 | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
+| `hashicorp/terraform@1.1.2` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml |
 | `hashicorp/terraform@1.1.2` | no-crds | blocked | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | dev-mode | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
@@ -186,6 +195,7 @@ broader support claim.
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | unknown | render-input: required Helm values missing |  | required render inputs need a modeled base | runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/receipt.yaml |
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
+| `opencost/opencost@2.5.21` | default | blocked | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/opencost-opencost-default/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
 | `percona/pg-operator@3.0.0` | no-crds | watch | pass | target-prerequisite: CRDs disabled or missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |

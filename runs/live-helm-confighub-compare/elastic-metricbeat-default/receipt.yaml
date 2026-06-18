@@ -1,0 +1,1513 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-metricbeat-8.5.1-default-live-parity-20260605
+spec:
+  chart: elastic/metricbeat
+  version: 8.5.1
+  base: default
+  result: watch
+  observedAt: '2026-06-17T17:43:51Z'
+  package:
+    path: packages/elastic/metricbeat/8.5.1
+  recipe:
+    path: recipes/elastic/metricbeat/8.5.1
+  variantRevision: recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-metricbeat-mqid15pc-8l2
+    kubeContext: kind-helm-expt-parity-metricbeat-mqid15pc-8l2
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-metricbeat-mqid15pc-8l2 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-metricbeat-mqid15pc-8l2"...
+
+        Deleting cluster "helm-expt-parity-metricbeat-mqid15pc-8l2" ...
+
+        Deleted nodes: ["helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane"]
+
+        Deleting Space "helm-expt-parity-metricbeat-mqid15pc-8l2-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install metricbeat metricbeat --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-metricbeat-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939
+      objectCount: 14
+      liveHelmManifestSHA256: dbc1caf8ca4ad8c4eb06ff49b9e18292ea178c130b21cc134ab9a2d5c39d539b
+      liveHelmManifestObjectCount: 14
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: 'deployment.apps/metricbeat-kube-state-metrics   1/1   1     1     8m
+
+          deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     8m
+
+          daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   8m'
+        pods: 'metricbeat-kube-state-metrics-658dd9bbbc-4kfss   1/1   Running             0     8m
+
+          metricbeat-metricbeat-jsmj4                      0/1   ContainerCreating   0     8m
+
+          metricbeat-metricbeat-metrics-746dc864-c2ztd     0/1   ContainerCreating   0     8m'
+        notReady:
+        - namespace: default-helm
+          pod: metricbeat-metricbeat-jsmj4
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default-helm
+          pod: metricbeat-metricbeat-metrics-746dc864-c2ztd
+          ready: 0/1
+          status: ContainerCreating
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: a8c9fa76bd46069105418f6ea867c4e03ff2ad62a81e9ef4faf858124dec4290
+            bytes: 2635
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: ec869fb834268e9650b164228ac3f57e1646e810cd4b511a7fb9e464bb933aca
+            bytes: 9150
+          podArtifacts:
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-jsmj4
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-jsmj4/describe.txt
+            sha256: bba73d645abd0a4a5e47d2cff83778fc0c8529d2939f7a603ee853d80b5966f0
+            bytes: 4744
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-jsmj4
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-jsmj4/logs.txt
+            sha256: 911cc7b109f18e389be04d852b280583b14cafdb0822f93b9264fa2b855cbcf7
+            bytes: 130
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-jsmj4
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-jsmj4/previous-logs.txt
+            sha256: fee031a62f93e2bce90feada00807060e81fd55d0afeee56fa828a82c6d67f28
+            bytes: 121
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-metrics-746dc864-c2ztd
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-metrics-746dc864-c2ztd/describe.txt
+            sha256: 8270b11fe9fd33b9edfd6407913b65c4ea7c7a850e0e2aee0beee05792af7ccd
+            bytes: 3741
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-metrics-746dc864-c2ztd
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-metrics-746dc864-c2ztd/logs.txt
+            sha256: 25d502b955c8c06fb0595b13f52ce4abd14928e0044966876f58999e0cbc0959
+            bytes: 147
+          - namespace: default-helm
+            pod: metricbeat-metricbeat-metrics-746dc864-c2ztd
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/metricbeat-metricbeat-metrics-746dc864-c2ztd/previous-logs.txt
+            sha256: 91b6b3613e6983d3180a4be0adde03ce4efc6e49581aebb19e30771acbafe3ce
+            bytes: 138
+      stderr: 'Error: resource DaemonSet/default-helm/metricbeat-metricbeat not ready.
+        status: InProgress, message: Available: 0/1
+
+        resource Deployment/default-helm/metricbeat-metricbeat-metrics not ready.
+        status: InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 2cde6abcc4cc915b847323fff1c267c0485517fbee0a38a569883cad676ca1bc
+      objectCount: 15
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      - default-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/metricbeat-kube-state-metrics   0/1   1     0     0s
+
+          # default-apply
+
+          deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     1s
+
+          daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   1s'
+        pods: '# default
+
+          metricbeat-kube-state-metrics-658dd9bbbc-4zgt9   0/1   ContainerCreating   0     0s
+
+          # default-apply
+
+          metricbeat-metricbeat-89nzl                    0/1   ContainerCreating   0     1s
+
+          metricbeat-metricbeat-metrics-746dc864-8w4gn   0/1   ContainerCreating   0     1s'
+        notReady:
+        - namespace: default
+          pod: metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default-apply
+          pod: metricbeat-metricbeat-89nzl
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default-apply
+          pod: metricbeat-metricbeat-metrics-746dc864-8w4gn
+          ready: 0/1
+          status: ContainerCreating
+        terminalReadinessBlockers:
+          default-apply: missing secret
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          - default-apply
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: c134f378dbe40d204098828e13a21a7fc2a06badb124cd01c876a7721309ee84
+            bytes: 3409
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 76abce5370328bce093818b8addf1fcd0a5162d32cea3927db0f9ad8b396eea4
+            bytes: 2946
+          - namespace: default-apply
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/events.txt
+            sha256: b8abb8516a2211c093791d94c1d634c1775b1c9959ab5bdb8ba565cf8c3bb51f
+            bytes: 1981
+          - namespace: default-apply
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/workloads-describe.txt
+            sha256: 51bd502ba5600c729db9191f1da6594fac4854eba547463bad7cab7f2dd8bc09
+            bytes: 5978
+          podArtifacts:
+          - namespace: default
+            pod: metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9/describe.txt
+            sha256: f84ad5d542573efe1e27f4e43b99fdc37b1c6b093c6d90cbd02da4a83f479211
+            bytes: 3095
+          - namespace: default
+            pod: metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9/logs.txt
+            sha256: 74c26fa77a85c43ab81e1a610300ad05e63b188a036b68b9b47363e2fa3b66ed
+            bytes: 157
+          - namespace: default
+            pod: metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9/previous-logs.txt
+            sha256: 3f55f36b94d53b793de4aed2f9668372a6bdd491470037ae6cad9a4071935460
+            bytes: 148
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-89nzl
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-89nzl/describe.txt
+            sha256: af7aa137e391e6d8090d6809f73b6b750754c71227fa6049e01763232e11cb8c
+            bytes: 4686
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-89nzl
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-89nzl/logs.txt
+            sha256: 1e96dbaf00460a76bfec517ec84b4b849202ee5dea3ba4fe270137f56f767a0c
+            bytes: 130
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-89nzl
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-89nzl/previous-logs.txt
+            sha256: 332b50e0c0d8dedcaf0c526db68985ffb41002ca9f733cfccede52ea6c60c278
+            bytes: 121
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-metrics-746dc864-8w4gn
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-metrics-746dc864-8w4gn/describe.txt
+            sha256: 39bb0ce0b78da956214fe9418625458e76106b2bdef4bcd7dc59215e545647a5
+            bytes: 3688
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-metrics-746dc864-8w4gn
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-metrics-746dc864-8w4gn/logs.txt
+            sha256: f85e651273972d2e6d84dad9057d26acf24ecf6dea1d74ab9157d4a81ae31bd2
+            bytes: 147
+          - namespace: default-apply
+            pod: metricbeat-metricbeat-metrics-746dc864-8w4gn
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/metricbeat-metricbeat-metrics-746dc864-8w4gn/previous-logs.txt
+            sha256: 9265f7ce0b6579331c259627678384fac3dd06d3a19877d937c62b1d327afb16
+            bytes: 138
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 4
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "metricbeat-kube-state-metrics"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "metricbeat-metricbeat-cluster-role"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "metricbeat-kube-state-metrics"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "metricbeat-metricbeat-cluster-role-binding"
+            deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|metricbeat-kube-state-metrics
+          - v1|ServiceAccount|default|metricbeat-kube-state-metrics
+          - v1|Service|default|metricbeat-kube-state-metrics
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+      controller: Argo CD OCI
+      app: metricbeat-parity
+      manifestSHA256: a7accdbbd7c04e07a0c52244e2472458123c96ca904eec67386f1071fae60b95
+      objectCount: 15
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      - default-oci
+      ociRevision: sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+              targetRevision: latest
+          revision: sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T17:54:47Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.elastic.co/beats/metricbeat:8.5.1
+          - k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T17:54:44Z'
+          finishedAt: '2026-06-17T17:54:46Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 15
+          syncResultStatusCounts:
+            Synced: 15
+        history:
+        - id: 0
+          revision: sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+          deployedAt: '2026-06-17T17:54:46Z'
+          deployStartedAt: '2026-06-17T17:54:44Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: metricbeat-metricbeat-daemonset-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: default-oci
+          name: metricbeat-metricbeat-deployment-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: metricbeat-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default-oci
+          name: metricbeat-metricbeat
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: metricbeat-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: DaemonSet
+          namespace: default-oci
+          name: metricbeat-metricbeat
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default-oci
+          name: metricbeat-metricbeat-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: metricbeat-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: metricbeat-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: metricbeat-metricbeat-cluster-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: metricbeat-kube-state-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: metricbeat-metricbeat-cluster-role-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default-oci
+          name: metricbeat-metricbeat-role
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default-oci
+          name: metricbeat-metricbeat-role-binding
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         metricbeat-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-metricbeat-mqid15pc-8l2-cluster:argoproj.io/Application:argocd/metricbeat-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 21e5e57b-0af1-4028-b742-feb2b51df810\n              confighub.com/UnitSlug:\
+              \ metricbeat-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-17T17:54:42Z\n\
+              \  Generation:          10\n  Resource Version:    2457\n  UID:    \
+              \             38b8c29e-dc9c-4bd5-9a3b-550c1466f7c3\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T17:54:47Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T17:54:44Z\n    Deployed At:        2026-06-17T17:54:46Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \    Source:\n      Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T17:54:46Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \        Source:\n          Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T17:54:44Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/metricbeat-metricbeat serverside-applied\n      \
+              \  Name:        metricbeat-metricbeat\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/metricbeat-kube-state-metrics\
+              \ serverside-applied\n        Name:        metricbeat-kube-state-metrics\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ConfigMap\n    \
+              \    Message:     configmap/metricbeat-metricbeat-deployment-config\
+              \ serverside-applied\n        Name:        metricbeat-metricbeat-deployment-config\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/metricbeat-metricbeat-daemonset-config\
+              \ serverside-applied\n        Name:        metricbeat-metricbeat-daemonset-config\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/metricbeat-kube-state-metrics\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[list watch] APIGroups:[certificates.k8s.io]\
+              \ Resources:[certificatesigningrequests] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[configmaps]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[extensions apps]\
+              \ Resources:[daemonsets] ResourceNames:[] NonResourceURLs:[]}\n    \
+              \                   {Verbs:[list watch] APIGroups:[extensions apps]\
+              \ Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n   \
+              \                    {Verbs:[list watch] APIGroups:[] Resources:[endpoints]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[extensions networking.k8s.io] Resources:[ingresses]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[list watch] APIGroups:[] Resources:[limitranges]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[list\
+              \ watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                 "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              6m52s       Normal   OperationStarted     application/metricbeat-parity   Initiated
+              automated sync to ''sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564''
+
+              6m52s       Normal   ResourceUpdated      application/metricbeat-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/metricbeat-parity   Updated
+              health status:  -> Healthy
+
+              6m50s       Normal   OperationCompleted   application/metricbeat-parity   Sync
+              operation to sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/metricbeat-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m49s       Normal   ResourceUpdated      application/metricbeat-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 15
+              artifact:
+                path: argocd-core-child.json
+                sha256: 9138e62124cac064f8c2d3ff8c3da2b382fc9673f97d20aebb318de06a55c1a4
+                bytes: 22436
+              output: "{\n  \"metadata\": {\n    \"name\": \"metricbeat-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"38b8c29e-dc9c-4bd5-9a3b-550c1466f7c3\"\
+                ,\n    \"resourceVersion\": \"2527\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-17T17:54:42Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster:argoproj.io/Application:argocd/metricbeat-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"21e5e57b-0af1-4028-b742-feb2b51df810\",\n      \"confighub.com/UnitSlug\"\
+                : \"metricbeat-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-17T17:54:42Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T18:01:43Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name\": \"metricbeat-metricbeat-daemonset-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"default-oci\",\n        \"name\": \"metricbeat-metricbeat-deployment-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"metricbeat-kube-state-metrics\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default-oci\",\n        \"name\": \"metricbeat-metricbeat\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"metricbeat-kube-state-metrics\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"DaemonSet\"\
+                ,\n        \"namespace\": \"default-oci\",\n        \"name"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 43e58a05bd108d252fd9ecb98996427054e4149eed5841beb4db156c2e8b6bf3
+                bytes: 7497
+              output: "Name:               argocd/metricbeat-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:54674/applications/metricbeat-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                                     \
+                \                 STATUS  HEALTH  AGE   MESSAGE  REASON\nRoleBinding/metricbeat-metricbeat-role-binding\
+                \                 Synced          7m5s  rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding\
+                \ reconciled. reconciliation required create\n                   \
+                \                                            missing subjects added:\n\
+                \                                                                \
+                \       {Kind:ServiceAccount APIGroup: Name:metricbeat-metricbeat\
+                \ Namespace:default}. rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding\
+                \ serverside-applied  \nClusterRoleBinding/metricbeat-metricbeat-cluster-role-binding\
+                \  Synced                                                        \
+                \                                                                \
+                \                                                     7m5s       \
+                \                                                                \
+                \  \nDaemonSet/metricbeat-metricbeat                             \
+                \   Synced  Progressing                                          \
+                \                                                                \
+                \                                                      7m5s   daemonset.apps/metricbeat-metricbeat\
+                \ serverside-applied               Waiting for daemon set \"metricbeat-metricbeat\"\
+                \ rollout to finish: 0 of 1 updated pods are available...\n\u251C\u2500\
+                Pod/metricbeat-metricbeat-jz6w6                                  \
+                \    Progressing                                                 \
+                \                                                                \
+                \                                               7m5s             \
+                \                                                            \n\u2514\
+                \u2500ControllerRevision/metricbeat-metricbeat-56958d8d56        \
+                \                                                                \
+                \                                                                \
+                \                                                     7m5s       \
+                \                                                                \
+                \  \nClusterRole/metricbeat-metricbeat-cluster-role              \
+                \   Synced                                                       \
+                \                                                                \
+                \                                                      7m5s      \
+                \                                                                \
+                \   \nClusterRoleBinding/metricbeat-kube-state-metrics           \
+                \    Synced                                                      \
+                \                                                                \
+                \                                                       7m5s     \
+                \                                                                \
+                \    \nNamespace/default-oci                                     \
+                \     Synced                                                     \
+                \                                                                \
+                \                                                        8m12s   \
+                \                                                                \
+                \     \nConfigMap/metricbeat-metricbeat-daemonset-config         \
+                \      Synced                                                    \
+                \                                                                \
+                \                                                         7m5s   configmap/metricbeat-metricbeat-daemonset-config\
+                \ serverside-applied   \nService/metricbeat-kube-state-metrics   \
+                \                       Synced  Healthy                          \
+                \                                                                \
+                \                                                                \
+                \          8m24s  service/metricbeat-kube-state-metrics serverside-applied\
+                \              \nServiceAccount/metricbeat-kube-state-metrics    \
+                \               Synced                                           \
+                \                                                                \
+                \                                                                \
+                \  8m24s  serviceaccount/metricbeat-kube-state-metrics serverside-applied\
+                \       \nDeployment/metricbeat-metricbeat-metrics               \
+                \        Synced  Progressing                                     \
+                \                                                                \
+                \                                                           7m5s \
+                \  deployment.apps/metricbeat-metricbeat-metrics serverside-applied\
+                \      Waiting for rollout to finish: 0 of 1 updated replicas are\
+                \ available...\n\u2514\u2500ReplicaSet/metricbeat-metricbeat-metrics-746dc864\
+                \                    Progressing                                 \
+                \                                                                \
+                \                                                               7m5s\
+                \                                                                \
+                \         Waiting for rollout to finish: 0 out of 1 new replicas are\
+                \ available...\n  \u2514\u2500Pod/metricbeat-metricbeat-metrics-746dc864-cbfht\
+                \                   Progressing                                  \
+                \                                                                \
+                \                                                              7m5s\
+                \                                                                \
+                \         \nClusterRole/metricbeat-kube-state-metrics            \
+                \          Synced                                                \
+                \                                                                \
+                \                                                             7m5s\
+                \                                                                \
+                \         \nConfigMap/metricbeat-metricbeat-deployment-config    \
+                \          Synced                                                \
+                \                                                                \
+                \                                                             7m5s\
+                \   configmap/metricbeat-metricbeat-deployment-config serverside-applied\
+                \  \nServiceAccount/metricbeat-metricbeat                        \
+                \   Synced                                                       \
+                \                                                                \
+                \                                                      7m6s   serviceaccount/metricbeat-metricbeat\
+                \ serverside-applied               \nDeployment/metricbeat-kube-state-metrics\
+                \                       Synced  Healthy                          \
+                \                                                                \
+                \                                                                \
+                \          8m24s  deployment.apps/metricbeat-kube-state-metrics serverside-applied\
+                \      \n\u2514\u2500ReplicaSet/metricbeat-kube-state-metrics-658dd9bbbc\
+                \                  Healthy                                       \
+                \                                                                \
+                \                                                             8m24s\
+                \                                                                \
+                \        \n  \u2514\u2500Pod/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9\
+                \                 Healthy                                        \
+                \                                                                \
+                \                                                            8m24s\
+                \                                                                \
+                \        \nRole/metricbeat-metricbeat-role                       \
+                \         Synced                                                 \
+                \                                                                \
+                \                                                            7m5s\
+                \   role.rbac.authorization.k8s.io/metricbeat-metricbeat-role reconciled.\
+                \ reconciliation required create\n                               \
+                \                                missing rules added:\n        "
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              metricbeat-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/metricbeat-parity\",\n   \
+              \   \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"metricbeat-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+              targetRevision: latest
+          revision: sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T17:45:26Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T17:54:40Z'
+          finishedAt: '2026-06-17T17:54:42Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+          deployedAt: '2026-06-17T17:54:42Z'
+          deployStartedAt: '2026-06-17T17:54:40Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-metricbeat-mqid15pc-8l2-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: metricbeat-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-17T17:45:19Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        12\n  Resource Version:  2358\n  UID:        \
+              \       8dac2449-e08d-4222-8c3a-c1a162177cd4\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T17:45:26Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T17:54:40Z\n\
+              \    Deployed At:        2026-06-17T17:54:42Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \    Source:\n      Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T17:54:42Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \        Source:\n          Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T17:54:40Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/metricbeat-parity serverside-applied\n\
+              \        Name:        metricbeat-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \      Source:\n        Path:              ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T17:59:35Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       metricbeat-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     16m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     16m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\
+              \ succeeded\n  Normal  ResourceUpdated     7m8s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                         MESSAGE
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Updated
+              sync status:  -> Synced
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Initiated
+              automated sync to ''sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m10s       Normal   OperationCompleted   application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Sync
+              operation to sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564
+              succeeded
+
+              7m8s        Normal   ResourceUpdated      application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 542b3452fff025c98d5949b24dd07e732c83057e56581eb6b15b8d57f06ee933
+                bytes: 10691
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"8dac2449-e08d-4222-8c3a-c1a162177cd4\"\
+                ,\n    \"resourceVersion\": \"2551\",\n    \"generation\": 13,\n \
+                \   \"creationTimestamp\": \"2026-06-17T17:45:19Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T17:45:19Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T18:02:00Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.conf"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: e9744f11b781e6090e81ecf366f2516bf951192557a2caa6d4752dbb24d1be92
+                bytes: 1151
+              output: "Name:               argocd/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54785/applications/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \            STATUS  HEALTH  AGE    MESSAGE                      \
+                \                                                                REASON\n\
+                Application/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster  Synced\
+                \          16m    application.argoproj.io/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\
+                \ serverside-applied  \nApplication/metricbeat-parity            \
+                \                     Synced          7m27s  application.argoproj.io/metricbeat-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              metricbeat-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/metricbeat-parity\",\n   \
+              \   \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-metricbeat-mqid15pc-8l2-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"metricbeat-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/metricbeat-kube-state-metrics   1/1   1     1     8m42s
+
+          # default-oci
+
+          deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     7m23s
+
+          daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   7m23s'
+        pods: '# default
+
+          metricbeat-kube-state-metrics-658dd9bbbc-4zgt9   1/1   Running   0     8m42s
+
+          # default-oci
+
+          metricbeat-metricbeat-jz6w6                    0/1   ContainerCreating   0     7m23s
+
+          metricbeat-metricbeat-metrics-746dc864-cbfht   0/1   ContainerCreating   0     7m23s'
+        notReady:
+        - namespace: default-oci
+          pod: metricbeat-metricbeat-jz6w6
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default-oci
+          pod: metricbeat-metricbeat-metrics-746dc864-cbfht
+          ready: 0/1
+          status: ContainerCreating
+        terminalReadinessBlockers:
+          default-oci: missing secret
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          - default-oci
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: c1c1aa750d991ab4871e36ec2907cda14f5c4b34e574a20b4ade231d6f43a50e
+            bytes: 3907
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: 042513f79057d9735552bdebc8884d77e61408860491158184c21c3dcc99fa1b
+            bytes: 3314
+          - namespace: default-oci
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/events.txt
+            sha256: 65d152c7f6049c019cf7074dbb823b107992e32cd729ab25bbf3290346cdc3c6
+            bytes: 1414
+          - namespace: default-oci
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/workloads-describe.txt
+            sha256: 97dc2093654c6369ab63ae56ed7a7bc5de94ed8860b050836a27ef969392f667
+            bytes: 6640
+          podArtifacts:
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-jz6w6
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-jz6w6/describe.txt
+            sha256: 2e8a3b95f09962ac5a5647d9e766ac5eb4ead9d5dc69e1995c856ca66f856096
+            bytes: 4744
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-jz6w6
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-jz6w6/logs.txt
+            sha256: 14ddbaf358f6b9c68a35403d33c830ca044ebf404b84411eb888ddf8f9adad7d
+            bytes: 130
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-jz6w6
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-jz6w6/previous-logs.txt
+            sha256: b67c32697b8a0d205d44f1238ddb55dc32a13f4c1c2f492daa3a16ff9d842a46
+            bytes: 121
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-metrics-746dc864-cbfht
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-metrics-746dc864-cbfht/describe.txt
+            sha256: e8604bdb57d5c80c1eb02d3da3b15d3cddfc823f46457123ec2dcaf43b1cb684
+            bytes: 3746
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-metrics-746dc864-cbfht
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-metrics-746dc864-cbfht/logs.txt
+            sha256: 08c24c4d3385d68e342578c656f3e5a9054dc6d764405a11303fa3c92e2c18f6
+            bytes: 147
+          - namespace: default-oci
+            pod: metricbeat-metricbeat-metrics-746dc864-cbfht
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/metricbeat-metricbeat-metrics-746dc864-cbfht/previous-logs.txt
+            sha256: a5b1fc3088174535c4d920dca55b4d0840ec8b891b0991050a94bd5cb958fb9d
+            bytes: 138
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-17T17:45:19Z'
+    finishedAt: '2026-06-17T17:53:21Z'
+    elapsedSeconds: 482.209
+    timeoutSeconds: 900
+    command: helm upgrade --install metricbeat metricbeat --repo https://helm.elastic.co
+      --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-metricbeat-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T17:53:27Z'
+    finishedAt: '2026-06-17T17:53:27Z'
+    elapsedSeconds: 0.432
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T17:53:27Z'
+    finishedAt: '2026-06-17T17:53:27Z'
+    elapsedSeconds: 0.16
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-metricbeat-mqid15pc-8l2.kubeconfig
+      --context kind-helm-expt-parity-metricbeat-mqid15pc-8l2 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-metricbeat-default/direct-apply-manifest.yaml
+    objectCount: 14
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T17:53:27Z'
+    finishedAt: '2026-06-17T17:53:28Z'
+    elapsedSeconds: 0.238
+    timeoutSeconds: 300
+    namespaces: default,default-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T17:53:38Z'
+    finishedAt: '2026-06-17T17:53:39Z'
+    elapsedSeconds: 0.266
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T17:53:39Z'
+    finishedAt: '2026-06-17T17:54:22Z'
+    elapsedSeconds: 43.347
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+      --space helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat --target helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+    objectCount: 15
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T17:54:22Z'
+    finishedAt: '2026-06-17T17:54:23Z'
+    elapsedSeconds: 0.598
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T17:54:23Z'
+    finishedAt: '2026-06-17T17:54:31Z'
+    elapsedSeconds: 8.009
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+      --unit <15 unit(s)> --wait --timeout 5m
+    unitCount: 15
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T17:54:31Z'
+    finishedAt: '2026-06-17T17:54:32Z'
+    elapsedSeconds: 1.008
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-metricbeat-mqid15pc-8l2-cluster
+      metricbeat-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-metricbeat-default/argo-application.json
+      --target helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T17:54:32Z'
+    finishedAt: '2026-06-17T17:54:33Z'
+    elapsedSeconds: 1.093
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-metricbeat-mqid15pc-8l2-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T17:54:33Z'
+    finishedAt: '2026-06-17T18:01:35Z'
+    elapsedSeconds: 422.484
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T18:02:09Z'
+    finishedAt: '2026-06-17T18:02:09Z'
+    elapsedSeconds: 0.239
+    timeoutSeconds: 180
+    namespaces: default,default-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-metricbeat-mqid15pc-8l2\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-metricbeat-mqid15pc-8l2.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-metricbeat-mqid15pc-8l2\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-metricbeat-mqid15pc-8l2\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-metricbeat-mqid15pc-8l2\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-metricbeat-mqid15pc-8l2.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource DaemonSet/default-helm/metricbeat-metricbeat not ready.
+      status: InProgress, message: Available: 0/1
+
+      resource Deployment/default-helm/metricbeat-metricbeat-metrics not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/metricbeat-kube-state-metrics   0/1   1     0     0s
+
+      # default-apply
+
+      deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     1s
+
+      daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   1s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=4
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

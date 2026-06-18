@@ -1,0 +1,326 @@
+{
+  "metadata": {
+    "name": "helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+    "namespace": "argocd",
+    "uid": "7b7cd285-0fb8-4985-96c3-c14829b013fd",
+    "resourceVersion": "3109",
+    "generation": 15,
+    "creationTimestamp": "2026-06-17T15:54:16Z",
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+    },
+    "finalizers": [
+      "resources-finalizer.argocd.argoproj.io"
+    ],
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T15:54:16Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:kubectl.kubernetes.io/last-applied-configuration": {}
+            },
+            "f:finalizers": {
+              "v:\"resources-finalizer.argocd.argoproj.io\"": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          },
+          "f:status": {
+            "f:controllerNamespace": {},
+            "f:health": {
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:operationState": {
+              "f:operation": {
+                "f:initiatedBy": {
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  "f:revision": {},
+                  "f:source": {
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:startedAt": {}
+            },
+            "f:resourceHealthSource": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              "f:comparedTo": {
+                "f:destination": {
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T16:15:50Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {},
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+      "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "argocd"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "ServerSideApply.ForceConflicts=true",
+        "RespectIgnoreDifferences=true",
+        "CreateNamespace=false"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+        "status": "Synced"
+      },
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "zookeeper-parity",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "argocd"
+        }
+      },
+      "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-06-17T15:54:24Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+        "deployedAt": "2026-06-17T16:08:32Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T16:08:31Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T16:15:43Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+            "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "ServerSideApply.ForceConflicts=true",
+            "RespectIgnoreDifferences=true",
+            "CreateNamespace=false"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "zookeeper-parity",
+            "status": "Synced",
+            "message": "application.argoproj.io/zookeeper-parity serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+            "status": "Synced",
+            "message": "application.argoproj.io/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-cluster",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T16:08:31Z",
+      "finishedAt": "2026-06-17T16:08:32Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

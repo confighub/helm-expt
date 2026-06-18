@@ -1,0 +1,26 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                      MESSAGE
+9m51s       Normal    Starting                  node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   
+10m         Normal    Starting                  node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Starting kubelet.
+10m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasSufficientMemory
+10m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasNoDiskPressure
+10m         Normal    NodeHasSufficientPID      node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasSufficientPID
+10m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Updated Node Allocatable limit across pods
+9m59s       Normal    Starting                  node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Starting kubelet.
+9m59s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Updated Node Allocatable limit across pods
+9m59s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasSufficientMemory
+9m59s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasNoDiskPressure
+9m59s       Normal    NodeHasSufficientPID      node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeHasSufficientPID
+9m54s       Normal    RegisteredNode            node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane event: Registered Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane in Controller
+9m41s       Normal    NodeReady                 node/helm-expt-parity-opencost-mqifp7vp-a81-control-plane   Node helm-expt-parity-opencost-mqifp7vp-a81-control-plane status is now: NodeReady
+30s         Normal    Scheduled                 pod/opencost-6545848947-k72kq                               Successfully assigned default/opencost-6545848947-k72kq to helm-expt-parity-opencost-mqifp7vp-a81-control-plane
+30s         Normal    Pulled                    pod/opencost-6545848947-k72kq                               Container image "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc" already present on machine and can be accessed by the pod
+30s         Normal    Created                   pod/opencost-6545848947-k72kq                               Container created
+30s         Normal    Started                   pod/opencost-6545848947-k72kq                               Container started
+30s         Warning   FailedCreate              replicaset/opencost-6545848947                              Error creating: pods "opencost-6545848947-" is forbidden: error looking up service account default/opencost: serviceaccount "opencost" not found
+30s         Normal    SuccessfulCreate          replicaset/opencost-6545848947                              Created pod: opencost-6545848947-k72kq
+30s         Normal    ScalingReplicaSet         deployment/opencost                                         Scaled up replica set opencost-6545848947 from 0 to 1
+20s         Warning   Unhealthy                 pod/opencost-6545848947-k72kq                               Startup probe failed: Get "http://10.244.0.13:9003/healthz": dial tcp 10.244.0.13:9003: connect: connection refused
+19s         Normal    Pulled                    pod/opencost-6545848947-k72kq                               Container image "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6" already present on machine and can be accessed by the pod
+19s         Normal    Created                   pod/opencost-6545848947-k72kq                               Container created
+19s         Normal    Started                   pod/opencost-6545848947-k72kq                               Container started
+5s          Warning   BackOff                   pod/opencost-6545848947-k72kq                               Back-off restarting failed container opencost in pod opencost-6545848947-k72kq_default(734868c6-6870-4a77-b6d8-086eca3caa6c)

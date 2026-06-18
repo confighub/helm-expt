@@ -1,0 +1,25 @@
+Name:               argocd/dex-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:53087/applications/dex-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-dex
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                       STATUS  HEALTH       AGE    MESSAGE                                                                                                                                             REASON
+Deployment/dex                  Synced  Progressing  8m8s   deployment.apps/dex serverside-applied                                                                                                              Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/dex-854b786b7              Progressing  8m8s                                                                                                                                                       Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/dex-854b786b7-gwpqc             Degraded     8m8s                                                                                                                                                       back-off 5m0s restarting failed container=dex pod=dex-854b786b7-gwpqc_default(e3fd3216-4440-4981-a487-19213be25955)
+ClusterRole/dex                 Synced               7m8s
+ClusterRoleBinding/dex-cluster  Synced               7m8s
+Role/dex                        Synced               8m8s   role.rbac.authorization.k8s.io/dex reconciled. reconciliation required update. role.rbac.authorization.k8s.io/dex serverside-applied
+RoleBinding/dex                 Synced               8m8s   rolebinding.rbac.authorization.k8s.io/dex reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/dex serverside-applied
+Namespace/default-oci           Synced               7m52s
+Service/dex                     Synced  Healthy      8m8s   service/dex serverside-applied
+ServiceAccount/dex              Synced               8m8s   serviceaccount/dex serverside-applied

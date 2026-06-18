@@ -1,0 +1,24 @@
+Name:               argocd/opencost-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:56709/applications/opencost-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-opencost
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                           STATUS  HEALTH       AGE    MESSAGE                                                REASON
+ConfigMap/opencost-ui-nginx-config  Synced               8m24s  configmap/opencost-ui-nginx-config serverside-applied
+Namespace/default-oci               Synced               7m48s
+Service/opencost                    Synced  Healthy      8m24s  service/opencost serverside-applied
+ServiceAccount/opencost             Synced               8m24s  serviceaccount/opencost serverside-applied
+Deployment/opencost                 Synced  Progressing  8m24s  deployment.apps/opencost serverside-applied            Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/opencost-6545848947            Progressing  8m24s                                                         Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/opencost-6545848947-k72kq           Degraded     8m24s                                                         back-off 5m0s restarting failed container=opencost pod=opencost-6545848947-k72kq_default(734868c6-6870-4a77-b6d8-086eca3caa6c)
+ClusterRole/opencost                Synced               7m6s
+ClusterRoleBinding/opencost         Synced               7m6s

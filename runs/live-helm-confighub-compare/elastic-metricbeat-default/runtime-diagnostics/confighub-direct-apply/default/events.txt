@@ -1,0 +1,18 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                        MESSAGE
+9m21s       Normal    Starting                  node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   
+9m34s       Normal    Starting                  node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Starting kubelet.
+9m34s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasSufficientMemory
+9m34s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasNoDiskPressure
+9m34s       Normal    NodeHasSufficientPID      node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasSufficientPID
+9m34s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Updated Node Allocatable limit across pods
+9m30s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasNoDiskPressure
+9m30s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasSufficientMemory
+9m30s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Updated Node Allocatable limit across pods
+9m30s       Normal    NodeHasSufficientPID      node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeHasSufficientPID
+9m30s       Normal    Starting                  node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Starting kubelet.
+9m23s       Normal    RegisteredNode            node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane event: Registered Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane in Controller
+9m11s       Normal    NodeReady                 node/helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane   Node helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane status is now: NodeReady
+1s          Normal    Scheduled                 pod/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9            Successfully assigned default/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9 to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+1s          Warning   FailedCreate              replicaset/metricbeat-kube-state-metrics-658dd9bbbc           Error creating: pods "metricbeat-kube-state-metrics-658dd9bbbc-" is forbidden: error looking up service account default/metricbeat-kube-state-metrics: serviceaccount "metricbeat-kube-state-metrics" not found
+1s          Normal    SuccessfulCreate          replicaset/metricbeat-kube-state-metrics-658dd9bbbc           Created pod: metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+1s          Normal    ScalingReplicaSet         deployment/metricbeat-kube-state-metrics                      Scaled up replica set metricbeat-kube-state-metrics-658dd9bbbc from 0 to 1

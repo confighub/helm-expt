@@ -250,7 +250,7 @@ bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,local_live,L,blocked,blocked,no,,,
 bitnami/phpmyadmin@20.0.0,default,gitops_oci_live,G,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
@@ -328,25 +328,25 @@ bitnami/spark@10.0.3,default,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,default,local_live,L,blocked,blocked,no,,,
 bitnami/spark@10.0.3,default,gitops_oci_live,G,watch,watch,no,,,
 bitnami/spark@10.0.3,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/spark@10.0.3,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/spark@10.0.3,default,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
 bitnami/spark@10.0.3,ha,render_parity,R,pass,pass,no,,,
 bitnami/spark@10.0.3,ha,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,ha,local_live,L,blocked,blocked,no,,,
 bitnami/spark@10.0.3,ha,gitops_oci_live,G,watch,watch,no,,,
 bitnami/spark@10.0.3,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,local_live,L,blocked,blocked,no,,,
-bitnami/zookeeper@13.8.7,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/zookeeper@13.8.7,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/zookeeper@13.8.7,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/zookeeper@13.8.7,default,gitops_oci_live,G,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,default,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
 bitnami/zookeeper@13.8.7,ha,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,ha,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,ha,local_live,L,blocked,blocked,no,,,
-bitnami/zookeeper@13.8.7,ha,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/zookeeper@13.8.7,ha,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/zookeeper@13.8.7,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (image unavailable (registry purge)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/zookeeper@13.8.7,ha,gitops_oci_live,G,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-image: image pull failed or pinned image is unavailable (parity passed),,kind-parity
 cloudnative-pg/cloudnative-pg@0.28.2,default,render_parity,R,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,default,in_confighub,C,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,default,local_live,L,pass,pass,no,,,
@@ -380,8 +380,8 @@ descheduler/descheduler@0.36.0,default,two_cluster_kind_parity,K,pass,pass,no,li
 dex/dex@0.24.0,default,render_parity,R,pass,pass,no,,,
 dex/dex@0.24.0,default,in_confighub,C,pass,pass,no,,,
 dex/dex@0.24.0,default,local_live,L,fail,fail,no,,,
-dex/dex@0.24.0,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-dex/dex@0.24.0,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+dex/dex@0.24.0,default,gitops_oci_live,G,watch,watch,no,,,
+dex/dex@0.24.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 dex/dex@0.24.0,default,two_cluster_kind_parity,K,blocked,blocked,no,target-runtime: pod crash loop (parity passed),,kind-parity
 elastic/eck-operator@3.4.0,default,render_parity,R,pass,pass,no,,,
 elastic/eck-operator@3.4.0,default,in_confighub,C,pass,pass,no,,,
@@ -416,9 +416,9 @@ elastic/filebeat@8.5.1,node-or-cluster-collector,two_cluster_kind_parity,K,block
 elastic/kibana@8.5.1,default,render_parity,R,pass,pass,no,,,
 elastic/kibana@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/kibana@8.5.1,default,local_live,L,blocked,blocked,no,,,
-elastic/kibana@8.5.1,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-elastic/kibana@8.5.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-elastic/kibana@8.5.1,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+elastic/kibana@8.5.1,default,gitops_oci_live,G,watch,watch,no,,,
+elastic/kibana@8.5.1,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+elastic/kibana@8.5.1,default,two_cluster_kind_parity,K,blocked,blocked,no,helm-runtime: upstream not ready (parity passed),,kind-parity
 elastic/logstash@8.5.1,default,render_parity,R,pass,pass,no,,,
 elastic/logstash@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/logstash@8.5.1,default,local_live,L,pass,pass,no,,,
@@ -434,9 +434,9 @@ elastic/logstash@8.5.1,ha,two_cluster_kind_parity,K,pass,pass,no,live parity pas
 elastic/metricbeat@8.5.1,default,render_parity,R,pass,pass,no,,,
 elastic/metricbeat@8.5.1,default,in_confighub,C,pass,pass,no,,,
 elastic/metricbeat@8.5.1,default,local_live,L,blocked,blocked,no,,,
-elastic/metricbeat@8.5.1,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-elastic/metricbeat@8.5.1,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-elastic/metricbeat@8.5.1,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+elastic/metricbeat@8.5.1,default,gitops_oci_live,G,watch,watch,no,,,
+elastic/metricbeat@8.5.1,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+elastic/metricbeat@8.5.1,default,two_cluster_kind_parity,K,blocked,blocked,no,target-prerequisite: required Secret missing (parity passed),,kind-parity
 external-dns/external-dns@1.21.1,default,render_parity,R,pass,pass,no,,,
 external-dns/external-dns@1.21.1,default,in_confighub,C,pass,pass,no,,,
 external-dns/external-dns@1.21.1,default,local_live,L,pass,pass,no,,,
@@ -524,8 +524,8 @@ gatekeeper/gatekeeper@3.22.2,no-crds,two_cluster_kind_parity,K,pass,pass,no,live
 gitlab/gitlab-runner@0.89.0,default,render_parity,R,pass,pass,no,,,
 gitlab/gitlab-runner@0.89.0,default,in_confighub,C,pass,pass,no,,,
 gitlab/gitlab-runner@0.89.0,default,local_live,L,fail,fail,no,,,
-gitlab/gitlab-runner@0.89.0,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-gitlab/gitlab-runner@0.89.0,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+gitlab/gitlab-runner@0.89.0,default,gitops_oci_live,G,watch,watch,no,,,
+gitlab/gitlab-runner@0.89.0,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 gitlab/gitlab-runner@0.89.0,default,two_cluster_kind_parity,K,watch,watch,no,helm-runtime: upstream not ready (parity passed),,kind-parity
 grafana/alloy@1.8.2,default,render_parity,R,pass,pass,no,,,
 grafana/alloy@1.8.2,default,in_confighub,C,pass,pass,no,,,
@@ -580,7 +580,7 @@ grafana/pyroscope@2.0.2,ha,in_confighub,C,pass,pass,no,,,
 grafana/pyroscope@2.0.2,ha,local_live,L,fail,fail,no,,,
 grafana/pyroscope@2.0.2,ha,gitops_oci_live,G,watch,watch,no,,,
 grafana/pyroscope@2.0.2,ha,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-grafana/pyroscope@2.0.2,ha,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+grafana/pyroscope@2.0.2,ha,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 grafana/pyroscope@2.0.2,no-crds,render_parity,R,pass,pass,no,,,
 grafana/pyroscope@2.0.2,no-crds,in_confighub,C,pass,pass,no,,,
 grafana/pyroscope@2.0.2,no-crds,local_live,L,pass,pass,no,,,
@@ -634,7 +634,7 @@ hashicorp/terraform@1.1.2,default,in_confighub,C,pass,pass,no,,,
 hashicorp/terraform@1.1.2,default,local_live,L,blocked,blocked,no,,,
 hashicorp/terraform@1.1.2,default,gitops_oci_live,G,watch,watch,no,,,
 hashicorp/terraform@1.1.2,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-hashicorp/terraform@1.1.2,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+hashicorp/terraform@1.1.2,default,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 hashicorp/terraform@1.1.2,no-crds,render_parity,R,pass,pass,no,,,
 hashicorp/terraform@1.1.2,no-crds,in_confighub,C,pass,pass,no,,,
 hashicorp/terraform@1.1.2,no-crds,local_live,L,blocked,blocked,no,,,
@@ -854,7 +854,7 @@ nats/surveyor@0.20.9,default-reviewed,two_cluster_kind_parity,K,blocked,blocked,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,render_parity,R,pass,pass,no,,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,in_confighub,C,pass,pass,no,,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,local_live,L,fail,fail,no,,,
-nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,gitops_oci_live,G,blocked,blocked,no,,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,live_helm_vs_confighub_parity,P,blocked,blocked,no,,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,default,two_cluster_kind_parity,K,blocked,blocked,no,render-input: required Helm values missing,,kind-parity
 open-telemetry/opentelemetry-operator@0.114.0,default,render_parity,R,pass,pass,no,,,
@@ -872,9 +872,9 @@ open-telemetry/opentelemetry-operator@0.114.0,no-crds,two_cluster_kind_parity,K,
 opencost/opencost@2.5.21,default,render_parity,R,pass,pass,no,,,
 opencost/opencost@2.5.21,default,in_confighub,C,pass,pass,no,,,
 opencost/opencost@2.5.21,default,local_live,L,fail,fail,no,,,
-opencost/opencost@2.5.21,default,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-opencost/opencost@2.5.21,default,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
-opencost/opencost@2.5.21,default,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live failed; live lanes cannot make a green claim until it converges,fix or route the local-live failure first,either
+opencost/opencost@2.5.21,default,gitops_oci_live,G,watch,watch,no,,,
+opencost/opencost@2.5.21,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+opencost/opencost@2.5.21,default,two_cluster_kind_parity,K,blocked,blocked,no,target-runtime: pod crash loop (parity passed),,kind-parity
 percona/pg-operator@3.0.0,default,render_parity,R,pass,pass,no,,,
 percona/pg-operator@3.0.0,default,in_confighub,C,pass,pass,no,,,
 percona/pg-operator@3.0.0,default,local_live,L,pass,pass,no,,,

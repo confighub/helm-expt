@@ -1,0 +1,5 @@
+LAST SEEN   TYPE      REASON              OBJECT                               MESSAGE
+10s         Normal    Scheduled           pod/kibana-kibana-9bf64bc55-9jlxb    Successfully assigned default-apply/kibana-kibana-9bf64bc55-9jlxb to helm-expt-parity-kibana-mqic7mim-7ud-control-plane
+10s         Normal    SuccessfulCreate    replicaset/kibana-kibana-9bf64bc55   Created pod: kibana-kibana-9bf64bc55-9jlxb
+10s         Normal    ScalingReplicaSet   deployment/kibana-kibana             Scaled up replica set kibana-kibana-9bf64bc55 from 0 to 1
+2s          Warning   FailedMount         pod/kibana-kibana-9bf64bc55-9jlxb    MountVolume.SetUp failed for volume "elasticsearch-certs" : secret "elasticsearch-master-certs" not found

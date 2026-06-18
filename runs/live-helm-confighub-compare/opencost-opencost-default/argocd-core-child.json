@@ -1,0 +1,388 @@
+{
+  "metadata": {
+    "name": "opencost-parity",
+    "namespace": "argocd",
+    "uid": "ab436907-8433-475c-9329-2d626921cb75",
+    "resourceVersion": "2451",
+    "generation": 10,
+    "creationTimestamp": "2026-06-17T19:09:23Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-opencost-mqifp7vp-a81-cluster:argoproj.io/Application:argocd/opencost-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "13353492-b04a-491f-ba10-e6ce5520e9e2",
+      "confighub.com/UnitSlug": "opencost-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T19:09:23Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T19:16:24Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci",
+      "path": "./helm-expt-parity-opencost-mqifp7vp-a81-opencost",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "opencost-ui-nginx-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "opencost",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "opencost",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "opencost",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "opencost",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "opencost",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci",
+          "path": "./helm-expt-parity-opencost-mqifp7vp-a81-opencost",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-17T19:09:25Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103",
+        "deployedAt": "2026-06-17T19:09:27Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci",
+          "path": "./helm-expt-parity-opencost-mqifp7vp-a81-opencost",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T19:09:25Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T19:16:17Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci",
+            "path": "./helm-expt-parity-opencost-mqifp7vp-a81-opencost",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "opencost",
+            "status": "Synced",
+            "message": "serviceaccount/opencost serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "opencost-ui-nginx-config",
+            "status": "Synced",
+            "message": "configmap/opencost-ui-nginx-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "opencost",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/opencost reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[configmaps deployments nodes pods services resourcequotas replicationcontrollers limitranges persistentvolumeclaims persistentvolumes namespaces endpoints] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[extensions] Resources:[daemonsets deployments replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[statefulsets deployments daemonsets replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[batch] Resources:[cronjobs jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/opencost serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "opencost",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/opencost reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:opencost Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/opencost serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "opencost",
+            "status": "Synced",
+            "message": "service/opencost serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "opencost",
+            "status": "Synced",
+            "message": "deployment.apps/opencost serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6",
+              "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc"
+            ]
+          }
+        ],
+        "revision": "sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci",
+          "path": "./helm-expt-parity-opencost-mqifp7vp-a81-opencost",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T19:09:25Z",
+      "finishedAt": "2026-06-17T19:09:27Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc",
+        "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

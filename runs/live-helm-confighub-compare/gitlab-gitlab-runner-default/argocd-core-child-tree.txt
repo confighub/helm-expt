@@ -1,0 +1,20 @@
+Name:               argocd/gitlab-runner-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55758/applications/gitlab-runner-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                               STATUS  HEALTH       AGE    MESSAGE                                           REASON
+ConfigMap/gitlab-runner                 Synced               12m    configmap/gitlab-runner serverside-applied
+Namespace/default-oci                   Synced               7m37s
+Deployment/gitlab-runner                Synced  Progressing  12m    deployment.apps/gitlab-runner serverside-applied  Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/gitlab-runner-844d54c8cc           Progressing  12m                                                      Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/gitlab-runner-844d54c8cc-bvqfd          Degraded     12m

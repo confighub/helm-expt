@@ -1,0 +1,1 @@
+Error from server (BadRequest): previous terminated container "zookeeper" in pod "zookeeper-0" not found

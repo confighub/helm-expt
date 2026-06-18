@@ -19,31 +19,33 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 32 | A clone exists (or a prerequisite proof can run); record the proof. Engineering/CI. |
+| `run-proof` | 18 | A clone exists (or a prerequisite proof can run); record the proof. Engineering/CI. |
 | `fix-confighub-server` | 160 | Blocked on the ConfigHub server changeset add-new-units bug (https://github.com/confighub/helm-expt/issues/682). |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 0 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 14 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `watch-grade` | 160 |
-| `ready-to-run` | 30 |
+| `ready-to-run` | 16 |
+| `promotion-proven` | 14 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `watch` | 160 |
-| `todo` | 30 |
+| `todo` | 16 |
+| `yes` | 14 |
 | `no` | 2 |
 
-## Ready to run now (30)
+## Ready to run now (16)
 
 These variants already have a server-side clone and ConfigHub upload proof; only
 the `cub variant promote` receipt is missing. **A representative set of commands
 (not run here — promotion is a ConfigHub-server action):**
 
 ```text
-# prometheus-community/kube-prometheus-stack@85.3.3 / no-crds
+# prometheus-community/kube-prometheus-stack@86.1.0 / no-crds
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces
 # prometheus-community/kube-state-metrics@7.4.0 / cluster-metrics-readonly
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
@@ -63,23 +65,9 @@ node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces
 # sealed-secrets/sealed-secrets@2.18.6 / default
 node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces
-# secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 / sync-secret-rotation
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts secrets-store-csi-driver --base sync-secret-rotation --variant-promotion-proof --cleanup-spaces
-# stakater/reloader@2.2.12 / controller-default-reviewed
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts reloader --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces
-# strimzi/strimzi-kafka-operator@1.0.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts strimzi-kafka-operator --base default --variant-promotion-proof --cleanup-spaces
-# traefik/traefik@40.2.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts traefik --base default --variant-promotion-proof --cleanup-spaces
-# velero/velero@12.0.1 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts velero --base default --variant-promotion-proof --cleanup-spaces
-# vm/victoria-logs-single@0.12.5 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-logs-single --base default --variant-promotion-proof --cleanup-spaces
-# vm/victoria-metrics-single@0.39.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts victoria-metrics-single --base default --variant-promotion-proof --cleanup-spaces
 ```
 
-The full 30-row ready-to-run set is in [closeout.csv](./closeout.csv).
+The full 16-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
 ## Watch-grade — changeset path blocked by the server bug (160)
 
