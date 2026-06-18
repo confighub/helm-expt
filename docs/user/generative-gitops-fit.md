@@ -62,6 +62,23 @@ These are not complete product claims yet:
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
 | Signatures as trust | The [claims register](../../data/claims-register/summary.md) enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context. |
 
+## The Paper's Three Examples, In Helm-Expt
+
+The paper illustrates the model with three scenarios. Here is where each one
+stands in `helm-expt` today, including the two that are still
+frontier. Closing these is tracked in
+[issue #974](https://github.com/confighub/helm-expt/issues/974).
+
+| Paper scenario (paraphrased) | In helm-expt today | Evidence / gap |
+| --- | --- | --- |
+| **1. Checking a generated change is a query, not a review.** Ask the system what changed, under whose authority, and with what blast radius instead of relying only on manual diff review. | **Strong for import and variants; partial for governed promotion.** The rendered object set, render parity, variant lineage, and the dev-to-prod compare/diff are queryable evidence. | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html), per-revision receipts, and the Redis dev-to-prod promotion. **Gap:** the server-side promotion answer is capped at `watch` by ConfigHub #682 (160 cells), tracked as step 1 in #974. |
+| **2. A generated fix to the live system sticks.** An authorized live change flows back into desired state instead of being overwritten as drift. | **Frontier, not yet demonstrated.** Live state is witnessed by cub-scout receipts, but the reverse flow is not yet proven. | cub-scout `workloads-converged` and `object-set-matches` receipts witness live state. **Gap:** live-to-desired reconciliation under authority, tracked as step 2 in #974. |
+| **3. A fleet-wide change shows its blast radius before it happens.** Propagate across environments, see exactly what it touches, and stop at overrides. | **Partial.** Variant edges are recovered and one governed dev-to-prod promotion carries override protection; blast radius is measured, not assumed, on 9 of 13 cases. | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) (9/13 pass; 4 whole-release paths under-predict), derived-variant lineage. **Gap:** honest whole-release scope plus a fleet-scale demo, tracked as step 3 in #974. |
+
+The point of listing the misses next to the hits is the same as the rest of
+this page: a scenario the model cannot yet demonstrate is a named frontier with
+a tracked route, not a silent omission.
+
 ## Sceptic-Proofing Status
 
 The sceptic work is useful, but it is not complete. The claims register,
@@ -114,3 +131,8 @@ It is already useful for:
 It is not yet the full Generative GitOps product. The next product work is to
 make provenance, authority, bounded changes, fleet propagation, and authorized
 live-to-desired reconciliation feel as simple as installing a supported chart.
+
+The route to closing that gap, so a reader of the paper can trace all six
+principles and all three scenarios to evidence or a named frontier, is
+tracked as a P1 in
+[issue #974](https://github.com/confighub/helm-expt/issues/974).
