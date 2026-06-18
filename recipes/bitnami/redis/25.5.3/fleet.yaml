@@ -1,0 +1,41 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: BlastRadiusFleet
+metadata:
+  name: bitnami-redis-25.5.3-fleet
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  valueSourceMap: recipes/bitnami/redis/25.5.3/value-source-map.yaml
+  baseRevision: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+  note: >
+    A fleet of governed environment variants derived from the redis default base.
+    It mirrors the real ConfigHub promotion helm-redis-mapping-default ->
+    helm-redis-mapping-prod-us-east (Kubara), extended to a four-environment fleet.
+    Each environment that pins a value via an override is shielded from a base
+    change to that value: its explicit choice wins (override-protection).
+  environments:
+    - name: dev
+      description: tracks the base; pins nothing
+      overrides: []
+    - name: staging
+      description: pins its own scale
+      overrides:
+        - replica.replicaCount
+    - name: prod-us-east
+      description: managed auth secret + fixed scale (the live promotion target)
+      overrides:
+        - replica.replicaCount
+        - auth.password
+    - name: prod-eu-west
+      description: change-frozen region; also pins the image digest
+      overrides:
+        - replica.replicaCount
+        - auth.password
+        - image.digest
+  changes:
+    - valuePath: image.digest
+      description: bump the redis image digest in the base
+    - valuePath: auth.password
+      description: rotate the generated redis auth secret
+    - valuePath: replica.replicaCount
+      description: change the base replica count
