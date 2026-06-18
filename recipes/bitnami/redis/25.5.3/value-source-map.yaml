@@ -24,18 +24,53 @@ spec:
       effectiveValue: redis
       source: variant.releaseName
       renderedFields:
+        # whole-release scope (wholeReleaseScope: true below): a releaseName rename
+        # rewrites object names, the app.kubernetes.io/instance label, label
+        # selectors, and release-embedded DNS across every object, so the blast
+        # radius is the entire object set.
         - object: apps/v1|StatefulSet|redis|redis-master
-          field: metadata.name
-          value: redis-master
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
         - object: apps/v1|StatefulSet|redis|redis-replicas
-          field: metadata.name
-          value: redis-replicas
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: networking.k8s.io/v1|NetworkPolicy|redis|redis
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: policy/v1|PodDisruptionBudget|redis|redis-master
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: policy/v1|PodDisruptionBudget|redis|redis-replicas
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|ConfigMap|redis|redis-configuration
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|ConfigMap|redis|redis-health
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|ConfigMap|redis|redis-scripts
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|Secret|redis|redis
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|ServiceAccount|redis|redis-master
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|ServiceAccount|redis|redis-replica
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
         - object: v1|Service|redis|redis-headless
-          field: metadata.name
-          value: redis-headless
-        - object: apps/v1|StatefulSet|redis|redis-replicas
-          field: spec.template.spec.containers[0].env.REDIS_MASTER_HOST
-          value: redis-master-0.redis-headless.redis.svc.cluster.local
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|Service|redis|redis-master
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+        - object: v1|Service|redis|redis-replicas
+          field: metadata.labels.app.kubernetes.io/instance
+          value: redis
+      wholeReleaseScope: true
       rolloutImpact: changing-release-name-renames-objects
       immutableFieldRisk: true
     - id: namespace
@@ -43,18 +78,52 @@ spec:
       effectiveValue: redis
       source: variant.namespace
       renderedFields:
+        # whole-release scope (wholeReleaseScope: true below): a namespace rename
+        # rewrites metadata.namespace on every namespaced object in the release
+        # plus namespace-embedded DNS, so the blast radius is the entire object set.
         - object: apps/v1|StatefulSet|redis|redis-master
           field: metadata.namespace
           value: redis
         - object: apps/v1|StatefulSet|redis|redis-replicas
           field: metadata.namespace
           value: redis
-        - object: v1|Service|redis|redis-headless
+        - object: networking.k8s.io/v1|NetworkPolicy|redis|redis
+          field: metadata.namespace
+          value: redis
+        - object: policy/v1|PodDisruptionBudget|redis|redis-master
+          field: metadata.namespace
+          value: redis
+        - object: policy/v1|PodDisruptionBudget|redis|redis-replicas
+          field: metadata.namespace
+          value: redis
+        - object: v1|ConfigMap|redis|redis-configuration
+          field: metadata.namespace
+          value: redis
+        - object: v1|ConfigMap|redis|redis-health
+          field: metadata.namespace
+          value: redis
+        - object: v1|ConfigMap|redis|redis-scripts
           field: metadata.namespace
           value: redis
         - object: v1|Secret|redis|redis
           field: metadata.namespace
           value: redis
+        - object: v1|ServiceAccount|redis|redis-master
+          field: metadata.namespace
+          value: redis
+        - object: v1|ServiceAccount|redis|redis-replica
+          field: metadata.namespace
+          value: redis
+        - object: v1|Service|redis|redis-headless
+          field: metadata.namespace
+          value: redis
+        - object: v1|Service|redis|redis-master
+          field: metadata.namespace
+          value: redis
+        - object: v1|Service|redis|redis-replicas
+          field: metadata.namespace
+          value: redis
+      wholeReleaseScope: true
       rolloutImpact: moving-namespace-creates-distinct-object-set
       immutableFieldRisk: true
     - id: image-digest
