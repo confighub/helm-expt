@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/grafana/loki/7.0.0"
     name: "grafana-loki"
@@ -60,17 +60,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-loki-simple-scalable-minio-confighub-proof (post-render):\n      DaemonSet/loki-canary [loki-canary] docker.io/grafana/loki-canary:3.6.7\n      Deployment/loki-gateway [nginx] docker.io/nginxinc/nginx-unprivileged:1.29-alpine\n      Deployment/loki-read [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki-backend [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki-backend [loki-sc-rules] docker.io/kiwigrid/k8s-sidecar:2.5.0\n      StatefulSet/loki-chunks-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-chunks-cache [memcached] memcached:1.6.39-alpine\n      StatefulSet/loki-minio [minio] docker.io/pgsty/minio:RELEASE.2026-03-14T12-00-00Z"
   serverSideVariant:
-    command: "cub variant create staging helm-loki-simple-scalable-minio-confighub-proof --environment Staging --region local --space-name-pattern template:Loki-simple-scalable-minio-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-loki-simple-scalable-minio-confighub-proof --environment Staging --region local --namespace loki --space-pattern template:Loki-simple-scalable-minio-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-loki-simple-scalable-minio-confighub-proof"
     downstreamSpace: "Loki-simple-scalable-minio-staging"
     clonedUnitCount: 34
+    namespace: "loki"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "statefulset-loki-loki-write"
+    representativeUnit: "statefulset-loki-minio"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

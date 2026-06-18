@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-rabbitmq-rabbitmq --space helm-rabbitmq-existing-secret-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-rabbitmq-rabbitmq"
-    output: "Unit statefulset-rabbitmq-rabbitmq (76fdce32-1d2e-4f5c-b685-c10b6a02aa70) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-rabbitmq-rabbitmq (92635407-d0bc-409f-8802-4a2b8670c164) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-rabbitmq-existing-secret-confighub-proof --where \"Labels.Proof = 'rabbitmq-existing-secret-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req IeZheYgkzayHOXOoTwJIcvArSuwSTdmn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req gwVqkAdxDLpziXBHWQVZWDAgnZOLwyNJ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-rabbitmq-existing-secret-confighub-proof --where \"Labels.Proof = 'rabbitmq-existing-secret-confighub-proof'\""
     result: "pass"

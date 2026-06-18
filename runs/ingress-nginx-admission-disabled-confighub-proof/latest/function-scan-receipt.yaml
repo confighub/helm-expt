@@ -17,9 +17,17 @@ spec:
     configHubUnitCount: 10
   unitRevisionBindings:
     -
-      slug: "service-ingress-nginx-ingress-nginx-controller"
+      slug: "clusterrolebinding-ingress-nginx"
       headRevisionNum: 2
-      dataHash: "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f"
+      dataHash: "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e"
+    -
+      slug: "clusterrole-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f"
+    -
+      slug: "configmap-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 1
+      dataHash: "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af"
     -
       slug: "deployment-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 2
@@ -33,29 +41,21 @@ spec:
       headRevisionNum: 1
       dataHash: "83b6b29eaed4e67cebdab579ede9fe0aca618033ee77067363ad136cc57934f8"
     -
-      slug: "serviceaccount-ingress-nginx-ingress-nginx"
-      headRevisionNum: 1
-      dataHash: "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d"
-    -
-      slug: "clusterrole-ingress-nginx"
+      slug: "rolebinding-ingress-nginx-ingress-nginx"
       headRevisionNum: 2
-      dataHash: "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f"
+      dataHash: "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c"
     -
       slug: "role-ingress-nginx-ingress-nginx"
       headRevisionNum: 2
       dataHash: "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa"
     -
-      slug: "clusterrolebinding-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e"
-    -
-      slug: "configmap-ingress-nginx-ingress-nginx-controller"
+      slug: "serviceaccount-ingress-nginx-ingress-nginx"
       headRevisionNum: 1
-      dataHash: "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af"
+      dataHash: "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d"
     -
-      slug: "rolebinding-ingress-nginx-ingress-nginx"
+      slug: "service-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 2
-      dataHash: "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c"
+      dataHash: "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f"
   validations:
     -
       function: "vet-format"

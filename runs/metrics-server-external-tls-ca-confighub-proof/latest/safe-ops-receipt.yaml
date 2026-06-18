@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-kube-system-metrics-server --space helm-metrics-server-external-tls-ca-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-kube-system-metrics-server"
-    output: "Unit deployment-kube-system-metrics-server (295ad048-17bd-4566-b055-47ab2997caa8) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-kube-system-metrics-server (f72ca70e-4117-4c54-bfad-7f6ca069929d) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-metrics-server-external-tls-ca-confighub-proof --where \"Labels.Proof = 'metrics-server-external-tls-ca-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req nOQwIJLoQpMEXidnigljUjDPkzePcwGD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req FjogEChbMWMAYGYaswgvohOCpjSmWzIB: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-metrics-server-external-tls-ca-confighub-proof --where \"Labels.Proof = 'metrics-server-external-tls-ca-confighub-proof'\""
     result: "pass"

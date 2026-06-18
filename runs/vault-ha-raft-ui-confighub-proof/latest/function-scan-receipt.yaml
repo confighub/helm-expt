@@ -17,21 +17,49 @@ spec:
     configHubUnitCount: 19
   unitRevisionBindings:
     -
+      slug: "clusterrole-vault-agent-injector-clusterrole"
+      headRevisionNum: 2
+      dataHash: "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00"
+    -
+      slug: "deployment-vault-vault-agent-injector"
+      headRevisionNum: 2
+      dataHash: "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851"
+    -
       slug: "namespace-vault"
       headRevisionNum: 1
       dataHash: "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e"
+    -
+      slug: "rolebinding-vault-vault-discovery-rolebinding"
+      headRevisionNum: 2
+      dataHash: "8fa9a15e1187c6d039bca72af8eab45122d0b4feb06fe6b0376e82cafcd7dcc5"
+    -
+      slug: "serviceaccount-vault-vault-agent-injector"
+      headRevisionNum: 1
+      dataHash: "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e"
+    -
+      slug: "serviceaccount-vault-vault"
+      headRevisionNum: 1
+      dataHash: "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da"
     -
       slug: "statefulset-vault-vault"
       headRevisionNum: 2
       dataHash: "7f2a201eaa513ec23b8abb420eb5490fc0c7da30f77a8061af779e28646e13f3"
     -
-      slug: "clusterrole-vault-agent-injector-clusterrole"
-      headRevisionNum: 2
-      dataHash: "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00"
-    -
       slug: "clusterrolebinding-vault-agent-injector-binding"
       headRevisionNum: 2
       dataHash: "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8"
+    -
+      slug: "mutatingwebhookconfiguration-vault-agent-injector-cfg"
+      headRevisionNum: 2
+      dataHash: "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02"
+    -
+      slug: "role-vault-vault-discovery-role"
+      headRevisionNum: 2
+      dataHash: "657e89dd6b6f059bf47b2f28ecaadac8bf98d7af1840ad9ad20de7030854a58f"
+    -
+      slug: "service-vault-vault-ui"
+      headRevisionNum: 2
+      dataHash: "7b46e3cccb5426f6f5e3316feb21b65b056ba20331fdbe9e2b75cb2722e211bd"
     -
       slug: "clusterrolebinding-vault-server-binding"
       headRevisionNum: 2
@@ -41,25 +69,9 @@ spec:
       headRevisionNum: 1
       dataHash: "318fd740c91194023cae2396873bd768cc31eade99d46e18339ae2eba4976078"
     -
-      slug: "deployment-vault-vault-agent-injector"
-      headRevisionNum: 2
-      dataHash: "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851"
-    -
-      slug: "mutatingwebhookconfiguration-vault-agent-injector-cfg"
-      headRevisionNum: 2
-      dataHash: "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02"
-    -
       slug: "poddisruptionbudget-vault-vault"
       headRevisionNum: 1
       dataHash: "af3b86148996fc629418b095878a1ed22326216159e7408c860461a53420a56c"
-    -
-      slug: "role-vault-vault-discovery-role"
-      headRevisionNum: 2
-      dataHash: "657e89dd6b6f059bf47b2f28ecaadac8bf98d7af1840ad9ad20de7030854a58f"
-    -
-      slug: "rolebinding-vault-vault-discovery-rolebinding"
-      headRevisionNum: 2
-      dataHash: "8fa9a15e1187c6d039bca72af8eab45122d0b4feb06fe6b0376e82cafcd7dcc5"
     -
       slug: "service-vault-vault"
       headRevisionNum: 2
@@ -80,18 +92,6 @@ spec:
       slug: "service-vault-vault-standby"
       headRevisionNum: 2
       dataHash: "2ec1bbd6a4362668f730b537c048b453bf292c60388a420bd83ddfcbbdca3589"
-    -
-      slug: "service-vault-vault-ui"
-      headRevisionNum: 2
-      dataHash: "7b46e3cccb5426f6f5e3316feb21b65b056ba20331fdbe9e2b75cb2722e211bd"
-    -
-      slug: "serviceaccount-vault-vault"
-      headRevisionNum: 1
-      dataHash: "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da"
-    -
-      slug: "serviceaccount-vault-vault-agent-injector"
-      headRevisionNum: 1
-      dataHash: "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e"
   validations:
     -
       function: "vet-format"

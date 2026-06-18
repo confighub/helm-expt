@@ -17,6 +17,46 @@ spec:
     configHubUnitCount: 19
   unitRevisionBindings:
     -
+      slug: "namespace-external-secrets"
+      headRevisionNum: 1
+      dataHash: "9ed0ab628cd33d59c0f421c063a862b79f7b91f907b86566eca36912da0b0e61"
+    -
+      slug: "role-external-secrets-external-secrets-leaderelection"
+      headRevisionNum: 2
+      dataHash: "921e1452b679d12f88b00f43847bc7a30f2d9efc85b3d2a204ca3e81ac66f765"
+    -
+      slug: "clusterrole-external-secrets-servicebindings"
+      headRevisionNum: 2
+      dataHash: "c4324feaee371fa1ab691870f59073778db017eece85c085a4a2204f228314ba"
+    -
+      slug: "clusterrole-external-secrets-cert-controller"
+      headRevisionNum: 2
+      dataHash: "b97c75bc2d0318ad2eb3f80405b62e73b0388935e1b8aab98da318fa525c52cc"
+    -
+      slug: "clusterrole-external-secrets-view"
+      headRevisionNum: 2
+      dataHash: "a429a42edbf0f16703a94beaa2122a86d68977b8edb920980bac4a76e5631b57"
+    -
+      slug: "clusterrole-external-secrets-edit"
+      headRevisionNum: 2
+      dataHash: "1577ee5f222aa46293be4e69218cff6cbfb58dd666482606e6e5300f7332e2bb"
+    -
+      slug: "clusterrolebinding-external-secrets-controller"
+      headRevisionNum: 2
+      dataHash: "1b77569aa56d38197435d77bb65c40a6e91178137925313bd028088e2d6d4629"
+    -
+      slug: "deployment-external-secrets-external-secrets"
+      headRevisionNum: 2
+      dataHash: "0545a5e275dbcd3b098fc17d3cdbf41d7472c79c2bd8e44df6050c76c6ee74f2"
+    -
+      slug: "deployment-external-secrets-external-secrets-webhook"
+      headRevisionNum: 2
+      dataHash: "13dfc8d9a9480237c8315de482f596fc167fc256509944221c3e81945aa38ce0"
+    -
+      slug: "rolebinding-external-secrets-external-secrets-leaderelection"
+      headRevisionNum: 2
+      dataHash: "c3aa9f5216df40c0f8add6acee611b021cbb36ecea91797dcec244034404f568"
+    -
       slug: "service-external-secrets-external-secrets-webhook"
       headRevisionNum: 2
       dataHash: "784908ac169c9403c82f9a39e2514013aa4be090b981eaf32748daee004db50a"
@@ -41,57 +81,17 @@ spec:
       headRevisionNum: 2
       dataHash: "c9164d17887cae3942ce5261f30f74ca7871be27a2d7dda84f6b4bf447932724"
     -
-      slug: "clusterrolebinding-external-secrets-cert-controller"
-      headRevisionNum: 2
-      dataHash: "4379df9a1d3a17cb6b84c539c15f1d53d77342a16a0c23d077ebe21e3f090622"
-    -
-      slug: "clusterrolebinding-external-secrets-controller"
-      headRevisionNum: 2
-      dataHash: "1b77569aa56d38197435d77bb65c40a6e91178137925313bd028088e2d6d4629"
-    -
-      slug: "namespace-external-secrets"
-      headRevisionNum: 1
-      dataHash: "9ed0ab628cd33d59c0f421c063a862b79f7b91f907b86566eca36912da0b0e61"
-    -
       slug: "clusterrole-external-secrets-controller"
       headRevisionNum: 2
       dataHash: "9ad75871040280af25afecefd5844bc636757045b4832d6b331619f189f95bcb"
     -
-      slug: "clusterrole-external-secrets-cert-controller"
+      slug: "clusterrolebinding-external-secrets-cert-controller"
       headRevisionNum: 2
-      dataHash: "b97c75bc2d0318ad2eb3f80405b62e73b0388935e1b8aab98da318fa525c52cc"
-    -
-      slug: "clusterrole-external-secrets-view"
-      headRevisionNum: 2
-      dataHash: "a429a42edbf0f16703a94beaa2122a86d68977b8edb920980bac4a76e5631b57"
-    -
-      slug: "clusterrole-external-secrets-edit"
-      headRevisionNum: 2
-      dataHash: "1577ee5f222aa46293be4e69218cff6cbfb58dd666482606e6e5300f7332e2bb"
-    -
-      slug: "clusterrole-external-secrets-servicebindings"
-      headRevisionNum: 2
-      dataHash: "c4324feaee371fa1ab691870f59073778db017eece85c085a4a2204f228314ba"
+      dataHash: "4379df9a1d3a17cb6b84c539c15f1d53d77342a16a0c23d077ebe21e3f090622"
     -
       slug: "deployment-external-secrets-external-secrets-cert-controller"
       headRevisionNum: 2
       dataHash: "8ddc142756e100f9f3c47bf52bb6a476906c2deb32b48016b62f1158b52a2a1f"
-    -
-      slug: "deployment-external-secrets-external-secrets-webhook"
-      headRevisionNum: 2
-      dataHash: "13dfc8d9a9480237c8315de482f596fc167fc256509944221c3e81945aa38ce0"
-    -
-      slug: "rolebinding-external-secrets-external-secrets-leaderelection"
-      headRevisionNum: 2
-      dataHash: "c3aa9f5216df40c0f8add6acee611b021cbb36ecea91797dcec244034404f568"
-    -
-      slug: "deployment-external-secrets-external-secrets"
-      headRevisionNum: 2
-      dataHash: "0545a5e275dbcd3b098fc17d3cdbf41d7472c79c2bd8e44df6050c76c6ee74f2"
-    -
-      slug: "role-external-secrets-external-secrets-leaderelection"
-      headRevisionNum: 2
-      dataHash: "921e1452b679d12f88b00f43847bc7a30f2d9efc85b3d2a204ca3e81ac66f765"
   validations:
     -
       function: "vet-format"

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/nginx/24.0.2"
     name: "bitnami-nginx"
@@ -47,6 +47,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -63,6 +65,9 @@ spec:
             name: "nginx-ingress-tls"
             namespace: "nginx"
             purpose: "TLS certificate material referenced by the Ingress"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/nginx-existing-tls-ingress"
     result: "pass"
@@ -70,7 +75,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/nginx/24.0.2 -o .tmp/confighub-proof/nginx-existing-tls-ingress-archives/nginx-a.tgz"
-    sha256: "f122eab673fc2eb56ebe51e06e9234fcb330e44b54596ed29bb79a830a065cf3"
+    sha256: "2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/nginx-existing-tls-ingress"
@@ -94,11 +99,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-nginx-existing-tls-ingress-confighub-proof (post-render):\n  init  Deployment/nginx [preserve-logs-symlinks] registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f\n      Deployment/nginx [nginx] registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
   serverSideVariant:
-    command: "cub variant create staging helm-nginx-existing-tls-ingress-confighub-proof --environment Staging --region local --space-name-pattern template:NGINX-existing-tls-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-nginx-existing-tls-ingress-confighub-proof --environment Staging --region local --namespace nginx --space-pattern template:NGINX-existing-tls-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-nginx-existing-tls-ingress-confighub-proof"
     downstreamSpace: "NGINX-existing-tls-ingress-staging"
     clonedUnitCount: 8
+    namespace: "nginx"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

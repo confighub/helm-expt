@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/postgresql/18.6.7"
     name: "bitnami-postgresql"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -49,6 +51,9 @@ spec:
             name: "postgresql-auth"
             namespace: "postgresql"
             purpose: "PostgreSQL administrator password"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/postgresql-existing-secret"
     result: "pass"
@@ -56,7 +61,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/postgresql/18.6.7 -o .tmp/confighub-proof/postgresql-existing-secret-archives/postgresql-a.tgz"
-    sha256: "6eb1e6f44ed42268e41c8fe7cf8c94fb1d68016ef06ecf242451378c189af30e"
+    sha256: "5ba22746a48874c7d2caa343bf8dc7d6f7437f453d7dc5a29dd247c3c1a7c961"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/postgresql-existing-secret"
@@ -80,11 +85,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-postgresql-existing-secret-confighub-proof (post-render):\n      StatefulSet/postgresql [postgresql] registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
   serverSideVariant:
-    command: "cub variant create staging helm-postgresql-existing-secret-confighub-proof --environment Staging --region local --space-name-pattern template:PostgreSQL-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-postgresql-existing-secret-confighub-proof --environment Staging --region local --namespace postgresql --space-pattern template:PostgreSQL-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-postgresql-existing-secret-confighub-proof"
     downstreamSpace: "PostgreSQL-existing-secret-staging"
     clonedUnitCount: 8
+    namespace: "postgresql"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

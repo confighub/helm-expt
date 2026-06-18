@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "grafana/loki"
     chartVersion: "7.0.0"
@@ -17,21 +17,21 @@ spec:
     upstreamSpace: "helm-loki-simple-scalable-minio-confighub-proof"
     downstreamSpace: "Loki-simple-scalable-minio-staging"
   commands:
-    upstreamUpdate: "cub unit update statefulset-loki-loki-write runs/loki-simple-scalable-minio-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-loki-simple-scalable-minio-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update statefulset-loki-minio runs/loki-simple-scalable-minio-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-loki-simple-scalable-minio-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-loki-simple-scalable-minio runs/loki-simple-scalable-minio-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-loki-simple-scalable-minio-confighub-proof --allow-exists"
     dryRun: "cub variant promote Loki-simple-scalable-minio-staging --dry-run -o mutations"
     changeset: "cub changeset create loki-simple-scalable-minio-variant-promote-20260527 --space Loki-simple-scalable-minio-staging --description ... --allow-exists"
     promote: "cub variant promote Loki-simple-scalable-minio-staging --changeset Loki-simple-scalable-minio-staging/loki-simple-scalable-minio-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Loki-simple-scalable-minio-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "statefulset-loki-loki-write"
+    changedUnit: "statefulset-loki-minio"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=loki-simple-scalable-minio-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-loki-simple-scalable-minio"
-    upstreamUnitID: "b1a521a4-c32f-4d0e-9e62-3ab85dee3dcf"
+    upstreamUnitID: "b051f3d3-8cce-424c-80ed-156521f62e8c"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "loki-simple-scalable-minio-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset loki-simple-scalable-minio-variant-promote-20260527 (91f6e9fd-73a7-49b0-ab92-50c126fcda7c)"
+    output: "Successfully created changeset loki-simple-scalable-minio-variant-promote-20260527 (66e67a36-e271-4e4d-96f5-ba378ae5532f)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-loki-loki-write\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-loki-simple-scalable-minio\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-loki-minio\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-loki-simple-scalable-minio\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-loki-simple-scalable-minio"
-    addedUnitDownstreamUpstreamUnitID: "b1a521a4-c32f-4d0e-9e62-3ab85dee3dcf"
+    addedUnitDownstreamUpstreamUnitID: "b051f3d3-8cce-424c-80ed-156521f62e8c"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

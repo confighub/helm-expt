@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/hashicorp/vault/0.32.0"
     name: "hashicorp-vault"
@@ -22,7 +22,14 @@ spec:
     selectedBase: "default"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "ha-raft-ui"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "minimum schedulable nodes 3"
+            namespace: ""
+            suggestedSource: "use a target with at least 3 schedulable nodes before applying this base"
   render:
     command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir .tmp/confighub-proof/vault-default --non-interactive --namespace vault"
     result: "pass"
@@ -50,7 +57,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-default-archives/vault-a.tgz"
-    sha256: "5aa3be3ba68c48d4851065a5dedcef9aac42b50400491b5858cc7bbb5f322d41"
+    sha256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/vault-default"
@@ -74,11 +81,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-vault-default-confighub-proof (post-render):\n      Deployment/vault-agent-injector [sidecar-injector] hashicorp/vault-k8s:1.7.2\n      StatefulSet/vault [vault] hashicorp/vault:1.21.2"
   serverSideVariant:
-    command: "cub variant create staging helm-vault-default-confighub-proof --environment Staging --region local --space-name-pattern template:Vault-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-vault-default-confighub-proof --environment Staging --region local --namespace vault --space-pattern template:Vault-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-vault-default-confighub-proof"
     downstreamSpace: "Vault-default-staging"
     clonedUnitCount: 14
+    namespace: "vault"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

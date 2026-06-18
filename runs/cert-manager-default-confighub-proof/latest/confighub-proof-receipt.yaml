@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/jetstack/cert-manager/v1.20.2"
     name: "jetstack-cert-manager"
@@ -102,7 +102,12 @@ spec:
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/cert-manager-default"
@@ -111,7 +116,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o .tmp/confighub-proof/cert-manager-default-archives/cert-manager-a.tgz"
-    sha256: "84f9e1aacfc398c5f402f03d217d3913d02721b4f6506537f352a0f6de79c782"
+    sha256: "326411dcaef701800272480b88e4456fe21b5256714db346dc5c60bf5cb96275"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cert-manager-default"
@@ -135,11 +140,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cert-manager-default-confighub-proof (post-render):\n      Deployment/cert-manager [cert-manager-controller] quay.io/jetstack/cert-manager-controller:v1.20.2\n      Deployment/cert-manager-cainjector [cert-manager-cainjector] quay.io/jetstack/cert-manager-cainjector:v1.20.2\n      Deployment/cert-manager-webhook [cert-manager-webhook] quay.io/jetstack/cert-manager-webhook:v1.20.2"
   serverSideVariant:
-    command: "cub variant create staging helm-cert-manager-default-confighub-proof --environment Staging --region local --space-name-pattern template:CertManager-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cert-manager-default-confighub-proof --environment Staging --region local --namespace cert-manager --space-pattern template:CertManager-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cert-manager-default-confighub-proof"
     downstreamSpace: "CertManager-default-staging"
     clonedUnitCount: 44
+    namespace: "cert-manager"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

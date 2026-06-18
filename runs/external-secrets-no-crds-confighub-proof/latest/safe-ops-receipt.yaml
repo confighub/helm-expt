@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-external-secrets-external-secrets-cert-controller --space helm-external-secrets-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-external-secrets-external-secrets --space helm-external-secrets-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-external-secrets-external-secrets-cert-controller"
-    output: "Unit deployment-external-secrets-external-secrets-cert-controller (806fb94d-1ea3-4c6e-aca0-d27d92933ab7) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-external-secrets-external-secrets"
+    output: "Unit deployment-external-secrets-external-secrets (961f1abf-3347-4ff9-a032-207c45f2811f) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-external-secrets-no-crds-confighub-proof --where \"Labels.Proof = 'external-secrets-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req BETFLegLnSxXfOITYxJeImFsciRTjSqp: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req XWklJDPAUysfywpPwvpWKPjTPHvxWtpi: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-external-secrets-no-crds-confighub-proof --where \"Labels.Proof = 'external-secrets-no-crds-confighub-proof'\""
     result: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-nginx-nginx --space helm-nginx-existing-tls-ingress-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-nginx-nginx"
-    output: "Unit deployment-nginx-nginx (80a70165-5e92-4f87-9314-0acd14195239) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-nginx-nginx (7f44fadc-bf41-49a0-a531-9c830c774c12) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-nginx-existing-tls-ingress-confighub-proof --where \"Labels.Proof = 'nginx-existing-tls-ingress-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req NYgLxRTPBYtwQIOsABvYfmHUxLEVPrbm: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req vaFhiZnCpNfXiawdFRTGQQnHkyrtWdfq: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-nginx-existing-tls-ingress-confighub-proof --where \"Labels.Proof = 'nginx-existing-tls-ingress-confighub-proof'\""
     result: "pass"

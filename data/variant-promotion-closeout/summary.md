@@ -18,23 +18,23 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 182 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 146 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 17 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 53 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `watch-grade` | 157 |
-| `promotion-proven` | 17 |
+| `watch-grade` | 121 |
+| `promotion-proven` | 53 |
 | `ready-to-run` | 16 |
 | `blocked-needs-confighub-proof` | 7 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `watch` | 157 |
+| `watch` | 121 |
+| `yes` | 53 |
 | `todo` | 23 |
-| `yes` | 17 |
 | `no` | 2 |
 
 ## Ready to run now (16)
@@ -68,7 +68,7 @@ node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts seale
 
 The full 16-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — rerun on the fixed server (157)
+## Watch-grade — rerun on the fixed server (121)
 
 Server-side promotion mechanics are proven for these, but the committed receipts
 were recorded before the changeset-bound add-new-units server fix. The next action is:
@@ -79,8 +79,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | --- | --- | --- |
 | aqua/trivy-operator@0.32.1 | default | runs/trivy-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | aqua/trivy-operator@0.32.1 | no-crds | runs/trivy-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-cd@9.5.15 | default | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-cd@9.5.15 | no-crds | runs/argo-cd-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | argo-cd/argo-cd@9.5.17 | default | runs/argo-cd-9517-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | argo-cd/argo-cd@9.5.17 | no-crds | runs/argo-cd-9517-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | argo-cd/argo-events@2.4.21 | default | runs/argo-events-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -102,15 +100,10 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/elasticsearch@22.1.6 | default | runs/cl-elasticsearch-22-1-6-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/elasticsearch@22.1.6 | ha | runs/cl-elasticsearch-22-1-6-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/memcached@8.5.5 | default | runs/cl-memcached-8-5-5-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mongodb@19.0.7 | existing-secret-replicaset | runs/mongodb-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mongodb@19.0.7 | generated-passwords | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.9 | generated-passwords | runs/cl-mongodb-19-0-9-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | generated-passwords | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mysql@14.0.3 | existing-secret | runs/mysql-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mysql@14.0.3 | generated-passwords | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/nginx@24.0.2 | existing-tls-ingress | runs/nginx-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | http-clusterip | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -120,13 +113,8 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/phpmyadmin@20.0.0 | default | runs/cl-phpmyadmin-20-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.6.10 | existing-secret | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.6.10 | generated-passwords | runs/cl-postgresql-18-6-10-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/postgresql@18.6.7 | existing-secret | runs/postgresql-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/postgresql@18.6.7 | generated-passwords | runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | existing-secret | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | generated-passwords | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/rabbitmq@16.0.14 | existing-secret | runs/rabbitmq-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/rabbitmq@16.0.14 | generated-passwords | runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/redis@25.5.3 | reuse-existing-secret | runs/redis-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/spark@10.0.3 | default | runs/cl-spark-10-0-3-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -151,8 +139,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | external-dns/external-dns@1.21.1 | default | runs/external-dns-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | external-dns/external-dns@1.21.1 | dry-run-txt-registry | runs/external-dns-dry-run-txt-registry-confighub-proof/latest/variant-promotion-receipt.yaml |
 | external-dns/external-dns@1.21.1 | no-crds | runs/external-dns-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-secrets/external-secrets@2.5.0 | default | runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-secrets/external-secrets@2.5.0 | no-crds | runs/external-secrets-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | fairwinds-stable/goldilocks@10.3.0 | default | runs/goldilocks-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | fairwinds-stable/vpa@4.11.0 | default | runs/vpa-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | fairwinds-stable/vpa@4.11.0 | no-crds | runs/vpa-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -163,29 +149,15 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | gatekeeper/gatekeeper@3.22.2 | default | runs/gatekeeper-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | gatekeeper/gatekeeper@3.22.2 | no-crds | runs/gatekeeper-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | gitlab/gitlab-runner@0.89.0 | default | runs/gitlab-runner-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/grafana@10.5.15 | existing-secret-ingress | runs/grafana-existing-secret-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/grafana@10.5.15 | generated-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/loki@7.0.0 | simple-scalable-minio | runs/loki-simple-scalable-minio-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/loki@7.0.0 | single-binary-filesystem | runs/loki-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/promtail@6.17.1 | default | runs/promtail-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/pyroscope@2.0.2 | default | runs/pyroscope-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/pyroscope@2.0.2 | ha | runs/pyroscope-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/pyroscope@2.0.2 | no-crds | runs/pyroscope-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/rollout-operator@0.49.0 | default | runs/rollout-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/rollout-operator@0.49.0 | no-crds | runs/rollout-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/tempo@1.24.4 | local-persistent | runs/tempo-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/tempo@1.24.4 | s3-query-observability | runs/tempo-s3-query-observability-confighub-proof/latest/variant-promotion-receipt.yaml |
 | haproxytech/kubernetes-ingress@1.52.0 | default | runs/haproxy-ingress-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/consul@2.0.0 | default-control-plane | runs/consul-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | runs/consul-secure-mesh-existing-secrets-confighub-proof/latest/variant-promotion-receipt.yaml |
 | hashicorp/terraform@1.1.2 | default | runs/terraform-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | hashicorp/terraform@1.1.2 | no-crds | runs/terraform-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/vault@0.32.0 | default | runs/vault-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/vault@0.32.0 | dev-mode | runs/vault-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/vault@0.32.0 | ha-raft-ui | runs/vault-ha-raft-ui-confighub-proof/latest/variant-promotion-receipt.yaml |
-| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | runs/ingress-nginx-admission-disabled-confighub-proof/latest/variant-promotion-receipt.yaml |
-| ingress-nginx/ingress-nginx@4.15.1 | default | runs/ingress-nginx-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | runs/ingress-nginx-confighub-proof/latest/variant-promotion-receipt.yaml |
 | istio/gateway@1.30.0 | controller-default-reviewed | runs/istio-gateway-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
 | istio/gateway@1.30.0 | default | runs/istio-gateway-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | istio/istiod@1.30.0 | default | runs/istiod-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -193,8 +165,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | runs/jaeger-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | jaegertracing/jaeger@4.8.0 | default | runs/jaeger-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | jetstack/cert-manager-csi-driver@v0.14.0 | default | runs/cert-manager-csi-driver-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/cert-manager@v1.20.2 | crds-enabled | runs/cert-manager-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/cert-manager@v1.20.2 | default | runs/cert-manager-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | jetstack/trust-manager@v0.22.1 | default | runs/trust-manager-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | jetstack/trust-manager@v0.22.1 | no-crds | runs/trust-manager-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | kedacore/keda@2.19.0 | default | runs/keda-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -203,10 +173,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | kyverno/kyverno@3.8.1 | default | runs/kyverno-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | kyverno/kyverno@3.8.1 | no-crds | runs/kyverno-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
 | linkerd/linkerd-crds@1.8.0 | default | runs/linkerd-crds-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| longhorn/longhorn@1.11.2 | default | runs/longhorn-confighub-proof/latest/variant-promotion-receipt.yaml |
-| longhorn/longhorn@1.11.2 | ui-ingress | runs/longhorn-ui-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
-| metrics-server/metrics-server@3.13.0 | default | runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml |
-| metrics-server/metrics-server@3.13.0 | external-tls-ca | runs/metrics-server-external-tls-ca-confighub-proof/latest/variant-promotion-receipt.yaml |
 | minio-operator/operator@7.1.1 | default | runs/minio-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | minio-operator/tenant@7.1.1 | default | runs/minio-tenant-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | nats/nack@0.34.0 | default | runs/nack-default-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -232,8 +198,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | runs/prometheus-node-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-pushgateway@3.6.0 | default | runs/cl-prometheus-pushgateway-3-6-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml |
 
 ## Blocked — needs the ConfigHub proof first (7)
 

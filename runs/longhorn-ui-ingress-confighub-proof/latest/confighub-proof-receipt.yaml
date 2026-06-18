@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/longhorn/longhorn/1.11.2"
     name: "longhorn-longhorn"
@@ -60,17 +60,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-longhorn-ui-ingress-confighub-proof (post-render):\n      DaemonSet/longhorn-manager [longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      DaemonSet/longhorn-manager [pre-pull-share-manager-image] docker.io/longhornio/longhorn-share-manager:v1.11.2\n  init  Deployment/longhorn-driver-deployer [wait-longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-driver-deployer [longhorn-driver-deployer] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-ui [longhorn-ui] docker.io/longhornio/longhorn-ui:v1.11.2"
   serverSideVariant:
-    command: "cub variant create staging helm-longhorn-ui-ingress-confighub-proof --environment Staging --region local --space-name-pattern template:Longhorn-ui-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-longhorn-ui-ingress-confighub-proof --environment Staging --region local --namespace longhorn-system --space-pattern template:Longhorn-ui-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-longhorn-ui-ingress-confighub-proof"
     downstreamSpace: "Longhorn-ui-ingress-staging"
     clonedUnitCount: 44
+    namespace: "longhorn-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-longhorn-system-longhorn-driver-deployer"
+    representativeUnit: "deployment-longhorn-system-longhorn-ui"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

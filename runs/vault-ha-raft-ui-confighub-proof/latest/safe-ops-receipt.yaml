@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-vault-vault --space helm-vault-ha-raft-ui-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-vault-vault"
-    output: "Unit statefulset-vault-vault (3166888a-9d5b-4815-a398-d035dd0b514f) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-vault-vault (d52c5ea0-d873-44e0-9ae9-c27af9bf87da) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-vault-ha-raft-ui-confighub-proof --where \"Labels.Proof = 'vault-ha-raft-ui-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req tpsNmByVqnAhKkDkOdNiDpPHJFKWeHzQ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req NgyUdRBtGGVSuFwUzWmVMJnXtxYCeUdn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-vault-ha-raft-ui-confighub-proof --where \"Labels.Proof = 'vault-ha-raft-ui-confighub-proof'\""
     result: "pass"

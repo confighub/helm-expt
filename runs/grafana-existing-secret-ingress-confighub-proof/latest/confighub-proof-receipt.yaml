@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/grafana/grafana/10.5.15"
     name: "grafana-grafana"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -50,6 +52,9 @@ spec:
             name: "grafana-admin"
             namespace: "grafana"
             purpose: "Grafana administrator username and password"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/grafana-existing-secret-ingress"
     result: "pass"
@@ -57,7 +62,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/grafana/grafana/10.5.15 -o .tmp/confighub-proof/grafana-existing-secret-ingress-archives/grafana-a.tgz"
-    sha256: "991475b6180fec02029dbead55e98f18202b46083f71b11d50b11f33734e44a4"
+    sha256: "f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/grafana-existing-secret-ingress"
@@ -79,13 +84,21 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/grafana-existing-secret-ingress"
     result: "pass"
-    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-existing-secret-ingress-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/grafana-existing-secret-ingress/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#2)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#2)"
+    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-existing-secret-ingress-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/grafana-existing-secret-ingress/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#2)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#2)"
   serverSideVariant:
-    command: "cub variant create staging helm-grafana-existing-secret-ingress-confighub-proof --environment Staging --region local --space-name-pattern template:Grafana-existing-secret-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-grafana-existing-secret-ingress-confighub-proof --environment Staging --region local --namespace grafana --space-pattern template:Grafana-existing-secret-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-grafana-existing-secret-ingress-confighub-proof"
     downstreamSpace: "Grafana-existing-secret-ingress-staging"
     clonedUnitCount: 11
+    namespace: "grafana"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

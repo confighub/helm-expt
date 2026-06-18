@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-cert-manager-cert-manager --space helm-cert-manager-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-cert-manager-cert-manager"
-    output: "Unit deployment-cert-manager-cert-manager (4e44d245-59c8-4abf-bc33-41c64417d823) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-cert-manager-cert-manager (a1bd6a7c-b19e-4b5b-bbbe-dd3bea1f8d05) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cert-manager-default-confighub-proof --where \"Labels.Proof = 'cert-manager-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req aAHFqifzgzAqimXoMdwHMFriKLvxqjks: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req YCwZUexIuHkdRWJWHZshrqddwFuDSxyL: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cert-manager-default-confighub-proof --where \"Labels.Proof = 'cert-manager-default-confighub-proof'\""
     result: "pass"

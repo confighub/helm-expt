@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/redis/25.5.3"
     name: "bitnami-redis"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -49,6 +51,9 @@ spec:
             name: "redis-existing-secret"
             namespace: "redis"
             purpose: "Redis authentication password"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/redis-reuse-existing-secret"
     result: "pass"
@@ -56,7 +61,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/redis-reuse-existing-secret-archives/redis-a.tgz"
-    sha256: "6ed8a0a3af8bcddfd18bb13c0004fd20a21c81412f2a999fffee2d79819d9444"
+    sha256: "f55e4ae30adbbf1de140a3c5529051659d6f2f59a2285e480bc3ee3b3b1b92f7"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/redis-reuse-existing-secret"
@@ -80,11 +85,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-redis-reuse-existing-secret-confighub-proof (post-render):\n      StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25\n      StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
   serverSideVariant:
-    command: "cub variant create staging helm-redis-reuse-existing-secret-confighub-proof --environment Staging --region local --space-name-pattern template:Redis-reuse-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-redis-reuse-existing-secret-confighub-proof --environment Staging --region local --namespace redis --space-pattern template:Redis-reuse-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-redis-reuse-existing-secret-confighub-proof"
     downstreamSpace: "Redis-reuse-existing-secret-staging"
     clonedUnitCount: 15
+    namespace: "redis"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

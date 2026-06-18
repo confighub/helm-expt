@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/metrics-server/metrics-server/3.13.0"
     name: "metrics-server-metrics-server"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -50,6 +52,16 @@ spec:
             name: "metrics-server-tls"
             namespace: "kube-system"
             purpose: "metrics-server serving certificate"
+        requiredTopology: null
+        requiredValues:
+          -
+            installerInput: "apiServiceCaBundle"
+            installerInputFormat: "base64-pem"
+            path: "apiService.caBundle"
+            purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+            regularHelmFormat: "pem"
+            source: "metrics-server-tls-ca"
+            stage: "pre-render"
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/metrics-server-external-tls-ca"
     result: "pass"
@@ -57,7 +69,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o .tmp/confighub-proof/metrics-server-external-tls-ca-archives/metrics-server-a.tgz"
-    sha256: "a1e45ff0234dd3bd16d413ce2e43fb52ae463a8e717e65f0ff3d57a35ac84299"
+    sha256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/metrics-server-external-tls-ca"
@@ -81,11 +93,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-metrics-server-external-tls-ca-confighub-proof (post-render):\n      Deployment/metrics-server [metrics-server] registry.k8s.io/metrics-server/metrics-server:v0.8.0"
   serverSideVariant:
-    command: "cub variant create staging helm-metrics-server-external-tls-ca-confighub-proof --environment Staging --region local --space-name-pattern template:MetricsServer-external-tls-ca-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-metrics-server-external-tls-ca-confighub-proof --environment Staging --region local --namespace kube-system --space-pattern template:MetricsServer-external-tls-ca-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-metrics-server-external-tls-ca-confighub-proof"
     downstreamSpace: "MetricsServer-external-tls-ca-staging"
     clonedUnitCount: 11
+    namespace: "kube-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

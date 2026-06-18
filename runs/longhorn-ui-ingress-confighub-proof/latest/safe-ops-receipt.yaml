@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-longhorn-system-longhorn-driver-deployer --space helm-longhorn-ui-ingress-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-longhorn-system-longhorn-ui --space helm-longhorn-ui-ingress-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-longhorn-system-longhorn-driver-deployer"
-    output: "Unit deployment-longhorn-system-longhorn-driver-deployer (1fb65f39-c12f-4296-8482-07eefa291779) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-longhorn-system-longhorn-ui"
+    output: "Unit deployment-longhorn-system-longhorn-ui (1ec891bf-68f9-4e70-a77e-6dd5709c017a) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-longhorn-ui-ingress-confighub-proof --where \"Labels.Proof = 'longhorn-ui-ingress-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req rUaKbtLXzbliMUTcYKUKNUdfshqLkLro: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req PxzDYxbCsScBcvPQkszxDXtmSGKCjssF: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-longhorn-ui-ingress-confighub-proof --where \"Labels.Proof = 'longhorn-ui-ingress-confighub-proof'\""
     result: "pass"

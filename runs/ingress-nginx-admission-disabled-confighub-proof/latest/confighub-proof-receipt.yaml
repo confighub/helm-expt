@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     name: "ingress-nginx-ingress-nginx"
@@ -43,7 +43,12 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/ingress-nginx-admission-disabled"
@@ -52,7 +57,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/confighub-proof/ingress-nginx-admission-disabled-archives/ingress-nginx-a.tgz"
-    sha256: "7a128d36ff637796c08d8aaa8d2bea2ac8dfc0bc9b4add8f6be0e7dd869551c5"
+    sha256: "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/ingress-nginx-admission-disabled"
@@ -76,11 +81,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-ingress-nginx-admission-disabled-confighub-proof (post-render):\n      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
   serverSideVariant:
-    command: "cub variant create staging helm-ingress-nginx-admission-disabled-confighub-proof --environment Staging --region local --space-name-pattern template:IngressNGINX-admission-disabled-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-ingress-nginx-admission-disabled-confighub-proof --environment Staging --region local --namespace ingress-nginx --space-pattern template:IngressNGINX-admission-disabled-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-ingress-nginx-admission-disabled-confighub-proof"
     downstreamSpace: "IngressNGINX-admission-disabled-staging"
     clonedUnitCount: 11
+    namespace: "ingress-nginx"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

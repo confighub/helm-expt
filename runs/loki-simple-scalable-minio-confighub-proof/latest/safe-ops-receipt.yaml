@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve statefulset-loki-loki-write --space helm-loki-simple-scalable-minio-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve statefulset-loki-minio --space helm-loki-simple-scalable-minio-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "statefulset-loki-loki-write"
-    output: "Unit statefulset-loki-loki-write (cd938672-ef4a-41a3-8b89-dc8e8cd7643e) has been approved\nAwaiting triggers..."
+    representativeUnit: "statefulset-loki-minio"
+    output: "Unit statefulset-loki-minio (50cb895c-1555-4b22-9b36-1b922385d426) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-loki-simple-scalable-minio-confighub-proof --where \"Labels.Proof = 'loki-simple-scalable-minio-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req zQJFqFhKsLuhxopxQsYfgwKqvrGWzPLe: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req fhVBilCizvoVlOyYBrExMVurrkFmYQJZ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-loki-simple-scalable-minio-confighub-proof --where \"Labels.Proof = 'loki-simple-scalable-minio-confighub-proof'\""
     result: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-argocd-argo-cd-argocd-application-controller --space helm-argo-cd-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-argocd-argo-cd-argocd-application-controller"
-    output: "Unit statefulset-argocd-argo-cd-argocd-application-controller (63f821ab-4c57-49f0-8f6b-14c43a3c6b20) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-argocd-argo-cd-argocd-application-controller (06ae4f5d-05aa-4d9f-896b-aaf8455bbe72) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-argo-cd-no-crds-confighub-proof --where \"Labels.Proof = 'argo-cd-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req sxvlJfXRSvvQtcipSzehQuBNmxqoXVre: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req TlRUEKAJEhYOMkFdZOWdwEveVCMDSGhX: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-argo-cd-no-crds-confighub-proof --where \"Labels.Proof = 'argo-cd-no-crds-confighub-proof'\""
     result: "pass"

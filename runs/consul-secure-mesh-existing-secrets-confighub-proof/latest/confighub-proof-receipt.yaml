@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/hashicorp/consul/2.0.0"
     name: "hashicorp-consul"
@@ -44,6 +44,11 @@ spec:
             name: "Secret consul/consul-bootstrap-acl-token key token"
             namespace: "consul"
             suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "minimum schedulable nodes 3"
+            namespace: ""
+            suggestedSource: "use a target with at least 3 schedulable nodes before applying this base"
   render:
     command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir .tmp/confighub-proof/consul-secure-mesh-existing-secrets --non-interactive --namespace consul"
     result: "pass"
@@ -65,14 +70,26 @@ spec:
               - "tls.crt"
             name: "consul-ca-cert"
             namespace: "consul"
-            purpose: "Consul TLS CA certificate"
+            purpose: "Consul TLS CA certificate; must sign consul-server-cert"
           -
+            caSecretName: "consul-ca-cert"
             keys:
               - "tls.crt"
               - "tls.key"
             name: "consul-server-cert"
             namespace: "consul"
-            purpose: "Consul server TLS certificate and private key"
+            purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
+            requiredDNSNames:
+              - "server.dc1.consul"
+              - "consul-consul-server"
+              - "consul-consul-server.consul"
+              - "consul-consul-server.consul.svc"
+              - "consul-consul-server.consul-helm"
+              - "consul-consul-server.consul-helm.svc"
+              - "consul-consul-server.consul-apply"
+              - "consul-consul-server.consul-apply.svc"
+              - "consul-consul-server.consul-oci"
+              - "consul-consul-server.consul-oci.svc"
           -
             keys:
               - "key"
@@ -100,7 +117,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-secure-mesh-existing-secrets-archives/consul-a.tgz"
-    sha256: "5f2c814cd8a5b6feff3703036391d7fea34147ad9c17123756e98fde28beca2a"
+    sha256: "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/consul-secure-mesh-existing-secrets"
@@ -124,11 +141,19 @@ spec:
     result: "timeout"
     summary: ""
   serverSideVariant:
-    command: "cub variant create staging helm-consul-secure-mesh-existing-secrets-confighub-proof --environment Staging --region local --space-name-pattern template:Consul-secure-mesh-existing-secrets-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-consul-secure-mesh-existing-secrets-confighub-proof --environment Staging --region local --namespace consul --space-pattern template:Consul-secure-mesh-existing-secrets-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-consul-secure-mesh-existing-secrets-confighub-proof"
     downstreamSpace: "Consul-secure-mesh-existing-secrets-staging"
     clonedUnitCount: 98
+    namespace: "consul"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

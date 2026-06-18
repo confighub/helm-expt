@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/mysql/14.0.3"
     name: "bitnami-mysql"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -51,6 +53,9 @@ spec:
             name: "mysql-auth"
             namespace: "mysql"
             purpose: "MySQL root, user, and replication passwords"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/mysql-existing-secret"
     result: "pass"
@@ -58,7 +63,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o .tmp/confighub-proof/mysql-existing-secret-archives/mysql-a.tgz"
-    sha256: "4a4dfb85cea2b6525b0e7b3fade851a4fc31c12e5e4ec614969192f5eee235be"
+    sha256: "141a6b01c3e7b0276e22b8df64d3076e2849d0ae4270d3759e938d218d120a43"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/mysql-existing-secret"
@@ -82,11 +87,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-mysql-existing-secret-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1"
   serverSideVariant:
-    command: "cub variant create staging helm-mysql-existing-secret-confighub-proof --environment Staging --region local --space-name-pattern template:MySQL-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-mysql-existing-secret-confighub-proof --environment Staging --region local --namespace mysql --space-pattern template:MySQL-existing-secret-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-mysql-existing-secret-confighub-proof"
     downstreamSpace: "MySQL-existing-secret-staging"
     clonedUnitCount: 9
+    namespace: "mysql"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

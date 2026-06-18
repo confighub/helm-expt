@@ -21,17 +21,17 @@ spec:
       headRevisionNum: 2
       dataHash: "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e"
     -
+      slug: "clusterrole-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f"
+    -
       slug: "configmap-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 1
       dataHash: "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af"
     -
-      slug: "role-ingress-nginx-ingress-nginx"
+      slug: "deployment-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 2
-      dataHash: "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa"
-    -
-      slug: "serviceaccount-ingress-nginx-ingress-nginx"
-      headRevisionNum: 1
-      dataHash: "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d"
+      dataHash: "7c5dcb29eb98237b5c21bc9ca34b1486c0aa85259e5514f19c3a070a8bf1d5c7"
     -
       slug: "ingressclass-nginx"
       headRevisionNum: 1
@@ -45,25 +45,25 @@ spec:
       headRevisionNum: 2
       dataHash: "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c"
     -
+      slug: "role-ingress-nginx-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa"
+    -
+      slug: "serviceaccount-ingress-nginx-ingress-nginx"
+      headRevisionNum: 1
+      dataHash: "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d"
+    -
       slug: "service-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 2
       dataHash: "6427279a22de435f40be31e0e45817743551ad21f744120a56daea7c410e036f"
     -
-      slug: "validatingwebhookconfiguration-ingress-nginx-admission"
-      headRevisionNum: 2
-      dataHash: "85ddbb987174cb6feb5e0df305046ad0f942aede168697d4933091dec2d73d54"
-    -
-      slug: "clusterrole-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f"
-    -
-      slug: "deployment-ingress-nginx-ingress-nginx-controller"
-      headRevisionNum: 2
-      dataHash: "7c5dcb29eb98237b5c21bc9ca34b1486c0aa85259e5514f19c3a070a8bf1d5c7"
-    -
       slug: "service-ingress-nginx-ingress-nginx-controller-admission"
       headRevisionNum: 2
       dataHash: "bbaa6de17410f73d46b4d32e0ecb7ec196893ce45ca25516971ed2e3f7857e7a"
+    -
+      slug: "validatingwebhookconfiguration-ingress-nginx-admission"
+      headRevisionNum: 2
+      dataHash: "85ddbb987174cb6feb5e0df305046ad0f942aede168697d4933091dec2d73d54"
   validations:
     -
       function: "vet-format"

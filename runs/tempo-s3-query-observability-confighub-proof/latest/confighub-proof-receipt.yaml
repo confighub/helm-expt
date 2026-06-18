@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/grafana/tempo/1.24.4"
     name: "grafana-tempo"
@@ -26,11 +26,6 @@ spec:
         requirements:
           -
             kind: "ClusterFeature"
-            name: "S3-compatible object store tempo/tempo-object-store"
-            namespace: "tempo"
-            suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
-          -
-            kind: "ClusterFeature"
             name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
             namespace: "tempo"
             suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
@@ -39,6 +34,11 @@ spec:
             name: "CRD servicemonitors.monitoring.coreos.com"
             namespace: ""
             suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "S3-compatible object store tempo/tempo-object-store"
+            namespace: "tempo"
+            suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
   render:
     command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir .tmp/confighub-proof/tempo-s3-query-observability --non-interactive --namespace tempo"
     result: "pass"
@@ -61,6 +61,22 @@ spec:
             purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
             sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+        requiredObjectStores:
+          -
+            bucket: "tempo-traces"
+            credentialsSecret:
+              accessKey: "access_key"
+              name: "tempo-s3-credentials"
+              secretKey: "secret_key"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+            endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+            kind: "S3CompatibleObjectStore"
+            name: "tempo-object-store"
+            namespace: "tempo"
+            purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+            serviceName: "tempo-object-store"
         requiredSecrets:
           -
             keys:
@@ -69,6 +85,26 @@ spec:
             name: "tempo-s3-credentials"
             namespace: "tempo"
             purpose: "S3 access credentials referenced by Tempo environment variables"
+        requiredTopology: null
+        requiredValues:
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.endpoint"
+            purpose: "S3-compatible endpoint that Tempo will write traces to"
+            stage: "pre-render"
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.bucket"
+            purpose: "Existing bucket for Tempo trace blocks"
+            stage: "pre-render"
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.region"
+            purpose: "Object-store region used with the selected endpoint and bucket"
+            stage: "pre-render"
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/tempo-s3-query-observability"
     result: "pass"
@@ -76,7 +112,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/grafana/tempo/1.24.4 -o .tmp/confighub-proof/tempo-s3-query-observability-archives/tempo-a.tgz"
-    sha256: "c619b2293a9429e60c12080f196e3880307082f553995360eaaea14afdfa6bcd"
+    sha256: "ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/tempo-s3-query-observability"
@@ -100,11 +136,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-tempo-s3-query-observability-confighub-proof (post-render):\n      StatefulSet/tempo [tempo] docker.io/grafana/tempo:2.9.0\n      StatefulSet/tempo [tempo-query] grafana/tempo-query:2.9.0"
   serverSideVariant:
-    command: "cub variant create staging helm-tempo-s3-query-observability-confighub-proof --environment Staging --region local --space-name-pattern template:Tempo-s3-query-observability-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-tempo-s3-query-observability-confighub-proof --environment Staging --region local --namespace tempo --space-pattern template:Tempo-s3-query-observability-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-tempo-s3-query-observability-confighub-proof"
     downstreamSpace: "Tempo-s3-query-observability-staging"
     clonedUnitCount: 10
+    namespace: "tempo"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

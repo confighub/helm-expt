@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-tempo-tempo --space helm-tempo-s3-query-observability-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-tempo-tempo"
-    output: "Unit statefulset-tempo-tempo (0602fbe6-7000-48c3-b30d-3efcf96edfbb) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-tempo-tempo (425d3e27-99ea-4417-b0aa-e58407818df0) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-tempo-s3-query-observability-confighub-proof --where \"Labels.Proof = 'tempo-s3-query-observability-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req xnWKehqQvITlFCKmMbMcbfvZpxwmvDJn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req XGHgyrlMAPaCPyWDgQWKxmOVxLvpdOUc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-tempo-s3-query-observability-confighub-proof --where \"Labels.Proof = 'tempo-s3-query-observability-confighub-proof'\""
     result: "pass"

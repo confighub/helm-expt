@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-mysql-mysql --space helm-mysql-existing-secret-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-mysql-mysql"
-    output: "Unit statefulset-mysql-mysql (09616609-fb6e-46e9-ac21-0a6e2e9147a2) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-mysql-mysql (4f4debd3-ed0b-44c2-8df5-e172b00f917a) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-mysql-existing-secret-confighub-proof --where \"Labels.Proof = 'mysql-existing-secret-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req OxgRvAkEzQHDhfpQPhjRKeMqyyDcJUTM: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req BGIAyPILgpoiJyxKNFJZcmzvkgrMqjst: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-mysql-existing-secret-confighub-proof --where \"Labels.Proof = 'mysql-existing-secret-confighub-proof'\""
     result: "pass"

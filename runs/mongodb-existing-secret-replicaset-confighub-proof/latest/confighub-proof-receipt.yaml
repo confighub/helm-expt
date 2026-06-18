@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/mongodb/19.0.7"
     name: "bitnami-mongodb"
@@ -42,6 +42,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             keys:
@@ -50,6 +52,9 @@ spec:
             name: "mongodb-auth"
             namespace: "mongodb"
             purpose: "MongoDB root password and MongoDB-valid replica-set key"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/mongodb-existing-secret-replicaset"
     result: "pass"
@@ -57,7 +62,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/mongodb/19.0.7 -o .tmp/confighub-proof/mongodb-existing-secret-replicaset-archives/mongodb-a.tgz"
-    sha256: "cf500f418efe0f4dc41b30fa51f9207b19b321e587d3469b26a86fa21d97224e"
+    sha256: "8898fd34364167b0b8bb70c7c7b9b7a9ed078ed818f2b411af6f170427996662"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/mongodb-existing-secret-replicaset"
@@ -81,11 +86,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-mongodb-existing-secret-replicaset-confighub-proof (post-render):\n  init  StatefulSet/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      StatefulSet/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      StatefulSet/mongodb-arbiter [mongodb-arbiter] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
   serverSideVariant:
-    command: "cub variant create staging helm-mongodb-existing-secret-replicaset-confighub-proof --environment Staging --region local --space-name-pattern template:MongoDB-existing-secret-replicaset-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-mongodb-existing-secret-replicaset-confighub-proof --environment Staging --region local --namespace mongodb --space-pattern template:MongoDB-existing-secret-replicaset-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-mongodb-existing-secret-replicaset-confighub-proof"
     downstreamSpace: "MongoDB-existing-secret-replicaset-staging"
     clonedUnitCount: 12
+    namespace: "mongodb"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

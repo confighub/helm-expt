@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "longhorn/longhorn"
     chartVersion: "1.11.2"
@@ -17,21 +17,21 @@ spec:
     upstreamSpace: "helm-longhorn-ui-ingress-confighub-proof"
     downstreamSpace: "Longhorn-ui-ingress-staging"
   commands:
-    upstreamUpdate: "cub unit update deployment-longhorn-system-longhorn-driver-deployer runs/longhorn-ui-ingress-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-longhorn-ui-ingress-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update deployment-longhorn-system-longhorn-ui runs/longhorn-ui-ingress-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-longhorn-ui-ingress-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-longhorn-ui-ingress runs/longhorn-ui-ingress-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-longhorn-ui-ingress-confighub-proof --allow-exists"
     dryRun: "cub variant promote Longhorn-ui-ingress-staging --dry-run -o mutations"
     changeset: "cub changeset create longhorn-ui-ingress-variant-promote-20260527 --space Longhorn-ui-ingress-staging --description ... --allow-exists"
     promote: "cub variant promote Longhorn-ui-ingress-staging --changeset Longhorn-ui-ingress-staging/longhorn-ui-ingress-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Longhorn-ui-ingress-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "deployment-longhorn-system-longhorn-driver-deployer"
+    changedUnit: "deployment-longhorn-system-longhorn-ui"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=longhorn-ui-ingress-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-longhorn-ui-ingress"
-    upstreamUnitID: "8c4dbe77-ba88-4996-8b74-d476e7307abb"
+    upstreamUnitID: "aa0b18a5-da7d-4c8d-867e-ac94257e9e64"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "longhorn-ui-ingress-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset longhorn-ui-ingress-variant-promote-20260527 (03024d05-f1d0-4858-8503-5ca2a9b6a046)"
+    output: "Successfully created changeset longhorn-ui-ingress-variant-promote-20260527 (949568eb-2808-4605-a34b-425a396749d5)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-longhorn-system-longhorn-driver-deployer\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-longhorn-ui-ingress\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-longhorn-system-longhorn-ui\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-longhorn-ui-ingress\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-longhorn-ui-ingress"
-    addedUnitDownstreamUpstreamUnitID: "8c4dbe77-ba88-4996-8b74-d476e7307abb"
+    addedUnitDownstreamUpstreamUnitID: "aa0b18a5-da7d-4c8d-867e-ac94257e9e64"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

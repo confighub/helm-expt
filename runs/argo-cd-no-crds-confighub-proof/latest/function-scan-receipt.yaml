@@ -17,22 +17,6 @@ spec:
     configHubUnitCount: 45
   unitRevisionBindings:
     -
-      slug: "clusterrole-argo-cd-argocd-server"
-      headRevisionNum: 2
-      dataHash: "8287ab419e1d456373b31f6023744b3a3f1fa7babb678f0e20c853f4e08e7b2e"
-    -
-      slug: "configmap-argocd-argocd-cmd-params-cm"
-      headRevisionNum: 1
-      dataHash: "0a5c62baffcedca1b6ea8bc9d98c292f96740480d9cd97a281ef3517813197df"
-    -
-      slug: "configmap-argocd-argocd-rbac-cm"
-      headRevisionNum: 1
-      dataHash: "f329104c2d41e995b78601e17b66cfa969aee8bd7dd557e482a1c32b7cfda1d6"
-    -
-      slug: "configmap-argocd-argocd-ssh-known-hosts-cm"
-      headRevisionNum: 1
-      dataHash: "8ca5a77666c120508c6f34165a0dcbde1299bd5887f93c3ca8b01bf52f478493"
-    -
       slug: "deployment-argocd-argo-cd-argocd-dex-server"
       headRevisionNum: 2
       dataHash: "ebb71e61f2f5f0b01e7028114b2cf10efefde0e3d4302f8d035881a50839fb48"
@@ -40,10 +24,6 @@ spec:
       slug: "deployment-argocd-argo-cd-argocd-notifications-controller"
       headRevisionNum: 2
       dataHash: "744e4f896a975d4dca2350312f78ebd7c564b271328b21577b6a47249f754a3d"
-    -
-      slug: "deployment-argocd-argo-cd-argocd-redis"
-      headRevisionNum: 2
-      dataHash: "c44a108c4f79a232be25a704ffc5082d4cb54f98f6d35b78ac252b093d5708b1"
     -
       slug: "deployment-argocd-argo-cd-argocd-repo-server"
       headRevisionNum: 2
@@ -53,73 +33,45 @@ spec:
       headRevisionNum: 1
       dataHash: "0a2c5ac85283184d1392ae712f7e8bd4b8d19f837e28055664399046532f7844"
     -
-      slug: "rolebinding-argocd-argo-cd-argocd-applicationset-controller"
-      headRevisionNum: 2
-      dataHash: "d69b03185faa8c968f83cd28ab3ce23761baf13bb8c8e1637bcd363688baf5fa"
-    -
-      slug: "service-argocd-argo-cd-argocd-applicationset-controller"
-      headRevisionNum: 2
-      dataHash: "61318d4410223b2c678731da8a8f47039c8ab6d52058e2452b0b75cca3bde0f0"
-    -
-      slug: "service-argocd-argo-cd-argocd-dex-server"
-      headRevisionNum: 2
-      dataHash: "fadabddce9c17cf444b0b59b2114a7142b72513045b06ad9c64ab7ee6003bcf5"
-    -
-      slug: "serviceaccount-argocd-argocd-application-controller"
-      headRevisionNum: 1
-      dataHash: "09083926b2417b3555f6f3cf679d535364566373974cdae37e7c688b4a6c76fb"
-    -
       slug: "serviceaccount-argocd-argocd-applicationset-controller"
       headRevisionNum: 1
       dataHash: "053fb274736e7d795bd85afa3b94f9587adcd943cb7b23ede2b2f843ebda9899"
     -
-      slug: "serviceaccount-argocd-argocd-server"
+      slug: "serviceaccount-argocd-argocd-notifications-controller"
       headRevisionNum: 1
-      dataHash: "74d8ad2cd5bcc20e4e82e42f5b85033d556ead60524c0aa293be2eac995bd130"
-    -
-      slug: "statefulset-argocd-argo-cd-argocd-application-controller"
-      headRevisionNum: 2
-      dataHash: "4402279f85726ace185cfe5957fe377cfb7d04c5aeab6d94dd8913cc761be8eb"
+      dataHash: "95e054f4060356c80165dc40fffa249caa8df8b79dcbaa1841a9816ee09cdbde"
     -
       slug: "clusterrole-argo-cd-argocd-application-controller"
       headRevisionNum: 2
       dataHash: "a395c04b5cef97a481882576d387e464086258db8997efb8e86f4d8814670bd2"
     -
-      slug: "clusterrole-argo-cd-argocd-notifications-controller"
-      headRevisionNum: 2
-      dataHash: "eaba83d3745035e7b9a09e74175c1f5ef097b4550e9a75e0031dae6fd99648c1"
-    -
       slug: "clusterrolebinding-argo-cd-argocd-server"
       headRevisionNum: 2
       dataHash: "cee23be4344b075ff3e727d2f2c6585e9fd6fda16e3c111d69e6deacc9745bab"
+    -
+      slug: "clusterrole-argo-cd-argocd-server"
+      headRevisionNum: 2
+      dataHash: "8287ab419e1d456373b31f6023744b3a3f1fa7babb678f0e20c853f4e08e7b2e"
     -
       slug: "deployment-argocd-argo-cd-argocd-applicationset-controller"
       headRevisionNum: 2
       dataHash: "d08407d7b9a4b8f219494c9371ea799048bcfbc92d31550e37967773619112c3"
     -
-      slug: "role-argocd-argo-cd-argocd-server"
+      slug: "role-argocd-argo-cd-argocd-application-controller"
       headRevisionNum: 2
-      dataHash: "bdfc96756376c78b47f882125749cb5d41db80e5582c57ac612f3b11c2f8d7ac"
+      dataHash: "f3b6e3aa3f7df0364ae5c044061ab02facf69be0fe86bbb20602c56f4cdd8f03"
     -
-      slug: "rolebinding-argocd-argo-cd-argocd-dex-server"
+      slug: "rolebinding-argocd-argo-cd-argocd-application-controller"
       headRevisionNum: 2
-      dataHash: "377a839488ac6c3578b34e7cc339bdba214263d3d33786471795aaa460a65f8e"
+      dataHash: "3b08bdb7b7769423b859201dab4af98706430036be0d52436902a040e616c423"
     -
-      slug: "rolebinding-argocd-argo-cd-argocd-repo-server"
+      slug: "rolebinding-argocd-argo-cd-argocd-notifications-controller"
       headRevisionNum: 2
-      dataHash: "c342a251479ac5ea75e742b9860bcbbc59584ea9cecc91ffd5345f5a97d455a5"
+      dataHash: "d7d92529b66eddaf14d7a9264c1b8ffee54b33313c46797ed13b50ffae001896"
     -
-      slug: "service-argocd-argo-cd-argocd-redis"
+      slug: "clusterrole-argo-cd-argocd-notifications-controller"
       headRevisionNum: 2
-      dataHash: "58492b08d77d97021860967bc44bf23bc17a275f9bcbdbb58e72529d0fb22c98"
-    -
-      slug: "service-argocd-argo-cd-argocd-repo-server"
-      headRevisionNum: 2
-      dataHash: "f48956e70bf2153654247ca1a129022c06ee8d41cdd23de3a454a828eae7495b"
-    -
-      slug: "service-argocd-argo-cd-argocd-server"
-      headRevisionNum: 2
-      dataHash: "72792a5f09f396726ff6db535c01c292c1faeee4c6d08784d485829faf50b1d5"
+      dataHash: "eaba83d3745035e7b9a09e74175c1f5ef097b4550e9a75e0031dae6fd99648c1"
     -
       slug: "clusterrolebinding-argo-cd-argocd-application-controller"
       headRevisionNum: 2
@@ -137,6 +89,10 @@ spec:
       headRevisionNum: 1
       dataHash: "252d01e30250f4eab4bd4e4e1955adb678957a83b43ed40aff17ff343cbbfdb6"
     -
+      slug: "configmap-argocd-argocd-cmd-params-cm"
+      headRevisionNum: 1
+      dataHash: "0a5c62baffcedca1b6ea8bc9d98c292f96740480d9cd97a281ef3517813197df"
+    -
       slug: "configmap-argocd-argocd-gpg-keys-cm"
       headRevisionNum: 1
       dataHash: "600819a9479c5411ce809f335e258458ffa3d807a8195be4c303527b0141ec9d"
@@ -145,17 +101,25 @@ spec:
       headRevisionNum: 1
       dataHash: "914c9ced7c2be5796180c972dcca155c83045aceb71fb78d942ce9b86cd5ef2f"
     -
+      slug: "configmap-argocd-argocd-rbac-cm"
+      headRevisionNum: 1
+      dataHash: "f329104c2d41e995b78601e17b66cfa969aee8bd7dd557e482a1c32b7cfda1d6"
+    -
+      slug: "configmap-argocd-argocd-ssh-known-hosts-cm"
+      headRevisionNum: 1
+      dataHash: "8ca5a77666c120508c6f34165a0dcbde1299bd5887f93c3ca8b01bf52f478493"
+    -
       slug: "configmap-argocd-argocd-tls-certs-cm"
       headRevisionNum: 1
       dataHash: "54d01365fa04613be87d6287f8b17c072b4e9cbc9922c93005efcac094783346"
     -
+      slug: "deployment-argocd-argo-cd-argocd-redis"
+      headRevisionNum: 2
+      dataHash: "c44a108c4f79a232be25a704ffc5082d4cb54f98f6d35b78ac252b093d5708b1"
+    -
       slug: "deployment-argocd-argo-cd-argocd-server"
       headRevisionNum: 2
       dataHash: "097cd4660cfebb6d467a5cdecc44f0b87d78a150546a77e8d5882730a2327de6"
-    -
-      slug: "role-argocd-argo-cd-argocd-application-controller"
-      headRevisionNum: 2
-      dataHash: "f3b6e3aa3f7df0364ae5c044061ab02facf69be0fe86bbb20602c56f4cdd8f03"
     -
       slug: "role-argocd-argo-cd-argocd-applicationset-controller"
       headRevisionNum: 2
@@ -173,29 +137,65 @@ spec:
       headRevisionNum: 1
       dataHash: "a2e440d444d3014d24b813d67cfa3fbd6480aaca898e5e325de36c02eda1542d"
     -
-      slug: "rolebinding-argocd-argo-cd-argocd-application-controller"
+      slug: "role-argocd-argo-cd-argocd-server"
       headRevisionNum: 2
-      dataHash: "3b08bdb7b7769423b859201dab4af98706430036be0d52436902a040e616c423"
+      dataHash: "bdfc96756376c78b47f882125749cb5d41db80e5582c57ac612f3b11c2f8d7ac"
     -
-      slug: "rolebinding-argocd-argo-cd-argocd-notifications-controller"
+      slug: "rolebinding-argocd-argo-cd-argocd-applicationset-controller"
       headRevisionNum: 2
-      dataHash: "d7d92529b66eddaf14d7a9264c1b8ffee54b33313c46797ed13b50ffae001896"
+      dataHash: "d69b03185faa8c968f83cd28ab3ce23761baf13bb8c8e1637bcd363688baf5fa"
+    -
+      slug: "rolebinding-argocd-argo-cd-argocd-dex-server"
+      headRevisionNum: 2
+      dataHash: "377a839488ac6c3578b34e7cc339bdba214263d3d33786471795aaa460a65f8e"
+    -
+      slug: "rolebinding-argocd-argo-cd-argocd-repo-server"
+      headRevisionNum: 2
+      dataHash: "c342a251479ac5ea75e742b9860bcbbc59584ea9cecc91ffd5345f5a97d455a5"
     -
       slug: "rolebinding-argocd-argo-cd-argocd-server"
       headRevisionNum: 2
       dataHash: "1a10e54dfc8172627e961c912fa55ee1c8b36786c07898a6d70352e364efd2c1"
     -
+      slug: "service-argocd-argo-cd-argocd-applicationset-controller"
+      headRevisionNum: 2
+      dataHash: "61318d4410223b2c678731da8a8f47039c8ab6d52058e2452b0b75cca3bde0f0"
+    -
+      slug: "service-argocd-argo-cd-argocd-dex-server"
+      headRevisionNum: 2
+      dataHash: "fadabddce9c17cf444b0b59b2114a7142b72513045b06ad9c64ab7ee6003bcf5"
+    -
+      slug: "service-argocd-argo-cd-argocd-redis"
+      headRevisionNum: 2
+      dataHash: "58492b08d77d97021860967bc44bf23bc17a275f9bcbdbb58e72529d0fb22c98"
+    -
+      slug: "service-argocd-argo-cd-argocd-repo-server"
+      headRevisionNum: 2
+      dataHash: "f48956e70bf2153654247ca1a129022c06ee8d41cdd23de3a454a828eae7495b"
+    -
+      slug: "service-argocd-argo-cd-argocd-server"
+      headRevisionNum: 2
+      dataHash: "72792a5f09f396726ff6db535c01c292c1faeee4c6d08784d485829faf50b1d5"
+    -
       slug: "serviceaccount-argocd-argo-cd-argocd-repo-server"
       headRevisionNum: 1
       dataHash: "6aeabdf18c360502ee28b3a005e9133708d2d2b1a708031d54c1a5f86cf585ab"
+    -
+      slug: "serviceaccount-argocd-argocd-application-controller"
+      headRevisionNum: 1
+      dataHash: "09083926b2417b3555f6f3cf679d535364566373974cdae37e7c688b4a6c76fb"
     -
       slug: "serviceaccount-argocd-argocd-dex-server"
       headRevisionNum: 1
       dataHash: "f4ac151d2f54a7a8f36670cbf7a41544464dd78185115b68c46ac22f13cfa4b9"
     -
-      slug: "serviceaccount-argocd-argocd-notifications-controller"
+      slug: "serviceaccount-argocd-argocd-server"
       headRevisionNum: 1
-      dataHash: "95e054f4060356c80165dc40fffa249caa8df8b79dcbaa1841a9816ee09cdbde"
+      dataHash: "74d8ad2cd5bcc20e4e82e42f5b85033d556ead60524c0aa293be2eac995bd130"
+    -
+      slug: "statefulset-argocd-argo-cd-argocd-application-controller"
+      headRevisionNum: 2
+      dataHash: "4402279f85726ace185cfe5957fe377cfb7d04c5aeab6d94dd8913cc761be8eb"
   validations:
     -
       function: "vet-format"
