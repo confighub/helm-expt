@@ -28,6 +28,20 @@ cub installer setup --pull <package> --base <base>
 
 See [Choosing Commands](./choosing-commands.md).
 
+## Do I have to rewrite my charts?
+
+No. The point is to keep using public Helm charts where they are already the
+right source, then make selected install paths explicit, reviewable,
+variant-aware, and observable.
+
+If the chart needs a better base, the base is produced by changing the Helm
+inputs and rerendering through the installer path. If the chart needs an
+environment, region, customer, target, gate, or observation refinement after
+upload, that belongs in ConfigHub as a derived variant.
+
+See [Why This Exists](./why-this-exists.md) and
+[Creating Variants](./creating-variants.md).
+
 ## Does it only work for easy charts?
 
 No. Redis teaches the path, but kube-prometheus-stack is the serious chart
@@ -121,6 +135,21 @@ convergence, target prerequisites, controller-owned fields, and semantic
 parity need separate evidence.
 
 See [Why Synced Is Not Working](./why-synced-is-not-working.md).
+
+## What if I already use Argo, Flux, or KRM?
+
+That is the expected production shape, not a reason to start over. The catalog
+separates desired objects, ConfigHub Units, OCI publication, GitOps controller
+health, and live workload evidence so those tools can stay in the path without
+being mistaken for the whole proof.
+
+Existing apps can be discovered or imported as product work, but the repo must
+not claim that every live object has already been converted back into desired
+state.
+
+See [Adopting Existing Apps](./adopting-existing-apps.md),
+[Generative GitOps Fit](./generative-gitops-fit.md), and
+[Verification Lanes](./verification-lanes.md).
 
 ## What is free and what needs ConfigHub?
 
