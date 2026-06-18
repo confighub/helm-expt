@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Preview &amp; Dry-Run Readiness</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23}h1{font-size:20px}h2{font-size:15px;margin-top:24px}table{border-collapse:collapse;margin:8px 0 16px}th,td{border:1px solid #d0d7de;padding:5px 9px;font-size:12.5px;text-align:left}th{background:#f6f8fa}code{font-family:ui-monospace,Menlo,monospace}.note{color:#57606a;font-size:13px;max-width:64em}</style></head><body>
+<h1>Preview &amp; Dry-Run Readiness</h1>
+<p class="note">Each preview-breaking Helm quirk, classified by whether it is <b>shift-left</b> (captured into config pre-deploy &rarr; previewable), <b>runtime-residue</b> (witnessed after apply, never faked), or a <b>lifecycle</b> day-2 concern. <span style="background:#d6f5d6">&nbsp;green&nbsp;</span> shift-left &middot; <span style="background:#ffe1c2">&nbsp;amber&nbsp;</span> runtime-residue &middot; <span style="background:#eef1f4">&nbsp;grey&nbsp;</span> lifecycle.</p>
+<h2>Quirk &rarr; preview disposition</h2><table><tr><th>Quirk axis</th><th>Disposition</th><th>Mechanism</th><th>Coverage tier</th><th>Previewable</th></tr>
+<tr style="background:#d6f5d6"><td><code>capability-profile</code></td><td>shift-left</td><td>capability profile pins kubeVersion + apiVersions</td><td>partly-tracked</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>crds</code></td><td>shift-left</td><td>CRDs in the render, or staged as a target fact</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>dependency-alias</code></td><td>shift-left</td><td>locked dependency</td><td>tracked-by-lock-not-front-door</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>dependency-lock</code></td><td>shift-left</td><td>dependencies locked -&gt; deterministic render</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>explicit-extension-slot-control-points</code></td><td>shift-left</td><td>captured as control points / values</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>files-get</code></td><td>shift-left</td><td>bundled files vendored with the chart</td><td>source-scanned-not-surfaced</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>generated-facts</code></td><td>shift-left</td><td>generated-fact receipt (capture once, reuse)</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>global-values</code></td><td>shift-left</td><td>deterministic given captured values (scan gap)</td><td>not-scanned</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>helm-flag-profile</code></td><td>shift-left</td><td>pinned renderer flags in the render receipt</td><td>partly-tracked</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>helm-version-branching</code></td><td>shift-left</td><td>pin the Helm version in the render receipt</td><td>not-scanned</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>hook-phase</code></td><td>shift-left</td><td>hook-minted object declared as a target fact; hook execution witnessed</td><td>partly-tracked</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>import-values</code></td><td>shift-left</td><td>deterministic given captured values (scan gap)</td><td>not-scanned</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>install-vs-upgrade</code></td><td>shift-left</td><td>render-once is install-shaped; upgrade reuse via held data</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>library-chart</code></td><td>shift-left</td><td>locked dependency</td><td>tracked-by-lock-not-front-door</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>lookup-target-facts</code></td><td>shift-left</td><td>target fact (read from config or live, pre-deploy)</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>required-or-fail</code></td><td>shift-left</td><td>required values captured as an input contract</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>semver-compare</code></td><td>shift-left</td><td>deterministic given pinned versions</td><td>source-scanned-not-surfaced</td><td>partial</td></tr>
+<tr style="background:#d6f5d6"><td><code>tpl-extension-slots</code></td><td>shift-left</td><td>deterministic given captured values</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#d6f5d6"><td><code>values-schema</code></td><td>shift-left</td><td>values.schema.json input contract</td><td>tracked-and-surfaced</td><td>yes</td></tr>
+<tr style="background:#ffe1c2"><td><code>getHostByName</code></td><td>runtime-residue</td><td>DNS at render; bind a captured fact or witness</td><td>not-scanned</td><td>no (witness)</td></tr>
+<tr style="background:#ffe1c2"><td><code>post-renderer</code></td><td>runtime-residue</td><td>final applied object differs from helm template; pin a recipe stage or witness</td><td>not-scanned</td><td>no (witness)</td></tr>
+<tr style="background:#ffe1c2"><td><code>time-uuid-functions</code></td><td>runtime-residue</td><td>nondeterministic per render; capture-once or witness</td><td>source-scanned-not-surfaced</td><td>no (witness)</td></tr>
+<tr style="background:#eef1f4"><td><code>crd-upgrade-behavior</code></td><td>lifecycle</td><td>CRD schema upgrade safety (day-2, not preview)</td><td>disclosed-not-complete</td><td>n/a (day-2)</td></tr>
+<tr style="background:#eef1f4"><td><code>hook-delete-policy</code></td><td>lifecycle</td><td>uninstall/rerun cleanup behavior (day-2, not preview)</td><td>source-scanned-not-surfaced</td><td>n/a (day-2)</td></tr>
+<tr style="background:#eef1f4"><td><code>hook-weight-ordering</code></td><td>lifecycle</td><td>hook sequencing (day-2, not preview)</td><td>source-scanned-not-surfaced</td><td>n/a (day-2)</td></tr>
+<tr style="background:#eef1f4"><td><code>resource-policy-keep</code></td><td>lifecycle</td><td>uninstall/prune orphans (day-2, not preview)</td><td>not-scanned</td><td>n/a (day-2)</td></tr>
+</table>
+<h2>Per-chart readiness (anchor charts)</h2><table><tr><th>Chart</th><th>capabilities pinned</th><th>declared prerequisites</th><th>generated-fact captured</th><th>verdict</th></tr>
+<tr><td><code>ingress-nginx/ingress-nginx/4.15.1</code></td><td>yes</td><td>yes (witnessed)</td><td>no</td><td><b>previewable + declared prerequisites (witnessed)</b></td></tr>
+<tr><td><code>jetstack/cert-manager/v1.20.2</code></td><td>yes</td><td>yes (witnessed)</td><td>no</td><td><b>previewable + declared prerequisites (witnessed)</b></td></tr>
+<tr><td><code>bitnami/redis/25.5.3</code></td><td>yes</td><td>none</td><td>yes</td><td><b>fully previewable pre-deploy</b></td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack/85.3.3</code></td><td>yes</td><td>yes (witnessed)</td><td>no</td><td><b>previewable + declared prerequisites (witnessed)</b></td></tr>
+</table></body></html>
