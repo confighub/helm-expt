@@ -1361,6 +1361,18 @@ function hardQuestionsHtml(catalog) {
       "./hooks.html",
     ],
     [
+      "Where do Secrets and credentials live?",
+      "They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.",
+      "Open the secret lifecycle and target prerequisite evidence.",
+      "../data/secret-lifecycle/summary.md",
+    ],
+    [
+      "What if the cluster is the wrong shape?",
+      "A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide.",
+      "Open target prerequisites before rerun.",
+      "../docs/user/target-prerequisites-before-rerun.md",
+    ],
+    [
       "What if an upgrade caused a production crash?",
       "The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. It reduces opaque upgrades; it does not promise crash-free production.",
       "Read the upgrade crash example.",
