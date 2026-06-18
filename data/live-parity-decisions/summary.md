@@ -25,8 +25,8 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-49 non-pass rows: 40 watch, 9 blocked.
-4 are resolved by the **user** (stage a prerequisite); 4
+57 non-pass rows: 47 watch, 10 blocked.
+4 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
 passed — the residue is operational, not a config mismatch.
@@ -34,21 +34,22 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
-| `remote-image` | 12 |
-| `target-runtime` | 10 |
+| `target-runtime` | 15 |
+| `remote-image` | 14 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
 | `crd-bootstrap` | 1 |
 | `operate-policy` | 1 |
+| `semantic-model-gap` | 1 |
 | `target-fit` | 1 |
 
 | Who fixes it | Rows |
 | --- | ---: |
 | `needs GitOps controller-health review` | 16 |
-| `catalog or image publisher` | 12 |
-| `needs runtime review` | 10 |
-| `catalog` | 4 |
+| `needs runtime review` | 15 |
+| `catalog or image publisher` | 14 |
+| `catalog` | 5 |
 | `user` | 4 |
 | `catalog or operator` | 1 |
 | `needs operate review` | 1 |
@@ -74,9 +75,15 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/phpmyadmin@20.0.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/spark@10.0.3 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/spark@10.0.3 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/zookeeper@13.8.7 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/zookeeper@13.8.7 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| dex/dex@0.24.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| elastic/kibana@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| elastic/metricbeat@8.5.1 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fluent/fluentd@0.5.3 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| gitlab/gitlab-runner@0.89.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | ha | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | grafana/pyroscope@2.0.2 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
@@ -97,8 +104,10 @@ passed — the residue is operational, not a config mismatch.
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | nats/surveyor@0.20.9 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nats/surveyor@0.20.9 | default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | semantic-model-gap | catalog | no — needs catalog work |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
+| opencost/opencost@2.5.21 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | crd-bootstrap | catalog or operator | no — needs a CRD/bootstrap route first |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | capability-profile | catalog | yes, use the capability-profile base |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | capability-profile | catalog | yes, use the capability-profile base |

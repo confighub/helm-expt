@@ -1,0 +1,1206 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: dex-dex-0.24.0-default-live-parity-20260605
+spec:
+  chart: dex/dex
+  version: 0.24.0
+  base: default
+  result: watch
+  observedAt: '2026-06-17T16:16:04Z'
+  package:
+    path: packages/dex/dex/0.24.0
+  recipe:
+    path: recipes/dex/dex/0.24.0
+  variantRevision: recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-dex-mqi9w9e2-2b4
+    kubeContext: kind-helm-expt-parity-dex-mqi9w9e2-2b4
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-dex-mqi9w9e2-2b4 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-dex-mqi9w9e2-2b4"...
+
+        Deleting cluster "helm-expt-parity-dex-mqi9w9e2-2b4" ...
+
+        Deleted nodes: ["helm-expt-parity-dex-mqi9w9e2-2b4-control-plane"]
+
+        Deleting Space "helm-expt-parity-dex-mqi9w9e2-2b4-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install dex dex --repo https://charts.dexidp.io --version
+        0.24.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5
+      objectCount: 8
+      liveHelmManifestSHA256: 2746c0d6ad30d694a823321b156e347fb686a2a5f0122f89bcc342f4e0762ee7
+      liveHelmManifestObjectCount: 8
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/dex   0/1   1     0     8m
+        pods: dex-759d8b584d-xvwct   0/1   CrashLoopBackOff   6 (2m24s ago)   8m
+        notReady:
+        - namespace: default-helm
+          pod: dex-759d8b584d-xvwct
+          ready: 0/1
+          status: CrashLoopBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 49bd38628ed2b94d7e5a6d83c88bb574c44be1a7c596b2b252b7656230752944
+            bytes: 1320
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 287d880b77c0d9fb56a51d488bcda7cb613f1bc316f4faa891b70a0bd264a9f0
+            bytes: 2386
+          podArtifacts:
+          - namespace: default-helm
+            pod: dex-759d8b584d-xvwct
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/dex-759d8b584d-xvwct/describe.txt
+            sha256: 4069a606dc7a599fb1ed8fbd471434c2821d1e6970fd01e78c8117b63561c573
+            bytes: 3951
+          - namespace: default-helm
+            pod: dex-759d8b584d-xvwct
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/dex-759d8b584d-xvwct/logs.txt
+            sha256: d161fce412f12b7a7ab5c496c6178e005e588a124a12a5be78ec3a00ce58045e
+            bytes: 217
+          - namespace: default-helm
+            pod: dex-759d8b584d-xvwct
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/dex-759d8b584d-xvwct/previous-logs.txt
+            sha256: d161fce412f12b7a7ab5c496c6178e005e588a124a12a5be78ec3a00ce58045e
+            bytes: 217
+      stderr: 'Error: resource Deployment/default-helm/dex not ready. status: InProgress,
+        message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ebf7d8074460f625632c1ba1b1e8d40083da1458280bbaca6f0f02ea8fdefcc4
+      objectCount: 9
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/dex   0/1   1     0     11s'
+        pods: '# default
+
+          dex-854b786b7-gwpqc   0/1   Error   1 (10s ago)   11s'
+        notReady:
+        - namespace: default
+          pod: dex-854b786b7-gwpqc
+          ready: 0/1
+          status: Error
+        terminalReadinessBlockers:
+          default: pod crash loop
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 63cef94f3ba2191aefa9aeee61ccaecb4397448f121ef5255feb3292affe6b52
+            bytes: 2871
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: a6a26f9ca3cf8cd7c4db99d9d1c42fda2cc99ef9fa3b86d3cea72389494da33a
+            bytes: 2255
+          podArtifacts:
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/dex-854b786b7-gwpqc/describe.txt
+            sha256: 68fb63ea5cfc4528867087179e25f613b8461bf1596db7346acbc10e10e6e7c1
+            bytes: 3560
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/dex-854b786b7-gwpqc/logs.txt
+            sha256: 1002ca4081c336e4551e5065230dde9e42884d7ba4cffab084b1d879aee458fc
+            bytes: 217
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/dex-854b786b7-gwpqc/previous-logs.txt
+            sha256: 1002ca4081c336e4551e5065230dde9e42884d7ba4cffab084b1d879aee458fc
+            bytes: 217
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "dex" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "dex-cluster" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|dex
+          - rbac.authorization.k8s.io/v1|RoleBinding|default|dex
+          - rbac.authorization.k8s.io/v1|Role|default|dex
+          - v1|Secret|default|dex
+          - v1|ServiceAccount|default|dex
+          - v1|Service|default|dex
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-dex-mqi9w9e2-2b4-dex
+      controller: Argo CD OCI
+      app: dex-parity
+      manifestSHA256: b0f082fa2c86157601e8ea860d686e052f0c6161821015a3fd33622021c94fbe
+      objectCount: 9
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+      sync: Synced
+      health: Progressing
+      separatedSecrets:
+      - secret-default-dex.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-dex-mqi9w9e2-2b4-dex
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+              targetRevision: latest
+          revision: sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T16:26:36Z'
+          status: Progressing
+        summary:
+          images:
+          - ghcr.io/dexidp/dex:v2.44.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T16:26:36Z'
+          finishedAt: '2026-06-17T16:26:37Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 8
+          syncResultStatusCounts:
+            Synced: 8
+        history:
+        - id: 0
+          revision: sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+          deployedAt: '2026-06-17T16:26:37Z'
+          deployStartedAt: '2026-06-17T16:26:36Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-dex-mqi9w9e2-2b4-dex
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: dex-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: dex
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         dex-parity\nNamespace:    argocd\nLabels:     \
+              \  <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-dex-mqi9w9e2-2b4-cluster:argoproj.io/Application:argocd/dex-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 1849c5f2-1700-464b-ad1d-b3e2a0917b5a\n              confighub.com/UnitSlug:\
+              \ dex-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:        \
+              \ Application\nMetadata:\n  Creation Timestamp:  2026-06-17T16:26:34Z\n\
+              \  Generation:          10\n  Resource Version:    2195\n  UID:    \
+              \             707b518e-3c87-43d1-be20-d2a85ced009c\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-dex\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T16:26:36Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T16:26:36Z\n    Deployed At:        2026-06-17T16:26:37Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \    Source:\n      Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-dex\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T16:26:37Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \        Source:\n          Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-dex\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T16:26:36Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/dex serverside-applied\n        Name:        dex\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/dex reconciled.\
+              \ reconciliation required create\n                     missing rules\
+              \ added:\n                       {Verbs:[list create] APIGroups:[apiextensions.k8s.io]\
+              \ Resources:[customresourcedefinitions] ResourceNames:[] NonResourceURLs:[]}.\
+              \ clusterrole.rbac.authorization.k8s.io/dex serverside-applied\n   \
+              \     Name:        dex\n        Namespace:   default-oci\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterRoleBinding\n        Message:\
+              \     clusterrolebinding.rbac.authorization.k8s.io/dex-cluster reconciled.\
+              \ reconciliation required create\n                     missing subjects\
+              \ added:\n                       {Kind:ServiceAccount APIGroup: Name:dex\
+              \ Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/dex-cluster\
+              \ serverside-applied\n        Name:        dex-cluster\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
+              \     role.rbac.authorization.k8s.io/dex reconciled. reconciliation\
+              \ required update. role.rbac.authorization.k8s.io/dex serverside-applied\n\
+              \        Name:        dex\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        RoleBinding\n        Message:     rolebinding.rbac.authorization.k8s.io/dex\
+              \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/dex\
+              \ serverside-applied\n        Name:        dex\n        Namespace: \
+              \  default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/dex\
+              \ serverside-applied\n        Name:        dex\n        Namespace: \
+              \  default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          ghcr.io/dexidp/dex:v2.44.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/dex\
+              \ serverside-applied\n        Name:        dex\n        Namespace: \
+              \  default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \      Source:\n        Path:              ./helm-expt-parity-dex-mqi9w9e2-2b4-dex\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T16:31:24Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    K"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                   MESSAGE
+
+              6m52s       Normal   OperationStarted     application/dex-parity   Initiated
+              automated sync to ''sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850''
+
+              6m52s       Normal   ResourceUpdated      application/dex-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/dex-parity   Updated
+              health status:  -> Progressing
+
+              6m51s       Normal   OperationCompleted   application/dex-parity   Sync
+              operation to sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/dex-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 8
+              artifact:
+                path: argocd-core-child.json
+                sha256: 87393781000143e3635d2fe4049655e5bfe3363c73b6470abc3de22d3aa23a70
+                bytes: 12635
+              output: "{\n  \"metadata\": {\n    \"name\": \"dex-parity\",\n    \"\
+                namespace\": \"argocd\",\n    \"uid\": \"707b518e-3c87-43d1-be20-d2a85ced009c\"\
+                ,\n    \"resourceVersion\": \"2371\",\n    \"generation\": 11,\n \
+                \   \"creationTimestamp\": \"2026-06-17T16:26:34Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-dex-mqi9w9e2-2b4-cluster:argoproj.io/Application:argocd/dex-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"1849c5f2-1700-464b-ad1d-b3e2a0917b5a\",\n      \"confighub.com/UnitSlug\"\
+                : \"dex-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-17T16:26:34Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T16:33:36Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-dex-mqi9w9e2-2b4-dex\",\n\
+                \      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"dex\",\n        \"status\": \"Synced\",\n        \"health\": {\n\
+                \          \"status\": \"Healthy\"\n        }\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"dex\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"dex\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for rollout to finish: 0 of 1 updated replicas are available...\"\
+                \n        }\n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRole\"\
+                ,\n        \"name\": \"dex\",\n        \"status\": \"Synced\"\n  \
+                \    },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRoleBinding\"\
+                ,\n        \"name\": \"dex-cluster\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"Role\",\n   \
+                \   "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: f7856bb22ecc80695d251a401f7cdd8343591255f987a3a406a45c7f1ef4f45d
+                bytes: 2437
+              output: "Name:               argocd/dex-parity\nProject:           \
+                \ default\nServer:             https://kubernetes.default.svc\nNamespace:\
+                \          default-oci\nURL:                http://localhost:53087/applications/dex-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-dex\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                       STATUS  HEALTH\
+                \       AGE    MESSAGE                                           \
+                \                                                                \
+                \                                  REASON\nDeployment/dex        \
+                \          Synced  Progressing  8m8s   deployment.apps/dex serverside-applied\
+                \                                                                \
+                \                                              Waiting for rollout\
+                \ to finish: 0 of 1 updated replicas are available...\n\u2514\u2500\
+                ReplicaSet/dex-854b786b7              Progressing  8m8s          \
+                \                                                                \
+                \                                                                \
+                \             Waiting for rollout to finish: 0 out of 1 new replicas\
+                \ are available...\n  \u2514\u2500Pod/dex-854b786b7-gwpqc        \
+                \     Degraded     8m8s                                          \
+                \                                                                \
+                \                                             back-off 5m0s restarting\
+                \ failed container=dex pod=dex-854b786b7-gwpqc_default(e3fd3216-4440-4981-a487-19213be25955)\n\
+                ClusterRole/dex                 Synced               7m8s        \
+                \                                                                \
+                \                                                                \
+                \               \nClusterRoleBinding/dex-cluster  Synced         \
+                \      7m8s                                                      \
+                \                                                                \
+                \                                 \nRole/dex                     \
+                \   Synced               8m8s   role.rbac.authorization.k8s.io/dex\
+                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/dex\
+                \ serverside-applied                \nRoleBinding/dex            \
+                \     Synced               8m8s   rolebinding.rbac.authorization.k8s.io/dex\
+                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/dex\
+                \ serverside-applied  \nNamespace/default-oci           Synced   \
+                \            7m52s                                               \
+                \                                                                \
+                \                                       \nService/dex            \
+                \         Synced  Healthy      8m8s   service/dex serverside-applied\
+                \                                                                \
+                \                                                      \nServiceAccount/dex\
+                \              Synced               8m8s   serviceaccount/dex serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"dex-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/dex-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-dex-mqi9w9e2-2b4-cluster\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n \
+              \     \"message\": \"successfully synced (all tasks run)\",\n      \"\
+              sourceRef\": \"OCIRepository/argocd/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"dex-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-dex-mqi9w9e2-2b4-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n\
+              \  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+              targetRevision: latest
+          revision: sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T16:17:37Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T16:26:33Z'
+          finishedAt: '2026-06-17T16:26:34Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+          deployedAt: '2026-06-17T16:26:34Z'
+          deployStartedAt: '2026-06-17T16:26:33Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: dex-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-dex-mqi9w9e2-2b4-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-dex-mqi9w9e2-2b4-cluster\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-06-17T16:17:29Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  2241\n  UID:        \
+              \       b4d1f354-b8eb-458c-a1af-8dd21351f406\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T16:17:37Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T16:26:33Z\n\
+              \    Deployed At:        2026-06-17T16:26:34Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \    Source:\n      Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T16:26:34Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \        Source:\n          Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T16:26:33Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/dex-parity serverside-applied\n\
+              \        Name:        dex-parity\n        Namespace:   argocd\n    \
+              \    Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \      Source:\n        Path:              ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T16:31:57Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       dex-parity\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     16m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     16m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m11s  argocd-application-controller  Sync operation to sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                  MESSAGE
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Updated
+              sync status:  -> Synced
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Initiated
+              automated sync to ''sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m11s       Normal   OperationCompleted   application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Sync
+              operation to sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-dex-mqi9w9e2-2b4-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: e548e1c2adacfa52fe36c6dbd2c989fc2546e4ea39301352cd91d285d91f7a8d
+                bytes: 10551
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-dex-mqi9w9e2-2b4-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"b4d1f354-b8eb-458c-a1af-8dd21351f406\"\
+                ,\n    \"resourceVersion\": \"2399\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-17T16:17:29Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-dex-mqi9w9e2-2b4-cluster\\\",\\\"namespace\\\"\
+                :\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\\\",\\\"repoURL\\\"\
+                :\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T16:17:29Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T16:33:53Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-ex"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 11e126de35c0147ea7cf0ab0c90908ca1d456fd544de7331205f5b303b87c8f9
+                bytes: 1081
+              output: "Name:               argocd/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:53198/applications/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-dex-mqi9w9e2-2b4-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \     STATUS  HEALTH  AGE    MESSAGE                             \
+                \                                                  REASON\nApplication/dex-parity\
+                \                                 Synced          7m27s  application.argoproj.io/dex-parity\
+                \ serverside-applied                                 \nApplication/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\
+                \  Synced          16m    application.argoproj.io/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"dex-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/dex-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Progressing\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-dex-mqi9w9e2-2b4-cluster\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\",\n \
+              \     \"message\": \"successfully synced (all tasks run)\",\n      \"\
+              sourceRef\": \"OCIRepository/argocd/helm-expt-parity-dex-mqi9w9e2-2b4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a4b53171eaf03191fc0e5ddcc85126dbb7a18004ad343e52458dbd7727224850\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"dex-parity\",\n      \"namespace\": \"argocd\"\
+              ,\n      \"ready\": true\n    },\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-dex-mqi9w9e2-2b4-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n  ],\n\
+              \  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/dex   0/1   1     0     8m24s'
+        pods: '# default
+
+          dex-854b786b7-gwpqc   0/1   CrashLoopBackOff   6 (2m38s ago)   8m24s'
+        notReady:
+        - namespace: default
+          pod: dex-854b786b7-gwpqc
+          ready: 0/1
+          status: CrashLoopBackOff
+        terminalReadinessBlockers:
+          default: pod crash loop
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: 8396f2c9fe3c7c9581204faf0b70a08c47073d937ba06149d97eb237ba21d493
+            bytes: 2871
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: 70fecce369290c297fb2265b49169c39b480d10fd6f069eae2507b55f873f9f7
+            bytes: 2561
+          podArtifacts:
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/dex-854b786b7-gwpqc/describe.txt
+            sha256: e92bdd0ca7025f704cf2f9e4ebecc6a3b62d33286f68477d6a9bc59bf7801052
+            bytes: 3595
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/dex-854b786b7-gwpqc/logs.txt
+            sha256: 8ea3cf92094fe01f6413002e31516fc85c66468ba9ce5a1c6ffb528d8df1788b
+            bytes: 217
+          - namespace: default
+            pod: dex-854b786b7-gwpqc
+            kind: pod-previous-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/dex-854b786b7-gwpqc/previous-logs.txt
+            sha256: 8ea3cf92094fe01f6413002e31516fc85c66468ba9ce5a1c6ffb528d8df1788b
+            bytes: 217
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-17T16:17:29Z'
+    finishedAt: '2026-06-17T16:25:31Z'
+    elapsedSeconds: 482.297
+    timeoutSeconds: 900
+    command: helm upgrade --install dex dex --repo https://charts.dexidp.io --version
+      0.24.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T16:25:37Z'
+    finishedAt: '2026-06-17T16:25:37Z'
+    elapsedSeconds: 0.299
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T16:25:37Z'
+    finishedAt: '2026-06-17T16:25:37Z'
+    elapsedSeconds: 0.128
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig
+      --context kind-helm-expt-parity-dex-mqi9w9e2-2b4 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/direct-apply-manifest.yaml
+    objectCount: 8
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T16:25:37Z'
+    finishedAt: '2026-06-17T16:25:48Z'
+    elapsedSeconds: 10.238
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T16:25:53Z'
+    finishedAt: '2026-06-17T16:25:53Z'
+    elapsedSeconds: 0.243
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T16:25:54Z'
+    finishedAt: '2026-06-17T16:26:17Z'
+    elapsedSeconds: 23.739
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
+      --space helm-expt-parity-dex-mqi9w9e2-2b4-dex --target helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci
+    objectCount: 9
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T16:26:17Z'
+    finishedAt: '2026-06-17T16:26:18Z'
+    elapsedSeconds: 0.539
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-dex-mqi9w9e2-2b4-dex
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T16:26:18Z'
+    finishedAt: '2026-06-17T16:26:23Z'
+    elapsedSeconds: 5.285
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-dex-mqi9w9e2-2b4-dex --unit <8
+      unit(s)> --wait --timeout 5m
+    unitCount: 8
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T16:26:23Z'
+    finishedAt: '2026-06-17T16:26:24Z'
+    elapsedSeconds: 1.027
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-dex-mqi9w9e2-2b4-cluster dex-parity-app
+      /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/argo-application.json
+      --target helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T16:26:24Z'
+    finishedAt: '2026-06-17T16:26:25Z'
+    elapsedSeconds: 1.039
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-dex-mqi9w9e2-2b4-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T16:26:25Z'
+    finishedAt: '2026-06-17T16:33:27Z'
+    elapsedSeconds: 422.131
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T16:34:01Z'
+    finishedAt: '2026-06-17T16:34:02Z'
+    elapsedSeconds: 0.106
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-dex-mqi9w9e2-2b4\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-dex-mqi9w9e2-2b4\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-dex-mqi9w9e2-2b4\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-dex-mqi9w9e2-2b4\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVersion: v1\nkin"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/dex not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/dex   0/1   1     0     11s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

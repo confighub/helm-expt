@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "velero-no-crds-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "velero/velero"
+    chartVersion: "12.0.1"
+    packagePath: "packages/velero/velero/12.0.1"
+    variant: "no-crds"
+    upstreamSpace: "helm-velero-no-crds-confighub-proof"
+    downstreamSpace: "Velero-no-crds-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-velero runs/velero-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-velero-no-crds-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-velero-no-crds runs/velero-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-velero-no-crds-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Velero-no-crds-staging --dry-run -o mutations"
+    changeset: "cub changeset create velero-no-crds-variant-promote-20260527 --space Velero-no-crds-staging --description ... --allow-exists"
+    promote: "cub variant promote Velero-no-crds-staging --changeset Velero-no-crds-staging/velero-no-crds-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Velero-no-crds-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-velero"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=velero-no-crds-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-velero-no-crds"
+    upstreamUnitID: "8b344449-4add-4ffb-8082-6f84efb2bfee"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-velero-no-crds"
+  changeset:
+    slug: "velero-no-crds-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset velero-no-crds-variant-promote-20260527 (8a02c568-8d9e-4b14-8b55-fcea171e3d21)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-velero\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-velero-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-velero-no-crds"
+    addedUnitDownstreamUpstreamUnitID: "8b344449-4add-4ffb-8082-6f84efb2bfee"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

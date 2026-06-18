@@ -1,0 +1,6 @@
+image:
+  digest: sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+service:
+  type: ClusterIP
+tls:
+  enabled: false

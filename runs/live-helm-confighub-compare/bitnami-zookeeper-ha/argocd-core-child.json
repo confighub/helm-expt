@@ -1,0 +1,413 @@
+{
+  "metadata": {
+    "name": "zookeeper-parity",
+    "namespace": "argocd",
+    "uid": "063a4804-cca2-471d-afa6-60a29d436a36",
+    "resourceVersion": "3083",
+    "generation": 10,
+    "creationTimestamp": "2026-06-17T16:08:32Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-zookeeper-mqi92c73-22pt-cluster:argoproj.io/Application:argocd/zookeeper-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "b58fd4d2-7336-4ef3-a0ff-1b01dcea9a4f",
+      "confighub.com/UnitSlug": "zookeeper-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T16:08:32Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T16:15:34Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+      "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default",
+        "name": "zookeeper-scripts",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "zookeeper",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "zookeeper-headless",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "zookeeper",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "default",
+        "name": "zookeeper",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for 3 pods to be ready..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "default",
+        "name": "zookeeper",
+        "status": "Synced"
+      },
+      {
+        "group": "policy",
+        "version": "v1",
+        "kind": "PodDisruptionBudget",
+        "namespace": "default",
+        "name": "zookeeper",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "PodDisruptionBudget has InsufficientPods"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-17T16:08:34Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+        "deployedAt": "2026-06-17T16:08:36Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T16:08:34Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T16:15:26Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+            "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "default",
+            "name": "zookeeper",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/zookeeper serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "policy",
+            "version": "v1",
+            "kind": "PodDisruptionBudget",
+            "namespace": "default",
+            "name": "zookeeper",
+            "status": "Synced",
+            "message": "poddisruptionbudget.policy/zookeeper serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "zookeeper",
+            "status": "Synced",
+            "message": "serviceaccount/zookeeper serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default",
+            "name": "zookeeper-scripts",
+            "status": "Synced",
+            "message": "configmap/zookeeper-scripts serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "zookeeper",
+            "status": "Synced",
+            "message": "service/zookeeper serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "zookeeper-headless",
+            "status": "Synced",
+            "message": "service/zookeeper-headless serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "default",
+            "name": "zookeeper",
+            "status": "Synced",
+            "message": "statefulset.apps/zookeeper serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+            ]
+          }
+        ],
+        "revision": "sha256:42be133eb2c3d7f00b8d5d8967ad0cd9f18bb8b3f6eb578d9c99177672fe6d4b",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci",
+          "path": "./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T16:08:34Z",
+      "finishedAt": "2026-06-17T16:08:36Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

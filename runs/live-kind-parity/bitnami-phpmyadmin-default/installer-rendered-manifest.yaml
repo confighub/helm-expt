@@ -1,0 +1,289 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: phpmyadmin
+    app.kubernetes.io/version: 5.2.2
+    helm.sh/chart: phpmyadmin-20.0.0
+  name: phpmyadmin
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: phpmyadmin
+      app.kubernetes.io/name: phpmyadmin
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: phpmyadmin
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: phpmyadmin
+        app.kubernetes.io/version: 5.2.2
+        helm.sh/chart: phpmyadmin-20.0.0
+    spec:
+      affinity:
+        nodeAffinity: null
+        podAffinity: null
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: phpmyadmin
+                    app.kubernetes.io/name: phpmyadmin
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: DATABASE_PORT_NUMBER
+              value: "3306"
+            - name: DATABASE_HOST
+              value: ""
+            - name: PHPMYADMIN_ALLOW_NO_PASSWORD
+              value: "true"
+            - name: PHPMYADMIN_ALLOW_ARBITRARY_SERVER
+              value: "true"
+            - name: DATABASE_ENABLE_SSL
+              value: "no"
+          image: docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 30
+          name: phpmyadmin
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8443
+              name: https
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          resources:
+            limits:
+              cpu: 375m
+              ephemeral-storage: 2Gi
+              memory: 384Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 50Mi
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /opt/bitnami/apache/conf
+              name: empty-dir
+              subPath: apache-conf-dir
+            - mountPath: /opt/bitnami/apache/logs
+              name: empty-dir
+              subPath: apache-logs-dir
+            - mountPath: /opt/bitnami/apache/var/run
+              name: empty-dir
+              subPath: apache-tmp-dir
+            - mountPath: /opt/bitnami/php/etc
+              name: empty-dir
+              subPath: php-conf-dir
+            - mountPath: /opt/bitnami/php/tmp
+              name: empty-dir
+              subPath: php-tmp-dir
+            - mountPath: /opt/bitnami/php/var
+              name: empty-dir
+              subPath: php-var-dir
+            - mountPath: /tmp
+              name: empty-dir
+              subPath: tmp-dir
+            - mountPath: /opt/bitnami/phpmyadmin
+              name: empty-dir
+              subPath: app-base-dir
+      hostAliases:
+        - hostnames:
+            - status.localhost
+          ip: 127.0.0.1
+      initContainers:
+        - args:
+            - -ec
+            - |
+              #!/bin/bash
+
+              . /opt/bitnami/scripts/liblog.sh
+              . /opt/bitnami/scripts/libfs.sh
+
+              info "Copying base dir to empty dir"
+              # In order to not break the application functionality (such as upgrades or plugins) we need
+              # to make the base directory writable, so we need to copy it to an empty dir volume
+              cp -r --preserve=mode /opt/bitnami/phpmyadmin /emptydir/app-base-dir
+
+              info "Copying symlinks to stdout/stderr"
+              # We copy the logs folder because it has symlinks to stdout and stderr
+              if ! is_dir_empty /opt/bitnami/apache/logs; then
+                cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir
+              fi
+              info "Copying php var directory"
+              # PhpMyAdmin will fail to start if the php var folder is not populated
+              if ! is_dir_empty /opt/bitnami/php/var; then
+                cp -r /opt/bitnami/php/var /emptydir/php-var-dir
+              fi
+              info "Copy operation completed"
+          command:
+            - /bin/bash
+          image: docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22
+          imagePullPolicy: IfNotPresent
+          name: prepare-base-dir
+          resources:
+            limits:
+              cpu: 375m
+              ephemeral-storage: 2Gi
+              memory: 384Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 50Mi
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /emptydir
+              name: empty-dir
+      priorityClassName: ""
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      serviceAccountName: phpmyadmin
+      volumes:
+        - emptyDir: {}
+          name: empty-dir
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: phpmyadmin
+    app.kubernetes.io/version: 5.2.2
+    helm.sh/chart: phpmyadmin-20.0.0
+  name: phpmyadmin
+  namespace: default
+spec:
+  egress:
+    - {}
+  ingress:
+    - ports:
+        - port: 8080
+        - port: 8443
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: phpmyadmin
+      app.kubernetes.io/name: phpmyadmin
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: phpmyadmin
+    app.kubernetes.io/version: 5.2.2
+    helm.sh/chart: phpmyadmin-20.0.0
+  name: phpmyadmin
+  namespace: default
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: phpmyadmin
+      app.kubernetes.io/name: phpmyadmin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: phpmyadmin
+    app.kubernetes.io/version: 5.2.2
+    helm.sh/chart: phpmyadmin-20.0.0
+  name: phpmyadmin
+  namespace: default
+spec:
+  ports:
+    - name: http
+      nodePort: null
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    - name: https
+      nodePort: null
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+  selector:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/name: phpmyadmin
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+automountServiceAccountToken: false
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: phpmyadmin
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: phpmyadmin
+    app.kubernetes.io/version: 5.2.2
+    helm.sh/chart: phpmyadmin-20.0.0
+  name: phpmyadmin
+  namespace: default

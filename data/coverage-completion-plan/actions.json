@@ -13,36 +13,36 @@
     "data/variant-promotion-proof-batches"
   ],
   "nonGreenCellsCovered": 488,
-  "familyCount": 21,
+  "familyCount": 20,
   "byActionType": {
-    "refuse-or-scope": 162,
-    "record-decision": 120,
-    "stage-prereq": 81,
+    "refuse-or-scope": 176,
+    "record-decision": 134,
+    "stage-prereq": 59,
     "refresh-image": 48,
-    "run-promotion": 30,
-    "fix-model": 21,
+    "fix-model": 29,
     "run-kind": 19,
+    "run-promotion": 16,
     "lifecycle-observe": 7
   },
   "byOwnerLane": {
-    "upstream-implementation": 198,
-    "product-decision": 148,
-    "Claude-non-live": 86,
-    "Codex-live": 56
+    "upstream-implementation": 211,
+    "product-decision": 142,
+    "Claude-non-live": 93,
+    "Codex-live": 42
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "refuse-or-scope",
       "sub_group": "promotion-changeset-bug",
-      "affected_cell_count": 162,
+      "affected_cell_count": 176,
       "owner_lane": "upstream-implementation"
     },
     {
       "action_id": "CCP-02",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 66,
+      "affected_cell_count": 80,
       "owner_lane": "product-decision"
     },
     {
@@ -63,29 +63,29 @@
       "action_id": "CCP-05",
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
-      "affected_cell_count": 36,
+      "affected_cell_count": 35,
       "owner_lane": "upstream-implementation"
     },
     {
       "action_id": "CCP-06",
-      "action_type": "run-promotion",
-      "sub_group": "promotion-ready",
-      "affected_cell_count": 30,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "stage-prereq-other",
-      "affected_cell_count": 24,
-      "owner_lane": "product-decision"
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "affected_cell_count": 19,
       "owner_lane": "Codex-live"
+    },
+    {
+      "action_id": "CCP-07",
+      "action_type": "run-promotion",
+      "sub_group": "promotion-ready",
+      "affected_cell_count": 16,
+      "owner_lane": "Codex-live"
+    },
+    {
+      "action_id": "CCP-08",
+      "action_type": "fix-model",
+      "sub_group": "model-gap",
+      "affected_cell_count": 14,
+      "owner_lane": "Claude-non-live"
     },
     {
       "action_id": "CCP-09",
@@ -108,7 +108,7 @@
       "action_type": "refuse-or-scope",
       "sub_group": "promotion-changeset-bug",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 162,
+      "affected_cell_count": 176,
       "lanes": [
         "promotion"
       ],
@@ -275,12 +275,26 @@
         "prometheus-community/alertmanager@1.37.0/default [promotion]",
         "prometheus-community/alertmanager@1.37.0/ha [promotion]",
         "prometheus-community/kube-prometheus-stack@85.3.3/default [promotion]",
+        "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [promotion]",
+        "prometheus-community/kube-prometheus-stack@86.1.0/default [promotion]",
         "prometheus-community/prometheus-blackbox-exporter@11.10.0/default [promotion]",
         "prometheus-community/prometheus-node-exporter@4.55.0/cluster-metrics-readonly [promotion]",
         "prometheus-community/prometheus-node-exporter@4.55.0/default [promotion]",
         "prometheus-community/prometheus-pushgateway@3.6.0/default [promotion]",
         "prometheus-community/prometheus@29.8.0/server-only-ephemeral [promotion]",
-        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/default [promotion]"
+        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/default [promotion]",
+        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/sync-secret-rotation [promotion]",
+        "stakater/reloader@2.2.12/controller-default-reviewed [promotion]",
+        "stakater/reloader@2.2.12/default [promotion]",
+        "strimzi/strimzi-kafka-operator@1.0.0/default [promotion]",
+        "strimzi/strimzi-kafka-operator@1.0.0/no-crds [promotion]",
+        "traefik/traefik@40.2.0/default [promotion]",
+        "traefik/traefik@40.2.0/no-crds [promotion]",
+        "velero/velero@12.0.1/default [promotion]",
+        "velero/velero@12.0.1/no-crds [promotion]",
+        "vm/victoria-logs-single@0.12.5/default [promotion]",
+        "vm/victoria-metrics-single@0.39.0/default-reviewed [promotion]",
+        "vm/victoria-metrics-single@0.39.0/default [promotion]"
       ]
     },
     {
@@ -288,7 +302,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 66,
+      "affected_cell_count": 80,
       "lanes": [
         "G",
         "K",
@@ -314,15 +328,27 @@
         "bitnami/nginx@24.0.4/existing-tls-ingress [P]",
         "bitnami/nginx@25.0.0/existing-tls-ingress [G]",
         "bitnami/nginx@25.0.0/existing-tls-ingress [P]",
+        "bitnami/zookeeper@13.8.7/default [G]",
+        "bitnami/zookeeper@13.8.7/default [P]",
+        "bitnami/zookeeper@13.8.7/ha [G]",
+        "bitnami/zookeeper@13.8.7/ha [P]",
+        "dex/dex@0.24.0/default [G]",
+        "dex/dex@0.24.0/default [P]",
         "elastic/filebeat@8.5.1/default [G]",
         "elastic/filebeat@8.5.1/default [P]",
         "elastic/filebeat@8.5.1/node-or-cluster-collector [G]",
         "elastic/filebeat@8.5.1/node-or-cluster-collector [P]",
+        "elastic/kibana@8.5.1/default [G]",
+        "elastic/kibana@8.5.1/default [P]",
+        "elastic/metricbeat@8.5.1/default [G]",
+        "elastic/metricbeat@8.5.1/default [P]",
         "fairwinds-stable/vpa@4.11.0/default [K]",
         "fairwinds-stable/vpa@4.11.0/no-crds [K]",
         "fluent/fluentd@0.5.3/default [G]",
         "fluent/fluentd@0.5.3/default [P]",
+        "gitlab/gitlab-runner@0.89.0/default [G]",
         "gitlab/gitlab-runner@0.89.0/default [K]",
+        "gitlab/gitlab-runner@0.89.0/default [P]",
         "grafana/pyroscope@2.0.2/default [G]",
         "grafana/pyroscope@2.0.2/default [P]",
         "grafana/pyroscope@2.0.2/ha [G]",
@@ -360,6 +386,8 @@
         "open-telemetry/opentelemetry-operator@0.114.0/default [P]",
         "open-telemetry/opentelemetry-operator@0.114.0/no-crds [G]",
         "open-telemetry/opentelemetry-operator@0.114.0/no-crds [P]",
+        "opencost/opencost@2.5.21/default [G]",
+        "opencost/opencost@2.5.21/default [P]",
         "percona/pg-operator@3.0.0/no-crds [K]",
         "percona/pxc-operator@1.19.1/no-crds [K]",
         "prometheus-community/prometheus@29.9.0/default [G]",
@@ -515,7 +543,7 @@
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 36,
+      "affected_cell_count": 35,
       "lanes": [
         "L"
       ],
@@ -553,7 +581,6 @@
         "jetstack/trust-manager@v0.22.1/no-crds [L]",
         "nats/surveyor@0.20.9/default-reviewed [L]",
         "nats/surveyor@0.20.9/default [L]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [L]",
         "open-telemetry/opentelemetry-operator@0.114.0/default [L]",
         "open-telemetry/opentelemetry-operator@0.114.0/no-crds [L]",
         "opencost/opencost@2.5.21/default [L]",
@@ -566,98 +593,6 @@
     },
     {
       "action_id": "CCP-06",
-      "action_type": "run-promotion",
-      "sub_group": "promotion-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 30,
-      "lanes": [
-        "promotion"
-      ],
-      "command": "npm run … (data/variant-promotion-proof-batches: 18 serial batches)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "variant-promotion-closeout",
-      "linked_issues": "#948",
-      "affected_rows": [
-        "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [promotion]",
-        "prometheus-community/kube-prometheus-stack@86.1.0/default [promotion]",
-        "prometheus-community/kube-prometheus-stack@86.1.0/no-crds [promotion]",
-        "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/kube-state-metrics@7.4.0/default [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [promotion]",
-        "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/prometheus-operator-crds@29.0.0/default [promotion]",
-        "prometheus-community/prometheus@29.8.0/default [promotion]",
-        "prometheus-community/prometheus@29.9.0/default [promotion]",
-        "prometheus-community/prometheus@29.9.0/server-only-ephemeral [promotion]",
-        "rook-release/rook-ceph-cluster@v1.19.5/default [promotion]",
-        "rook-release/rook-ceph@v1.19.5/default [promotion]",
-        "runix/pgadmin4@1.62.0/default [promotion]",
-        "sealed-secrets/sealed-secrets@2.18.6/default [promotion]",
-        "sealed-secrets/sealed-secrets@2.18.6/no-crds [promotion]",
-        "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/sync-secret-rotation [promotion]",
-        "stakater/reloader@2.2.12/controller-default-reviewed [promotion]",
-        "stakater/reloader@2.2.12/default [promotion]",
-        "strimzi/strimzi-kafka-operator@1.0.0/default [promotion]",
-        "strimzi/strimzi-kafka-operator@1.0.0/no-crds [promotion]",
-        "traefik/traefik@40.2.0/default [promotion]",
-        "traefik/traefik@40.2.0/no-crds [promotion]",
-        "velero/velero@12.0.1/default [promotion]",
-        "velero/velero@12.0.1/no-crds [promotion]",
-        "vm/victoria-logs-single@0.12.5/default [promotion]",
-        "vm/victoria-metrics-single@0.39.0/default-reviewed [promotion]",
-        "vm/victoria-metrics-single@0.39.0/default [promotion]"
-      ]
-    },
-    {
-      "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "stage-prereq-other",
-      "owner_lane": "product-decision",
-      "affected_cell_count": 24,
-      "lanes": [
-        "G",
-        "K",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "see target-prerequisite-actions",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "argo-cd/argo-cd@9.5.15/no-crds [K]",
-        "bitnami/zookeeper@13.8.7/default [G]",
-        "bitnami/zookeeper@13.8.7/default [K]",
-        "bitnami/zookeeper@13.8.7/default [P]",
-        "bitnami/zookeeper@13.8.7/ha [G]",
-        "bitnami/zookeeper@13.8.7/ha [K]",
-        "bitnami/zookeeper@13.8.7/ha [P]",
-        "dex/dex@0.24.0/default [G]",
-        "dex/dex@0.24.0/default [P]",
-        "elastic/kibana@8.5.1/default [G]",
-        "elastic/kibana@8.5.1/default [K]",
-        "elastic/kibana@8.5.1/default [P]",
-        "elastic/metricbeat@8.5.1/default [G]",
-        "elastic/metricbeat@8.5.1/default [K]",
-        "elastic/metricbeat@8.5.1/default [P]",
-        "gitlab/gitlab-runner@0.89.0/default [G]",
-        "gitlab/gitlab-runner@0.89.0/default [P]",
-        "grafana/pyroscope@2.0.2/ha [K]",
-        "hashicorp/terraform@1.1.2/default [K]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [G]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [P]",
-        "opencost/opencost@2.5.21/default [G]",
-        "opencost/opencost@2.5.21/default [K]",
-        "opencost/opencost@2.5.21/default [P]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "run-kind",
       "sub_group": "kind-ready",
       "owner_lane": "Codex-live",
@@ -691,6 +626,75 @@
         "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [K]",
         "prometheus-community/prometheus@29.8.0/default [K]",
         "prometheus-community/prometheus@29.8.0/server-only-ephemeral [K]"
+      ]
+    },
+    {
+      "action_id": "CCP-07",
+      "action_type": "run-promotion",
+      "sub_group": "promotion-ready",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 16,
+      "lanes": [
+        "promotion"
+      ],
+      "command": "npm run … (data/variant-promotion-proof-batches: 18 serial batches)",
+      "prerequisite": "",
+      "expected_status": "pass or watch",
+      "prediction": true,
+      "evidence_surface": "variant-promotion-closeout",
+      "linked_issues": "#948",
+      "affected_rows": [
+        "prometheus-community/kube-prometheus-stack@86.1.0/no-crds [promotion]",
+        "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly [promotion]",
+        "prometheus-community/kube-state-metrics@7.4.0/default [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [promotion]",
+        "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly [promotion]",
+        "prometheus-community/prometheus-operator-crds@29.0.0/default [promotion]",
+        "prometheus-community/prometheus@29.8.0/default [promotion]",
+        "prometheus-community/prometheus@29.9.0/default [promotion]",
+        "prometheus-community/prometheus@29.9.0/server-only-ephemeral [promotion]",
+        "rook-release/rook-ceph-cluster@v1.19.5/default [promotion]",
+        "rook-release/rook-ceph@v1.19.5/default [promotion]",
+        "runix/pgadmin4@1.62.0/default [promotion]",
+        "sealed-secrets/sealed-secrets@2.18.6/default [promotion]",
+        "sealed-secrets/sealed-secrets@2.18.6/no-crds [promotion]"
+      ]
+    },
+    {
+      "action_id": "CCP-08",
+      "action_type": "fix-model",
+      "sub_group": "model-gap",
+      "owner_lane": "Claude-non-live",
+      "affected_cell_count": 14,
+      "lanes": [
+        "G",
+        "K",
+        "L",
+        "P"
+      ],
+      "command": "",
+      "prerequisite": "",
+      "expected_status": "pass after the model/recipe change",
+      "prediction": true,
+      "evidence_surface": "model-gap-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "bitnami/zookeeper@13.8.7/default [K]",
+        "bitnami/zookeeper@13.8.7/ha [K]",
+        "grafana/pyroscope@2.0.2/ha [K]",
+        "hashicorp/terraform@1.1.2/default [K]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [G]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [K]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [L]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [P]",
+        "projectcalico/tigera-operator@v3.32.0/default [G]",
+        "projectcalico/tigera-operator@v3.32.0/default [P]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [K]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [L]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [K]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [L]"
       ]
     },
     {
@@ -748,33 +752,6 @@
     },
     {
       "action_id": "CCP-11",
-      "action_type": "fix-model",
-      "sub_group": "model-gap",
-      "owner_lane": "Claude-non-live",
-      "affected_cell_count": 6,
-      "lanes": [
-        "G",
-        "K",
-        "L",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "",
-      "expected_status": "pass after the model/recipe change",
-      "prediction": true,
-      "evidence_surface": "model-gap-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "projectcalico/tigera-operator@v3.32.0/default [G]",
-        "projectcalico/tigera-operator@v3.32.0/default [P]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [K]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [L]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [K]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [L]"
-      ]
-    },
-    {
-      "action_id": "CCP-12",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -800,7 +777,7 @@
       ]
     },
     {
-      "action_id": "CCP-13",
+      "action_id": "CCP-12",
       "action_type": "fix-model",
       "sub_group": "base-design",
       "owner_lane": "Claude-non-live",
@@ -825,7 +802,7 @@
       ]
     },
     {
-      "action_id": "CCP-14",
+      "action_id": "CCP-13",
       "action_type": "fix-model",
       "sub_group": "semantic-normalization",
       "owner_lane": "Claude-non-live",
@@ -845,6 +822,28 @@
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [P]",
         "prometheus-community/prometheus-adapter@5.3.0/default [G]",
         "prometheus-community/prometheus-adapter@5.3.0/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-14",
+      "action_type": "stage-prereq",
+      "sub_group": "stage-prereq-other",
+      "owner_lane": "product-decision",
+      "affected_cell_count": 4,
+      "lanes": [
+        "K"
+      ],
+      "command": "",
+      "prerequisite": "see target-prerequisite-actions",
+      "expected_status": "pass after the prerequisite is staged",
+      "prediction": true,
+      "evidence_surface": "target-prerequisite-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "argo-cd/argo-cd@9.5.15/no-crds [K]",
+        "elastic/kibana@8.5.1/default [K]",
+        "elastic/metricbeat@8.5.1/default [K]",
+        "opencost/opencost@2.5.21/default [K]"
       ]
     },
     {
@@ -965,25 +964,6 @@
       "linked_issues": "#248; #753",
       "affected_rows": [
         "autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-21",
-      "action_type": "stage-prereq",
-      "sub_group": "unknown-preflight",
-      "owner_lane": "Claude-non-live",
-      "affected_cell_count": 1,
-      "lanes": [
-        "K"
-      ],
-      "command": "",
-      "prerequisite": "value nfs.server",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [K]"
       ]
     }
   ]

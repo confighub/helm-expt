@@ -1,0 +1,70 @@
+Name:             pre-install-kibana-kibana-5rdmx
+Namespace:        default-helm
+Priority:         0
+Service Account:  pre-install-kibana-kibana
+Node:             helm-expt-parity-kibana-mqiajgaz-75y-control-plane/192.168.97.3
+Start Time:       Wed, 17 Jun 2026 17:35:32 +0100
+Labels:           batch.kubernetes.io/controller-uid=dccee890-c204-46ec-bce4-20a6552810eb
+                  batch.kubernetes.io/job-name=pre-install-kibana-kibana
+                  controller-uid=dccee890-c204-46ec-bce4-20a6552810eb
+                  job-name=pre-install-kibana-kibana
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    Job/pre-install-kibana-kibana
+Containers:
+  create-kibana-token:
+    Container ID:  
+    Image:         docker.elastic.co/kibana/kibana:8.5.1
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /usr/share/kibana/node/bin/node
+    Args:
+      /usr/share/kibana/helm-scripts/manage-es-token.js
+      create
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      ELASTICSEARCH_USERNAME:                    <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:                    <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES:  /usr/share/kibana/config/certs/ca.crt
+    Mounts:
+      /usr/share/kibana/config/certs from elasticsearch-certs (ro)
+      /usr/share/kibana/helm-scripts from kibana-helm-scripts (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4kcmk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  elasticsearch-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+  kibana-helm-scripts:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kibana-kibana-helm-scripts
+    Optional:  false
+  kube-api-access-4kcmk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason       Age                   From               Message
+  ----     ------       ----                  ----               -------
+  Normal   Scheduled    8m1s                  default-scheduler  Successfully assigned default-helm/pre-install-kibana-kibana-5rdmx to helm-expt-parity-kibana-mqiajgaz-75y-control-plane
+  Warning  FailedMount  109s (x11 over 8m1s)  kubelet            MountVolume.SetUp failed for volume "elasticsearch-certs" : secret "elasticsearch-master-certs" not found

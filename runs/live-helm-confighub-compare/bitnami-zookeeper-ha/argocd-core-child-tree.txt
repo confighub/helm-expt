@@ -1,0 +1,30 @@
+Name:               argocd/zookeeper-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:52269/applications/zookeeper-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                  STATUS  HEALTH       AGE  MESSAGE                                                       REASON
+ServiceAccount/zookeeper                   Synced               13m  serviceaccount/zookeeper serverside-applied
+StatefulSet/zookeeper                      Synced  Progressing  13m  statefulset.apps/zookeeper serverside-applied                 Waiting for 3 pods to be ready...
+├─PersistentVolumeClaim/data-zookeeper-0           Healthy      13m
+├─PersistentVolumeClaim/data-zookeeper-1           Healthy      13m
+├─PersistentVolumeClaim/data-zookeeper-2           Healthy      13m
+├─Pod/zookeeper-0                                  Degraded     13m                                                                Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+├─Pod/zookeeper-1                                  Degraded     13m                                                                Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+├─Pod/zookeeper-2                                  Degraded     13m                                                                Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+└─ControllerRevision/zookeeper-6595b489c4                       13m
+NetworkPolicy/zookeeper                    Synced               13m  networkpolicy.networking.k8s.io/zookeeper serverside-applied
+PodDisruptionBudget/zookeeper              Synced  Healthy      13m  poddisruptionbudget.policy/zookeeper serverside-applied       PodDisruptionBudget has InsufficientPods
+ConfigMap/zookeeper-scripts                Synced               13m  configmap/zookeeper-scripts serverside-applied
+Namespace/default-oci                      Synced               12m
+Service/zookeeper                          Synced  Healthy      13m  service/zookeeper serverside-applied
+Service/zookeeper-headless                 Synced  Healthy      13m  service/zookeeper-headless serverside-applied

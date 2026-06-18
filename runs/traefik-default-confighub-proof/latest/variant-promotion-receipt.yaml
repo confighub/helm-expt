@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "traefik-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "traefik/traefik"
+    chartVersion: "40.2.0"
+    packagePath: "packages/traefik/traefik/40.2.0"
+    variant: "default"
+    upstreamSpace: "helm-traefik-default-confighub-proof"
+    downstreamSpace: "Traefik-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-traefik runs/traefik-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-traefik-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-traefik-default runs/traefik-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-traefik-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Traefik-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create traefik-default-variant-promote-20260527 --space Traefik-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Traefik-default-staging --changeset Traefik-default-staging/traefik-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Traefik-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-traefik"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=traefik-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-traefik-default"
+    upstreamUnitID: "5433da40-783e-45ad-ba41-f4cf67f27374"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-traefik-default"
+  changeset:
+    slug: "traefik-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset traefik-default-variant-promote-20260527 (b6b865a2-a50d-4b03-abab-8cc7446497d3)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-traefik\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-traefik-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-traefik-default"
+    addedUnitDownstreamUpstreamUnitID: "5433da40-783e-45ad-ba41-f4cf67f27374"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

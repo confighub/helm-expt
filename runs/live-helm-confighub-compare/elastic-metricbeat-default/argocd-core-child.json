@@ -1,0 +1,548 @@
+{
+  "metadata": {
+    "name": "metricbeat-parity",
+    "namespace": "argocd",
+    "uid": "38b8c29e-dc9c-4bd5-9a3b-550c1466f7c3",
+    "resourceVersion": "2527",
+    "generation": 11,
+    "creationTimestamp": "2026-06-17T17:54:42Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-metricbeat-mqid15pc-8l2-cluster:argoproj.io/Application:argocd/metricbeat-parity",
+      "confighub.com/RevisionNum": "1",
+      "confighub.com/SpaceID": "21e5e57b-0af1-4028-b742-feb2b51df810",
+      "confighub.com/UnitSlug": "metricbeat-parity-app"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T17:54:42Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/RevisionNum": {},
+              "f:confighub.com/SpaceID": {},
+              "f:confighub.com/UnitSlug": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-06-17T18:01:43Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+      "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat-daemonset-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat-deployment-config",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "default-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "default",
+        "name": "metricbeat-kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "default",
+        "name": "metricbeat-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "DaemonSet",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for daemon set \"metricbeat-metricbeat\" rollout to finish: 0 of 1 updated pods are available..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Progressing",
+          "message": "Waiting for rollout to finish: 0 of 1 updated replicas are available..."
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "metricbeat-kube-state-metrics",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "metricbeat-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "metricbeat-metricbeat-cluster-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "metricbeat-kube-state-metrics",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "metricbeat-metricbeat-cluster-role-binding",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat-role",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "default-oci",
+        "name": "metricbeat-metricbeat-role-binding",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+          "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "default-oci"
+        }
+      },
+      "revision": "sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564"
+    },
+    "health": {
+      "status": "Progressing",
+      "lastTransitionTime": "2026-06-17T17:54:47Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564",
+        "deployedAt": "2026-06-17T17:54:46Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+          "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-06-17T17:54:44Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-06-17T18:01:36Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+            "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "default-oci",
+            "name": "default-oci",
+            "status": "Synced",
+            "message": "namespace/default-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat",
+            "status": "Synced",
+            "message": "serviceaccount/metricbeat-metricbeat serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "default",
+            "name": "metricbeat-kube-state-metrics",
+            "status": "Synced",
+            "message": "serviceaccount/metricbeat-kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-deployment-config",
+            "status": "Synced",
+            "message": "configmap/metricbeat-metricbeat-deployment-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-daemonset-config",
+            "status": "Synced",
+            "message": "configmap/metricbeat-metricbeat-daemonset-config serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "metricbeat-kube-state-metrics",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/metricbeat-kube-state-metrics reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[list watch] APIGroups:[certificates.k8s.io] Resources:[certificatesigningrequests] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[extensions apps] Resources:[daemonsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[extensions apps] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[endpoints] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[extensions networking.k8s.io] Resources:[ingresses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[limitranges] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[admissionregistration.k8s.io] Resources:[mutatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[networking.k8s.io] Resources:[networkpolicies] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[persistentvolumeclaims] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[persistentvolumes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[extensions apps] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[replicationcontrollers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[resourcequotas] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[apps] Resources:[statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[admissionregistration.k8s.io] Resources:[validatingwebhookconfigurations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[storage.k8s.io] Resources:[volumeattachments] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/metricbeat-kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-cluster-role",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/metricbeat-metricbeat-cluster-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[nodes namespaces events pods services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[extensions] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apps] Resources:[statefulsets deployments replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes/stats] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes/stats] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[] ResourceNames:[] NonResourceURLs:[/metrics]}. clusterrole.rbac.authorization.k8s.io/metricbeat-metricbeat-cluster-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-cluster-role-binding",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-cluster-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:metricbeat-metricbeat Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-cluster-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "default-oci",
+            "name": "metricbeat-kube-state-metrics",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/metricbeat-kube-state-metrics reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:metricbeat-kube-state-metrics Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/metricbeat-kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-role",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/metricbeat-metricbeat-role reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get create update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/metricbeat-metricbeat-role serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-role-binding",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:metricbeat-metricbeat Namespace:default}. rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "default",
+            "name": "metricbeat-kube-state-metrics",
+            "status": "Synced",
+            "message": "service/metricbeat-kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "DaemonSet",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat",
+            "status": "Synced",
+            "message": "daemonset.apps/metricbeat-metricbeat serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.elastic.co/beats/metricbeat:8.5.1"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default-oci",
+            "name": "metricbeat-metricbeat-metrics",
+            "status": "Synced",
+            "message": "deployment.apps/metricbeat-metricbeat-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "docker.elastic.co/beats/metricbeat:8.5.1"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "default",
+            "name": "metricbeat-kube-state-metrics",
+            "status": "Synced",
+            "message": "deployment.apps/metricbeat-kube-state-metrics serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1"
+            ]
+          }
+        ],
+        "revision": "sha256:6495c3d583e2da5d39b29b7f3e992c234c861e98c8c1d6f6f6589f9bcfb17564",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+          "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-06-17T17:54:44Z",
+      "finishedAt": "2026-06-17T17:54:46Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "docker.elastic.co/beats/metricbeat:8.5.1",
+        "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

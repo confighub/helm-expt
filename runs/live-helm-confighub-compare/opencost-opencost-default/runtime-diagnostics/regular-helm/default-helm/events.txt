@@ -1,0 +1,15 @@
+LAST SEEN   TYPE      REASON              OBJECT                          MESSAGE
+8m1s        Normal    Scheduled           pod/opencost-74b7ff9f6-6jwln    Successfully assigned default-helm/opencost-74b7ff9f6-6jwln to helm-expt-parity-opencost-mqifp7vp-a81-control-plane
+8m1s        Normal    ScalingReplicaSet   deployment/opencost             Scaled up replica set opencost-74b7ff9f6 from 0 to 1
+8m1s        Normal    SuccessfulCreate    replicaset/opencost-74b7ff9f6   Created pod: opencost-74b7ff9f6-6jwln
+8m          Normal    Pulling             pod/opencost-74b7ff9f6-6jwln    Pulling image "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6"
+7m34s       Normal    Pulled              pod/opencost-74b7ff9f6-6jwln    Successfully pulled image "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6" in 25.737s (25.737s including waiting). Image size: 71166851 bytes.
+7m34s       Normal    Pulling             pod/opencost-74b7ff9f6-6jwln    Pulling image "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc"
+7m14s       Normal    Pulled              pod/opencost-74b7ff9f6-6jwln    Successfully pulled image "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc" in 20.057s (20.057s including waiting). Image size: 33813316 bytes.
+7m14s       Normal    Created             pod/opencost-74b7ff9f6-6jwln    Container created
+7m14s       Normal    Started             pod/opencost-74b7ff9f6-6jwln    Container started
+3m35s       Warning   Unhealthy           pod/opencost-74b7ff9f6-6jwln    Startup probe failed: Get "http://10.244.0.12:9003/healthz": dial tcp 10.244.0.12:9003: connect: connection refused
+54s         Normal    Created             pod/opencost-74b7ff9f6-6jwln    Container created
+54s         Normal    Pulled              pod/opencost-74b7ff9f6-6jwln    Container image "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6" already present on machine and can be accessed by the pod
+54s         Normal    Started             pod/opencost-74b7ff9f6-6jwln    Container started
+40s         Warning   BackOff             pod/opencost-74b7ff9f6-6jwln    Back-off restarting failed container opencost in pod opencost-74b7ff9f6-6jwln_default-helm(b725f791-09ad-404d-9c63-cd36c1a29493)

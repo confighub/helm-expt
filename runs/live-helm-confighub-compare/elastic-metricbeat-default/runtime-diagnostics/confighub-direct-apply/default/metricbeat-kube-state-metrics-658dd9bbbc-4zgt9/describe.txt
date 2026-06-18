@@ -1,0 +1,61 @@
+Name:             metricbeat-kube-state-metrics-658dd9bbbc-4zgt9
+Namespace:        default
+Priority:         0
+Service Account:  metricbeat-kube-state-metrics
+Node:             helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane/192.168.97.2
+Start Time:       Wed, 17 Jun 2026 18:53:27 +0100
+Labels:           app.kubernetes.io/component=metrics
+                  app.kubernetes.io/instance=metricbeat
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kube-state-metrics
+                  app.kubernetes.io/part-of=kube-state-metrics
+                  app.kubernetes.io/version=2.4.1
+                  helm.sh/chart=kube-state-metrics-4.7.0
+                  pod-template-hash=658dd9bbbc
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/metricbeat-kube-state-metrics-658dd9bbbc
+Containers:
+  kube-state-metrics:
+    Container ID:  
+    Image:         k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1
+    Image ID:      
+    Port:          8080/TCP (http)
+    Host Port:     0/TCP (http)
+    Args:
+      --port=8080
+      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+      --telemetry-port=8081
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://:8080/healthz delay=5s timeout=5s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:8080/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-78pnd (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-78pnd:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  1s    default-scheduler  Successfully assigned default/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9 to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane

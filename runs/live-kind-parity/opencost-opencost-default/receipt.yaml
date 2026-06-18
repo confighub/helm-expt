@@ -1,0 +1,508 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: opencost-opencost-2.5.21-default-kind-parity-20260606
+spec:
+  chart: opencost/opencost
+  version: 2.5.21
+  base: default
+  result: blocked
+  observedAt: '2026-06-17T15:43:52Z'
+  package:
+    path: packages/opencost/opencost/2.5.21
+  recipe:
+    path: recipes/opencost/opencost/2.5.21
+  variantRevision: recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-openco-09280-qv3n-helm
+    installerCluster: hx-openco-09280-qv3n-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-openco-09280-qv3n-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-openco-09280-qv3n-helm" ...
+
+          Deleted nodes: ["hx-openco-09280-qv3n-helm-control-plane"]'
+      - cluster: hx-openco-09280-qv3n-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-openco-09280-qv3n-installer" ...
+
+          Deleted nodes: ["hx-openco-09280-qv3n-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install opencost opencost --repo https://opencost.github.io/opencost-helm-chart
+        --version 2.5.21 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/opencost-opencost-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc
+      objectCount: 6
+      liveHelmManifestSHA256: c6d2174f0dd37076a30e99817164abf2e9f56f6ed3db8d1959f6996950d9a18d
+      liveHelmManifestObjectCount: 6
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/opencost   0/1   1     0     8m'
+        pods: '# default
+
+          opencost-6545848947-qfsdh   1/2   CrashLoopBackOff   6 (65s ago)   8m'
+        notReady:
+        - namespace: default
+          pod: opencost-6545848947-qfsdh
+          ready: 1/2
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: opencost-6545848947-qfsdh
+          result: blocked
+          detailHead: "Name:             opencost-6545848947-qfsdh\nNamespace:   \
+            \     default\nPriority:         0\nService Account:  opencost\nNode:\
+            \             hx-openco-09280-qv3n-helm-control-plane/192.168.97.2\nStart\
+            \ Time:       Wed, 17 Jun 2026 16:44:44 +0100\nLabels:           app.kubernetes.io/instance=opencost\n\
+            \                  app.kubernetes.io/name=opencost\n                 \
+            \ pod-template-hash=6545848947\nAnnotations:      <none>\nStatus:    \
+            \       Running\nIP:               10.244.0.5\nIPs:\n  IP:           10.244.0.5\n\
+            Controlled By:  ReplicaSet/opencost-6545848947\nContainers:\n  opencost:\n\
+            \    Container ID:   containerd://49d1f867641b35276ab3709dbc369cb8cfaedd9dc47f2531e43a9efe4dcaf368\n\
+            \    Image:          ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n\
+            \    Image ID:       ghcr.io/opencost/opencost@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n\
+            \    Ports:          9003/TCP (http), 8081/TCP (mcp-server)\n    Host\
+            \ Ports:     0/TCP (http), 0/TCP (mcp-server)\n    State:          Waiting\n\
+            \      Reason:       CrashLoopBackOff\n    Last State:     Terminated\n\
+            \      Reason:       Error\n      Exit Code:    1\n      Started:    \
+            \  Wed, 17 Jun 2026 16:51:29 +0100\n      Finished:     Wed, 17 Jun 2026\
+            \ 16:51:39 +0100\n    Ready:          False\n    Restart Count:  6\n \
+            \   Limits:\n      memory:  1Gi\n    Requests:\n      cpu:      10m\n\
+            \      memory:   55Mi\n    Liveness:   http-get http://:9003/healthz delay=10s\
+            \ timeout=1s period=20s #success=1 #failure=3\n    Readiness:  http-get\
+            \ http://:9003/healthz delay=10s timeout=1s period=10s #success=1 #failure=3\n\
+            \    Startup:    http-get http://:9003/healthz delay=10s timeout=1s period=5s\
+            \ #success=1 #failure=30\n    Environment:\n      LOG_LEVEL:         \
+            \                   info\n      CUSTOM_COST_ENABLED:                 \
+            \ false\n      INSTALL_NAMESPACE:                    default\n      PROMETHEUS_QUERY_RESOLUTION_SECONDS:\
+            \  300\n      API_PORT:                             9003\n      PROMETHEUS_SERVER_ENDPOINT:\
+            \           http://prometheus-server.prometheus-system.svc.cluster.local:80\n\
+            \      INSECURE_SKIP_VERIFY:                 false\n      CLUSTER_ID:\
+            \                           default-cluster\n      RESOLUTION_1D_RETENTION:\
+            \              15\n      RESOLUTION_1H_RETENTION:              49\n  \
+            \    CLOUD_COST_ENABLED:                   false\n      CLOUD_COST_MONTH_TO_DATE_INTERVAL:\
+            \    6\n      CLOUD_COST_REFRESH_RATE_HOURS:        6\n      CLOUD_COST_QUERY_WINDOW_DAYS:\
+            \         7\n      CLOUD_COST_RUN_WINDOW_DAYS:           3\n      MCP_SERVER_ENABLED:\
+            \                   true\n      MCP_HTTP_PORT:                       \
+            \ 8081\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-rwks7 (ro)\n  opencost-ui:\n    Container ID: \
+            \  containerd://c55f788a14c08ac74a0b38895514aa025736ebcbadb06152d23db3477abc9c18\n\
+            \    Image:          ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\n\
+            \    Image ID:       ghcr.io/opencost/opencost"
+          detailTail: "  Optional:  false\n  kube-api-access-rwks7:\n    Type:   \
+            \                 Projected (a volume that contains injected data from\
+            \ multiple sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:\
+            \           kube-root-ca.crt\n    Optional:                false\n   \
+            \ DownwardAPI:             true\nQoS Class:                   Burstable\n\
+            Node-Selectors:              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \      From               Message\n  ----     ------     ----        \
+            \          ----               -------\n  Normal   Scheduled  8m      \
+            \              default-scheduler  Successfully assigned default/opencost-6545848947-qfsdh\
+            \ to hx-openco-09280-qv3n-helm-control-plane\n  Normal   Pulling    7m59s\
+            \                 kubelet            spec.containers{opencost}: Pulling\
+            \ image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \n  Normal   Pulled     7m50s                 kubelet            spec.containers{opencost}:\
+            \ Successfully pulled image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \ in 9.744s (9.744s including waiting). Image size: 71166851 bytes.\n\
+            \  Normal   Pulling    7m50s                 kubelet            spec.containers{opencost-ui}:\
+            \ Pulling image \"ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\"\
+            \n  Normal   Pulled     7m44s                 kubelet            spec.containers{opencost-ui}:\
+            \ Successfully pulled image \"ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\"\
+            \ in 5.488s (5.488s including waiting). Image size: 33813316 bytes.\n\
+            \  Normal   Created    7m44s                 kubelet            spec.containers{opencost-ui}:\
+            \ Container created\n  Normal   Started    7m44s                 kubelet\
+            \            spec.containers{opencost-ui}: Container started\n  Warning\
+            \  Unhealthy  4m4s (x3 over 7m39s)  kubelet            spec.containers{opencost}:\
+            \ Startup probe failed: Get \"http://10.244.0.5:9003/healthz\": dial tcp\
+            \ 10.244.0.5:9003: connect: connection refused\n  Normal   Created   \
+            \ 75s (x7 over 7m50s)   kubelet            spec.containers{opencost}:\
+            \ Container created\n  Normal   Started    75s (x7 over 7m50s)   kubelet\
+            \            spec.containers{opencost}: Container started\n  Normal  \
+            \ Pulled     75s (x6 over 7m39s)   kubelet            spec.containers{opencost}:\
+            \ Container image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  BackOff    59s (x20 over 7m28s)  kubelet            spec.containers{opencost}:\
+            \ Back-off restarting failed container opencost in pod opencost-6545848947-qfsdh_default(1ce64af5-3527-4116-aeca-f07122ce2e46)"
+          logsHead: "\e[90m2026-06-17T15:51:29.332893942Z\e[0m ??? Log level set to\
+            \ info\n\e[90m2026-06-17T15:51:29.332944192Z\e[0m \e[32mINF\e[0m \e[1mStarting\
+            \ cost-model version 1.120.2 (cb9a0cb)\e[0m\n\e[90m2026-06-17T15:51:29.332949358Z\e\
+            [0m \e[32mINF\e[0m \e[1mKubernetes enabled: true\e[0m\n\e[90m2026-06-17T15:51:29.332952358Z\e\
+            [0m \e[32mINF\e[0m \e[1mCarbon Estimates enabled: false\e[0m\n\e[90m2026-06-17T15:51:29.332955025Z\e\
+            [0m \e[32mINF\e[0m \e[1mCloud Costs enabled: false\e[0m\n\e[90m2026-06-17T15:51:29.332957775Z\e\
+            [0m \e[32mINF\e[0m \e[1mCustom Costs enabled: false\e[0m\n\e[90m2026-06-17T15:51:29.332959567Z\e\
+            [0m \e[32mINF\e[0m \e[1mMCP Server enabled: true\e[0m\n\e[90m2026-06-17T15:51:29.332961192Z\e\
+            [0m \e[32mINF\e[0m \e[1mCustom Costs enabled: false\e[0m\n\e[90m2026-06-17T15:51:29.345423905Z\e\
+            [0m \e[32mINF\e[0m \e[1mUnsupported provider, falling back to default\e\
+            [0m\n\e[90m2026-06-17T15:51:29.345489072Z\e[0m \e[32mINF\e[0m \e[1mPrometheus\
+            \ Client Max Concurrency set to 5\e[0m\n\e[90m2026-06-17T15:51:39.355130838Z\e\
+            [0m \e[31mFTL\e[0m \e[1mFailed to create Prometheus data source: failed\
+            \ to query prometheus at http://prometheus-server.prometheus-system.svc.cluster.local:80:\
+            \ query error: 'Post \"http://prometheus-server.prometheus-system.svc.cluster.local:80/api/v1/query?query=up&time=1781711489\"\
+            : dial tcp: lookup prometheus-server.prometheus-system.svc.cluster.local\
+            \ on 10.96.0.10:53: no such host' fetching query 'up'\nTroubleshooting\
+            \ help available at: https://www.opencost.io/docs/integrations/prometheus\e\
+            [0m\nServing default UI from /var/www\nrunning with BASE_URL=/model\n\
+            Starting OpenCost UI version 1.120.2 (0759f61)\n/docker-entrypoint.sh:\
+            \ /docker-entrypoint.d/ is not empty, will attempt to perform configuration\n\
+            /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh\n\
+            10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf\
+            \ is not a file or does not exist\n/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh\n\
+            /docker-entrypoint.sh: Configuration complete; ready for start up\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: using the \"epoll\" event method\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: nginx/1.31.0\n2026/06/17 15:45:00 [notice] 1#1:\
+            \ built by gcc 15.2.0 (Alpine 15.2.0) \n2026/06/17 15:45:00 [notice] 1#1:\
+            \ OS: Linux 7.0.11-orbstack-00360-gc9bc4d96ac70\n2026/06/17 15:45:00 [notice]\
+            \ 1#1: getrlimit(RLIMIT_NOFILE): 1073741816:1073741816\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker processes\n2026/06/17 15:45:00 [notice] 1#1:\
+            \ start worker process 118\n2026/06/17 15:45:00 [notice] 1#1: start worker\
+            \ process 119\n2026/06/17 15:45:00 [notice] 1#1: start worker process\
+            \ 120\n2026/06/17 15:45:00 [notice] 1#1: start worker process 121\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: start worker process 122\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker process 123\n2026/06/17 15:45:00 ["
+          logsTail: "nabled: false\e[0m\n\e[90m2026-06-17T15:51:29.345423905Z\e[0m\
+            \ \e[32mINF\e[0m \e[1mUnsupported provider, falling back to default\e\
+            [0m\n\e[90m2026-06-17T15:51:29.345489072Z\e[0m \e[32mINF\e[0m \e[1mPrometheus\
+            \ Client Max Concurrency set to 5\e[0m\n\e[90m2026-06-17T15:51:39.355130838Z\e\
+            [0m \e[31mFTL\e[0m \e[1mFailed to create Prometheus data source: failed\
+            \ to query prometheus at http://prometheus-server.prometheus-system.svc.cluster.local:80:\
+            \ query error: 'Post \"http://prometheus-server.prometheus-system.svc.cluster.local:80/api/v1/query?query=up&time=1781711489\"\
+            : dial tcp: lookup prometheus-server.prometheus-system.svc.cluster.local\
+            \ on 10.96.0.10:53: no such host' fetching query 'up'\nTroubleshooting\
+            \ help available at: https://www.opencost.io/docs/integrations/prometheus\e\
+            [0m\nServing default UI from /var/www\nrunning with BASE_URL=/model\n\
+            Starting OpenCost UI version 1.120.2 (0759f61)\n/docker-entrypoint.sh:\
+            \ /docker-entrypoint.d/ is not empty, will attempt to perform configuration\n\
+            /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh\n\
+            10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf\
+            \ is not a file or does not exist\n/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh\n\
+            /docker-entrypoint.sh: Configuration complete; ready for start up\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: using the \"epoll\" event method\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: nginx/1.31.0\n2026/06/17 15:45:00 [notice] 1#1:\
+            \ built by gcc 15.2.0 (Alpine 15.2.0) \n2026/06/17 15:45:00 [notice] 1#1:\
+            \ OS: Linux 7.0.11-orbstack-00360-gc9bc4d96ac70\n2026/06/17 15:45:00 [notice]\
+            \ 1#1: getrlimit(RLIMIT_NOFILE): 1073741816:1073741816\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker processes\n2026/06/17 15:45:00 [notice] 1#1:\
+            \ start worker process 118\n2026/06/17 15:45:00 [notice] 1#1: start worker\
+            \ process 119\n2026/06/17 15:45:00 [notice] 1#1: start worker process\
+            \ 120\n2026/06/17 15:45:00 [notice] 1#1: start worker process 121\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: start worker process 122\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker process 123\n2026/06/17 15:45:00 [notice]\
+            \ 1#1: start worker process 124\n2026/06/17 15:45:00 [notice] 1#1: start\
+            \ worker process 125\n2026/06/17 15:45:00 [notice] 1#1: start worker process\
+            \ 126\n2026/06/17 15:45:00 [notice] 1#1: start worker process 127\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: start worker process 128\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker process 129\n2026/06/17 15:45:00 [notice]\
+            \ 1#1: start worker process 130\n2026/06/17 15:45:00 [notice] 1#1: start\
+            \ worker process 131\n2026/06/17 15:45:00 [notice] 1#1: start worker process\
+            \ 132\n2026/06/17 15:45:00 [notice] 1#1: start worker process 133\n2026/06/17\
+            \ 15:45:00 [notice] 1#1: start worker process 134\n2026/06/17 15:45:00\
+            \ [notice] 1#1: start worker process 135"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource Deployment/default/opencost not ready. status: InProgress,
+        message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-openco-09280-qv3n-opencost
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: dc787b31b46f54825217c11defbfc404aed33f04bf18ea7694a950ce1eb31418
+      objectCount: 7
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/opencost   0/1   1     0     41s'
+        pods: '# default
+
+          opencost-6545848947-zfhcw   0/2   CrashLoopBackOff   1 (7s ago)   41s'
+        notReady:
+        - namespace: default
+          pod: opencost-6545848947-zfhcw
+          ready: 0/2
+          status: CrashLoopBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: opencost-6545848947-zfhcw
+          result: blocked
+          detailHead: "Name:             opencost-6545848947-zfhcw\nNamespace:   \
+            \     default\nPriority:         0\nService Account:  opencost\nNode:\
+            \             hx-openco-09280-qv3n-installer-control-plane/192.168.97.5\n\
+            Start Time:       Wed, 17 Jun 2026 16:52:45 +0100\nLabels:           app.kubernetes.io/instance=opencost\n\
+            \                  app.kubernetes.io/name=opencost\n                 \
+            \ pod-template-hash=6545848947\nAnnotations:      <none>\nStatus:    \
+            \       Running\nIP:               10.244.0.5\nIPs:\n  IP:           10.244.0.5\n\
+            Controlled By:  ReplicaSet/opencost-6545848947\nContainers:\n  opencost:\n\
+            \    Container ID:   containerd://5a7691e663efe1fc61689cc5039ecf46876b00ad670765932ce0e8d3b499a327\n\
+            \    Image:          ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n\
+            \    Image ID:       ghcr.io/opencost/opencost@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\n\
+            \    Ports:          9003/TCP (http), 8081/TCP (mcp-server)\n    Host\
+            \ Ports:     0/TCP (http), 0/TCP (mcp-server)\n    State:          Waiting\n\
+            \      Reason:       CrashLoopBackOff\n    Last State:     Terminated\n\
+            \      Reason:       Error\n      Exit Code:    1\n      Started:    \
+            \  Wed, 17 Jun 2026 16:53:09 +0100\n      Finished:     Wed, 17 Jun 2026\
+            \ 16:53:19 +0100\n    Ready:          False\n    Restart Count:  1\n \
+            \   Limits:\n      memory:  1Gi\n    Requests:\n      cpu:      10m\n\
+            \      memory:   55Mi\n    Liveness:   http-get http://:9003/healthz delay=10s\
+            \ timeout=1s period=20s #success=1 #failure=3\n    Readiness:  http-get\
+            \ http://:9003/healthz delay=10s timeout=1s period=10s #success=1 #failure=3\n\
+            \    Startup:    http-get http://:9003/healthz delay=10s timeout=1s period=5s\
+            \ #success=1 #failure=30\n    Environment:\n      LOG_LEVEL:         \
+            \                   info\n      CUSTOM_COST_ENABLED:                 \
+            \ false\n      INSTALL_NAMESPACE:                    default\n      PROMETHEUS_QUERY_RESOLUTION_SECONDS:\
+            \  300\n      API_PORT:                             9003\n      PROMETHEUS_SERVER_ENDPOINT:\
+            \           http://prometheus-server.prometheus-system.svc.cluster.local:80\n\
+            \      INSECURE_SKIP_VERIFY:                 false\n      CLUSTER_ID:\
+            \                           default-cluster\n      RESOLUTION_1D_RETENTION:\
+            \              15\n      RESOLUTION_1H_RETENTION:              49\n  \
+            \    CLOUD_COST_ENABLED:                   false\n      CLOUD_COST_MONTH_TO_DATE_INTERVAL:\
+            \    6\n      CLOUD_COST_REFRESH_RATE_HOURS:        6\n      CLOUD_COST_QUERY_WINDOW_DAYS:\
+            \         7\n      CLOUD_COST_RUN_WINDOW_DAYS:           3\n      MCP_SERVER_ENABLED:\
+            \                   true\n      MCP_HTTP_PORT:                       \
+            \ 8081\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-xrccj (ro)\n  opencost-ui:\n    Container ID: \
+            \  containerd://78842853c24350dffd8e515c22fe2362880d19dab10ea6d420f3b9cf71641a60\n\
+            \    Image:          ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\n\
+            \    Image ID:       ghcr.io/opencost/ope"
+          detailTail: "           False \n  ContainersReady             False \n \
+            \ PodScheduled                True \nVolumes:\n  opencost-ui-nginx-config-volume:\n\
+            \    Type:      ConfigMap (a volume populated by a ConfigMap)\n    Name:\
+            \      opencost-ui-nginx-config\n    Optional:  false\n  kube-api-access-xrccj:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
+            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \   From               Message\n  ----     ------     ----           \
+            \    ----               -------\n  Normal   Scheduled  41s           \
+            \     default-scheduler  Successfully assigned default/opencost-6545848947-zfhcw\
+            \ to hx-openco-09280-qv3n-installer-control-plane\n  Normal   Pulling\
+            \    40s                kubelet            spec.containers{opencost}:\
+            \ Pulling image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \n  Normal   Pulled     29s                kubelet            spec.containers{opencost}:\
+            \ Successfully pulled image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \ in 11.51s (11.51s including waiting). Image size: 71166851 bytes.\n\
+            \  Normal   Pulling    29s                kubelet            spec.containers{opencost-ui}:\
+            \ Pulling image \"ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\"\
+            \n  Normal   Pulled     22s                kubelet            spec.containers{opencost-ui}:\
+            \ Successfully pulled image \"ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc\"\
+            \ in 6.353s (6.353s including waiting). Image size: 33813316 bytes.\n\
+            \  Normal   Created    22s                kubelet            spec.containers{opencost-ui}:\
+            \ Container created\n  Normal   Started    22s                kubelet\
+            \            spec.containers{opencost-ui}: Container started\n  Normal\
+            \   Created    17s (x2 over 29s)  kubelet            spec.containers{opencost}:\
+            \ Container created\n  Normal   Started    17s (x2 over 29s)  kubelet\
+            \            spec.containers{opencost}: Container started\n  Normal  \
+            \ Pulled     17s                kubelet            spec.containers{opencost}:\
+            \ Container image \"ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6\"\
+            \ already present on machine and can be accessed by the pod\n  Warning\
+            \  BackOff    0s (x3 over 6s)    kubelet            spec.containers{opencost}:\
+            \ Back-off restarting failed container opencost in pod opencost-6545848947-zfhcw_default(07a69057-d37e-49b9-b86d-62e11022cfc7)"
+          logsHead: "\e[90m2026-06-17T15:53:09.437510216Z\e[0m ??? Log level set to\
+            \ info\n\e[90m2026-06-17T15:53:09.437653717Z\e[0m \e[32mINF\e[0m \e[1mStarting\
+            \ cost-model version 1.120.2 (cb9a0cb)\e[0m\n\e[90m2026-06-17T15:53:09.43767255Z\e\
+            [0m \e[32mINF\e[0m \e[1mKubernetes enabled: true\e[0m\n\e[90m2026-06-17T15:53:09.437693467Z\e\
+            [0m \e[32mINF\e[0m \e[1mCarbon Estimates enabled: false\e[0m\n\e[90m2026-06-17T15:53:09.437709217Z\e\
+            [0m \e[32mINF\e[0m \e[1mCloud Costs enabled: false\e[0m\n\e[90m2026-06-17T15:53:09.437720925Z\e\
+            [0m \e[32mINF\e[0m \e[1mCustom Costs enabled: false\e[0m\n\e[90m2026-06-17T15:53:09.437727259Z\e\
+            [0m \e[32mINF\e[0m \e[1mMCP Server enabled: true\e[0m\n\e[90m2026-06-17T15:53:09.4377318Z\e\
+            [0m \e[32mINF\e[0m \e[1mCustom Costs enabled: false\e[0m\n\e[90m2026-06-17T15:53:09.448348381Z\e\
+            [0m \e[32mINF\e[0m \e[1mUnsupported provider, falling back to default\e\
+            [0m\n\e[90m2026-06-17T15:53:09.448406465Z\e[0m \e[32mINF\e[0m \e[1mPrometheus\
+            \ Client Max Concurrency set to 5\e[0m\n\e[90m2026-06-17T15:53:19.478193957Z\e\
+            [0m \e[31mFTL\e[0m \e[1mFailed to create Prometheus data source: failed\
+            \ to query prometheus at http://prometheus-server.prometheus-system.svc.cluster.local:80:\
+            \ query error: 'Post \"http://prometheus-server.prometheus-system.svc.cluster.local:80/api/v1/query?query=up&time=1781711589\"\
+            : dial tcp: lookup prometheus-server.prometheus-system.svc.cluster.local\
+            \ on 10.96.0.10:53: no such host' fetching query 'up'\nTroubleshooting\
+            \ help available at: https://www.opencost.io/docs/integrations/prometheus\e\
+            [0m\nServing default UI from /var/www\nrunning with BASE_URL=/model\n\
+            Starting OpenCost UI version 1.120.2 (0759f61)\n/docker-entrypoint.sh:\
+            \ /docker-entrypoint.d/ is not empty, will attempt to perform configuration\n\
+            /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh\n\
+            10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf\
+            \ is not a file or does not exist\n/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh\n\
+            /docker-entrypoint.sh: Configuration complete; ready for start up\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: using the \"epoll\" event method\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: nginx/1.31.0\n2026/06/17 15:53:04 [notice] 1#1:\
+            \ built by gcc 15.2.0 (Alpine 15.2.0) \n2026/06/17 15:53:04 [notice] 1#1:\
+            \ OS: Linux 7.0.11-orbstack-00360-gc9bc4d96ac70\n2026/06/17 15:53:04 [notice]\
+            \ 1#1: getrlimit(RLIMIT_NOFILE): 1073741816:1073741816\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker processes\n2026/06/17 15:53:04 [notice] 1#1:\
+            \ start worker process 118\n2026/06/17 15:53:04 [notice] 1#1: start worker\
+            \ process 119\n2026/06/17 15:53:04 [notice] 1#1: start worker process\
+            \ 120\n2026/06/17 15:53:04 [notice] 1#1: start worker process 121\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: start worker process 122\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker process 123\n2026/06/17 15:53:04 [not"
+          logsTail: "nabled: false\e[0m\n\e[90m2026-06-17T15:53:09.448348381Z\e[0m\
+            \ \e[32mINF\e[0m \e[1mUnsupported provider, falling back to default\e\
+            [0m\n\e[90m2026-06-17T15:53:09.448406465Z\e[0m \e[32mINF\e[0m \e[1mPrometheus\
+            \ Client Max Concurrency set to 5\e[0m\n\e[90m2026-06-17T15:53:19.478193957Z\e\
+            [0m \e[31mFTL\e[0m \e[1mFailed to create Prometheus data source: failed\
+            \ to query prometheus at http://prometheus-server.prometheus-system.svc.cluster.local:80:\
+            \ query error: 'Post \"http://prometheus-server.prometheus-system.svc.cluster.local:80/api/v1/query?query=up&time=1781711589\"\
+            : dial tcp: lookup prometheus-server.prometheus-system.svc.cluster.local\
+            \ on 10.96.0.10:53: no such host' fetching query 'up'\nTroubleshooting\
+            \ help available at: https://www.opencost.io/docs/integrations/prometheus\e\
+            [0m\nServing default UI from /var/www\nrunning with BASE_URL=/model\n\
+            Starting OpenCost UI version 1.120.2 (0759f61)\n/docker-entrypoint.sh:\
+            \ /docker-entrypoint.d/ is not empty, will attempt to perform configuration\n\
+            /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh\n\
+            10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf\
+            \ is not a file or does not exist\n/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh\n\
+            /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh\n\
+            /docker-entrypoint.sh: Configuration complete; ready for start up\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: using the \"epoll\" event method\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: nginx/1.31.0\n2026/06/17 15:53:04 [notice] 1#1:\
+            \ built by gcc 15.2.0 (Alpine 15.2.0) \n2026/06/17 15:53:04 [notice] 1#1:\
+            \ OS: Linux 7.0.11-orbstack-00360-gc9bc4d96ac70\n2026/06/17 15:53:04 [notice]\
+            \ 1#1: getrlimit(RLIMIT_NOFILE): 1073741816:1073741816\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker processes\n2026/06/17 15:53:04 [notice] 1#1:\
+            \ start worker process 118\n2026/06/17 15:53:04 [notice] 1#1: start worker\
+            \ process 119\n2026/06/17 15:53:04 [notice] 1#1: start worker process\
+            \ 120\n2026/06/17 15:53:04 [notice] 1#1: start worker process 121\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: start worker process 122\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker process 123\n2026/06/17 15:53:04 [notice]\
+            \ 1#1: start worker process 124\n2026/06/17 15:53:04 [notice] 1#1: start\
+            \ worker process 125\n2026/06/17 15:53:04 [notice] 1#1: start worker process\
+            \ 126\n2026/06/17 15:53:04 [notice] 1#1: start worker process 127\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: start worker process 128\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker process 129\n2026/06/17 15:53:04 [notice]\
+            \ 1#1: start worker process 130\n2026/06/17 15:53:04 [notice] 1#1: start\
+            \ worker process 131\n2026/06/17 15:53:04 [notice] 1#1: start worker process\
+            \ 132\n2026/06/17 15:53:04 [notice] 1#1: start worker process 133\n2026/06/17\
+            \ 15:53:04 [notice] 1#1: start worker process 134\n2026/06/17 15:53:04\
+            \ [notice] 1#1: start worker process 135"
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/default/opencost not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/opencost   0/1   1     0     41s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

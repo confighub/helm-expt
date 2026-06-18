@@ -1,0 +1,12 @@
+[90m2026-06-17T19:14:29.857934292Z[0m ??? Log level set to info
+[90m2026-06-17T19:14:29.85797675Z[0m [32mINF[0m [1mStarting cost-model version 1.120.2 (cb9a0cb)[0m
+[90m2026-06-17T19:14:29.857980459Z[0m [32mINF[0m [1mKubernetes enabled: true[0m
+[90m2026-06-17T19:14:29.857982584Z[0m [32mINF[0m [1mCarbon Estimates enabled: false[0m
+[90m2026-06-17T19:14:29.857984292Z[0m [32mINF[0m [1mCloud Costs enabled: false[0m
+[90m2026-06-17T19:14:29.857985834Z[0m [32mINF[0m [1mCustom Costs enabled: false[0m
+[90m2026-06-17T19:14:29.857987417Z[0m [32mINF[0m [1mMCP Server enabled: true[0m
+[90m2026-06-17T19:14:29.857988917Z[0m [32mINF[0m [1mCustom Costs enabled: false[0m
+[90m2026-06-17T19:14:29.868134721Z[0m [32mINF[0m [1mUnsupported provider, falling back to default[0m
+[90m2026-06-17T19:14:29.868197471Z[0m [32mINF[0m [1mPrometheus Client Max Concurrency set to 5[0m
+[90m2026-06-17T19:14:39.874118288Z[0m [31mFTL[0m [1mFailed to create Prometheus data source: failed to query prometheus at http://prometheus-server.prometheus-system.svc.cluster.local:80: query error: 'Post "http://prometheus-server.prometheus-system.svc.cluster.local:80/api/v1/query?query=up&time=1781723669": dial tcp: lookup prometheus-server.prometheus-system.svc.cluster.local on 10.96.0.10:53: no such host' fetching query 'up'
+Troubleshooting help available at: https://www.opencost.io/docs/integrations/prometheus[0m

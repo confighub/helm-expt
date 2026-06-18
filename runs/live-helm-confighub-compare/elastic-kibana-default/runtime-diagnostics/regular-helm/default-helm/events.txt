@@ -1,0 +1,4 @@
+LAST SEEN   TYPE      REASON             OBJECT                                MESSAGE
+8m1s        Normal    Scheduled          pod/pre-install-kibana-kibana-9m896   Successfully assigned default-helm/pre-install-kibana-kibana-9m896 to helm-expt-parity-kibana-mqic7mim-7ud-control-plane
+8m1s        Normal    SuccessfulCreate   job/pre-install-kibana-kibana         Created pod: pre-install-kibana-kibana-9m896
+109s        Warning   FailedMount        pod/pre-install-kibana-kibana-9m896   MountVolume.SetUp failed for volume "elasticsearch-certs" : secret "elasticsearch-master-certs" not found

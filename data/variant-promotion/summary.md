@@ -22,8 +22,9 @@ Status values:
 
 | Status | Rows |
 | --- | ---: |
-| available-needs-receipt | 30 |
+| available-needs-receipt | 16 |
 | blocked | 2 |
+| proven | 14 |
 | proven-with-watch | 160 |
 
 Matrix values:
@@ -31,8 +32,9 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 30 |
+| todo | 16 |
 | watch | 160 |
+| yes | 14 |
 
 ## Watch Rows
 
@@ -61,8 +63,6 @@ resolved and the receipt reruns as pass.
 
 | Row | Status | Next action |
 | --- | --- | --- |
-| `prometheus-community/kube-prometheus-stack@85.3.3/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `prometheus-community/kube-prometheus-stack@86.1.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base default --variant-promotion-proof --cleanup-spaces |
 | `prometheus-community/kube-prometheus-stack@86.1.0/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces |
 | `prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces |
 | `prometheus-community/kube-state-metrics@7.4.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base default --variant-promotion-proof --cleanup-spaces |
@@ -79,8 +79,6 @@ resolved and the receipt reruns as pass.
 | `runix/pgadmin4@1.62.0/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces |
 | `sealed-secrets/sealed-secrets@2.18.6/default` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces |
 | `sealed-secrets/sealed-secrets@2.18.6/no-crds` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base no-crds --variant-promotion-proof --cleanup-spaces |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/sync-secret-rotation` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts secrets-store-csi-driver --base sync-secret-rotation --variant-promotion-proof --cleanup-spaces |
-| `stakater/reloader@2.2.12/controller-default-reviewed` | available-needs-receipt | node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts reloader --base controller-default-reviewed --variant-promotion-proof --cleanup-spaces |
 
 ## Regenerate
 

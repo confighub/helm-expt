@@ -1,0 +1,20 @@
+Name:               argocd/kibana-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:54119/applications/kibana-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                              STATUS  HEALTH       AGE    MESSAGE                                           REASON
+Namespace/default-oci                  Synced               7m35s
+Service/kibana-kibana                  Synced  Healthy      7m6s   service/kibana-kibana serverside-applied
+Deployment/kibana-kibana               Synced  Progressing  7m6s   deployment.apps/kibana-kibana serverside-applied  Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/kibana-kibana-9bf64bc55           Progressing  7m6s                                                     Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/kibana-kibana-9bf64bc55-bhdj7          Progressing  7m6s

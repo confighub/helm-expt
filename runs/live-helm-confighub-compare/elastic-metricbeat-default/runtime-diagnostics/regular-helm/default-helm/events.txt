@@ -1,0 +1,15 @@
+LAST SEEN   TYPE      REASON              OBJECT                                                MESSAGE
+8m          Normal    Scheduled           pod/metricbeat-metricbeat-metrics-746dc864-c2ztd      Successfully assigned default-helm/metricbeat-metricbeat-metrics-746dc864-c2ztd to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+8m          Normal    Scheduled           pod/metricbeat-kube-state-metrics-658dd9bbbc-4kfss    Successfully assigned default-helm/metricbeat-kube-state-metrics-658dd9bbbc-4kfss to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+8m          Normal    SuccessfulCreate    daemonset/metricbeat-metricbeat                       Created pod: metricbeat-metricbeat-jsmj4
+8m          Normal    Scheduled           pod/metricbeat-metricbeat-jsmj4                       Successfully assigned default-helm/metricbeat-metricbeat-jsmj4 to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+8m          Normal    ScalingReplicaSet   deployment/metricbeat-kube-state-metrics              Scaled up replica set metricbeat-kube-state-metrics-658dd9bbbc from 0 to 1
+8m          Normal    SuccessfulCreate    replicaset/metricbeat-kube-state-metrics-658dd9bbbc   Created pod: metricbeat-kube-state-metrics-658dd9bbbc-4kfss
+8m          Normal    SuccessfulCreate    replicaset/metricbeat-metricbeat-metrics-746dc864     Created pod: metricbeat-metricbeat-metrics-746dc864-c2ztd
+8m          Normal    ScalingReplicaSet   deployment/metricbeat-metricbeat-metrics              Scaled up replica set metricbeat-metricbeat-metrics-746dc864 from 0 to 1
+8m          Normal    Pulling             pod/metricbeat-kube-state-metrics-658dd9bbbc-4kfss    Pulling image "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1"
+7m57s       Normal    Started             pod/metricbeat-kube-state-metrics-658dd9bbbc-4kfss    Container started
+7m57s       Normal    Created             pod/metricbeat-kube-state-metrics-658dd9bbbc-4kfss    Container created
+7m57s       Normal    Pulled              pod/metricbeat-kube-state-metrics-658dd9bbbc-4kfss    Successfully pulled image "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1" in 2.51s (2.51s including waiting). Image size: 10245567 bytes.
+108s        Warning   FailedMount         pod/metricbeat-metricbeat-metrics-746dc864-c2ztd      MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found
+108s        Warning   FailedMount         pod/metricbeat-metricbeat-jsmj4                       MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

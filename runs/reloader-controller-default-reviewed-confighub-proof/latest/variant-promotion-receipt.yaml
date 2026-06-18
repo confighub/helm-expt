@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "reloader-controller-default-reviewed-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "stakater/reloader"
+    chartVersion: "2.2.12"
+    packagePath: "packages/stakater/reloader/2.2.12"
+    variant: "controller-default-reviewed"
+    upstreamSpace: "helm-reloader-controller-default-reviewed-confighub-proof"
+    downstreamSpace: "Reloader-controller-default-reviewed-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-reloader-reloader runs/reloader-controller-default-reviewed-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-reloader-controller-default-reviewed-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-reloader-controller-default-reviewed runs/reloader-controller-default-reviewed-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-reloader-controller-default-reviewed-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Reloader-controller-default-reviewed-staging --dry-run -o mutations"
+    changeset: "cub changeset create reloader-controller-default-reviewed-variant-promote-20260527 --space Reloader-controller-default-reviewed-staging --description ... --allow-exists"
+    promote: "cub variant promote Reloader-controller-default-reviewed-staging --changeset Reloader-controller-default-reviewed-staging/reloader-controller-default-reviewed-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Reloader-controller-default-reviewed-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-reloader-reloader"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=reloader-controller-default-reviewed-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-reloader-controller-default-reviewed"
+    upstreamUnitID: "6c8495fe-7db5-4c79-9df4-6485a83d83a5"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-reloader-controller-default-reviewed"
+  changeset:
+    slug: "reloader-controller-default-reviewed-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset reloader-controller-default-reviewed-variant-promote-20260527 (17cdf248-820b-42c3-acd6-655196579e13)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-reloader-reloader\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-reloader-controller-default-reviewed\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-reloader-controller-default-reviewed"
+    addedUnitDownstreamUpstreamUnitID: "6c8495fe-7db5-4c79-9df4-6485a83d83a5"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

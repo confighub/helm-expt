@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>grafana/tempo</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-16T15:05:10.976Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-18T07:18:24.172Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=tempo&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for grafana/tempo@1.24.4.</p>
     <pre>cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</pre>
@@ -205,7 +205,7 @@
       <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, Two-cluster kind. Proven on some bases: Local live, GitOps/OCI live, Live Helm-vs-ConfigHub.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>blocked: 1/2; pass: 1/2</td></tr><tr><td>GitOps/OCI live</td><td>missing: 1/2; pass: 1/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>missing: 1/2; pass: 1/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>pass: 2/2</td></tr><tr><td>ConfigHub proof</td><td>pass: 2/2</td></tr><tr><td>Local live</td><td>blocked: 1/2; pass: 1/2</td></tr><tr><td>GitOps/OCI live</td><td>pass: 1/2; watch: 1/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>pass: 1/2; watch: 1/2</td></tr><tr><td>Two-cluster kind</td><td>pass: 2/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -215,7 +215,7 @@
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>local-persistent</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>s3-query-observability</td><td>try-with-proof</td><td>pass</td><td>pass</td><td>blocked</td><td>missing</td><td>missing</td><td>pass</td></tr></tbody>
+        <tbody><tr><td>local-persistent</td><td>start-here</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td><td>pass</td></tr><tr><td>s3-query-observability</td><td>runtime-watch</td><td>pass</td><td>pass</td><td>blocked</td><td>watch</td><td>watch</td><td>pass</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

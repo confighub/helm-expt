@@ -1,0 +1,16 @@
+image:
+  digest: sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+ingress:
+  enabled: true
+  extraTls:
+  - hosts:
+    - nginx.example.test
+    secretName: nginx-ingress-tls
+  hostname: nginx.example.test
+  ingressClassName: nginx
+  tls: true
+service:
+  type: ClusterIP
+tls:
+  enabled: true
+  existingSecret: nginx-backend-tls

@@ -1,0 +1,30 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "name": "metricbeat-parity",
+    "namespace": "argocd"
+  },
+  "spec": {
+    "project": "default",
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci",
+      "targetRevision": "latest",
+      "path": "./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "default-oci"
+    },
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true,
+        "prune": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  }
+}

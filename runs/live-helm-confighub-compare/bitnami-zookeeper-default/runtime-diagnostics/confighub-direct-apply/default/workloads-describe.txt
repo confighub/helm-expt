@@ -1,0 +1,95 @@
+Name:               zookeeper
+Namespace:          default
+CreationTimestamp:  Wed, 17 Jun 2026 16:39:12 +0100
+Selector:           app.kubernetes.io/component=zookeeper,app.kubernetes.io/instance=zookeeper,app.kubernetes.io/name=zookeeper
+Labels:             app.kubernetes.io/component=zookeeper
+                    app.kubernetes.io/instance=zookeeper
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=zookeeper
+                    app.kubernetes.io/version=3.9.3
+                    helm.sh/chart=zookeeper-13.8.7
+                    role=zookeeper
+Annotations:        <none>
+Replicas:           1 desired | 1 total
+Update Strategy:    RollingUpdate
+  Partition:        0
+  MaxUnavailable:   1
+Pods Status:        0 Running / 1 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           app.kubernetes.io/component=zookeeper
+                    app.kubernetes.io/instance=zookeeper
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=zookeeper
+                    app.kubernetes.io/version=3.9.3
+                    helm.sh/chart=zookeeper-13.8.7
+  Service Account:  zookeeper
+  Containers:
+   zookeeper:
+    Image:           docker.io/bitnami/zookeeper:3.9.3-debian-12-r21
+    Ports:           2181/TCP (client), 8080/TCP (http-admin)
+    Host Ports:      0/TCP (client), 0/TCP (http-admin)
+    SeccompProfile:  RuntimeDefault
+    Command:
+      /scripts/setup.sh
+    Limits:
+      cpu:                375m
+      ephemeral-storage:  2Gi
+      memory:             384Mi
+    Requests:
+      cpu:                250m
+      ephemeral-storage:  50Mi
+      memory:             256Mi
+    Liveness:             exec [/bin/bash -ec ZOO_HC_TIMEOUT=3 /opt/bitnami/scripts/zookeeper/healthcheck.sh] delay=30s timeout=5s period=10s #success=1 #failure=6
+    Readiness:            exec [/bin/bash -ec ZOO_HC_TIMEOUT=2 /opt/bitnami/scripts/zookeeper/healthcheck.sh] delay=5s timeout=5s period=10s #success=1 #failure=6
+    Environment:
+      BITNAMI_DEBUG:                 false
+      ZOO_DATA_LOG_DIR:              
+      ZOO_PORT_NUMBER:               2181
+      ZOO_TICK_TIME:                 2000
+      ZOO_INIT_LIMIT:                10
+      ZOO_SYNC_LIMIT:                5
+      ZOO_PRE_ALLOC_SIZE:            65536
+      ZOO_SNAPCOUNT:                 100000
+      ZOO_MAX_CLIENT_CNXNS:          60
+      ZOO_4LW_COMMANDS_WHITELIST:    srvr, mntr, ruok
+      ZOO_LISTEN_ALLIPS_ENABLED:     no
+      ZOO_AUTOPURGE_INTERVAL:        1
+      ZOO_AUTOPURGE_RETAIN_COUNT:    10
+      ZOO_MAX_SESSION_TIMEOUT:       40000
+      ZOO_SERVERS:                   zookeeper-0.zookeeper-headless.default.svc.cluster.local:2888:3888::1
+      ZOO_ENABLE_AUTH:               no
+      ZOO_ENABLE_QUORUM_AUTH:        no
+      ZOO_HEAP_SIZE:                 1024
+      ZOO_LOG_LEVEL:                 ERROR
+      ALLOW_ANONYMOUS_LOGIN:         yes
+      POD_NAME:                       (v1:metadata.name)
+      ZOO_ADMIN_SERVER_PORT_NUMBER:  8080
+    Mounts:
+      /bitnami/zookeeper from data (rw)
+      /opt/bitnami/zookeeper/conf from empty-dir (rw,path="app-conf-dir")
+      /opt/bitnami/zookeeper/logs from empty-dir (rw,path="app-logs-dir")
+      /scripts/setup.sh from scripts (rw,path="setup.sh")
+      /tmp from empty-dir (rw,path="tmp-dir")
+  Volumes:
+   empty-dir:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   scripts:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          zookeeper-scripts
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Volume Claims:
+  Name:          data
+  StorageClass:  
+  Labels:        <none>
+  Annotations:   <none>
+  Capacity:      8Gi
+  Access Modes:  [ReadWriteOnce]
+Events:
+  Type    Reason            Age   From                    Message
+  ----    ------            ----  ----                    -------
+  Normal  SuccessfulCreate  10s   statefulset-controller  Create Claim data-zookeeper-0 Pod zookeeper-0 in StatefulSet zookeeper success
+  Normal  SuccessfulCreate  10s   statefulset-controller  Create Pod zookeeper-0 in StatefulSet zookeeper successful

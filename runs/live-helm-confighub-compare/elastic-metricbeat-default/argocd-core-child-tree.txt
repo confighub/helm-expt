@@ -1,0 +1,40 @@
+Name:               argocd/metricbeat-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:54674/applications/metricbeat-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-metricbeat-mqid15pc-8l2-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-metricbeat-mqid15pc-8l2-metricbeat
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                      STATUS  HEALTH  AGE   MESSAGE  REASON
+RoleBinding/metricbeat-metricbeat-role-binding                 Synced          7m5s  rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding reconciled. reconciliation required create
+                                                               missing subjects added:
+                                                                       {Kind:ServiceAccount APIGroup: Name:metricbeat-metricbeat Namespace:default}. rolebinding.rbac.authorization.k8s.io/metricbeat-metricbeat-role-binding serverside-applied
+ClusterRoleBinding/metricbeat-metricbeat-cluster-role-binding  Synced                                                                                                                                                                             7m5s
+DaemonSet/metricbeat-metricbeat                                Synced  Progressing                                                                                                                                                                7m5s   daemonset.apps/metricbeat-metricbeat serverside-applied               Waiting for daemon set "metricbeat-metricbeat" rollout to finish: 0 of 1 updated pods are available...
+├─Pod/metricbeat-metricbeat-jz6w6                                      Progressing                                                                                                                                                                7m5s
+└─ControllerRevision/metricbeat-metricbeat-56958d8d56                                                                                                                                                                                             7m5s
+ClusterRole/metricbeat-metricbeat-cluster-role                 Synced                                                                                                                                                                             7m5s
+ClusterRoleBinding/metricbeat-kube-state-metrics               Synced                                                                                                                                                                             7m5s
+Namespace/default-oci                                          Synced                                                                                                                                                                             8m12s
+ConfigMap/metricbeat-metricbeat-daemonset-config               Synced                                                                                                                                                                             7m5s   configmap/metricbeat-metricbeat-daemonset-config serverside-applied
+Service/metricbeat-kube-state-metrics                          Synced  Healthy                                                                                                                                                                    8m24s  service/metricbeat-kube-state-metrics serverside-applied
+ServiceAccount/metricbeat-kube-state-metrics                   Synced                                                                                                                                                                             8m24s  serviceaccount/metricbeat-kube-state-metrics serverside-applied
+Deployment/metricbeat-metricbeat-metrics                       Synced  Progressing                                                                                                                                                                7m5s   deployment.apps/metricbeat-metricbeat-metrics serverside-applied      Waiting for rollout to finish: 0 of 1 updated replicas are available...
+└─ReplicaSet/metricbeat-metricbeat-metrics-746dc864                    Progressing                                                                                                                                                                7m5s                                                                         Waiting for rollout to finish: 0 out of 1 new replicas are available...
+  └─Pod/metricbeat-metricbeat-metrics-746dc864-cbfht                   Progressing                                                                                                                                                                7m5s
+ClusterRole/metricbeat-kube-state-metrics                      Synced                                                                                                                                                                             7m5s
+ConfigMap/metricbeat-metricbeat-deployment-config              Synced                                                                                                                                                                             7m5s   configmap/metricbeat-metricbeat-deployment-config serverside-applied
+ServiceAccount/metricbeat-metricbeat                           Synced                                                                                                                                                                             7m6s   serviceaccount/metricbeat-metricbeat serverside-applied
+Deployment/metricbeat-kube-state-metrics                       Synced  Healthy                                                                                                                                                                    8m24s  deployment.apps/metricbeat-kube-state-metrics serverside-applied
+└─ReplicaSet/metricbeat-kube-state-metrics-658dd9bbbc                  Healthy                                                                                                                                                                    8m24s
+  └─Pod/metricbeat-kube-state-metrics-658dd9bbbc-4zgt9                 Healthy                                                                                                                                                                    8m24s
+Role/metricbeat-metricbeat-role                                Synced                                                                                                                                                                             7m5s   role.rbac.authorization.k8s.io/metricbeat-metricbeat-role reconciled. reconciliation required create
+                                                               missing rules added:
+                                                                 {Verbs:[get create update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/metricbeat-metricbeat-role serverside-applied

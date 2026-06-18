@@ -1,0 +1,81 @@
+Name:               kibana-kibana
+Namespace:          default-apply
+CreationTimestamp:  Wed, 17 Jun 2026 18:35:34 +0100
+Labels:             app=kibana
+                    heritage=Helm
+                    release=kibana
+Annotations:        deployment.kubernetes.io/revision: 1
+Selector:           app=kibana,release=kibana
+Replicas:           1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:       Recreate
+MinReadySeconds:    0
+Pod Template:
+  Labels:  app=kibana
+           release=kibana
+  Containers:
+   kibana:
+    Image:      docker.elastic.co/kibana/kibana:8.5.1
+    Port:       5601/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     1
+      memory:  2Gi
+    Requests:
+      cpu:      1
+      memory:   2Gi
+    Readiness:  exec [bash -c #!/usr/bin/env bash -e
+
+# Disable nss cache to avoid filling dentry cache when calling curl
+# This is required with Kibana Docker using nss < 3.52
+export NSS_SDB_USE_CACHE=no
+
+http () {
+    local path="${1}"
+    set -- -XGET -s --fail -L
+
+    if [ -n "${ELASTICSEARCH_USERNAME}" ] && [ -n "${ELASTICSEARCH_PASSWORD}" ]; then
+      set -- "$@" -u "${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}"
+    fi
+
+    STATUS=$(curl --output /dev/null --write-out "%{http_code}" -k "$@" "http://localhost:5601${path}")
+    if [[ "${STATUS}" -eq 200 ]]; then
+      exit 0
+    fi
+
+    echo "Error: Got HTTP code ${STATUS} but expected a 200"
+    exit 1
+}
+
+http "/app/kibana"
+] delay=10s timeout=5s period=10s #success=3 #failure=3
+    Environment:
+      ELASTICSEARCH_HOSTS:                       https://elasticsearch-master:9200
+      ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES:  /usr/share/kibana/config/certs/ca.crt
+      SERVER_HOST:                               0.0.0.0
+      ELASTICSEARCH_SERVICEACCOUNTTOKEN:         <set to the key 'token' in secret 'kibana-kibana-es-token'>  Optional: false
+      NODE_OPTIONS:                              --max-old-space-size=1800
+    Mounts:
+      /usr/share/kibana/config/certs from elasticsearch-certs (ro)
+      /usr/share/kibana/config/tokens from kibana-tokens (ro)
+  Volumes:
+   kibana-tokens:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   elasticsearch-certs:
+    Type:          Secret (a volume populated by a Secret)
+    SecretName:    elasticsearch-master-certs
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   kibana-kibana-9bf64bc55 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  10s   deployment-controller  Scaled up replica set kibana-kibana-9bf64bc55 from 0 to 1

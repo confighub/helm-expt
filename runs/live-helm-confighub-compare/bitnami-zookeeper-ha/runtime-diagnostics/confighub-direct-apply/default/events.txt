@@ -1,0 +1,51 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                        MESSAGE
+9m41s       Normal    Starting                  node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   
+9m54s       Normal    Starting                  node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Starting kubelet.
+9m54s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Updated Node Allocatable limit across pods
+9m54s       Normal    NodeHasSufficientPID      node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasSufficientPID
+9m54s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasNoDiskPressure
+9m54s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasSufficientMemory
+9m49s       Normal    NodeHasSufficientPID      node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasSufficientPID
+9m49s       Normal    NodeHasNoDiskPressure     node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasNoDiskPressure
+9m49s       Normal    NodeHasSufficientMemory   node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeHasSufficientMemory
+9m49s       Normal    NodeAllocatableEnforced   node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Updated Node Allocatable limit across pods
+9m49s       Normal    Starting                  node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Starting kubelet.
+9m43s       Normal    RegisteredNode            node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane event: Registered Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane in Controller
+9m31s       Normal    NodeReady                 node/helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane   Node helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane status is now: NodeReady
+10s         Normal    ExternalProvisioning      persistentvolumeclaim/data-zookeeper-0                        Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Claim data-zookeeper-1 Pod zookeeper-1 in StatefulSet zookeeper success
+10s         Normal    ExternalProvisioning      persistentvolumeclaim/data-zookeeper-2                        Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10s         Normal    WaitForFirstConsumer      persistentvolumeclaim/data-zookeeper-2                        waiting for first consumer to be created before binding
+10s         Normal    NoPods                    poddisruptionbudget/zookeeper                                 No matching pods found
+10s         Normal    Provisioning              persistentvolumeclaim/data-zookeeper-1                        External provisioner is provisioning volume for claim "default/data-zookeeper-1"
+10s         Normal    ExternalProvisioning      persistentvolumeclaim/data-zookeeper-1                        Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Claim data-zookeeper-0 Pod zookeeper-0 in StatefulSet zookeeper success
+10s         Normal    WaitForFirstConsumer      persistentvolumeclaim/data-zookeeper-0                        waiting for first consumer to be created before binding
+10s         Normal    Provisioning              persistentvolumeclaim/data-zookeeper-0                        External provisioner is provisioning volume for claim "default/data-zookeeper-0"
+10s         Normal    Provisioning              persistentvolumeclaim/data-zookeeper-2                        External provisioner is provisioning volume for claim "default/data-zookeeper-2"
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Pod zookeeper-0 in StatefulSet zookeeper successful
+10s         Normal    WaitForFirstConsumer      persistentvolumeclaim/data-zookeeper-1                        waiting for first consumer to be created before binding
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Claim data-zookeeper-2 Pod zookeeper-2 in StatefulSet zookeeper success
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Pod zookeeper-1 in StatefulSet zookeeper successful
+10s         Normal    SuccessfulCreate          statefulset/zookeeper                                         Create Pod zookeeper-2 in StatefulSet zookeeper successful
+7s          Normal    ProvisioningSucceeded     persistentvolumeclaim/data-zookeeper-2                        Successfully provisioned volume pvc-f4708b8e-90ad-4057-b0d7-175ba09bf385
+7s          Normal    ProvisioningSucceeded     persistentvolumeclaim/data-zookeeper-0                        Successfully provisioned volume pvc-82ba7984-fef6-4890-9b48-09f95b13b0fd
+6s          Normal    Scheduled                 pod/zookeeper-2                                               Successfully assigned default/zookeeper-2 to helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane
+6s          Normal    Pulling                   pod/zookeeper-0                                               Pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+6s          Normal    Scheduled                 pod/zookeeper-0                                               Successfully assigned default/zookeeper-0 to helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane
+6s          Normal    ProvisioningSucceeded     persistentvolumeclaim/data-zookeeper-1                        Successfully provisioned volume pvc-75e5c9ab-90e1-4c3b-ad4a-7fcd7826018f
+6s          Normal    Pulling                   pod/zookeeper-2                                               Pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+5s          Normal    Scheduled                 pod/zookeeper-1                                               Successfully assigned default/zookeeper-1 to helm-expt-parity-zookeeper-mqi92c73-22pt-control-plane
+5s          Normal    Pulling                   pod/zookeeper-1                                               Pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+5s          Warning   Failed                    pod/zookeeper-2                                               Failed to pull image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+5s          Warning   Failed                    pod/zookeeper-2                                               Error: ErrImagePull
+4s          Warning   Failed                    pod/zookeeper-0                                               Failed to pull image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+4s          Normal    BackOff                   pod/zookeeper-2                                               Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+4s          Warning   Failed                    pod/zookeeper-2                                               Error: ImagePullBackOff
+4s          Warning   Failed                    pod/zookeeper-0                                               Error: ErrImagePull
+3s          Warning   Failed                    pod/zookeeper-1                                               Error: ErrImagePull
+3s          Warning   Failed                    pod/zookeeper-1                                               Failed to pull image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": failed to resolve reference "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21": docker.io/bitnami/zookeeper:3.9.3-debian-12-r21: not found
+3s          Warning   Failed                    pod/zookeeper-0                                               Error: ImagePullBackOff
+3s          Normal    BackOff                   pod/zookeeper-0                                               Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+2s          Warning   Failed                    pod/zookeeper-1                                               Error: ImagePullBackOff
+2s          Normal    BackOff                   pod/zookeeper-1                                               Back-off pulling image "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"

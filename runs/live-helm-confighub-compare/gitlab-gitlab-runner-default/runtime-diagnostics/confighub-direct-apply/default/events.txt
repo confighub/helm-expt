@@ -1,0 +1,18 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                          MESSAGE
+11m         Normal    Starting                  node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   
+11m         Normal    Starting                  node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Starting kubelet.
+11m         Normal    NodeHasSufficientPID      node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane status is now: NodeHasSufficientPID
+11m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane status is now: NodeHasNoDiskPressure
+11m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane status is now: NodeHasSufficientMemory
+11m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Updated Node Allocatable limit across pods
+11m         Normal    RegisteredNode            node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane event: Registered Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane in Controller
+11m         Normal    NodeReady                 node/helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane   Node helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane status is now: NodeReady
+5m5s        Normal    ScalingReplicaSet         deployment/gitlab-runner                                        Scaled up replica set gitlab-runner-844d54c8cc from 0 to 1
+5m5s        Normal    Scheduled                 pod/gitlab-runner-844d54c8cc-bvqfd                              Successfully assigned default/gitlab-runner-844d54c8cc-bvqfd to helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane
+5m5s        Normal    SuccessfulCreate          replicaset/gitlab-runner-844d54c8cc                             Created pod: gitlab-runner-844d54c8cc-bvqfd
+65s         Normal    Killing                   pod/gitlab-runner-844d54c8cc-bvqfd                              Container gitlab-runner failed liveness probe, will be restarted
+65s         Normal    Started                   pod/gitlab-runner-844d54c8cc-bvqfd                              Container started
+65s         Normal    Created                   pod/gitlab-runner-844d54c8cc-bvqfd                              Container created
+65s         Normal    Pulled                    pod/gitlab-runner-844d54c8cc-bvqfd                              Container image "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0" already present on machine and can be accessed by the pod
+5s          Warning   Unhealthy                 pod/gitlab-runner-844d54c8cc-bvqfd                              Liveness probe failed:
+1s          Warning   Unhealthy                 pod/gitlab-runner-844d54c8cc-bvqfd                              Readiness probe failed:

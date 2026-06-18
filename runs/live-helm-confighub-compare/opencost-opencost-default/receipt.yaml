@@ -1,0 +1,1180 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: opencost-opencost-2.5.21-default-live-parity-20260605
+spec:
+  chart: opencost/opencost
+  version: 2.5.21
+  base: default
+  result: watch
+  observedAt: '2026-06-17T18:58:33Z'
+  package:
+    path: packages/opencost/opencost/2.5.21
+  recipe:
+    path: recipes/opencost/opencost/2.5.21
+  variantRevision: recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-opencost-mqifp7vp-a81
+    kubeContext: kind-helm-expt-parity-opencost-mqifp7vp-a81
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-opencost-mqifp7vp-a81 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-opencost-mqifp7vp-a81"...
+
+        Deleting cluster "helm-expt-parity-opencost-mqifp7vp-a81" ...
+
+        Deleted nodes: ["helm-expt-parity-opencost-mqifp7vp-a81-control-plane"]
+
+        Deleting Space "helm-expt-parity-opencost-mqifp7vp-a81-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install opencost opencost --repo https://opencost.github.io/opencost-helm-chart
+        --version 2.5.21 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc
+      objectCount: 6
+      liveHelmManifestSHA256: e4ddfa4b9251f227e17e5ca4d08cd2aeb0175a2f8b4d7d6b2e2056877675af64
+      liveHelmManifestObjectCount: 6
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/opencost   0/1   1     0     8m1s
+        pods: opencost-74b7ff9f6-6jwln   1/2   CrashLoopBackOff   6 (44s ago)   8m1s
+        notReady:
+        - namespace: default-helm
+          pod: opencost-74b7ff9f6-6jwln
+          ready: 1/2
+          status: CrashLoopBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 5eb033b2fca37fa3f7262272389051ceca52876c3fe9b18ffb28df175c155b82
+            bytes: 2477
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 8e5fa5e5ebd174be0a79eddb5949dba1fe6ecdfcc4ba1b5dc9680a84bf0ef035
+            bytes: 4236
+          podArtifacts:
+          - namespace: default-helm
+            pod: opencost-74b7ff9f6-6jwln
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opencost-74b7ff9f6-6jwln/describe.txt
+            sha256: 3717f3bc16a62a1536d36af1916354d6d3cdbca4fedf90e75b67eb6c9c161d20
+            bytes: 7273
+          - namespace: default-helm
+            pod: opencost-74b7ff9f6-6jwln
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opencost-74b7ff9f6-6jwln/logs.txt
+            sha256: b4b3b8027ac37a93a31504ec761e64b6ea35bd77c14e7eb36a0c285c508c8d39
+            bytes: 3686
+          - namespace: default-helm
+            pod: opencost-74b7ff9f6-6jwln
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opencost-74b7ff9f6-6jwln/previous-logs.txt
+            sha256: 7e8423708828942e9ebab8c3eaad6575cc483da6c18788cdee5c1a66f1a40e6e
+            bytes: 1446
+      stderr: 'Error: resource Deployment/default-helm/opencost not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8e1af3a91d48d790787d9ec57faaf94255072ee0d07d7913d9570b9489f06f0f
+      objectCount: 7
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/opencost   0/1   1     0     30s'
+        pods: '# default
+
+          opencost-6545848947-k72kq   0/2   CrashLoopBackOff   1 (9s ago)   30s'
+        notReady:
+        - namespace: default
+          pod: opencost-6545848947-k72kq
+          ready: 0/2
+          status: CrashLoopBackOff
+        terminalReadinessBlockers:
+          default: pod crash loop
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/events.txt
+            sha256: 5bb88b9f7bd8b1d622554b0b03e6805ee03f3ea5836fc1e962ed1f9375a1dac4
+            bytes: 4771
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/workloads-describe.txt
+            sha256: 1d6f9b2135886e1eaa8e6af803173c10a6760e618c87f481831c95a73189f165
+            bytes: 4099
+          podArtifacts:
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/opencost-6545848947-k72kq/describe.txt
+            sha256: 1180ba8b3c18ccaea52eddf4a47e8eaaea4a6c71b4d2bcad38af47ec9f4c4c42
+            bytes: 6470
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default/opencost-6545848947-k72kq/logs.txt
+            sha256: b1b0dee59bba6683724fef482d04ffae510920854715dfd1e9406bdfdd845f59
+            bytes: 3686
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default/opencost-6545848947-k72kq/previous-logs.txt
+            sha256: e4f6b7f7060c3fea6054657cf993e5e3a3c1fef5a1ad3d219a84b7c4053f9a42
+            bytes: 1446
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "opencost" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "opencost" deleted'
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|opencost
+          - v1|ConfigMap|default|opencost-ui-nginx-config
+          - v1|ServiceAccount|default|opencost
+          - v1|Service|default|opencost
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-opencost-mqifp7vp-a81-opencost
+      controller: Argo CD OCI
+      app: opencost-parity
+      manifestSHA256: 81b93a83e6751ffe60606d0021118d63f4d231133b0598f6f78144b0909fe087
+      objectCount: 7
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-opencost-mqifp7vp-a81-opencost
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+              targetRevision: latest
+          revision: sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T19:09:25Z'
+          status: Progressing
+        summary:
+          images:
+          - ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc
+          - ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T19:09:25Z'
+          finishedAt: '2026-06-17T19:09:27Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+          deployedAt: '2026-06-17T19:09:27Z'
+          deployStartedAt: '2026-06-17T19:09:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-opencost-mqifp7vp-a81-opencost
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: default
+          name: opencost-ui-nginx-config
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opencost
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: opencost
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: opencost
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: opencost
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: opencost
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         opencost-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-opencost-mqifp7vp-a81-cluster:argoproj.io/Application:argocd/opencost-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 13353492-b04a-491f-ba10-e6ce5520e9e2\n              confighub.com/UnitSlug:\
+              \ opencost-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:   \
+              \      Application\nMetadata:\n  Creation Timestamp:  2026-06-17T19:09:23Z\n\
+              \  Generation:          9\n  Resource Version:    2239\n  UID:     \
+              \            ab436907-8433-475c-9329-2d626921cb75\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-opencost\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T19:09:25Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T19:09:25Z\n    Deployed At:        2026-06-17T19:09:27Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \    Source:\n      Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-opencost\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T19:09:27Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \        Source:\n          Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-opencost\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T19:09:25Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/opencost serverside-applied\n        Name:      \
+              \  opencost\n        Namespace:   default\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       \n        Hook Phase:  Running\n        Kind:        ConfigMap\n\
+              \        Message:     configmap/opencost-ui-nginx-config serverside-applied\n\
+              \        Name:        opencost-ui-nginx-config\n        Namespace: \
+              \  default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/opencost reconciled.\
+              \ reconciliation required create\n                     missing rules\
+              \ added:\n                       {Verbs:[get list watch] APIGroups:[]\
+              \ Resources:[configmaps deployments nodes pods services resourcequotas\
+              \ replicationcontrollers limitranges persistentvolumeclaims persistentvolumes\
+              \ namespaces endpoints] ResourceNames:[] NonResourceURLs:[]}\n     \
+              \                  {Verbs:[get list watch] APIGroups:[extensions] Resources:[daemonsets\
+              \ deployments replicasets] ResourceNames:[] NonResourceURLs:[]}\n  \
+              \                     {Verbs:[list watch] APIGroups:[apps] Resources:[statefulsets\
+              \ deployments daemonsets replicasets] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get list watch] APIGroups:[batch] Resources:[cronjobs\
+              \ jobs] ResourceNames:[] NonResourceURLs:[]}\n                     \
+              \  {Verbs:[get list watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ list watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[]\
+              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
+              \ APIGroups:[storage.k8s.io] Resources:[storageclasses] ResourceNames:[]\
+              \ NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/opencost\
+              \ serverside-applied\n        Name:        opencost\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
+              \        Message:     clusterrolebinding.rbac.authorization.k8s.io/opencost\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:opencost Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/opencost\
+              \ serverside-applied\n        Name:        opencost\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/opencost\
+              \ serverside-applied\n        Name:        opencost\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a797"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                        MESSAGE
+
+              6m51s       Normal   OperationStarted     application/opencost-parity   Initiated
+              automated sync to ''sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103''
+
+              6m51s       Normal   ResourceUpdated      application/opencost-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m51s       Normal   ResourceUpdated      application/opencost-parity   Updated
+              health status:  -> Progressing
+
+              6m49s       Normal   OperationCompleted   application/opencost-parity   Sync
+              operation to sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+              succeeded
+
+              6m48s       Normal   ResourceUpdated      application/opencost-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: ef186bc2b935ea04b31c982a68a4be10341caf8e4a6c7d2f1251d9a5700c768e
+                bytes: 13280
+              output: "{\n  \"metadata\": {\n    \"name\": \"opencost-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"ab436907-8433-475c-9329-2d626921cb75\"\
+                ,\n    \"resourceVersion\": \"2451\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-17T19:09:23Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-opencost-mqifp7vp-a81-cluster:argoproj.io/Application:argocd/opencost-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"13353492-b04a-491f-ba10-e6ce5520e9e2\",\n      \"confighub.com/UnitSlug\"\
+                : \"opencost-parity-app\"\n    },\n    \"managedFields\": [\n    \
+                \  {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-17T19:09:23Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T19:16:24Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-opencost-mqifp7vp-a81-opencost\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"opencost-ui-nginx-config\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
+                default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"Service\",\n  \
+                \      \"namespace\": \"default\",\n        \"name\": \"opencost\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"opencost\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"opencost\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Progressing\",\n          \"message\": \"Waiting\
+                \ for rollout to finish: 0 of 1 updated replicas are available...\"\
+                \n        }\n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ClusterRole\"\
+                ,\n        \"name\": \"opencost\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"v"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: daea91647a567d31517a2e2212ebbcc9b178ef64e9cae5ef070e1f9b8c3f54fb
+                bytes: 1865
+              output: "Name:               argocd/opencost-parity\nProject:      \
+                \      default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:56709/applications/opencost-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-opencost\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                           STATUS  HEALTH\
+                \       AGE    MESSAGE                                           \
+                \     REASON\nConfigMap/opencost-ui-nginx-config  Synced         \
+                \      8m24s  configmap/opencost-ui-nginx-config serverside-applied\
+                \  \nNamespace/default-oci               Synced               7m48s\
+                \                                                         \nService/opencost\
+                \                    Synced  Healthy      8m24s  service/opencost\
+                \ serverside-applied                    \nServiceAccount/opencost\
+                \             Synced               8m24s  serviceaccount/opencost\
+                \ serverside-applied             \nDeployment/opencost           \
+                \      Synced  Progressing  8m24s  deployment.apps/opencost serverside-applied\
+                \            Waiting for rollout to finish: 0 of 1 updated replicas\
+                \ are available...\n\u2514\u2500ReplicaSet/opencost-6545848947   \
+                \         Progressing  8m24s                                     \
+                \                    Waiting for rollout to finish: 0 out of 1 new\
+                \ replicas are available...\n  \u2514\u2500Pod/opencost-6545848947-k72kq\
+                \           Degraded     8m24s                                   \
+                \                      back-off 5m0s restarting failed container=opencost\
+                \ pod=opencost-6545848947-k72kq_default(734868c6-6870-4a77-b6d8-086eca3caa6c)\n\
+                ClusterRole/opencost                Synced               7m6s    \
+                \                                                      \nClusterRoleBinding/opencost\
+                \         Synced               7m6s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opencost-mqifp7vp-a81-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              opencost-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/opencost-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opencost-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-opencost-mqifp7vp-a81-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+              targetRevision: latest
+          revision: sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T19:00:08Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T19:09:22Z'
+          finishedAt: '2026-06-17T19:09:23Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+          deployedAt: '2026-06-17T19:09:23Z'
+          deployStartedAt: '2026-06-17T19:09:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-opencost-mqifp7vp-a81-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-opencost-mqifp7vp-a81-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: opencost-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-17T19:00:00Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  2387\n  UID:        \
+              \       0577483c-9fe3-4f4c-993b-6251cb9069ab\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T19:00:08Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T19:09:22Z\n\
+              \    Deployed At:        2026-06-17T19:09:23Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \    Source:\n      Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T19:09:23Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \        Source:\n          Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T19:09:22Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/opencost-parity serverside-applied\n\
+              \        Name:        opencost-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-opencost-mqifp7vp-a81-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \      Source:\n        Path:              ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T19:15:36Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       opencost-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     16m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     16m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m11s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103'\n\
+              \  Normal  ResourceUpdated     7m11s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\
+              \ succeeded\n  Normal  ResourceUpdated     7m8s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                       MESSAGE
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Updated
+              sync status:  -> Synced
+
+              16m         Normal   ResourceUpdated      application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Updated
+              health status:  -> Healthy
+
+              7m11s       Normal   OperationStarted     application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Initiated
+              automated sync to ''sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103''
+
+              7m11s       Normal   ResourceUpdated      application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m10s       Normal   OperationCompleted   application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Sync
+              operation to sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103
+              succeeded
+
+              7m8s        Normal   ResourceUpdated      application/helm-expt-parity-opencost-mqifp7vp-a81-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 0a4a119e34af6afae7daf7dc69e41502582a986320b8fb19a3cdb8bc843bccfa
+                bytes: 10651
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"0577483c-9fe3-4f4c-993b-6251cb9069ab\"\
+                ,\n    \"resourceVersion\": \"2478\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-17T19:00:00Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-opencost-mqifp7vp-a81-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T19:00:00Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T19:16:41Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.co"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: b556e7292ee2e0fcbbfc053a0748c0d9f9c3b7fc45d3449d665e30daf2866688
+                bytes: 1131
+              output: "Name:               argocd/helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:56820/applications/helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-opencost-mqifp7vp-a81-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \          STATUS  HEALTH  AGE    MESSAGE                        \
+                \                                                            REASON\n\
+                Application/helm-expt-parity-opencost-mqifp7vp-a81-cluster  Synced\
+                \          16m    application.argoproj.io/helm-expt-parity-opencost-mqifp7vp-a81-cluster\
+                \ serverside-applied  \nApplication/opencost-parity              \
+                \                   Synced          7m26s  application.argoproj.io/opencost-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opencost-mqifp7vp-a81-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              opencost-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/opencost-parity\",\n     \
+              \ \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:022c43de7791b9fda87df50a38ddb99e5ad9b4e599561d76b80c096442bae103\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-opencost-mqifp7vp-a81-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opencost-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/opencost   0/1   1     0     8m41s'
+        pods: '# default
+
+          opencost-6545848947-k72kq   1/2   CrashLoopBackOff   6 (2m11s ago)   8m41s'
+        notReady:
+        - namespace: default
+          pod: opencost-6545848947-k72kq
+          ready: 1/2
+          status: CrashLoopBackOff
+        terminalReadinessBlockers:
+          default: pod crash loop
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default
+          namespaceArtifacts:
+          - namespace: default
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/events.txt
+            sha256: caa1bb49f3fd7868e0713a3a2575c40fd3d185ae5efd553ff874704077894f0a
+            bytes: 4771
+          - namespace: default
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/workloads-describe.txt
+            sha256: 63d4267e8e43460f33277a7ef9880f0a94cb35b89b91366ede743d464feffdff
+            bytes: 4420
+          podArtifacts:
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/opencost-6545848947-k72kq/describe.txt
+            sha256: a568272072ef55598b5dc37b5da17ec50d7891b0b66d77e8601a53b39f720974
+            bytes: 6513
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-logs
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default/opencost-6545848947-k72kq/logs.txt
+            sha256: e0ce8aba392ff6aa50882fed878990c84d73707805c0b2b044fb2da3641d4223
+            bytes: 3685
+          - namespace: default
+            pod: opencost-6545848947-k72kq
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default/opencost-6545848947-k72kq/previous-logs.txt
+            sha256: 8bf278313cfe72327c34d8cdb3a0b6aeacb2f1f678346c9fd4cd822ede6fb6c3
+            bytes: 1445
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-17T19:00:00Z'
+    finishedAt: '2026-06-17T19:08:02Z'
+    elapsedSeconds: 482.886
+    timeoutSeconds: 900
+    command: helm upgrade --install opencost opencost --repo https://opencost.github.io/opencost-helm-chart
+      --version 2.5.21 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T19:08:08Z'
+    finishedAt: '2026-06-17T19:08:09Z'
+    elapsedSeconds: 0.418
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T19:08:09Z'
+    finishedAt: '2026-06-17T19:08:09Z'
+    elapsedSeconds: 0.122
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig
+      --context kind-helm-expt-parity-opencost-mqifp7vp-a81 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T19:08:09Z'
+    finishedAt: '2026-06-17T19:08:39Z'
+    elapsedSeconds: 30.559
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T19:08:45Z'
+    finishedAt: '2026-06-17T19:08:45Z'
+    elapsedSeconds: 0.297
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T19:08:45Z'
+    finishedAt: '2026-06-17T19:09:05Z'
+    elapsedSeconds: 20.15
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
+      --space helm-expt-parity-opencost-mqifp7vp-a81-opencost --target helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci
+    objectCount: 7
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T19:09:05Z'
+    finishedAt: '2026-06-17T19:09:06Z'
+    elapsedSeconds: 0.684
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-opencost-mqifp7vp-a81-opencost
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T19:09:06Z'
+    finishedAt: '2026-06-17T19:09:12Z'
+    elapsedSeconds: 5.59
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-opencost-mqifp7vp-a81-opencost
+      --unit <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T19:09:12Z'
+    finishedAt: '2026-06-17T19:09:13Z'
+    elapsedSeconds: 0.942
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-opencost-mqifp7vp-a81-cluster
+      opencost-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/argo-application.json
+      --target helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T19:09:13Z'
+    finishedAt: '2026-06-17T19:09:14Z'
+    elapsedSeconds: 1.198
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-opencost-mqifp7vp-a81-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T19:09:14Z'
+    finishedAt: '2026-06-17T19:16:16Z'
+    elapsedSeconds: 422.303
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T19:16:50Z'
+    finishedAt: '2026-06-17T19:16:50Z'
+    elapsedSeconds: 0.099
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-opencost-mqifp7vp-a81\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-opencost-mqifp7vp-a81\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-opencost-mqifp7vp-a81\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opencost-mqifp7vp-a81\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/opencost not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default
+
+      deployment.apps/opencost   0/1   1     0     30s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

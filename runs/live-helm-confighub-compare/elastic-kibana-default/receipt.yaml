@@ -1,0 +1,1122 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-kibana-8.5.1-default-live-parity-20260605
+spec:
+  chart: elastic/kibana
+  version: 8.5.1
+  base: default
+  result: watch
+  observedAt: '2026-06-17T17:20:53Z'
+  package:
+    path: packages/elastic/kibana/8.5.1
+  recipe:
+    path: recipes/elastic/kibana/8.5.1
+  variantRevision: recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kibana-mqic7mim-7ud
+    kubeContext: kind-helm-expt-parity-kibana-mqic7mim-7ud
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kibana-mqic7mim-7ud --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kibana-mqic7mim-7ud"...
+
+        Deleting cluster "helm-expt-parity-kibana-mqic7mim-7ud" ...
+
+        Deleted nodes: ["helm-expt-parity-kibana-mqic7mim-7ud-control-plane"]
+
+        Deleting Space "helm-expt-parity-kibana-mqic7mim-7ud-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install kibana kibana --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-kibana-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3
+      objectCount: 2
+      liveHelmManifestSHA256: 6035e19b3c3602dc970dc17751653d0eb277b09a5b0fb23b20a93600801bf5ac
+      liveHelmManifestObjectCount: 2
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: ''
+        pods: pre-install-kibana-kibana-9m896   0/1   ContainerCreating   0     8m1s
+        notReady:
+        - namespace: default-helm
+          pod: pre-install-kibana-kibana-9m896
+          ready: 0/1
+          status: ContainerCreating
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: f2f9e23b659716fed461b88c88211d25218498fad3444e0b5dafeddcf9c4883b
+            bytes: 595
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: e16fff7693d5d4ffeb33d23812fed547700ddddc928998762d2e100c093691fe
+            bytes: 2341
+          podArtifacts:
+          - namespace: default-helm
+            pod: pre-install-kibana-kibana-9m896
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/pre-install-kibana-kibana-9m896/describe.txt
+            sha256: 87e1426950eeba98d1549ac63cc5eba8b3b907f7d35a5686f82ca40f13d02b04
+            bytes: 3317
+          - namespace: default-helm
+            pod: pre-install-kibana-kibana-9m896
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/pre-install-kibana-kibana-9m896/logs.txt
+            sha256: 0f57351fe760a9495e1182c7b4af71bc89ee32710239caf41b3103fd0853f8cc
+            bytes: 143
+          - namespace: default-helm
+            pod: pre-install-kibana-kibana-9m896
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/pre-install-kibana-kibana-9m896/previous-logs.txt
+            sha256: 232e13329535b50a6ab7fe5592bcb51e463fd677205989b8843902c89d365bb0
+            bytes: 134
+      stderr: 'Error: failed pre-install: resource Job/default-helm/pre-install-kibana-kibana
+        not ready. status: InProgress, message: Job in progress
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/kibana/8.5.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kibana-mqic7mim-7ud-kibana
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ea74e89a8696ca3ce4f9cd9bf1fbafbc98d22206eb188c0f16b19efbc487d10b
+      objectCount: 3
+      namespace: default-apply
+      manifestNamespaces:
+      - default-apply
+      runtimeNamespaces: &id001
+      - default-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# default-apply
+
+          deployment.apps/kibana-kibana   0/1   1     0     10s'
+        pods: '# default-apply
+
+          kibana-kibana-9bf64bc55-9jlxb   0/1   ContainerCreating   0     10s'
+        notReady:
+        - namespace: default-apply
+          pod: kibana-kibana-9bf64bc55-9jlxb
+          ready: 0/1
+          status: ContainerCreating
+        terminalReadinessBlockers:
+          default-apply: missing secret
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-apply
+          namespaceArtifacts:
+          - namespace: default-apply
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/events.txt
+            sha256: 0d124291e7b9218fc6ce1f16fd84125dbd4559f659e419e3fe4d7071a35941b5
+            bytes: 729
+          - namespace: default-apply
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/workloads-describe.txt
+            sha256: 056752e8cd0af9c9b43b7b8654774690fe82bd575fe9027dfedd4509331d4335
+            bytes: 2950
+          podArtifacts:
+          - namespace: default-apply
+            pod: kibana-kibana-9bf64bc55-9jlxb
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/kibana-kibana-9bf64bc55-9jlxb/describe.txt
+            sha256: 517600cbec32d90af0e88a99e5cdda3f1b01195a6921177cd621f9b80a316249
+            bytes: 3870
+          - namespace: default-apply
+            pod: kibana-kibana-9bf64bc55-9jlxb
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/kibana-kibana-9bf64bc55-9jlxb/logs.txt
+            sha256: dd03c5668b9187935fff7fcf13c1e7347fe1043d8a687f76424ba2ce803b9845
+            bytes: 128
+          - namespace: default-apply
+            pod: kibana-kibana-9bf64bc55-9jlxb
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-direct-apply/default-apply/kibana-kibana-9bf64bc55-9jlxb/previous-logs.txt
+            sha256: cdec2523b1c19cc29250fb1c863ce5260095bc0ee37111d5cd71bfde6406b40b
+            bytes: 119
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-kibana-mqic7mim-7ud-kibana
+      controller: Argo CD OCI
+      app: kibana-parity
+      manifestSHA256: 32c2f8e44e625074b0f40d317af89aabbe6df5ca9322eb49929ed6fe007bf80c
+      objectCount: 3
+      namespace: default-oci
+      manifestNamespaces:
+      - default-oci
+      runtimeNamespaces: &id002
+      - default-oci
+      ociRevision: sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+      sync: Synced
+      health: Progressing
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kibana-mqic7mim-7ud-kibana
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+              targetRevision: latest
+          revision: sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T17:36:25Z'
+          status: Progressing
+        summary:
+          images:
+          - docker.elastic.co/kibana/kibana:8.5.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T17:36:22Z'
+          finishedAt: '2026-06-17T17:36:24Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+          deployedAt: '2026-06-17T17:36:24Z'
+          deployStartedAt: '2026-06-17T17:36:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kibana-mqic7mim-7ud-kibana
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default-oci
+          name: kibana-kibana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default-oci
+          name: kibana-kibana
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kibana-parity\nNamespace:    argocd\nLabels:  \
+              \     <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-kibana-mqic7mim-7ud-cluster:argoproj.io/Application:argocd/kibana-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 36512abb-60c4-4639-958e-72533f31f19f\n              confighub.com/UnitSlug:\
+              \ kibana-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:     \
+              \    Application\nMetadata:\n  Creation Timestamp:  2026-06-17T17:36:21Z\n\
+              \  Generation:          9\n  Resource Version:    2619\n  UID:     \
+              \            1b36dd54-1d77-4d81-9d73-48f96ebfed0a\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-17T17:36:25Z\n\
+              \    Status:                Progressing\n  History:\n    Deploy Started\
+              \ At:  2026-06-17T17:36:22Z\n    Deployed At:        2026-06-17T17:36:24Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T17:36:24Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-17T17:36:22Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/kibana-kibana\
+              \ serverside-applied\n        Name:        kibana-kibana\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          docker.elastic.co/kibana/kibana:8.5.1\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/kibana-kibana\
+              \ serverside-applied\n        Name:        kibana-kibana\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T17:42:23Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       kibana-kibana\n   \
+              \ Namespace:  default-oci\n    Status:     Synced\n    Version:    v1\n\
+              \    Group:      apps\n    Kind:       Deployment\n    Name:       kibana-kibana\n\
+              \    Namespace:  default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n\
+              \    Images:\n      docker.elastic.co/kibana/kibana:8.5.1\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  default-oci\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    6m52s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442'\n\
+              \  Normal  ResourceUpdated     6m52s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  6m52s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  6m50s  argocd-application-controller\
+              \  Sync operation to sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\
+              \ succeeded\n  Normal  ResourceUpdated     6m49s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  ResourceUpdated\
+              \     6m49s  argocd-application-controller  Updated health status: Healthy\
+              \ -> Progressing"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                      MESSAGE
+
+              6m52s       Normal   OperationStarted     application/kibana-parity   Initiated
+              automated sync to ''sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442''
+
+              6m52s       Normal   ResourceUpdated      application/kibana-parity   Updated
+              sync status:  -> OutOfSync
+
+              6m52s       Normal   ResourceUpdated      application/kibana-parity   Updated
+              health status:  -> Healthy
+
+              6m50s       Normal   OperationCompleted   application/kibana-parity   Sync
+              operation to sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+              succeeded
+
+              6m49s       Normal   ResourceUpdated      application/kibana-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              6m49s       Normal   ResourceUpdated      application/kibana-parity   Updated
+              health status: Healthy -> Progressing'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Progressing
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-child.json
+                sha256: ef34c843d0b08fc74c999afecb67eb67ed16870684ba1800bfa08ce67fc58f44
+                bytes: 9359
+              output: "{\n  \"metadata\": {\n    \"name\": \"kibana-parity\",\n  \
+                \  \"namespace\": \"argocd\",\n    \"uid\": \"1b36dd54-1d77-4d81-9d73-48f96ebfed0a\"\
+                ,\n    \"resourceVersion\": \"2695\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-06-17T17:36:21Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kibana-mqic7mim-7ud-cluster:argoproj.io/Application:argocd/kibana-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"36512abb-60c4-4639-958e-72533f31f19f\",\n      \"confighub.com/UnitSlug\"\
+                : \"kibana-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-17T17:36:21Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-17T17:43:22Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-kibana-mqic7mim-7ud-kibana\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default-oci\",\n        \"\
+                name\": \"kibana-kibana\",\n        \"status\": \"Synced\",\n    \
+                \    \"health\": {\n          \"status\": \"Healthy\"\n        }\n\
+                \      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                : \"default-oci\",\n        \"name\": \"kibana-kibana\",\n       \
+                \ \"status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Progressing\",\n          \"message\": \"Waiting for rollout to\
+                \ finish: 0 of 1 updated replicas are available...\"\n        }\n\
+                \      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-kibana-mqic7mim-7ud-kibana\"\
+                ,\n          \"targetRevision\": \"latest\"\n        },\n        \"\
+                destination\": {\n          \"server\": \"https://kubernetes.default.svc\"\
+                ,\n          \"namespace\": \"default-oci\"\n        }\n      },\n\
+                \      \"revision\": \"sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\"\
+                \n    },\n    \"health\": {\n      "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 22d8b2a3aa99192b4be6f9e3ae20731fb282e7b6e9fdf6a9c886e578bb50114e
+                bytes: 1330
+              output: "Name:               argocd/kibana-parity\nProject:        \
+                \    default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:54119/applications/kibana-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-kibana\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Progressing\n\nKIND/NAME                              STATUS \
+                \ HEALTH       AGE    MESSAGE                                    \
+                \       REASON\nNamespace/default-oci                  Synced    \
+                \           7m35s                                                \
+                \    \nService/kibana-kibana                  Synced  Healthy    \
+                \  7m6s   service/kibana-kibana serverside-applied          \nDeployment/kibana-kibana\
+                \               Synced  Progressing  7m6s   deployment.apps/kibana-kibana\
+                \ serverside-applied  Waiting for rollout to finish: 0 of 1 updated\
+                \ replicas are available...\n\u2514\u2500ReplicaSet/kibana-kibana-9bf64bc55\
+                \           Progressing  7m6s                                    \
+                \                 Waiting for rollout to finish: 0 out of 1 new replicas\
+                \ are available...\n  \u2514\u2500Pod/kibana-kibana-9bf64bc55-bhdj7\
+                \          Progressing  7m6s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kibana-mqic7mim-7ud-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kibana-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/kibana-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kibana-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-kibana-mqic7mim-7ud-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+              targetRevision: latest
+          revision: sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-17T17:22:28Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-17T17:36:19Z'
+          finishedAt: '2026-06-17T17:36:21Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+          deployedAt: '2026-06-17T17:36:21Z'
+          deployStartedAt: '2026-06-17T17:36:19Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-kibana-mqic7mim-7ud-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kibana-mqic7mim-7ud-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kibana-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-17T17:22:20Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  2592\n  UID:        \
+              \       7c5d21bb-6cb1-4360-a26b-0de4511cf2df\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-17T17:22:28Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-17T17:36:19Z\n\
+              \    Deployed At:        2026-06-17T17:36:21Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \    Source:\n      Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-17T17:36:21Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \        Source:\n          Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-17T17:36:19Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-kibana-mqic7mim-7ud-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/kibana-parity serverside-applied\n\
+              \        Name:        kibana-parity\n        Namespace:   argocd\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n      Revision:      sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \      Source:\n        Path:              ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-17T17:42:03Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       kibana-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     21m    argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     21m    argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  7m12s  argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442'\n\
+              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  7m10s  argocd-application-controller  Sync operation to sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\
+              \ succeeded\n  Normal  ResourceUpdated     7m9s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                     MESSAGE
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Updated
+              sync status:  -> Synced
+
+              21m         Normal   ResourceUpdated      application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Updated
+              health status:  -> Healthy
+
+              7m12s       Normal   OperationStarted     application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Initiated
+              automated sync to ''sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442''
+
+              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              7m10s       Normal   OperationCompleted   application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Sync
+              operation to sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442
+              succeeded
+
+              7m9s        Normal   ResourceUpdated      application/helm-expt-parity-kibana-mqic7mim-7ud-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 61e4d4fcadd37e7ddd75b510adf9a940b5b673400660cc2abf9c8e0c3ee72591
+                bytes: 10611
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"7c5d21bb-6cb1-4360-a26b-0de4511cf2df\"\
+                ,\n    \"resourceVersion\": \"2720\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-06-17T17:22:20Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-kibana-mqic7mim-7ud-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-17T17:22:20Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-17T17:43:39Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/ta"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: d5aead11f3a0c87f71e7691a49f2e230144e69d88a6f669c61ca0ddd6cc57534
+                bytes: 1111
+              output: "Name:               argocd/helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:54230/applications/helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-kibana-mqic7mim-7ud-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \        STATUS  HEALTH  AGE    MESSAGE                          \
+                \                                                        REASON\n\
+                Application/helm-expt-parity-kibana-mqic7mim-7ud-cluster  Synced \
+                \         21m    application.argoproj.io/helm-expt-parity-kibana-mqic7mim-7ud-cluster\
+                \ serverside-applied  \nApplication/kibana-parity                \
+                \                 Synced          7m26s  application.argoproj.io/kibana-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kibana-mqic7mim-7ud-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kibana-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : false,\n      \"stage\": \"unknown\",\n      \"reason\": \"Progressing\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/kibana-parity\",\n      \"\
+              syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\",\n\
+              \      \"lastAttemptedRevision\": \"sha256:5319946f0a300660887157904b24bff8f2cde581c0c4a7e7627beb3d073ea442\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-kibana-mqic7mim-7ud-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kibana-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# default-oci
+
+          deployment.apps/kibana-kibana   0/1   1     0     7m23s'
+        pods: '# default-oci
+
+          kibana-kibana-9bf64bc55-bhdj7   0/1   ContainerCreating   0     7m23s'
+        notReady:
+        - namespace: default-oci
+          pod: kibana-kibana-9bf64bc55-bhdj7
+          ready: 0/1
+          status: ContainerCreating
+        terminalReadinessBlockers:
+          default-oci: missing secret
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-oci
+          namespaceArtifacts:
+          - namespace: default-oci
+            kind: events
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/events.txt
+            sha256: 6aa972a99d4c1814049c25ff53515dbd1e99751c45855e86ab95fd2874e49e70
+            bytes: 727
+          - namespace: default-oci
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/workloads-describe.txt
+            sha256: 6f11b94fa7b264b2f69e0f685a655aa29c754695cb7367538a58489950f0d421
+            bytes: 3257
+          podArtifacts:
+          - namespace: default-oci
+            pod: kibana-kibana-9bf64bc55-bhdj7
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/kibana-kibana-9bf64bc55-bhdj7/describe.txt
+            sha256: f06b4967f2a62672b8b22c125aa43345928d57bf1a074749e53f102ff441effc
+            bytes: 3882
+          - namespace: default-oci
+            pod: kibana-kibana-9bf64bc55-bhdj7
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/kibana-kibana-9bf64bc55-bhdj7/logs.txt
+            sha256: ae98514da8b94186798fb000f4fec791626fda96056235183900aca401cab265
+            bytes: 128
+          - namespace: default-oci
+            pod: kibana-kibana-9bf64bc55-bhdj7
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/confighub-oci-argo/default-oci/kibana-kibana-9bf64bc55-bhdj7/previous-logs.txt
+            sha256: 06e61046b3d7e6c0e06aa910f42fc5153bdc6277c46b206f35d4c818ae6099df
+            bytes: 119
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 2
+      configHubObjectCount: 3
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-17T17:22:20Z'
+    finishedAt: '2026-06-17T17:30:23Z'
+    elapsedSeconds: 482.54
+    timeoutSeconds: 900
+    command: helm upgrade --install kibana kibana --repo https://helm.elastic.co --version
+      8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-kibana-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-17T17:35:33Z'
+    finishedAt: '2026-06-17T17:35:34Z'
+    elapsedSeconds: 0.423
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/kibana/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kibana-mqic7mim-7ud-kibana
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-17T17:35:34Z'
+    finishedAt: '2026-06-17T17:35:34Z'
+    elapsedSeconds: 0.073
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kibana-mqic7mim-7ud.kubeconfig
+      --context kind-helm-expt-parity-kibana-mqic7mim-7ud apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-kibana-default/direct-apply-manifest.yaml
+    objectCount: 2
+  - name: configHub-direct-readiness
+    result: watch
+    startedAt: '2026-06-17T17:35:34Z'
+    finishedAt: '2026-06-17T17:35:44Z'
+    elapsedSeconds: 10.276
+    timeoutSeconds: 300
+    namespaces: default-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-17T17:35:55Z'
+    finishedAt: '2026-06-17T17:35:55Z'
+    elapsedSeconds: 0.244
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/kibana/8.5.1
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kibana-mqic7mim-7ud-kibana
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-17T17:35:55Z'
+    finishedAt: '2026-06-17T17:36:07Z'
+    elapsedSeconds: 12.1
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kibana-mqic7mim-7ud-kibana
+      --space helm-expt-parity-kibana-mqic7mim-7ud-kibana --target helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci
+    objectCount: 3
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-17T17:36:07Z'
+    finishedAt: '2026-06-17T17:36:08Z'
+    elapsedSeconds: 0.536
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kibana-mqic7mim-7ud-kibana
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-17T17:36:08Z'
+    finishedAt: '2026-06-17T17:36:10Z'
+    elapsedSeconds: 1.95
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kibana-mqic7mim-7ud-kibana --unit
+      <3 unit(s)> --wait --timeout 5m
+    unitCount: 3
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-17T17:36:10Z'
+    finishedAt: '2026-06-17T17:36:11Z'
+    elapsedSeconds: 1.012
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kibana-mqic7mim-7ud-cluster
+      kibana-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/elastic-kibana-default/argo-application.json
+      --target helm-expt-parity-kibana-mqic7mim-7ud-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-17T17:36:11Z'
+    finishedAt: '2026-06-17T17:36:12Z'
+    elapsedSeconds: 1.022
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-kibana-mqic7mim-7ud-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: watch
+    startedAt: '2026-06-17T17:36:12Z'
+    finishedAt: '2026-06-17T17:43:14Z'
+    elapsedSeconds: 422.279
+    timeoutSeconds: 420
+    waitedSeconds: 420
+    sync: Synced
+    health: Progressing
+  - name: configHub-oci-readiness
+    result: watch
+    startedAt: '2026-06-17T17:43:47Z'
+    finishedAt: '2026-06-17T17:43:47Z'
+    elapsedSeconds: 0.133
+    timeoutSeconds: 180
+    namespaces: default-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kibana-mqic7mim-7ud\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-kibana-mqic7mim-7ud.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kibana-mqic7mim-7ud\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kibana-mqic7mim-7ud\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kibana-mqic7mim-7ud\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kibana-mqic7mim-7ud.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
+      spec: "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: failed pre-install: resource Job/default-helm/pre-install-kibana-kibana
+      not ready. status: InProgress, message: Job in progress
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# default-apply
+
+      deployment.apps/kibana-kibana   0/1   1     0     10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

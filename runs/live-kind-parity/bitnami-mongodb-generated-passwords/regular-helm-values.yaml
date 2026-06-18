@@ -1,0 +1,4 @@
+auth:
+  rootPassword: confighub-mongodb-root-password
+image:
+  digest: sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e

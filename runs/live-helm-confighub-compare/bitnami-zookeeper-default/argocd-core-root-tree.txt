@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:51578/applications/helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                     STATUS  HEALTH  AGE    MESSAGE                                                                                      REASON
+Application/helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster  Synced          21m    application.argoproj.io/helm-expt-parity-zookeeper-mqi88eet-1wxh-cluster serverside-applied
+Application/zookeeper-parity                                  Synced          7m28s  application.argoproj.io/zookeeper-parity serverside-applied

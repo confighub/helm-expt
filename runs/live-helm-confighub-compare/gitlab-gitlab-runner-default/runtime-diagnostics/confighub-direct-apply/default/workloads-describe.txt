@@ -1,0 +1,66 @@
+Name:                   gitlab-runner
+Namespace:              default
+CreationTimestamp:      Wed, 17 Jun 2026 19:42:16 +0100
+Labels:                 app=gitlab-runner
+                        chart=gitlab-runner-0.89.0
+                        heritage=Helm
+                        release=gitlab-runner
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=gitlab-runner
+Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=gitlab-runner
+                chart=gitlab-runner-0.89.0
+                heritage=Helm
+                release=gitlab-runner
+  Annotations:  checksum/configmap: aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10
+  Containers:
+   gitlab-runner:
+    Image:      registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0
+    Port:       9252/TCP (metrics)
+    Host Port:  0/TCP (metrics)
+    Command:
+      /usr/bin/dumb-init
+      --
+      /bin/bash
+      /configmaps/entrypoint
+    Liveness:   exec [/bin/bash /configmaps/check-live 3] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Readiness:  exec [/usr/bin/pgrep gitlab.*runner] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Environment:
+      CI_SERVER_URL:           
+      RUNNER_EXECUTOR:         kubernetes
+      REGISTER_LOCKED:         true
+      RUNNER_TAG_LIST:         
+      SESSION_SERVER_ADDRESS:  
+    Mounts:
+      /configmaps from configmaps (rw)
+      /home/gitlab-runner/.gitlab-runner from etc-gitlab-runner (rw)
+  Volumes:
+   runner-secrets:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+   etc-gitlab-runner:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+   configmaps:
+    Type:          ConfigMap (a volume populated by a ConfigMap)
+    Name:          gitlab-runner
+    Optional:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      False   MinimumReplicasUnavailable
+OldReplicaSets:  <none>
+NewReplicaSet:   gitlab-runner-844d54c8cc (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  5m5s  deployment-controller  Scaled up replica set gitlab-runner-844d54c8cc from 0 to 1

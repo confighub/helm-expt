@@ -1,0 +1,672 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: elastic-metricbeat-8.5.1-default-kind-parity-20260606
+spec:
+  chart: elastic/metricbeat
+  version: 8.5.1
+  base: default
+  result: blocked
+  observedAt: '2026-06-17T19:30:44Z'
+  package:
+    path: packages/elastic/metricbeat/8.5.1
+  recipe:
+    path: recipes/elastic/metricbeat/8.5.1
+  variantRevision: recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-metric-6589d-umbt-helm
+    installerCluster: hx-metric-6589d-umbt-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-metric-6589d-umbt-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-metric-6589d-umbt-helm" ...
+
+          Deleted nodes: ["hx-metric-6589d-umbt-helm-control-plane"]'
+      - cluster: hx-metric-6589d-umbt-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-metric-6589d-umbt-installer" ...
+
+          Deleted nodes: ["hx-metric-6589d-umbt-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install metricbeat metricbeat --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/elastic-metricbeat-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939
+      objectCount: 14
+      liveHelmManifestSHA256: 87fb895fe544ad82aa7016813495de7d228b6bfadead4c18daca368f67bdfaf4
+      liveHelmManifestObjectCount: 14
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/metricbeat-kube-state-metrics   1/1   1     1     8m
+
+          deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     8m
+
+          daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   8m'
+        pods: '# default
+
+          metricbeat-kube-state-metrics-658dd9bbbc-vbgf2   1/1   Running             0     8m
+
+          metricbeat-metricbeat-lf9mf                      0/1   ContainerCreating   0     8m
+
+          metricbeat-metricbeat-metrics-746dc864-kjwbv     0/1   ContainerCreating   0     8m'
+        notReady:
+        - namespace: default
+          pod: metricbeat-metricbeat-lf9mf
+          ready: 0/1
+          status: ContainerCreating
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        - namespace: default
+          pod: metricbeat-metricbeat-metrics-746dc864-kjwbv
+          ready: 0/1
+          status: ContainerCreating
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        diagnostics:
+        - namespace: default
+          pod: metricbeat-metricbeat-lf9mf
+          result: blocked
+          detailHead: "Name:             metricbeat-metricbeat-lf9mf\nNamespace: \
+            \       default\nPriority:         0\nService Account:  metricbeat-metricbeat\n\
+            Node:             hx-metric-6589d-umbt-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 20:31:37 +0100\nLabels:           app=metricbeat-metricbeat\n\
+            \                  chart=metricbeat-8.5.1\n                  controller-revision-hash=56958d8d56\n\
+            \                  heritage=Helm\n                  pod-template-generation=1\n\
+            \                  release=metricbeat\nAnnotations:      configChecksum:\
+            \ 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    DaemonSet/metricbeat-metricbeat\nContainers:\n  metricbeat:\n\
+            \    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n      --system.hostfs=/hostfs\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:     1\n      memory:  200Mi\n    Requests:\n      cpu:     100m\n\
+            \      memory:  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash\
+            \ -e\ncurl --fail 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1\
+            \ #failure=3\n    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat\
+            \ test output\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Environment:\n      POD_NAMESPACE:           default (v1:metadata.namespace)\n\
+            \      NODE_NAME:                (v1:spec.nodeName)\n      ELASTICSEARCH_USERNAME:\
+            \  <set to the key 'username' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n      ELASTICSEARCH_PASSWORD:  <set to the key 'password'\
+            \ in secret 'elasticsearch-master-credentials'>  Optional: false\n   \
+            \ Mounts:\n      /hostfs/proc from proc (ro)\n      /hostfs/sys/fs/cgroup\
+            \ from cgroup (ro)\n      /usr/share/metricbeat/certs/ from elasticsearch-master-certs\
+            \ (rw)\n      /usr/share/metricbeat/data from data (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/docker.sock\
+            \ from varrundockersock (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-s6zb7 (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-daemonset-config\n\
+            \    Optional:  false\n  data:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /var/lib/metricbeat-metricbeat-default-data\n\
+            \    HostPathType:  DirectoryOrCreate\n  v"
+          detailTail: "als'>  Optional: false\n      ELASTICSEARCH_PASSWORD:  <set\
+            \ to the key 'password' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n    Mounts:\n      /hostfs/proc from proc (ro)\n \
+            \     /hostfs/sys/fs/cgroup from cgroup (ro)\n      /usr/share/metricbeat/certs/\
+            \ from elasticsearch-master-certs (rw)\n      /usr/share/metricbeat/data\
+            \ from data (rw)\n      /usr/share/metricbeat/metricbeat.yml from metricbeat-config\
+            \ (ro,path=\"metricbeat.yml\")\n      /var/run/docker.sock from varrundockersock\
+            \ (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-s6zb7\
+            \ (ro)\nConditions:\n  Type                        Status\n  PodReadyToStartContainers\
+            \   False \n  Initialized                 True \n  Ready             \
+            \          False \n  ContainersReady             False \n  PodScheduled\
+            \                True \nVolumes:\n  elasticsearch-master-certs:\n    Type:\
+            \        Secret (a volume populated by a Secret)\n    SecretName:  elasticsearch-master-certs\n\
+            \    Optional:    false\n  metricbeat-config:\n    Type:      ConfigMap\
+            \ (a volume populated by a ConfigMap)\n    Name:      metricbeat-metricbeat-daemonset-config\n\
+            \    Optional:  false\n  data:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /var/lib/metricbeat-metricbeat-default-data\n\
+            \    HostPathType:  DirectoryOrCreate\n  varrundockersock:\n    Type:\
+            \          HostPath (bare host directory volume)\n    Path:          /var/run/docker.sock\n\
+            \    HostPathType:  \n  proc:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /proc\n    HostPathType:  \n \
+            \ cgroup:\n    Type:          HostPath (bare host directory volume)\n\
+            \    Path:          /sys/fs/cgroup\n    HostPathType:  \n  kube-api-access-s6zb7:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists\n\
+            \                             node.kubernetes.io/memory-pressure:NoSchedule\
+            \ op=Exists\n                             node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists\n                             node.kubernetes.io/pid-pressure:NoSchedule\
+            \ op=Exists\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists\n                             node.kubernetes.io/unschedulable:NoSchedule\
+            \ op=Exists\nEvents:\n  Type     Reason       Age                 From\
+            \               Message\n  ----     ------       ----                ----\
+            \               -------\n  Normal   Scheduled    8m                  default-scheduler\
+            \  Successfully assigned default/metricbeat-metricbeat-lf9mf to hx-metric-6589d-umbt-helm-control-plane\n\
+            \  Warning  FailedMount  108s (x11 over 8m)  kubelet            MountVolume.SetUp\
+            \ failed for volume \"elasticsearch-master-certs\" : secret \"elasticsearch-master-certs\"\
+            \ not found"
+          logsHead: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-lf9mf" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-lf9mf" is waiting to start: ContainerCreating'
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        - namespace: default
+          pod: metricbeat-metricbeat-metrics-746dc864-kjwbv
+          result: blocked
+          detailHead: "Name:             metricbeat-metricbeat-metrics-746dc864-kjwbv\n\
+            Namespace:        default\nPriority:         0\nService Account:  metricbeat-metricbeat\n\
+            Node:             hx-metric-6589d-umbt-helm-control-plane/192.168.97.2\n\
+            Start Time:       Wed, 17 Jun 2026 20:31:37 +0100\nLabels:           app=metricbeat-metricbeat-metrics\n\
+            \                  chart=metricbeat-8.5.1\n                  pod-template-hash=746dc864\n\
+            \                  release=metricbeat\nAnnotations:      configChecksum:\
+            \ 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    ReplicaSet/metricbeat-metricbeat-metrics-746dc864\nContainers:\n\
+            \  metricbeat:\n    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n    State:  \
+            \        Waiting\n      Reason:       ContainerCreating\n    Ready:  \
+            \        False\n    Restart Count:  0\n    Limits:\n      cpu:     1\n\
+            \      memory:  200Mi\n    Requests:\n      cpu:     100m\n      memory:\
+            \  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash -e\ncurl --fail\
+            \ 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat test output\n\
+            ] delay=10s timeout=5s period=10s #success=1 #failure=3\n    Environment:\n\
+            \      POD_NAMESPACE:             default (v1:metadata.namespace)\n  \
+            \    KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)\n\
+            \      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret\
+            \ 'elasticsearch-master-credentials'>  Optional: false\n      ELASTICSEARCH_PASSWORD:\
+            \    <set to the key 'password' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n    Mounts:\n      /usr/share/metricbeat/certs/ from\
+            \ elasticsearch-master-certs (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-zpbbz (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-deployment-config\n\
+            \    Optional:  false\n  kube-api-access-zpbbz:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   Burstable\nNode-Selectors:\
+            \       "
+          detailTail: "t:\n    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n    State:  \
+            \        Waiting\n      Reason:       ContainerCreating\n    Ready:  \
+            \        False\n    Restart Count:  0\n    Limits:\n      cpu:     1\n\
+            \      memory:  200Mi\n    Requests:\n      cpu:     100m\n      memory:\
+            \  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash -e\ncurl --fail\
+            \ 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat test output\n\
+            ] delay=10s timeout=5s period=10s #success=1 #failure=3\n    Environment:\n\
+            \      POD_NAMESPACE:             default (v1:metadata.namespace)\n  \
+            \    KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)\n\
+            \      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret\
+            \ 'elasticsearch-master-credentials'>  Optional: false\n      ELASTICSEARCH_PASSWORD:\
+            \    <set to the key 'password' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n    Mounts:\n      /usr/share/metricbeat/certs/ from\
+            \ elasticsearch-master-certs (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-zpbbz (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-deployment-config\n\
+            \    Optional:  false\n  kube-api-access-zpbbz:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   Burstable\nNode-Selectors:\
+            \              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
+            \        From               Message\n  ----     ------       ----    \
+            \              ----               -------\n  Normal   Scheduled    8m1s\
+            \                  default-scheduler  Successfully assigned default/metricbeat-metricbeat-metrics-746dc864-kjwbv\
+            \ to hx-metric-6589d-umbt-helm-control-plane\n  Warning  FailedMount \
+            \ 109s (x11 over 8m1s)  kubelet            MountVolume.SetUp failed for\
+            \ volume \"elasticsearch-master-certs\" : secret \"elasticsearch-master-certs\"\
+            \ not found"
+          logsHead: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-metrics-746dc864-kjwbv" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-metrics-746dc864-kjwbv" is waiting to start: ContainerCreating'
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource DaemonSet/default/metricbeat-metricbeat not ready.
+        status: InProgress, message: Available: 0/1
+
+        resource Deployment/default/metricbeat-metricbeat-metrics not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: blocked
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-metric-6589d-umbt-metricbeat
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 08614342923ab4a43d9e29c8198dce11884691075bb4b74dee0baa0ee5e16011
+      objectCount: 15
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/metricbeat-kube-state-metrics   0/1   1     0     0s
+
+          deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     0s
+
+          daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   0s'
+        pods: '# default
+
+          metricbeat-kube-state-metrics-658dd9bbbc-2sdl9   0/1   ContainerCreating   0     1s
+
+          metricbeat-metricbeat-metrics-746dc864-vcxv6     0/1   ContainerCreating   0     1s
+
+          metricbeat-metricbeat-p6hlh                      0/1   ContainerCreating   0     1s'
+        notReady:
+        - namespace: default
+          pod: metricbeat-kube-state-metrics-658dd9bbbc-2sdl9
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default
+          pod: metricbeat-metricbeat-metrics-746dc864-vcxv6
+          ready: 0/1
+          status: ContainerCreating
+        - namespace: default
+          pod: metricbeat-metricbeat-p6hlh
+          ready: 0/1
+          status: ContainerCreating
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        diagnostics:
+        - namespace: default
+          pod: metricbeat-kube-state-metrics-658dd9bbbc-2sdl9
+          result: pass
+          detailHead: "Name:             metricbeat-kube-state-metrics-658dd9bbbc-2sdl9\n\
+            Namespace:        default\nPriority:         0\nService Account:  metricbeat-kube-state-metrics\n\
+            Node:             hx-metric-6589d-umbt-installer-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 20:39:38 +0100\nLabels:           app.kubernetes.io/component=metrics\n\
+            \                  app.kubernetes.io/instance=metricbeat\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=kube-state-metrics\n\
+            \                  app.kubernetes.io/part-of=kube-state-metrics\n    \
+            \              app.kubernetes.io/version=2.4.1\n                  helm.sh/chart=kube-state-metrics-4.7.0\n\
+            \                  pod-template-hash=658dd9bbbc\nAnnotations:      <none>\n\
+            Status:           Pending\nIP:               \nIPs:              <none>\n\
+            Controlled By:    ReplicaSet/metricbeat-kube-state-metrics-658dd9bbbc\n\
+            Containers:\n  kube-state-metrics:\n    Container ID:  \n    Image:  \
+            \       k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1\n    Image\
+            \ ID:      \n    Port:          8080/TCP (http)\n    Host Port:     0/TCP\
+            \ (http)\n    Args:\n      --port=8080\n      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments\n\
+            \      --telemetry-port=8081\n    State:          Waiting\n      Reason:\
+            \       ContainerCreating\n    Ready:          False\n    Restart Count:\
+            \  0\n    Liveness:       http-get http://:8080/healthz delay=5s timeout=5s\
+            \ period=10s #success=1 #failure=3\n    Readiness:      http-get http://:8080/\
+            \ delay=5s timeout=5s period=10s #success=1 #failure=3\n    Environment:\
+            \    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-c47v4 (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-c47v4:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type    Reason     Age   From       \
+            \        Message\n  ----    ------     ----  ----               -------\n\
+            \  Normal  Scheduled  1s    default-scheduler  Successfully assigned default/metricbeat-kube-sta"
+          detailTail: "        default\nPriority:         0\nService Account:  metricbeat-kube-state-metrics\n\
+            Node:             hx-metric-6589d-umbt-installer-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 20:39:38 +0100\nLabels:           app.kubernetes.io/component=metrics\n\
+            \                  app.kubernetes.io/instance=metricbeat\n           \
+            \       app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=kube-state-metrics\n\
+            \                  app.kubernetes.io/part-of=kube-state-metrics\n    \
+            \              app.kubernetes.io/version=2.4.1\n                  helm.sh/chart=kube-state-metrics-4.7.0\n\
+            \                  pod-template-hash=658dd9bbbc\nAnnotations:      <none>\n\
+            Status:           Pending\nIP:               \nIPs:              <none>\n\
+            Controlled By:    ReplicaSet/metricbeat-kube-state-metrics-658dd9bbbc\n\
+            Containers:\n  kube-state-metrics:\n    Container ID:  \n    Image:  \
+            \       k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1\n    Image\
+            \ ID:      \n    Port:          8080/TCP (http)\n    Host Port:     0/TCP\
+            \ (http)\n    Args:\n      --port=8080\n      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments\n\
+            \      --telemetry-port=8081\n    State:          Waiting\n      Reason:\
+            \       ContainerCreating\n    Ready:          False\n    Restart Count:\
+            \  0\n    Liveness:       http-get http://:8080/healthz delay=5s timeout=5s\
+            \ period=10s #success=1 #failure=3\n    Readiness:      http-get http://:8080/\
+            \ delay=5s timeout=5s period=10s #success=1 #failure=3\n    Environment:\
+            \    <none>\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-c47v4 (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  kube-api-access-c47v4:\n    Type:                    Projected (a volume\
+            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
+            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
+            \                false\n    DownwardAPI:             true\nQoS Class:\
+            \                   BestEffort\nNode-Selectors:              <none>\n\
+            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type    Reason     Age   From       \
+            \        Message\n  ----    ------     ----  ----               -------\n\
+            \  Normal  Scheduled  1s    default-scheduler  Successfully assigned default/metricbeat-kube-state-metrics-658dd9bbbc-2sdl9\
+            \ to hx-metric-6589d-umbt-installer-control-plane"
+          logsHead: 'Error from server (BadRequest): container "kube-state-metrics"
+            in pod "metricbeat-kube-state-metrics-658dd9bbbc-2sdl9" is waiting to
+            start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "kube-state-metrics"
+            in pod "metricbeat-kube-state-metrics-658dd9bbbc-2sdl9" is waiting to
+            start: ContainerCreating'
+        - namespace: default
+          pod: metricbeat-metricbeat-metrics-746dc864-vcxv6
+          result: pass
+          detailHead: "Name:             metricbeat-metricbeat-metrics-746dc864-vcxv6\n\
+            Namespace:        default\nPriority:         0\nService Account:  metricbeat-metricbeat\n\
+            Node:             hx-metric-6589d-umbt-installer-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 20:39:38 +0100\nLabels:           app=metricbeat-metricbeat-metrics\n\
+            \                  chart=metricbeat-8.5.1\n                  pod-template-hash=746dc864\n\
+            \                  release=metricbeat\nAnnotations:      configChecksum:\
+            \ 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    ReplicaSet/metricbeat-metricbeat-metrics-746dc864\nContainers:\n\
+            \  metricbeat:\n    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n    State:  \
+            \        Waiting\n      Reason:       ContainerCreating\n    Ready:  \
+            \        False\n    Restart Count:  0\n    Limits:\n      cpu:     1\n\
+            \      memory:  200Mi\n    Requests:\n      cpu:     100m\n      memory:\
+            \  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash -e\ncurl --fail\
+            \ 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat test output\n\
+            ] delay=10s timeout=5s period=10s #success=1 #failure=3\n    Environment:\n\
+            \      POD_NAMESPACE:             default (v1:metadata.namespace)\n  \
+            \    KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)\n\
+            \      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret\
+            \ 'elasticsearch-master-credentials'>  Optional: false\n      ELASTICSEARCH_PASSWORD:\
+            \    <set to the key 'password' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n    Mounts:\n      /usr/share/metricbeat/certs/ from\
+            \ elasticsearch-master-certs (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-66jd5 (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-deployment-config\n\
+            \    Optional:  false\n  kube-api-access-66jd5:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   Burstable\nNode-Selectors:\
+            \  "
+          detailTail: "sum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\n\
+            Status:           Pending\nIP:               \nIPs:              <none>\n\
+            Controlled By:    ReplicaSet/metricbeat-metricbeat-metrics-746dc864\n\
+            Containers:\n  metricbeat:\n    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n    State:  \
+            \        Waiting\n      Reason:       ContainerCreating\n    Ready:  \
+            \        False\n    Restart Count:  0\n    Limits:\n      cpu:     1\n\
+            \      memory:  200Mi\n    Requests:\n      cpu:     100m\n      memory:\
+            \  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash -e\ncurl --fail\
+            \ 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat test output\n\
+            ] delay=10s timeout=5s period=10s #success=1 #failure=3\n    Environment:\n\
+            \      POD_NAMESPACE:             default (v1:metadata.namespace)\n  \
+            \    KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)\n\
+            \      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret\
+            \ 'elasticsearch-master-credentials'>  Optional: false\n      ELASTICSEARCH_PASSWORD:\
+            \    <set to the key 'password' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n    Mounts:\n      /usr/share/metricbeat/certs/ from\
+            \ elasticsearch-master-certs (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-66jd5 (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-deployment-config\n\
+            \    Optional:  false\n  kube-api-access-66jd5:\n    Type:           \
+            \         Projected (a volume that contains injected data from multiple\
+            \ sources)\n    TokenExpirationSeconds:  3607\n    ConfigMapName:    \
+            \       kube-root-ca.crt\n    Optional:                false\n    DownwardAPI:\
+            \             true\nQoS Class:                   Burstable\nNode-Selectors:\
+            \              <none>\nTolerations:                 node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type    Reason     Age   From       \
+            \        Message\n  ----    ------     ----  ----               -------\n\
+            \  Normal  Scheduled  1s    default-scheduler  Successfully assigned default/metricbeat-metricbeat-metrics-746dc864-vcxv6\
+            \ to hx-metric-6589d-umbt-installer-control-plane"
+          logsHead: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-metrics-746dc864-vcxv6" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-metrics-746dc864-vcxv6" is waiting to start: ContainerCreating'
+        - namespace: default
+          pod: metricbeat-metricbeat-p6hlh
+          result: blocked
+          detailHead: "Name:             metricbeat-metricbeat-p6hlh\nNamespace: \
+            \       default\nPriority:         0\nService Account:  metricbeat-metricbeat\n\
+            Node:             hx-metric-6589d-umbt-installer-control-plane/192.168.97.3\n\
+            Start Time:       Wed, 17 Jun 2026 20:39:38 +0100\nLabels:           app=metricbeat-metricbeat\n\
+            \                  chart=metricbeat-8.5.1\n                  controller-revision-hash=56958d8d56\n\
+            \                  heritage=Helm\n                  pod-template-generation=1\n\
+            \                  release=metricbeat\nAnnotations:      configChecksum:\
+            \ 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\nStatus:\
+            \           Pending\nIP:               \nIPs:              <none>\nControlled\
+            \ By:    DaemonSet/metricbeat-metricbeat\nContainers:\n  metricbeat:\n\
+            \    Container ID:  \n    Image:         docker.elastic.co/beats/metricbeat:8.5.1\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Args:\n      -e\n      -E\n      http.enabled=true\n      --system.hostfs=/hostfs\n\
+            \    State:          Waiting\n      Reason:       ContainerCreating\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:     1\n      memory:  200Mi\n    Requests:\n      cpu:     100m\n\
+            \      memory:  100Mi\n    Liveness:  exec [sh -c #!/usr/bin/env bash\
+            \ -e\ncurl --fail 127.0.0.1:5066\n] delay=10s timeout=5s period=10s #success=1\
+            \ #failure=3\n    Readiness:  exec [sh -c #!/usr/bin/env bash -e\nmetricbeat\
+            \ test output\n] delay=10s timeout=5s period=10s #success=1 #failure=3\n\
+            \    Environment:\n      POD_NAMESPACE:           default (v1:metadata.namespace)\n\
+            \      NODE_NAME:                (v1:spec.nodeName)\n      ELASTICSEARCH_USERNAME:\
+            \  <set to the key 'username' in secret 'elasticsearch-master-credentials'>\
+            \  Optional: false\n      ELASTICSEARCH_PASSWORD:  <set to the key 'password'\
+            \ in secret 'elasticsearch-master-credentials'>  Optional: false\n   \
+            \ Mounts:\n      /hostfs/proc from proc (ro)\n      /hostfs/sys/fs/cgroup\
+            \ from cgroup (ro)\n      /usr/share/metricbeat/certs/ from elasticsearch-master-certs\
+            \ (rw)\n      /usr/share/metricbeat/data from data (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/docker.sock\
+            \ from varrundockersock (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-lz7jq (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-daemonset-config\n\
+            \    Optional:  false\n  data:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /var/lib/metricbeat-metricbeat-default-data\n\
+            \    HostPathType:  DirectoryOrCreat"
+          detailTail: "'username' in secret 'elasticsearch-master-credentials'>  Optional:\
+            \ false\n      ELASTICSEARCH_PASSWORD:  <set to the key 'password' in\
+            \ secret 'elasticsearch-master-credentials'>  Optional: false\n    Mounts:\n\
+            \      /hostfs/proc from proc (ro)\n      /hostfs/sys/fs/cgroup from cgroup\
+            \ (ro)\n      /usr/share/metricbeat/certs/ from elasticsearch-master-certs\
+            \ (rw)\n      /usr/share/metricbeat/data from data (rw)\n      /usr/share/metricbeat/metricbeat.yml\
+            \ from metricbeat-config (ro,path=\"metricbeat.yml\")\n      /var/run/docker.sock\
+            \ from varrundockersock (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
+            \ from kube-api-access-lz7jq (ro)\nConditions:\n  Type               \
+            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
+            \                 True \n  Ready                       False \n  ContainersReady\
+            \             False \n  PodScheduled                True \nVolumes:\n\
+            \  elasticsearch-master-certs:\n    Type:        Secret (a volume populated\
+            \ by a Secret)\n    SecretName:  elasticsearch-master-certs\n    Optional:\
+            \    false\n  metricbeat-config:\n    Type:      ConfigMap (a volume populated\
+            \ by a ConfigMap)\n    Name:      metricbeat-metricbeat-daemonset-config\n\
+            \    Optional:  false\n  data:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /var/lib/metricbeat-metricbeat-default-data\n\
+            \    HostPathType:  DirectoryOrCreate\n  varrundockersock:\n    Type:\
+            \          HostPath (bare host directory volume)\n    Path:          /var/run/docker.sock\n\
+            \    HostPathType:  \n  proc:\n    Type:          HostPath (bare host\
+            \ directory volume)\n    Path:          /proc\n    HostPathType:  \n \
+            \ cgroup:\n    Type:          HostPath (bare host directory volume)\n\
+            \    Path:          /sys/fs/cgroup\n    HostPathType:  \n  kube-api-access-lz7jq:\n\
+            \    Type:                    Projected (a volume that contains injected\
+            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
+            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
+            \     false\n    DownwardAPI:             true\nQoS Class:           \
+            \        Burstable\nNode-Selectors:              <none>\nTolerations:\
+            \                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists\n\
+            \                             node.kubernetes.io/memory-pressure:NoSchedule\
+            \ op=Exists\n                             node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists\n                             node.kubernetes.io/pid-pressure:NoSchedule\
+            \ op=Exists\n                             node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists\n                             node.kubernetes.io/unschedulable:NoSchedule\
+            \ op=Exists\nEvents:\n  Type     Reason       Age   From             \
+            \  Message\n  ----     ------       ----  ----               -------\n\
+            \  Normal   Scheduled    1s    default-scheduler  Successfully assigned\
+            \ default/metricbeat-metricbeat-p6hlh to hx-metric-6589d-umbt-installer-control-plane\n\
+            \  Warning  FailedMount  0s    kubelet            MountVolume.SetUp failed\
+            \ for volume \"elasticsearch-master-certs\" : secret \"elasticsearch-master-certs\"\
+            \ not found"
+          logsHead: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-p6hlh" is waiting to start: ContainerCreating'
+          logsTail: 'Error from server (BadRequest): container "metricbeat" in pod
+            "metricbeat-metricbeat-p6hlh" is waiting to start: ContainerCreating'
+          blockedReason: missing-required-secret
+          missingSecret: elasticsearch-master-certs
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 14
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 15
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource DaemonSet/default/metricbeat-metricbeat not ready. status:
+      InProgress, message: Available: 0/1
+
+      resource Deployment/default/metricbeat-metricbeat-metrics not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: blocked
+    detail: '# default
+
+      deployment.apps/metricbeat-kube-state-metrics   0/1   1     0     0s
+
+      deployment.apps/metricbeat-metricbeat-metrics   0/1   1     0     0s
+
+      daemonset.apps/metricbeat-metricbeat   1     1     0     1     0     <none>   0s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

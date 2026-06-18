@@ -1,0 +1,82 @@
+Name:             metricbeat-metricbeat-metrics-746dc864-8w4gn
+Namespace:        default-apply
+Priority:         0
+Service Account:  metricbeat-metricbeat
+Node:             helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane/192.168.97.2
+Start Time:       Wed, 17 Jun 2026 18:53:27 +0100
+Labels:           app=metricbeat-metricbeat-metrics
+                  chart=metricbeat-8.5.1
+                  pod-template-hash=746dc864
+                  release=metricbeat
+Annotations:      configChecksum: 6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3
+Status:           Pending
+IP:               
+IPs:              <none>
+Controlled By:    ReplicaSet/metricbeat-metricbeat-metrics-746dc864
+Containers:
+  metricbeat:
+    Container ID:  
+    Image:         docker.elastic.co/beats/metricbeat:8.5.1
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      -e
+      -E
+      http.enabled=true
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     1
+      memory:  200Mi
+    Requests:
+      cpu:     100m
+      memory:  100Mi
+    Liveness:  exec [sh -c #!/usr/bin/env bash -e
+curl --fail 127.0.0.1:5066
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:  exec [sh -c #!/usr/bin/env bash -e
+metricbeat test output
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAMESPACE:             default-apply (v1:metadata.namespace)
+      KUBE_STATE_METRICS_HOSTS:  $(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)
+      ELASTICSEARCH_USERNAME:    <set to the key 'username' in secret 'elasticsearch-master-credentials'>  Optional: false
+      ELASTICSEARCH_PASSWORD:    <set to the key 'password' in secret 'elasticsearch-master-credentials'>  Optional: false
+    Mounts:
+      /usr/share/metricbeat/certs/ from elasticsearch-master-certs (rw)
+      /usr/share/metricbeat/metricbeat.yml from metricbeat-config (ro,path="metricbeat.yml")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-29f47 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  elasticsearch-master-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  elasticsearch-master-certs
+    Optional:    false
+  metricbeat-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      metricbeat-metricbeat-deployment-config
+    Optional:  false
+  kube-api-access-29f47:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason       Age   From               Message
+  ----     ------       ----  ----               -------
+  Normal   Scheduled    1s    default-scheduler  Successfully assigned default-apply/metricbeat-metricbeat-metrics-746dc864-8w4gn to helm-expt-parity-metricbeat-mqid15pc-8l2-control-plane
+  Warning  FailedMount  0s    kubelet            MountVolume.SetUp failed for volume "elasticsearch-master-certs" : secret "elasticsearch-master-certs" not found

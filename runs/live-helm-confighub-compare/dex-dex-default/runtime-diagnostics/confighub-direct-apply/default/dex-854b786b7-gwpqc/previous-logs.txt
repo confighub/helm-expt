@@ -1,0 +1,4 @@
+time=2026-06-17T16:25:39.101Z level=INFO msg="Version info" dex_version=v2.44.0 go.version=go1.25.0 go.os=linux go.arch=arm64
+invalid Config:
+	-	no issuer specified in config file
+	-	no storage supplied in config file

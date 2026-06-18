@@ -146,7 +146,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-16T15:05:10.976Z UTC · source: committed helm-expt evidence for this public catalog dashboard.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-18T07:18:24.172Z UTC · source: committed helm-expt evidence for this public catalog dashboard.</p>
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
     <div class="doors">
       <div class="door">
@@ -236,7 +236,7 @@
         <div class="metric"><strong>10/10</strong><span>Derived create receipts</span></div>
         <div class="metric"><strong>135/192</strong><span>GitOps/OCI live pass</span></div>
         <div class="metric"><strong>135/192</strong><span>Live parity pass</span></div>
-        <div class="metric"><strong>120/160</strong><span>Two-cluster parity pass</span></div>
+        <div class="metric"><strong>121/172</strong><span>Two-cluster parity pass</span></div>
       </div>
     </section>
 
@@ -259,7 +259,7 @@
       <p>Redis is the teaching chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>User choice</th><th>Render</th><th>Two-cluster kind</th><th>OCI/GitOps</th><th>Production</th><th>Next hard work</th></tr></thead>
-        <tbody><tr><td>default</td><td>install the stack including Prometheus Operator CRDs</td><td>pass</td><td>pass</td><td>pass</td><td>supported-for-declared-target-scope</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr><tr><td>no-crds</td><td>install the stack without creating CRDs</td><td>pass</td><td>pass</td><td>pass</td><td>support-evidence-present</td><td>decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope</td></tr></tbody>
+        <tbody><tr><td>default</td><td>install the stack including Prometheus Operator CRDs</td><td>pass</td><td>missing</td><td>pass</td><td>supported-for-declared-target-scope</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr><tr><td>no-crds</td><td>install the stack without creating CRDs</td><td>pass</td><td>missing</td><td>pass</td><td>support-evidence-present</td><td>decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -302,7 +302,7 @@
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
       <div class="card"><table>
         <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>192/192</td><td>partial</td></tr><tr><td>local live rows</td><td>139/192</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>135/192</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>135/192</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>120/160</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>7/160</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
+        <tbody><tr><td>in-ConfigHub proof rows</td><td>192/192</td><td>partial</td></tr><tr><td>local live rows</td><td>142/192</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>135/192</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>135/192</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>121/172</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>10/172</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -403,10 +403,10 @@
       <h2 id="live-rerun-plan">Live Parity Rerun Plan</h2>
       <p>The live non-pass rows are work queues, not hidden failures. The rerun plan separates semantic parity defects from target prerequisites, runtime watch rows, hooks, and operating-policy decisions.</p>
       <div class="grid">
-        <div class="metric"><strong>89</strong><span>Rows in rerun queue</span></div>
-        <div class="metric"><strong>7</strong><span>Semantic parity defects</span></div>
-        <div class="metric"><strong>50</strong><span>ConfigHub/OCI non-pass rows</span></div>
-        <div class="metric"><strong>39</strong><span>Two-cluster rows to resolve</span></div>
+        <div class="metric"><strong>107</strong><span>Rows in rerun queue</span></div>
+        <div class="metric"><strong>10</strong><span>Semantic parity defects</span></div>
+        <div class="metric"><strong>57</strong><span>ConfigHub/OCI non-pass rows</span></div>
+        <div class="metric"><strong>50</strong><span>Two-cluster rows to resolve</span></div>
       </div>
       <div class="card"><table>
         <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th><th>Support artifact</th></tr></thead>
@@ -425,13 +425,13 @@
       <h2 id="top100-readiness">Top-100 Readiness</h2>
       <p>The top-100 corpus is not one claim. It separates charts a Helm user can try now from charts that need target prerequisites, operator review, better base variants, or limitation decisions.</p>
       <div class="grid">
-        <div class="metric"><strong>77/100</strong><span>Charts with live evidence</span></div>
+        <div class="metric"><strong>79/100</strong><span>Charts with live evidence</span></div>
         <div class="metric"><strong>20/100</strong><span>Ready to try</span></div>
         <div class="metric"><strong>15/100</strong><span>Need target input</span></div>
         <div class="metric"><strong>23/100</strong><span>Need operator review</span></div>
         <div class="metric"><strong>35/100</strong><span>Need useful variants</span></div>
         <div class="metric"><strong>37/80</strong><span>Strict promotion queue</span></div>
-        <div class="metric"><strong>24</strong><span>First strict promotion wave</span></div>
+        <div class="metric"><strong>30</strong><span>First strict promotion wave</span></div>
         <div class="metric"><strong>7/100</strong><span>Not ready yet</span></div>
       </div>
       <div class="card"><table>
@@ -475,7 +475,7 @@
         <div class="metric"><strong>495/500</strong><span>Source rows scanned</span></div>
         <div class="metric"><strong>91/500</strong><span>Rows matched to current proofs</span></div>
         <div class="metric"><strong>409/500</strong><span>Reconnaissance only</span></div>
-        <div class="metric"><strong>50</strong><span>Matched multi-variant proofs</span></div>
+        <div class="metric"><strong>60</strong><span>Matched multi-variant proofs</span></div>
       </div>
       <div class="card"><table>
         <thead><tr><th>Signal</th><th>Count</th><th>Meaning</th></tr></thead>
@@ -494,10 +494,9 @@
       <h2 id="base-readiness">Which Base Should I Start With?</h2>
       <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, has related lifecycle evidence, or needs runtime/prerequisite review.</p>
       <div class="lanes">
-        <div class="metric"><strong>1</strong><span>render-only</span></div>
-        <div class="metric"><strong>1</strong><span>runtime-watch</span></div>
-        <div class="metric"><strong>37</strong><span>start-here</span></div>
-        <div class="metric"><strong>3</strong><span>try-with-proof</span></div>
+        <div class="metric"><strong>13</strong><span>render-only</span></div>
+        <div class="metric"><strong>3</strong><span>runtime-watch</span></div>
+        <div class="metric"><strong>26</strong><span>start-here</span></div>
       </div>
       <div class="card"><table>
         <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
@@ -511,7 +510,7 @@
       </style>
       <div class="card"><table>
         <thead><tr><th>Chart</th><th>Recommended base</th><th>Readiness</th><th>Command</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>no-crds</td><td>try-with-proof</td><td>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace postgresql</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace rabbitmq</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace redis</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace external-secrets</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>existing-secret-ingress</td><td>start-here</td><td>cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir &lt;tmp&gt; --non-interactive --namespace loki</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>start-here</td><td>cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>start-here</td><td>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>start-here</td><td>cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir &lt;tmp&gt; --non-interactive --namespace cert-manager</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace longhorn-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>start-here</td><td>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
+        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace postgresql</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace rabbitmq</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace redis</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace external-secrets</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>existing-secret-ingress</td><td>start-here</td><td>cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir &lt;tmp&gt; --non-interactive --namespace loki</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>start-here</td><td>cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>start-here</td><td>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>start-here</td><td>cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir &lt;tmp&gt; --non-interactive --namespace cert-manager</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace longhorn-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>render-only</td><td>cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>render-only</td><td>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -532,8 +531,8 @@
           <span class="status warn">candidate 9.5.17</span>
           <dl>
             <dt>Supported version</dt><dd>9.5.15</dd>
-            <dt>Start variant</dt><dd>no-crds</dd>
-            <dt>Start status</dt><dd>try-with-proof</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Start status</dt><dd>start-here</dd>
             <dt>Variants</dt><dd>default;no-crds</dd>
             <dt>Chart page</dt><dd><a href="./charts/argo-cd-argo-cd-9-5-15.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/argo-cd/argo-cd/9.5.15">packages/argo-cd/argo-cd/9.5.15</a></dd>
@@ -547,7 +546,7 @@
           <dl>
             <dt>Supported version</dt><dd>19.0.7</dd>
             <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>generated-passwords;existing-secret-replicaset</dd>
             <dt>Chart page</dt><dd><a href="./charts/bitnami-mongodb-19-0-7.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/bitnami/mongodb/19.0.7">packages/bitnami/mongodb/19.0.7</a></dd>
@@ -575,7 +574,7 @@
           <dl>
             <dt>Supported version</dt><dd>24.0.2</dd>
             <dt>Start variant</dt><dd>http-clusterip</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>http-clusterip;existing-tls-ingress</dd>
             <dt>Chart page</dt><dd><a href="./charts/bitnami-nginx-24-0-2.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/bitnami/nginx/24.0.2">packages/bitnami/nginx/24.0.2</a></dd>
@@ -589,7 +588,7 @@
           <dl>
             <dt>Supported version</dt><dd>18.6.7</dd>
             <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
             <dt>Chart page</dt><dd><a href="./charts/bitnami-postgresql-18-6-7.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/bitnami/postgresql/18.6.7">packages/bitnami/postgresql/18.6.7</a></dd>
@@ -617,7 +616,7 @@
           <dl>
             <dt>Supported version</dt><dd>25.5.3</dd>
             <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>default;reuse-existing-secret</dd>
             <dt>Chart page</dt><dd><a href="./charts/bitnami-redis-25-5-3.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a></dd>
@@ -771,7 +770,7 @@
           <dl>
             <dt>Supported version</dt><dd>85.3.3</dd>
             <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>default;no-crds</dd>
             <dt>Chart page</dt><dd><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/prometheus-community/kube-prometheus-stack/85.3.3">packages/prometheus-community/kube-prometheus-stack/85.3.3</a></dd>
@@ -785,7 +784,7 @@
           <dl>
             <dt>Supported version</dt><dd>29.8.0</dd>
             <dt>Start variant</dt><dd>server-only-ephemeral</dd>
-            <dt>Start status</dt><dd>start-here</dd>
+            <dt>Start status</dt><dd>render-only</dd>
             <dt>Variants</dt><dd>default;server-only-ephemeral</dd>
             <dt>Chart page</dt><dd><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a></dd>

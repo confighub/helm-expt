@@ -23,19 +23,19 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-41 non-pass rows: 10 watch, 31 blocked.
-16 are resolved by the **user** (stage a prerequisite or supply
-values); 11 need **catalog/model** work; the rest need a runtime or
+51 non-pass rows: 10 watch, 41 blocked.
+17 are resolved by the **user** (stage a prerequisite or supply
+values); 13 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
+| `remote-image` | 10 |
+| `target-runtime` | 10 |
+| `model-gap-render` | 9 |
 | `target-prerequisite-crds` | 8 |
-| `target-runtime` | 8 |
-| `model-gap-render` | 7 |
-| `remote-image` | 5 |
+| `target-prerequisite-secret` | 4 |
 | `target-prerequisite-namespace` | 3 |
-| `target-prerequisite-secret` | 3 |
 | `capability-profile-diff` | 2 |
 | `render-input` | 2 |
 | `hook-lifecycle` | 1 |
@@ -44,10 +44,10 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `user` | 16 |
-| `catalog` | 11 |
-| `needs runtime review` | 8 |
-| `catalog or image publisher` | 5 |
+| `user` | 17 |
+| `catalog` | 13 |
+| `catalog or image publisher` | 10 |
+| `needs runtime review` | 10 |
 | `needs readiness review` | 1 |
 
 ## Rows
@@ -64,13 +64,22 @@ readiness review.
 | bitnami/elasticsearch@22.1.6 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
+| bitnami/phpmyadmin@20.0.0 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/spark@10.0.3 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/spark@10.0.3 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/zookeeper@13.8.7 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/zookeeper@13.8.7 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | dex/dex@0.24.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| elastic/kibana@8.5.1 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| elastic/metricbeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | fairwinds-stable/vpa@4.11.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | fairwinds-stable/vpa@4.11.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | gitlab/gitlab-runner@0.89.0 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| grafana/pyroscope@2.0.2 | ha | blocked | model-gap-render | catalog | no — needs catalog work |
 | grafana/rollout-operator@0.49.0 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
+| hashicorp/terraform@1.1.2 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | hashicorp/terraform@1.1.2 | no-crds | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | istio/gateway@1.30.0 | controller-default-reviewed | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | istio/gateway@1.30.0 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
@@ -84,6 +93,7 @@ readiness review.
 | nats/surveyor@0.20.9 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nats/surveyor@0.20.9 | default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | render-input | user | yes, after supplying values |
+| opencost/opencost@2.5.21 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | percona/pg-operator@3.0.0 | no-crds | watch | target-prerequisite-crds | user | yes, after staging CRDs |
 | percona/pxc-operator@1.19.1 | no-crds | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |

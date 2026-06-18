@@ -1,0 +1,10 @@
+LAST SEEN   TYPE      REASON              OBJECT                      MESSAGE
+8m          Normal    Scheduled           pod/dex-759d8b584d-xvwct    Successfully assigned default-helm/dex-759d8b584d-xvwct to helm-expt-parity-dex-mqi9w9e2-2b4-control-plane
+8m          Normal    Pulling             pod/dex-759d8b584d-xvwct    Pulling image "ghcr.io/dexidp/dex:v2.44.0"
+8m          Normal    SuccessfulCreate    replicaset/dex-759d8b584d   Created pod: dex-759d8b584d-xvwct
+8m          Normal    ScalingReplicaSet   deployment/dex              Scaled up replica set dex-759d8b584d from 0 to 1
+7m52s       Normal    Pulled              pod/dex-759d8b584d-xvwct    Successfully pulled image "ghcr.io/dexidp/dex:v2.44.0" in 7.547s (7.547s including waiting). Image size: 42736464 bytes.
+2m24s       Normal    Created             pod/dex-759d8b584d-xvwct    Container created
+2m24s       Normal    Started             pod/dex-759d8b584d-xvwct    Container started
+2m24s       Normal    Pulled              pod/dex-759d8b584d-xvwct    Container image "ghcr.io/dexidp/dex:v2.44.0" already present on machine and can be accessed by the pod
+61s         Warning   BackOff             pod/dex-759d8b584d-xvwct    Back-off restarting failed container dex in pod dex-759d8b584d-xvwct_default-helm(277e8609-e0cc-42b4-8d49-16e978ec1083)

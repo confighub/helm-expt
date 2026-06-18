@@ -1,0 +1,91 @@
+Name:             gitlab-runner-844d54c8cc-bvqfd
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane/192.168.97.2
+Start Time:       Wed, 17 Jun 2026 19:42:16 +0100
+Labels:           app=gitlab-runner
+                  chart=gitlab-runner-0.89.0
+                  heritage=Helm
+                  pod-template-hash=844d54c8cc
+                  release=gitlab-runner
+Annotations:      checksum/configmap: aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10
+Status:           Running
+IP:               10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  ReplicaSet/gitlab-runner-844d54c8cc
+Containers:
+  gitlab-runner:
+    Container ID:  containerd://68d4a1a40c4ed77d1b45cc89e39c1668fe0e46432c6f705c7ab218e08c490c48
+    Image:         registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0
+    Image ID:      registry.gitlab.com/gitlab-org/gitlab-runner@sha256:3be36158657e3bcdcbd6e65c9b3549514d2890586ba1f4065b89af1eea7660d3
+    Port:          9252/TCP (metrics)
+    Host Port:     0/TCP (metrics)
+    Command:
+      /usr/bin/dumb-init
+      --
+      /bin/bash
+      /configmaps/entrypoint
+    State:          Running
+      Started:      Wed, 17 Jun 2026 19:56:16 +0100
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 17 Jun 2026 19:54:23 +0100
+      Finished:     Wed, 17 Jun 2026 19:56:16 +0100
+    Ready:          False
+    Restart Count:  6
+    Liveness:       exec [/bin/bash /configmaps/check-live 3] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Readiness:      exec [/usr/bin/pgrep gitlab.*runner] delay=60s timeout=4s period=60s #success=1 #failure=3
+    Environment:
+      CI_SERVER_URL:           
+      RUNNER_EXECUTOR:         kubernetes
+      REGISTER_LOCKED:         true
+      RUNNER_TAG_LIST:         
+      SESSION_SERVER_ADDRESS:  
+    Mounts:
+      /configmaps from configmaps (rw)
+      /home/gitlab-runner/.gitlab-runner from etc-gitlab-runner (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-ww8gs (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  runner-secrets:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  etc-gitlab-runner:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  configmaps:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      gitlab-runner
+    Optional:  false
+  kube-api-access-ww8gs:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  16m                    default-scheduler  Successfully assigned default/gitlab-runner-844d54c8cc-bvqfd to helm-expt-parity-gitlabrunner-mqievt8e-9ps-control-plane
+  Warning  BackOff    5m13s (x3 over 9m45s)  kubelet            spec.containers{gitlab-runner}: Back-off restarting failed container gitlab-runner in pod gitlab-runner-844d54c8cc-bvqfd_default(d8c9d4e9-3424-4ccf-a413-d397d24f1e16)
+  Normal   Pulled     2m13s (x7 over 16m)    kubelet            spec.containers{gitlab-runner}: Container image "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0" already present on machine and can be accessed by the pod
+  Normal   Created    2m13s (x7 over 16m)    kubelet            spec.containers{gitlab-runner}: Container created
+  Normal   Started    2m13s (x7 over 16m)    kubelet            spec.containers{gitlab-runner}: Container started
+  Normal   Killing    2m13s (x3 over 12m)    kubelet            spec.containers{gitlab-runner}: Container gitlab-runner failed liveness probe, will be restarted
+  Warning  Unhealthy  73s (x10 over 15m)     kubelet            spec.containers{gitlab-runner}: Liveness probe failed:
+  Warning  Unhealthy  4s (x17 over 15m)      kubelet            spec.containers{gitlab-runner}: Readiness probe failed:

@@ -1,0 +1,17 @@
+LAST SEEN   TYPE      REASON                    OBJECT                                                 MESSAGE
+17m         Normal    Starting                  node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   
+17m         Normal    NodeHasSufficientPID      node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane status is now: NodeHasSufficientPID
+17m         Normal    Starting                  node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Starting kubelet.
+17m         Normal    NodeAllocatableEnforced   node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Updated Node Allocatable limit across pods
+17m         Normal    NodeHasSufficientMemory   node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane status is now: NodeHasSufficientMemory
+17m         Normal    NodeHasNoDiskPressure     node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane status is now: NodeHasNoDiskPressure
+17m         Normal    RegisteredNode            node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane event: Registered Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane in Controller
+17m         Normal    NodeReady                 node/helm-expt-parity-dex-mqi9w9e2-2b4-control-plane   Node helm-expt-parity-dex-mqi9w9e2-2b4-control-plane status is now: NodeReady
+8m25s       Normal    SuccessfulCreate          replicaset/dex-854b786b7                               Created pod: dex-854b786b7-gwpqc
+8m25s       Warning   FailedCreate              replicaset/dex-854b786b7                               Error creating: pods "dex-854b786b7-" is forbidden: error looking up service account default/dex: serviceaccount "dex" not found
+8m25s       Normal    ScalingReplicaSet         deployment/dex                                         Scaled up replica set dex-854b786b7 from 0 to 1
+8m25s       Normal    Scheduled                 pod/dex-854b786b7-gwpqc                                Successfully assigned default/dex-854b786b7-gwpqc to helm-expt-parity-dex-mqi9w9e2-2b4-control-plane
+2m39s       Normal    Created                   pod/dex-854b786b7-gwpqc                                Container created
+2m39s       Normal    Started                   pod/dex-854b786b7-gwpqc                                Container started
+2m39s       Normal    Pulled                    pod/dex-854b786b7-gwpqc                                Container image "ghcr.io/dexidp/dex:v2.44.0" already present on machine and can be accessed by the pod
+17s         Warning   BackOff                   pod/dex-854b786b7-gwpqc                                Back-off restarting failed container dex in pod dex-854b786b7-gwpqc_default(e3fd3216-4440-4981-a487-19213be25955)

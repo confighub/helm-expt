@@ -1,0 +1,75 @@
+Name:             dex-854b786b7-gwpqc
+Namespace:        default
+Priority:         0
+Service Account:  dex
+Node:             helm-expt-parity-dex-mqi9w9e2-2b4-control-plane/192.168.97.3
+Start Time:       Wed, 17 Jun 2026 17:25:37 +0100
+Labels:           app.kubernetes.io/instance=dex
+                  app.kubernetes.io/name=dex
+                  pod-template-hash=854b786b7
+Annotations:      checksum/config: 3ef3e2f13ba337b9bed36692407b0430de9700da27c206e17a78f35e411f3ff2
+Status:           Running
+IP:               10.244.0.13
+IPs:
+  IP:           10.244.0.13
+Controlled By:  ReplicaSet/dex-854b786b7
+Containers:
+  dex:
+    Container ID:  containerd://1ce38c679388ed17c8eb2e33ce22078ad479ee1079ac378f80e4644183a23831
+    Image:         ghcr.io/dexidp/dex:v2.44.0
+    Image ID:      ghcr.io/dexidp/dex@sha256:5d0656fce7d453c0e3b2706abf40c0d0ce5b371fb0b73b3cf714d05f35fa5f86
+    Ports:         5556/TCP (http), 5558/TCP (telemetry)
+    Host Ports:    0/TCP (http), 0/TCP (telemetry)
+    Args:
+      dex
+      serve
+      --web-http-addr
+      0.0.0.0:5556
+      --telemetry-addr
+      0.0.0.0:5558
+      /etc/dex/config.yaml
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    2
+      Started:      Wed, 17 Jun 2026 17:31:23 +0100
+      Finished:     Wed, 17 Jun 2026 17:31:23 +0100
+    Ready:          False
+    Restart Count:  6
+    Liveness:       http-get http://:telemetry/healthz/live delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:telemetry/healthz/ready delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /etc/dex from config (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lrfw7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  config:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  dex
+    Optional:    false
+  kube-api-access-lrfw7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  8m25s                  default-scheduler  Successfully assigned default/dex-854b786b7-gwpqc to helm-expt-parity-dex-mqi9w9e2-2b4-control-plane
+  Normal   Pulled     2m39s (x7 over 8m24s)  kubelet            spec.containers{dex}: Container image "ghcr.io/dexidp/dex:v2.44.0" already present on machine and can be accessed by the pod
+  Normal   Created    2m39s (x7 over 8m24s)  kubelet            spec.containers{dex}: Container created
+  Normal   Started    2m39s (x7 over 8m24s)  kubelet            spec.containers{dex}: Container started
+  Warning  BackOff    17s (x20 over 8m22s)   kubelet            spec.containers{dex}: Back-off restarting failed container dex in pod dex-854b786b7-gwpqc_default(e3fd3216-4440-4981-a487-19213be25955)

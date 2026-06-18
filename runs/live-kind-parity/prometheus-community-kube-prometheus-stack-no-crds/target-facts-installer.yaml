@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: kube-prometheus-stack-admission
+    namespace: monitoring
+  type: Opaque
+  stringData:
+    cert: '-----BEGIN CERTIFICATE-----
+
+      MIIDFTCCAf2gAwIBAgIUXFTtgUGXgRL6Amnv/wEItHytMhIwDQYJKoZIhvcNAQEL
+
+      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjE5MjY0NFoX
+
+      DTI2MDYxNzE5MjY0NFowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
+
+      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArhcg9V+ECu0FWIySgHFML69HoulT
+
+      oVdiWDfv70RlcUPSmKVRraUy8q+EBizz9sXioJDmx13tHvW1VrR3BSZV3dIjUEUz
+
+      RquD1dQp1Uw3+alBQqgWp1QLpg0/bfHfBmkIWVbbjRAtAIKrJJDLoSgs2PQmcCmC
+
+      fUVCxPbICHifL52LSIcIUF9lX+9ZNDxD8vARUoK7vrwN+MU4I9p00+6vW7uOdeGl
+
+      4l/6JqMFL1qbn0+vN/M9fR/OyizctnQ26/xBcGL2U6ZHGAvSmD8KqpPEi44Htv25
+
+      N74M12FkjrVJp0aZSiR/k3O0//dHMuaaCYi3CJilgWQGbiTPdpkAfOBO6QIDAQAB
+
+      o1MwUTAdBgNVHQ4EFgQUbAHORg1UiVJgS9FnnQD5u0XBUlowHwYDVR0jBBgwFoAU
+
+      bAHORg1UiVJgS9FnnQD5u0XBUlowDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B
+
+      AQsFAAOCAQEAEiarSbUUNFLZgtPYk1UCokYuGU3HQl6i+Mb2AaXNsQ/xGmEx/tdx
+
+      IlsQQe3ndNaSYRtd8n+86iuw95CdGz3ZlMSG+bDBRTjvtXNZA8wziCFj7AxRyJPh
+
+      3M8kL1doBSdWPq9mJnETIf0F3uRO1VIvWWT67tqcWHK8LmALPaQgN+a29rXG0Rtq
+
+      Ik5FiKk43Un50a+BJGJR8KTCto7mjRSG5S1QBpPssAB/dtVvS8nElPoUjjltqxZH
+
+      aOhdGI0isiDRnG9Xwwc7GgOPiLn1ETd7/USUz2WZH4Yiw1V+1Kc1MEIeCsutye/o
+
+      iYAERWSHqMvJYT8h5mdyh79f1PzJG7nl/Q==
+
+      -----END CERTIFICATE-----
+
+      '
+    key: '-----BEGIN PRIVATE KEY-----
+
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCuFyD1X4QK7QVY
+
+      jJKAcUwvr0ei6VOhV2JYN+/vRGVxQ9KYpVGtpTLyr4QGLPP2xeKgkObHXe0e9bVW
+
+      tHcFJlXd0iNQRTNGq4PV1CnVTDf5qUFCqBanVAumDT9t8d8GaQhZVtuNEC0Agqsk
+
+      kMuhKCzY9CZwKYJ9RULE9sgIeJ8vnYtIhwhQX2Vf71k0PEPy8BFSgru+vA34xTgj
+
+      2nTT7q9bu4514aXiX/omowUvWpufT6838z19H87KLNy2dDbr/EFwYvZTpkcYC9KY
+
+      Pwqqk8SLjge2/bk3vgzXYWSOtUmnRplKJH+Tc7T/90cy5poJiLcImKWBZAZuJM92
+
+      mQB84E7pAgMBAAECggEAA6A5WFVeObMhbgxiEtq5PavpIkZS9SltvVz8SlrkJ349
+
+      6F5W5ta9EPzeABoHCN9EfSswPII5hl0GllXK8R1XXL4/LGSMLbpaoOhqzu9BiIAR
+
+      h97aUO9RNxevyzCmU3rgzANarlPImJBmjUWJ3jNVyTBMAPPjLKXo68Zti/w4j/K1
+
+      2T1Rm8HXj3/w/lnvJc/gA678VkBeB08cf4ryTQzEWWetDyVeYYo6ocenEQD0ur3m
+
+      mUi3Ppyc5eGc7WqHce56eU5RMEmwgdoxE15C2h/u/TVEOo4sv3uC2RudtFnAyE/o
+
+      sHAGZNyrO/CfiMrGT1MBDU4fF8VvhWwJkRjpEGYWMQKBgQDql35DzXLl0rlntOJL
+
+      uPcscqYfDq6XPJ1h00L2o3MQisISbZOfIweDAVCapzI6ou3x67yJ9eFwzMte4O4y
+
+      wds8wwppW0OCC8KKiPRoJlagvGImFEmD/+Iw+cxLpihMJCvU1EvkYpIQvq97VN7q
+
+      VDyrff2mNMlwhC0jhyGJi8gWcQKBgQC9+jU//5LZ4HkLhqa6oZ33GRLaJmZprAOj
+
+      iPvvo3riaNx6NFOl1GtmKo2CR3L0zZ6/DKjuoRdYgBdY1aO2bGUk/qs/MB7D6jQ+
+
+      GowGVmxaUTxZxoZx+5fF0zCFjqb83yHDQ+6SWbaRJZLIikYHANDZNMdOXxFCQGER
+
+      J2ceGRWr+QKBgQCFeFHfc7mmZqEUDwcdfAwtXsGDNBBDfboxWUhlGROzWq8WWv+9
+
+      b+mrMIlSpEPgtqhYlv37JEjyq6Idxi3f9QmuZW28Ca+8AsLZnRgpVX6+DtBsx+gX
+
+      0PM5WDZS6CNPRtklSvAu7aIbItKmgeAeRHUMQS+aa7gcaydfale7cSsTEQKBgESJ
+
+      7IQ2VGi+j20VGznh7Pek2CRUDka5hGaPmTUPqdndMw3zqun9BPJLD9qcpGClfkw2
+
+      6QuOmrmXHNUz3miGGseKCYY2eiL8b/Sn5zSyIU1EWZ2Z/g9JUaxRUQQePyij565m
+
+      579tFmyvPZGUMUd9h9uVKwKfUb6xM1PY/17gde0hAoGAFluqAawLOndE1eS1pLzG
+
+      uQRTAwIYJGUmF544b4iEad6SG6seSY0ESZMXoOzMQSrcAD0wLKvN8Ofm1wfJ8aJY
+
+      yeaoqPyVTgxQt/pGXWSwS/BVoU9/H4Cm5M+M+zJKCYWNv/rEp9u0oeuVaDcNrQPt
+
+      UippBQ+uduJa9d+UnBmdxI8=
+
+      -----END PRIVATE KEY-----
+
+      '
