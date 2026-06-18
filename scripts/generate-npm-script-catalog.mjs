@@ -64,7 +64,7 @@ function categorize(name) {
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
-  if (name.startsWith("pain-points") || name.startsWith("claims") || name.startsWith("blast-radius") || name.startsWith("edges") || name.startsWith("high-fanout") || name.startsWith("outcomes") || name.startsWith("attack-plan") || name.startsWith("next-ten")) return "evidence-workdown";
+  if (name.startsWith("pain-points") || name.startsWith("claims") || name.startsWith("blast-radius") || name.startsWith("reverse-reconcile") || name.startsWith("edges") || name.startsWith("high-fanout") || name.startsWith("outcomes") || name.startsWith("attack-plan") || name.startsWith("next-ten")) return "evidence-workdown";
   if (name.startsWith("lane-tests:")) return "live-parity-gitops";
   if (name.startsWith("refresh:") || name.startsWith("legacy-patch:")) return "latest-version-refresh";
   if (name.startsWith("installer:") || name.startsWith("receipts:") || name.startsWith("p0:") || name.startsWith("docs:") || name.startsWith("knowledge:") || name.startsWith("verify") || name.startsWith("variant:command-surface")) return "repo-integrity";

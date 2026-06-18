@@ -19,6 +19,7 @@ const policyPath = join(root, "authority-policy.yaml");
 const summaryPath = join(root, "summary.md");
 
 const KNOWN_STATUS = new Set(["design-example", "proven"]);
+const KNOWN_TRIGGER_CLASS = new Set(["authorized-live-change", "unauthorized-drift"]);
 const METHOD_FOR_STATUS = { "design-example": "manual-fixture", proven: "cub-reverse-reconcile" };
 
 function exampleFiles() {
@@ -46,6 +47,7 @@ function evaluate() {
   check(existsSync(policyPath), `${relativeRepo(policyPath)} is missing`);
   const policy = readYaml(policyPath);
   check(policy.kind === "ReverseReconcilePolicy", `${relativeRepo(policyPath)}: not a ReverseReconcilePolicy`);
+  check(policy.spec?.default === "deny", `${relativeRepo(policyPath)}: spec.default must be "deny"`);
   const rows = [];
   for (const file of exampleFiles()) {
     const rel = relativeRepo(file);
@@ -56,6 +58,8 @@ function evaluate() {
     check(Array.isArray(s.notClaimed) && s.notClaimed.length > 0, `${rel}: missing notClaimed honesty markers`);
     const role = s.trigger?.role;
     check(role, `${rel}: missing trigger.role`);
+    check(KNOWN_TRIGGER_CLASS.has(s.trigger?.class), `${rel}: unknown trigger.class "${s.trigger?.class}"`);
+    check(s.authority?.policyRef === relativeRepo(policyPath), `${rel}: authority.policyRef must be ${relativeRepo(policyPath)}`);
     const allowed = authorizedRules(policy, role);
     const changed = s.bounds?.changedFields ?? [];
     check(changed.length > 0, `${rel}: bounds.changedFields is empty`);
@@ -68,6 +72,8 @@ function evaluate() {
     const withinScope = unauthorized.length === 0;
     check(s.bounds?.withinAuthorizedScope === withinScope, `${rel}: bounds.withinAuthorizedScope must be ${withinScope}`);
     check(s.authority?.decision === (withinScope ? "allow" : "deny"), `${rel}: authority.decision must be "${withinScope ? "allow" : "deny"}"`);
+    check(s.trigger?.class === (withinScope ? "authorized-live-change" : "unauthorized-drift"),
+      `${rel}: trigger.class must be "${withinScope ? "authorized-live-change" : "unauthorized-drift"}"`);
 
     // round-trip: desired was set to the observed live value, no residual drift
     check(s.writeBack?.desiredValueAfter === s.observation?.liveValue,
@@ -98,7 +104,7 @@ function summaryMd({ rows }) {
   const out = [];
   out.push("# Reverse-Reconcile Receipts (move 2, design)", "");
   out.push("Generated rollup of `ReverseReconcileReceipt` design examples. Each row is machine-checked by `scripts/verify-reverse-reconcile.mjs`: **authorized** (default-deny policy), **bounded** (only authorized fields changed), **round-trip closed** (desired-after == observed live value, no residual drift), attributed, and honestly scoped.", "");
-  out.push("This is a **design** for move 2 in [#974](https://github.com/confighub/helm-expt/issues/974) — the reverse live-to-desired direction. The live observation is a fixture and the write-back is manual; the named frontier is the gated `cub` reverse-reconcile command. See [the design doc](../../docs/user/reverse-reconcile-design.md) and [the authority policy](authority-policy.yaml).", "");
+  out.push("This is a **design** for move 2 in [#974](https://github.com/confighub/helm-expt/issues/974): the reverse live-to-desired direction. The live observation is a fixture and the write-back is manual; the named frontier is the gated `cub` reverse-reconcile command. See [the design doc](../../docs/user/reverse-reconcile-design.md) and [the authority policy](authority-policy.yaml).", "");
   out.push("| Receipt | Chart | Env | Accepted change | Authority | Bounded | Round-trip | Status |");
   out.push("| --- | --- | --- | --- | --- | --- | --- | --- |");
   for (const r of rows) {
@@ -117,7 +123,7 @@ if (mode === "--generate") {
   const result = evaluate();
   check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run npm run reverse-reconcile:generate`);
   check(readFileSync(summaryPath, "utf8") === summaryMd(result), `${relativeRepo(summaryPath)} is stale; run npm run reverse-reconcile:generate`);
-  console.log(`verified reverse-reconcile: ${result.rows.length} receipt(s) authorized, bounded, round-trip-closed`);
+  console.log(`verified reverse-reconcile: ${result.rows.length} receipt(s) checked`);
 } else {
   console.log("Usage:\n  node scripts/verify-reverse-reconcile.mjs --generate\n  node scripts/verify-reverse-reconcile.mjs --verify");
 }
