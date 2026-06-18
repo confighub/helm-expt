@@ -1349,6 +1349,12 @@ function hardQuestionsHtml(catalog) {
       "../docs/user/choosing-commands.md",
     ],
     [
+      "Do I have to rewrite my charts?",
+      "No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.",
+      "Open the mission and variant guides.",
+      "../docs/user/why-this-exists.md",
+    ],
+    [
       "Does it only work for easy charts?",
       "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
       "Open the serious chart guide and the high-fanout evidence.",
@@ -1389,6 +1395,12 @@ function hardQuestionsHtml(catalog) {
       "Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.",
       "Read why synced is not working.",
       "../docs/user/why-synced-is-not-working.md",
+    ],
+    [
+      "What if I already use Argo, Flux, or KRM?",
+      "That is the expected production shape, not a reason to start over. Desired objects, ConfigHub Units, OCI publication, GitOps controller health, and live workload evidence stay separate.",
+      "Open adopting existing apps.",
+      "../docs/user/adopting-existing-apps.md",
     ],
     [
       "What is free and what needs ConfigHub?",
