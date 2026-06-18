@@ -1,0 +1,13 @@
+chart,version,change_value_path,environment,status,affected_object_count,affected_objects,shielded_by
+bitnami/redis,25.5.3,auth.password,dev,propagates,3,"apps/v1|StatefulSet|redis|redis-master; apps/v1|StatefulSet|redis|redis-replicas; v1|Secret|redis|redis",
+bitnami/redis,25.5.3,auth.password,prod-eu-west,shielded,0,"",auth.password
+bitnami/redis,25.5.3,auth.password,prod-us-east,shielded,0,"",auth.password
+bitnami/redis,25.5.3,auth.password,staging,propagates,3,"apps/v1|StatefulSet|redis|redis-master; apps/v1|StatefulSet|redis|redis-replicas; v1|Secret|redis|redis",
+bitnami/redis,25.5.3,image.digest,dev,propagates,2,"apps/v1|StatefulSet|redis|redis-master; apps/v1|StatefulSet|redis|redis-replicas",
+bitnami/redis,25.5.3,image.digest,prod-eu-west,shielded,0,"",image.digest
+bitnami/redis,25.5.3,image.digest,prod-us-east,propagates,2,"apps/v1|StatefulSet|redis|redis-master; apps/v1|StatefulSet|redis|redis-replicas",
+bitnami/redis,25.5.3,image.digest,staging,propagates,2,"apps/v1|StatefulSet|redis|redis-master; apps/v1|StatefulSet|redis|redis-replicas",
+bitnami/redis,25.5.3,replica.replicaCount,dev,propagates,1,"apps/v1|StatefulSet|redis|redis-replicas",
+bitnami/redis,25.5.3,replica.replicaCount,prod-eu-west,shielded,0,"",replica.replicaCount
+bitnami/redis,25.5.3,replica.replicaCount,prod-us-east,shielded,0,"",replica.replicaCount
+bitnami/redis,25.5.3,replica.replicaCount,staging,shielded,0,"",replica.replicaCount

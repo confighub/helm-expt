@@ -382,6 +382,8 @@
     "claims:register:verify": "node scripts/generate-claims-register.mjs --verify",
     "blast-radius:accuracy": "node scripts/generate-blast-radius-accuracy.mjs --generate",
     "blast-radius:accuracy:verify": "node scripts/generate-blast-radius-accuracy.mjs --verify",
+    "blast-radius-fleet:generate": "node scripts/generate-blast-radius-fleet.mjs --generate",
+    "blast-radius-fleet:verify": "node scripts/generate-blast-radius-fleet.mjs --verify",
     "environment-matrix:record": "node scripts/generate-environment-matrix.mjs --record",
     "environment-matrix": "node scripts/generate-environment-matrix.mjs --generate",
     "environment-matrix:verify": "node scripts/generate-environment-matrix.mjs --verify",
