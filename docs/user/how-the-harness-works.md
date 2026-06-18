@@ -181,7 +181,8 @@ debugging values, CRD/resource split checks, and Helm-equivalence baselines.
 the goal is to create ConfigHub Units from one chart render now.
 
 A `cub installer` recipe/package is the reusable catalog artifact. Import
-bridges the fast Helm command paths into the maintained recipe/package path.
+is the planned bridge from the fast Helm command paths into the maintained
+recipe/package path. It is not a current command in this repo.
 
 ## Stage 3 - Render, Compare, And Prove
 

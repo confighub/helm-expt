@@ -158,9 +158,9 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>From a one-line try-out to a managed estate.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-18T07:18:24.172Z UTC · source: committed helm-expt evidence for this user journey.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-18T11:04:53.742Z UTC · source: committed helm-expt evidence for this user journey.</p>
     <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid - so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
@@ -203,10 +203,12 @@
         <div class="jbody">
           <span class="badge now">free tier · first sign-up</span>
           <h3>First sign-up - your rendered chart becomes ConfigHub Units</h3>
-          <p class="jaction"><code>cub helm install  /  cub installer import</code></p>
+          <p class="jaction"><code>cub helm install  /  cub installer upload</code></p>
           <pre><code>cub auth login
-cub installer import helm --package packages/bitnami/redis/25.5.3 --base default</code></pre>
-          <p>An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share - plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.</p>
+cub helm install &lt;chart&gt; ...
+# or, after cub installer setup:
+cub installer upload --work-dir .tmp/redis --space helm-redis-default</code></pre>
+          <p>An account turns rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share. Use <code>cub helm install</code> for a fast one-shot Helm-to-ConfigHub load. Use <code>cub installer upload</code> after a reviewed catalog render. A future import path can graduate a one-shot render into a durable recipe/package candidate; it is not a current command here.</p>
           <p class="jnext"><strong>Next →</strong> Try the managed graph itself: derived variants, scans, and pull-based delivery.</p>
         </div>
       </div>

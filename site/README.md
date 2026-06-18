@@ -9,6 +9,8 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
+Open `site/hard-questions.html` for the skeptical user route: hooks, upgrades,
+custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
 Open `site/hooks.html` for hook and lifecycle route dispositions.
 Open `site/tiers.html` for the free, authenticated, managed, and enterprise tier shape.
