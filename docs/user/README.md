@@ -9,6 +9,19 @@ through the manual user docs.
 You do not need every document on a first pass. Stop after step 6 if you only
 want the practical user flow.
 
+## First 10 Minutes
+
+Use this route when you are trying to understand the product quickly.
+
+| Question | Open | Why |
+| --- | --- | --- |
+| What is this offering? | [Offering](./offering.md) | The Helm user value story without the full proof corpus. |
+| Which path should I take? | [Choose Your Path](./choose-your-path.md) | Direct render, one-shot upload, public catalog, and ConfigHub-managed operations. |
+| Can I try it now? | [Try Now](./try-now.md) | A short public package path and the serious-chart check. |
+| What is the whole catalog status? | [Master matrix](../../site/matrix.html) | One product/status view across chart versions, bases, variants, lanes, gaps, and next actions. |
+| What hard questions should I ask? | [Hard Questions](../../site/hard-questions.html) | Hooks, upgrades, overlays, target prerequisites, false-green sync, and refusal boundaries. |
+| What can be built on the held data? | [App-readiness proof](../../data/app-readiness/summary.md) | A read-only RBAC app over already-rendered objects, showing why explicit config becomes useful data. |
+
 The [Choose Your Path](./choose-your-path.md) page is the quickest way to
 decide between direct render, one-shot upload, public catalog packages, and
 ConfigHub-managed operations. The [Tutorial Sequence](./tutorial-sequence.md)
@@ -24,6 +37,7 @@ If your first question is "why is this better than `cub helm install` or
 | 2 | [Generative GitOps Fit](./generative-gitops-fit.md) | How this repo maps to the broader generated-config and AI/GitOps thesis. |
 | 2a | [Reverse-Reconcile Design](./reverse-reconcile-design.md) | The live-to-desired frontier: what is machine-checkable today and what requires a new `cub` write-back capability. |
 | 2b | [cub-scout Diff Design](./cub-scout-diff-design.md) | The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery. |
+| 2c | [App-readiness proof](../../data/app-readiness/summary.md) | A small read-app over rendered RBAC that shows how held config becomes queryable product data. |
 | 3 | [Try Now](./try-now.md) | The shortest Redis and kube-prometheus-stack paths. |
 | 4 | [Choose Your Path](./choose-your-path.md) | Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations. |
 | 5 | [What You Get](./what-you-get.md) | The product model in one short read. |

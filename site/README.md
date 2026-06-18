@@ -9,6 +9,8 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
+Open `site/journey.html` for the path from inspect, to no-account try-out, to
+ConfigHub-managed operations.
 Open `site/hard-questions.html` for the skeptical user route: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
@@ -31,6 +33,9 @@ Data source:
 - `data/next-ten-waves/gap-review-wave.csv`
 - `data/status-dashboard/status.csv`
 - `data/status-dashboard/active-proof-queue.csv`
+- `data/app-readiness/summary.md`
+- `data/preview-readiness/summary.md`
+- `data/cub-scout-diff/summary.md`
 - `data/outcome-evidence-contract/summary.md`
 - `data/top20-base-readiness/base-readiness.csv`
 - `data/extension-slots/extension-slots.csv`

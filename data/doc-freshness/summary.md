@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-18 (commit `c54b6b42`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-06-18 (commit `76f1a295`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 181 |
-| Fresh (no linked source newer than the doc) | 13 |
-| **Review-due** | 47 |
+| Fresh (no linked source newer than the doc) | 11 |
+| **Review-due** | 49 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
 ## Review queue
@@ -39,20 +39,20 @@ most recently changed triggers.
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-06-11 | 8 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 8 | `data/outcome-coverage/summary.md (2026-06-18)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-10 | 8 | `data/top100-coverage/summary.md (2026-06-17)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 8 | `data/README.md (2026-06-18)`<br>`data/csv-index.csv (2026-06-18)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-18)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 8 | `data/outcome-coverage/base-outcomes.csv (2026-06-18)`<br>`data/top100-promotion-wave/summary.md (2026-06-17)`<br>`data/top100-readiness/next80-queues.csv (2026-06-17)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 8 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`tests/npm-scripts.md (2026-06-12)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 8 | `data/top100-coverage/summary.md (2026-06-17)`<br>`data/quirk-coverage/summary.md (2026-06-13)`<br>`data/live-e2e/cub-scout-watchlist.md (2026-06-11)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 7 | `data/top100-user-readiness/summary.md (2026-06-17)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 7 | `data/live-helm-confighub-compare/summary.md (2026-06-18)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 7 | `data/outcome-coverage/base-outcomes.csv (2026-06-18)`<br>`data/top100-coverage/summary.md (2026-06-17)`<br>`data/top100-readiness/readiness.csv (2026-06-17)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 7 | `data/README.md (2026-06-18)`<br>`data/csv-index.csv (2026-06-18)`<br>`data/outcome-evidence-contract/summary.md (2026-06-18)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-06-12 | 7 | `data/master-catalog-matrix/summary.md (2026-06-18)`<br>`data/live-kind-parity/summary.md (2026-06-18)`<br>`packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-06-13)` |
+| [README.md](../../README.md) | root | 2026-06-13 | 6 | `data/app-readiness/summary.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)`<br>`CATALOG.md (2026-06-18)` |
 | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 6 | `data/webhook-cert-lifecycle/summary.md (2026-06-17)` |
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-06-11 | 6 | `data/image-digest-workdown/summary.md (2026-06-17)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-06-11 | 6 | `data/high-fanout-demo/prometheus-kps.csv (2026-06-17)`<br>`data/high-fanout-demo/summary.md (2026-06-17)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-06-11 | 6 | `data/webhook-cert-lifecycle/summary.md (2026-06-17)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-11)` |
-| [README.md](../../README.md) | root | 2026-06-13 | 5 | `CATALOG.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)`<br>`data/live-helm-confighub-compare/summary.md (2026-06-18)` |
-| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-13 | 5 | `CATALOG.md (2026-06-18)`<br>`data/outcome-coverage/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
+| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-13 | 5 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`CATALOG.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 5 | `data/live-helm-confighub-compare/summary.md (2026-06-18)`<br>`data/live-kind-parity/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 5 | `data/variant-promotion/summary.md (2026-06-18)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
@@ -61,7 +61,7 @@ most recently changed triggers.
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 4 | `data/secret-lifecycle/secrets.csv (2026-06-17)`<br>`data/secret-lifecycle/summary.md (2026-06-17)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-17)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 3 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-16 | 3 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
-| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-06-16 | 3 | `data/master-catalog-matrix/summary.md (2026-06-18)`<br>`data/matrix-completion-audit/summary.md (2026-06-18)`<br>`data/disposition-frontier/summary.md (2026-06-18)` |
+| [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-06-16 | 3 | `data/disposition-frontier/summary.md (2026-06-18)`<br>`data/master-catalog-matrix/summary.md (2026-06-18)`<br>`data/matrix-completion-audit/summary.md (2026-06-18)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-06-16 | 3 | `data/kind-parity-decisions/summary.md (2026-06-18)`<br>`data/live-parity-decisions/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-06-13 | 3 | `data/chart-use-guide/summary.md (2026-06-16)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-13 | 3 | `data/chart-use-guide/summary.md (2026-06-16)` |
@@ -71,11 +71,13 @@ most recently changed triggers.
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 2 | `data/image-digest-workdown/summary.md (2026-06-17)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 2 | `data/hard-chart-production-packets/summary.md (2026-06-13)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 2 | `data/model-gap-workdown/summary.md (2026-06-18)`<br>`data/target-prerequisite-actions/summary.md (2026-06-18)`<br>`data/target-prerequisite-workdown/summary.md (2026-06-18)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/outcome-evidence-contract/summary.md (2026-06-18)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.csv (2026-06-18)`<br>`data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/master-catalog-matrix/summary.md (2026-06-18)` |
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-06-18 | 1 | `data/variant-promotion-closeout/summary.md (2026-06-18)`<br>`data/variant-promotion/status.csv (2026-06-18)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`CATALOG.md (2026-06-18)`<br>`data/outcome-coverage/summary.md (2026-06-18)` |
+| [docs/user/README.md](../../docs/user/README.md) | user | 2026-06-18 | 1 | `data/app-readiness/summary.md (2026-06-18)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/outcome-coverage/summary.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/outcome-evidence-contract/summary.md (2026-06-18)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-14 | 1 | `data/lifecycle-routes/routes.json (2026-06-14)` |
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 1 | `data/master-catalog-matrix/matrix.html (2026-06-18)` |

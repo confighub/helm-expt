@@ -21,6 +21,10 @@ literal red/green/grey colored cells.
 | ⬜ | not yet run - absence of evidence, not a failure |
 | - | not applicable - this lane does not apply to this row |
 
+Deferred accepted means the cell already has an honest disposition, usually
+watch or not applicable. It stays visible, but it is not where live-run time
+should be spent until the product scope changes.
+
 Lane columns: **R** render parity (helm template vs installer setup) ·
 **C** ConfigHub upload + scan + safe ops · **L** local kind apply ·
 **Y** explicit lifecycle observation ·

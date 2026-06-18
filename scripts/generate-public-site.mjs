@@ -418,6 +418,7 @@ function html(catalog) {
   const userValueRows = [
     ["Pick a safe starting point", "Choose a reviewed base variant instead of guessing through a large values file."],
     ["See the real objects", "Review the rendered Kubernetes objects, object counts, CRDs, RBAC, Secrets model, and extension slots before install."],
+    ["Build apps on the data", "Rendered objects are held as queryable data, so tools such as RBAC review can run across the catalog without a cluster or a fresh Helm render."],
     ["Make prerequisites explicit", "Target facts, lifecycle routes, hook dispositions, and controller-owned fields are named before they surprise the rollout."],
     ["Operate the same objects", "After upload, ConfigHub Units can be diffed, scanned, approved, promoted, observed, and audited."],
     ["Keep Helm semantics visible", "The selected live lane currently has zero semantic parity defects across committed Helm-vs-ConfigHub receipts."],
@@ -800,6 +801,9 @@ function html(catalog) {
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
+        <li><a href="../data/app-readiness/summary.md">App-readiness RBAC read-app</a></li>
+        <li><a href="../data/preview-readiness/summary.md">Preview readiness</a></li>
+        <li><a href="../data/cub-scout-diff/summary.md">cub-scout diff evidence</a></li>
         <li><a href="../data/outcome-evidence-contract/summary.md">Outcome evidence contract</a></li>
         <li><a href="../data/hard-chart-production-packets/summary.md">Hard-chart production packets</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
@@ -1397,6 +1401,12 @@ function hardQuestionsHtml(catalog) {
       "../docs/user/why-synced-is-not-working.md",
     ],
     [
+      "What can we build once the objects are data?",
+      "Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.",
+      "Open the app-readiness proof.",
+      "../data/app-readiness/summary.md",
+    ],
+    [
       "What if I already use Argo, Flux, or KRM?",
       "That is the expected production shape, not a reason to start over. Desired objects, ConfigHub Units, OCI publication, GitOps controller health, and live workload evidence stay separate.",
       "Open adopting existing apps.",
@@ -1747,7 +1757,7 @@ function journeyHtml(catalog) {
       title: "First sign-up - your rendered chart becomes ConfigHub Units",
       action: "cub helm install  /  cub installer upload",
       code: "cub auth login\ncub helm install <chart> ...\n# or, after cub installer setup:\ncub installer upload --work-dir .tmp/redis --space helm-redis-default",
-      get: "An account turns rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share. Use <code>cub helm install</code> for a fast one-shot Helm-to-ConfigHub load. Use <code>cub installer upload</code> after a reviewed catalog render. A future import path can graduate a one-shot render into a durable recipe/package candidate; it is not a current command here.",
+      get: "An account turns rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share. The app-readiness proof shows the same idea without a server: a read-only RBAC app can query already-rendered objects across the catalog. Use <code>cub helm install</code> for a fast one-shot Helm-to-ConfigHub load. Use <code>cub installer upload</code> after a reviewed catalog render. A future import path can graduate a one-shot render into a durable recipe/package candidate; it is not a current command here.",
       next: "Try the managed graph itself: derived variants, scans, and pull-based delivery.",
     },
     {
@@ -1757,7 +1767,7 @@ function journeyHtml(catalog) {
       title: "ConfigHub Server try-out - the managed desired-state graph",
       action: "cub variant create  ·  scan  ·  OCI + GitOps",
       code: "cub variant create prod-us-east <upstream-space> \\\n  --environment Prod --region us-east \\\n  --target <target-space>/<target> \\\n  --namespace <namespace>\ncub variant promote <variant-space> --dry-run -o mutations",
-      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here - the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph - not a pile of YAML - is now the source of truth.",
+      get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, RBAC and function scans, safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here - the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph - not a pile of YAML - is now the source of truth.",
       next: "Once day-1 is comfortable, run it like an estate: approvals, live observation, upgrades.",
     },
     {
@@ -1799,7 +1809,7 @@ function journeyHtml(catalog) {
     ],
     [
       "3 Server try-out",
-      "A derived Space is created from an upstream Space, diffs are reviewable, scans/gates run, and OCI/GitOps delivery has its own health evidence.",
+      "A derived Space is created from an upstream Space, diffs are reviewable, scans/gates run, read-apps can query the held objects, and OCI/GitOps delivery has its own health evidence.",
       "A green sync is not enough; workload readiness and semantic parity are separate checks.",
     ],
     [
@@ -2740,6 +2750,8 @@ npm run site:verify
 
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
+Open \`site/journey.html\` for the path from inspect, to no-account try-out, to
+ConfigHub-managed operations.
 Open \`site/hard-questions.html\` for the skeptical user route: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` for the proof lanes, sceptic tests, and refusal boundary.
@@ -2762,6 +2774,9 @@ Data source:
 - \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/status-dashboard/status.csv\`
 - \`data/status-dashboard/active-proof-queue.csv\`
+- \`data/app-readiness/summary.md\`
+- \`data/preview-readiness/summary.md\`
+- \`data/cub-scout-diff/summary.md\`
 - \`data/outcome-evidence-contract/summary.md\`
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`

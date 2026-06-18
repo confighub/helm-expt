@@ -23,9 +23,13 @@ Public entry points:
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
+- [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
 - [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
+- [Master matrix](./site/matrix.html): one product/status view for chart versions, bases, variants, proof lanes, gaps, and next actions.
 - [Chart use guide](./data/chart-use-guide/summary.md): one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.
+- [App-readiness proof](./data/app-readiness/summary.md): a read-only RBAC app built on the held rendered objects.
+- [Hard questions](./site/hard-questions.html): skeptical questions routed to evidence and current limits.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 - [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
 - [Serious chart proof](./docs/user/serious-chart-proof.md): the kube-prometheus-stack proof path and its limits.
