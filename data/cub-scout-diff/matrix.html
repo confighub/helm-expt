@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>cub-scout Diff vs ArgoCD/Flux</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23}h1{font-size:20px}h2{font-size:15px;margin-top:22px}table{border-collapse:collapse;margin:8px 0 16px}th,td{border:1px solid #d0d7de;padding:6px 10px;font-size:12.5px;text-align:left;vertical-align:top}th{background:#f6f8fa}td.win{background:#d6f5d6;font-weight:600}.note{color:#57606a;font-size:13px;max-width:64em}</style></head><body>
+<h1>cub-scout Diff: dry-run + drift, GitOps-agnostic</h1>
+<p class="note">One differ (desired vs live) that serves day-1 dry-run and day-2 drift, works under Argo / Flux / cub-direct, and adds catalog-specific layers such as value provenance, fleet blast radius, authority, and explicit runtime residue.</p>
+<table><tr><th>Dimension</th><th>cub-scout diff</th><th>ArgoCD diff</th><th>Flux diff</th><th>Why it matters</th></tr>
+<tr><td>desired side</td><td class="win">held render-once data (deterministic; no re-render)</td><td>helm template re-render (lookup + generated-value nondeterminism)</td><td>helm/kustomize re-render (same nondeterminism)</td><td>a re-rendered desired side drifts from what actually deploys -&gt; OutOfSync noise</td></tr>
+<tr><td>live side</td><td class="win">server-side --dry-run apply</td><td>server-side diff</td><td>server-side apply + drift detection</td><td>all three are accurate against the live object; cub-scout adopts this</td></tr>
+<tr><td>value provenance</td><td class="win">yes (links value-source-map: which value caused the delta)</td><td>no (field diff only)</td><td>no (field diff only)</td><td>a dry-run that names the causing value is reviewable; a raw field diff is not</td></tr>
+<tr><td>fleet / cross-environment</td><td class="win">yes (fleet blast-radius + override-protection)</td><td>per-Application</td><td>per-HelmRelease/Kustomization</td><td>a fleet change must show its blast radius across environments, not one app</td></tr>
+<tr><td>authority gate on the diff</td><td class="win">yes (reverse-reconcile policy family)</td><td>no</td><td>no</td><td>a governed change should be checked for who-may-change-what before apply</td></tr>
+<tr><td>runtime residue</td><td class="win">named + witnessed (cub-scout predicates)</td><td>buried in ignoreDifferences</td><td>buried in ignore rules</td><td>honest about what cannot be pre-rendered, instead of suppressing it as noise</td></tr>
+<tr><td>gitops tool coupling</td><td class="win">agnostic (argo | flux | cub-direct)</td><td>argo-only</td><td>flux-only</td><td>one differ across all delivery paths, not a per-tool diff</td></tr>
+<tr><td>day-1 + day-2</td><td class="win">unified (dry-run pre-apply = drift post-apply</td><td> one engine)</td><td>sync status + diff</td><td>drift detection</td></tr>
+</table>
+<h2>Worked examples (grounded in the value-source-map)</h2><table><tr><th>Receipt</th><th>Chart</th><th>Operation</th><th>Change</th><th>Objects</th><th>Tool-agnostic across</th><th>Status</th></tr>
+<tr><td>redis-image-digest-dryrun</td><td>bitnami/redis@25.5.3</td><td>dry-run</td><td>image.digest</td><td>2</td><td>argo + flux + cub-direct</td><td>design-example</td></tr>
+</table>
+</body></html>

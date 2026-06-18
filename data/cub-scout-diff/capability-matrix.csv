@@ -1,0 +1,9 @@
+dimension,cub_scout_diff,argocd_diff,flux_diff,why_it_matters
+desired side,held render-once data (deterministic; no re-render),helm template re-render (lookup + generated-value nondeterminism),helm/kustomize re-render (same nondeterminism),"a re-rendered desired side drifts from what actually deploys -> OutOfSync noise"
+live side,server-side --dry-run apply,server-side diff,server-side apply + drift detection,"all three are accurate against the live object; cub-scout adopts this"
+value provenance,yes (links value-source-map: which value caused the delta),no (field diff only),no (field diff only),"a dry-run that names the causing value is reviewable; a raw field diff is not"
+fleet / cross-environment,yes (fleet blast-radius + override-protection),per-Application,per-HelmRelease/Kustomization,"a fleet change must show its blast radius across environments, not one app"
+authority gate on the diff,yes (reverse-reconcile policy family),no,no,"a governed change should be checked for who-may-change-what before apply"
+runtime residue,named + witnessed (cub-scout predicates),buried in ignoreDifferences,buried in ignore rules,"honest about what cannot be pre-rendered, instead of suppressing it as noise"
+gitops tool coupling,agnostic (argo | flux | cub-direct),argo-only,flux-only,"one differ across all delivery paths, not a per-tool diff"
+day-1 + day-2,unified (dry-run pre-apply = drift post-apply, one engine),sync status + diff,drift detection,"the same desired-vs-live engine serves both, with one receipt shape"

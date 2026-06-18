@@ -240,6 +240,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |
 | `coverage-completion-plan` | [coverage-completion-plan/summary.md](./coverage-completion-plan/summary.md) | ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family |
+| `cub-scout-diff` | [cub-scout-diff/summary.md](./cub-scout-diff/summary.md) | supporting generated evidence |
 | `data-index` | - | CSV index and generated data guide |
 | `derived-variant-target-bound` | [derived-variant-target-bound/summary.md](./derived-variant-target-bound/summary.md) | derived ConfigHub variants with target/live evidence |
 | `disposition-frontier` | [disposition-frontier/summary.md](./disposition-frontier/summary.md) | supporting generated evidence |
@@ -328,7 +329,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 153 CSV files. Each row records the path, audience,
+It includes 154 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
