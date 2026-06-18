@@ -16,20 +16,22 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 non-green triage (which rows are runs vs fixes vs decided) see
 [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 14 model-gap rows
+## 17 model-gap rows
 
 | Model-gap kind | Rows |
 | --- | ---: |
+| `crd-lifecycle` | 5 |
 | `semantic-normalization` | 4 |
 | `base-design` | 3 |
-| `crd-lifecycle` | 3 |
 | `object-set-shape` | 2 |
 | `generated-fact` | 1 |
 | `missing-crd` | 1 |
+| `unknown` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `catalog-modeling` | 13 |
+| `catalog-modeling` | 15 |
+| `operator-review` | 1 |
 | `recipe-generator` | 1 |
 
 ## Rows
@@ -41,8 +43,11 @@ non-green triage (which rows are runs vs fixes vs decided) see
 | bitnami/contour@21.1.4 | no-crds | K | missing-crd | design-new-base | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | default | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | ha | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
+| grafana/pyroscope@2.0.2 | ha | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | default (K pass); no-crds (K pass) |
+| hashicorp/terraform@1.1.2 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | none |
 | nats/nack@0.34.0 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | no-crds (K pass) |
 | nats/nats@2.14.0 | ha | K | object-set-shape | add-semantic-normalization | catalog-modeling | default (K pass) |
+| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | G/P | unknown | operator-review | operator-review | none |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | no-crds (K pass) |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | G/P | semantic-normalization | add-semantic-normalization | catalog-modeling | apiservice-v1-capability (G/P pass) |
 | prometheus-community/prometheus-adapter@5.3.0 | default | G/P | semantic-normalization | add-semantic-normalization | catalog-modeling | apiservice-v1-capability (G/P pass) |
@@ -59,6 +64,7 @@ non-green triage (which rows are runs vs fixes vs decided) see
 - **generated-fact** — A required target-fact value has no generator (e.g. autoDiscovery.clusterName). Add the value generator to the recipe.
 - **semantic-normalization** — A rendered field/version differs from what the target serves (e.g. an APIService version or a deprecated field). Normalize or gate it; a sibling capability base may already pass.
 - **base-design** — The base renders incomplete/invalid objects because required inputs are not modeled. Design a base that supplies or refuses them.
+- **unknown** — Needs an operator/engineering review to classify the model gap.
 
 ## Boundaries
 

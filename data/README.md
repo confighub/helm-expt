@@ -58,6 +58,7 @@ smallest generated surface that answers it.
 | I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes. | [model-gap-workdown/summary.md](./model-gap-workdown/summary.md)<br>[model-gap-workdown/workdown.csv](./model-gap-workdown/workdown.csv)<br>[model-gap-workdown/workdown.json](./model-gap-workdown/workdown.json) |
 | I want the target/user prerequisites a base needs before it can pass (a CRD, Namespace, Secret, storage, external API, or target topology), who owns each, and the exact prerequisite name. | [target-prerequisite-workdown/summary.md](./target-prerequisite-workdown/summary.md)<br>[target-prerequisite-workdown/workdown.csv](./target-prerequisite-workdown/workdown.csv)<br>[target-prerequisite-workdown/workdown.json](./target-prerequisite-workdown/workdown.json) |
 | I want an action packet per non-green row: what to stage before rerunning (create-namespace / stage-secret / install-crds / provide-external-service / provide-storage-or-topology / operator-review), the required inputs, the evidence to look for, and the rerun command. | [target-prerequisite-actions/summary.md](./target-prerequisite-actions/summary.md)<br>[target-prerequisite-actions/actions.csv](./target-prerequisite-actions/actions.csv)<br>[target-prerequisite-actions/actions.json](./target-prerequisite-actions/actions.json) |
+| I want every current model gap and target prerequisite routed to a product resolution path: new base variant, existing sibling base, derived target variant, target-scoped policy, or operator review. | [model-prereq-resolution/summary.md](./model-prereq-resolution/summary.md)<br>[model-prereq-resolution/resolution.csv](./model-prereq-resolution/resolution.csv)<br>[model-prereq-resolution/resolution.json](./model-prereq-resolution/resolution.json) |
 | I want the ranked plan to reach 100% verified matrix disposition: the non-green cells collapsed into action families by cells-cleared-per-action, owner lane, and linked issues, with variant promotion as a first-class family. | [coverage-completion-plan/summary.md](./coverage-completion-plan/summary.md)<br>[coverage-completion-plan/actions.csv](./coverage-completion-plan/actions.csv)<br>[coverage-completion-plan/actions.json](./coverage-completion-plan/actions.json) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
@@ -276,6 +277,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `matrix-completion-audit` | [matrix-completion-audit/summary.md](./matrix-completion-audit/summary.md) | read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided |
 | `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
 | `model-gap-workdown` | [model-gap-workdown/summary.md](./model-gap-workdown/summary.md) | catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes |
+| `model-prereq-resolution` | [model-prereq-resolution/summary.md](./model-prereq-resolution/summary.md) | front-door resolution bridge for B1/B2 rows: each model gap and target prerequisite mapped to a new base variant, existing sibling base, derived target variant, target-scoped policy, or operator review |
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
 | `nginx-config-checks` | [nginx-config-checks/summary.md](./nginx-config-checks/summary.md) | NGINX supported-base config extension checks |
@@ -324,7 +326,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 150 CSV files. Each row records the path, audience,
+It includes 151 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
