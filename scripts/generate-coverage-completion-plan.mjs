@@ -14,6 +14,7 @@
 //   - data/target-prerequisite-actions/actions.csv (prereq action kind/owner)
 //   - data/model-gap-workdown/workdown.csv         (model-gap kind)
 //   - data/remote-image-runtime-workdown/workdown.csv (image rows)
+//   - data/local-live-triage/triage.csv            (local-kind non-pass route class)
 //   - data/variant-promotion-proof-batches/, data/live-run-blocks/ (commands)
 //
 // Predictions (expected status after a run/fix/stage) are marked prediction=true;
@@ -34,6 +35,7 @@ const MATRIX = "data/master-catalog-matrix/matrix.csv";
 const TARGET_ACTIONS = "data/target-prerequisite-actions/actions.csv";
 const MODEL_GAP = "data/model-gap-workdown/workdown.csv";
 const REMOTE_IMAGE = "data/remote-image-runtime-workdown/workdown.csv";
+const VARIANT_PROMOTION = "data/variant-promotion/status.csv";
 
 const outDir = join(repoRoot, "data", "coverage-completion-plan");
 const csvPath = join(outDir, "actions.csv");
@@ -97,6 +99,78 @@ function ownerForPrereq(actionKind) {
   return "product-decision"; // provide-external-service / provide-storage-or-topology / operator-review
 }
 
+function classifyLocalLive(cell) {
+  const text = `${cell.reason ?? ""} ${cell.next_action ?? ""} ${cell.owner ?? ""}`.toLowerCase();
+  if (cell.owner === "image-dependency") {
+    return fam("refresh-image", "remote-image-refresh", "Claude-non-live", true,
+      "pass after the image is pullable (refresh tag / pin digest / mirror)", "", "a pullable image or retained digest",
+      "local-live-triage", ["#753"]);
+  }
+  if (cell.owner === "target-prerequisite") {
+    return fam("stage-prereq", "stage-secret", "Claude-non-live", true,
+      "pass after the prerequisite is staged", "", "required Secret/ConfigMap/mount target fact",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "webhook-cert-lifecycle") {
+    return fam("stage-prereq", "webhook-cert-lifecycle", "Claude-non-live", true,
+      "pass after the certificate lifecycle is modeled and observed", "", "webhook serving certificate route or target fact",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "admission-or-rbac") {
+    return fam("stage-prereq", "admission-or-rbac", "product-decision", true,
+      "pass after a target policy decision or base change", "", "permission/admission preflight or support boundary",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "api-version-unsupported") {
+    return fam("fix-model", "api-version-compatibility", "Claude-non-live", true,
+      "pass after the chart/base targets a served Kubernetes API version", "", "",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "cloud-or-provider-prerequisite") {
+    return fam("stage-prereq", "provide-external-service", "product-decision", true,
+      "pass after the provider prerequisite is modeled and staged", "", "provider credentials, cloud API, bucket, DNS, or volume",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "lifecycle-ordering") {
+    return fam("lifecycle-observe", "lifecycle-route", "Codex-live", true,
+      "observed", "data/lifecycle-route-actions (route/action packets)", "",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (cell.owner === "runtime-readiness") {
+    return fam("stage-prereq", "operator-review", "product-decision", true,
+      "pass after the runtime residue is reviewed or a better base is selected", "", "runtime review or target-specific support decision",
+      "local-live-triage", ["#248", "#753"]);
+  }
+  if (/imagepull|errimagepull|image-pull|image inspect|image/.test(text)) {
+    return fam("refresh-image", "remote-image-refresh", "Claude-non-live", true,
+      "pass after the image is pullable (refresh tag / pin digest / mirror)", "", "a pullable image or retained digest",
+      "remote-image-runtime-workdown", ["#753"]);
+  }
+  if (/required crd|crds? missing|target fact/.test(text)) {
+    return fam("stage-prereq", "install-crds", "Claude-non-live", true,
+      "pass after the prerequisite is staged", "", "required CRDs as target facts or a CRD-rendering base",
+      "target-prerequisite-workdown", ["#248", "#753"]);
+  }
+  if (/secret|configmap|mount|createcontainerconfigerror|containercreating/.test(text)) {
+    return fam("stage-prereq", "stage-secret", "Claude-non-live", true,
+      "pass after the prerequisite is staged", "", "required Secret/ConfigMap/mount target fact",
+      "target-prerequisite-workdown", ["#248", "#753"]);
+  }
+  if (/invalid|required value|required helm values|apply-blocked/.test(text)) {
+    return fam("fix-model", "base-design", "Claude-non-live", true,
+      "pass after the model/recipe change", "", "",
+      "model-gap-workdown", ["#248", "#753"]);
+  }
+  if (/crashloopbackoff|not-ready|runtime|readiness|podinitializing/.test(text)) {
+    return fam("stage-prereq", "operator-review", "product-decision", true,
+      "pass after the runtime residue is reviewed or a better base is selected", "", "runtime review or target-specific support decision",
+      "target-prerequisite-workdown", ["#248", "#753"]);
+  }
+  return fam("stage-prereq", "local-kind-apply-harness", "upstream-implementation", true,
+    "pass after the local-kind apply harness is fixed", "", "local-kind kubectl-apply harness fix",
+    "outcome-coverage/base-outcomes", ["#248", "#753"]);
+}
+
 // Returns the family descriptor for one non-green audit cell.
 function classify(cell, idx) {
   const { lane, state, completion_class: cc, reason } = cell;
@@ -146,9 +220,7 @@ function classify(cell, idx) {
   }
   if (cc === "needs-target-or-prereq-fix") {
     if (lane === "L") {
-      return fam("stage-prereq", "local-kind-apply-harness", "upstream-implementation", true,
-        "pass after the local-kind apply harness is fixed", "", "local-kind kubectl-apply harness fix",
-        "outcome-coverage/base-outcomes", ["#248", "#753"]);
+      return classifyLocalLive(cell);
     }
     const tp = idx.targetActions.get(k(cell.chart, cell.version, cell.variant, laneJoin));
     const ak = tp?.action_kind ?? "stage-prereq-other";
@@ -191,17 +263,20 @@ function buildFamilies() {
         ...d,
         affected_rows: [],
         lanes: new Set(),
+        evidence_surfaces: new Set(),
       });
     }
     const f = families.get(key);
     f.affected_rows.push(`${cell.chart}@${cell.version}/${cell.variant} [${cell.lane}]`);
     f.lanes.add(cell.lane);
+    if (d.evidence_surface) f.evidence_surfaces.add(d.evidence_surface);
   }
 
   const list = [...families.values()].map((f) => ({
     ...f,
     affected_cell_count: f.affected_rows.length,
     lanes: [...f.lanes].sort(),
+    evidence_surface: [...f.evidence_surfaces].sort().join("; "),
     linked_issues: f.linked_issues.join("; "),
   }));
   list.sort((a, b) => (b.affected_cell_count - a.affected_cell_count) || `${a.action_type}:${a.sub_group}`.localeCompare(`${b.action_type}:${b.sub_group}`));
@@ -240,6 +315,22 @@ function sumBy(rows, key, val) {
   return [...m.entries()].sort((a, b) => (b[1] - a[1]) || String(a[0]).localeCompare(String(b[0])));
 }
 
+function variantPromotionCounts() {
+  const rows = readCsv(VARIANT_PROMOTION);
+  const byMatrixValue = new Map();
+  for (const row of rows) {
+    const value = row.matrix_value || "unknown";
+    byMatrixValue.set(value, (byMatrixValue.get(value) ?? 0) + 1);
+  }
+  return {
+    proven: byMatrixValue.get("yes") ?? 0,
+    watch: byMatrixValue.get("watch") ?? 0,
+    todo: byMatrixValue.get("todo") ?? 0,
+    blocked: byMatrixValue.get("no") ?? 0,
+    nA: byMatrixValue.get("n/a") ?? 0,
+  };
+}
+
 function buildJson(families) {
   const total = families.reduce((n, f) => n + f.affected_cell_count, 0);
   return `${JSON.stringify({
@@ -248,7 +339,7 @@ function buildJson(families) {
     description:
       "The path to 100% VERIFIED DISPOSITION (not 100% green) for the master matrix, as a small set of ranked action families. Each family collapses many non-green cells into one action with an owner lane, command/prerequisite, expected status (predictions marked), evidence surface to regenerate, and linked issues. Generated by scripts/generate-coverage-completion-plan.mjs; do not hand-edit.",
     note: "A correct watch/blocked/refused/n-a with evidence and a named next action is a valid product answer; 100% means every cell has a verified disposition, not that every cell is green.",
-    sources: [AUDIT, MATRIX, TARGET_ACTIONS, MODEL_GAP, REMOTE_IMAGE, "data/live-run-blocks", "data/variant-promotion-proof-batches"],
+    sources: [AUDIT, MATRIX, TARGET_ACTIONS, MODEL_GAP, REMOTE_IMAGE, "data/local-live-triage/triage.csv", "data/live-run-blocks", "data/variant-promotion-proof-batches"],
     nonGreenCellsCovered: total,
     familyCount: families.length,
     byActionType: Object.fromEntries(sumBy(families, "action_type", "affected_cell_count")),
@@ -274,6 +365,7 @@ function buildJson(families) {
 
 function buildSummary(families) {
   const total = families.reduce((n, f) => n + f.affected_cell_count, 0);
+  const promotion = variantPromotionCounts();
   const lines = [];
   lines.push("# Coverage Completion Plan");
   lines.push("");
@@ -313,7 +405,7 @@ function buildSummary(families) {
   lines.push("");
   lines.push("## Variant promotion (first-class family)");
   lines.push("");
-  lines.push("The promotion (V) lane is the loudest hole: **0 proven / 20 watch / 172 todo**.");
+  lines.push(`The promotion (V) lane is the loudest hole: **${promotion.proven} proven / ${promotion.watch} watch / ${promotion.todo} todo / ${promotion.blocked} blocked / ${promotion.nA} n/a**.`);
   const promoRun = families.find((f) => f.action_type === "run-promotion");
   const promoBug = families.find((f) => f.action_type === "refuse-or-scope");
   if (promoRun) lines.push(`- \`${promoRun.action_id}\` **run-promotion** — ${promoRun.affected_cell_count} ready promotions via the serial ConfigHub lane (#948); run plan in [variant-promotion-proof-batches](../variant-promotion-proof-batches/summary.md).`);
@@ -335,7 +427,7 @@ function buildSummary(families) {
   lines.push("  the cell stays at its current disposition until a fresh receipt proves otherwise.");
   lines.push("- Owner lanes: `Codex-live` runs the serial live/promotion lane; `Claude-non-live`");
   lines.push("  is catalog/recipe/decision PR work; `product-decision` needs a scope/refuse call;");
-  lines.push("  `upstream-implementation` needs a ConfigHub-server or harness fix.");
+  lines.push("  `upstream-implementation` needs the ConfigHub server changeset fix.");
   lines.push("");
   return `${lines.join("\n")}`;
 }

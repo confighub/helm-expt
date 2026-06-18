@@ -32,7 +32,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -42,6 +42,7 @@ const SOURCES = {
   liveDecisions: "data/live-parity-decisions/decisions.csv",
   kindDecisions: "data/kind-parity-decisions/decisions.csv",
   baseOutcomes: "data/outcome-coverage/base-outcomes.csv",
+  localLiveTriage: "data/local-live-triage/triage.csv",
   burndown: "data/live-matrix-burndown/work-items.csv",
   runBlocks: "data/live-run-blocks/run-blocks.csv",
   lifecycleActions: "data/lifecycle-route-actions/actions.csv",
@@ -163,6 +164,40 @@ function triage(state, owner, residue) {
   return "needs-target-or-prereq-fix";
 }
 
+function localObservationReceiptPath(baseOutcome) {
+  const notes = baseOutcome?.evidence_notes ?? "";
+  const match = notes.match(/runs\/(?:top20-local-kind|next80-local-kind|latest-top20-refresh|redis-local-kind)[^|\s]*observation-receipt\.(?:ya?ml|json)/);
+  return match?.[0] ?? "";
+}
+
+function localObservationSummary(baseOutcome) {
+  const path = localObservationReceiptPath(baseOutcome);
+  if (!path || !existsSync(join(repoRoot, path))) return {};
+  const receipt = readYaml(join(repoRoot, path));
+  const spec = receipt.spec ?? {};
+  const checks = Array.isArray(spec.checks) ? spec.checks : [];
+  const nonPass = checks.filter((checkRow) => checkRow?.result && checkRow.result !== "pass");
+  const reason = [
+    ...(Array.isArray(spec.blockedReasons) ? spec.blockedReasons : []),
+    ...nonPass.map((checkRow) => checkRow.reason).filter(Boolean),
+  ].join(" | ");
+  return {
+    path,
+    result: spec.result ?? "",
+    reason: clean(reason),
+  };
+}
+
+function localOwner(reason) {
+  const text = (reason ?? "").toLowerCase();
+  if (/imagepull|errimagepull|image-pull|image inspect|image/.test(text)) return "image-refresh";
+  if (/required crd|crds? missing|target fact/.test(text)) return "target-prerequisite";
+  if (/secret|configmap|mount|createcontainerconfigerror|containercreating/.test(text)) return "target-prerequisite";
+  if (/invalid|required value|required helm values|apply-blocked/.test(text)) return "catalog-model";
+  if (/crashloopbackoff|not-ready|runtime|readiness|podinitializing/.test(text)) return "runtime-review";
+  return "tooling/target";
+}
+
 // --- Build ----------------------------------------------------------------
 
 const CSV_HEADERS = [
@@ -202,6 +237,7 @@ function buildAudit() {
   const live = index(readCsv(SOURCES.liveDecisions), (r) => keyFromCombined(`${r.chart}@${r.version}`, r.variant));
   const kind = index(readCsv(SOURCES.kindDecisions), (r) => keyFromCombined(`${r.chart}@${r.version}`, r.base));
   const baseOut = index(readCsv(SOURCES.baseOutcomes), (r) => keyFromCombined(r.chart, r.base));
+  const localLiveTriage = index(readCsv(SOURCES.localLiveTriage), (r) => keyFromCombined(r.chart, r.base));
   const burndown = index(readCsv(SOURCES.burndown).map((r) => ({ ...r, _k: `${r.chart}@${r.version}|${r.base}` })), (r) => `${r._k}|${r.work_type}`);
   const runBlocks = index(readCsv(SOURCES.runBlocks), (r) => `${r.chart}@${r.version}|${r.base}|${r.work_type}`);
   const lifecycleActions = index(readCsv(SOURCES.lifecycleActions), (r) => `${r.chart}@${r.version}`);
@@ -227,7 +263,7 @@ function buildAudit() {
       if (!cell) continue;
       const state = (cell.disposition ?? "").trim();
       if (!isNonGreen(state)) continue;
-      audit.push(buildCell({ row, lane, state, cell, live, kind, baseOut, burndown, runBlocks, chartAtVersion, key }));
+      audit.push(buildCell({ row, lane, state, cell, live, kind, baseOut, localLiveTriage, burndown, runBlocks, chartAtVersion, key }));
     }
 
     // Lifecycle lane (matrix lane_lifecycle_observed)
@@ -250,7 +286,7 @@ function buildAudit() {
   return audit;
 }
 
-function buildCell({ row, lane, state, cell, live, kind, baseOut, burndown, runBlocks, chartAtVersion, key }) {
+function buildCell({ row, lane, state, cell, live, kind, baseOut, localLiveTriage, burndown, runBlocks, chartAtVersion, key }) {
   let reason = clean(cell.reason);
   let nextAction = clean(cell.next_action);
   let owner = clean(cell.owner);
@@ -259,9 +295,20 @@ function buildCell({ row, lane, state, cell, live, kind, baseOut, burndown, runB
 
   if (lane.key === "L") {
     const bo = baseOut.get(key);
-    if (!reason && bo) reason = `local-live ${state}: ${clean(bo.evidence_notes).split("|")[0].trim()}`;
-    if (!nextAction && bo) nextAction = `resolve the local-live blocker first (${clean(bo.missing_or_non_pass_lanes) || "named prerequisite"}); the live lanes inherit it`;
-    if (!owner) owner = "tooling/target";
+    const triage = localLiveTriage.get(key);
+    if (triage) {
+      reason = `local-live ${state}: ${clean(triage.route_class)}: ${clean(triage.first_reason)}`;
+      nextAction = clean(triage.next_action);
+      support = clean(triage.receipt);
+      owner = clean(triage.route_class);
+    } else {
+      const local = localObservationSummary(bo);
+      if (local.reason) reason = `local-live ${local.result || state}: ${local.reason}`;
+      else if (!reason && bo) reason = `local-live ${state}: ${clean(bo.evidence_notes).split("|")[0].trim()}`;
+      if (!nextAction && bo) nextAction = `resolve the local-live blocker first (${clean(bo.missing_or_non_pass_lanes) || "named prerequisite"}); the live lanes inherit it`;
+      if (local.path) support = local.path;
+      if (!owner) owner = localOwner(reason);
+    }
   } else if (lane.key === "G" || lane.key === "P") {
     const d = live.get(key);
     if (d) {
