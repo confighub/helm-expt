@@ -60,6 +60,9 @@ const SOURCES = {
   coverageCompletion: "data/coverage-completion-plan/actions.json",
   derivedTargetBound: "data/derived-variant-target-bound/summary.csv",
   derivedExecutionRoot: "runs/derived-variant-execution",
+  wave2VariantWorkOrders: "data/catalog-promotion-wave2/variant-work-orders.yaml",
+  usefulBaseWave2: "data/useful-base-realization-wave/wave2-selection.csv",
+  targetPrereqActions: "data/target-prerequisite-actions/actions.csv",
 };
 
 // Spine columns come from base-outcomes (the derived lane superset).
@@ -152,6 +155,21 @@ const COLUMN_PROVENANCE = [
     carried: "target-bound status for derived variants when a downstream variant has been reconciled through OCI/Argo and observed",
     dropped: "receipt internals; follow the target-bound receipt when diagnosing the target run",
   },
+  {
+    source: "catalog-promotion-wave2/variant-work-orders.yaml",
+    carried: "candidate F2 base/fork rows that are explicitly not rendered yet and need recipe/package/evidence work before becoming real bases",
+    dropped: "per-value detail beyond the compact inputs, blockers, and first action shown in the candidate row",
+  },
+  {
+    source: "useful-base-realization-wave/wave2-selection.csv",
+    carried: "candidate F2 user-shaped base rows from the useful-base queue, including render-time knobs, target inputs, and required receipts",
+    dropped: "priority scoring internals; follow the source for full wave ordering",
+  },
+  {
+    source: "target-prerequisite-actions/actions.csv",
+    carried: "candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether a custom discussion is needed",
+    dropped: "duplicate lane-level rows after they are grouped by chart/base/prerequisite/action",
+  },
 ];
 
 if (mode === "--generate") {
@@ -161,7 +179,7 @@ if (mode === "--generate") {
   write(outputs.summary, report.summary);
   write(outputs.html, report.html);
   write(outputs.generatedAt, `${generatedAt}\n`);
-  console.log(`wrote master catalog matrix -> ${relativeRepo(outputRoot)}/ (${report.rows.length} variant rows)`);
+  console.log(`wrote master catalog matrix -> ${relativeRepo(outputRoot)}/ (${report.rows.length} matrix rows)`);
 } else if (mode === "--verify") {
   check(existsSync(outputs.generatedAt), `${relativeRepo(outputs.generatedAt)} is missing; run npm run master-matrix`);
   const report = buildReport(readFileSync(outputs.generatedAt, "utf8").trim());
@@ -170,7 +188,7 @@ if (mode === "--generate") {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run master-matrix`);
     check(readFileSync(path, "utf8") === expected[name], `${relativeRepo(path)} is stale; run npm run master-matrix`);
   }
-  console.log(`verified master catalog matrix: ${report.rows.length} variant rows, ${report.charts} chart versions`);
+  console.log(`verified master catalog matrix: ${report.rows.length} matrix rows, ${report.charts} chart versions`);
 } else {
   console.log(`Usage:
   node scripts/generate-master-catalog-matrix.mjs --generate
@@ -278,9 +296,17 @@ function buildReport(generatedAt) {
       // is UNROUTED - rendering it as "no hooks" would hide exactly the gap
       // the hook-disposition completeness gate exists to surface.
       const hookFlagged = (ready?.source_features ?? "").split(";").includes("hooks");
+      const baseLayer = baseLayerForVariant(variant);
       const row = {
         row_kind: "base",
-        customization_layer: "F2 base",
+        catalog_layer: baseLayer.layer,
+        customization_layer: baseLayer.label,
+        row_status: "real",
+        custom_discussion: "no",
+        candidate_source: "",
+        candidate_state: "",
+        candidate_inputs: "",
+        candidate_required_before: "",
         parent_base: "",
         downstream_space: "",
         target_run_status: "",
@@ -359,8 +385,13 @@ function buildReport(generatedAt) {
       return row;
     });
   const baseIndex = indexBy(baseRows, (row) => `${row.chart}|${row.version}|${row.variant}`);
+  const baseByChartVersion = preferredBaseByChartVersion(baseRows);
+  const sourceRows = [...baseByChartVersion.values()].map((base) => sourceMatrixRow(base));
+  const candidateRows = loadCandidateRows(baseIndex, baseByChartVersion);
   const rows = [
+    ...sourceRows,
     ...baseRows,
+    ...candidateRows,
     ...derivedExecution.map((receiptRow) => derivedMatrixRow(receiptRow, baseIndex, derivedTargetBound)),
   ].sort(compareMatrixRows);
 
@@ -456,12 +487,274 @@ function summarizeCounts(counts) {
     .join("; ");
 }
 
+function summarizeLayerCounts(rows) {
+  const counts = countValues(rows.map((row) => row.catalog_layer));
+  const order = ["F1", "F2a", "F2b", "F2c", "F3", "F4a", "F4b"];
+  return order
+    .filter((layer) => counts.has(layer))
+    .map((layer) => `${layer}:${counts.get(layer)}`)
+    .join(" / ");
+}
+
 function needsLifecycleLane(row) {
   if (row.hook_disposition && row.hook_disposition !== "n/a") return true;
   const features = splitList(row.quirk_features);
   if (features.some((feature) => ["hooks", "crds", "webhooks"].includes(feature))) return true;
   const text = `${row.hard_gap} ${row.next_action} ${row.active_proof_reason}`.toLowerCase();
   return ["admission", "apiservice", "crd", "hook", "lifecycle", "webhook"].some((term) => text.includes(term));
+}
+
+function baseLayerForVariant(variant) {
+  if (variant === "default") return { layer: "F2a", label: "F2a honest default base" };
+  if (variant.includes("parameterized")) return { layer: "F2c", label: "F2c parameterized base" };
+  return { layer: "F2b", label: "F2b rendered standard fork" };
+}
+
+function preferredBaseByChartVersion(baseRows) {
+  const grouped = groupBy(baseRows, (row) => `${row.chart}|${row.version}`);
+  const preferred = new Map();
+  for (const [key, rows] of grouped.entries()) {
+    preferred.set(key, rows.find((row) => row.variant === "default") ?? rows[0]);
+  }
+  return preferred;
+}
+
+function sourceMatrixRow(base) {
+  return {
+    ...base,
+    row_kind: "source",
+    catalog_layer: "F1",
+    customization_layer: "F1 upstream chart source",
+    row_status: "real",
+    custom_discussion: "no",
+    parent_base: "",
+    downstream_space: "",
+    target_run_status: "",
+    target_run_receipt: "",
+    target_run_blockers: "",
+    variant: "(source)",
+    adoption_bucket: "source-chart",
+    strongest_evidence: "source-lock",
+    next_action: "choose or create an F2 base before rendering or deploying",
+    hook_live_status: base.hook_count && base.hook_count !== "0" ? base.hook_live_status : "n/a",
+    lifecycle_route_contract: "n/a",
+    lifecycle_route_count: "",
+    lifecycle_route_dispositions: "",
+    lifecycle_route_execution_modes: "",
+    lifecycle_route_safe_automatic: "",
+    lifecycle_route_evidence_version: "",
+    lifecycle_route_contract_path: "",
+    lifecycle_route_json_path: "",
+    lane_render_parity: "n/a",
+    lane_confighub_scan_ops: "n/a",
+    lane_local_kind: "n/a",
+    lane_lifecycle_observed: "n/a",
+    lane_gitops_oci_live: "n/a",
+    lane_live_dual_parity: "n/a",
+    lane_two_cluster_kind: "n/a",
+    core_lanes_complete: "n/a",
+    outcome_level: "source-lock",
+    production_decision: "n/a",
+    production_target_scope: "",
+    variant_promotion: "n/a",
+    variant_promotion_status: "not-applicable-source",
+    variant_promotion_evidence: "",
+    variant_promotion_reason: "",
+    variant_promotion_next_action: "",
+    active_proof_next_step: "",
+    active_proof_readiness: "",
+    active_proof_reason: "",
+    active_proof_command: "",
+    active_proof_support_artifact: "",
+    recipe_catalog_path: base.recipe_catalog_path,
+    variant_path: "",
+    package_base_path: "",
+    variant_revision_path: "",
+    completion_action: "-",
+    completion_action_summary: "",
+    completion_action_families: "",
+    completion_deferred_cells: "0",
+    completion_owner_lanes: "",
+  };
+}
+
+function loadCandidateRows(baseIndex, baseByChartVersion) {
+  const rows = [
+    ...loadWave2CandidateRows(baseIndex, baseByChartVersion),
+    ...loadUsefulBaseCandidateRows(baseIndex, baseByChartVersion),
+    ...loadTargetPrerequisiteCandidateRows(baseIndex),
+  ];
+  const seen = new Set();
+  return rows.filter((row) => {
+    const key = `${row.chart}|${row.version}|${row.catalog_layer}|${row.parent_base}|${row.variant}|${row.candidate_source}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function loadWave2CandidateRows(baseIndex, baseByChartVersion) {
+  const doc = readYaml(join(repoRoot, SOURCES.wave2VariantWorkOrders));
+  const rows = [];
+  for (const workOrder of doc.spec?.workOrders ?? []) {
+    const chart = chartFromPackagePath(workOrder.packagePath) ?? workOrder.chart;
+    const version = versionFromPackagePath(workOrder.packagePath) ?? workOrder.version;
+    const base = baseByChartVersion.get(`${chart}|${version}`);
+    check(base, `wave-2 candidate ${workOrder.chart}@${workOrder.version} (${chart}@${version}) has no matrix base row`);
+    for (const variant of workOrder.variants ?? []) {
+      if (baseIndex.has(`${chart}|${version}|${variant.name}`)) continue;
+      rows.push(candidateMatrixRow(base, {
+        layer: "F2c",
+        label: "F2c candidate base/fork",
+        variant: variant.name,
+        source: SOURCES.wave2VariantWorkOrders,
+        state: workOrder.state ?? "candidate",
+        parentBase: base.variant,
+        inputs: joinText([...(variant.values ?? []), ...(variant.facts ?? [])]),
+        requiredBefore: joinText(workOrder.requiredBeforeCatalogSupport ?? []),
+        nextAction: joinText([variant.intent, ...(variant.blockers ?? [])]) || "render this candidate as a real base, then add receipts",
+        customDiscussion: (variant.blockers ?? []).length > 0 || (variant.facts ?? []).length > 0,
+        completionAction: "model",
+      }));
+    }
+  }
+  return rows;
+}
+
+function chartFromPackagePath(path) {
+  const parts = String(path || "").split("/");
+  if (parts[0] !== "packages" || parts.length < 4) return "";
+  return `${parts[1]}/${parts[2]}`;
+}
+
+function versionFromPackagePath(path) {
+  const parts = String(path || "").split("/");
+  if (parts[0] !== "packages" || parts.length < 4) return "";
+  return parts[3];
+}
+
+function loadUsefulBaseCandidateRows(baseIndex, baseByChartVersion) {
+  return readCsv(SOURCES.usefulBaseWave2)
+    .filter((row) => !baseIndex.has(`${row.chart}|${row.version}|${row.proposed_base}`))
+    .map((row) => {
+      const base = baseByChartVersion.get(`${row.chart}|${row.version}`);
+      check(base, `useful-base candidate ${row.chart}@${row.version} has no matrix base row`);
+      return candidateMatrixRow(base, {
+        layer: "F2c",
+        label: "F2c candidate useful base",
+        variant: row.proposed_base,
+        source: SOURCES.usefulBaseWave2,
+        state: "not-yet-rendered",
+        parentBase: base.variant,
+        inputs: joinText([row.render_time_knobs, row.target_inputs]),
+        requiredBefore: row.required_receipts,
+        nextAction: row.first_action,
+        customDiscussion: true,
+        completionAction: "model",
+      });
+    });
+}
+
+function loadTargetPrerequisiteCandidateRows(baseIndex) {
+  const groups = groupBy(readCsv(SOURCES.targetPrereqActions), (row) =>
+    `${row.chart}|${row.version}|${row.base}|${row.prerequisite_kind}|${row.prerequisite_name}|${row.action_kind}|${row.owner_class}`,
+  );
+  return [...groups.values()].map((group) => {
+    const first = group[0];
+    const base = baseIndex.get(`${first.chart}|${first.version}|${first.base}`);
+    check(base, `target-prerequisite candidate ${first.chart}@${first.version}/${first.base} has no matrix base row`);
+    const lanes = [...new Set(group.map((row) => row.lane))].sort().join("+");
+    const customDiscussion = first.owner_class === "operator-review" || first.prerequisite_kind === "unknown" || first.action_kind === "operator-review";
+    const prerequisite = first.prerequisite_kind === "unknown" ? "review" : first.prerequisite_kind;
+    return candidateMatrixRow(base, {
+      layer: "F3",
+      label: "F3 target prerequisite/fill",
+      variant: `${first.base} + ${prerequisite}`,
+      source: SOURCES.targetPrereqActions,
+      state: `${lanes} ${first.current_result ?? "candidate"}`.trim(),
+      parentBase: first.base,
+      inputs: first.required_inputs,
+      requiredBefore: first.evidence_required,
+      nextAction: `${first.action_kind}: ${first.prerequisite_name}; ${first.rerun_command}`,
+      customDiscussion,
+      completionAction: customDiscussion ? "scope" : "stage",
+      supportArtifact: first.support_artifact,
+      sourceReceipt: first.source_receipt,
+    });
+  });
+}
+
+function candidateMatrixRow(base, options) {
+  const customDiscussion = options.customDiscussion ? "yes" : "no";
+  return {
+    ...base,
+    row_kind: "candidate",
+    catalog_layer: options.layer,
+    customization_layer: options.label,
+    row_status: customDiscussion === "yes" ? "candidate-custom-discussion" : "candidate",
+    custom_discussion: customDiscussion,
+    candidate_source: options.source,
+    candidate_state: options.state ?? "candidate",
+    candidate_inputs: options.inputs ?? "",
+    candidate_required_before: options.requiredBefore ?? "",
+    parent_base: options.parentBase ?? base.variant,
+    downstream_space: "",
+    target_run_status: "not-applicable",
+    target_run_receipt: options.sourceReceipt ?? options.supportArtifact ?? "",
+    target_run_blockers: options.inputs ?? "",
+    variant: options.variant,
+    catalog_tier: "candidate",
+    adoption_bucket: customDiscussion === "yes" ? "candidate-custom-discussion" : "candidate-row",
+    hard_gap: options.inputs ?? "",
+    strongest_evidence: "candidate-plan",
+    next_action: options.nextAction ?? "turn this candidate into a receipt-backed row before treating it as runnable",
+    hook_count: "",
+    hook_disposition: "",
+    hook_evidence_version: "",
+    hook_live_status: "n/a",
+    lifecycle_route_contract: "n/a",
+    lifecycle_route_count: "",
+    lifecycle_route_dispositions: "",
+    lifecycle_route_execution_modes: "",
+    lifecycle_route_safe_automatic: "",
+    lifecycle_route_evidence_version: "",
+    lifecycle_route_contract_path: "",
+    lifecycle_route_json_path: "",
+    lane_render_parity: "n/a",
+    lane_confighub_scan_ops: "n/a",
+    lane_local_kind: "n/a",
+    lane_lifecycle_observed: "n/a",
+    lane_gitops_oci_live: "n/a",
+    lane_live_dual_parity: "n/a",
+    lane_two_cluster_kind: "n/a",
+    core_lanes_complete: "n/a",
+    outcome_level: "candidate-plan",
+    production_decision: "n/a",
+    production_target_scope: "",
+    variant_promotion: "n/a",
+    variant_promotion_status: "not-applicable-candidate",
+    variant_promotion_evidence: "",
+    variant_promotion_reason: "candidate rows are planning rows, not server-side promotion evidence",
+    variant_promotion_next_action: "",
+    active_proof_next_step: "",
+    active_proof_readiness: "",
+    active_proof_reason: "",
+    active_proof_command: "",
+    active_proof_support_artifact: options.supportArtifact ?? options.sourceReceipt ?? options.source,
+    recipe_catalog_path: base.recipe_catalog_path,
+    variant_path: "",
+    package_base_path: "",
+    variant_revision_path: "",
+    completion_action: options.completionAction ?? "model",
+    completion_action_summary: `${options.completionAction ?? "model"}:1`,
+    completion_action_families: "candidate-row",
+    completion_deferred_cells: "0",
+    completion_owner_lanes: customDiscussion === "yes" ? "product-review:1" : "Codex-live:1",
+  };
+}
+
+function joinText(values) {
+  return values.filter(Boolean).join("; ");
 }
 
 function loadDerivedExecutionRows() {
@@ -542,7 +835,14 @@ function derivedMatrixRow(receiptRow, baseIndex, targetBoundIndex) {
   return {
     ...base,
     row_kind: "derived",
-    customization_layer: "F4 derived",
+    catalog_layer: targetResult === "not-attempted" ? "F4a" : "F4b",
+    customization_layer: targetResult === "not-attempted" ? "F4a derived ConfigHub clone" : "F4b target-bound derived variant",
+    row_status: targetStatus === "yes" ? "real" : "real-needs-work",
+    custom_discussion: targetStatus === "no" ? "yes" : "no",
+    candidate_source: "",
+    candidate_state: "",
+    candidate_inputs: "",
+    candidate_required_before: "",
     parent_base: receiptRow.base,
     downstream_space: receiptRow.downstream_space,
     target_run_status: targetResult,
@@ -598,7 +898,10 @@ function derivedMatrixRow(receiptRow, baseIndex, targetBoundIndex) {
 function compareMatrixRows(a, b) {
   const chart = a.chart.localeCompare(b.chart) || a.version.localeCompare(b.version, undefined, { numeric: true });
   if (chart !== 0) return chart;
-  if (a.row_kind !== b.row_kind) return a.row_kind === "base" ? -1 : 1;
+  const layer = layerOrder(a.catalog_layer) - layerOrder(b.catalog_layer);
+  if (layer !== 0) return layer;
+  const kind = rowKindOrder(a.row_kind) - rowKindOrder(b.row_kind);
+  if (kind !== 0) return kind;
   const parent = (a.parent_base || a.variant).localeCompare(b.parent_base || b.variant);
   if (parent !== 0) return parent;
   if (a.variant === "default") return -1;
@@ -606,10 +909,34 @@ function compareMatrixRows(a, b) {
   return a.variant.localeCompare(b.variant);
 }
 
+function layerOrder(layer) {
+  return {
+    F1: 10,
+    F2a: 20,
+    F2b: 30,
+    F2c: 40,
+    F3: 50,
+    F4a: 60,
+    F4b: 70,
+  }[layer] ?? 99;
+}
+
+function rowKindOrder(kind) {
+  return {
+    source: 10,
+    base: 20,
+    candidate: 30,
+    derived: 40,
+  }[kind] ?? 99;
+}
+
 function summary(rows, charts, unmatchedReadiness) {
   const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
+  const sourceRowCount = rows.filter((row) => row.row_kind === "source").length;
   const baseRowCount = rows.filter((row) => row.row_kind === "base").length;
+  const candidateRowCount = rows.filter((row) => row.row_kind === "candidate").length;
   const derivedRowCount = rows.filter((row) => row.row_kind === "derived").length;
+  const layerCounts = summarizeLayerCounts(rows);
   const counts = {
     yes: laneCells.filter((value) => value === "yes").length,
     watch: laneCells.filter((value) => value === "watch").length,
@@ -651,7 +978,7 @@ function summary(rows, charts, unmatchedReadiness) {
               : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
       const route = row.lifecycle_route_contract === "n/a" ? "-" : icon(row.lifecycle_route_contract);
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "-";
-      return `| ${chartCell} | ${rowKindLabel(row)} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.completion_action || "-"} | ${row.outcome_level || "-"} | ${icon(row.production_decision)} |`;
+      return `| ${chartCell} | ${row.catalog_layer} | ${rowKindLabel(row)} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.completion_action || "-"} | ${row.outcome_level || "-"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
 
@@ -659,11 +986,11 @@ function summary(rows, charts, unmatchedReadiness) {
 
   return `# Master Catalog Matrix
 
-ONE view of the whole catalog: one row per installer base variant or downstream
-ConfigHub-derived variant, grouped by chart and version, with the translation
-attributes and per-lane status joined from the committed sources below. This
-file invents no new truth - every cell comes from a source the verifier checks
-this view against.
+ONE view of the whole catalog: one row per chart/version/catalog layer,
+including upstream sources, real installer bases, candidate paths, and
+downstream ConfigHub-derived variants. The translation attributes and per-lane
+status are joined from the committed sources below. This file invents no new
+truth - every cell comes from a source the verifier checks this view against.
 
 Three renderings of the same rows: this summary (GitHub),
 [matrix.csv](matrix.csv) for spreadsheet import (CSV carries words, not
@@ -698,29 +1025,32 @@ from a different chart version's disposition row.
 | Metric | Value |
 | --- | ---: |
 | Chart versions | ${charts} |
-| Variant rows | ${rows.length} |
-| Base rows / derived rows | ${baseRowCount} / ${derivedRowCount} |
+| Matrix rows | ${rows.length} |
+| F1 source / F2 base / candidate / F4 derived rows | ${sourceRowCount} / ${baseRowCount} / ${candidateRowCount} / ${derivedRowCount} |
+| Layer rows | ${layerCounts} |
 | Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} / ${counts.na} |
-| Variants with the complete core lane set | ${complete} |
+| Base/derived rows with the complete core lane set | ${complete} |
 | Rows with a target run decision | ${targetRunYes + superseded + targetRunBlocked} |
 | Target run decisions (runs / superseded / blocked-or-rejected) | ${targetRunYes} / ${superseded} / ${targetRunBlocked} |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | ${promotionProven} / ${promotionWatch} / ${promotionTodo} / ${promotionBlocked} / ${promotionNa} |
 | Lifecycle route contracts (observed / watch / todo / n/a) | ${routeContractYes} / ${routeContractWatch} / ${routeContractTodo} / ${routeContractNa} |
 | Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
-| Variants currently in the active proof queue | ${activeProofRows.length} |
+| Rows currently in the active proof queue | ${activeProofRows.length} |
 | Cells with deferred accepted disposition | ${deferredCells} |
 
 ${unmatchedReadiness.length ? `Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): ${unmatchedReadiness.map((chart) => `\`${chart}\``).join(", ")}.\n` : ""}
 ## How To Use This Sheet
 
-Each row is one chart/version/base variant or downstream ConfigHub-derived
-variant. Use the row to answer three questions before deciding what to do next:
+Each row is one chart/version layer: F1 source chart, F2 base variant, F3
+target-prerequisite/fill candidate, or F4 downstream ConfigHub-derived variant.
+Use the row to answer three questions before deciding what to do next:
 
 | Question | Column to check |
 | --- | --- |
 | Can I try this now, promote it, or does it need more design? | Use / adoption bucket |
 | What is the strongest evidence currently available? | Evidence, R/C/L/G/P/K, Core |
 | What prevents a stronger target-run claim? | Target, Scope, Gap, Next action |
+| Where am I in the customization flow? | Layer, Kind |
 | Can downstream ConfigHub variants be promoted from this base? | V, Promotion status |
 | If a hook or lifecycle behavior exists, where does it go? | Route, Hooks, lifecycle route contract |
 | Which non-pass live row should be rerun or reviewed now? | Active proof |
@@ -728,7 +1058,7 @@ variant. Use the row to answer three questions before deciding what to do next:
 
 The HTML view carries these user/product columns directly:
 [matrix.html](matrix.html). The CSV carries the same fields for filtering:
-[matrix.csv](matrix.csv). Counts below are variant rows unless stated
+[matrix.csv](matrix.csv). Counts below are matrix rows unless stated
 otherwise.
 
 ## Current Product Queues
@@ -757,8 +1087,8 @@ when you want the user/product view with those columns visible.
 
 ## Matrix
 
-| Chart | Kind | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Action | Outcome | Target |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chart | Layer | Kind | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Action | Outcome | Target |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${table}
 
 ## Regenerate
@@ -772,8 +1102,11 @@ npm run master-matrix:verify
 
 function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
   const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
+  const sourceRowCount = rows.filter((row) => row.row_kind === "source").length;
   const baseRowCount = rows.filter((row) => row.row_kind === "base").length;
+  const candidateRowCount = rows.filter((row) => row.row_kind === "candidate").length;
   const derivedRowCount = rows.filter((row) => row.row_kind === "derived").length;
+  const layerCounts = summarizeLayerCounts(rows);
   const counts = {
     yes: laneCells.filter((value) => value === "yes").length,
     watch: laneCells.filter((value) => value === "watch").length,
@@ -833,8 +1166,8 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
         ["package", row.package_base_path],
         ["revision", row.variant_revision_path],
         ["routes", row.lifecycle_route_contract_path],
-      ].filter(([label, path]) => label !== "routes" || path).map(([label, path]) => linkFor(label, path, row)).join(" · ");
-      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td class="note kind" title="${escapeHtml(row.customization_layer)}">${escapeHtml(rowKindLabel(row))}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${routeCell}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td class="note action" title="${escapeHtml(completionText.title)}">${escapeHtml(completionText.label)}</td><td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
+      ].filter(([, path]) => path).map(([label, path]) => linkFor(label, path, row)).join(" · ");
+      return `<tr class="${rowClass(row)}${first ? " grp" : ""}"><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td class="layer" title="${escapeHtml(row.customization_layer)}">${escapeHtml(row.catalog_layer)}</td><td class="note kind" title="${escapeHtml(rowStatusTitle(row))}">${escapeHtml(rowKindLabel(row))}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${routeCell}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td class="note action" title="${escapeHtml(completionText.title)}">${escapeHtml(completionText.label)}</td><td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
     })
     .join("\n");
 
@@ -860,6 +1193,7 @@ a{color:#1558d6;text-decoration:none}
 a:hover{text-decoration:underline}
 td.route{max-width:120px;color:#202124}
 td.evidence{max-width:130px;color:#202124}
+td.layer{font-weight:700;text-align:center;white-space:nowrap}
 td.kind{max-width:120px;color:#202124;font-weight:600}
 td.scope{max-width:190px}
 td.gap{max-width:220px;color:#7a4f00}
@@ -869,14 +1203,17 @@ td.action{max-width:130px;color:#202124;font-weight:600}
 .n{background:#d93025;color:#fff}
 .t{background:#e8eaed;color:#5f6368}
 .na{background:#edf4ff;color:#476282}
+tr.layer-f1 td{background:#f8fafd}
+tr.candidate td{background:#fff8e6}
+tr.custom-discussion td{background:#fff1e8}
 </style>
 </head>
 <body>
 <h1>Master Catalog Matrix</h1>
 <p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed catalog, proof, live, and target-run data.</p>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows (${baseRowCount} base / ${derivedRowCount} derived) · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · target run decisions: ${targetRunYes} runs / ${superseded} superseded / ${targetRunBlocked} blocked-or-rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · lifecycle routes: ${routeContractYes} observed / ${routeContractWatch} watch / ${routeContractTodo} todo / ${routeContractNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${deferredCells} deferred accepted cell(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} matrix rows (${sourceRowCount} F1 source / ${baseRowCount} F2 base / ${candidateRowCount} candidate / ${derivedRowCount} F4 derived) · layers ${escapeHtml(layerCounts)} · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · target run decisions: ${targetRunYes} runs / ${superseded} superseded / ${targetRunBlocked} blocked-or-rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · lifecycle routes: ${routeContractYes} observed / ${routeContractWatch} watch / ${routeContractTodo} todo / ${routeContractNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${deferredCells} deferred accepted cell(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">This is the user/product front door: Kind separates installer base variants from downstream ConfigHub-derived variants. Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where the row is known to run or why it is bounded, Gap names the main product or chart gap, Action shows whether remaining work is active, external, or deferred, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, lifecycle route contract, and GitHub folder. Lanes: Route lifecycle route/off-ramp contract · R render parity · C ConfigHub upload+scan+ops or derived variant clone · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live Helm-vs-ConfigHub dual parity · K two-cluster kind parity · V server-side ConfigHub variant promotion. Hover cells for detail (hooks, route execution modes, quirks, target run scope, variant promotion status, completion action families, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">This is the user/product front door: Layer marks the path from F1 source chart, through F2 bases and F3 target inputs, to F4 derived ConfigHub variants. Candidate and custom-discussion rows are planning rows, not proof claims. Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where the row is known to run or why it is bounded, Gap names the main product or chart gap, Action shows whether remaining work is active, external, or deferred, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, lifecycle route contract, and GitHub folder. Lanes: Route lifecycle route/off-ramp contract · R render parity · C ConfigHub upload+scan+ops or derived variant clone · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live Helm-vs-ConfigHub dual parity · K two-cluster kind parity · V server-side ConfigHub variant promotion. Hover cells for detail (hooks, route execution modes, quirks, target run scope, variant promotion status, completion action families, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table class="queues">
 <thead><tr><th>Current product queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead>
 <tbody>
@@ -884,7 +1221,7 @@ ${queues.map((queue) => `<tr><td>${escapeHtml(queue.label)}</td><td>${queue.rows
 </tbody>
 </table>
 <table>
-<thead><tr><th>Chart</th><th>Kind</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Action</th><th>Outcome</th><th>Target</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
+<thead><tr><th>Chart</th><th>Layer</th><th>Kind</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Action</th><th>Outcome</th><th>Target</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
 <tbody>
 ${bodyRows}
 </tbody>
@@ -902,15 +1239,19 @@ function tierShort(tier) {
   if (tier === "top20-catalog-supported") return "top20";
   if (tier === "next80-proof-grade") return "next80";
   if (tier === "derived-variant") return "derived";
+  if (tier === "candidate") return "candidate";
   return tier || "-";
 }
 
 function useShort(bucket) {
+  if (bucket === "source-chart") return "source";
   if (bucket === "try-from-public-catalog") return "try";
   if (bucket === "promote-after-review") return "review";
   if (bucket === "needs-useful-variant") return "needs variant";
   if (bucket === "limitation-decision-first") return "limit first";
   if (bucket === "derived-target-variant") return "derived";
+  if (bucket === "candidate-custom-discussion") return "custom discussion";
+  if (bucket === "candidate-row") return "candidate";
   return "-";
 }
 
@@ -922,6 +1263,8 @@ function evidenceShort(evidence) {
   if (evidence === "render-parity") return "render";
   if (evidence === "target-bound-derived-variant") return "target-bound";
   if (evidence === "derived-variant-clone") return "derived clone";
+  if (evidence === "source-lock") return "source lock";
+  if (evidence === "candidate-plan") return "candidate";
   return evidence || "-";
 }
 
@@ -936,8 +1279,30 @@ function normalizeTargetRunText(text) {
 }
 
 function rowKindLabel(row) {
+  if (row.row_kind === "source") return "source";
+  if (row.row_kind === "candidate") return row.custom_discussion === "yes" ? "candidate discussion" : "candidate";
   if (row.row_kind === "derived") return `derived from ${row.parent_base}`;
   return "base";
+}
+
+function rowClass(row) {
+  return [
+    `layer-${String(row.catalog_layer || "").toLowerCase()}`,
+    row.row_kind === "candidate" ? "candidate" : "",
+    row.custom_discussion === "yes" ? "custom-discussion" : "",
+  ].filter(Boolean).join(" ");
+}
+
+function rowStatusTitle(row) {
+  return [
+    row.customization_layer,
+    row.row_status ? `status: ${row.row_status}` : "",
+    row.custom_discussion === "yes" ? "non-default, requires a custom discussion with the ConfigHub team" : "",
+    row.candidate_source ? `source: ${row.candidate_source}` : "",
+    row.candidate_state ? `state: ${row.candidate_state}` : "",
+    row.candidate_inputs ? `inputs: ${row.candidate_inputs}` : "",
+    row.candidate_required_before ? `required before runnable: ${row.candidate_required_before}` : "",
+  ].filter(Boolean).join(" | ");
 }
 
 function compactText(text, limit) {
@@ -946,7 +1311,13 @@ function compactText(text, limit) {
 }
 
 function productQueues(rows) {
+  const realRunnableRows = rows.filter((row) => row.row_kind === "base" || row.row_kind === "derived");
   return [
+    {
+      label: "F1 source charts",
+      rows: rows.filter((row) => row.catalog_layer === "F1"),
+      meaning: "Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen.",
+    },
     {
       label: "Public catalog rows",
       rows: rows.filter((row) => row.adoption_bucket === "try-from-public-catalog"),
@@ -969,8 +1340,8 @@ function productQueues(rows) {
     },
     {
       label: "Complete the core proof lane",
-      rows: rows.filter((row) => row.core_lanes_complete !== "yes"),
-      meaning: "Rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity.",
+      rows: realRunnableRows.filter((row) => row.core_lanes_complete !== "yes"),
+      meaning: "Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity.",
     },
     {
       label: "Active proof queue",
@@ -988,13 +1359,23 @@ function productQueues(rows) {
       meaning: "Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender.",
     },
     {
+      label: "Candidate rows",
+      rows: rows.filter((row) => row.row_kind === "candidate"),
+      meaning: "Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims.",
+    },
+    {
+      label: "Custom-discussion candidates",
+      rows: rows.filter((row) => row.row_kind === "candidate" && row.custom_discussion === "yes"),
+      meaning: "Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable.",
+    },
+    {
       label: "Decide target run scope",
-      rows: rows.filter((row) => row.production_decision === "todo"),
+      rows: realRunnableRows.filter((row) => row.production_decision === "todo"),
       meaning: "Rows without a target run decision or target-bound receipt yet.",
     },
     {
       label: "Investigate hard gaps",
-      rows: rows.filter((row) => row.hard_gap),
+      rows: rows.filter((row) => row.row_kind !== "source" && row.hard_gap),
       meaning: "Rows with a named chart/product gap rather than a simple missing receipt.",
     },
   ];

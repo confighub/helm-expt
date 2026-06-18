@@ -37,7 +37,8 @@ next action:
 
 | Field | Meaning |
 | --- | --- |
-| `Kind` | Whether the row is an installer base variant or a downstream ConfigHub-derived variant cloned from a base. |
+| `Layer` | Where the row sits in the Helm-to-ConfigHub flow: upstream source, rendered base, candidate target fill, or downstream ConfigHub variant. |
+| `Kind` | Whether the row is a source row, a real installer base variant, a candidate path, or a downstream ConfigHub-derived variant cloned from a base. |
 | `Use` | The current route: try the public catalog, review for promotion, design a better base, or decide a limitation first. |
 | `Evidence` | The strongest current proof for the row, such as render parity, ConfigHub proof, local live, kind parity, or live parity. |
 | `Links` | Jump points to the upstream source repository, chart catalog, variant YAML, package base, variant revision, and GitHub folder. |
@@ -62,10 +63,32 @@ variant execution or target-bound receipts, and they inherit their render shape
 from a real base. The source lock supplies the upstream chart repository and
 content URL.
 
+## Layer Vocabulary
+
+The `Layer` column is the map of how a public Helm chart becomes something a
+user can operate.
+
+| Layer | Meaning |
+| --- | --- |
+| `F1` | The upstream Helm chart/version source. This row is a source lock, not an installable ConfigHub package. |
+| `F2a` | The honest default rendered base. This is the first base to try when the chart's default shape is useful. |
+| `F2b` | A rendered standard fork. This is still produced by the installer path because Helm values change the rendered object set. |
+| `F2c` | A candidate useful or parameterized base. This row shows a planned render-time base before the recipe/package/evidence exists. |
+| `F3` | A target prerequisite or fill candidate, such as a Secret, CRD, namespace, cloud value, or target fact needed before delivery. |
+| `F4a` | A downstream ConfigHub-derived clone that changes labels, target, region, environment, approval policy, links, or other post-render data without rerendering Helm. |
+| `F4b` | A target-bound downstream variant with a committed target run receipt. |
+
+Candidate rows are deliberately separate from proof rows. They let the matrix
+show non-default paths and custom-discussion routes without pretending those
+paths have already been rendered, uploaded, or run. A `custom-discussion`
+candidate means the path is plausible but needs human agreement on inputs,
+ownership, risk, or target shape before it becomes a runnable base or derived
+variant.
+
 ## What Stays In Drill-Down Sources
 
-The matrix is intentionally one row per chart/version/base or derived variant.
-Details that need their own granularity stay in their source files:
+The matrix is intentionally one row per chart/version/layer. Details that need
+their own granularity stay in their source files:
 
 | Detail | Source |
 | --- | --- |
