@@ -1732,7 +1732,7 @@ function journeyHtml(catalog) {
       badgeClass: "now",
       title: "ConfigHub Server try-out - the managed desired-state graph",
       action: "cub variant create  ·  scan  ·  OCI + GitOps",
-      code: "cub variant create redis-prod-us-east --from redis/default\ncub unit diff redis-prod-us-east\n# publish via OCI; an Argo or Flux controller reconciles it",
+      code: "cub variant create prod-us-east <upstream-space> \\\n  --environment Prod --region us-east \\\n  --target <target-space>/<target> \\\n  --namespace <namespace>\ncub variant promote <variant-space> --dry-run -o mutations",
       get: "Day-1 managed value, hands-on: derived variants from a base, object diffs, function scans and safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. There is a lot here - the <a href=\"./day1-operations.html\">day-1 operations page</a> walks each one with its command and its free/paid boundary. The graph - not a pile of YAML - is now the source of truth.",
       next: "Once day-1 is comfortable, run it like an estate: approvals, live observation, upgrades.",
     },
@@ -1756,6 +1756,38 @@ function journeyHtml(catalog) {
       get: "What is bought is the SLA and the queries, not the bits. <strong>Catalog subscription:</strong> guaranteed refresh cadence, CVE-response turnaround, the attestation pack per variant (SBOM, scan receipts, digest inventory, signatures), hardened variants, and old-version support. <strong>Private catalog:</strong> your own charts, wrapper charts, and overlays through the same render-scan-sign pipeline. <strong>ConfigHub Server at estate scale:</strong> fleet inventory, authority on every change, the ledger, gates before apply, continuous observation. Each tier's claim is backed by a receipt the tier below can re-run.",
       next: "See the full tier shape and boundaries on the Tiers page.",
     },
+  ];
+  const checkRows = [
+    [
+      "0 Inspect",
+      "Rendered Kubernetes objects, CRDs, RBAC, images, Secrets model, and chart page status are visible before install.",
+      "No ConfigHub state exists yet. This is inspection, not a managed catalog entry.",
+    ],
+    [
+      "1 Serverless try-out",
+      "`cub installer setup` exits cleanly, rendered manifests exist under the work directory, and local apply/observe checks match the chosen chart guide.",
+      "If a namespace, image, CRD, or target prerequisite is wrong, the first-run guide should say so plainly.",
+    ],
+    [
+      "2 First sign-up",
+      "ConfigHub shows Units for the rendered object set, with labels, component grouping, and a space you can query or share.",
+      "`cub helm install` is one-shot. `cub installer upload` is the reviewed catalog path. Import is future product work.",
+    ],
+    [
+      "3 Server try-out",
+      "A derived Space is created from an upstream Space, diffs are reviewable, scans/gates run, and OCI/GitOps delivery has its own health evidence.",
+      "A green sync is not enough; workload readiness and semantic parity are separate checks.",
+    ],
+    [
+      "4 Day-2 operations",
+      "Promotion, approval, patch, upgrade, rollback, and observation actions have changesets or receipts a team can review.",
+      "This is where blast radius, target facts, hooks, and lifecycle routes matter most.",
+    ],
+    [
+      "5 Paid features",
+      "The paid boundary is private inputs, production responsibility, fleet scale, SLA, policy, or support cadence.",
+      "Planned tiers stay planned until the claims register and product surface back them.",
+    ],
   ];
   const cards = stages
     .map(
@@ -1815,6 +1847,15 @@ function journeyHtml(catalog) {
 ${cards}
     </section>
 
+    <section aria-labelledby="checks">
+      <h2 id="checks">What to check after each stage</h2>
+      <p>The journey is useful only if each step leaves something concrete behind. These are the user-facing checks, not a replacement for the generated evidence.</p>
+      ${markdownLikeTable([
+        ["Stage", "User should see", "Boundary to remember"],
+        ...checkRows,
+      ])}
+    </section>
+
     <section aria-labelledby="boundary">
       <h2 id="boundary">Free, account, paid - the boundary in one table</h2>
       ${markdownLikeTable([
@@ -1849,7 +1890,7 @@ function day1OperationsHtml(catalog) {
       status: "available",
       boundary: "ConfigHub · free tier",
       action: "cub variant create <name> <upstream-space>",
-      code: "cub variant create redis-prod-us-east redis-base",
+      code: "cub variant create prod-us-east <upstream-space> \\\n  --environment Prod --region us-east \\\n  --target <target-space>/<target> \\\n  --namespace <namespace>",
       get: "A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer - without running Helm again and without a new installer base. This is the day-1 customization most teams need first.",
       see: ["creating-variants.md", "cub-variant-command-surface.md"],
     },
