@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve namespace-default --space helm-rook-ceph-cluster-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "namespace-default"
-    output: "Unit namespace-default (7289a704-11ee-47ad-8efb-db1208c933a2) has been approved\nAwaiting triggers..."
+    output: "Unit namespace-default (b5defd20-9a81-47b9-b7a6-bb77a5a2df27) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-rook-ceph-cluster-default-confighub-proof --where \"Labels.Proof = 'rook-ceph-cluster-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req vhguxGFwIJNNBKbWiKLPOdShDupyJXyb: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req SBjVFFFrifVzRqlEXkGGBlIWyrpqIsDc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-rook-ceph-cluster-default-confighub-proof --where \"Labels.Proof = 'rook-ceph-cluster-default-confighub-proof'\""
     result: "pass"

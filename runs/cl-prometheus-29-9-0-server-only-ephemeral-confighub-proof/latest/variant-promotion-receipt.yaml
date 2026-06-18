@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-prometheus-29-9-0-server-only-ephemeral-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.9.0"
+    packagePath: "packages/prometheus-community/prometheus/29.9.0"
+    variant: "server-only-ephemeral"
+    upstreamSpace: "helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof"
+    downstreamSpace: "Prometheus2990-server-only-ephemeral-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-monitoring-prometheus-server runs/cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral runs/cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Prometheus2990-server-only-ephemeral-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527 --space Prometheus2990-server-only-ephemeral-staging --description ... --allow-exists"
+    promote: "cub variant promote Prometheus2990-server-only-ephemeral-staging --changeset Prometheus2990-server-only-ephemeral-staging/cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Prometheus2990-server-only-ephemeral-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-monitoring-prometheus-server"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-prometheus-29-9-0-server-only-ephemeral-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral"
+    upstreamUnitID: "dbe1e8c0-efb9-463c-93bc-b586cfc2e4a9"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral"
+  changeset:
+    slug: "cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527 (7baca168-cdfc-4a02-bdc3-17c692722622)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-monitoring-prometheus-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral"
+    addedUnitDownstreamUpstreamUnitID: "dbe1e8c0-efb9-463c-93bc-b586cfc2e4a9"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

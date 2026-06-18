@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-ceph-csi-controller-manager --space helm-rook-ceph-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-rook-ceph-operator --space helm-rook-ceph-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-ceph-csi-controller-manager"
-    output: "Unit deployment-default-ceph-csi-controller-manager (d97fa39f-c5e3-4b24-81e0-7270a33809b3) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-rook-ceph-operator"
+    output: "Unit deployment-default-rook-ceph-operator (efbc924b-bd23-4f73-91f2-75bcb8d191bb) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-rook-ceph-default-confighub-proof --where \"Labels.Proof = 'rook-ceph-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req kSwbmBnkndvmTgMFQTnPCiNPtyrioBBj: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req XHgcKJpmlbAshMzdDGxPBscHycXstkMz: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-rook-ceph-default-confighub-proof --where \"Labels.Proof = 'rook-ceph-default-confighub-proof'\""
     result: "pass"

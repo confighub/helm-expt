@@ -18,55 +18,32 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 146 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 123 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 53 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 76 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `watch-grade` | 121 |
-| `promotion-proven` | 53 |
-| `ready-to-run` | 16 |
-| `blocked-needs-confighub-proof` | 7 |
+| `promotion-proven` | 76 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `watch` | 121 |
-| `yes` | 53 |
-| `todo` | 23 |
+| `yes` | 76 |
 | `no` | 2 |
 
-## Ready to run now (16)
+## Ready to run now (0)
 
 These variants already have a server-side clone and ConfigHub upload proof; only
 the `cub variant promote` receipt is missing. **A representative set of commands
 (not run here — promotion is a ConfigHub-server action):**
 
 ```text
-# prometheus-community/kube-prometheus-stack@86.1.0 / no-crds
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces
-# prometheus-community/kube-state-metrics@7.4.0 / cluster-metrics-readonly
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
-# prometheus-community/prometheus-adapter@5.3.0 / apiservice-v1-capability
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-adapter --base apiservice-v1-capability --variant-promotion-proof --cleanup-spaces
-# prometheus-community/prometheus-blackbox-exporter@11.10.0 / cluster-metrics-readonly
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-blackbox-exporter --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
-# prometheus-community/prometheus-operator-crds@29.0.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-operator-crds --base default --variant-promotion-proof --cleanup-spaces
-# prometheus-community/prometheus@29.8.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces
-# rook-release/rook-ceph-cluster@v1.19.5 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph-cluster --base default --variant-promotion-proof --cleanup-spaces
-# rook-release/rook-ceph@v1.19.5 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph --base default --variant-promotion-proof --cleanup-spaces
-# runix/pgadmin4@1.62.0 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces
-# sealed-secrets/sealed-secrets@2.18.6 / default
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces
 ```
 
-The full 16-row ready-to-run set is in [closeout.csv](./closeout.csv).
+The full 0-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
 ## Watch-grade — rerun on the fixed server (121)
 
@@ -198,20 +175,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | runs/prometheus-node-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | prometheus-community/prometheus-pushgateway@3.6.0 | default | runs/cl-prometheus-pushgateway-3-6-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-
-## Blocked — needs the ConfigHub proof first (7)
-
-No ConfigHub upload proof exists yet, so there is no clone to promote.
-
-| Chart | Base | Next action |
-| --- | --- | --- |
-| bitnami/apache@11.4.29 | legacy | run the ConfigHub proof lane first |
-| bitnami/contour@21.1.4 | legacy | run the ConfigHub proof lane first |
-| bitnami/elasticsearch@22.1.6 | legacy | run the ConfigHub proof lane first |
-| bitnami/opensearch@2.0.10 | legacy | run the ConfigHub proof lane first |
-| bitnami/phpmyadmin@20.0.0 | legacy | run the ConfigHub proof lane first |
-| bitnami/spark@10.0.3 | legacy | run the ConfigHub proof lane first |
-| bitnami/zookeeper@13.8.7 | legacy | run the ConfigHub proof lane first |
 
 ## Boundaries
 

@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "sealed-secrets-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-sealed-secrets-default-confighub-proof"
+    selector: "Labels.Proof = 'sealed-secrets-default-confighub-proof'"
+  subject:
+    chart: "sealed-secrets/sealed-secrets"
+    chartVersion: "2.18.6"
+    packagePath: "packages/sealed-secrets/sealed-secrets/2.18.6"
+    variant: "default"
+  changeset:
+    slug: "sealed-secrets-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Sealed Secrets safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "sealed-secrets-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-sealed-secrets --space helm-sealed-secrets-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-sealed-secrets"
+    output: "Unit deployment-default-sealed-secrets (8073cf26-1eb5-4db7-98f6-0937cb5f80d9) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-sealed-secrets-default-confighub-proof --where \"Labels.Proof = 'sealed-secrets-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req ssanUSLUITdqnPksYxrKybajsfsVumGH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-sealed-secrets-default-confighub-proof --where \"Labels.Proof = 'sealed-secrets-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

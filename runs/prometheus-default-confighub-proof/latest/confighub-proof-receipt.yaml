@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/prometheus/29.8.0"
     name: "prometheus"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-prometheus-default-confighub-proof (post-render):\n      DaemonSet/prometheus-prometheus-node-exporter [node-exporter] quay.io/prometheus/node-exporter:v1.11.1\n      Deployment/prometheus-kube-state-metrics [kube-state-metrics] registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0\n      Deployment/prometheus-prometheus-pushgateway [pushgateway] quay.io/prometheus/pushgateway:v1.11.2\n      Deployment/prometheus-server [prometheus-server] quay.io/prometheus/prometheus:v3.11.3\n      Deployment/prometheus-server [prometheus-server-configmap-reload] quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0\n      StatefulSet/prometheus-alertmanager [alertmanager] quay.io/prometheus/alertmanager:v0.32.1"
   serverSideVariant:
-    command: "cub variant create staging helm-prometheus-default-confighub-proof --environment Staging --region local --space-name-pattern template:Prometheus-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-prometheus-default-confighub-proof --environment Staging --region local --namespace monitoring --space-pattern template:Prometheus-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-prometheus-default-confighub-proof"
     downstreamSpace: "Prometheus-default-staging"
     clonedUnitCount: 25
+    namespace: "monitoring"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

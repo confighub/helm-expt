@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/prometheus/29.9.0"
     name: "prometheus"
@@ -67,8 +67,12 @@ spec:
     clonedUnitCount: 8
     namespace: "monitoring"
   serverSidePromotion:
-    result: "not-run"
-    reason: "run with --variant-promotion-proof to exercise cub variant promote"
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -1,0 +1,92 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cl-elasticsearch-22-1-6-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/bitnami/elasticsearch/22.1.6"
+    name: "bitnami-elasticsearch"
+    chart: "bitnami/elasticsearch"
+    chartVersion: "22.1.6"
+    bases:
+      - "legacy"
+      - "default"
+      - "ha"
+    selectedBase: "legacy"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base legacy --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 22
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy"
+    result: "pass"
+    manifestCount: 22
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy-archives/cl-elasticsearch-22-1-6-a.tgz"
+    sha256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy --space helm-cl-elasticsearch-22-1-6-legacy-confighub-proof --component Elasticsearch2216 --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=Elasticsearch2216 --unit-label HelmChart=bitnami-elasticsearch --unit-label HelmChartVersion=22.1.6 --unit-label Variant=legacy --unit-label Proof=cl-elasticsearch-22-1-6-legacy-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cl-elasticsearch-22-1-6-legacy-confighub-proof"
+    unitCount: 23
+    kubernetesUnitCount: 22
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cl-elasticsearch-22-1-6-legacy-confighub-proof (post-render):\n  init  StatefulSet/elasticsearch-coordinating [copy-default-plugins] docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-coordinating [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r50\n      StatefulSet/elasticsearch-coordinating [elasticsearch] docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-data [copy-default-plugins] docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-data [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r50\n      StatefulSet/elasticsearch-data [elasticsearch] docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-ingest [copy-default-plugins] docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-ingest [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r50"
+  serverSideVariant:
+    command: "cub variant create staging helm-cl-elasticsearch-22-1-6-legacy-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Elasticsearch2216-legacy-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cl-elasticsearch-22-1-6-legacy-confighub-proof"
+    downstreamSpace: "Elasticsearch2216-legacy-staging"
+    clonedUnitCount: 23
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-default-elasticsearch-coordinating"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cl-elasticsearch-22-1-6-legacy-confighub-proof"
+      - "Elasticsearch2216-legacy-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

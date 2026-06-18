@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/sealed-secrets/sealed-secrets/2.18.6"
     name: "sealed-secrets-sealed-secrets"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-sealed-secrets-no-crds-confighub-proof (post-render):\n      Deployment/sealed-secrets [controller] docker.io/bitnami/sealed-secrets-controller:0.37.0"
   serverSideVariant:
-    command: "cub variant create staging helm-sealed-secrets-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:SealedSecrets-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-sealed-secrets-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:SealedSecrets-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-sealed-secrets-no-crds-confighub-proof"
     downstreamSpace: "SealedSecrets-no-crds-staging"
     clonedUnitCount: 12
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

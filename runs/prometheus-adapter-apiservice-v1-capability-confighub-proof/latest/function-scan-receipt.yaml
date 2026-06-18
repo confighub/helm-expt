@@ -21,9 +21,9 @@ spec:
       headRevisionNum: 1
       dataHash: "b74e4c37a8c7b69500c44d014a60d1637e8d95c64f570397d6b8380c08a608d4"
     -
-      slug: "clusterrole-prometheus-adapter-resource-reader"
+      slug: "clusterrolebinding-prometheus-adapter-hpa-controller"
       headRevisionNum: 2
-      dataHash: "60b4dd00288bc826996dacdf622acd25ac1fc37d4fc104ab5c4798cf5c31530b"
+      dataHash: "aa9dfb0a68714acbe11357e5ebc3cc7e747ddaa3304b1fff758ceefdffb5e7ca"
     -
       slug: "clusterrolebinding-prometheus-adapter-resource-reader"
       headRevisionNum: 2
@@ -33,37 +33,37 @@ spec:
       headRevisionNum: 2
       dataHash: "2ca1d8a8b52ce7d711eb13abcd3f2adb4147fc9ba70dc781e3abf45e99fdd5cf"
     -
-      slug: "configmap-default-prometheus-adapter"
-      headRevisionNum: 1
-      dataHash: "0a9ae9a546694eb6798c3c1a8cffdf190cb22e18765347830d467ac6fcd8e761"
-    -
-      slug: "namespace-default"
-      headRevisionNum: 1
-      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+      slug: "clusterrole-prometheus-adapter-resource-reader"
+      headRevisionNum: 2
+      dataHash: "60b4dd00288bc826996dacdf622acd25ac1fc37d4fc104ab5c4798cf5c31530b"
     -
       slug: "clusterrole-prometheus-adapter-server-resources"
       headRevisionNum: 2
       dataHash: "08a2e8881653f8e49ced047a500fae86cac8ad883da47c5e5a4c18cbeffe2b56"
     -
-      slug: "service-default-prometheus-adapter"
-      headRevisionNum: 2
-      dataHash: "018ed646748e361baabdedb0f58c9ff8bd53b94a71b202723b5b0424b34bc7d8"
-    -
-      slug: "rolebinding-kube-system-prometheus-adapter-auth-reader"
-      headRevisionNum: 2
-      dataHash: "fe22dc2674ccd03b9b684cc2282d1aecfbd2bc52c6fdfe765996574f8bb6e464"
-    -
-      slug: "clusterrolebinding-prometheus-adapter-hpa-controller"
-      headRevisionNum: 2
-      dataHash: "aa9dfb0a68714acbe11357e5ebc3cc7e747ddaa3304b1fff758ceefdffb5e7ca"
+      slug: "configmap-default-prometheus-adapter"
+      headRevisionNum: 1
+      dataHash: "0a9ae9a546694eb6798c3c1a8cffdf190cb22e18765347830d467ac6fcd8e761"
     -
       slug: "deployment-default-prometheus-adapter"
       headRevisionNum: 2
       dataHash: "e8f63c1dade581c397965073c467756d0b7c71006c7820f46a2856315953d7d1"
     -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-kube-system-prometheus-adapter-auth-reader"
+      headRevisionNum: 2
+      dataHash: "fe22dc2674ccd03b9b684cc2282d1aecfbd2bc52c6fdfe765996574f8bb6e464"
+    -
       slug: "serviceaccount-default-prometheus-adapter"
       headRevisionNum: 1
       dataHash: "6bf32ab6f0aea8725667a1e18f28044129a743880765d51e0c1f07ce2d8eff95"
+    -
+      slug: "service-default-prometheus-adapter"
+      headRevisionNum: 2
+      dataHash: "018ed646748e361baabdedb0f58c9ff8bd53b94a71b202723b5b0424b34bc7d8"
   validations:
     -
       function: "vet-format"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-sealed-secrets --space helm-sealed-secrets-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-sealed-secrets"
-    output: "Unit deployment-default-sealed-secrets (d6c3c35b-377c-46df-bcd5-9f74489c236e) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-sealed-secrets (97580843-f7d3-42fe-9424-c6f700c46252) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-sealed-secrets-no-crds-confighub-proof --where \"Labels.Proof = 'sealed-secrets-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req HkdsGpcLyejZWDYYnKaPnDXcFzPlTejD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req rUBkodERkhFodHXTKqUFbGnQFnEhCuDg: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-sealed-secrets-no-crds-confighub-proof --where \"Labels.Proof = 'sealed-secrets-no-crds-confighub-proof'\""
     result: "pass"

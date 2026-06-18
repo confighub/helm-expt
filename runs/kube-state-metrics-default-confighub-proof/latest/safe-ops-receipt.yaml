@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-kube-state-metrics --space helm-kube-state-metrics-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-kube-state-metrics"
-    output: "Unit deployment-default-kube-state-metrics (04ec8f8b-b78e-49a7-9f91-1c20a8c2d71b) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-kube-state-metrics (e1af1c08-d32a-48cd-80a8-f0154e574873) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-kube-state-metrics-default-confighub-proof --where \"Labels.Proof = 'kube-state-metrics-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req eDVCmHxJjSJiOWSAYdMWfTRauRlHXQAW: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req xfelzHZvcNXiyErxXWgZTtEnNzLJSgJq: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-kube-state-metrics-default-confighub-proof --where \"Labels.Proof = 'kube-state-metrics-default-confighub-proof'\""
     result: "pass"

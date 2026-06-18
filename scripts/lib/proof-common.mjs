@@ -94,7 +94,10 @@ export function readYamlText(text) {
   return py(
     `
 import json, sys, yaml
-docs = [doc for doc in yaml.safe_load_all(sys.stdin.read()) if doc is not None]
+class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+docs = [doc for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader) if doc is not None]
 print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
 `,
     text,

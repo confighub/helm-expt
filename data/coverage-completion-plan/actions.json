@@ -14,7 +14,7 @@
     "data/variant-promotion-proof-batches"
   ],
   "nonGreenCellsCovered": 715,
-  "familyCount": 23,
+  "familyCount": 22,
   "byActionType": {
     "run-promotion": 396,
     "record-decision": 135,
@@ -35,7 +35,7 @@
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 380,
+      "affected_cell_count": 396,
       "owner_lane": "Codex-live"
     },
     {
@@ -75,30 +75,30 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "run-promotion",
-      "sub_group": "promotion-ready",
-      "affected_cell_count": 16,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "run-live",
       "sub_group": "live-ready",
       "affected_cell_count": 12,
       "owner_lane": "Codex-live"
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "affected_cell_count": 10,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "affected_cell_count": 10,
+      "owner_lane": "Claude-non-live"
+    },
+    {
+      "action_id": "CCP-10",
+      "action_type": "stage-prereq",
+      "sub_group": "install-crds",
+      "affected_cell_count": 9,
       "owner_lane": "Claude-non-live"
     }
   ],
@@ -108,7 +108,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 380,
+      "affected_cell_count": 396,
       "lanes": [
         "promotion"
       ],
@@ -444,33 +444,49 @@
         "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [promotion]",
         "prometheus-community/kube-prometheus-stack@86.1.0/(source) [promotion]",
         "prometheus-community/kube-prometheus-stack@86.1.0/default [promotion]",
+        "prometheus-community/kube-prometheus-stack@86.1.0/no-crds [promotion]",
         "prometheus-community/kube-state-metrics@7.4.0/(source) [promotion]",
+        "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly [promotion]",
+        "prometheus-community/kube-state-metrics@7.4.0/default [promotion]",
         "prometheus-community/prometheus-adapter@5.3.0/(source) [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [promotion]",
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly + crd [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [promotion]",
         "prometheus-community/prometheus-adapter@5.3.0/default + crd [promotion]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [promotion]",
         "prometheus-community/prometheus-blackbox-exporter@11.10.0/(source) [promotion]",
+        "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly [promotion]",
         "prometheus-community/prometheus-blackbox-exporter@11.10.0/default [promotion]",
         "prometheus-community/prometheus-node-exporter@4.55.0/(source) [promotion]",
         "prometheus-community/prometheus-node-exporter@4.55.0/cluster-metrics-readonly [promotion]",
         "prometheus-community/prometheus-node-exporter@4.55.0/default [promotion]",
         "prometheus-community/prometheus-operator-crds@29.0.0/(source) [promotion]",
         "prometheus-community/prometheus-operator-crds@29.0.0/cluster-metrics-readonly [promotion]",
+        "prometheus-community/prometheus-operator-crds@29.0.0/default [promotion]",
         "prometheus-community/prometheus-pushgateway@3.6.0/(source) [promotion]",
         "prometheus-community/prometheus-pushgateway@3.6.0/cluster-metrics-readonly [promotion]",
         "prometheus-community/prometheus-pushgateway@3.6.0/default [promotion]",
         "prometheus-community/prometheus@29.8.0/(source) [promotion]",
+        "prometheus-community/prometheus@29.8.0/default [promotion]",
         "prometheus-community/prometheus@29.8.0/prod-us-east [promotion]",
         "prometheus-community/prometheus@29.8.0/prod-us-east [promotion]",
         "prometheus-community/prometheus@29.8.0/server-only-ephemeral [promotion]",
         "prometheus-community/prometheus@29.8.0/staging-eu-west [promotion]",
         "prometheus-community/prometheus@29.8.0/staging-eu-west [promotion]",
         "prometheus-community/prometheus@29.9.0/(source) [promotion]",
+        "prometheus-community/prometheus@29.9.0/default [promotion]",
+        "prometheus-community/prometheus@29.9.0/server-only-ephemeral [promotion]",
         "rook-release/rook-ceph-cluster@v1.19.5/(source) [promotion]",
         "rook-release/rook-ceph-cluster@v1.19.5/default + namespace [promotion]",
+        "rook-release/rook-ceph-cluster@v1.19.5/default [promotion]",
         "rook-release/rook-ceph@v1.19.5/(source) [promotion]",
+        "rook-release/rook-ceph@v1.19.5/default [promotion]",
         "runix/pgadmin4@1.62.0/(source) [promotion]",
+        "runix/pgadmin4@1.62.0/default [promotion]",
         "runix/pgadmin4@1.62.0/web-ui-existing-secret [promotion]",
         "sealed-secrets/sealed-secrets@2.18.6/(source) [promotion]",
+        "sealed-secrets/sealed-secrets@2.18.6/default [promotion]",
+        "sealed-secrets/sealed-secrets@2.18.6/no-crds [promotion]",
         "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/(source) [promotion]",
         "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/default [promotion]",
         "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0/sync-secret-rotation [promotion]",
@@ -829,40 +845,6 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "run-promotion",
-      "sub_group": "promotion-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 16,
-      "lanes": [
-        "promotion"
-      ],
-      "command": "npm run … (data/variant-promotion-proof-batches: 18 serial batches)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "variant-promotion-closeout",
-      "linked_issues": "#948",
-      "affected_rows": [
-        "prometheus-community/kube-prometheus-stack@86.1.0/no-crds [promotion]",
-        "prometheus-community/kube-state-metrics@7.4.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/kube-state-metrics@7.4.0/default [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [promotion]",
-        "prometheus-community/prometheus-blackbox-exporter@11.10.0/cluster-metrics-readonly [promotion]",
-        "prometheus-community/prometheus-operator-crds@29.0.0/default [promotion]",
-        "prometheus-community/prometheus@29.8.0/default [promotion]",
-        "prometheus-community/prometheus@29.9.0/default [promotion]",
-        "prometheus-community/prometheus@29.9.0/server-only-ephemeral [promotion]",
-        "rook-release/rook-ceph-cluster@v1.19.5/default [promotion]",
-        "rook-release/rook-ceph@v1.19.5/default [promotion]",
-        "runix/pgadmin4@1.62.0/default [promotion]",
-        "sealed-secrets/sealed-secrets@2.18.6/default [promotion]",
-        "sealed-secrets/sealed-secrets@2.18.6/no-crds [promotion]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "run-live",
       "sub_group": "live-ready",
       "owner_lane": "Codex-live",
@@ -893,7 +875,7 @@
       ]
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
@@ -924,7 +906,7 @@
       ]
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "owner_lane": "Claude-non-live",
@@ -953,7 +935,7 @@
       ]
     },
     {
-      "action_id": "CCP-11",
+      "action_id": "CCP-10",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "owner_lane": "Claude-non-live",
@@ -983,7 +965,7 @@
       ]
     },
     {
-      "action_id": "CCP-12",
+      "action_id": "CCP-11",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "owner_lane": "Codex-live",
@@ -1010,7 +992,7 @@
       ]
     },
     {
-      "action_id": "CCP-13",
+      "action_id": "CCP-12",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -1036,7 +1018,7 @@
       ]
     },
     {
-      "action_id": "CCP-14",
+      "action_id": "CCP-13",
       "action_type": "fix-model",
       "sub_group": "base-design",
       "owner_lane": "Claude-non-live",
@@ -1061,7 +1043,7 @@
       ]
     },
     {
-      "action_id": "CCP-15",
+      "action_id": "CCP-14",
       "action_type": "fix-model",
       "sub_group": "crd-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1084,7 +1066,7 @@
       ]
     },
     {
-      "action_id": "CCP-16",
+      "action_id": "CCP-15",
       "action_type": "stage-prereq",
       "sub_group": "provide-external-service",
       "owner_lane": "product-decision",
@@ -1108,7 +1090,7 @@
       ]
     },
     {
-      "action_id": "CCP-17",
+      "action_id": "CCP-16",
       "action_type": "fix-model",
       "sub_group": "semantic-normalization",
       "owner_lane": "Claude-non-live",
@@ -1131,7 +1113,7 @@
       ]
     },
     {
-      "action_id": "CCP-18",
+      "action_id": "CCP-17",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
@@ -1155,7 +1137,7 @@
       ]
     },
     {
-      "action_id": "CCP-19",
+      "action_id": "CCP-18",
       "action_type": "stage-prereq",
       "sub_group": "webhook-cert-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1177,7 +1159,7 @@
       ]
     },
     {
-      "action_id": "CCP-20",
+      "action_id": "CCP-19",
       "action_type": "fix-model",
       "sub_group": "object-set-shape",
       "owner_lane": "Claude-non-live",
@@ -1197,7 +1179,7 @@
       ]
     },
     {
-      "action_id": "CCP-21",
+      "action_id": "CCP-20",
       "action_type": "fix-model",
       "sub_group": "unknown",
       "owner_lane": "Claude-non-live",
@@ -1218,7 +1200,7 @@
       ]
     },
     {
-      "action_id": "CCP-22",
+      "action_id": "CCP-21",
       "action_type": "stage-prereq",
       "sub_group": "admission-or-rbac",
       "owner_lane": "product-decision",
@@ -1238,7 +1220,7 @@
       ]
     },
     {
-      "action_id": "CCP-23",
+      "action_id": "CCP-22",
       "action_type": "fix-model",
       "sub_group": "generated-fact",
       "owner_lane": "Claude-non-live",

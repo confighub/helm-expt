@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-18T18:20:59.578Z",
+  "generatedAt": "2026-06-18T19:40:34.306Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -423,7 +423,7 @@
     {
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
-      "value": "192",
+      "value": "199",
       "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",

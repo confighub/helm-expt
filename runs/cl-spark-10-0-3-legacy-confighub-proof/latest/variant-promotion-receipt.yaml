@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "cl-spark-10-0-3-legacy-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "bitnami/spark"
+    chartVersion: "10.0.3"
+    packagePath: "packages/bitnami/spark/10.0.3"
+    variant: "legacy"
+    upstreamSpace: "helm-cl-spark-10-0-3-legacy-confighub-proof"
+    downstreamSpace: "Spark1003-legacy-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-spark-master runs/cl-spark-10-0-3-legacy-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-spark-10-0-3-legacy-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-cl-spark-10-0-3-legacy runs/cl-spark-10-0-3-legacy-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-spark-10-0-3-legacy-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Spark1003-legacy-staging --dry-run -o mutations"
+    changeset: "cub changeset create cl-spark-10-0-3-legacy-variant-promote-20260527 --space Spark1003-legacy-staging --description ... --allow-exists"
+    promote: "cub variant promote Spark1003-legacy-staging --changeset Spark1003-legacy-staging/cl-spark-10-0-3-legacy-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Spark1003-legacy-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-spark-master"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=cl-spark-10-0-3-legacy-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-cl-spark-10-0-3-legacy"
+    upstreamUnitID: "8938b9a3-e48e-42cc-af16-6be36ba7c06b"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-cl-spark-10-0-3-legacy"
+  changeset:
+    slug: "cl-spark-10-0-3-legacy-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset cl-spark-10-0-3-legacy-variant-promote-20260527 (a986d0c6-be24-440a-afa1-ee30926cbb87)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-spark-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-spark-10-0-3-legacy\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-cl-spark-10-0-3-legacy"
+    addedUnitDownstreamUpstreamUnitID: "8938b9a3-e48e-42cc-af16-6be36ba7c06b"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

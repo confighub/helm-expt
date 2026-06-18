@@ -50,7 +50,7 @@ Which detailed CSV should I open next?
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 199/199 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 192/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 199/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 148/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 12/12 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 50/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
@@ -469,7 +469,7 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 192 | 0 | 7 | 199 |
+| in-ConfigHub | 199 | 0 | 0 | 199 |
 | local live | 148 | 51 | 0 | 199 |
 | GitOps/OCI live | 135 | 57 | 7 | 199 |
 | live Helm-vs-ConfigHub parity | 135 | 57 | 7 | 199 |

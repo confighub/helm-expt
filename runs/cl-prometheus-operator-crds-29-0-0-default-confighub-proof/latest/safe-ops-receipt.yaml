@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com --space helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com"
-    output: "Unit customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com (207fc7fa-41a0-450e-9d91-a88d245a6b59) has been approved\nAwaiting triggers..."
+    output: "Unit customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com (a0b18447-e958-418b-9cbd-fdaf8c7ff173) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --where \"Labels.Proof = 'cl-prometheus-operator-crds-29-0-0-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req JtNqikAxWWBoXXbvbYXcSAnBtsKUNIXP: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req huRSVgHlPbZpMOczFqQznARLIaQIpGya: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --where \"Labels.Proof = 'cl-prometheus-operator-crds-29-0-0-default-confighub-proof'\""
     result: "pass"

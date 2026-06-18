@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-prometheus-adapter --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-prometheus-adapter"
-    output: "Unit deployment-default-prometheus-adapter (caf71040-c8a4-47b0-a7d1-2e126951bb59) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-prometheus-adapter (ebb6bad2-48e7-4342-ae69-fbd2da06a46b) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --where \"Labels.Proof = 'prometheus-adapter-cluster-metrics-readonly-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req oqPZWxOHuBCZyXUCeKSFdpgGkbfdgCwC: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req yrTYgISSybHiDtgyMFatVVAVJtYdvvmr: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-prometheus-adapter-cluster-metrics-readonly-confighub-proof --where \"Labels.Proof = 'prometheus-adapter-cluster-metrics-readonly-confighub-proof'\""
     result: "pass"

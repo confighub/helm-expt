@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "opensearch-legacy-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "bitnami/opensearch"
+    chartVersion: "2.0.10"
+    packagePath: "packages/bitnami/opensearch/2.0.10"
+    variant: "legacy"
+    upstreamSpace: "helm-opensearch-legacy-confighub-proof"
+    downstreamSpace: "OpenSearch-legacy-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-default-opensearch-ingest runs/opensearch-legacy-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-opensearch-legacy-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-opensearch-legacy runs/opensearch-legacy-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-opensearch-legacy-confighub-proof --allow-exists"
+    dryRun: "cub variant promote OpenSearch-legacy-staging --dry-run -o mutations"
+    changeset: "cub changeset create opensearch-legacy-variant-promote-20260527 --space OpenSearch-legacy-staging --description ... --allow-exists"
+    promote: "cub variant promote OpenSearch-legacy-staging --changeset OpenSearch-legacy-staging/opensearch-legacy-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote OpenSearch-legacy-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-default-opensearch-ingest"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=opensearch-legacy-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-opensearch-legacy"
+    upstreamUnitID: "b77edac4-aa4a-44ac-a583-9cc8dfee16bf"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-opensearch-legacy"
+  changeset:
+    slug: "opensearch-legacy-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset opensearch-legacy-variant-promote-20260527 (2f15a415-e942-4976-956d-9aee00959d4d)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-opensearch-ingest\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-opensearch-legacy\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-opensearch-legacy"
+    addedUnitDownstreamUpstreamUnitID: "b77edac4-aa4a-44ac-a583-9cc8dfee16bf"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

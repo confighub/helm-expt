@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "cl-phpmyadmin-20-0-0-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof"
+    selector: "Labels.Proof = 'cl-phpmyadmin-20-0-0-legacy-confighub-proof'"
+  subject:
+    chart: "bitnami/phpmyadmin"
+    chartVersion: "20.0.0"
+    packagePath: "packages/bitnami/phpmyadmin/20.0.0"
+    variant: "legacy"
+  changeset:
+    slug: "cl-phpmyadmin-20-0-0-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "phpmyadmin 20.0.0 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "cl-phpmyadmin-20-0-0-legacy-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-phpmyadmin --space helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-phpmyadmin"
+    output: "Unit deployment-default-phpmyadmin (aa457385-8506-4e9e-a7e3-936da5d4c10f) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof --where \"Labels.Proof = 'cl-phpmyadmin-20-0-0-legacy-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req aMNWxyaXLVGzAMbDOnaKBaOwmYhJlxDg: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof --where \"Labels.Proof = 'cl-phpmyadmin-20-0-0-legacy-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

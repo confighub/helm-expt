@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
     name: "kube-prometheus-stack-kube-prometheus-stack"
@@ -238,17 +238,25 @@ spec:
     result: "timeout"
     summary: ""
   serverSideVariant:
-    command: "cub variant create staging helm-cl-kube-prometheus-stack-86-1-0-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:KubePrometheusStack8610-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-kube-prometheus-stack-86-1-0-no-crds-confighub-proof --environment Staging --region local --namespace monitoring --space-pattern template:KubePrometheusStack8610-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-kube-prometheus-stack-86-1-0-no-crds-confighub-proof"
     downstreamSpace: "KubePrometheusStack8610-no-crds-staging"
     clonedUnitCount: 114
+    namespace: "monitoring"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-monitoring-kube-prometheus-stack-grafana"
+    representativeUnit: "deployment-monitoring-kube-prometheus-stack-operator"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

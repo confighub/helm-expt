@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "kube-state-metrics-cluster-metrics-readonly-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "prometheus-community/kube-state-metrics"
+    chartVersion: "7.4.0"
+    packagePath: "packages/prometheus-community/kube-state-metrics/7.4.0"
+    variant: "cluster-metrics-readonly"
+    upstreamSpace: "helm-kube-state-metrics-cluster-metrics-readonly-confighub-proof"
+    downstreamSpace: "KubeStateMetrics-cluster-metrics-readonly-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-kube-state-metrics runs/kube-state-metrics-cluster-metrics-readonly-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-kube-state-metrics-cluster-metrics-readonly-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-kube-state-metrics-cluster-metrics-readonly runs/kube-state-metrics-cluster-metrics-readonly-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-kube-state-metrics-cluster-metrics-readonly-confighub-proof --allow-exists"
+    dryRun: "cub variant promote KubeStateMetrics-cluster-metrics-readonly-staging --dry-run -o mutations"
+    changeset: "cub changeset create kube-state-metrics-cluster-metrics-readonly-variant-promote-20260527 --space KubeStateMetrics-cluster-metrics-readonly-staging --description ... --allow-exists"
+    promote: "cub variant promote KubeStateMetrics-cluster-metrics-readonly-staging --changeset KubeStateMetrics-cluster-metrics-readonly-staging/kube-state-metrics-cluster-metrics-readonly-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote KubeStateMetrics-cluster-metrics-readonly-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-kube-state-metrics"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=kube-state-metrics-cluster-metrics-readonly-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-kube-state-metrics-cluster-metrics-readonly"
+    upstreamUnitID: "fab10164-a750-493f-89a9-69c306374956"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-kube-state-metrics-cluster-metrics-readonly"
+  changeset:
+    slug: "kube-state-metrics-cluster-metrics-readonly-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset kube-state-metrics-cluster-metrics-readonly-variant-promote-20260527 (d57692a5-fe66-4efb-b293-dbd005160212)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-kube-state-metrics\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-kube-state-metrics-cluster-metrics-readonly\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-kube-state-metrics-cluster-metrics-readonly"
+    addedUnitDownstreamUpstreamUnitID: "fab10164-a750-493f-89a9-69c306374956"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

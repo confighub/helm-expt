@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/rook-release/rook-ceph/v1.19.5"
     name: "rook-release-rook-ceph"
@@ -59,17 +59,25 @@ spec:
     result: "timeout"
     summary: ""
   serverSideVariant:
-    command: "cub variant create staging helm-rook-ceph-default-confighub-proof --environment Staging --region local --space-name-pattern template:RookCeph-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-rook-ceph-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:RookCeph-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-rook-ceph-default-confighub-proof"
     downstreamSpace: "RookCeph-default-staging"
     clonedUnitCount: 135
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-ceph-csi-controller-manager"
+    representativeUnit: "deployment-default-rook-ceph-operator"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

@@ -17,6 +17,18 @@ spec:
     configHubUnitCount: 7
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "0e115a5499b4eaf2dc944959362fdf31170efffea675ea61383619f1c73c7a82"
+    -
+      slug: "clusterrole-prometheus-server"
+      headRevisionNum: 2
+      dataHash: "752e8b09802d4d17e6a85bd2b5617ddbbfe682f159f80ab999945b705a16dddf"
+    -
+      slug: "configmap-monitoring-prometheus-server"
+      headRevisionNum: 1
+      dataHash: "c2c99e5d96006f5599905cf6711e75463964c83c0c63afab89de3118604dea5e"
+    -
       slug: "deployment-monitoring-prometheus-server"
       headRevisionNum: 2
       dataHash: "a2ebec213783c2d9cf3d39f7ddbf35ccbb92d4370474aa387eb260337c3f2e7f"
@@ -25,25 +37,13 @@ spec:
       headRevisionNum: 1
       dataHash: "8d1ab1f117e5da9a9a48cf3e7d437fbdf4f856188e15ec51287cb4fa0b0f3962"
     -
-      slug: "clusterrole-prometheus-server"
-      headRevisionNum: 2
-      dataHash: "752e8b09802d4d17e6a85bd2b5617ddbbfe682f159f80ab999945b705a16dddf"
-    -
-      slug: "clusterrolebinding-prometheus-server"
-      headRevisionNum: 2
-      dataHash: "0e115a5499b4eaf2dc944959362fdf31170efffea675ea61383619f1c73c7a82"
-    -
-      slug: "configmap-monitoring-prometheus-server"
+      slug: "serviceaccount-monitoring-prometheus-server"
       headRevisionNum: 1
-      dataHash: "c2c99e5d96006f5599905cf6711e75463964c83c0c63afab89de3118604dea5e"
+      dataHash: "c6c41e276de8e40b130248188e45a1e671f066eeb44ba180cdf9a98fc21a5c29"
     -
       slug: "service-monitoring-prometheus-server"
       headRevisionNum: 2
       dataHash: "8540b335b39442e6f8a66f24979194607a57ff74e724f22f4bd5bb3d50b59fc1"
-    -
-      slug: "serviceaccount-monitoring-prometheus-server"
-      headRevisionNum: 1
-      dataHash: "c6c41e276de8e40b130248188e45a1e671f066eeb44ba180cdf9a98fc21a5c29"
   validations:
     -
       function: "vet-format"

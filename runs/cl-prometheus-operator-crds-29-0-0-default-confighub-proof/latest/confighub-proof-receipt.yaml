@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
     name: "prometheus-community-prometheus-operator-crds"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes."
   serverSideVariant:
-    command: "cub variant create staging helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --environment Staging --region local --space-name-pattern template:PrometheusOperatorCrds2900-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:PrometheusOperatorCrds2900-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof"
     downstreamSpace: "PrometheusOperatorCrds2900-default-staging"
     clonedUnitCount: 12
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

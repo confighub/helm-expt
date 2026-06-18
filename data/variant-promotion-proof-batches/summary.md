@@ -4,10 +4,10 @@
 `scripts/generate-variant-promotion-proof-batches.mjs`. Do not hand-edit. Regenerate
 with `npm run variant-promotion-proof-batches`.
 
-A **run plan**, not evidence. The 16 `ready-to-run` promotion rows from the
+A **run plan**, not evidence. The 0 `ready-to-run` promotion rows from the
 [promotion closeout](../variant-promotion-closeout/summary.md) — each already has a
 server-side clone and ConfigHub upload proof and only needs the `cub variant promote`
-receipt — grouped here into 2 safe serial batches to run **once `cub
+receipt — grouped here into 0 safe serial batches to run **once `cub
 auth login` is restored**. These are the batches we should run; nothing here is
 completed promotion evidence.
 
@@ -15,36 +15,6 @@ Live G/P is paused on expired ConfigHub auth; this plan is staged for when it
 returns. Run batches serially — each command mutates ConfigHub server state.
 
 **Stop condition (every batch):** Run serially once `cub auth login` is restored; each command records one server-side cub variant promote receipt. Stop on the first failure and inspect before continuing. Do not run in parallel -- each mutates ConfigHub server state.
-
-## B01 (8)
-
-Run 8 ready variant-promotion proofs serially once cub auth returns: prometheus-community/kube-prometheus-stack, prometheus-community/kube-state-metrics, prometheus-community/prometheus-adapter, prometheus-community/prometheus-blackbox-exporter, prometheus-community/prometheus-operator-crds.
-
-```bash
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-prometheus-stack --base no-crds --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts kube-state-metrics --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-adapter --base apiservice-v1-capability --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-adapter --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-adapter --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-blackbox-exporter --base cluster-metrics-readonly --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus-operator-crds --base default --variant-promotion-proof --cleanup-spaces
-```
-
-## B02 (8)
-
-Run 8 ready variant-promotion proofs serially once cub auth returns: prometheus-community/prometheus, rook-release/rook-ceph-cluster, rook-release/rook-ceph, runix/pgadmin4, sealed-secrets/sealed-secrets.
-
-```bash
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts prometheus --base server-only-ephemeral --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph-cluster --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts rook-ceph --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts pgadmin4 --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base default --variant-promotion-proof --cleanup-spaces
-node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts sealed-secrets --base no-crds --variant-promotion-proof --cleanup-spaces
-```
 
 ## Boundaries
 

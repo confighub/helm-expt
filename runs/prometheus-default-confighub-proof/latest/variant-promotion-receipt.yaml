@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "prometheus-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    packagePath: "packages/prometheus-community/prometheus/29.8.0"
+    variant: "default"
+    upstreamSpace: "helm-prometheus-default-confighub-proof"
+    downstreamSpace: "Prometheus-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-monitoring-prometheus-alertmanager runs/prometheus-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-prometheus-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-prometheus-default runs/prometheus-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-prometheus-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Prometheus-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create prometheus-default-variant-promote-20260527 --space Prometheus-default-staging --description ... --allow-exists"
+    promote: "cub variant promote Prometheus-default-staging --changeset Prometheus-default-staging/prometheus-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Prometheus-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-monitoring-prometheus-alertmanager"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=prometheus-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-prometheus-default"
+    upstreamUnitID: "3f8adda0-a79e-4411-a3d4-4c012be33a60"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-prometheus-default"
+  changeset:
+    slug: "prometheus-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset prometheus-default-variant-promote-20260527 (2f53b31f-da90-4cee-b5b7-8ee26d14d093)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-monitoring-prometheus-alertmanager\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-prometheus-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-prometheus-default"
+    addedUnitDownstreamUpstreamUnitID: "3f8adda0-a79e-4411-a3d4-4c012be33a60"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

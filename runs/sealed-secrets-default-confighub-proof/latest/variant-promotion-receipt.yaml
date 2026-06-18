@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "sealed-secrets-default-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "sealed-secrets/sealed-secrets"
+    chartVersion: "2.18.6"
+    packagePath: "packages/sealed-secrets/sealed-secrets/2.18.6"
+    variant: "default"
+    upstreamSpace: "helm-sealed-secrets-default-confighub-proof"
+    downstreamSpace: "SealedSecrets-default-staging"
+  commands:
+    upstreamUpdate: "cub unit update deployment-default-sealed-secrets runs/sealed-secrets-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-sealed-secrets-default-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-sealed-secrets-default runs/sealed-secrets-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-sealed-secrets-default-confighub-proof --allow-exists"
+    dryRun: "cub variant promote SealedSecrets-default-staging --dry-run -o mutations"
+    changeset: "cub changeset create sealed-secrets-default-variant-promote-20260527 --space SealedSecrets-default-staging --description ... --allow-exists"
+    promote: "cub variant promote SealedSecrets-default-staging --changeset SealedSecrets-default-staging/sealed-secrets-default-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote SealedSecrets-default-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "deployment-default-sealed-secrets"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=sealed-secrets-default-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-sealed-secrets-default"
+    upstreamUnitID: "39320fe9-3df2-4f4a-93b7-6dad6122cad9"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-sealed-secrets-default"
+  changeset:
+    slug: "sealed-secrets-default-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset sealed-secrets-default-variant-promote-20260527 (103bd90a-c829-44fa-af2a-b8cc7181f8c1)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-sealed-secrets\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-sealed-secrets-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-sealed-secrets-default"
+    addedUnitDownstreamUpstreamUnitID: "39320fe9-3df2-4f4a-93b7-6dad6122cad9"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

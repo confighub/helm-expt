@@ -42,11 +42,11 @@ from a different chart version's disposition row.
 | Matrix rows | 396 |
 | F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 74 / 13 |
 | Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 960 / 104 / 113 / 117 / 1478 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 967 / 104 / 113 / 110 / 1478 |
 | Base/derived rows with the complete core lane set | 132 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 53 / 121 / 23 / 2 / 197 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 76 / 121 / 0 / 2 / 197 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 386 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 77 |
@@ -87,7 +87,7 @@ otherwise.
 | Decide a limitation first | 19 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/contour@21.1.4/default`, `bitnami/contour@21.1.4/legacy`, `bitnami/contour@21.1.4/no-crds` |
 | Complete the core proof lane | 80 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-workflows@1.0.14/default` |
 | Active proof queue | 77 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
-| Deferred accepted dispositions | 9 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `grafana/loki@7.0.0/simple-scalable-minio`, `grafana/loki@7.0.0/single-binary-filesystem`, `hashicorp/consul@2.0.0/default-control-plane` |
+| Deferred accepted dispositions | 13 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `grafana/loki@7.0.0/simple-scalable-minio`, `grafana/loki@7.0.0/single-binary-filesystem`, `hashicorp/consul@2.0.0/default-control-plane` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
 | Candidate rows | 74 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
 | Custom-discussion candidates | 58 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/memcached@8.5.5/storage-default-reviewed`, `bitnami/phpmyadmin@20.0.0/web-ui-existing-secret` |
@@ -166,15 +166,15 @@ when you want the user/product view with those columns visible.
 |  | F3 | candidate | default + topology | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `bitnami/apache@11.4.29` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 | `bitnami/contour@21.1.4` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | stage | in-confighub | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
 | `bitnami/elasticsearch@22.1.6` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 | `bitnami/memcached@8.5.5` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 |  | F2c | candidate discussion | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
@@ -204,10 +204,10 @@ when you want the user/product view with those columns visible.
 | `bitnami/opensearch@2.0.10` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | - | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | - | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 | `bitnami/phpmyadmin@20.0.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 |  | F2c | candidate discussion | web-ui-existing-secret | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/postgresql@18.6.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | run | live-parity | ⬜ |
@@ -232,11 +232,11 @@ when you want the user/product view with those columns visible.
 | `bitnami/spark@10.0.3` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 | `bitnami/zookeeper@13.8.7` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ⚠️ | image | in-confighub | ⬜ |
-|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ⬜ | ✅ | - | ⬜ | ⬜ | ⬜ | ⬜ | run | local-live | ⬜ |
+|  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⬜ | ⬜ | ⬜ | ✅ | run | local-live | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | F1 | source | (source) | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ⚠️ | stage | live-parity | ⬜ |
@@ -458,49 +458,49 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | run | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | F1 | source | (source) | - | - | 2 observed ✅ (from @85.3.0) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
-|  | F2b | base | no-crds | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/kube-state-metrics@7.4.0` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
-|  | F2b | base | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/prometheus@29.8.0` | F1 | source | (source) | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | run | live-parity | ⬜ |
 |  | F2b | base | server-only-ephemeral | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | run | live-parity | ✅ |
 |  | F4a | derived from default | prod-us-east | derived | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 |  | F4a | derived from default | staging-eu-west | derived | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 |  | F4b | derived from server-only-ephemeral | prod-us-east | derived | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | ✅ | - | - | ✅ | - | - | - | - | target-bound-derived | ✅ |
 |  | F4b | derived from server-only-ephemeral | staging-eu-west | derived | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | ✅ | - | - | ✅ | - | - | - | - | target-bound-derived | ✅ |
 | `prometheus-community/prometheus@29.9.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⬜ | run | two-cluster-kind-parity | ⬜ |
-|  | F2b | base | server-only-ephemeral | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
+|  | F2b | base | server-only-ephemeral | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/prometheus-adapter@5.3.0` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ⬜ | model | in-confighub | ⬜ |
-|  | F2b | base | apiservice-v1-capability | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
-|  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ⬜ | model | in-confighub | ⬜ |
+|  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
+|  | F2b | base | apiservice-v1-capability | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
+|  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F3 | candidate | cluster-metrics-readonly + crd | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 |  | F3 | candidate | default + crd | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | F1 | source | (source) | next80 | `tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
-|  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 |  | F2b | base | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | F1 | source | (source) | next80 | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `prometheus-community/prometheus-pushgateway@3.6.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 |  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `rook-release/rook-ceph@v1.19.5` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 | `rook-release/rook-ceph-cluster@v1.19.5` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ❌ | ❌ | ❌ | ⬜ | stage | local-live | ⬜ |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ❌ | ❌ | ❌ | ✅ | stage | local-live | ⬜ |
 |  | F3 | candidate | default + namespace | candidate | - | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `runix/pgadmin4@1.62.0` | F1 | source | (source) | next80 | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2c | candidate discussion | web-ui-existing-secret | candidate | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `sealed-secrets/sealed-secrets@2.18.6` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 |  | F2b | base | sync-secret-rotation | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |

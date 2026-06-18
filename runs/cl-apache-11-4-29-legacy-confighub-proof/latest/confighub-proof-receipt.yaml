@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cl-apache-11-4-29-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/bitnami/apache/11.4.29"
+    name: "bitnami-apache"
+    chart: "bitnami/apache"
+    chartVersion: "11.4.29"
+    bases:
+      - "legacy"
+      - "default"
+    selectedBase: "legacy"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 6
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy"
+    result: "pass"
+    manifestCount: 6
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/apache/11.4.29 -o .tmp/confighub-proof/cl-apache-11-4-29-legacy-archives/cl-apache-11-4-29-a.tgz"
+    sha256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy --space helm-cl-apache-11-4-29-legacy-confighub-proof --component Apache11429 --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=Apache11429 --unit-label HelmChart=bitnami-apache --unit-label HelmChartVersion=11.4.29 --unit-label Variant=legacy --unit-label Proof=cl-apache-11-4-29-legacy-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cl-apache-11-4-29-legacy-confighub-proof"
+    unitCount: 7
+    kubernetesUnitCount: 6
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cl-apache-11-4-29-legacy"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cl-apache-11-4-29-legacy-confighub-proof (post-render):\n  init  Deployment/apache [preserve-logs-symlinks] docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2\n      Deployment/apache [apache] docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2"
+  serverSideVariant:
+    command: "cub variant create staging helm-cl-apache-11-4-29-legacy-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Apache11429-legacy-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cl-apache-11-4-29-legacy-confighub-proof"
+    downstreamSpace: "Apache11429-legacy-staging"
+    clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-apache"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cl-apache-11-4-29-legacy-confighub-proof"
+      - "Apache11429-legacy-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

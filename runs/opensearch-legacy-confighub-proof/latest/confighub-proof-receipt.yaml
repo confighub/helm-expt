@@ -1,0 +1,92 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "opensearch-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/bitnami/opensearch/2.0.10"
+    name: "bitnami-opensearch"
+    chart: "bitnami/opensearch"
+    chartVersion: "2.0.10"
+    bases:
+      - "legacy"
+      - "default"
+      - "ha"
+    selectedBase: "legacy"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base legacy --work-dir .tmp/confighub-proof/opensearch-legacy --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 19
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/opensearch-legacy"
+    result: "pass"
+    manifestCount: 19
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/opensearch/2.0.10 -o .tmp/confighub-proof/opensearch-legacy-archives/opensearch-a.tgz"
+    sha256: "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/opensearch-legacy"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/opensearch-legacy --space helm-opensearch-legacy-confighub-proof --component OpenSearch --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=OpenSearch --unit-label HelmChart=bitnami-opensearch --unit-label HelmChartVersion=2.0.10 --unit-label Variant=legacy --unit-label Proof=opensearch-legacy-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-opensearch-legacy-confighub-proof"
+    unitCount: 20
+    kubernetesUnitCount: 19
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/opensearch-legacy"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/opensearch-legacy"
+    result: "pass"
+    summary: "No changes.\nImages in helm-opensearch-legacy-confighub-proof (post-render):\n  init  StatefulSet/opensearch-coordinating [copy-default-plugins] docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-coordinating [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r51\n      StatefulSet/opensearch-coordinating [opensearch] docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-data [copy-default-plugins] docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-data [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r51\n      StatefulSet/opensearch-data [opensearch] docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-ingest [copy-default-plugins] docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-ingest [sysctl] docker.io/bitnamilegacy/os-shell:12-debian-12-r51"
+  serverSideVariant:
+    command: "cub variant create staging helm-opensearch-legacy-confighub-proof --environment Staging --region local --namespace default --space-pattern template:OpenSearch-legacy-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-opensearch-legacy-confighub-proof"
+    downstreamSpace: "OpenSearch-legacy-staging"
+    clonedUnitCount: 20
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-default-opensearch-ingest"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-opensearch-legacy-confighub-proof"
+      - "OpenSearch-legacy-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

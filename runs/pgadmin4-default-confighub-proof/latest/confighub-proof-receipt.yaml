@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/runix/pgadmin4/1.62.0"
     name: "runix-pgadmin4"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-pgadmin4-default-confighub-proof (post-render):\n      Deployment/pgadmin4 [pgadmin4] docker.io/dpage/pgadmin4:9.13"
   serverSideVariant:
-    command: "cub variant create staging helm-pgadmin4-default-confighub-proof --environment Staging --region local --space-name-pattern template:Pgadmin4-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-pgadmin4-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Pgadmin4-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-pgadmin4-default-confighub-proof"
     downstreamSpace: "Pgadmin4-default-staging"
     clonedUnitCount: 6
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

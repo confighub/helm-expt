@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/kube-state-metrics/7.4.0"
     name: "prometheus-community-kube-state-metrics"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o .tmp/confighub-proof/kube-state-metrics-default-archives/kube-state-metrics-a.tgz"
-    sha256: "e6a9f9fe1fde85952eafafa6845ccf29ea88a9fe150072acc034213e2ba7a810"
+    sha256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/kube-state-metrics-default"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-kube-state-metrics-default-confighub-proof (post-render):\n      Deployment/kube-state-metrics [kube-state-metrics] registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
   serverSideVariant:
-    command: "cub variant create staging helm-kube-state-metrics-default-confighub-proof --environment Staging --region local --space-name-pattern template:KubeStateMetrics-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-kube-state-metrics-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:KubeStateMetrics-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-kube-state-metrics-default-confighub-proof"
     downstreamSpace: "KubeStateMetrics-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
