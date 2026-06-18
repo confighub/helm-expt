@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "bitnami-zookeeper-13-8-7-legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/zookeeper"
+    confighub.io/chart-version: "13.8.7"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+  decision: "allow"
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  reasons:
+    - "regular Helm output matches cub installer setup for bitnami/zookeeper@13.8.7 (legacy image-remap variant)"
+    - "7 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"
+    - "images remapped to the verified-pullable docker.io/bitnamilegacy namespace; local-live lane confirms the pod becomes ready"

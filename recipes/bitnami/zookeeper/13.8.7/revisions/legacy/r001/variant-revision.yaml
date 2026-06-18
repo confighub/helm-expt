@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "legacy-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/zookeeper"
+    confighub.io/chart-version: "13.8.7"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "legacy"
+spec:
+  variant: "../../../variants/legacy/variant.yaml"
+  revision: "r001"
+  digest: "cb29752cc67f9a42d2102362e58cc12df82ce623562b2732ab857e923c670977"
+  digestInputs:
+    recipeSHA256: "65a1f146bc1ca5b6d53bd6557b5b74bde28e6ef380e049cbbc7cb587bd992ed0"
+    variantSHA256: "ca0b03cf3ed5b237b057effe50cbe523f8c92f6a7d0aff407e2d9a90f6e0ea1d"
+    effectiveValuesSHA256: "04c1a45390e7d626205efae94d6177f6740b5734c412d0f3ec64e03c2a697d62"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7
