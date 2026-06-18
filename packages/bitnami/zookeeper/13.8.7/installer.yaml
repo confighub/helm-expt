@@ -14,3 +14,7 @@ spec:
       name: "ha"
       path: "bases/ha"
       description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"
+    -
+      name: "legacy"
+      path: "bases/legacy"
+      description: "bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7"

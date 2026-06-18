@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ImageRemediation
+metadata:
+  name: zookeeper-13.8.7-image-remediation
+  chart: bitnami/zookeeper
+  version: 13.8.7
+spec:
+  residue: remote-image
+  semantic_parity: passed
+  remediation_class: registry-remap
+  recommended: "Remap the removed docker.io/bitnami/zookeeper image to docker.io/bitnamilegacy/zookeeper — Bitnami's documented migration registry for the legacy free images it stopped publishing under docker.io/bitnami in Aug 2025. The shipped legacy variant of this recipe does exactly this remap and is the proven remediation: docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21 pulls and the StatefulSet pod reaches Ready on kind."
+  override_path: "global.imageRegistry: docker.io/bitnamilegacy (Bitnami common-chart convention) covers the single zookeeper image. The legacy variant realizes this as a committed post-render registry remap on the default render (recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/rendered/release-objects.yaml), so the remediation is materialized as a reviewable artifact, not just a values suggestion."
+  digest_resolution: "unknown — pin the retained digest for docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21 once confirmed against the registry; the legacy variant currently pins the tag, not a digest."
+  verify_non_live: "Render the legacy base and confirm the zookeeper container image resolves to docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21 in the StatefulSet (render only, no cluster); the local-live lane then confirms pullability and pod readiness."
+  bases:
+    - base: default
+      lane: L
+      missing_images: "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+      image_location: statefulset
+      failure_signature: "remote-image: docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 could not be pulled on the target (Bitnami moved free images to the frozen docker.io/bitnamilegacy namespace in Aug 2025); the zookeeper StatefulSet pod fails with ImagePullBackOff. Semantic object parity passed (render parity and in-ConfigHub lanes are pass) — a registry-retention issue, not a ConfigHub object-model defect."
+      receipt: runs/next80-local-kind/bitnami-zookeeper-13.8.7-default/observation-receipt.yaml
+      rerun_command: "node scripts/run-next80-local-live.mjs --chart bitnami/zookeeper/13.8.7 --variant default"
+    - base: ha
+      lane: L
+      missing_images: "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+      image_location: statefulset
+      failure_signature: "remote-image: docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 could not be pulled on the target; the zookeeper StatefulSet pod fails with ImagePullBackOff. Same root cause and remediation as the default base."
+      receipt: runs/next80-local-kind/bitnami-zookeeper-13.8.7-ha/observation-receipt.yaml
+      rerun_command: "node scripts/run-next80-local-live.mjs --chart bitnami/zookeeper/13.8.7 --variant ha"
+  remediated_variant:
+    name: legacy
+    variant: recipes/bitnami/zookeeper/13.8.7/variants/legacy/variant.yaml
+    variant_revision: recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml
+    rendered_object_set_sha256: "98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260"
+    lane: L
+    result: pass
+    receipt: runs/next80-local-kind/bitnami-zookeeper-13.8.7-legacy/observation-receipt.yaml
+    note: "The legacy variant remaps docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 to docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21 and its local-live (L) cell is PASS. The default and ha variants are intentionally left as honest image-blocked watch rows that document the deprecation."
+  automatic: false
+  evidence:
+    - runs/next80-local-kind/bitnami-zookeeper-13.8.7-legacy/observation-receipt.yaml
+    - runs/next80-local-kind/bitnami-zookeeper-13.8.7-default/observation-receipt.yaml
+    - runs/next80-local-kind/bitnami-zookeeper-13.8.7-ha/observation-receipt.yaml
+  cross_reference: "Unlike the bitnami/{apache,contour,elasticsearch,opensearch,phpmyadmin,spark} remediation cards (whose blocks were discovered via the G/P live-helm-vs-ConfigHub lane and are recorded in data/remote-image-runtime-workdown/workdown.csv), the zookeeper block was discovered via the L (local_kind_kubectl_apply) lane and is not a workdown row; this card is therefore not iterated by scripts/verify-image-remediation.mjs (which is grounded in that workdown), but follows the same ImageRemediation shape and is the proven template for a legacy-variant family."
+  not_claimed:
+    - "This card does not claim docker.io/bitnami/zookeeper is pullable; it is not. The default and ha variants stay image-blocked watch rows on purpose."
+    - "It does not pin a digest for docker.io/bitnamilegacy/zookeeper; the legacy variant pins the tag, and the retained digest should be confirmed and pinned before the remap is considered stable."
+    - "docker.io/bitnamilegacy is a frozen, deprecated mirror (no new tags, no security patches); it is acceptable for a parity/runtime proof, but production users should mirror these images into their own registry rather than depend on the legacy namespace."
