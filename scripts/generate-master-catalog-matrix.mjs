@@ -19,6 +19,11 @@
 //   todo (not yet run)    -> grey box: absence of evidence, not a failure
 //   n/a                   -> neutral blue-grey: the attribute does not apply
 //
+// Deferred/postponed work is not a cell state. It is an action overlay derived
+// from the coverage completion plan so the matrix can show rows whose non-green
+// cells already have an accepted disposition and should not consume live-run
+// time.
+//
 //   node scripts/generate-master-catalog-matrix.mjs --generate
 //   node scripts/generate-master-catalog-matrix.mjs --verify
 
@@ -51,6 +56,7 @@ const SOURCES = {
   variantPromotion: "data/variant-promotion/status.csv",
   liveCompare: "data/live-helm-confighub-compare/summary.csv",
   kindParity: "data/live-kind-parity/summary.csv",
+  coverageCompletion: "data/coverage-completion-plan/actions.json",
 };
 
 // Spine columns come from base-outcomes (the derived lane superset).
@@ -128,6 +134,11 @@ const COLUMN_PROVENANCE = [
     carried: "active non-pass live parity rows: current result, next step, rerun readiness, reason, support artifact, rerun command",
     dropped: "priority and receipt path; follow the source when diagnosing the run itself",
   },
+  {
+    source: "coverage-completion-plan/actions.json",
+    carried: "row-level completion action overlay: active run/fix/stage work, upstream dependency, scope decision, or deferred accepted disposition",
+    dropped: "full cell-level completion families; follow the coverage completion plan for the exact affected cells and family ranking",
+  },
 ];
 
 if (mode === "--generate") {
@@ -196,6 +207,7 @@ function buildReport(generatedAt) {
   const kindParity = indexBy(readCsv(SOURCES.kindParity), (row) => `${row.chart}|${row.version}|${row.base}`);
   const activeProofRows = readCsv(SOURCES.activeProof);
   const activeProof = groupBy(activeProofRows, (row) => `${row.chart}|${row.version}|${row.base}`);
+  const completionActions = aggregateCompletionActions(readJson(SOURCES.coverageCompletion));
 
   const rows = outcomes
     .map((outcome) => {
@@ -243,6 +255,7 @@ function buildReport(generatedAt) {
       const activeRows = activeProof.get(`${chartName}|${version}|${variant}`) ?? [];
       const activeLive = activeRows.find((row) => row.lane === "configHub-oci-live-comparison");
       const active = chooseActiveProofRow(activeRows);
+      const completion = completionActions.get(`${chartName}|${version}|${variant}`) ?? [];
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       // A chart whose source scan flags hooks but that has no disposition row
       // is UNROUTED - rendering it as "no hooks" would hide exactly the gap
@@ -313,6 +326,12 @@ function buildReport(generatedAt) {
       if (row.lane_lifecycle_observed === "todo" && !needsLifecycleLane(row)) {
         row.lane_lifecycle_observed = "n/a";
       }
+      const completionSummary = summarizeCompletion(completion, row);
+      row.completion_action = completionSummary.primary;
+      row.completion_action_summary = completionSummary.summary;
+      row.completion_action_families = completionSummary.families;
+      row.completion_deferred_cells = String(completionSummary.deferredCells);
+      row.completion_owner_lanes = completionSummary.owners;
       return row;
     })
     .sort((a, b) => {
@@ -447,6 +466,7 @@ function summary(rows, charts, unmatchedReadiness) {
   const routeContractNa = rows.filter((row) => row.lifecycle_route_contract === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
+  const deferredCells = rows.reduce((sum, row) => sum + Number(row.completion_deferred_cells || 0), 0);
   const queues = productQueues(rows);
 
   let lastChart = "";
@@ -465,7 +485,7 @@ function summary(rows, charts, unmatchedReadiness) {
               : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
       const route = row.lifecycle_route_contract === "n/a" ? "-" : icon(row.lifecycle_route_contract);
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "-";
-      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.outcome_level || "-"} | ${icon(row.production_decision)} |`;
+      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${route} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_lifecycle_observed)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${icon(row.variant_promotion)} | ${row.completion_action || "-"} | ${row.outcome_level || "-"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
 
@@ -520,6 +540,7 @@ from a different chart version's disposition row.
 | Lifecycle route contracts (observed / watch / todo / n/a) | ${routeContractYes} / ${routeContractWatch} / ${routeContractTodo} / ${routeContractNa} |
 | Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
 | Variants currently in the active proof queue | ${activeProofRows.length} |
+| Cells with deferred accepted disposition | ${deferredCells} |
 
 ${unmatchedReadiness.length ? `Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): ${unmatchedReadiness.map((chart) => `\`${chart}\``).join(", ")}.\n` : ""}
 ## How To Use This Sheet
@@ -535,6 +556,7 @@ questions before deciding what to do next:
 | Can downstream ConfigHub variants be promoted from this base? | V, Promotion status |
 | If a hook or lifecycle behavior exists, where does it go? | Route, Hooks, lifecycle route contract |
 | Which non-pass live row should be rerun or reviewed now? | Active proof |
+| Is this row active work, an external dependency, or deferred for now? | Action |
 
 The HTML view carries these user/product columns directly:
 [matrix.html](matrix.html). The CSV carries the same fields for filtering:
@@ -567,8 +589,8 @@ when you want the user/product view with those columns visible.
 
 ## Matrix
 
-| Chart | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Outcome | Prod |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chart | Variant | Tier | Quirks | Hooks | Route | R | C | L | Y | G | P | K | V | Action | Outcome | Prod |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${table}
 
 ## Regenerate
@@ -603,6 +625,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
   const routeContractNa = rows.filter((row) => row.lifecycle_route_contract === "n/a").length;
   const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
   const activeProofRows = rows.filter((row) => row.active_proof_next_step);
+  const deferredCells = rows.reduce((sum, row) => sum + Number(row.completion_deferred_cells || 0), 0);
   const queues = productQueues(rows);
 
   const statusCell = (value, title, label) => {
@@ -631,6 +654,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
       const hardGap = row.hard_gap || "not applicable";
       const scope = row.production_target_scope || "not applicable";
       const activeProofText = activeProofSummary(row);
+      const completionText = completionActionSummary(row);
       const promotionText = variantPromotionSummary(row);
       const links = [
         ["source", row.source_repository_url || row.source_content_url],
@@ -640,7 +664,7 @@ function htmlReport(rows, charts, unmatchedReadiness, generatedAt) {
         ["revision", row.variant_revision_path],
         ["routes", row.lifecycle_route_contract_path],
       ].filter(([label, path]) => label !== "routes" || path).map(([label, path]) => linkFor(label, path, row)).join(" · ");
-      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${routeCell}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
+      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td class="links">${links}<br><a href="${escapeHtml(row.github_recipe_url)}">GitHub folder</a></td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note route" title="${escapeHtml(row.adoption_bucket)}">${escapeHtml(useShort(row.adoption_bucket))}</td><td class="note evidence" title="${escapeHtml(row.strongest_evidence)}">${escapeHtml(evidenceShort(row.strongest_evidence))}</td>${statusCell(row.core_lanes_complete, row.core_lanes_complete === "yes" ? "complete core lane set" : "one or more core lanes still missing")}<td class="note" title="${escapeHtml(row.quirk_features)}">${escapeHtml(row.quirk_features || "–")}</td>${hooks}${routeCell}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_lifecycle_observed, row.lane_lifecycle_observed === "n/a" ? "no explicit lifecycle route expected for this base" : "")}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}${statusCell(row.variant_promotion, promotionText.title, promotionText.label)}<td class="note action" title="${escapeHtml(completionText.title)}">${escapeHtml(completionText.label)}</td><td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}<td class="note scope" title="${escapeHtml(scope)}">${escapeHtml(row.production_target_scope ? compactText(row.production_target_scope, 54) : "–")}</td><td class="note gap" title="${escapeHtml(hardGap)}">${escapeHtml(row.hard_gap ? compactText(row.hard_gap, 58) : "–")}</td><td class="note active" title="${escapeHtml(activeProofText.title)}">${escapeHtml(activeProofText.label)}</td>${nextAction}</tr>`;
     })
     .join("\n");
 
@@ -668,6 +692,7 @@ td.route{max-width:120px;color:#202124}
 td.evidence{max-width:130px;color:#202124}
 td.scope{max-width:190px}
 td.gap{max-width:220px;color:#7a4f00}
+td.action{max-width:130px;color:#202124;font-weight:600}
 .y{background:#1e8e3e;color:#fff}
 .w{background:#f9ab00;color:#202124}
 .n{background:#d93025;color:#fff}
@@ -678,9 +703,9 @@ td.gap{max-width:220px;color:#7a4f00}
 <body>
 <h1>Master Catalog Matrix</h1>
 <p class="sub"><b>Generated at:</b> ${escapeHtml(generatedAt)} UTC · source: committed catalog, proof, live, and production-status data.</p>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · lifecycle routes: ${routeContractYes} observed / ${routeContractWatch} watch / ${routeContractTodo} todo / ${routeContractNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run / ${counts.na} n/a · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · variant promotion: ${promotionProven} proven / ${promotionWatch} watch / ${promotionTodo} todo / ${promotionBlocked} blocked / ${promotionNa} n/a · lifecycle routes: ${routeContractYes} observed / ${routeContractWatch} watch / ${routeContractTodo} todo / ${routeContractNa} n/a · ${activeProofRows.length} active proof queue row(s) · ${deferredCells} deferred accepted cell(s) · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, lifecycle route contract, and GitHub folder. Lanes: Route lifecycle route/off-ramp contract · R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity · V server-side variant promotion. Hover cells for detail (hooks, route execution modes, quirks, production target scope, variant promotion status, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">This is the user/product front door: Use says the current route, Evidence says the strongest proof available, Core says whether the main proof lanes are complete, Scope says where production support is bounded, Gap names the main product or chart gap, Action shows whether remaining work is active, external, or deferred, and Active proof shows the exact current non-pass live row action when a row is in the rerun plan. The Links column jumps to the chart catalog, variant definition, package base, variant revision, lifecycle route contract, and GitHub folder. Lanes: Route lifecycle route/off-ramp contract · R render parity · C ConfigHub upload+scan+ops · L local kind apply · Y explicit lifecycle observation · G OCI+Argo live · P live dual parity · K two-cluster kind parity · V server-side variant promotion. Hover cells for detail (hooks, route execution modes, quirks, production target scope, variant promotion status, completion action families, active proof command, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table class="queues">
 <thead><tr><th>Current product queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead>
 <tbody>
@@ -688,7 +713,7 @@ ${queues.map((queue) => `<tr><td>${escapeHtml(queue.label)}</td><td>${queue.rows
 </tbody>
 </table>
 <table>
-<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
+<thead><tr><th>Chart</th><th>Variant</th><th>Links</th><th>Tier</th><th>Use</th><th>Evidence</th><th>Core</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Action</th><th>Outcome</th><th>Prod</th><th>Scope</th><th>Gap</th><th>Active proof</th><th>Next action</th></tr></thead>
 <tbody>
 ${bodyRows}
 </tbody>
@@ -763,6 +788,11 @@ function productQueues(rows) {
       meaning: "Rows with a current non-pass live parity result and an exact rerun or review action.",
     },
     {
+      label: "Deferred accepted dispositions",
+      rows: rows.filter((row) => row.completion_action === "deferred"),
+      meaning: "Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes.",
+    },
+    {
       label: "Record or finish production scope",
       rows: rows.filter((row) => row.production_decision === "todo"),
       meaning: "Rows without a target-scoped supported, superseded, or rejected production decision.",
@@ -823,6 +853,23 @@ function variantPromotionSummary(row) {
   };
 }
 
+function completionActionSummary(row) {
+  if (!row.completion_action || row.completion_action === "-") {
+    return { label: "–", title: "no coverage completion action is attached to this row" };
+  }
+  const parts = [
+    `primary: ${row.completion_action}`,
+    row.completion_action_summary ? `summary: ${row.completion_action_summary}` : "",
+    row.completion_action_families ? `families: ${row.completion_action_families}` : "",
+    row.completion_owner_lanes ? `owners: ${row.completion_owner_lanes}` : "",
+    Number(row.completion_deferred_cells || 0) > 0 ? `deferred accepted cells: ${row.completion_deferred_cells}` : "",
+  ].filter(Boolean);
+  return {
+    label: row.completion_action,
+    title: parts.join(" | "),
+  };
+}
+
 function lifecycleRouteSummary(row) {
   if (row.lifecycle_route_contract === "n/a") {
     return { label: "–", title: "no lifecycle route contract applies to this row" };
@@ -867,6 +914,88 @@ function readCsv(rel) {
   const [header, ...lines] = readFileSync(path, "utf8").trim().split("\n");
   const headers = parseCsvLine(header);
   return lines.map((line) => Object.fromEntries(parseCsvLine(line).map((value, index) => [headers[index], value])));
+}
+
+function readJson(rel) {
+  const path = join(repoRoot, rel);
+  check(existsSync(path), `master matrix source missing: ${rel}`);
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
+function aggregateCompletionActions(plan) {
+  const map = new Map();
+  for (const family of plan.families ?? []) {
+    for (const affected of family.affected_rows ?? []) {
+      const parsed = parseAffectedRow(affected);
+      if (!parsed) continue;
+      const key = `${parsed.chart}|${parsed.version}|${parsed.base}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push({
+        lane: parsed.lane,
+        action_id: family.action_id,
+        action_type: family.action_type,
+        sub_group: family.sub_group,
+        owner_lane: family.owner_lane,
+      });
+    }
+  }
+  return map;
+}
+
+function parseAffectedRow(value) {
+  const match = /^(.*)@([^/]+)\/(.+) \[([^\]]+)\]$/.exec(value);
+  if (!match) return null;
+  return {
+    chart: match[1],
+    version: match[2],
+    base: match[3],
+    lane: match[4],
+  };
+}
+
+function summarizeCompletion(entries, row) {
+  const currentEntries = entries.filter((entry) => currentLaneValue(row, entry.lane) !== "yes");
+  if (currentEntries.length === 0) {
+    return {
+      primary: "-",
+      summary: "",
+      families: "",
+      deferredCells: 0,
+      owners: "",
+    };
+  }
+  const classes = currentEntries.map((entry) => completionClass(entry));
+  const classCounts = countValues(classes);
+  const ownerCounts = countValues(currentEntries.map((entry) => entry.owner_lane));
+  const priority = ["image", "model", "stage", "run", "upstream", "scope", "deferred"];
+  const primary = priority.find((item) => classCounts.has(item)) ?? classes[0] ?? "-";
+  return {
+    primary,
+    summary: summarizeCounts(classCounts),
+    families: [...new Set(currentEntries.map((entry) => `${entry.action_id}:${entry.sub_group}`))].sort().join("; "),
+    deferredCells: currentEntries.filter((entry) => completionClass(entry) === "deferred").length,
+    owners: summarizeCounts(ownerCounts),
+  };
+}
+
+function currentLaneValue(row, lane) {
+  if (lane === "G") return row.lane_gitops_oci_live;
+  if (lane === "P") return row.lane_live_dual_parity;
+  if (lane === "K") return row.lane_two_cluster_kind;
+  if (lane === "L") return row.lane_local_kind;
+  if (lane === "lifecycle") return row.lane_lifecycle_observed;
+  if (lane === "promotion") return row.variant_promotion;
+  return "";
+}
+
+function completionClass(entry) {
+  if (entry.action_type === "record-decision") return "deferred";
+  if (entry.action_type === "refuse-or-scope") return entry.owner_lane === "upstream-implementation" ? "upstream" : "scope";
+  if (entry.action_type === "refresh-image") return "image";
+  if (entry.action_type === "fix-model") return "model";
+  if (entry.action_type === "stage-prereq") return "stage";
+  if (["run-kind", "run-promotion", "lifecycle-observe"].includes(entry.action_type)) return "run";
+  return entry.action_type || "unknown";
 }
 
 function indexBy(rows, keyFn) {

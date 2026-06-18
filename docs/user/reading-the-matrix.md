@@ -42,6 +42,24 @@ The key distinction: `todo`, `n/a`, and blank are **not failures**. They mean
 specific blocked/not-reached reason to inspect. And a `watch` is never silently
 rounded up to a `pass`.
 
+## The action column
+
+The `Action` column is separate from the proof-lane cells. It says what kind of
+work remains, using the coverage completion plan:
+
+| Action | What to do |
+| --- | --- |
+| `run` | Run the named live, kind, promotion, or lifecycle lane. |
+| `stage` | Stage a target prerequisite such as a Secret, CRD, namespace, or external service. |
+| `model` | Change the recipe, base variant, semantic normalization, or target-fact model. |
+| `image` | Refresh or mirror an image before rerunning the lane. |
+| `upstream` | Wait for or complete an upstream implementation fix, such as a ConfigHub server change. |
+| `scope` | Make a product or support-scope decision before rerunning. |
+| `deferred` | No current run/fix work. The non-green cell already has an accepted `watch` or `n/a` disposition and should not consume live-run time until the product scope changes. |
+
+This is the matrix version of "do nothing for now": visible, recorded, and
+reversible when the scope changes, but not part of the active burn-down.
+
 ## Where to look when a row is not green
 
 | Your question | Go to |
