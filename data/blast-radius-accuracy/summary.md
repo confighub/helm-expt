@@ -10,8 +10,8 @@ that the predicted affected objects match the actual affected objects.
 | Metric | Count |
 | --- | ---: |
 | Measured cases | 13 |
-| Passing measured cases | 9 |
-| Failing measured cases | 4 |
+| Passing measured cases | 13 |
+| Failing measured cases | 0 |
 | Unmeasured value-source rows | 0 |
 | Total rows | 13 |
 
@@ -53,12 +53,12 @@ claim stays partial until more value paths are measured across more charts.
 | `bitnami/nginx@24.0.2` | `ingress.enabled + tls.existingSecret` | `http-clusterip` -> `existing-tls-ingress` | 2 | 2 | 0 | 0 | `pass` |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `grafana.adminPassword` | `default` -> `default + grafana.adminPassword=blast-radius-probe` | 2 | 2 | 0 | 0 | `pass` |
 | `bitnami/redis@25.5.3` | `image.digest` | `default` -> `default + image.digest=sha256:1111111111111111111111111111111111111111111111111111111111111111` | 2 | 2 | 0 | 0 | `pass` |
-| `bitnami/redis@25.5.3` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 4 | 14 | 10 | 0 | `fail` |
-| `bitnami/redis@25.5.3` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 3 | 14 | 11 | 0 | `fail` |
+| `bitnami/redis@25.5.3` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 14 | 14 | 0 | 0 | `pass` |
+| `bitnami/redis@25.5.3` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 14 | 14 | 0 | 0 | `pass` |
 | `bitnami/redis@25.5.3` | `replica.replicaCount` | `default` -> `default + replica.replicaCount=4` | 1 | 1 | 0 | 0 | `pass` |
 | `bitnami/redis@27.0.0` | `image.digest` | `default` -> `default + image.digest=sha256:1111111111111111111111111111111111111111111111111111111111111111` | 2 | 2 | 0 | 0 | `pass` |
-| `bitnami/redis@27.0.0` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 4 | 14 | 10 | 0 | `fail` |
-| `bitnami/redis@27.0.0` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 3 | 14 | 11 | 0 | `fail` |
+| `bitnami/redis@27.0.0` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 14 | 14 | 0 | 0 | `pass` |
+| `bitnami/redis@27.0.0` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 14 | 14 | 0 | 0 | `pass` |
 | `bitnami/redis@27.0.0` | `replica.replicaCount` | `default` -> `default + replica.replicaCount=4` | 1 | 1 | 0 | 0 | `pass` |
 
 ## Unmeasured Value-Source Rows

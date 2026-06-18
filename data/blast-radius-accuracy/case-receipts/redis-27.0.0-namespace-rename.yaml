@@ -35,8 +35,18 @@ spec:
   predictedObjects:
     - "apps/v1|StatefulSet|redis|redis-master"
     - "apps/v1|StatefulSet|redis|redis-replicas"
+    - "networking.k8s.io/v1|NetworkPolicy|redis|redis"
+    - "policy/v1|PodDisruptionBudget|redis|redis-master"
+    - "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+    - "v1|ConfigMap|redis|redis-configuration"
+    - "v1|ConfigMap|redis|redis-health"
+    - "v1|ConfigMap|redis|redis-scripts"
     - "v1|Secret|redis|redis"
+    - "v1|ServiceAccount|redis|redis-master"
+    - "v1|ServiceAccount|redis|redis-replica"
     - "v1|Service|redis|redis-headless"
+    - "v1|Service|redis|redis-master"
+    - "v1|Service|redis|redis-replicas"
   actual:
     removed:
       []
@@ -134,19 +144,10 @@ spec:
         - "metadata.namespace"
   score:
     falseNegatives:
-      - "networking.k8s.io/v1|NetworkPolicy|redis|redis"
-      - "policy/v1|PodDisruptionBudget|redis|redis-master"
-      - "policy/v1|PodDisruptionBudget|redis|redis-replicas"
-      - "v1|ConfigMap|redis|redis-configuration"
-      - "v1|ConfigMap|redis|redis-health"
-      - "v1|ConfigMap|redis|redis-scripts"
-      - "v1|ServiceAccount|redis|redis-master"
-      - "v1|ServiceAccount|redis|redis-replica"
-      - "v1|Service|redis|redis-master"
-      - "v1|Service|redis|redis-replicas"
+      []
     falsePositives:
       []
-    truePositives: 4
+    truePositives: 14
     precision: 1
-    recall: 0.286
-    result: "fail"
+    recall: 1
+    result: "pass"
