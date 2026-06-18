@@ -388,6 +388,8 @@
     "reverse-reconcile:verify": "node scripts/verify-reverse-reconcile.mjs --verify",
     "preview-readiness:generate": "node scripts/generate-preview-readiness.mjs --generate",
     "preview-readiness:verify": "node scripts/generate-preview-readiness.mjs --verify",
+    "cub-scout-diff:generate": "node scripts/verify-cub-scout-diff.mjs --generate",
+    "cub-scout-diff:verify": "node scripts/verify-cub-scout-diff.mjs --verify",
     "environment-matrix:record": "node scripts/generate-environment-matrix.mjs --record",
     "environment-matrix": "node scripts/generate-environment-matrix.mjs --generate",
     "environment-matrix:verify": "node scripts/generate-environment-matrix.mjs --verify",

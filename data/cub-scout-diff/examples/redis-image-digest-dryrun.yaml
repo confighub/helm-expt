@@ -1,0 +1,59 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ObjectSetDiffReceipt
+metadata:
+  name: redis-image-digest-dryrun
+spec:
+  # design-example: the diff (changedObjects) is machine-checked against the
+  # committed value-source-map (proven 13/13 in blast-radius-accuracy), so the
+  # provenance is real. The cub-scout field-level diff command that runs the
+  # server-side dry-run end-to-end is the product piece (frontier).
+  status: design-example
+  operation: dry-run
+  chart: bitnami/redis
+  version: "25.5.3"
+  environment: prod-us-east
+  desired:
+    source: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+    note: "held render-once data; no re-render (vs Argo/Flux helm template)"
+  live:
+    method: server-side-dry-run-apply
+    note: "kubectl apply --server-side --dry-run=server against the live objects"
+  toolAgnostic: true
+  deliveredBy:
+    - argo
+    - flux
+    - cub-direct
+  deliveryEvidence:
+    - "data/runtime-gitops (redis delivered under both Argo and Flux)"
+  change:
+    valuePath: image.digest
+    from: "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+    to: "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  diff:
+    changedObjects:
+      - object: "apps/v1|StatefulSet|redis|redis-master"
+        fields:
+          - path: "spec.template.spec.containers[0].image"
+            kind: changed
+      - object: "apps/v1|StatefulSet|redis|redis-replicas"
+        fields:
+          - path: "spec.template.spec.containers[0].image"
+            kind: changed
+    addedObjects: []
+    removedObjects: []
+  provenance:
+    valuePath: image.digest
+    valueSourceMapRef: recipes/bitnami/redis/25.5.3/value-source-map.yaml
+    predictedObjects:
+      - "apps/v1|StatefulSet|redis|redis-master"
+      - "apps/v1|StatefulSet|redis|redis-replicas"
+  fleet:
+    fleetRef: recipes/bitnami/redis/25.5.3/fleet.yaml
+    note: "image.digest propagates to dev/staging/prod-us-east; shielded in prod-eu-west (pins the image)"
+  authority:
+    note: "the change is gated against the reverse-reconcile policy family before apply"
+  residue:
+    - "runtime-minted values (operator/admission output) are witnessed via cub-scout predicates, not faked into the diff"
+  notClaimed:
+    - "Design example. The cub-scout field-level diff command (server-side dry-run end-to-end) is the product frontier; the schema, the tool-agnostic invariance, and the value-provenance check are real."
+    - "The diff shown is the predicted delta from the held data + value-source-map; a live run confirms it against the cluster under each deliverer."
