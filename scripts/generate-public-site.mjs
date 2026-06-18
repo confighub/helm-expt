@@ -9,6 +9,7 @@ const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
 const proofPath = join(siteRoot, "proof.html");
+const hardQuestionsPath = join(siteRoot, "hard-questions.html");
 const hooksPath = join(siteRoot, "hooks.html");
 const tiersPath = join(siteRoot, "tiers.html");
 const journeyPath = join(siteRoot, "journey.html");
@@ -56,6 +57,7 @@ if (mode === "--generate") {
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
   write(proofPath, site.proofHtml);
+  write(hardQuestionsPath, site.hardQuestionsHtml);
   write(hooksPath, site.hooksHtml);
   write(tiersPath, site.tiersHtml);
   write(journeyPath, site.journeyHtml);
@@ -74,6 +76,7 @@ if (mode === "--generate") {
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
+  check(existsSync(hardQuestionsPath), "site/hard-questions.html is missing; run npm run site:generate");
   check(existsSync(hooksPath), "site/hooks.html is missing; run npm run site:generate");
   check(existsSync(tiersPath), "site/tiers.html is missing; run npm run site:generate");
   check(existsSync(journeyPath), "site/journey.html is missing; run npm run site:generate");
@@ -86,6 +89,7 @@ if (mode === "--generate") {
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
+  check(readFileSync(hardQuestionsPath, "utf8") === site.hardQuestionsHtml, "site/hard-questions.html is stale");
   check(readFileSync(hooksPath, "utf8") === site.hooksHtml, "site/hooks.html is stale");
   check(readFileSync(tiersPath, "utf8") === site.tiersHtml, "site/tiers.html is stale");
   check(readFileSync(journeyPath, "utf8") === site.journeyHtml, "site/journey.html is stale");
@@ -296,6 +300,7 @@ function buildSite(generatedAt) {
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
     proofHtml: proofHtml(catalog),
+    hardQuestionsHtml: hardQuestionsHtml(catalog),
     hooksHtml: hooksHtml(catalog),
     tiersHtml: tiersHtml(catalog),
     journeyHtml: journeyHtml(catalog),
@@ -465,7 +470,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     ${generatedStamp(catalog, "public catalog dashboard")}
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
@@ -488,9 +493,9 @@ function html(catalog) {
       </div>
       <div class="door">
         <span class="kicker">Check our honesty</span>
-        <h3><a href="../docs/user/what-we-refuse-to-claim.md">What we refuse to claim</a></h3>
-        <p>The narrow-claims register: what is proven, what is partial, what we will not say. Every public statement maps to a verifier you can run.</p>
-        <span class="go"><a href="../data/claims-register/summary.md">Claims → evidence register →</a></span>
+        <h3><a href="./hard-questions.html">Hard questions before trust</a></h3>
+        <p>Hooks, upgrades, custom values, target prerequisites, false-green sync, and what we still refuse to claim.</p>
+        <span class="go"><a href="./hard-questions.html">Questions → evidence →</a></span>
       </div>
       <div class="door">
         <span class="kicker">Challenge it</span>
@@ -893,7 +898,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     ${generatedStamp(catalog, "offering page")}
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
@@ -1083,7 +1088,7 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Try the catalog in three short paths.</h1>
     ${generatedStamp(catalog, "try-now page")}
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
@@ -1268,7 +1273,7 @@ function proofHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Proof, not promises.</h1>
     ${generatedStamp(catalog, "proof page")}
     <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
@@ -1330,6 +1335,164 @@ function proofHtml(catalog) {
 `;
 }
 
+function hardQuestionsHtml(catalog) {
+  const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
+  const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
+  const nonGreenPreview = catalog.activeProofQueue
+    .slice(0, 8)
+    .map((row) => [row.chart, row.base, row.current_result, row.next_step_type, row.reason]);
+  const questionRows = [
+    [
+      "Is this just Helm with extra paperwork?",
+      "No. Helm still renders. The catalog turns selected render paths into durable installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
+      "Start with command routing, then inspect a chart page.",
+      "../docs/user/choosing-commands.md",
+    ],
+    [
+      "Does it only work for easy charts?",
+      "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
+      "Open the serious chart guide and the high-fanout evidence.",
+      "../docs/user/serious-chart-proof.md",
+    ],
+    [
+      "What happens to Helm hooks?",
+      "They are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route is not the same as automatic execution.",
+      "Open the hooks page and route contract.",
+      "./hooks.html",
+    ],
+    [
+      "What if an upgrade caused a production crash?",
+      "The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. It reduces opaque upgrades; it does not promise crash-free production.",
+      "Read the upgrade crash example.",
+      "../docs/user/helm-upgrade-crash-example.md",
+    ],
+    [
+      "Can I bring my own values files or overlays?",
+      "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
+      "Open the custom overlay and variant guides.",
+      "../docs/user/custom-overlays.md",
+    ],
+    [
+      "Can I trust a green GitOps sync?",
+      "Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.",
+      "Read why synced is not working.",
+      "../docs/user/why-synced-is-not-working.md",
+    ],
+    [
+      "What is free and what needs ConfigHub?",
+      "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
+      "Open the journey and tiers pages.",
+      "./journey.html",
+    ],
+    [
+      "What should I do if this breaks on my chart?",
+      "Send the public chart and values that expose the problem. The expected response is a fixture, receipt, watch row, routed gap, or named refusal.",
+      "Use the problem-chart issue template.",
+      "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml",
+    ],
+  ];
+  const proofRows = [
+    ["Render parity rows", metricValue(metric("render parity rows")), "The installer path preserved regular Helm output for recorded inputs."],
+    ["In-ConfigHub proof rows", metricValue(metric("in-ConfigHub proof rows")), "Rendered objects became ConfigHub Units with scan and safe-op evidence."],
+    ["Local live rows", metricValue(metric("local live rows")), "A Kubernetes target applied and observed the rendered objects."],
+    ["GitOps/OCI live pass rows", metricValue(metric("GitOps/OCI live pass rows")), "A GitOps controller pulled and reconciled ConfigHub-published OCI evidence."],
+    ["Live Helm-vs-ConfigHub parity pass rows", metricValue(metric("live Helm-vs-ConfigHub parity pass rows")), "Regular Helm and ConfigHub delivery reached the same semantic live outcome."],
+    ["Complete core lane rows", metricValue(metric("complete core lane rows")), "Rows with the main evidence lanes complete."],
+  ];
+  const boundaryRows = [
+    ["Whole chart support", "No. Claims are per chart, version, base, lane, and target profile."],
+    ["Whole values-space support", "No. Custom values need their own render, scan, receipt, and live evidence."],
+    ["Universal hook execution", "No. Hook behavior is routed and observed where evidence exists; universal automatic execution is not claimed."],
+    ["Production from render parity", "No. Production needs a target-scoped decision and fresh evidence."],
+    ["Signatures as safety", "No. Signatures help with integrity and transport. Scans, policy, authority, and live evidence carry safety claims."],
+  ];
+  const decisionRows = [
+    ["Use public catalog", "A reviewed base exists and the chart-use guide says it is ready to try."],
+    ["Use plain Helm for now", "The chart is in a top-100 bucket that needs a better base variant or a limitation decision before the catalog is a better first path."],
+    ["Create a new installer base", "Your values, overlay, CRD choice, Secret mode, storage mode, ingress shape, or extension slot changes Helm render inputs or object shape."],
+    ["Create a derived ConfigHub variant", "Your change refines an uploaded object set: target, labels, approval gates, observation policy, links, or approved post-render field fills."],
+    ["Ask for managed support", "The path involves private charts, private values, production SLAs, fleet operations, or target-scoped support decisions."],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hard questions · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <h1>Hard questions before you trust the catalog.</h1>
+    ${generatedStamp(catalog, "hard questions page")}
+    <p class="tagline">This page is for a skeptical Helm user, platform engineer, or reviewer. It answers what the project proves, where it is still partial, and how to decide whether to use the public catalog, plain Helm, a new base variant, or ConfigHub-managed operations.</p>
+  </header>
+  <main>
+    <section aria-labelledby="questions">
+      <h2 id="questions">Questions A Helm User Will Ask</h2>
+      ${markdownLikeTable([
+        ["Question", "Short answer", "What to inspect", "Open"],
+        ...questionRows.map(([question, answer, inspect, href]) => [question, answer, inspect, `<a href="${href}">${href}</a>`]),
+      ], { rawThirdColumn: false, rawFourthColumn: true })}
+    </section>
+
+    <section aria-labelledby="evidence">
+      <h2 id="evidence">Evidence That Should Change Your Mind</h2>
+      <p>The strongest argument is not that every cell is green. The strongest argument is that each claim has a lane, each non-green row has a reason, and hard charts force target facts and lifecycle prerequisites into the open.</p>
+      ${markdownLikeTable([
+        ["Surface", "Current value", "What it means"],
+        ...proofRows,
+      ])}
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["ready-to-try"] ?? 0)}/100</strong><span>Top-100 ready-to-try charts</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-target-prerequisites"] ?? 0)}/100</strong><span>Need target prerequisites</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-operator-review"] ?? 0)}/100</strong><span>Need operator review</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["needs-better-base-variant"] ?? 0)}/100</strong><span>Need better base variants</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.liveParityRerunSemanticDefects)}</strong><span>Semantic live parity defects in rerun queue</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="boundaries">
+      <h2 id="boundaries">Boundaries We Should Keep Visible</h2>
+      ${markdownLikeTable([
+        ["Claim someone might assume", "Actual boundary"],
+        ...boundaryRows,
+      ])}
+      <p>Use <a href="../data/claims-register/summary.md">the claims register</a> for the machine-checked wording boundary and <a href="../docs/user/what-we-refuse-to-claim.md">what we refuse to claim</a> for the shorter user explanation.</p>
+    </section>
+
+    <section aria-labelledby="decision">
+      <h2 id="decision">Which Path Should A User Take?</h2>
+      ${markdownLikeTable([
+        ["Path", "Use it when"],
+        ...decisionRows,
+      ])}
+      <p>The matrix and chart-use guide are the practical routing surfaces: <a href="./matrix.html">master matrix</a>, <a href="../data/chart-use-guide/summary.md">chart-use guide</a>, and <a href="../docs/user/reading-the-matrix.md">how to read the matrix</a>.</p>
+    </section>
+
+    <section aria-labelledby="hard">
+      <h2 id="hard">Current Non-Green Work Should Stay Legible</h2>
+      <p>These rows are not hidden failures. They are the next proof work, with owner class and reason attached.</p>
+      ${markdownLikeTable([
+        ["Chart", "Base", "Current", "Next step", "Reason"],
+        ...nonGreenPreview,
+      ])}
+      <p>Open <a href="../data/status-dashboard/active-proof-queue.csv">the active proof queue</a> for the full generated list.</p>
+    </section>
+
+    <section aria-labelledby="challenge">
+      <h2 id="challenge">How To Challenge The Project</h2>
+      <p>If a public chart, values file, CRD behavior, hook, live result, or catalog command breaks the model, file it with public reproduction steps. A good response is a new fixture, a receipt, a watch row, a routed gap, or a named refusal.</p>
+      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a>.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Hard questions should route to evidence, not slogans.</footer>
+</body>
+</html>
+`;
+}
+
 function hooksHtml(catalog) {
   const routes = catalog.lifecycleRoutes;
   const dispositionCounts = countBy(routes, "disposition");
@@ -1357,7 +1520,7 @@ function hooksHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Where do Helm hooks and lifecycle behavior go?</h1>
     ${generatedStamp(catalog, "hooks and lifecycle page")}
     <p class="tagline">The catalog does not pretend Helm hooks are ordinary static YAML. It names the lifecycle behavior, the route, who executes it, and whether the product executes it automatically.</p>
@@ -1469,7 +1632,7 @@ function tiersHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Free to inspect. Managed when it becomes your estate.</h1>
     ${generatedStamp(catalog, "tiers page")}
     <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
@@ -1558,9 +1721,9 @@ function journeyHtml(catalog) {
       badge: "free tier · first sign-up",
       badgeClass: "now",
       title: "First sign-up - your rendered chart becomes ConfigHub Units",
-      action: "cub helm install  /  cub installer import",
-      code: "cub auth login\ncub installer import helm --package packages/bitnami/redis/25.5.3 --base default",
-      get: "An account turns the rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share - plus your first derived variant. This is the wedge from a local render to a managed graph; the free tier covers the first hands-on use.",
+      action: "cub helm install  /  cub installer upload",
+      code: "cub auth login\ncub helm install <chart> ...\n# or, after cub installer setup:\ncub installer upload --work-dir .tmp/redis --space helm-redis-default",
+      get: "An account turns rendered objects into <strong>ConfigHub Units</strong>: durable, queryable desired state you can diff, label, and share. Use <code>cub helm install</code> for a fast one-shot Helm-to-ConfigHub load. Use <code>cub installer upload</code> after a reviewed catalog render. A future import path can graduate a one-shot render into a durable recipe/package candidate; it is not a current command here.",
       next: "Try the managed graph itself: derived variants, scans, and pull-based delivery.",
     },
     {
@@ -1633,7 +1796,7 @@ function journeyHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>From a one-line try-out to a managed estate.</h1>
     ${generatedStamp(catalog, "user journey")}
     <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid - so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
@@ -1784,7 +1947,7 @@ function day1OperationsHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
     <h1>Day-1 operations - the work between a first variant and a running estate.</h1>
     ${generatedStamp(catalog, "day-1 operations")}
     <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
@@ -1824,7 +1987,7 @@ function chartIndexHtml(catalog) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../hard-questions.html">Hard questions</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>Catalog Chart Pages</h1>
     ${generatedStamp(catalog, "chart index")}
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
@@ -1940,7 +2103,7 @@ function chartPageHtml(catalog, entry) {
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="./index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../hard-questions.html">Hard questions</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../tiers.html">Tiers</a><a href="../../data/README.md">Evidence</a><a href="../../README.md">Repository</a></span></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
@@ -2344,6 +2507,7 @@ function formatTableCell(cell, index, options) {
   if (options.rawFirstColumn && index === 0) return String(cell ?? "");
   if (options.rawSecondColumn && index === 1) return String(cell ?? "");
   if (options.rawThirdColumn && index === 2) return String(cell ?? "");
+  if (options.rawFourthColumn && index === 3) return String(cell ?? "");
   return escapeHtml(cell);
 }
 
@@ -2511,6 +2675,8 @@ npm run site:verify
 
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
+Open \`site/hard-questions.html\` for the skeptical user route: hooks, upgrades,
+custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` for the proof lanes, sceptic tests, and refusal boundary.
 Open \`site/hooks.html\` for hook and lifecycle route dispositions.
 Open \`site/tiers.html\` for the free, authenticated, managed, and enterprise tier shape.
