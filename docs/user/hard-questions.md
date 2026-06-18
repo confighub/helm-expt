@@ -50,6 +50,34 @@ agent, or product surface what must happen and who owns it.
 See [Chart Hooks: What Happens?](./chart-hooks-what-happens.md) and
 [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md).
 
+## Where do Secrets and credentials live?
+
+They should not be hidden inside ConfigHub by accident. The catalog separates
+generated Secrets, existing-Secret references, target facts, and runtime Secret
+lifecycle where the chart requires that distinction.
+
+For Redis, for example, `default` preserves the generated-Secret install
+shape. `reuse-existing-secret` deliberately renders no Redis Secret and
+requires the target Secret to exist.
+
+See [Secret Lifecycle](../reference/secret-lifecycle.md), the generated
+[Secret Lifecycle data](../../data/secret-lifecycle/summary.md), and
+[Target Prerequisites](./target-prerequisites.md).
+
+## What if the cluster is the wrong shape?
+
+Then a green render is not enough. Some charts need CRDs, Secrets, storage
+classes, cloud identity, multiple schedulable nodes, API capabilities, or
+controller behavior that a generic cluster does not provide.
+
+The catalog should mark those as target prerequisites, target-fit decisions,
+watch rows, blocked rows, or per-target routes. Logstash HA needing three
+schedulable workers is a good example: the model should say the target shape is
+invalid, not pretend the chart failed generically.
+
+See [Target Prerequisites](./target-prerequisites.md) and
+[Target Prerequisites Before Rerun](./target-prerequisites-before-rerun.md).
+
 ## What if a Helm upgrade caused a production crash?
 
 The model helps by breaking the upgrade into stages:
@@ -130,4 +158,3 @@ The expected response is a public fixture and one of these outcomes:
 | What are the proof lanes? | [Verification Lanes](./verification-lanes.md) |
 | What is the machine-checked claim boundary? | [Claims Register](../../data/claims-register/summary.md) |
 | How do I verify it myself? | [Verify It Yourself](./verify-it-yourself.md) |
-

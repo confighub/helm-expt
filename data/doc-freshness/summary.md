@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-18 (commit `1b415657`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-06-18 (commit `77e58a78`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 179 |
-| Fresh (no linked source newer than the doc) | 10 |
-| **Review-due** | 48 |
+| Fresh (no linked source newer than the doc) | 12 |
+| **Review-due** | 46 |
 | No linked evidence sources (cannot auto-trigger) | 121 |
 
 ## Review queue
@@ -60,10 +60,8 @@ most recently changed triggers.
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 4 | `data/secret-lifecycle/secrets.csv (2026-06-17)`<br>`data/secret-lifecycle/summary.md (2026-06-17)`<br>`data/secret-lifecycle/variant-summary.csv (2026-06-17)` |
 | [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-06-16 | 3 | `data/disposition-frontier/summary.md (2026-06-18)`<br>`data/master-catalog-matrix/summary.md (2026-06-18)`<br>`data/matrix-completion-audit/summary.md (2026-06-18)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-06-16 | 3 | `data/kind-parity-decisions/summary.md (2026-06-18)`<br>`data/live-parity-decisions/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
-| [docs/user/README.md](../../docs/user/README.md) | user | 2026-06-14 | 3 | `data/chart-use-guide/summary.md (2026-06-16)` |
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-06-13 | 3 | `data/chart-use-guide/summary.md (2026-06-16)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-13 | 3 | `data/chart-use-guide/summary.md (2026-06-16)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-17 | 2 | `data/master-catalog-matrix/matrix.html (2026-06-18)`<br>`data/outcome-evidence-contract/summary.md (2026-06-18)`<br>`data/attack-plan-workdown/summary.md (2026-06-17)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 2 | `data/outcome-coverage/summary.md (2026-06-18)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-16 | 2 | `data/outcome-coverage/summary.md (2026-06-18)`<br>`data/status-dashboard/summary.md (2026-06-18)`<br>`data/live-parity-rerun-plan/summary.md (2026-06-18)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 2 | `data/quirk-coverage/coverage.csv (2026-06-13)`<br>`data/quirk-coverage/summary.md (2026-06-13)` |
