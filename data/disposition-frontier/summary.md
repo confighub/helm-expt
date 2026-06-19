@@ -19,15 +19,15 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1194
-recorded disposition:       1153  (96.6%)
+recorded disposition:       1157  (96.9%)
 + derived blocked:          4
-= verified disposition:     1157  (96.9%)
-genuine todo (named next):  37
+= verified disposition:     1161  (97.2%)
+genuine todo (named next):  33
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 37 cells are not yet a
-non-todo verified disposition (3.1% of cells).
+**Distance to 99%:** 33 cells are not yet a
+non-todo verified disposition (2.8% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -37,8 +37,8 @@ Every one carries a named next action below — none is a silent gap.
 | R render_parity | 199 | 199 | 0 | 0 |
 | C in_confighub | 199 | 199 | 0 | 0 |
 | L local_live | 199 | 199 | 0 | 0 |
-| G gitops_oci_live | 199 | 193 | 6 | 0 |
-| P live_helm_vs_confighub_parity | 199 | 193 | 6 | 0 |
+| G gitops_oci_live | 199 | 195 | 4 | 0 |
+| P live_helm_vs_confighub_parity | 199 | 195 | 4 | 0 |
 | K two_cluster_kind_parity | 199 | 174 | 25 | 0 |
 
 ## The work to 99%, by next action
@@ -48,8 +48,8 @@ Each genuine `todo` cell, grouped by what closes it.
 | Cells | Next action |
 | --- | --- |
 | 25 | run the two-cluster kind parity lane |
-| 6 | run the ConfigHub OCI/Argo live lane |
-| 6 | run scripts/run-top20-live-parity.mjs for this row |
+| 4 | run the ConfigHub OCI/Argo live lane |
+| 4 | run scripts/run-top20-live-parity.mjs for this row |
 
 ## Rules (so the derivation is auditable)
 

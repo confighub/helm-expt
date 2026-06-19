@@ -122,8 +122,8 @@ bitnami/apache@11.4.29,default,two_cluster_kind_parity,K,blocked,blocked,no,remo
 bitnami/apache@11.4.29,legacy,render_parity,R,pass,pass,no,,,
 bitnami/apache@11.4.29,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/apache@11.4.29,legacy,local_live,L,pass,pass,no,,,
-bitnami/apache@11.4.29,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/apache@11.4.29,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/apache@11.4.29,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/apache@11.4.29,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/apache@11.4.29,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/contour@21.1.4,default,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,default,in_confighub,C,pass,pass,no,,,
@@ -158,8 +158,8 @@ bitnami/elasticsearch@22.1.6,ha,two_cluster_kind_parity,K,blocked,blocked,no,rem
 bitnami/elasticsearch@22.1.6,legacy,render_parity,R,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,legacy,local_live,L,pass,pass,no,,,
-bitnami/elasticsearch@22.1.6,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/elasticsearch@22.1.6,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/elasticsearch@22.1.6,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/elasticsearch@22.1.6,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/elasticsearch@22.1.6,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/memcached@8.5.5,default,render_parity,R,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,in_confighub,C,pass,pass,no,,,

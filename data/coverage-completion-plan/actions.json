@@ -17,17 +17,17 @@
   "familyCount": 22,
   "byActionType": {
     "run-promotion": 396,
-    "record-decision": 135,
+    "record-decision": 139,
     "stage-prereq": 60,
     "refresh-image": 50,
     "fix-model": 29,
     "run-kind": 25,
-    "run-live": 12,
-    "lifecycle-observe": 8
+    "lifecycle-observe": 8,
+    "run-live": 8
   },
   "byOwnerLane": {
-    "Codex-live": 441,
-    "product-decision": 166,
+    "Codex-live": 437,
+    "product-decision": 170,
     "Claude-non-live": 108
   },
   "top10": [
@@ -42,7 +42,7 @@
       "action_id": "CCP-02",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 80,
+      "affected_cell_count": 84,
       "owner_lane": "product-decision"
     },
     {
@@ -75,31 +75,31 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "run-live",
-      "sub_group": "live-ready",
-      "affected_cell_count": 12,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "affected_cell_count": 10,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "affected_cell_count": 10,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "affected_cell_count": 9,
       "owner_lane": "Claude-non-live"
+    },
+    {
+      "action_id": "CCP-10",
+      "action_type": "lifecycle-observe",
+      "sub_group": "lifecycle-route",
+      "affected_cell_count": 8,
+      "owner_lane": "Codex-live"
     }
   ],
   "families": [
@@ -522,7 +522,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 80,
+      "affected_cell_count": 84,
       "lanes": [
         "G",
         "K",
@@ -540,6 +540,10 @@
         "autoscaler/cluster-autoscaler@9.57.0/default [K]",
         "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default [G]",
         "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default [P]",
+        "bitnami/apache@11.4.29/legacy [G]",
+        "bitnami/apache@11.4.29/legacy [P]",
+        "bitnami/elasticsearch@22.1.6/legacy [G]",
+        "bitnami/elasticsearch@22.1.6/legacy [P]",
         "bitnami/mongodb@19.0.9/existing-secret-replicaset [G]",
         "bitnami/mongodb@19.0.9/existing-secret-replicaset [P]",
         "bitnami/mongodb@19.1.0/existing-secret-replicaset [G]",
@@ -845,37 +849,6 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "run-live",
-      "sub_group": "live-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 12,
-      "lanes": [
-        "G",
-        "P"
-      ],
-      "command": "npm run live-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "live-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/apache@11.4.29/legacy [G]",
-        "bitnami/apache@11.4.29/legacy [P]",
-        "bitnami/elasticsearch@22.1.6/legacy [G]",
-        "bitnami/elasticsearch@22.1.6/legacy [P]",
-        "bitnami/opensearch@2.0.10/legacy [G]",
-        "bitnami/opensearch@2.0.10/legacy [P]",
-        "bitnami/phpmyadmin@20.0.0/legacy [G]",
-        "bitnami/phpmyadmin@20.0.0/legacy [P]",
-        "bitnami/spark@10.0.3/legacy [G]",
-        "bitnami/spark@10.0.3/legacy [P]",
-        "bitnami/zookeeper@13.8.7/legacy [G]",
-        "bitnami/zookeeper@13.8.7/legacy [P]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
@@ -906,7 +879,7 @@
       ]
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "owner_lane": "Claude-non-live",
@@ -935,7 +908,7 @@
       ]
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "owner_lane": "Claude-non-live",
@@ -965,7 +938,7 @@
       ]
     },
     {
-      "action_id": "CCP-11",
+      "action_id": "CCP-10",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "owner_lane": "Codex-live",
@@ -989,6 +962,33 @@
         "kyverno/kyverno@3.8.1/no-crds [lifecycle]",
         "projectcalico/tigera-operator@v3.32.0/default [L]",
         "prometheus-community/kube-prometheus-stack@85.3.3/default [lifecycle]"
+      ]
+    },
+    {
+      "action_id": "CCP-11",
+      "action_type": "run-live",
+      "sub_group": "live-ready",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 8,
+      "lanes": [
+        "G",
+        "P"
+      ],
+      "command": "npm run live-parity:run … (data/live-run-blocks)",
+      "prerequisite": "",
+      "expected_status": "pass or watch",
+      "prediction": true,
+      "evidence_surface": "live-parity-decisions",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "bitnami/opensearch@2.0.10/legacy [G]",
+        "bitnami/opensearch@2.0.10/legacy [P]",
+        "bitnami/phpmyadmin@20.0.0/legacy [G]",
+        "bitnami/phpmyadmin@20.0.0/legacy [P]",
+        "bitnami/spark@10.0.3/legacy [G]",
+        "bitnami/spark@10.0.3/legacy [P]",
+        "bitnami/zookeeper@13.8.7/legacy [G]",
+        "bitnami/zookeeper@13.8.7/legacy [P]"
       ]
     },
     {
