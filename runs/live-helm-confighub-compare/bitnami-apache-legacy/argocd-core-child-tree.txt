@@ -1,0 +1,23 @@
+Name:               argocd/apache-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:63017/applications/apache-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-apache-mqjxtvsf-e9j-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-apache-mqjxtvsf-e9j-apache
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                        STATUS  HEALTH       AGE    MESSAGE                                                    REASON
+Deployment/apache                Synced  Healthy      8m42s  deployment.apps/apache serverside-applied
+└─ReplicaSet/apache-7d85d8bfdb           Healthy      8m42s
+  └─Pod/apache-7d85d8bfdb-zq8qv          Healthy      8m42s
+NetworkPolicy/apache             Synced               8m42s  networkpolicy.networking.k8s.io/apache serverside-applied
+PodDisruptionBudget/apache       Synced  Healthy      8m42s  poddisruptionbudget.policy/apache serverside-applied       PodDisruptionBudget has SufficientPods
+Namespace/default-oci            Synced               7m46s
+Service/apache                   Synced  Progressing  8m42s  service/apache serverside-applied
+ServiceAccount/apache            Synced               8m42s  serviceaccount/apache serverside-applied

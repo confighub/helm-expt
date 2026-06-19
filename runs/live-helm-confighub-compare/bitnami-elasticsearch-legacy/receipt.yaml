@@ -1,0 +1,1555 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-elasticsearch-22.1.6-legacy-live-parity-20260605
+spec:
+  chart: bitnami/elasticsearch
+  version: 22.1.6
+  base: legacy
+  result: watch
+  observedAt: '2026-06-18T20:34:16Z'
+  package:
+    path: packages/bitnami/elasticsearch/22.1.6
+  recipe:
+    path: recipes/bitnami/elasticsearch/22.1.6
+  variantRevision: recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-elasticsearch-mqjyk65c-in4
+    kubeContext: kind-helm-expt-parity-elasticsearch-mqjyk65c-in4
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-elasticsearch-mqjyk65c-in4 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-elasticsearch-mqjyk65c-in4"...
+
+        Deleting cluster "helm-expt-parity-elasticsearch-mqjyk65c-in4" ...
+
+        Deleted nodes: ["helm-expt-parity-elasticsearch-mqjyk65c-in4-control-plane"]
+
+        Deleting Space "helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
+        --version 22.1.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-elasticsearch-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 84bdbaf1a905f282a240ad1a5d355a257dd11617d4921411b1a7397738923e60
+      objectCount: 21
+      liveHelmManifestSHA256: 7a7f80eb185265000a68ddce0baf7e3f95198a2d73362355844e676218220b17
+      liveHelmManifestObjectCount: 21
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: 'statefulset.apps/elasticsearch-coordinating   0/2   8m
+
+          statefulset.apps/elasticsearch-data           0/2   8m
+
+          statefulset.apps/elasticsearch-ingest         0/2   8m
+
+          statefulset.apps/elasticsearch-master         0/2   8m'
+        pods: 'elasticsearch-coordinating-0   0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-coordinating-1   0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-data-0           0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-data-1           0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-ingest-0         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-ingest-1         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-master-0         0/1   Init:ImagePullBackOff   0     8m
+
+          elasticsearch-master-1         0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default-helm
+          pod: elasticsearch-coordinating-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-coordinating-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-data-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-data-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-ingest-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-ingest-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-master-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: elasticsearch-master-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: d6eab4a98e8d31e1df08f0b30cab29daea0fbc7c5ebd6322e8b71331217daf66
+            bytes: 15821
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: fa9f67faec348c0c4091e5b4f481147158dde864da0503b2aaa6dcd3e92862fb
+            bytes: 20034
+          podArtifacts:
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-0/describe.txt
+            sha256: 0a7818e80c93f948ef6cd19b7f6a5b37c642670854952cf7e776a44ea91b9a61
+            bytes: 7371
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-0/logs.txt
+            sha256: c866865a1e0a117849460367fba9edc57790fedd0d9a35e89eefc48088112178
+            bytes: 142
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-0/previous-logs.txt
+            sha256: c802d0b6b160186f78f936739384b7162a1265cb7114a1eb4a28e4e2f916dfda
+            bytes: 118
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-1/describe.txt
+            sha256: a0348f80b01021d8d839c43928638658522ceb48244794604125e4b5294407f5
+            bytes: 7371
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-1/logs.txt
+            sha256: 55979770dd6c2e1b22f09aeac41ab37d35bf8fd21b7e63a90c2d9e24372f0a3f
+            bytes: 142
+          - namespace: default-helm
+            pod: elasticsearch-coordinating-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-coordinating-1/previous-logs.txt
+            sha256: 5b7c0e192a3ab2e5dfcc4c4be773baa707100e0ad6368a45a6bbfcca97ca262b
+            bytes: 118
+          - namespace: default-helm
+            pod: elasticsearch-data-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-0/describe.txt
+            sha256: 4e6fdd7584420bd52b6b4d35141737272884de5c2f80e41c54cabb0737daa1a2
+            bytes: 7329
+          - namespace: default-helm
+            pod: elasticsearch-data-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-0/logs.txt
+            sha256: ea19637285f09e366f13ae1b47204fdd70b29a143a769d66ab68544c4e7a1a39
+            bytes: 134
+          - namespace: default-helm
+            pod: elasticsearch-data-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-0/previous-logs.txt
+            sha256: 1e22cf6e9086104e863c184161195f919867e41fbff126ec147c94c95093786e
+            bytes: 110
+          - namespace: default-helm
+            pod: elasticsearch-data-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-1/describe.txt
+            sha256: 3b2f1a17958d9f9d22ed2a100d43917cb80cae428d6b059c71c60aa7a017b9d0
+            bytes: 7329
+          - namespace: default-helm
+            pod: elasticsearch-data-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-1/logs.txt
+            sha256: 2cdcd3db19465ad4d187ac178915c3b1d7d18b9f20ca48c9b5c7522235ff9f8e
+            bytes: 134
+          - namespace: default-helm
+            pod: elasticsearch-data-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-data-1/previous-logs.txt
+            sha256: e5fb01e45dca15ab8a9a981b5a168b9e2133c59d22efa13d9bc968f4d9e23b23
+            bytes: 110
+          - namespace: default-helm
+            pod: elasticsearch-ingest-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-0/describe.txt
+            sha256: 56325d3f6b389c27e3a407a40d5e2220dbcf04c91387afc849bcf01bcf5dc28a
+            bytes: 7283
+          - namespace: default-helm
+            pod: elasticsearch-ingest-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-0/logs.txt
+            sha256: 2c3c23f6be2696233494e1b1707ef1885963c87ff58d62fb3b20c171a24d93ff
+            bytes: 136
+          - namespace: default-helm
+            pod: elasticsearch-ingest-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-0/previous-logs.txt
+            sha256: 60d97956ce2f7073cdf212087ca8c8c376943ce519e9a4ed2bd038ea7b397720
+            bytes: 112
+          - namespace: default-helm
+            pod: elasticsearch-ingest-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-1/describe.txt
+            sha256: dd77da1b3d8db4ee1b3dc8fbe7af5cd78e966d28b7af6686b2cc39592dd9f973
+            bytes: 7307
+          - namespace: default-helm
+            pod: elasticsearch-ingest-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-1/logs.txt
+            sha256: 4f806d77435525a35c2bb4a4015f999f1fd26db3024c876b70d56bdd647cd8d8
+            bytes: 136
+          - namespace: default-helm
+            pod: elasticsearch-ingest-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-ingest-1/previous-logs.txt
+            sha256: 3262bf36f375973789b4c0fab7321108a7c1d3c845ece45433b53196ee99938a
+            bytes: 119
+          - namespace: default-helm
+            pod: elasticsearch-master-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-0/describe.txt
+            sha256: 4f0e939d64b86fcdc0381f20c436fd50551a5c8ac5379de8ce5a6432d6e346a4
+            bytes: 7354
+          - namespace: default-helm
+            pod: elasticsearch-master-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-0/logs.txt
+            sha256: 42ec3dce53d837d1f0e901392e41ff9241b33552b6d5b1f3716421c8c5d2ac23
+            bytes: 136
+          - namespace: default-helm
+            pod: elasticsearch-master-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-0/previous-logs.txt
+            sha256: 6c3ad62aeb1a7c8809989db7c60b4e1b08bb4c70c56ea25b016f231b2fcf4dcf
+            bytes: 112
+          - namespace: default-helm
+            pod: elasticsearch-master-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-1/describe.txt
+            sha256: 85a3f7d169e88ae3279656e7a2be5d2dd7a18fffdb127f0c35c03bad95241511
+            bytes: 7354
+          - namespace: default-helm
+            pod: elasticsearch-master-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-1/logs.txt
+            sha256: 6bd7f49b1e497444a0b5ab326ff1a8d3434d2f7c3d5d02e0dbaea7e009bba4f1
+            bytes: 126
+          - namespace: default-helm
+            pod: elasticsearch-master-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/elasticsearch-master-1/previous-logs.txt
+            sha256: 3402119c1032b339209322c09e9e158f85708b8c5f1dd724591cd0f54b2819b4
+            bytes: 112
+      stderr: 'Error: resource StatefulSet/default-helm/elasticsearch-coordinating
+        not ready. status: InProgress, message: Ready: 0/2
+
+        resource StatefulSet/default-helm/elasticsearch-data not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default-helm/elasticsearch-ingest not ready. status:
+        InProgress, message: Ready: 0/2
+
+        resource StatefulSet/default-helm/elasticsearch-master not ready. status:
+        InProgress, message: Ready: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/elasticsearch/22.1.6
+        --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 85216540185d008d7a297740d67f9e588d592fadd1524c1cf60f07d530342f87
+      objectCount: 22
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/elasticsearch-coordinating   2/2   3m23s
+
+          statefulset.apps/elasticsearch-data           2/2   3m23s
+
+          statefulset.apps/elasticsearch-ingest         2/2   3m23s
+
+          statefulset.apps/elasticsearch-master         2/2   3m23s'
+        pods: '# default
+
+          elasticsearch-coordinating-0   1/1   Running   0     3m24s
+
+          elasticsearch-coordinating-1   1/1   Running   0     3m24s
+
+          elasticsearch-data-0           1/1   Running   0     3m24s
+
+          elasticsearch-data-1           1/1   Running   0     3m24s
+
+          elasticsearch-ingest-0         1/1   Running   0     3m24s
+
+          elasticsearch-ingest-1         1/1   Running   0     3m24s
+
+          elasticsearch-master-0         1/1   Running   0     3m24s
+
+          elasticsearch-master-1         1/1   Running   0     3m24s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|elasticsearch-coordinating
+          - apps/v1|StatefulSet|default|elasticsearch-data
+          - apps/v1|StatefulSet|default|elasticsearch-ingest
+          - apps/v1|StatefulSet|default|elasticsearch-master
+          - networking.k8s.io/v1|NetworkPolicy|default|elasticsearch-coordinating
+          - networking.k8s.io/v1|NetworkPolicy|default|elasticsearch-data
+          - networking.k8s.io/v1|NetworkPolicy|default|elasticsearch-ingest
+          - networking.k8s.io/v1|NetworkPolicy|default|elasticsearch-master
+          - policy/v1|PodDisruptionBudget|default|elasticsearch-coordinating
+          - policy/v1|PodDisruptionBudget|default|elasticsearch-data
+          - policy/v1|PodDisruptionBudget|default|elasticsearch-ingest
+          - policy/v1|PodDisruptionBudget|default|elasticsearch-master
+          - v1|ServiceAccount|default|elasticsearch-coordinating
+          - v1|ServiceAccount|default|elasticsearch-data
+          - v1|ServiceAccount|default|elasticsearch-ingest
+          - v1|ServiceAccount|default|elasticsearch-master
+          - v1|Service|default|elasticsearch
+          - v1|Service|default|elasticsearch-coordinating-hl
+          - v1|Service|default|elasticsearch-data-hl
+          - v1|Service|default|elasticsearch-ingest-hl
+          - v1|Service|default|elasticsearch-master-hl
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+      controller: Argo CD OCI
+      app: elasticsearch-parity
+      manifestSHA256: d72722ca6b52e7afa9afae71e1d2af331c7ae3f46849e259f9c162c88c3cf686
+      objectCount: 22
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci
+              targetRevision: latest
+          revision: sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-18T20:54:00Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0
+          - docker.io/bitnamilegacy/os-shell:12-debian-12-r50
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-18T20:54:00Z'
+          finishedAt: '2026-06-18T20:54:01Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 22
+          syncResultStatusCounts:
+            Synced: 22
+        history:
+        - id: 0
+          revision: sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+          deployedAt: '2026-06-18T20:54:01Z'
+          deployStartedAt: '2026-06-18T20:54:00Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elasticsearch
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elasticsearch-coordinating-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elasticsearch-data-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elasticsearch-ingest-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: elasticsearch-master-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: elasticsearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: elasticsearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: elasticsearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: elasticsearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: elasticsearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: elasticsearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: elasticsearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: elasticsearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: elasticsearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: elasticsearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: elasticsearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: elasticsearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: elasticsearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: elasticsearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: elasticsearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: elasticsearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         elasticsearch-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster:argoproj.io/Application:argocd/elasticsearch-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ c25790cd-8bd5-4bce-a0da-0307b8cc69c2\n              confighub.com/UnitSlug:\
+              \ elasticsearch-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-18T20:53:58Z\n\
+              \  Generation:          8\n  Resource Version:    3662\n  UID:     \
+              \            0cd52f22-11f5-4c15-aff4-ea9107b0afa2\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-18T20:54:00Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-18T20:54:00Z\n    Deployed At:        2026-06-18T20:54:01Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \    Source:\n      Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-18T20:54:01Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \        Source:\n          Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-18T20:54:00Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/elasticsearch-master\
+              \ serverside-applied\n        Name:        elasticsearch-master\n  \
+              \      Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/elasticsearch-ingest\
+              \ serverside-applied\n        Name:        elasticsearch-ingest\n  \
+              \      Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/elasticsearch-data\
+              \ serverside-applied\n        Name:        elasticsearch-data\n    \
+              \    Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/elasticsearch-coordinating\
+              \ serverside-applied\n        Name:        elasticsearch-coordinating\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/elasticsearch-coordinating\
+              \ serverside-applied\n        Name:        elasticsearch-coordinating\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/elasticsearch-data\
+              \ serverside-applied\n        Name:        elasticsearch-data\n    \
+              \    Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/elasticsearch-master\
+              \ serverside-applied\n        Name:        elasticsearch-master\n  \
+              \      Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/elasticsearch-ingest\
+              \ serverside-applied\n        Name:        elasticsearch-ingest\n  \
+              \      Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
+              \      Message:     serviceaccount/elasticsearch-ingest serverside-applied\n\
+              \        Name:        elasticsearch-ingest\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     ser"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                             MESSAGE
+
+              9s          Normal   OperationStarted     application/elasticsearch-parity   Initiated
+              automated sync to ''sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d''
+
+              9s          Normal   ResourceUpdated      application/elasticsearch-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/elasticsearch-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/elasticsearch-parity   Sync
+              operation to sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/elasticsearch-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 22
+              artifact:
+                path: argocd-core-child.json
+                sha256: a1a5429f63202e6f4b9297c3aad6ee9f3b0c076ec890d9b19a2c3f8f0f8efec4
+                bytes: 22305
+              output: "{\n  \"metadata\": {\n    \"name\": \"elasticsearch-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"0cd52f22-11f5-4c15-aff4-ea9107b0afa2\"\
+                ,\n    \"resourceVersion\": \"3682\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-18T20:53:58Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster:argoproj.io/Application:argocd/elasticsearch-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"c25790cd-8bd5-4bce-a0da-0307b8cc69c2\",\n      \"confighub.com/UnitSlug\"\
+                : \"elasticsearch-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-18T20:53:58Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-18T20:54:17Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"elasticsearch\",\n        \"status\": \"Synced\",\n        \"\
+                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"elasticsearch-coordinating-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"elasticsearch-data-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"elasticsearch-ingest-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"elasticsearch-master-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: e882953cc0c59600d3cfa22c05c4c4be042aa32e4b925e77a6c46b0fd88d33f2
+                bytes: 5904
+              output: "Name:               argocd/elasticsearch-parity\nProject: \
+                \           default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:63826/applications/elasticsearch-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \          STATUS  HEALTH   AGE    MESSAGE                       \
+                \                                                 REASON\nNetworkPolicy/elasticsearch-data\
+                \                            Synced           10m    networkpolicy.networking.k8s.io/elasticsearch-data\
+                \ serverside-applied          \nNetworkPolicy/elasticsearch-master\
+                \                          Synced           10m    networkpolicy.networking.k8s.io/elasticsearch-master\
+                \ serverside-applied        \nPodDisruptionBudget/elasticsearch-data\
+                \                      Synced  Healthy  10m    poddisruptionbudget.policy/elasticsearch-data\
+                \ serverside-applied               PodDisruptionBudget has SufficientPods\n\
+                PodDisruptionBudget/elasticsearch-ingest                    Synced\
+                \  Healthy  10m    poddisruptionbudget.policy/elasticsearch-ingest\
+                \ serverside-applied             PodDisruptionBudget has SufficientPods\n\
+                Namespace/default-oci                                       Synced\
+                \           6m48s                                                \
+                \                                 \nService/elasticsearch-data-hl\
+                \                               Synced  Healthy  10m    service/elasticsearch-data-hl\
+                \ serverside-applied                               \nServiceAccount/elasticsearch-data\
+                \                           Synced           10m    serviceaccount/elasticsearch-data\
+                \ serverside-applied                           \nStatefulSet/elasticsearch-coordinating\
+                \                      Synced  Healthy  10m    statefulset.apps/elasticsearch-coordinating\
+                \ serverside-applied                 statefulset rolling update complete\
+                \ 2 pods at revision elasticsearch-coordinating-6f5dcb78d7...\n\u251C\
+                \u2500Pod/elasticsearch-coordinating-0                           \
+                \       Healthy  10m                                             \
+                \                                      \n\u251C\u2500Pod/elasticsearch-coordinating-1\
+                \                                  Healthy  10m                  \
+                \                                                                \
+                \ \n\u2514\u2500ControllerRevision/elasticsearch-coordinating-6f5dcb78d7\
+                \                   10m                                          \
+                \                                         \nService/elasticsearch-coordinating-hl\
+                \                       Synced  Healthy  10m    service/elasticsearch-coordinating-hl\
+                \ serverside-applied                       \nServiceAccount/elasticsearch-master\
+                \                         Synced           10m    serviceaccount/elasticsearch-master\
+                \ serverside-applied                         \nStatefulSet/elasticsearch-ingest\
+                \                            Synced  Healthy  10m    statefulset.apps/elasticsearch-ingest\
+                \ serverside-applied                       statefulset rolling update\
+                \ complete 2 pods at revision elasticsearch-ingest-6c8cc685b7...\n\
+                \u251C\u2500Pod/elasticsearch-ingest-0                           \
+                \             Healthy  10m                                       \
+                \                                            \n\u251C\u2500Pod/elasticsearch-ingest-1\
+                \                                        Healthy  10m            \
+                \                                                                \
+                \       \n\u2514\u2500ControllerRevision/elasticsearch-ingest-6c8cc685b7\
+                \                         10m                                    \
+                \                                               \nStatefulSet/elasticsearch-master\
+                \                            Synced  Healthy  10m    statefulset.apps/elasticsearch-master\
+                \ serverside-applied                       statefulset rolling update\
+                \ complete 2 pods at revision elasticsearch-master-65cb5bb6...\n\u251C\
+                \u2500PersistentVolumeClaim/data-elasticsearch-master-0          \
+                \       Healthy  10m                                             \
+                \                                      \n\u251C\u2500PersistentVolumeClaim/data-elasticsearch-master-1\
+                \                 Healthy  10m                                   \
+                \                                                \n\u251C\u2500Pod/elasticsearch-master-0\
+                \                                        Healthy  10m            \
+                \                                                                \
+                \       \n\u251C\u2500Pod/elasticsearch-master-1                 \
+                \                       Healthy  10m                             \
+                \                                                      \n\u2514\u2500\
+                ControllerRevision/elasticsearch-master-65cb5bb6                 \
+                \          10m                                                   \
+                \                                \nService/elasticsearch-ingest-hl\
+                \                             Synced  Healthy  10m    service/elasticsearch-ingest-hl\
+                \ serverside-applied                             \nService/elasticsearch-master-hl\
+                \                             Synced  Healthy  10m    service/elasticsearch-master-hl\
+                \ serverside-applied                             \nServiceAccount/elasticsearch-coordinating\
+                \                   Synced           10m    serviceaccount/elasticsearch-coordinating\
+                \ serverside-applied                   \nNetworkPolicy/elasticsearch-coordinating\
+                \                    Synced           10m    networkpolicy.networking.k8s.io/elasticsearch-coordinating\
+                \ serverside-applied  \nNetworkPolicy/elasticsearch-ingest       \
+                \                   Synced           10m    networkpolicy.networking.k8s.io/elasticsearch-ingest\
+                \ serverside-applied        \nPodDisruptionBudget/elasticsearch-coordinating\
+                \              Synced  Healthy  10m    poddisruptionbudget.policy/elasticsearch-coordinating\
+                \ serverside-applied       PodDisruptionBudget has SufficientPods\n\
+                PodDisruptionBudget/elasticsearch-master                    Synced\
+                \  Healthy  10m    poddisruptionbudget.policy/elasticsearch-master\
+                \ serverside-applied             PodDisruptionBudget has SufficientPods\n\
+                Service/elasticsearch                                       Synced\
+                \  Healthy  10m    service/elasticsearch serverside-applied      \
+                \                                 \nServiceAccount/elasticsearch-ingest\
+                \                         Synced           10m    serviceaccount/elasticsearch-ingest\
+                \ serverside-applied                         \nStatefulSet/elasticsearch-data\
+                \                              Synced  Healthy  10m    statefulset.apps/elasticsearch-data\
+                \ serverside-applied                         statefulset rolling update\
+                \ complete 2 pods at revision elasticsearch-data-5977c4fb4f...\n\u251C\
+                \u2500PersistentVolumeClaim/data-elasticsearch-data-0            \
+                \       Healthy  10m                                             \
+                \                                      \n\u251C\u2500PersistentVolumeClaim/data-elasticsearch-data-1\
+                \                   Healthy  10m                                 \
+                \                                                  \n\u251C\u2500\
+                Pod/elasticsearch-data-0                                         \
+                \ Healthy  10m                                                   \
+                \                                \n\u251C\u2500Pod/elasticsearch-data-1\
+                \                                          Healthy  10m          \
+                \                                                                \
+                \         \n\u2514\u2500ControllerRevision/elasticsearch-data-5977c4fb4f\
+                \                           10m"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"elasticsearch-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/elasticsearch-parity\",\n      \"syncStatus\":\
+              \ \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"elasticsearch-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci
+              targetRevision: latest
+          revision: sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-18T20:35:57Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-18T20:53:56Z'
+          finishedAt: '2026-06-18T20:53:58Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+          deployedAt: '2026-06-18T20:53:58Z'
+          deployStartedAt: '2026-06-18T20:53:56Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: elasticsearch-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-18T20:35:48Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        12\n  Resource Version:  3628\n  UID:        \
+              \       22e0a25d-fd5b-4662-8d6c-ce3114c8c224\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-18T20:35:57Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-18T20:53:56Z\n\
+              \    Deployed At:        2026-06-18T20:53:58Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \    Source:\n      Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-18T20:53:58Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \        Source:\n          Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-18T20:53:56Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/elasticsearch-parity serverside-applied\n\
+              \        Name:        elasticsearch-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \      Source:\n        Path:              ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-18T20:53:58Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       elasticsearch-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     18m   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     18m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  28s   argocd-application-controller  Sync operation to sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\
+              \ succeeded\n  Normal  ResourceUpdated     26s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                            MESSAGE
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Updated
+              sync status:  -> Synced
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Initiated
+              automated sync to ''sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              28s         Normal   OperationCompleted   application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Sync
+              operation to sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d
+              succeeded
+
+              26s         Normal   ResourceUpdated      application/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 6e7ab244ba39f3647eee59c71b7cafbb97b832b43b56492f0aeb8cbb7c4c86ec
+                bytes: 9438
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"22e0a25d-fd5b-4662-8d6c-ce3114c8c224\"\
+                ,\n    \"resourceVersion\": \"3716\",\n    \"generation\": 13,\n \
+                \   \"creationTimestamp\": \"2026-06-18T20:35:48Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-18T20:35:48Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-18T20:54:40Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"elasticsearch-parity\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \"Synced\",\n      \"comparedTo\": {\n    \
+                \    \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\"\
+                ,\n          \"path\": \"./"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 7370aa84c64a0153e719d1b5b69cba68ea5d92b8c3e97dd2bc50b9022e3148dc
+                bytes: 1175
+              output: "Name:               argocd/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:63937/applications/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \               STATUS  HEALTH  AGE  MESSAGE                     \
+                \                                                                \
+                \    REASON\nApplication/elasticsearch-parity                    \
+                \             Synced          51s  application.argoproj.io/elasticsearch-parity\
+                \ serverside-applied                                 \nApplication/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\
+                \  Synced          19m  application.argoproj.io/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"elasticsearch-parity\",\n      \"namespace\": \"argocd\",\n    \
+              \  \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/elasticsearch-parity\",\n      \"syncStatus\":\
+              \ \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:a5cdbc66bc79c866be5681c909081ffea23d61197c1125510691bf4e5564c07d\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"elasticsearch-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/elasticsearch-coordinating   2/2   10m
+
+          statefulset.apps/elasticsearch-data           2/2   10m
+
+          statefulset.apps/elasticsearch-ingest         2/2   10m
+
+          statefulset.apps/elasticsearch-master         2/2   10m'
+        pods: '# default
+
+          elasticsearch-coordinating-0   1/1   Running   0     10m
+
+          elasticsearch-coordinating-1   1/1   Running   0     10m
+
+          elasticsearch-data-0           1/1   Running   0     10m
+
+          elasticsearch-data-1           1/1   Running   0     10m
+
+          elasticsearch-ingest-0         1/1   Running   0     10m
+
+          elasticsearch-ingest-1         1/1   Running   0     10m
+
+          elasticsearch-master-0         1/1   Running   0     10m
+
+          elasticsearch-master-1         1/1   Running   0     10m'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 21
+      configHubObjectCount: 22
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-18T20:35:48Z'
+    finishedAt: '2026-06-18T20:43:55Z'
+    elapsedSeconds: 486.426
+    timeoutSeconds: 900
+    command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
+      --version 22.1.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-elasticsearch-legacy/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-18T20:44:07Z'
+    finishedAt: '2026-06-18T20:44:07Z'
+    elapsedSeconds: 0.497
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/elasticsearch/22.1.6
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-18T20:44:08Z'
+    finishedAt: '2026-06-18T20:44:08Z'
+    elapsedSeconds: 0.156
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqjyk65c-in4.kubeconfig
+      --context kind-helm-expt-parity-elasticsearch-mqjyk65c-in4 apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-elasticsearch-legacy/direct-apply-manifest.yaml
+    objectCount: 21
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-18T20:44:08Z'
+    finishedAt: '2026-06-18T20:47:32Z'
+    elapsedSeconds: 203.814
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-18T20:47:37Z'
+    finishedAt: '2026-06-18T20:47:38Z'
+    elapsedSeconds: 0.469
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/elasticsearch/22.1.6
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-18T20:47:38Z'
+    finishedAt: '2026-06-18T20:48:39Z'
+    elapsedSeconds: 61.086
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+      --space helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch --target helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci
+    objectCount: 22
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-18T20:48:39Z'
+    finishedAt: '2026-06-18T20:48:40Z'
+    elapsedSeconds: 0.573
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-18T20:48:40Z'
+    finishedAt: '2026-06-18T20:53:47Z'
+    elapsedSeconds: 307.033
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-elasticsearch-mqjyk65c-in4-elasticsearch
+      --unit <22 unit(s)> --wait --timeout 5m
+    unitCount: 22
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-18T20:53:47Z'
+    finishedAt: '2026-06-18T20:53:48Z'
+    elapsedSeconds: 1.106
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster
+      elasticsearch-parity-app /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-elasticsearch-legacy/argo-application.json
+      --target helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-18T20:53:48Z'
+    finishedAt: '2026-06-18T20:53:49Z'
+    elapsedSeconds: 1.08
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-elasticsearch-mqjyk65c-in4-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-18T20:53:49Z'
+    finishedAt: '2026-06-18T20:54:09Z'
+    elapsedSeconds: 20.168
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-18T20:54:49Z'
+    finishedAt: '2026-06-18T20:54:49Z'
+    elapsedSeconds: 0.116
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-elasticsearch-mqjyk65c-in4\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqjyk65c-in4.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-elasticsearch-mqjyk65c-in4\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-elasticsearch-mqjyk65c-in4\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-elasticsearch-mqjyk65c-in4\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqjyk65c-in4.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource StatefulSet/default-helm/elasticsearch-coordinating not
+      ready. status: InProgress, message: Ready: 0/2
+
+      resource StatefulSet/default-helm/elasticsearch-data not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default-helm/elasticsearch-ingest not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default-helm/elasticsearch-master not ready. status: InProgress,
+      message: Ready: 0/2
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/elasticsearch-coordinating   2/2   3m23s
+
+      statefulset.apps/elasticsearch-data           2/2   3m23s
+
+      statefulset.apps/elasticsearch-ingest         2/2   3m23s
+
+      statefulset.apps/elasticsearch-master         2/2   3m23s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

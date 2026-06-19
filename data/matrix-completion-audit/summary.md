@@ -23,8 +23,8 @@ columns). It changes no status and runs nothing.
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 350 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 225 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 99 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `already-decided` | 229 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 95 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 41 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -38,16 +38,16 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `watch` | 225 |
+| `watch` | 229 |
 | `not-applicable-source` | 110 |
 | `blocked` | 100 |
-| `todo` | 99 |
+| `todo` | 95 |
 | `proven` | 76 |
 | `not-applicable-candidate` | 74 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (99)
+## needs-run (95)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -58,15 +58,11 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/apache@11.4.29 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
 | bitnami/apache@11.4.29 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/apache@11.4.29 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/elasticsearch@22.1.6 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
 | bitnami/elasticsearch@22.1.6 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/elasticsearch@22.1.6 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/mongodb@19.0.7 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -558,7 +554,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (225)
+## already-decided (229)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -589,6 +585,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/apache@11.4.29 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/apache@11.4.29 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/apache@11.4.29 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/apache@11.4.29 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/apache@11.4.29 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
@@ -601,6 +599,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/elasticsearch@22.1.6 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/elasticsearch@22.1.6 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/elasticsearch@22.1.6 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/elasticsearch@22.1.6 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/elasticsearch@22.1.6 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/memcached@8.5.5 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | G | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | P | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |

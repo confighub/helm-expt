@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-57 non-pass rows: 47 watch, 10 blocked.
+59 non-pass rows: 49 watch, 10 blocked.
 4 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,8 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `gitops-runtime` | 16 |
+| `remote-image` | 16 |
 | `target-runtime` | 15 |
-| `remote-image` | 14 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -46,9 +46,9 @@ passed — the residue is operational, not a config mismatch.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `catalog or image publisher` | 16 |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 15 |
-| `catalog or image publisher` | 14 |
 | `catalog` | 5 |
 | `user` | 4 |
 | `catalog or operator` | 1 |
@@ -62,10 +62,12 @@ passed — the residue is operational, not a config mismatch.
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | watch | target-fit | user or catalog | watch — needs a target with the required platform shape |
 | bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/apache@11.4.29 | legacy | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/elasticsearch@22.1.6 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/elasticsearch@22.1.6 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/elasticsearch@22.1.6 | legacy | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |

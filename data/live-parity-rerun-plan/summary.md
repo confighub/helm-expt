@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 107
+rows: 109
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 51
-watch: 56
-configHub-oci-live-comparison: 57
+watch: 58
+configHub-oci-live-comparison: 59
 two-cluster-kind-parity: 50
 semantic-parity-defects: 10
 infra-or-rig-rows: 0
@@ -35,10 +35,12 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `argo-cd/argo-cd@9.5.17` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | The base declares target-fit requirements. The aws-ebs-csi-driver process initializes metadata from IMDS or Kubernetes node providerID before it can run | Use a target with the required platform behavior, or create a separate base that matches the proof target. |
 | `bitnami/apache@11.4.29` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/apache@11.4.29` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/contour@21.1.4` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/contour@21.1.4` | no-crds | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/elasticsearch@22.1.6` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/elasticsearch@22.1.6` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/elasticsearch@22.1.6` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/mongodb@19.0.9` | existing-secret-replicaset | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/mongodb@19.1.0` | existing-secret-replicaset | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/nginx@24.0.4` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
@@ -143,7 +145,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 57 | 0 | 47 | 10 | 0 |
+| configHub-oci-live-comparison | 59 | 0 | 49 | 10 | 0 |
 | two-cluster-kind-parity | 50 | 0 | 9 | 41 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -171,7 +173,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| image-retention-review | 24 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
+| image-retention-review | 26 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 10 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
@@ -196,7 +198,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 10 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 52 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 43 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -238,10 +240,12 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.17` | default | watch | gitops-runtime: child Argo Application not materialized (parity passed) | [`recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.17 --base default` |
 | 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) | [`recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml`](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml) | `npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/apache@11.4.29` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/apache@11.4.29` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/contour@21.1.4` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/contour@21.1.4` | no-crds | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/elasticsearch@22.1.6` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/elasticsearch@22.1.6` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/elasticsearch@22.1.6` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/mongodb@19.0.9` | existing-secret-replicaset | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml`](../../recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.9 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/mongodb@19.1.0` | existing-secret-replicaset | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml`](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/mongodb/19.1.0 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@24.0.4` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.4 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
