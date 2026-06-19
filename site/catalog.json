@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-19T08:45:51.576Z",
+  "generatedAt": "2026-06-19T21:38:03.732Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -109,7 +109,7 @@
     "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 0,
     "top100ChartsWithLiveEvidence": 79,
-    "liveParityRerunRows": 111,
+    "liveParityRerunRows": 112,
     "liveParityRerunSemanticDefects": 10,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -13855,6 +13855,24 @@
       "followup": "Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning.",
       "support_artifact": "data/image-digest-workdown/summary.md",
       "receipt": "runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
+    },
+    {
+      "priority": "30",
+      "lane": "configHub-oci-live-comparison",
+      "chart": "bitnami/spark",
+      "version": "10.0.3",
+      "base": "legacy",
+      "current_result": "watch",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "next_step_type": "image-retention-review",
+      "rerun_readiness": "model-or-stage-first",
+      "diagnosis": "Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect.",
+      "rerun_command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts",
+      "followup": "Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning.",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
     },

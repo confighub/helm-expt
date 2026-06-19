@@ -7,7 +7,7 @@ completed row has a receipt under
 
 ```text
 pass: 135
-watch: 51
+watch: 52
 blocked: 10
 not-started: 0
 ```
@@ -117,6 +117,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `bitnami/phpmyadmin@20.0.0` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/receipt.yaml |
 |  | `bitnami/spark@10.0.3` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml |
 |  | `bitnami/spark@10.0.3` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml |
+|  | `bitnami/spark@10.0.3` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml |
 |  | `bitnami/zookeeper@13.8.7` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml |
 |  | `bitnami/zookeeper@13.8.7` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml |
 |  | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | - | runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml |

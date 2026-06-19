@@ -17,17 +17,17 @@
   "familyCount": 22,
   "byActionType": {
     "run-promotion": 396,
-    "record-decision": 143,
+    "record-decision": 145,
     "stage-prereq": 60,
     "refresh-image": 50,
     "fix-model": 29,
     "run-kind": 25,
     "lifecycle-observe": 8,
-    "run-live": 4
+    "run-live": 2
   },
   "byOwnerLane": {
-    "Codex-live": 433,
-    "product-decision": 174,
+    "Codex-live": 431,
+    "product-decision": 176,
     "Claude-non-live": 108
   },
   "top10": [
@@ -42,7 +42,7 @@
       "action_id": "CCP-02",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 88,
+      "affected_cell_count": 90,
       "owner_lane": "product-decision"
     },
     {
@@ -522,7 +522,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 88,
+      "affected_cell_count": 90,
       "lanes": [
         "G",
         "K",
@@ -556,6 +556,8 @@
         "bitnami/opensearch@2.0.10/legacy [P]",
         "bitnami/phpmyadmin@20.0.0/legacy [G]",
         "bitnami/phpmyadmin@20.0.0/legacy [P]",
+        "bitnami/spark@10.0.3/legacy [G]",
+        "bitnami/spark@10.0.3/legacy [P]",
         "bitnami/zookeeper@13.8.7/default [G]",
         "bitnami/zookeeper@13.8.7/default [P]",
         "bitnami/zookeeper@13.8.7/ha [G]",
@@ -1091,29 +1093,6 @@
     },
     {
       "action_id": "CCP-16",
-      "action_type": "run-live",
-      "sub_group": "live-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 4,
-      "lanes": [
-        "G",
-        "P"
-      ],
-      "command": "npm run live-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "live-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/spark@10.0.3/legacy [G]",
-        "bitnami/spark@10.0.3/legacy [P]",
-        "bitnami/zookeeper@13.8.7/legacy [G]",
-        "bitnami/zookeeper@13.8.7/legacy [P]"
-      ]
-    },
-    {
-      "action_id": "CCP-17",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
@@ -1137,7 +1116,7 @@
       ]
     },
     {
-      "action_id": "CCP-18",
+      "action_id": "CCP-17",
       "action_type": "stage-prereq",
       "sub_group": "webhook-cert-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1159,7 +1138,7 @@
       ]
     },
     {
-      "action_id": "CCP-19",
+      "action_id": "CCP-18",
       "action_type": "fix-model",
       "sub_group": "object-set-shape",
       "owner_lane": "Claude-non-live",
@@ -1179,7 +1158,7 @@
       ]
     },
     {
-      "action_id": "CCP-20",
+      "action_id": "CCP-19",
       "action_type": "fix-model",
       "sub_group": "unknown",
       "owner_lane": "Claude-non-live",
@@ -1197,6 +1176,27 @@
       "affected_rows": [
         "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [G]",
         "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-20",
+      "action_type": "run-live",
+      "sub_group": "live-ready",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 2,
+      "lanes": [
+        "G",
+        "P"
+      ],
+      "command": "npm run live-parity:run … (data/live-run-blocks)",
+      "prerequisite": "",
+      "expected_status": "pass or watch",
+      "prediction": true,
+      "evidence_surface": "live-parity-decisions",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "bitnami/zookeeper@13.8.7/legacy [G]",
+        "bitnami/zookeeper@13.8.7/legacy [P]"
       ]
     },
     {

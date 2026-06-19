@@ -368,8 +368,8 @@ bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-imag
 bitnami/spark@10.0.3,legacy,render_parity,R,pass,pass,no,,,
 bitnami/spark@10.0.3,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,legacy,local_live,L,pass,pass,no,,,
-bitnami/spark@10.0.3,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/spark@10.0.3,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/spark@10.0.3,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/spark@10.0.3,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/spark@10.0.3,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,

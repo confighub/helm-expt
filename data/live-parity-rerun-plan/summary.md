@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 111
+rows: 112
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 51
-watch: 60
-configHub-oci-live-comparison: 61
+watch: 61
+configHub-oci-live-comparison: 62
 two-cluster-kind-parity: 50
 semantic-parity-defects: 10
 infra-or-rig-rows: 0
@@ -52,6 +52,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/phpmyadmin@20.0.0` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/spark@10.0.3` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/spark@10.0.3` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/spark@10.0.3` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/zookeeper@13.8.7` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/zookeeper@13.8.7` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `dex/dex@0.24.0` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
@@ -147,7 +148,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 61 | 0 | 51 | 10 | 0 |
+| configHub-oci-live-comparison | 62 | 0 | 52 | 10 | 0 |
 | two-cluster-kind-parity | 50 | 0 | 9 | 41 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -175,7 +176,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| image-retention-review | 28 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
+| image-retention-review | 29 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 10 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
@@ -200,7 +201,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 10 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 56 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 57 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 43 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -259,6 +260,7 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/phpmyadmin@20.0.0` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/zookeeper@13.8.7` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/zookeeper@13.8.7` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `dex/dex@0.24.0` | default | watch | target-runtime: pod config/runtime errors (parity passed) | - | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` |
