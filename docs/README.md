@@ -16,6 +16,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | --- | --- |
 | [../README.md](../README.md) | Main user introduction: why the repo exists, what is proven, and how to try it. |
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
+| [../WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md) | Local static-site UX test runbook for walking a fresh user through the public website. |
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [offering.md](./user/offering.md) | Public offering overview: why visible Helm stages matter, what is free to try, and where managed ConfigHub workflows begin. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |

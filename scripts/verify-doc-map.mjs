@@ -28,6 +28,7 @@ function isExpectedMarkdownLocation(file) {
   return (
     file === 'README.md' ||
     file === 'CATALOG.md' ||
+    file === 'WEBSITE_UX_TEST.md' ||
     file === 'site/README.md' ||
     file === 'docs/README.md' ||
     /^knowledge\/(SCHEMA|index|log)\.md$/.test(file) ||
