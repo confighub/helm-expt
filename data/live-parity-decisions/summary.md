@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-59 non-pass rows: 49 watch, 10 blocked.
+61 non-pass rows: 51 watch, 10 blocked.
 4 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -33,8 +33,8 @@ passed — the residue is operational, not a config mismatch.
 
 | Residue category | Rows |
 | --- | ---: |
+| `remote-image` | 18 |
 | `gitops-runtime` | 16 |
-| `remote-image` | 16 |
 | `target-runtime` | 15 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
@@ -46,7 +46,7 @@ passed — the residue is operational, not a config mismatch.
 
 | Who fixes it | Rows |
 | --- | ---: |
-| `catalog or image publisher` | 16 |
+| `catalog or image publisher` | 18 |
 | `needs GitOps controller-health review` | 16 |
 | `needs runtime review` | 15 |
 | `catalog` | 5 |
@@ -74,7 +74,9 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | bitnami/opensearch@2.0.10 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/opensearch@2.0.10 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/opensearch@2.0.10 | legacy | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/phpmyadmin@20.0.0 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/phpmyadmin@20.0.0 | legacy | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/spark@10.0.3 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/spark@10.0.3 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/zookeeper@13.8.7 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |

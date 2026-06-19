@@ -17,17 +17,17 @@
   "familyCount": 22,
   "byActionType": {
     "run-promotion": 396,
-    "record-decision": 139,
+    "record-decision": 143,
     "stage-prereq": 60,
     "refresh-image": 50,
     "fix-model": 29,
     "run-kind": 25,
     "lifecycle-observe": 8,
-    "run-live": 8
+    "run-live": 4
   },
   "byOwnerLane": {
-    "Codex-live": 437,
-    "product-decision": 170,
+    "Codex-live": 433,
+    "product-decision": 174,
     "Claude-non-live": 108
   },
   "top10": [
@@ -42,7 +42,7 @@
       "action_id": "CCP-02",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 84,
+      "affected_cell_count": 88,
       "owner_lane": "product-decision"
     },
     {
@@ -522,7 +522,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 84,
+      "affected_cell_count": 88,
       "lanes": [
         "G",
         "K",
@@ -552,6 +552,10 @@
         "bitnami/nginx@24.0.4/existing-tls-ingress [P]",
         "bitnami/nginx@25.0.0/existing-tls-ingress [G]",
         "bitnami/nginx@25.0.0/existing-tls-ingress [P]",
+        "bitnami/opensearch@2.0.10/legacy [G]",
+        "bitnami/opensearch@2.0.10/legacy [P]",
+        "bitnami/phpmyadmin@20.0.0/legacy [G]",
+        "bitnami/phpmyadmin@20.0.0/legacy [P]",
         "bitnami/zookeeper@13.8.7/default [G]",
         "bitnami/zookeeper@13.8.7/default [P]",
         "bitnami/zookeeper@13.8.7/ha [G]",
@@ -966,33 +970,6 @@
     },
     {
       "action_id": "CCP-11",
-      "action_type": "run-live",
-      "sub_group": "live-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 8,
-      "lanes": [
-        "G",
-        "P"
-      ],
-      "command": "npm run live-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "live-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/opensearch@2.0.10/legacy [G]",
-        "bitnami/opensearch@2.0.10/legacy [P]",
-        "bitnami/phpmyadmin@20.0.0/legacy [G]",
-        "bitnami/phpmyadmin@20.0.0/legacy [P]",
-        "bitnami/spark@10.0.3/legacy [G]",
-        "bitnami/spark@10.0.3/legacy [P]",
-        "bitnami/zookeeper@13.8.7/legacy [G]",
-        "bitnami/zookeeper@13.8.7/legacy [P]"
-      ]
-    },
-    {
-      "action_id": "CCP-12",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -1018,7 +995,7 @@
       ]
     },
     {
-      "action_id": "CCP-13",
+      "action_id": "CCP-12",
       "action_type": "fix-model",
       "sub_group": "base-design",
       "owner_lane": "Claude-non-live",
@@ -1043,7 +1020,7 @@
       ]
     },
     {
-      "action_id": "CCP-14",
+      "action_id": "CCP-13",
       "action_type": "fix-model",
       "sub_group": "crd-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1066,7 +1043,7 @@
       ]
     },
     {
-      "action_id": "CCP-15",
+      "action_id": "CCP-14",
       "action_type": "stage-prereq",
       "sub_group": "provide-external-service",
       "owner_lane": "product-decision",
@@ -1090,7 +1067,7 @@
       ]
     },
     {
-      "action_id": "CCP-16",
+      "action_id": "CCP-15",
       "action_type": "fix-model",
       "sub_group": "semantic-normalization",
       "owner_lane": "Claude-non-live",
@@ -1110,6 +1087,29 @@
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [P]",
         "prometheus-community/prometheus-adapter@5.3.0/default [G]",
         "prometheus-community/prometheus-adapter@5.3.0/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-16",
+      "action_type": "run-live",
+      "sub_group": "live-ready",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 4,
+      "lanes": [
+        "G",
+        "P"
+      ],
+      "command": "npm run live-parity:run … (data/live-run-blocks)",
+      "prerequisite": "",
+      "expected_status": "pass or watch",
+      "prediction": true,
+      "evidence_surface": "live-parity-decisions",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "bitnami/spark@10.0.3/legacy [G]",
+        "bitnami/spark@10.0.3/legacy [P]",
+        "bitnami/zookeeper@13.8.7/legacy [G]",
+        "bitnami/zookeeper@13.8.7/legacy [P]"
       ]
     },
     {

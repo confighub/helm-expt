@@ -1,0 +1,1546 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-opensearch-2.0.10-legacy-live-parity-20260605
+spec:
+  chart: bitnami/opensearch
+  version: 2.0.10
+  base: legacy
+  result: watch
+  observedAt: '2026-06-19T07:40:14Z'
+  package:
+    path: packages/bitnami/opensearch/2.0.10
+  recipe:
+    path: recipes/bitnami/opensearch/2.0.10
+  variantRevision: recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-opensearch-mqkmcli9-1xbj
+    kubeContext: kind-helm-expt-parity-opensearch-mqkmcli9-1xbj
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-opensearch-mqkmcli9-1xbj --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-opensearch-mqkmcli9-1xbj"...
+
+        Deleting cluster "helm-expt-parity-opensearch-mqkmcli9-1xbj" ...
+
+        Deleted nodes: ["helm-expt-parity-opensearch-mqkmcli9-1xbj-control-plane"]
+
+        Deleting Space "helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
+        --version 2.0.10 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc
+      objectCount: 18
+      liveHelmManifestSHA256: fb5e6af0ee4f98e1ac54ee3aca28f419f0820afae3cc840f26839d494305f3dc
+      liveHelmManifestObjectCount: 18
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: 'statefulset.apps/opensearch-coordinating   0/2   8m
+
+          statefulset.apps/opensearch-data           0/2   8m
+
+          statefulset.apps/opensearch-ingest         0/2   8m
+
+          statefulset.apps/opensearch-master         0/2   8m'
+        pods: 'opensearch-coordinating-0   0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-coordinating-1   0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-data-0           0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-data-1           0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-ingest-0         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-ingest-1         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-master-0         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-master-1         0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default-helm
+          pod: opensearch-coordinating-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-coordinating-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-data-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-data-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-ingest-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-ingest-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-master-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        - namespace: default-helm
+          pod: opensearch-master-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 8b9a6c941e2187cceb3d2c94b5fb6398df8e93b2dae013bec330f91b480165d7
+            bytes: 15442
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: e3a066b8360b1ef10a46d08b83c5e3ea3bca5171f54b23cb90a292bd7db23b86
+            bytes: 20034
+          podArtifacts:
+          - namespace: default-helm
+            pod: opensearch-coordinating-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-0/describe.txt
+            sha256: 55320dfbedebe16a773cbe6c0d5ca1a3a46167ae5470b4f3eaf9649c2eba3e45
+            bytes: 7511
+          - namespace: default-helm
+            pod: opensearch-coordinating-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-0/logs.txt
+            sha256: 970a78056b978073c991913f36d4797cb14f275d646da932491508726e8fd1a6
+            bytes: 139
+          - namespace: default-helm
+            pod: opensearch-coordinating-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-0/previous-logs.txt
+            sha256: e25b72dceebc16942fff4626af142a5a02995625b6c1e13daa48e6d3629dbf94
+            bytes: 115
+          - namespace: default-helm
+            pod: opensearch-coordinating-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-1/describe.txt
+            sha256: fd966acb8579724a44ee048d156780ac69f50386ed13d0d3a4909474bba7650e
+            bytes: 7511
+          - namespace: default-helm
+            pod: opensearch-coordinating-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-1/logs.txt
+            sha256: 1efdcb7818a1ed71bab18b12b5d8021dae8c55e8d671450fdbb00ff8d21c1e14
+            bytes: 139
+          - namespace: default-helm
+            pod: opensearch-coordinating-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-coordinating-1/previous-logs.txt
+            sha256: beb5d587d6e401b13b42ceac320aea2f10eeb90a52a18dff8a71b618ac795db5
+            bytes: 115
+          - namespace: default-helm
+            pod: opensearch-data-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-0/describe.txt
+            sha256: 4fd7f8b0fe54020b3a08be841f6e3c5cd61b271b7cc2f6846cd3c3e674ac0975
+            bytes: 7476
+          - namespace: default-helm
+            pod: opensearch-data-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-0/logs.txt
+            sha256: 9eabd0a2ab36b0184731771f338a55e6a918f6a5283df22e5dc6b927ccd5d3c7
+            bytes: 131
+          - namespace: default-helm
+            pod: opensearch-data-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-0/previous-logs.txt
+            sha256: 4389d72615e074d68886719c2c0754f02cff42fcec951fa98217316bc9d745dc
+            bytes: 121
+          - namespace: default-helm
+            pod: opensearch-data-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-1/describe.txt
+            sha256: dbba006401b3d8a031beaba43316acdbc6a53a21d4d95a434e165f52d2f5bd93
+            bytes: 7476
+          - namespace: default-helm
+            pod: opensearch-data-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-1/logs.txt
+            sha256: 1e24487a05fc572ad94735adf57867bd77e5049dd32e4fbc54f1cd17ec4ce35a
+            bytes: 131
+          - namespace: default-helm
+            pod: opensearch-data-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-data-1/previous-logs.txt
+            sha256: 7f1418aa15ea2581d266f44f1f04b81e7bd870639bb93ebc3b11b1ec8da19886
+            bytes: 107
+          - namespace: default-helm
+            pod: opensearch-ingest-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-0/describe.txt
+            sha256: 335efe76f0ea5f8377b0ad25d500cf5c3cbfc9d42080e2a2f6a167a9be758c28
+            bytes: 7453
+          - namespace: default-helm
+            pod: opensearch-ingest-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-0/logs.txt
+            sha256: 85dfecc293cef460c9e5c92cfdbcb686fcb7848a3313543223a6ffae662d7ad4
+            bytes: 120
+          - namespace: default-helm
+            pod: opensearch-ingest-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-0/previous-logs.txt
+            sha256: 141df5605cc7b04e9f91f479632b4a1d011dc510f29ce03298d990f389d048c2
+            bytes: 109
+          - namespace: default-helm
+            pod: opensearch-ingest-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-1/describe.txt
+            sha256: f3c77a7723949db5bd8f2658805c7fa45b645d0e242fb171cec0bbe908739536
+            bytes: 7453
+          - namespace: default-helm
+            pod: opensearch-ingest-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-1/logs.txt
+            sha256: 93fafe71073d6b935b945caf1d9ce74f0b1ec28dc3ebaaee0e682155dda695eb
+            bytes: 133
+          - namespace: default-helm
+            pod: opensearch-ingest-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-ingest-1/previous-logs.txt
+            sha256: a1b0ee40f1dc4f139de59e47f384e85982ba662ff66569fbf5105d2325a07629
+            bytes: 109
+          - namespace: default-helm
+            pod: opensearch-master-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-0/describe.txt
+            sha256: 7b714392ddc3928decf75ca235318d4371ea9b4161a268d1b8a89421f1ad1f76
+            bytes: 7498
+          - namespace: default-helm
+            pod: opensearch-master-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-0/logs.txt
+            sha256: 41a8b90e3395aa5873ea3a555ca519021ea56329b6d3af1c1f9d931e48cae490
+            bytes: 130
+          - namespace: default-helm
+            pod: opensearch-master-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-0/previous-logs.txt
+            sha256: c65ed206fb8797e57541567ab73ad2fc9810bdfff28f0cc319f90fa7ae36fc8a
+            bytes: 113
+          - namespace: default-helm
+            pod: opensearch-master-1
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-1/describe.txt
+            sha256: 70b98c8f0041eed96474cbcb82215378578fcf86458ab85c1952e38315c2b5a6
+            bytes: 7498
+          - namespace: default-helm
+            pod: opensearch-master-1
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-1/logs.txt
+            sha256: 11ba58c44b6b0026ee1ef53fad2bbd97b5659e5d3522726e71f065c5c734805a
+            bytes: 130
+          - namespace: default-helm
+            pod: opensearch-master-1
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/opensearch-master-1/previous-logs.txt
+            sha256: 12b286cb3d0edd348e10c5a3e9fc52481bbee26a98ecf7d0e94fa43725c5e607
+            bytes: 109
+      stderr: 'I0619 08:41:17.453367   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 08:41:17.453827   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 08:41:17.455289   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 08:41:17.455290   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        Error: resource StatefulSet/default-helm/opensearch-coordinating not ready.
+        status: InProgress, message: Ready: 0/2
+
+        resource StatefulSet/default-helm/opensearch-data not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default-helm/opensearch-ingest not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default-helm/opensearch-master not ready. status: InProgress,
+        message: Ready: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+        --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 2b11d7b96c6b0b23d5a84dcf655f2c1e6fe78ff52f93867bff87d219675050a9
+      objectCount: 19
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/opensearch-coordinating   2/2   3m34s
+
+          statefulset.apps/opensearch-data           2/2   3m34s
+
+          statefulset.apps/opensearch-ingest         2/2   3m34s
+
+          statefulset.apps/opensearch-master         2/2   3m34s'
+        pods: '# default
+
+          opensearch-coordinating-0   1/1   Running   0     3m34s
+
+          opensearch-coordinating-1   1/1   Running   0     3m34s
+
+          opensearch-data-0           1/1   Running   0     3m34s
+
+          opensearch-data-1           1/1   Running   0     3m34s
+
+          opensearch-ingest-0         1/1   Running   0     3m34s
+
+          opensearch-ingest-1         1/1   Running   0     3m34s
+
+          opensearch-master-0         1/1   Running   0     3m34s
+
+          opensearch-master-1         1/1   Running   0     3m34s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|opensearch-coordinating
+          - apps/v1|StatefulSet|default|opensearch-data
+          - apps/v1|StatefulSet|default|opensearch-ingest
+          - apps/v1|StatefulSet|default|opensearch-master
+          - networking.k8s.io/v1|NetworkPolicy|default|opensearch-coordinating
+          - networking.k8s.io/v1|NetworkPolicy|default|opensearch-dashboards
+          - networking.k8s.io/v1|NetworkPolicy|default|opensearch-data
+          - networking.k8s.io/v1|NetworkPolicy|default|opensearch-ingest
+          - networking.k8s.io/v1|NetworkPolicy|default|opensearch-master
+          - policy/v1|PodDisruptionBudget|default|opensearch-coordinating
+          - policy/v1|PodDisruptionBudget|default|opensearch-data
+          - policy/v1|PodDisruptionBudget|default|opensearch-ingest
+          - policy/v1|PodDisruptionBudget|default|opensearch-master
+          - v1|Service|default|opensearch
+          - v1|Service|default|opensearch-coordinating-hl
+          - v1|Service|default|opensearch-data-hl
+          - v1|Service|default|opensearch-ingest-hl
+          - v1|Service|default|opensearch-master-hl
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+      controller: Argo CD OCI
+      app: opensearch-parity
+      manifestSHA256: bba32702c4ae4a3faab29a6bc350908791e06b428374d03c9ba7f067d9092a94
+      objectCount: 19
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+              targetRevision: latest
+          revision: sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T07:59:25Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0
+          - docker.io/bitnamilegacy/os-shell:12-debian-12-r51
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T07:59:25Z'
+          finishedAt: '2026-06-19T07:59:27Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 19
+          syncResultStatusCounts:
+            Synced: 19
+        history:
+        - id: 0
+          revision: sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+          deployedAt: '2026-06-19T07:59:27Z'
+          deployStartedAt: '2026-06-19T07:59:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opensearch
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opensearch-coordinating-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opensearch-data-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opensearch-ingest-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: opensearch-master-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: opensearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: opensearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: opensearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: opensearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: opensearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: opensearch-dashboards
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: opensearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: opensearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: opensearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: opensearch-coordinating
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: opensearch-data
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: opensearch-ingest
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: opensearch-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         opensearch-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster:argoproj.io/Application:argocd/opensearch-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ d8471926-a7f8-43de-ac8b-ee307dc7a779\n              confighub.com/UnitSlug:\
+              \ opensearch-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-19T07:59:23Z\n\
+              \  Generation:          8\n  Resource Version:    3590\n  UID:     \
+              \            4ebba5cf-7c4d-48b8-b20f-ce8d2b859cd7\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-19T07:59:25Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-19T07:59:25Z\n    Deployed At:        2026-06-19T07:59:27Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \    Source:\n      Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T07:59:27Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \        Source:\n          Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-19T07:59:25Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/opensearch-data\
+              \ serverside-applied\n        Name:        opensearch-data\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/opensearch-coordinating\
+              \ serverside-applied\n        Name:        opensearch-coordinating\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/opensearch-master\
+              \ serverside-applied\n        Name:        opensearch-master\n     \
+              \   Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/opensearch-dashboards\
+              \ serverside-applied\n        Name:        opensearch-dashboards\n \
+              \       Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/opensearch-ingest\
+              \ serverside-applied\n        Name:        opensearch-ingest\n     \
+              \   Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/opensearch-data serverside-applied\n\
+              \        Name:        opensearch-data\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/opensearch-master\
+              \ serverside-applied\n        Name:        opensearch-master\n     \
+              \   Namespace:   default\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       policy\n\
+              \        Hook Phase:  Running\n        Kind:        PodDisruptionBudget\n\
+              \        Message:     poddisruptionbudget.policy/opensearch-ingest serverside-applied\n\
+              \        Name:        opensearch-ingest\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/opensearch-coordinating\
+              \ serverside-applied\n        Name:        opensearch-coordinating\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        Service\n      \
+              \  Message:     service/opensearch-master-hl serverside-applied\n  \
+              \     "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              9s          Normal   OperationStarted     application/opensearch-parity   Initiated
+              automated sync to ''sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60''
+
+              9s          Normal   ResourceUpdated      application/opensearch-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/opensearch-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/opensearch-parity   Sync
+              operation to sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/opensearch-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 19
+              artifact:
+                path: argocd-core-child.json
+                sha256: 3a089a573d7c2bb442620b424560779ac34977efa189fd1ad16c315513e9591f
+                bytes: 20481
+              output: "{\n  \"metadata\": {\n    \"name\": \"opensearch-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"4ebba5cf-7c4d-48b8-b20f-ce8d2b859cd7\"\
+                ,\n    \"resourceVersion\": \"3608\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-19T07:59:23Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster:argoproj.io/Application:argocd/opensearch-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"d8471926-a7f8-43de-ac8b-ee307dc7a779\",\n      \"confighub.com/UnitSlug\"\
+                : \"opensearch-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-19T07:59:23Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-19T07:59:42Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"opensearch\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"Service\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"opensearch-coordinating-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"opensearch-data-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"opensearch-ingest-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"default\",\n        \"name\": \"opensearch-master-hl\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 858b7b3c4e1a46d1cac62c53d7979c969b6dd1e5452099f7aeb40a0182a41767
+                bytes: 5278
+              output: "Name:               argocd/opensearch-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:51095/applications/opensearch-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \      STATUS  HEALTH   AGE    MESSAGE                           \
+                \                                          REASON\nService/opensearch-data-hl\
+                \                              Synced  Healthy  10m    service/opensearch-data-hl\
+                \ serverside-applied                               \nStatefulSet/opensearch-data\
+                \                             Synced  Healthy  10m    statefulset.apps/opensearch-data\
+                \ serverside-applied                         statefulset rolling update\
+                \ complete 2 pods at revision opensearch-data-548b7bd648...\n\u251C\
+                \u2500PersistentVolumeClaim/data-opensearch-data-0               \
+                \   Healthy  10m                                                 \
+                \                               \n\u251C\u2500PersistentVolumeClaim/data-opensearch-data-1\
+                \                  Healthy  10m                                  \
+                \                                              \n\u251C\u2500Pod/opensearch-data-0\
+                \                                         Healthy  10m           \
+                \                                                                \
+                \     \n\u251C\u2500Pod/opensearch-data-1                        \
+                \                 Healthy  10m                                   \
+                \                                             \n\u2514\u2500ControllerRevision/opensearch-data-548b7bd648\
+                \                          10m                                   \
+                \                                             \nNetworkPolicy/opensearch-coordinating\
+                \                   Synced           10m    networkpolicy.networking.k8s.io/opensearch-coordinating\
+                \ serverside-applied  \nNetworkPolicy/opensearch-dashboards      \
+                \               Synced           10m    networkpolicy.networking.k8s.io/opensearch-dashboards\
+                \ serverside-applied    \nPodDisruptionBudget/opensearch-coordinating\
+                \             Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-coordinating\
+                \ serverside-applied       PodDisruptionBudget has SufficientPods\n\
+                PodDisruptionBudget/opensearch-data                     Synced  Healthy\
+                \  10m    poddisruptionbudget.policy/opensearch-data serverside-applied\
+                \               PodDisruptionBudget has SufficientPods\nNamespace/default-oci\
+                \                                   Synced           6m41s       \
+                \                                                                \
+                \       \nService/opensearch-master-hl                           \
+                \ Synced  Healthy  10m    service/opensearch-master-hl serverside-applied\
+                \                             \nStatefulSet/opensearch-ingest    \
+                \                       Synced  Healthy  10m    statefulset.apps/opensearch-ingest\
+                \ serverside-applied                       statefulset rolling update\
+                \ complete 2 pods at revision opensearch-ingest-7c47b8c7b4...\n\u251C\
+                \u2500Pod/opensearch-ingest-0                                    \
+                \   Healthy  10m                                                 \
+                \                               \n\u251C\u2500Pod/opensearch-ingest-1\
+                \                                       Healthy  10m             \
+                \                                                                \
+                \   \n\u2514\u2500ControllerRevision/opensearch-ingest-7c47b8c7b4\
+                \                        10m                                     \
+                \                                           \nService/opensearch \
+                \                                     Synced  Healthy  10m    service/opensearch\
+                \ serverside-applied                                       \nService/opensearch-coordinating-hl\
+                \                      Synced  Healthy  10m    service/opensearch-coordinating-hl\
+                \ serverside-applied                       \nStatefulSet/opensearch-master\
+                \                           Synced  Healthy  10m    statefulset.apps/opensearch-master\
+                \ serverside-applied                       statefulset rolling update\
+                \ complete 2 pods at revision opensearch-master-845bc7757...\n\u251C\
+                \u2500PersistentVolumeClaim/data-opensearch-master-0             \
+                \   Healthy  10m                                                 \
+                \                               \n\u251C\u2500PersistentVolumeClaim/data-opensearch-master-1\
+                \                Healthy  10m                                    \
+                \                                            \n\u251C\u2500Pod/opensearch-master-0\
+                \                                       Healthy  10m             \
+                \                                                                \
+                \   \n\u251C\u2500Pod/opensearch-master-1                        \
+                \               Healthy  10m                                     \
+                \                                           \n\u2514\u2500ControllerRevision/opensearch-master-845bc7757\
+                \                         10m                                    \
+                \                                            \nService/opensearch-ingest-hl\
+                \                            Synced  Healthy  10m    service/opensearch-ingest-hl\
+                \ serverside-applied                             \nStatefulSet/opensearch-coordinating\
+                \                     Synced  Healthy  10m    statefulset.apps/opensearch-coordinating\
+                \ serverside-applied                 statefulset rolling update complete\
+                \ 2 pods at revision opensearch-coordinating-d66f7f756...\n\u251C\u2500\
+                Pod/opensearch-coordinating-0                                 Healthy\
+                \  10m                                                           \
+                \                     \n\u251C\u2500Pod/opensearch-coordinating-1\
+                \                                 Healthy  10m                   \
+                \                                                             \n\u2514\
+                \u2500ControllerRevision/opensearch-coordinating-d66f7f756       \
+                \            10m                                                 \
+                \                               \nNetworkPolicy/opensearch-data  \
+                \                         Synced           10m    networkpolicy.networking.k8s.io/opensearch-data\
+                \ serverside-applied          \nNetworkPolicy/opensearch-ingest  \
+                \                       Synced           10m    networkpolicy.networking.k8s.io/opensearch-ingest\
+                \ serverside-applied        \nNetworkPolicy/opensearch-master    \
+                \                     Synced           10m    networkpolicy.networking.k8s.io/opensearch-master\
+                \ serverside-applied        \nPodDisruptionBudget/opensearch-ingest\
+                \                   Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-ingest\
+                \ serverside-applied             PodDisruptionBudget has SufficientPods\n\
+                PodDisruptionBudget/opensearch-master                   Synced  Healthy\
+                \  10m    poddisruptionbudget.policy/opensearch-master serverside-applied\
+                \             PodDisruptionBudget has SufficientPods"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              opensearch-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/opensearch-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opensearch-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+              targetRevision: latest
+          revision: sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T07:41:24Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T07:59:22Z'
+          finishedAt: '2026-06-19T07:59:23Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+          deployedAt: '2026-06-19T07:59:23Z'
+          deployStartedAt: '2026-06-19T07:59:22Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: opensearch-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-19T07:41:09Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  3551\n  UID:        \
+              \       f78464ec-4632-46af-9618-4c4a90becd37\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-19T07:41:24Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-19T07:59:22Z\n\
+              \    Deployed At:        2026-06-19T07:59:23Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \    Source:\n      Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T07:59:23Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \        Source:\n          Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-19T07:59:22Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/opensearch-parity serverside-applied\n\
+              \        Name:        opensearch-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \      Source:\n        Path:              ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-19T07:59:23Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       opensearch-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     18m   argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     18m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  ResourceUpdated   \
+              \  15m   argocd-application-controller  Updated sync status: Unknown\
+              \ -> Synced\n  Normal  OperationStarted    30s   argocd-application-controller\
+              \  Initiated automated sync to 'sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s   argocd-application-controller  Sync operation to sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\
+              \ succeeded\n  Normal  ResourceUpdated     27s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                          MESSAGE
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Updated
+              sync status:  -> Unknown
+
+              18m         Normal   ResourceUpdated      application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Updated
+              health status:  -> Healthy
+
+              15m         Normal   ResourceUpdated      application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Updated
+              sync status: Unknown -> Synced
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Initiated
+              automated sync to ''sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Sync
+              operation to sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 568ca51b9eb423d56663c602679265e6c4cd793236251064c8aae3d788a9b542
+                bytes: 9395
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"f78464ec-4632-46af-9618-4c4a90becd37\"\
+                ,\n    \"resourceVersion\": \"3633\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-19T07:41:09Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-19T07:41:09Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-19T07:59:59Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"opensearch-parity\",\n        \"status\": \"Synced\"\
+                \n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-op"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 5df90e1bbbef8b7607d03285cee1ad38018c15a0bff5693bde2874871f63591e
+                bytes: 1154
+              output: "Name:               argocd/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51206/applications/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \             STATUS  HEALTH  AGE  MESSAGE                       \
+                \                                                                REASON\n\
+                Application/opensearch-parity                                  Synced\
+                \          45s  application.argoproj.io/opensearch-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\
+                \  Synced          18m  application.argoproj.io/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              opensearch-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/opensearch-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41808ad527e56a9c124a4f2f86234a42fe2f083736f5433134fc98ac6acedf60\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opensearch-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/opensearch-coordinating   2/2   10m
+
+          statefulset.apps/opensearch-data           2/2   10m
+
+          statefulset.apps/opensearch-ingest         2/2   10m
+
+          statefulset.apps/opensearch-master         2/2   10m'
+        pods: '# default
+
+          opensearch-coordinating-0   1/1   Running   0     10m
+
+          opensearch-coordinating-1   1/1   Running   0     10m
+
+          opensearch-data-0           1/1   Running   0     10m
+
+          opensearch-data-1           1/1   Running   0     10m
+
+          opensearch-ingest-0         1/1   Running   0     10m
+
+          opensearch-ingest-1         1/1   Running   0     10m
+
+          opensearch-master-0         1/1   Running   0     10m
+
+          opensearch-master-1         1/1   Running   0     10m'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 18
+      configHubObjectCount: 19
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-19T07:41:09Z'
+    finishedAt: '2026-06-19T07:49:17Z'
+    elapsedSeconds: 487.834
+    timeoutSeconds: 900
+    command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
+      --version 2.0.10 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-19T07:49:29Z'
+    finishedAt: '2026-06-19T07:49:29Z'
+    elapsedSeconds: 0.539
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-19T07:49:30Z'
+    finishedAt: '2026-06-19T07:49:30Z'
+    elapsedSeconds: 0.15
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig
+      --context kind-helm-expt-parity-opensearch-mqkmcli9-1xbj apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/direct-apply-manifest.yaml
+    objectCount: 18
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-19T07:49:30Z'
+    finishedAt: '2026-06-19T07:53:04Z'
+    elapsedSeconds: 214.065
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-19T07:53:10Z'
+    finishedAt: '2026-06-19T07:53:10Z'
+    elapsedSeconds: 0.531
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-19T07:53:10Z'
+    finishedAt: '2026-06-19T07:54:02Z'
+    elapsedSeconds: 52.129
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+      --space helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch --target helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+    objectCount: 19
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-19T07:54:02Z'
+    finishedAt: '2026-06-19T07:54:03Z'
+    elapsedSeconds: 0.601
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-19T07:54:03Z'
+    finishedAt: '2026-06-19T07:59:12Z'
+    elapsedSeconds: 309.043
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+      --unit <19 unit(s)> --wait --timeout 5m
+    unitCount: 19
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-19T07:59:12Z'
+    finishedAt: '2026-06-19T07:59:13Z'
+    elapsedSeconds: 1.003
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+      opensearch-parity-app /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/argo-application.json
+      --target helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-19T07:59:13Z'
+    finishedAt: '2026-06-19T07:59:14Z'
+    elapsedSeconds: 0.971
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-19T07:59:14Z'
+    finishedAt: '2026-06-19T07:59:34Z'
+    elapsedSeconds: 20.163
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-19T08:00:09Z'
+    finishedAt: '2026-06-19T08:00:09Z'
+    elapsedSeconds: 0.116
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-opensearch-mqkmcli9-1xbj\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-opensearch-mqkmcli9-1xbj\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-opensearch-mqkmcli9-1xbj\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opensearch-mqkmcli9-1xbj\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'I0619 08:41:17.453367   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 08:41:17.453827   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 08:41:17.455289   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 08:41:17.455290   89977 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      Error: resource StatefulSet/default-helm/opensearch-coordinating not ready.
+      status: InProgress, message: Ready: 0/2
+
+      resource StatefulSet/default-helm/opensearch-data not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default-helm/opensearch-ingest not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default-helm/opensearch-master not ready. status: InProgress,
+      message: Ready: 0/2
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/opensearch-coordinating   2/2   3m34s
+
+      statefulset.apps/opensearch-data           2/2   3m34s
+
+      statefulset.apps/opensearch-ingest         2/2   3m34s
+
+      statefulset.apps/opensearch-master         2/2   3m34s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

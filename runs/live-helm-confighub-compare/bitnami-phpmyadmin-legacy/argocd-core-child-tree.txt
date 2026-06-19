@@ -1,0 +1,23 @@
+Name:               argocd/phpmyadmin-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:51627/applications/phpmyadmin-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                            STATUS  HEALTH   AGE   MESSAGE                                                        REASON
+PodDisruptionBudget/phpmyadmin       Synced  Healthy  2m9s  poddisruptionbudget.policy/phpmyadmin serverside-applied       PodDisruptionBudget has SufficientPods
+Namespace/default-oci                Synced           62s
+Service/phpmyadmin                   Synced  Healthy  2m9s  service/phpmyadmin serverside-applied
+ServiceAccount/phpmyadmin            Synced           2m9s  serviceaccount/phpmyadmin serverside-applied
+Deployment/phpmyadmin                Synced  Healthy  2m9s  deployment.apps/phpmyadmin serverside-applied
+└─ReplicaSet/phpmyadmin-76d75c8d86           Healthy  2m9s
+  └─Pod/phpmyadmin-76d75c8d86-6z4ww          Healthy  2m9s
+NetworkPolicy/phpmyadmin             Synced           2m9s  networkpolicy.networking.k8s.io/phpmyadmin serverside-applied

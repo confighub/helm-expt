@@ -1,0 +1,50 @@
+Name:               argocd/opensearch-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:51095/applications/opensearch-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                               STATUS  HEALTH   AGE    MESSAGE                                                                     REASON
+Service/opensearch-data-hl                              Synced  Healthy  10m    service/opensearch-data-hl serverside-applied
+StatefulSet/opensearch-data                             Synced  Healthy  10m    statefulset.apps/opensearch-data serverside-applied                         statefulset rolling update complete 2 pods at revision opensearch-data-548b7bd648...
+├─PersistentVolumeClaim/data-opensearch-data-0                  Healthy  10m
+├─PersistentVolumeClaim/data-opensearch-data-1                  Healthy  10m
+├─Pod/opensearch-data-0                                         Healthy  10m
+├─Pod/opensearch-data-1                                         Healthy  10m
+└─ControllerRevision/opensearch-data-548b7bd648                          10m
+NetworkPolicy/opensearch-coordinating                   Synced           10m    networkpolicy.networking.k8s.io/opensearch-coordinating serverside-applied
+NetworkPolicy/opensearch-dashboards                     Synced           10m    networkpolicy.networking.k8s.io/opensearch-dashboards serverside-applied
+PodDisruptionBudget/opensearch-coordinating             Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-coordinating serverside-applied       PodDisruptionBudget has SufficientPods
+PodDisruptionBudget/opensearch-data                     Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-data serverside-applied               PodDisruptionBudget has SufficientPods
+Namespace/default-oci                                   Synced           6m41s
+Service/opensearch-master-hl                            Synced  Healthy  10m    service/opensearch-master-hl serverside-applied
+StatefulSet/opensearch-ingest                           Synced  Healthy  10m    statefulset.apps/opensearch-ingest serverside-applied                       statefulset rolling update complete 2 pods at revision opensearch-ingest-7c47b8c7b4...
+├─Pod/opensearch-ingest-0                                       Healthy  10m
+├─Pod/opensearch-ingest-1                                       Healthy  10m
+└─ControllerRevision/opensearch-ingest-7c47b8c7b4                        10m
+Service/opensearch                                      Synced  Healthy  10m    service/opensearch serverside-applied
+Service/opensearch-coordinating-hl                      Synced  Healthy  10m    service/opensearch-coordinating-hl serverside-applied
+StatefulSet/opensearch-master                           Synced  Healthy  10m    statefulset.apps/opensearch-master serverside-applied                       statefulset rolling update complete 2 pods at revision opensearch-master-845bc7757...
+├─PersistentVolumeClaim/data-opensearch-master-0                Healthy  10m
+├─PersistentVolumeClaim/data-opensearch-master-1                Healthy  10m
+├─Pod/opensearch-master-0                                       Healthy  10m
+├─Pod/opensearch-master-1                                       Healthy  10m
+└─ControllerRevision/opensearch-master-845bc7757                         10m
+Service/opensearch-ingest-hl                            Synced  Healthy  10m    service/opensearch-ingest-hl serverside-applied
+StatefulSet/opensearch-coordinating                     Synced  Healthy  10m    statefulset.apps/opensearch-coordinating serverside-applied                 statefulset rolling update complete 2 pods at revision opensearch-coordinating-d66f7f756...
+├─Pod/opensearch-coordinating-0                                 Healthy  10m
+├─Pod/opensearch-coordinating-1                                 Healthy  10m
+└─ControllerRevision/opensearch-coordinating-d66f7f756                   10m
+NetworkPolicy/opensearch-data                           Synced           10m    networkpolicy.networking.k8s.io/opensearch-data serverside-applied
+NetworkPolicy/opensearch-ingest                         Synced           10m    networkpolicy.networking.k8s.io/opensearch-ingest serverside-applied
+NetworkPolicy/opensearch-master                         Synced           10m    networkpolicy.networking.k8s.io/opensearch-master serverside-applied
+PodDisruptionBudget/opensearch-ingest                   Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-ingest serverside-applied             PodDisruptionBudget has SufficientPods
+PodDisruptionBudget/opensearch-master                   Synced  Healthy  10m    poddisruptionbudget.policy/opensearch-master serverside-applied             PodDisruptionBudget has SufficientPods

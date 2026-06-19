@@ -266,8 +266,8 @@ bitnami/opensearch@2.0.10,ha,two_cluster_kind_parity,K,blocked,blocked,no,parity
 bitnami/opensearch@2.0.10,legacy,render_parity,R,pass,pass,no,,,
 bitnami/opensearch@2.0.10,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/opensearch@2.0.10,legacy,local_live,L,pass,pass,no,,,
-bitnami/opensearch@2.0.10,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/opensearch@2.0.10,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/opensearch@2.0.10,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/opensearch@2.0.10,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/opensearch@2.0.10,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/phpmyadmin@20.0.0,default,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
@@ -278,8 +278,8 @@ bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,blocked,blocked,no,r
 bitnami/phpmyadmin@20.0.0,legacy,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,local_live,L,pass,pass,no,,,
-bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,

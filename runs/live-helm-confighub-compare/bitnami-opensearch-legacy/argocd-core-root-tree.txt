@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:51206/applications/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                      STATUS  HEALTH  AGE  MESSAGE                                                                                       REASON
+Application/opensearch-parity                                  Synced          45s  application.argoproj.io/opensearch-parity serverside-applied
+Application/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster  Synced          18m  application.argoproj.io/helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster serverside-applied

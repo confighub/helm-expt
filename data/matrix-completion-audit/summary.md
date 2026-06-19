@@ -23,8 +23,8 @@ columns). It changes no status and runs nothing.
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 350 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 229 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 95 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `already-decided` | 233 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 91 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 41 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -38,16 +38,16 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `watch` | 229 |
+| `watch` | 233 |
 | `not-applicable-source` | 110 |
 | `blocked` | 100 |
-| `todo` | 95 |
+| `todo` | 91 |
 | `proven` | 76 |
 | `not-applicable-candidate` | 74 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (95)
+## needs-run (91)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -73,12 +73,8 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/nginx@24.0.2 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@24.0.4 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/opensearch@2.0.10 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
 | bitnami/opensearch@2.0.10 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/opensearch@2.0.10 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
-| bitnami/phpmyadmin@20.0.0 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
 | bitnami/phpmyadmin@20.0.0 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/phpmyadmin@20.0.0 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | bitnami/postgresql@18.6.10 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.10 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.7 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -554,7 +550,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (229)
+## already-decided (233)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -624,9 +620,13 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/opensearch@2.0.10 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/opensearch@2.0.10 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/opensearch@2.0.10 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/opensearch@2.0.10 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/opensearch@2.0.10 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/phpmyadmin@20.0.0 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/phpmyadmin@20.0.0 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/postgresql@18.6.10 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.6.10 | generated-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.7.0 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
