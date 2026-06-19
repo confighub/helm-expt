@@ -14,20 +14,19 @@
     "data/variant-promotion-proof-batches"
   ],
   "nonGreenCellsCovered": 715,
-  "familyCount": 22,
+  "familyCount": 21,
   "byActionType": {
     "run-promotion": 396,
-    "record-decision": 145,
+    "record-decision": 147,
     "stage-prereq": 60,
     "refresh-image": 50,
     "fix-model": 29,
     "run-kind": 25,
-    "lifecycle-observe": 8,
-    "run-live": 2
+    "lifecycle-observe": 8
   },
   "byOwnerLane": {
-    "Codex-live": 431,
-    "product-decision": 176,
+    "Codex-live": 429,
+    "product-decision": 178,
     "Claude-non-live": 108
   },
   "top10": [
@@ -42,7 +41,7 @@
       "action_id": "CCP-02",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 90,
+      "affected_cell_count": 92,
       "owner_lane": "product-decision"
     },
     {
@@ -522,7 +521,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 90,
+      "affected_cell_count": 92,
       "lanes": [
         "G",
         "K",
@@ -562,6 +561,8 @@
         "bitnami/zookeeper@13.8.7/default [P]",
         "bitnami/zookeeper@13.8.7/ha [G]",
         "bitnami/zookeeper@13.8.7/ha [P]",
+        "bitnami/zookeeper@13.8.7/legacy [G]",
+        "bitnami/zookeeper@13.8.7/legacy [P]",
         "dex/dex@0.24.0/default [G]",
         "dex/dex@0.24.0/default [P]",
         "elastic/filebeat@8.5.1/default [G]",
@@ -1180,27 +1181,6 @@
     },
     {
       "action_id": "CCP-20",
-      "action_type": "run-live",
-      "sub_group": "live-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 2,
-      "lanes": [
-        "G",
-        "P"
-      ],
-      "command": "npm run live-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "live-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/zookeeper@13.8.7/legacy [G]",
-        "bitnami/zookeeper@13.8.7/legacy [P]"
-      ]
-    },
-    {
-      "action_id": "CCP-21",
       "action_type": "stage-prereq",
       "sub_group": "admission-or-rbac",
       "owner_lane": "product-decision",
@@ -1220,7 +1200,7 @@
       ]
     },
     {
-      "action_id": "CCP-22",
+      "action_id": "CCP-21",
       "action_type": "fix-model",
       "sub_group": "generated-fact",
       "owner_lane": "Claude-non-live",

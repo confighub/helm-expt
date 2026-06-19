@@ -94,6 +94,7 @@ rank,chart,version,variant,result,reason,receipt
 ,bitnami/spark,10.0.3,legacy,watch,remote-image: image pull failed or pinned image is unavailable (parity passed),runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml
 ,bitnami/zookeeper,13.8.7,default,watch,remote-image: image pull failed or pinned image is unavailable (parity passed),runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml
 ,bitnami/zookeeper,13.8.7,ha,watch,remote-image: image pull failed or pinned image is unavailable (parity passed),runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml
+,bitnami/zookeeper,13.8.7,legacy,watch,remote-image: image pull failed or pinned image is unavailable (parity passed),runs/live-helm-confighub-compare/bitnami-zookeeper-legacy/receipt.yaml
 ,cloudnative-pg/cloudnative-pg,0.28.2,default,pass,,runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml
 ,cloudnative-pg/cloudnative-pg,0.28.2,no-crds,pass,,runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml
 ,coredns/coredns,1.45.2,default,pass,,runs/live-helm-confighub-compare/coredns-coredns-default/receipt.yaml

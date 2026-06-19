@@ -23,8 +23,8 @@ columns). It changes no status and runs nothing.
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 350 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 235 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 89 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `already-decided` | 237 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 87 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 41 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -38,16 +38,16 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `watch` | 235 |
+| `watch` | 237 |
 | `not-applicable-source` | 110 |
 | `blocked` | 100 |
-| `todo` | 89 |
+| `todo` | 87 |
 | `proven` | 76 |
 | `not-applicable-candidate` | 74 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (89)
+## needs-run (87)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -86,9 +86,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/redis@25.5.3 | reuse-existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@25.5.3 | reuse-existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/spark@10.0.3 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/zookeeper@13.8.7 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
 | bitnami/zookeeper@13.8.7 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/zookeeper@13.8.7 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -548,7 +546,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (235)
+## already-decided (237)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -645,6 +643,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/zookeeper@13.8.7 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/zookeeper@13.8.7 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/zookeeper@13.8.7 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | coredns/coredns@1.45.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |

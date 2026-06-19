@@ -386,8 +386,8 @@ bitnami/zookeeper@13.8.7,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-
 bitnami/zookeeper@13.8.7,legacy,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,local_live,L,pass,pass,no,,,
-bitnami/zookeeper@13.8.7,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/zookeeper@13.8.7,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
+bitnami/zookeeper@13.8.7,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/zookeeper@13.8.7,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
 cloudnative-pg/cloudnative-pg@0.28.2,default,render_parity,R,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,default,in_confighub,C,pass,pass,no,,,

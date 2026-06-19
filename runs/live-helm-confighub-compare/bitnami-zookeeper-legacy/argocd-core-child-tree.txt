@@ -1,0 +1,26 @@
+Name:               argocd/zookeeper-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:55587/applications/zookeeper-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-zookeeper-mqlg2fex-rsc-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-zookeeper-mqlg2fex-rsc-zookeeper
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                  STATUS  HEALTH   AGE    MESSAGE                                                       REASON
+ServiceAccount/zookeeper                   Synced           6m58s  serviceaccount/zookeeper serverside-applied
+StatefulSet/zookeeper                      Synced  Healthy  6m58s  statefulset.apps/zookeeper serverside-applied                 partitioned roll out complete: 1 new pods have been updated...
+├─PersistentVolumeClaim/data-zookeeper-0           Healthy  6m58s
+├─Pod/zookeeper-0                                  Healthy  6m58s
+└─ControllerRevision/zookeeper-595669454f                   6m58s
+NetworkPolicy/zookeeper                    Synced           6m58s  networkpolicy.networking.k8s.io/zookeeper serverside-applied
+PodDisruptionBudget/zookeeper              Synced  Healthy  6m58s  poddisruptionbudget.policy/zookeeper serverside-applied       PodDisruptionBudget has SufficientPods
+ConfigMap/zookeeper-scripts                Synced           6m58s  configmap/zookeeper-scripts serverside-applied
+Namespace/default-oci                      Synced           6m11s
+Service/zookeeper                          Synced  Healthy  6m58s  service/zookeeper serverside-applied
+Service/zookeeper-headless                 Synced  Healthy  6m58s  service/zookeeper-headless serverside-applied
