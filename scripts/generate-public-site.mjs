@@ -462,7 +462,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   </header>
   <main>
     <section aria-labelledby="parity-demos">
-      <h2 id="parity-demos">1. Prove Parity</h2>
+      <h2 id="parity-demos">1. Helm Parity</h2>
       <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
       <div class="catalog">
         ${parityDemos
