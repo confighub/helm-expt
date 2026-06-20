@@ -20,14 +20,14 @@
     "record-decision": 147,
     "stage-prereq": 60,
     "refresh-image": 50,
-    "fix-model": 29,
-    "run-kind": 25,
+    "fix-model": 35,
+    "run-kind": 19,
     "lifecycle-observe": 8
   },
   "byOwnerLane": {
-    "Codex-live": 429,
+    "Codex-live": 423,
     "product-decision": 178,
-    "Claude-non-live": 108
+    "Claude-non-live": 114
   },
   "top10": [
     {
@@ -60,23 +60,23 @@
     },
     {
       "action_id": "CCP-05",
-      "action_type": "run-kind",
-      "sub_group": "kind-ready",
-      "affected_cell_count": 25,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-06",
       "action_type": "stage-prereq",
       "sub_group": "operator-review",
       "affected_cell_count": 20,
       "owner_lane": "product-decision"
     },
     {
+      "action_id": "CCP-06",
+      "action_type": "run-kind",
+      "sub_group": "kind-ready",
+      "affected_cell_count": 19,
+      "owner_lane": "Codex-live"
+    },
+    {
       "action_id": "CCP-07",
       "action_type": "fix-model",
       "sub_group": "model-gap",
-      "affected_cell_count": 10,
+      "affected_cell_count": 16,
       "owner_lane": "Claude-non-live"
     },
     {
@@ -774,49 +774,6 @@
     },
     {
       "action_id": "CCP-05",
-      "action_type": "run-kind",
-      "sub_group": "kind-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 25,
-      "lanes": [
-        "K"
-      ],
-      "command": "npm run kind-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "kind-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "argo-cd/argo-cd@9.5.17/default [K]",
-        "bitnami/apache@11.4.29/legacy [K]",
-        "bitnami/elasticsearch@22.1.6/legacy [K]",
-        "bitnami/mongodb@19.0.7/existing-secret-replicaset [K]",
-        "bitnami/mongodb@19.0.7/generated-passwords [K]",
-        "bitnami/mongodb@19.0.9/existing-secret-replicaset [K]",
-        "bitnami/mongodb@19.0.9/generated-passwords [K]",
-        "bitnami/nginx@24.0.2/existing-tls-ingress [K]",
-        "bitnami/nginx@24.0.2/http-clusterip [K]",
-        "bitnami/nginx@24.0.4/existing-tls-ingress [K]",
-        "bitnami/nginx@24.0.4/http-clusterip [K]",
-        "bitnami/opensearch@2.0.10/legacy [K]",
-        "bitnami/phpmyadmin@20.0.0/legacy [K]",
-        "bitnami/postgresql@18.6.10/existing-secret [K]",
-        "bitnami/postgresql@18.6.10/generated-passwords [K]",
-        "bitnami/postgresql@18.6.7/existing-secret [K]",
-        "bitnami/postgresql@18.6.7/generated-passwords [K]",
-        "bitnami/redis@25.5.3/default [K]",
-        "bitnami/redis@25.5.3/reuse-existing-secret [K]",
-        "bitnami/spark@10.0.3/legacy [K]",
-        "bitnami/zookeeper@13.8.7/legacy [K]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [K]",
-        "prometheus-community/prometheus@29.8.0/default [K]",
-        "prometheus-community/prometheus@29.8.0/server-only-ephemeral [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-06",
       "action_type": "stage-prereq",
       "sub_group": "operator-review",
       "owner_lane": "product-decision",
@@ -855,11 +812,48 @@
       ]
     },
     {
+      "action_id": "CCP-06",
+      "action_type": "run-kind",
+      "sub_group": "kind-ready",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 19,
+      "lanes": [
+        "K"
+      ],
+      "command": "npm run kind-parity:run … (data/live-run-blocks)",
+      "prerequisite": "",
+      "expected_status": "pass or watch",
+      "prediction": true,
+      "evidence_surface": "kind-parity-decisions",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "argo-cd/argo-cd@9.5.17/default [K]",
+        "bitnami/mongodb@19.0.7/existing-secret-replicaset [K]",
+        "bitnami/mongodb@19.0.7/generated-passwords [K]",
+        "bitnami/mongodb@19.0.9/existing-secret-replicaset [K]",
+        "bitnami/mongodb@19.0.9/generated-passwords [K]",
+        "bitnami/nginx@24.0.2/existing-tls-ingress [K]",
+        "bitnami/nginx@24.0.2/http-clusterip [K]",
+        "bitnami/nginx@24.0.4/existing-tls-ingress [K]",
+        "bitnami/nginx@24.0.4/http-clusterip [K]",
+        "bitnami/postgresql@18.6.10/existing-secret [K]",
+        "bitnami/postgresql@18.6.10/generated-passwords [K]",
+        "bitnami/postgresql@18.6.7/existing-secret [K]",
+        "bitnami/postgresql@18.6.7/generated-passwords [K]",
+        "bitnami/redis@25.5.3/default [K]",
+        "bitnami/redis@25.5.3/reuse-existing-secret [K]",
+        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]",
+        "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [K]",
+        "prometheus-community/prometheus@29.8.0/default [K]",
+        "prometheus-community/prometheus@29.8.0/server-only-ephemeral [K]"
+      ]
+    },
+    {
       "action_id": "CCP-07",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
-      "affected_cell_count": 10,
+      "affected_cell_count": 16,
       "lanes": [
         "G",
         "K",
@@ -873,8 +867,14 @@
       "evidence_surface": "model-gap-workdown",
       "linked_issues": "#248; #753",
       "affected_rows": [
+        "bitnami/apache@11.4.29/legacy [K]",
+        "bitnami/elasticsearch@22.1.6/legacy [K]",
+        "bitnami/opensearch@2.0.10/legacy [K]",
+        "bitnami/phpmyadmin@20.0.0/legacy [K]",
+        "bitnami/spark@10.0.3/legacy [K]",
         "bitnami/zookeeper@13.8.7/default [K]",
         "bitnami/zookeeper@13.8.7/ha [K]",
+        "bitnami/zookeeper@13.8.7/legacy [K]",
         "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [K]",
         "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [L]",
         "projectcalico/tigera-operator@v3.32.0/default [G]",

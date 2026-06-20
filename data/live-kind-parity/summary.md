@@ -13,9 +13,9 @@ the same live outcome as cub installer output?
 ```text
 pass: 121
 watch: 10
-blocked: 41
+blocked: 47
 semantic parity pass: 153
-semantic parity defects: 10
+semantic parity defects: 16
 non-pass rows where semantic parity passed: 32
 non-pass rows with related lifecycle evidence: 0
 ```
@@ -32,7 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| parity: semantic object diff | 10 |
+| parity: semantic object diff | 16 |
 | remote-image: image pull failed or pinned image is unavailable (parity passed) | 10 |
 | helm-runtime: upstream not ready (parity passed) | 5 |
 | target-prerequisite: CRDs missing | 4 |
@@ -84,10 +84,12 @@ broader support claim.
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml |
 | `bitnami/apache@11.4.29` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-apache-default/receipt.yaml |
+| `bitnami/apache@11.4.29` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-apache-legacy/receipt.yaml |
 | `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
 | `bitnami/contour@21.1.4` | no-crds | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml |
+| `bitnami/elasticsearch@22.1.6` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-elasticsearch-legacy/receipt.yaml |
 | `bitnami/memcached@8.5.5` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-memcached-default/receipt.yaml |
 | `bitnami/mongodb@19.1.0` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.1.0` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
@@ -97,7 +99,9 @@ broader support claim.
 | `bitnami/nginx@25.0.0` | http-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml |
 | `bitnami/opensearch@2.0.10` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml |
 | `bitnami/opensearch@2.0.10` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-ha/receipt.yaml |
+| `bitnami/opensearch@2.0.10` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-opensearch-legacy/receipt.yaml |
 | `bitnami/phpmyadmin@20.0.0` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-phpmyadmin-default/receipt.yaml |
+| `bitnami/phpmyadmin@20.0.0` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-phpmyadmin-legacy/receipt.yaml |
 | `bitnami/postgresql@18.7.0` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml |
 | `bitnami/postgresql@18.7.0` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml |
@@ -106,8 +110,10 @@ broader support claim.
 | `bitnami/redis@27.0.0` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `bitnami/spark@10.0.3` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-spark-default/receipt.yaml |
 | `bitnami/spark@10.0.3` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-spark-ha/receipt.yaml |
+| `bitnami/spark@10.0.3` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-spark-legacy/receipt.yaml |
 | `bitnami/zookeeper@13.8.7` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-zookeeper-default/receipt.yaml |
 | `bitnami/zookeeper@13.8.7` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-zookeeper-ha/receipt.yaml |
+| `bitnami/zookeeper@13.8.7` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-zookeeper-legacy/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml |
 | `coredns/coredns@1.45.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/coredns-coredns-default/receipt.yaml |

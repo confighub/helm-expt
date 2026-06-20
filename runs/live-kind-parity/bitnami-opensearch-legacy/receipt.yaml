@@ -1,0 +1,1027 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-opensearch-2.0.10-legacy-kind-parity-20260606
+spec:
+  chart: bitnami/opensearch
+  version: 2.0.10
+  base: legacy
+  result: blocked
+  observedAt: '2026-06-19T22:14:38Z'
+  package:
+    path: packages/bitnami/opensearch/2.0.10
+  recipe:
+    path: recipes/bitnami/opensearch/2.0.10
+  variantRevision: recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-opense-57b04-l3c9-helm
+    installerCluster: hx-opense-57b04-l3c9-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-opense-57b04-l3c9-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-opense-57b04-l3c9-helm" ...
+
+          Deleted nodes: ["hx-opense-57b04-l3c9-helm-control-plane"]'
+      - cluster: hx-opense-57b04-l3c9-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-opense-57b04-l3c9-installer" ...
+
+          Deleted nodes: ["hx-opense-57b04-l3c9-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
+        --version 2.0.10 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-opensearch-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc
+      objectCount: 18
+      liveHelmManifestSHA256: 77fe19746736c3872f0449882dd804d2c11c2a5352bbbd9052cbd4eb4fe14ea0
+      liveHelmManifestObjectCount: 18
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/opensearch-coordinating   0/2   8m
+
+          statefulset.apps/opensearch-data           0/2   8m
+
+          statefulset.apps/opensearch-ingest         0/2   8m
+
+          statefulset.apps/opensearch-master         0/2   8m'
+        pods: '# default
+
+          opensearch-coordinating-0   0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-coordinating-1   0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-data-0           0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-data-1           0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-ingest-0         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-ingest-1         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-master-0         0/1   Init:ImagePullBackOff   0     8m
+
+          opensearch-master-1         0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: opensearch-coordinating-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-coordinating-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-data-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-data-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-ingest-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-ingest-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-master-0
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-master-1
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: opensearch-coordinating-0
+          result: blocked
+          detailHead: "Name:             opensearch-coordinating-0\nNamespace:   \
+            \     default\nPriority:         0\nService Account:  default\nNode: \
+            \            hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\nStart\
+            \ Time:       Fri, 19 Jun 2026 23:15:35 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=opensearch\n              \
+            \    app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=opensearch\n\
+            \                  app.kubernetes.io/version=3.2.0\n                 \
+            \ apps.kubernetes.io/pod-index=0\n                  controller-revision-hash=opensearch-coordinating-85d599fbcf\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-coordinating-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.6\n\
+            IPs:\n  IP:           10.244.0.6\nControlled By:  StatefulSet/opensearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:      "
+          detailTail: "BER:  9300\n      OPENSEARCH_HTTP_PORT_NUMBER:       9200\n\
+            \      OPENSEARCH_CLUSTER_HOSTS:          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-coordinating-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/opensearch-coordinating-0\
+            \ to hx-opense-57b04-l3c9-helm-control-plane\n  Normal   Pulling    5m1s\
+            \ (x5 over 8m)       kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning  Failed\
+            \     5m (x5 over 7m58s)      kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     5m (x5 over 7m58s)      kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Normal \
+            \  BackOff    2m56s (x21 over 7m57s)  kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            \n  Warning  Failed     2m56s (x21 over 7m57s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-coordinating-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-coordinating-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-coordinating-1
+          result: blocked
+          detailHead: "Name:             opensearch-coordinating-1\nNamespace:   \
+            \     default\nPriority:         0\nService Account:  default\nNode: \
+            \            hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\nStart\
+            \ Time:       Fri, 19 Jun 2026 23:15:35 +0100\nLabels:           app=coordinating-only\n\
+            \                  app.kubernetes.io/component=coordinating-only\n   \
+            \               app.kubernetes.io/instance=opensearch\n              \
+            \    app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=opensearch\n\
+            \                  app.kubernetes.io/version=3.2.0\n                 \
+            \ apps.kubernetes.io/pod-index=1\n                  controller-revision-hash=opensearch-coordinating-85d599fbcf\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-coordinating-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.8\n\
+            IPs:\n  IP:           10.244.0.8\nControlled By:  StatefulSet/opensearch-coordinating\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:      "
+          detailTail: "BER:  9300\n      OPENSEARCH_HTTP_PORT_NUMBER:       9200\n\
+            \      OPENSEARCH_CLUSTER_HOSTS:          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-coordinating-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/opensearch-coordinating-1\
+            \ to hx-opense-57b04-l3c9-helm-control-plane\n  Normal   Pulling    4m57s\
+            \ (x5 over 8m)      kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning  Failed\
+            \     4m55s (x5 over 7m57s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m55s (x5 over 7m57s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Normal \
+            \  BackOff    2m46s (x21 over 7m56s)  kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            \n  Warning  Failed     2m46s (x21 over 7m56s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-coordinating-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-coordinating-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-data-0
+          result: blocked
+          detailHead: "Name:             opensearch-data-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:42 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=opensearch-data-5df5df6c55\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-data-0\nAnnotations: \
+            \     <none>\nStatus:           Pending\nIP:               10.244.0.15\n\
+            IPs:\n  IP:           10.244.0.15\nControlled By:  StatefulSet/opensearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memor"
+          detailTail: "CLUSTER_NAME:           open\n      OPENSEARCH_CLUSTER_HOSTS:\
+            \          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-data-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-opensearch-data-0\n   \
+            \ ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m53s                   default-scheduler\
+            \  Successfully assigned default/opensearch-data-0 to hx-opense-57b04-l3c9-helm-control-plane\n\
+            \  Normal   Pulling    4m53s (x5 over 7m53s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning\
+            \  Failed     4m51s (x5 over 7m52s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m51s (x5 over 7m52s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m40s (x20 over 7m51s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m29s (x21 over 7m51s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-data-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-data-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-data-1
+          result: blocked
+          detailHead: "Name:             opensearch-data-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:39 +0100\nLabels:           app=data\n\
+            \                  app.kubernetes.io/component=data\n                \
+            \  app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=opensearch-data-5df5df6c55\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-data-1\nAnnotations: \
+            \     <none>\nStatus:           Pending\nIP:               10.244.0.13\n\
+            IPs:\n  IP:           10.244.0.13\nControlled By:  StatefulSet/opensearch-data\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n      memor"
+          detailTail: "CLUSTER_NAME:           open\n      OPENSEARCH_CLUSTER_HOSTS:\
+            \          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-data-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              1024m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-opensearch-data-1\n   \
+            \ ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m56s                   default-scheduler\
+            \  Successfully assigned default/opensearch-data-1 to hx-opense-57b04-l3c9-helm-control-plane\n\
+            \  Normal   Pulling    4m57s (x5 over 7m56s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning\
+            \  Failed     4m56s (x5 over 7m55s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m56s (x5 over 7m55s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Normal \
+            \  BackOff    2m48s (x21 over 7m54s)  kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            \n  Warning  Failed     2m48s (x21 over 7m54s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-data-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-data-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-ingest-0
+          result: blocked
+          detailHead: "Name:             opensearch-ingest-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:35 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=opensearch-ingest-6878bf9cf5\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-ingest-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.5\n\
+            IPs:\n  IP:           10.244.0.5\nControlled By:  StatefulSet/opensearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n "
+          detailTail: "ORT_NUMBER:       9200\n      OPENSEARCH_CLUSTER_NAME:    \
+            \       open\n      OPENSEARCH_CLUSTER_HOSTS:          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-ingest-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/opensearch-ingest-0\
+            \ to hx-opense-57b04-l3c9-helm-control-plane\n  Normal   Pulling    4m59s\
+            \ (x5 over 8m)      kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning  Failed\
+            \     4m58s (x5 over 7m59s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m58s (x5 over 7m59s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Normal \
+            \  BackOff    2m48s (x21 over 7m58s)  kubelet            spec.initContainers{sysctl}:\
+            \ Back-off pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            \n  Warning  Failed     2m48s (x21 over 7m58s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff"
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-ingest-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-ingest-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-ingest-1
+          result: blocked
+          detailHead: "Name:             opensearch-ingest-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:35 +0100\nLabels:           app=ingest\n\
+            \                  app.kubernetes.io/component=ingest\n              \
+            \    app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=opensearch-ingest-6878bf9cf5\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-ingest-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.7\n\
+            IPs:\n  IP:           10.244.0.7\nControlled By:  StatefulSet/opensearch-ingest\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi\n "
+          detailTail: "ORT_NUMBER:       9200\n      OPENSEARCH_CLUSTER_NAME:    \
+            \       open\n      OPENSEARCH_CLUSTER_HOSTS:          opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-ingest-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)\n\
+            \    Medium:     \n    SizeLimit:  <unset>\n  data:\n    Type:       \
+            \ EmptyDir (a temporary directory that shares a pod's lifetime)\n    Medium:\
+            \      \n    SizeLimit:   <unset>\nQoS Class:       Burstable\nNode-Selectors:\
+            \  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists\
+            \ for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/opensearch-ingest-1\
+            \ to hx-opense-57b04-l3c9-helm-control-plane\n  Normal   Pulling    4m59s\
+            \ (x5 over 8m)      kubelet            spec.initContainers{sysctl}: Pulling\
+            \ image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning  Failed\
+            \     4m57s (x5 over 7m56s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m57s (x5 over 7m56s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m55s (x19 over 7m56s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m25s (x21 over 7m56s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-ingest-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-ingest-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-master-0
+          result: blocked
+          detailHead: "Name:             opensearch-master-0\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:41 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=0\n\
+            \                  controller-revision-hash=opensearch-master-68584ccf54\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-master-0\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.14\n\
+            IPs:\n  IP:           10.244.0.14\nControlled By:  StatefulSet/opensearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi"
+          detailTail: "ER_NAME:           open\n      OPENSEARCH_CLUSTER_HOSTS:  \
+            \        opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-master-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-opensearch-master-0\n \
+            \   ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m54s                   default-scheduler\
+            \  Successfully assigned default/opensearch-master-0 to hx-opense-57b04-l3c9-helm-control-plane\n\
+            \  Normal   Pulling    5m5s (x5 over 7m54s)    kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning\
+            \  Failed     5m4s (x5 over 7m53s)    kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     5m4s (x5 over 7m53s)    kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m53s (x19 over 7m52s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m27s (x21 over 7m52s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-master-0"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-master-0"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        - namespace: default
+          pod: opensearch-master-1
+          result: blocked
+          detailHead: "Name:             opensearch-master-1\nNamespace:        default\n\
+            Priority:         0\nService Account:  default\nNode:             hx-opense-57b04-l3c9-helm-control-plane/192.168.97.2\n\
+            Start Time:       Fri, 19 Jun 2026 23:15:42 +0100\nLabels:           app=master\n\
+            \                  app.kubernetes.io/component=master\n              \
+            \    app.kubernetes.io/instance=opensearch\n                  app.kubernetes.io/managed-by=Helm\n\
+            \                  app.kubernetes.io/name=opensearch\n               \
+            \   app.kubernetes.io/version=3.2.0\n                  apps.kubernetes.io/pod-index=1\n\
+            \                  controller-revision-hash=opensearch-master-68584ccf54\n\
+            \                  helm.sh/chart=opensearch-2.0.10\n                 \
+            \ statefulset.kubernetes.io/pod-name=opensearch-master-1\nAnnotations:\
+            \      <none>\nStatus:           Pending\nIP:               10.244.0.16\n\
+            IPs:\n  IP:           10.244.0.16\nControlled By:  StatefulSet/opensearch-master\n\
+            Init Containers:\n  sysctl:\n    Container ID:  \n    Image:         docker.io/bitnami/os-shell:12-debian-12-r51\n\
+            \    Image ID:      \n    Port:          <none>\n    Host Port:     <none>\n\
+            \    Command:\n      /bin/bash\n      -ec\n      CURRENT=`sysctl -n vm.max_map_count`;\n\
+            \      DESIRED=\"262144\";\n      if [ \"$DESIRED\" -gt \"$CURRENT\" ];\
+            \ then\n          sysctl -w vm.max_map_count=262144;\n      fi;\n    \
+            \  CURRENT=`sysctl -n fs.file-max`;\n      DESIRED=\"65536\";\n      if\
+            \ [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n          sysctl -w fs.file-max=65536;\n\
+            \      fi;\n      \n    State:          Waiting\n      Reason:       ImagePullBackOff\n\
+            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
+            \ cpu:                150m\n      ephemeral-storage:  2Gi\n      memory:\
+            \             192Mi\n    Requests:\n      cpu:                100m\n \
+            \     ephemeral-storage:  50Mi\n      memory:             128Mi\n    Environment:\
+            \          <none>\n    Mounts:               <none>\n  copy-default-plugins:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      . /opt/bitnami/scripts/liblog.sh\n\
+            \      . /opt/bitnami/scripts/libfs.sh\n      . /opt/bitnami/scripts/opensearch-env.sh\n\
+            \      \n      mkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\n\
+            \      info \"Copying directories to empty dir\"\n      \n      if ! is_dir_empty\
+            \ \"$DB_DEFAULT_CONF_DIR\"; then\n          info \"Copying default configuration\"\
+            \n          cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\n\
+            \      fi\n      if ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n\
+            \          info \"Copying default plugins\"\n          cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"\
+            /* /emptydir/app-plugins-dir\n      fi\n      \n      info \"Copy operation\
+            \ completed\"\n      \n    State:          Waiting\n      Reason:    \
+            \   PodInitializing\n    Ready:          False\n    Restart Count:  0\n\
+            \    Limits:\n      cpu:                750m\n      ephemeral-storage:\
+            \  2Gi"
+          detailTail: "ER_NAME:           open\n      OPENSEARCH_CLUSTER_HOSTS:  \
+            \        opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\n\
+            \      OPENSEARCH_TOTAL_NODES:            4\n      OPENSEARCH_CLUSTER_MASTER_HOSTS:\
+            \   opensearch-master-0 opensearch-master-1\n      OPENSEARCH_MINIMUM_MASTER_NODES:\
+            \   2\n      OPENSEARCH_ADVERTISED_HOSTNAME:    $(MY_POD_NAME).opensearch-master-hl.default.svc.cluster.local\n\
+            \      OPENSEARCH_HEAP_SIZE:              512m\n    Mounts:\n      /bitnami/opensearch/data\
+            \ from data (rw)\n      /opt/bitnami/opensearch/config from empty-dir\
+            \ (rw,path=\"app-conf-dir\")\n      /opt/bitnami/opensearch/logs from\
+            \ empty-dir (rw,path=\"app-logs-dir\")\n      /opt/bitnami/opensearch/plugins\
+            \ from empty-dir (rw,path=\"app-plugins-dir\")\n      /opt/bitnami/opensearch/tmp\
+            \ from empty-dir (rw,path=\"app-tmp-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  data:\n \
+            \   Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim\
+            \ in the same namespace)\n    ClaimName:  data-opensearch-master-1\n \
+            \   ReadOnly:   false\n  empty-dir:\n    Type:        EmptyDir (a temporary\
+            \ directory that shares a pod's lifetime)\n    Medium:      \n    SizeLimit:\
+            \   <unset>\nQoS Class:       Burstable\nNode-Selectors:  <none>\nTolerations:\
+            \     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s\n    \
+            \             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s\n\
+            Events:\n  Type     Reason     Age                     From          \
+            \     Message\n  ----     ------     ----                    ----    \
+            \           -------\n  Normal   Scheduled  7m53s                   default-scheduler\
+            \  Successfully assigned default/opensearch-master-1 to hx-opense-57b04-l3c9-helm-control-plane\n\
+            \  Normal   Pulling    4m53s (x5 over 7m53s)   kubelet            spec.initContainers{sysctl}:\
+            \ Pulling image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\n  Warning\
+            \  Failed     4m52s (x5 over 7m51s)   kubelet            spec.initContainers{sysctl}:\
+            \ Failed to pull image \"docker.io/bitnami/os-shell:12-debian-12-r51\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/os-shell:12-debian-12-r51\": failed to resolve reference\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\": docker.io/bitnami/os-shell:12-debian-12-r51:\
+            \ not found\n  Warning  Failed     4m52s (x5 over 7m51s)   kubelet   \
+            \         spec.initContainers{sysctl}: Error: ErrImagePull\n  Warning\
+            \  Failed     2m45s (x20 over 7m50s)  kubelet            spec.initContainers{sysctl}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m32s (x21 over 7m50s)\
+            \  kubelet            spec.initContainers{sysctl}: Back-off pulling image\
+            \ \"docker.io/bitnami/os-shell:12-debian-12-r51\""
+          logsHead: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-master-1"
+            is waiting to start: trying and failing to pull image'
+          logsTail: 'Error from server (BadRequest): container "sysctl" in pod "opensearch-master-1"
+            is waiting to start: trying and failing to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'I0619 23:15:35.090222   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 23:15:35.091080   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 23:15:35.091105   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        I0619 23:15:35.091144   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+        \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+        Error: resource StatefulSet/default/opensearch-coordinating not ready. status:
+        InProgress, message: Ready: 0/2
+
+        resource StatefulSet/default/opensearch-data not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default/opensearch-ingest not ready. status: InProgress,
+        message: Ready: 0/2
+
+        resource StatefulSet/default/opensearch-master not ready. status: InProgress,
+        message: Ready: 0/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+        --base legacy --work-dir /tmp/helm-expt-kind-parity-hx-opense-57b04-l3c9-opensearch
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 50029b4a056731da65144a451bed3d93fde4a2bc5978f53bcd912e5a994e5b37
+      objectCount: 19
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/opensearch-coordinating   2/2   3m33s
+
+          statefulset.apps/opensearch-data           2/2   3m33s
+
+          statefulset.apps/opensearch-ingest         2/2   3m33s
+
+          statefulset.apps/opensearch-master         2/2   3m33s'
+        pods: '# default
+
+          opensearch-coordinating-0   1/1   Running   0     3m33s
+
+          opensearch-coordinating-1   1/1   Running   0     3m33s
+
+          opensearch-data-0           1/1   Running   0     3m33s
+
+          opensearch-data-1           1/1   Running   0     3m33s
+
+          opensearch-ingest-0         1/1   Running   0     3m33s
+
+          opensearch-ingest-1         1/1   Running   0     3m33s
+
+          opensearch-master-0         1/1   Running   0     3m33s
+
+          opensearch-master-1         1/1   Running   0     3m33s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 18
+      installerObjectCount: 18
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs:
+      - apps/v1|StatefulSet|default|opensearch-coordinating
+      - apps/v1|StatefulSet|default|opensearch-data
+      - apps/v1|StatefulSet|default|opensearch-ingest
+      - apps/v1|StatefulSet|default|opensearch-master
+      - v1|Service|default|opensearch-coordinating-hl
+      - v1|Service|default|opensearch-data-hl
+      - v1|Service|default|opensearch-ingest-hl
+      - v1|Service|default|opensearch-master-hl
+      semanticNormalizations: *id003
+      comparisonSHA256: 0c410ca2a00ef8706cd2101c53e0c88fccd0d9b009955bf37a6838cfb8e09b68
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 18
+      installerObjectCount: 19
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs:
+      - apps/v1|StatefulSet|default|opensearch-coordinating
+      - apps/v1|StatefulSet|default|opensearch-data
+      - apps/v1|StatefulSet|default|opensearch-ingest
+      - apps/v1|StatefulSet|default|opensearch-master
+      - v1|Service|default|opensearch-coordinating-hl
+      - v1|Service|default|opensearch-data-hl
+      - v1|Service|default|opensearch-ingest-hl
+      - v1|Service|default|opensearch-master-hl
+      semanticNormalizations: *id003
+      comparisonSHA256: e030d940c09b5ff5d8fb2e23c6ea98d9da090de9a8941c81a5f5b5267499e384
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=0 extra=[] diffs=8
+  - name: regular-helm-live
+    result: blocked
+    detail: 'I0619 23:15:35.090222   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 23:15:35.091080   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 23:15:35.091105   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      I0619 23:15:35.091144   89767 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""
+
+      Error: resource StatefulSet/default/opensearch-coordinating not ready. status:
+      InProgress, message: Ready: 0/2
+
+      resource StatefulSet/default/opensearch-data not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default/opensearch-ingest not ready. status: InProgress,
+      message: Ready: 0/2
+
+      resource StatefulSet/default/opensearch-master not ready. status: InProgress,
+      message: Ready: 0/2
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/opensearch-coordinating   2/2   3m33s
+
+      statefulset.apps/opensearch-data           2/2   3m33s
+
+      statefulset.apps/opensearch-ingest         2/2   3m33s
+
+      statefulset.apps/opensearch-master         2/2   3m33s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=8
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
