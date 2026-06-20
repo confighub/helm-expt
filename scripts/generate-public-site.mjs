@@ -330,7 +330,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("matrix.html")}">Status matrix</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("proof.html")}">Proof</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("proof.html")}">Proof</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -2346,7 +2346,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. Contact us with all suggestions and questions.</p>
+    <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. We maintain a database of currently supported charts and variants in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="charts">
