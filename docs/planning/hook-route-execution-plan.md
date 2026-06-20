@@ -81,3 +81,38 @@ controller runs it, no new runtime) or **(3) product-direct `cub` execution** (t
 `automatic: true` endgame, cross-repo). Recommendation: **Phase 1 (prove receipted
 execution in-repo) → Phase 2 (GitOps emission)** first; treat Phase 3 as the cub
 roadmap item it already is (#688).
+
+## Selecting a route (the user-facing affordance) — REQUIRED
+
+The default is "deliver everything **except** the hook," so a separated hook does
+not run on its own. That is only acceptable if **choosing the hook's execution
+path is a first-class operation**, reachable through ConfigHub's surfaces
+(**CLI · AI/agent · function · GUI**). Otherwise we have made the hidden step
+visible but not actionable. (Product requirement, 2026-06-20.)
+
+**The menu already exists.** Every route carries a `default_route`, `alternatives`
+(off-ramps), and a machine-readable `agent_inputs` block
+(`data/lifecycle-route-actions/`). Example — kyverno's migration Job
+(`hook-phase` / run-job): default `upgrade-action-with-receipt` · alternatives
+`argocd-or-flux-lifecycle-hook` | `target-facts-or-preflight` | `refuse`. The
+choices are authored; the gap is the *selector* that lets someone pick and applies it.
+
+**The selection contract** (one contract; every surface drives it):
+- **Input:** `(chart, variant, hook) + chosen route`, validated ∈ default ∪ alternatives.
+- **Output:** the **execution plan for the choice** — the Phase 2 GitOps step
+  (Argo/Flux), a by-hand command, or queue-for-cub — **plus a selection receipt**
+  recording who chose what, when, and why.
+
+**Surfaces (same contract; reference vs product):**
+
+| Surface | Owner | What it is |
+| --- | --- | --- |
+| CLI | reference in helm-expt (`select-hook-route.mjs`); product = `cub` | list the menu, `--select` validates + emits the plan + receipt |
+| AI / agent | helm-expt surface = `agent_inputs`; the agent reads it | picks a route with a rationale, emits the plan + receipt |
+| function | product (`cub function`); contract defined here | sets the chosen route on a Unit, like `set-image` |
+| GUI | product; mockup/spec in helm-expt | per-hook control to pick + preview the plan |
+
+**Status:** the menu + the contract exist; the selector mechanism is unbuilt.
+helm-expt can ship the reference CLI + the agent path + surface the menu; the
+productized cub CLI / function / GUI implement the same contract. The choice of
+*which surface first* does not block the contract — build the contract once.
