@@ -1,0 +1,13 @@
+apiVersion: v2
+name: hook-job-probe
+description: >-
+  Minimal probe chart for proving receipted EXECUTION of a hook lifecycle route.
+  templates/workload.yaml is the steady-state (non-hook) object set;
+  templates/migration-job.yaml is a post-install/post-upgrade Job hook — the kind
+  Helm runs silently inside `helm install`. scripts/run-hook-execution-proof.mjs
+  installs it both ways on a throwaway kind cluster and proves the Job can instead
+  be executed as an explicit, named, receipted lifecycle action (same outcome,
+  visible and automatable) — the execution evidence that justifies automatic:true.
+type: application
+version: 0.1.0
+appVersion: "1.0"
