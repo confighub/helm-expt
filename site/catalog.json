@@ -17658,7 +17658,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Nobody yet - blocked (a precondition must be met first)",
+              "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17685,7 +17685,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Nobody yet - blocked (a precondition must be met first)",
+              "whoRuns": "Prerequisite - verify the render before apply",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -17712,7 +17712,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "You - before deploy (install the required CRDs first)",
+              "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
               "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)"
@@ -17732,7 +17732,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "You - before deploy (install the required CRDs first)",
+              "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
               "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)"
@@ -17779,7 +17779,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Nobody yet - blocked (a precondition must be met first)",
+              "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17806,7 +17806,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Nobody yet - blocked (a precondition must be met first)",
+              "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17833,7 +17833,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Nobody yet - blocked (a precondition must be met first)",
+              "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17860,7 +17860,7 @@
               "execution_mode": "user-executes",
               "disposition": "per-target",
               "automatic": false,
-              "whoRuns": "You - by hand (run the preflight job)",
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17887,7 +17887,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -17900,7 +17900,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (the `helm test` equivalent)",
+              "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
               "reason": ""
@@ -17927,7 +17927,7 @@
               "execution_mode": "not-yet-executable",
               "disposition": "blocked",
               "automatic": false,
-              "whoRuns": "Your Argo/Flux step (only if you add it)",
+              "whoRuns": "Your delivery - a GitOps sync hook (receipted)",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -17954,7 +17954,7 @@
               "execution_mode": "user-executes",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -17981,7 +17981,7 @@
               "execution_mode": "user-executes",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18008,7 +18008,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18021,7 +18021,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18034,7 +18034,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18047,7 +18047,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (the `helm test` equivalent)",
+              "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
               "reason": ""
@@ -18060,7 +18060,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier (applies objects in the right order)",
+              "whoRuns": "Your applier - applies objects in order, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18073,7 +18073,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - before deploy (create the required facts)",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": ""
@@ -18093,7 +18093,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18106,7 +18106,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18119,7 +18119,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18132,7 +18132,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (the `helm test` equivalent)",
+              "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
               "reason": ""
@@ -18145,7 +18145,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier (applies objects in the right order)",
+              "whoRuns": "Your applier - applies objects in order, automatically",
               "command": "",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
@@ -18158,7 +18158,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - before deploy (create the required facts)",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
               "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
@@ -18185,7 +18185,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18198,7 +18198,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the check)",
+              "whoRuns": "Your delivery - a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18211,7 +18211,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the preflight job)",
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18224,7 +18224,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18237,7 +18237,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier (applies objects in the right order)",
+              "whoRuns": "Your applier - applies objects in order, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18250,7 +18250,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - before deploy (create the required facts)",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": ""
@@ -18263,7 +18263,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (sets up the webhook certificate)",
+              "whoRuns": "Your cluster - sets up the webhook certificate, automatically",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": ""
@@ -18283,7 +18283,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (at uninstall / cleanup time)",
+              "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18296,7 +18296,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the check)",
+              "whoRuns": "Your delivery - a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
               "reason": ""
@@ -18309,7 +18309,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the preflight job)",
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18322,7 +18322,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - by hand (run the job)",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": ""
@@ -18335,7 +18335,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier (applies objects in the right order)",
+              "whoRuns": "Your applier - applies objects in order, automatically",
               "command": "",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
@@ -18348,7 +18348,7 @@
               "execution_mode": "user-executes",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "You - before deploy (create the required facts)",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
@@ -18361,7 +18361,7 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster (sets up the webhook certificate)",
+              "whoRuns": "Your cluster - sets up the webhook certificate, automatically",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": ""

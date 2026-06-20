@@ -1817,7 +1817,7 @@ function hooksWhoRunsSection(catalog) {
   return `
     <section aria-labelledby="whoruns">
       <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
-      <p>Per chart and per built variant, in plain words. Render parity delivers the objects <strong>without</strong> running Helm hooks; each hook is a named route. Nothing runs automatically — your Argo or Flux sync will not run these unless you add them as a deliberate, audited step. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
+      <p>Per chart and per built variant, in plain words. Render parity delivers the objects; each hook becomes a <strong>visible, named, receipted</strong> lifecycle step instead of a hidden Helm hook — run by your delivery pipeline (a GitOps PreSync/PostSync, a cub action, or an opt-in check), not by hand. The product does not auto-execute these yet (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
       ${withVariants.map(chartBlock).join("\n")}
       <h3>Charts without a per-variant difference yet</h3>
       <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
@@ -2576,7 +2576,7 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>After you deploy, who runs each hook — in plain words, per variant. Render parity delivers the objects <strong>without</strong> running Helm hooks; each hook is a named route, and no route is auto-executed today. Your Argo or Flux sync will not run these unless you add them as a deliberate step. See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <p>After you deploy, who runs each hook — in plain words, per variant. Each hook becomes a <strong>visible, named, receipted</strong> lifecycle step instead of a hidden Helm hook — run by your delivery pipeline (a GitOps PreSync/PostSync, a cub action, or an opt-in check), not by hand. The product does not auto-execute these yet (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry)
         : lifecycleRows.length
