@@ -1528,183 +1528,253 @@ function hardQuestionsHtml(catalog) {
   const nonGreenPreview = catalog.activeProofQueue
     .slice(0, 8)
     .map((row) => [row.chart, row.base, row.current_result, row.next_step_type, row.reason]);
-  const questionRows = [
-    [
-      "Is this just Helm with extra paperwork?",
-      "No. Helm still renders. The catalog turns selected render paths into durable installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
-      "Start with command routing, then inspect a chart page.",
-      "../docs/user/choosing-commands.md",
-    ],
-    [
-      "Do I have to rewrite my charts?",
-      "No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.",
-      "Open the mission and variant guides.",
-      "../docs/user/why-this-exists.md",
-    ],
-    [
-      "Does it only work for easy charts?",
-      "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
-      "Open the serious chart guide and the high-fanout evidence.",
-      "../docs/user/serious-chart-proof.md",
-    ],
-    [
-      "What happens to Helm hooks?",
-      "They are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route is not the same as automatic execution.",
-      "Open the hooks page and route contract.",
-      "./hooks.html",
-    ],
-    [
-      "Where do Secrets and credentials live?",
-      "They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.",
-      "Open the secret lifecycle and target prerequisite evidence.",
-      "../data/secret-lifecycle/summary.md",
-    ],
-    [
-      "What if the cluster is the wrong shape?",
-      "A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide.",
-      "Open target prerequisites before rerun.",
-      "../docs/user/target-prerequisites-before-rerun.md",
-    ],
-    [
-      "What if an upgrade caused a production crash?",
-      "The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. It reduces opaque upgrades; it does not promise crash-free production.",
-      "Read the upgrade crash example.",
-      "../docs/user/helm-upgrade-crash-example.md",
-    ],
-    [
-      "Can I bring my own values files or overlays?",
-      "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
-      "Open the custom overlay and variant guides.",
-      "../docs/user/custom-overlays.md",
-    ],
-    [
-      "Can I trust a green GitOps sync?",
-      "Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.",
-      "Read why synced is not working.",
-      "../docs/user/why-synced-is-not-working.md",
-    ],
-    [
-      "What can we build once the objects are data?",
-      "Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.",
-      "Open the app-readiness proof.",
-      "../data/app-readiness/summary.md",
-    ],
-    [
-      "What if I already use Argo, Flux, or KRM?",
-      "That is the expected production shape, not a reason to start over. Desired objects, ConfigHub Units, OCI publication, GitOps controller health, and live workload evidence stay separate.",
-      "Open adopting existing apps.",
-      "../docs/user/adopting-existing-apps.md",
-    ],
-    [
-      "What is free and what needs ConfigHub?",
-      "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
-      "Open the journey and tiers pages.",
-      "./journey.html",
-    ],
-    [
-      "What should I do if this breaks on my chart?",
-      "Send the public chart and values that expose the problem. The expected response is a fixture, receipt, watch row, routed gap, or named refusal.",
-      "Use the problem-chart issue template.",
-      "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml",
-    ],
+  const laterIssueUrl = "https://github.com/confighub/helm-expt/issues/1001";
+  const proofCounters = [
+    ["Render parity", metricValue(metric("render parity rows"))],
+    ["In-ConfigHub proof", metricValue(metric("in-ConfigHub proof rows"))],
+    ["Local live", metricValue(metric("local live rows"))],
+    ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows"))],
+    ["Live Helm-vs-ConfigHub parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
+    ["Complete core lanes", metricValue(metric("complete core lane rows"))],
   ];
-  const proofRows = [
-    ["Render parity rows", metricValue(metric("render parity rows")), "The installer path preserved regular Helm output for recorded inputs."],
-    ["In-ConfigHub proof rows", metricValue(metric("in-ConfigHub proof rows")), "Rendered objects became ConfigHub Units with scan and safe-op evidence."],
-    ["Local live rows", metricValue(metric("local live rows")), "A Kubernetes target applied and observed the rendered objects."],
-    ["GitOps/OCI live pass rows", metricValue(metric("GitOps/OCI live pass rows")), "A GitOps controller pulled and reconciled ConfigHub-published OCI evidence."],
-    ["Live Helm-vs-ConfigHub parity pass rows", metricValue(metric("live Helm-vs-ConfigHub parity pass rows")), "Regular Helm and ConfigHub delivery reached the same semantic live outcome."],
-    ["Complete core lane rows", metricValue(metric("complete core lane rows")), "Rows with the main evidence lanes complete."],
+  const readinessCounters = [
+    ["Ready to try", top100UserReadinessCounts["ready-to-try"] ?? 0],
+    ["Needs target prerequisites", top100UserReadinessCounts["works-with-target-prerequisites"] ?? 0],
+    ["Needs operator review", top100UserReadinessCounts["works-with-operator-review"] ?? 0],
+    ["Needs a better base", top100UserReadinessCounts["needs-better-base-variant"] ?? 0],
   ];
-  const boundaryRows = [
-    ["Whole chart support", "No. Claims are per chart, version, base, lane, and target profile."],
-    ["Whole values-space support", "No. Custom values need their own render, scan, receipt, and live evidence."],
-    ["Universal hook execution", "No. Hook behavior is routed and observed where evidence exists; universal automatic execution is not claimed."],
-    ["Production from render parity", "No. Production needs a target-scoped decision and fresh evidence."],
-    ["Signatures as safety", "No. Signatures help with integrity and transport. Scans, policy, authority, and live evidence carry safety claims."],
+  const faqSections = [
+    {
+      title: "Start Here",
+      rows: [
+        {
+          status: "answered",
+          question: "Is this just Helm with extra paperwork?",
+          answer:
+            "No. Helm still renders. The catalog turns selected render paths into durable cub installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
+          links: [["Choosing commands", "../docs/user/choosing-commands.md"], ["Browse charts", "./charts/index.html"]],
+        },
+        {
+          status: "answered",
+          question: "Do I have to rewrite my charts?",
+          answer:
+            "No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.",
+          links: [["Why this exists", "../docs/user/why-this-exists.md"], ["Creating variants", "../docs/user/creating-variants.md"]],
+        },
+        {
+          status: "answered",
+          question: "Does it only work for easy charts?",
+          answer:
+            "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
+          links: [["Serious chart proof", "../docs/user/serious-chart-proof.md"], ["kube-prometheus-stack page", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"]],
+        },
+        {
+          status: "answered",
+          question: "What do the current generated counts say?",
+          answer:
+            "The current proof counters are generated from committed evidence. They are useful for orientation, but the matrix remains the source for chart-by-chart decisions.",
+          extraHtml: `<div class="faq-metrics">${proofCounters
+            .map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`)
+            .join("")}</div>`,
+          links: [["Master matrix", "./matrix.html"], ["Current proof status", "../docs/user/current-proof-status.md"]],
+        },
+      ],
+    },
+    {
+      title: "Hooks, Secrets, And Targets",
+      rows: [
+        {
+          status: "answered",
+          question: "What happens to Helm hooks?",
+          answer:
+            "Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.",
+          links: [["Hooks page", "./hooks.html"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
+        },
+        {
+          status: "answered",
+          question: "Where do Secrets and credentials live?",
+          answer:
+            "They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.",
+          links: [["Secret lifecycle data", "../data/secret-lifecycle/summary.md"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
+        },
+        {
+          status: "answered",
+          question: "What if the cluster is the wrong shape?",
+          answer:
+            "A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide. Those conditions belong in target prerequisites, target-fit decisions, watch rows, blocked rows, or per-target routes.",
+          links: [["Before rerun", "../docs/user/target-prerequisites-before-rerun.md"], ["Reading the matrix", "../docs/user/reading-the-matrix.md"]],
+        },
+        {
+          status: "later",
+          question: "Can every hook run automatically in the ConfigHub path?",
+          answer:
+            "Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.",
+          links: [["P1 backlog", laterIssueUrl], ["Lifecycle route actions", "../data/lifecycle-route-actions/summary.md"]],
+        },
+      ],
+    },
+    {
+      title: "Parity, GitOps, And Upgrades",
+      rows: [
+        {
+          status: "answered",
+          question: "Can I trust a green GitOps sync?",
+          answer:
+            "Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.",
+          links: [["Why synced is not working", "../docs/user/why-synced-is-not-working.md"], ["Verification lanes", "../docs/user/verification-lanes.md"]],
+        },
+        {
+          status: "answered",
+          question: "What if a Helm upgrade caused a production crash?",
+          answer:
+            "The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. That reduces opaque upgrades. It does not promise crash-free production.",
+          links: [["Upgrade crash example", "../docs/user/helm-upgrade-crash-example.md"], ["Blast-radius accuracy", "../data/blast-radius-accuracy/summary.md"]],
+        },
+        {
+          status: "answered",
+          question: "What should I do with non-green rows?",
+          answer:
+            "Do not hide them and do not spend time trying to make every already-dispositioned cell green. A watch, blocked, refused, or n/a cell can be the correct product answer when the reason is named and linked.",
+          extraHtml: `${markdownLikeTable([
+            ["Chart", "Base", "Current", "Next step", "Reason"],
+            ...nonGreenPreview,
+          ])}`,
+          links: [["Active proof queue", "../data/status-dashboard/active-proof-queue.csv"], ["Matrix", "./matrix.html"]],
+        },
+        {
+          status: "later",
+          question: "Can a live Kubernetes fix flow back into desired ConfigHub state?",
+          answer:
+            "Not as a shipped product path yet. The reverse-reconcile design defines authority, bounded write-back, attribution, and round-trip proof. The product still needs a gated command and live proof.",
+          links: [["P1 backlog", laterIssueUrl], ["Reverse reconcile design", "../docs/user/reverse-reconcile-design.md"]],
+        },
+      ],
+    },
+    {
+      title: "Values, Variants, And Catalog Scope",
+      rows: [
+        {
+          status: "answered",
+          question: "Can I bring my own values files or overlays?",
+          answer:
+            "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
+          links: [["Custom overlays", "../docs/user/custom-overlays.md"], ["Change routing before OCI", "../docs/user/change-routing-before-oci.md"]],
+        },
+        {
+          status: "answered",
+          question: "Which path should I take?",
+          answer:
+            "Use the public catalog when a reviewed base exists. Use plain Helm when the chart still needs a better base or limitation decision. Create a new installer base when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.",
+          links: [["Choose your path", "../docs/user/choose-your-path.md"], ["Chart-use guide", "../data/chart-use-guide/summary.md"]],
+        },
+        {
+          status: "answered",
+          question: "How much of the top-100 is ready for a user?",
+          answer:
+            "The top-100 is intentionally bucketed rather than flattened into one claim. Some charts are ready to try, some need target prerequisites, some need operator review, and some need a better base.",
+          extraHtml: `<div class="faq-metrics">${readinessCounters
+            .map(([label, value]) => `<div class="metric"><strong>${escapeHtml(String(value))}</strong><span>${escapeHtml(label)}</span></div>`)
+            .join("")}</div>`,
+          links: [["Top-100 status", "../docs/user/top100-status.md"], ["Top-100 user readiness", "../data/top100-user-readiness/summary.md"]],
+        },
+        {
+          status: "later",
+          question: "Can the catalog prove every values combination for a chart?",
+          answer:
+            "No. Claims are per chart, version, base, values path, lane, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.",
+          links: [["P1 backlog", laterIssueUrl], ["What we refuse to claim", "../docs/user/what-we-refuse-to-claim.md"]],
+        },
+        {
+          status: "later",
+          question: "Can every top-100 or top-500 chart become ready-to-run?",
+          answer:
+            "Not yet. The top-20 is strongest, the top-100 is increasingly legible, and the top-500 remains mostly analysis and triage data until more recipes, bases, and receipts are added.",
+          links: [["P1 backlog", laterIssueUrl], ["Top-100 status", "../docs/user/top100-status.md"]],
+        },
+      ],
+    },
+    {
+      title: "Trust, Free Use, And Challenges",
+      rows: [
+        {
+          status: "answered",
+          question: "What is free and what needs ConfigHub?",
+          answer:
+            "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
+          links: [["Journey", "./journey.html"], ["Tiers", "./tiers.html"]],
+        },
+        {
+          status: "answered",
+          question: "What can we build once the objects are data?",
+          answer:
+            "Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.",
+          links: [["App readiness", "../data/app-readiness/summary.md"], ["Day-1 operations", "./day1-operations.html"]],
+        },
+        {
+          status: "answered",
+          question: "What should I do if this breaks on my chart?",
+          answer:
+            "Send the public chart and values that expose the problem. The expected response is a public fixture and a pass, watch, blocked, refused, or routed gap with evidence.",
+          links: [["Problem chart issue template", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"], ["P1 unanswered backlog", laterIssueUrl]],
+        },
+        {
+          status: "later",
+          question: "Are signatures enough to establish trust?",
+          answer:
+            "No. Signatures help integrity and transport. Trust also needs signer authority, policy context, scans, gates, and live evidence. Keep that boundary visible.",
+          links: [["P1 backlog", laterIssueUrl], ["Claims register", "../data/claims-register/summary.md"]],
+        },
+      ],
+    },
   ];
-  const decisionRows = [
-    ["Use public catalog", "A reviewed base exists and the chart-use guide says it is ready to try."],
-    ["Use plain Helm for now", "The chart is in a top-100 bucket that needs a better base variant or a limitation decision before the catalog is a better first path."],
-    ["Create a new installer base", "Your values, overlay, CRD choice, Secret mode, storage mode, ingress shape, or extension slot changes Helm render inputs or object shape."],
-    ["Create a derived ConfigHub variant", "Your change refines an uploaded object set: target, labels, approval gates, observation policy, links, or approved post-render field fills."],
-    ["Ask for managed support", "The path involves private charts, private values, production SLAs, fleet operations, or target-scoped support decisions."],
-  ];
+  const faqCard = (row) => {
+    const parts = [
+      `<article class="faq-card ${escapeHtml(row.status)}">
+        <div class="faq-head">
+          <h3>${escapeHtml(row.question)}</h3>
+          <span class="faq-status">${row.status === "later" ? "P1 backlog" : "answered"}</span>
+        </div>
+        <p>${escapeHtml(row.answer)}</p>`,
+    ];
+    if (row.extraHtml) parts.push(`        ${row.extraHtml}`);
+    if (row.links?.length) {
+      parts.push(
+        `        <p class="faq-links">${row.links
+          .map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`)
+          .join(" · ")}</p>`,
+      );
+    }
+    parts.push("      </article>");
+    return parts.join("\n");
+  };
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hard questions · ConfigHub Helm Catalog</title>
+  <title>FAQ · ConfigHub Helm Catalog</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Hard questions before you trust the catalog.</h1>
-    ${generatedStamp(catalog, "hard questions page")}
-    <p class="tagline">This page is for a skeptical Helm user, platform engineer, or reviewer. It answers what the project proves, where it is still partial, and how to decide whether to use the public catalog, plain Helm, a new base variant, or ConfigHub-managed operations.</p>
+    <h1>FAQ for skeptical Helm users.</h1>
+    ${generatedStamp(catalog, "FAQ page")}
+    <p class="tagline">Short answers first. Every answered question links to evidence. Questions that still need product work are marked as P1 backlog items and tracked in <a href="${laterIssueUrl}">hard-questions-for-later</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="questions">
-      <h2 id="questions">Questions A Helm User Will Ask</h2>
-      ${markdownLikeTable([
-        ["Question", "Short answer", "What to inspect", "Open"],
-        ...questionRows.map(([question, answer, inspect, href]) => [question, answer, inspect, `<a href="${href}">${href}</a>`]),
-      ], { rawThirdColumn: false, rawFourthColumn: true })}
-    </section>
-
-    <section aria-labelledby="evidence">
-      <h2 id="evidence">Evidence That Should Change Your Mind</h2>
-      <p>The strongest argument is not that every cell is green. The strongest argument is that each claim has a lane, each non-green row has a reason, and hard charts force target facts and lifecycle prerequisites into the open.</p>
-      ${markdownLikeTable([
-        ["Surface", "Current value", "What it means"],
-        ...proofRows,
-      ])}
-      <div class="grid">
-        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["ready-to-try"] ?? 0)}/100</strong><span>Top-100 ready-to-try charts</span></div>
-        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-target-prerequisites"] ?? 0)}/100</strong><span>Need target prerequisites</span></div>
-        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-operator-review"] ?? 0)}/100</strong><span>Need operator review</span></div>
-        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["needs-better-base-variant"] ?? 0)}/100</strong><span>Need better base variants</span></div>
-        <div class="metric"><strong>${escapeHtml(catalog.summary.liveParityRerunSemanticDefects)}</strong><span>Semantic live parity defects in rerun queue</span></div>
+    ${faqSections
+      .map(
+        (section) => `<section aria-labelledby="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">
+      <h2 id="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">${escapeHtml(section.title)}</h2>
+      <div class="faq-list">
+        ${section.rows.map(faqCard).join("\n        ")}
       </div>
-    </section>
-
-    <section aria-labelledby="boundaries">
-      <h2 id="boundaries">Boundaries We Should Keep Visible</h2>
-      ${markdownLikeTable([
-        ["Claim someone might assume", "Actual boundary"],
-        ...boundaryRows,
-      ])}
-      <p>Use <a href="../data/claims-register/summary.md">the claims register</a> for the machine-checked wording boundary and <a href="../docs/user/what-we-refuse-to-claim.md">what we refuse to claim</a> for the shorter user explanation.</p>
-    </section>
-
-    <section aria-labelledby="decision">
-      <h2 id="decision">Which Path Should A User Take?</h2>
-      ${markdownLikeTable([
-        ["Path", "Use it when"],
-        ...decisionRows,
-      ])}
-      <p>The matrix and chart-use guide are the practical routing surfaces: <a href="./matrix.html">master matrix</a>, <a href="../data/chart-use-guide/summary.md">chart-use guide</a>, and <a href="../docs/user/reading-the-matrix.md">how to read the matrix</a>.</p>
-    </section>
-
-    <section aria-labelledby="hard">
-      <h2 id="hard">Current Non-Green Work Should Stay Legible</h2>
-      <p>These rows are not hidden failures. They are the next proof work, with owner class and reason attached.</p>
-      ${markdownLikeTable([
-        ["Chart", "Base", "Current", "Next step", "Reason"],
-        ...nonGreenPreview,
-      ])}
-      <p>Open <a href="../data/status-dashboard/active-proof-queue.csv">the active proof queue</a> for the full generated list.</p>
-    </section>
-
-    <section aria-labelledby="challenge">
-      <h2 id="challenge">How To Challenge The Project</h2>
-      <p>If a public chart, values file, CRD behavior, hook, live result, or catalog command breaks the model, file it with public reproduction steps. A good response is a new fixture, a receipt, a watch row, a routed gap, or a named refusal.</p>
-      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a>.</p>
-    </section>
+    </section>`,
+      )
+      .join("\n\n    ")}
   </main>
-  <footer>Generated from helm-expt proof data. Hard questions should route to evidence, not slogans.</footer>
+  <footer>Generated from helm-expt proof data. FAQ answers should route to evidence, not slogans.</footer>
 </body>
 </html>
 `;
@@ -3040,6 +3110,34 @@ function siteCss() {
     .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
     .card dt { color: var(--muted); }
     .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
@@ -3103,10 +3201,11 @@ function siteCss() {
     thead th { background: var(--panel); position: sticky; top: 49px; }
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }

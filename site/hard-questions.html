@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hard questions · ConfigHub Helm Catalog</title>
+  <title>FAQ · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -120,6 +120,34 @@
     .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
     .card dt { color: var(--muted); }
     .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
@@ -183,10 +211,11 @@
     thead th { background: var(--panel); position: sticky; top: 49px; }
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -198,81 +227,114 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Hard questions before you trust the catalog.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T16:09:29.957Z UTC · source: committed helm-expt evidence for this hard questions page.</p>
-    <p class="tagline">This page is for a skeptical Helm user, platform engineer, or reviewer. It answers what the project proves, where it is still partial, and how to decide whether to use the public catalog, plain Helm, a new base variant, or ConfigHub-managed operations.</p>
+    <h1>FAQ for skeptical Helm users.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T18:56:58.080Z UTC · source: committed helm-expt evidence for this FAQ page.</p>
+    <p class="tagline">Short answers first. Every answered question links to evidence. Questions that still need product work are marked as P1 backlog items and tracked in <a href="https://github.com/confighub/helm-expt/issues/1001">hard-questions-for-later</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="questions">
-      <h2 id="questions">Questions A Helm User Will Ask</h2>
-      <div class="card"><table>
-        <thead><tr><th>Question</th><th>Short answer</th><th>What to inspect</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Is this just Helm with extra paperwork?</td><td>No. Helm still renders. The catalog turns selected render paths into durable installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</td><td>Start with command routing, then inspect a chart page.</td><td><a href="../docs/user/choosing-commands.md">../docs/user/choosing-commands.md</a></td></tr><tr><td>Do I have to rewrite my charts?</td><td>No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.</td><td>Open the mission and variant guides.</td><td><a href="../docs/user/why-this-exists.md">../docs/user/why-this-exists.md</a></td></tr><tr><td>Does it only work for easy charts?</td><td>No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.</td><td>Open the serious chart guide and the high-fanout evidence.</td><td><a href="../docs/user/serious-chart-proof.md">../docs/user/serious-chart-proof.md</a></td></tr><tr><td>What happens to Helm hooks?</td><td>They are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route is not the same as automatic execution.</td><td>Open the hooks page and route contract.</td><td><a href="./hooks.html">./hooks.html</a></td></tr><tr><td>Where do Secrets and credentials live?</td><td>They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</td><td>Open the secret lifecycle and target prerequisite evidence.</td><td><a href="../data/secret-lifecycle/summary.md">../data/secret-lifecycle/summary.md</a></td></tr><tr><td>What if the cluster is the wrong shape?</td><td>A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide.</td><td>Open target prerequisites before rerun.</td><td><a href="../docs/user/target-prerequisites-before-rerun.md">../docs/user/target-prerequisites-before-rerun.md</a></td></tr><tr><td>What if an upgrade caused a production crash?</td><td>The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. It reduces opaque upgrades; it does not promise crash-free production.</td><td>Read the upgrade crash example.</td><td><a href="../docs/user/helm-upgrade-crash-example.md">../docs/user/helm-upgrade-crash-example.md</a></td></tr><tr><td>Can I bring my own values files or overlays?</td><td>Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.</td><td>Open the custom overlay and variant guides.</td><td><a href="../docs/user/custom-overlays.md">../docs/user/custom-overlays.md</a></td></tr><tr><td>Can I trust a green GitOps sync?</td><td>Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.</td><td>Read why synced is not working.</td><td><a href="../docs/user/why-synced-is-not-working.md">../docs/user/why-synced-is-not-working.md</a></td></tr><tr><td>What can we build once the objects are data?</td><td>Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.</td><td>Open the app-readiness proof.</td><td><a href="../data/app-readiness/summary.md">../data/app-readiness/summary.md</a></td></tr><tr><td>What if I already use Argo, Flux, or KRM?</td><td>That is the expected production shape, not a reason to start over. Desired objects, ConfigHub Units, OCI publication, GitOps controller health, and live workload evidence stay separate.</td><td>Open adopting existing apps.</td><td><a href="../docs/user/adopting-existing-apps.md">../docs/user/adopting-existing-apps.md</a></td></tr><tr><td>What is free and what needs ConfigHub?</td><td>Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.</td><td>Open the journey and tiers pages.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>What should I do if this breaks on my chart?</td><td>Send the public chart and values that expose the problem. The expected response is a fixture, receipt, watch row, routed gap, or named refusal.</td><td>Use the problem-chart issue template.</td><td><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="evidence">
-      <h2 id="evidence">Evidence That Should Change Your Mind</h2>
-      <p>The strongest argument is not that every cell is green. The strongest argument is that each claim has a lane, each non-green row has a reason, and hard charts force target facts and lifecycle prerequisites into the open.</p>
-      <div class="card"><table>
-        <thead><tr><th>Surface</th><th>Current value</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Render parity rows</td><td>199/199</td><td>The installer path preserved regular Helm output for recorded inputs.</td></tr><tr><td>In-ConfigHub proof rows</td><td>199/199</td><td>Rendered objects became ConfigHub Units with scan and safe-op evidence.</td></tr><tr><td>Local live rows</td><td>148/199</td><td>A Kubernetes target applied and observed the rendered objects.</td></tr><tr><td>GitOps/OCI live pass rows</td><td>135/199</td><td>A GitOps controller pulled and reconciled ConfigHub-published OCI evidence.</td></tr><tr><td>Live Helm-vs-ConfigHub parity pass rows</td><td>135/199</td><td>Regular Helm and ConfigHub delivery reached the same semantic live outcome.</td></tr><tr><td>Complete core lane rows</td><td>127/199</td><td>Rows with the main evidence lanes complete.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="grid">
-        <div class="metric"><strong>20/100</strong><span>Top-100 ready-to-try charts</span></div>
-        <div class="metric"><strong>15/100</strong><span>Need target prerequisites</span></div>
-        <div class="metric"><strong>23/100</strong><span>Need operator review</span></div>
-        <div class="metric"><strong>35/100</strong><span>Need better base variants</span></div>
-        <div class="metric"><strong>16</strong><span>Semantic live parity defects in rerun queue</span></div>
+    <section aria-labelledby="start-here">
+      <h2 id="start-here">Start Here</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Is this just Helm with extra paperwork?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Helm still renders. The catalog turns selected render paths into durable cub installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
+        <p class="faq-links"><a href="../docs/user/choosing-commands.md">Choosing commands</a> · <a href="./charts/index.html">Browse charts</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Do I have to rewrite my charts?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.</p>
+        <p class="faq-links"><a href="../docs/user/why-this-exists.md">Why this exists</a> · <a href="../docs/user/creating-variants.md">Creating variants</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Does it only work for easy charts?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.</p>
+        <p class="faq-links"><a href="../docs/user/serious-chart-proof.md">Serious chart proof</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack page</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What do the current generated counts say?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The current proof counters are generated from committed evidence. They are useful for orientation, but the matrix remains the source for chart-by-chart decisions.</p>
+        <div class="faq-metrics"><div class="metric"><strong>199/199</strong><span>Render parity</span></div><div class="metric"><strong>199/199</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/199</strong><span>Local live</span></div><div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>135/199</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>127/199</strong><span>Complete core lanes</span></div></div>
+        <p class="faq-links"><a href="./matrix.html">Master matrix</a> · <a href="../docs/user/current-proof-status.md">Current proof status</a></p>
+      </article>
       </div>
     </section>
 
-    <section aria-labelledby="boundaries">
-      <h2 id="boundaries">Boundaries We Should Keep Visible</h2>
-      <div class="card"><table>
-        <thead><tr><th>Claim someone might assume</th><th>Actual boundary</th></tr></thead>
-        <tbody><tr><td>Whole chart support</td><td>No. Claims are per chart, version, base, lane, and target profile.</td></tr><tr><td>Whole values-space support</td><td>No. Custom values need their own render, scan, receipt, and live evidence.</td></tr><tr><td>Universal hook execution</td><td>No. Hook behavior is routed and observed where evidence exists; universal automatic execution is not claimed.</td></tr><tr><td>Production from render parity</td><td>No. Production needs a target-scoped decision and fresh evidence.</td></tr><tr><td>Signatures as safety</td><td>No. Signatures help with integrity and transport. Scans, policy, authority, and live evidence carry safety claims.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Use <a href="../data/claims-register/summary.md">the claims register</a> for the machine-checked wording boundary and <a href="../docs/user/what-we-refuse-to-claim.md">what we refuse to claim</a> for the shorter user explanation.</p>
+    <section aria-labelledby="hooks-secrets-and-targets">
+      <h2 id="hooks-secrets-and-targets">Hooks, Secrets, And Targets</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What happens to Helm hooks?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.</p>
+        <p class="faq-links"><a href="./hooks.html">Hooks page</a> · <a href="../docs/user/chart-hooks-what-happens.md">What happens to chart hooks</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Where do Secrets and credentials live?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
+        <p class="faq-links"><a href="../data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="../docs/user/target-prerequisites.md">Target prerequisites</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What if the cluster is the wrong shape?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide. Those conditions belong in target prerequisites, target-fit decisions, watch rows, blocked rows, or per-target routes.</p>
+        <p class="faq-links"><a href="../docs/user/target-prerequisites-before-rerun.md">Before rerun</a> · <a href="../docs/user/reading-the-matrix.md">Reading the matrix</a></p>
+      </article>
+        <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can every hook run automatically in the ConfigHub path?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not yet. The project can route and observe hook-like lifecycle behavior where evidence exists. Universal automatic execution still needs per-route product support, executor ownership, and live evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../data/lifecycle-route-actions/summary.md">Lifecycle route actions</a></p>
+      </article>
+      </div>
     </section>
 
-    <section aria-labelledby="decision">
-      <h2 id="decision">Which Path Should A User Take?</h2>
-      <div class="card"><table>
-        <thead><tr><th>Path</th><th>Use it when</th></tr></thead>
-        <tbody><tr><td>Use public catalog</td><td>A reviewed base exists and the chart-use guide says it is ready to try.</td></tr><tr><td>Use plain Helm for now</td><td>The chart is in a top-100 bucket that needs a better base variant or a limitation decision before the catalog is a better first path.</td></tr><tr><td>Create a new installer base</td><td>Your values, overlay, CRD choice, Secret mode, storage mode, ingress shape, or extension slot changes Helm render inputs or object shape.</td></tr><tr><td>Create a derived ConfigHub variant</td><td>Your change refines an uploaded object set: target, labels, approval gates, observation policy, links, or approved post-render field fills.</td></tr><tr><td>Ask for managed support</td><td>The path involves private charts, private values, production SLAs, fleet operations, or target-scoped support decisions.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The matrix and chart-use guide are the practical routing surfaces: <a href="./matrix.html">master matrix</a>, <a href="../data/chart-use-guide/summary.md">chart-use guide</a>, and <a href="../docs/user/reading-the-matrix.md">how to read the matrix</a>.</p>
-    </section>
-
-    <section aria-labelledby="hard">
-      <h2 id="hard">Current Non-Green Work Should Stay Legible</h2>
-      <p>These rows are not hidden failures. They are the next proof work, with owner class and reason attached.</p>
-      <div class="card"><table>
+    <section aria-labelledby="parity-gitops-and-upgrades">
+      <h2 id="parity-gitops-and-upgrades">Parity, GitOps, And Upgrades</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can I trust a green GitOps sync?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.</p>
+        <p class="faq-links"><a href="../docs/user/why-synced-is-not-working.md">Why synced is not working</a> · <a href="../docs/user/verification-lanes.md">Verification lanes</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What if a Helm upgrade caused a production crash?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. That reduces opaque upgrades. It does not promise crash-free production.</p>
+        <p class="faq-links"><a href="../docs/user/helm-upgrade-crash-example.md">Upgrade crash example</a> · <a href="../data/blast-radius-accuracy/summary.md">Blast-radius accuracy</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What should I do with non-green rows?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Do not hide them and do not spend time trying to make every already-dispositioned cell green. A watch, blocked, refused, or n/a cell can be the correct product answer when the reason is named and linked.</p>
+        <div class="card"><table>
         <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th></tr></thead>
         <tbody><tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>default</td><td>blocked</td><td>runtime-review</td><td>helm-runtime: upstream leg blocked</td></tr><tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>blocked</td><td>crd-bootstrap</td><td>crd-bootstrap: required CRDs missing before custom resources apply</td></tr><tr><td>argo-cd/argo-cd@9.5.17</td><td>default</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td></tr><tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>default</td><td>watch</td><td>target-fit-review</td><td>target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)</td></tr><tr><td>bitnami/apache@11.4.29</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/contour@21.1.4</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/contour@21.1.4</td><td>no-crds</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/elasticsearch@22.1.6</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr></tbody>
       </table></div>
@@ -282,15 +344,104 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Open <a href="../data/status-dashboard/active-proof-queue.csv">the active proof queue</a> for the full generated list.</p>
+        <p class="faq-links"><a href="../data/status-dashboard/active-proof-queue.csv">Active proof queue</a> · <a href="./matrix.html">Matrix</a></p>
+      </article>
+        <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can a live Kubernetes fix flow back into desired ConfigHub state?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not as a shipped product path yet. The reverse-reconcile design defines authority, bounded write-back, attribution, and round-trip proof. The product still needs a gated command and live proof.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../docs/user/reverse-reconcile-design.md">Reverse reconcile design</a></p>
+      </article>
+      </div>
     </section>
 
-    <section aria-labelledby="challenge">
-      <h2 id="challenge">How To Challenge The Project</h2>
-      <p>If a public chart, values file, CRD behavior, hook, live result, or catalog command breaks the model, file it with public reproduction steps. A good response is a new fixture, a receipt, a watch row, a routed gap, or a named refusal.</p>
-      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a>.</p>
+    <section aria-labelledby="values-variants-and-catalog-scope">
+      <h2 id="values-variants-and-catalog-scope">Values, Variants, And Catalog Scope</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can I bring my own values files or overlays?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.</p>
+        <p class="faq-links"><a href="../docs/user/custom-overlays.md">Custom overlays</a> · <a href="../docs/user/change-routing-before-oci.md">Change routing before OCI</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Which path should I take?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Use the public catalog when a reviewed base exists. Use plain Helm when the chart still needs a better base or limitation decision. Create a new installer base when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
+        <p class="faq-links"><a href="../docs/user/choose-your-path.md">Choose your path</a> · <a href="../data/chart-use-guide/summary.md">Chart-use guide</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How much of the top-100 is ready for a user?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>The top-100 is intentionally bucketed rather than flattened into one claim. Some charts are ready to try, some need target prerequisites, some need operator review, and some need a better base.</p>
+        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>23</strong><span>Needs operator review</span></div><div class="metric"><strong>35</strong><span>Needs a better base</span></div></div>
+        <p class="faq-links"><a href="../docs/user/top100-status.md">Top-100 status</a> · <a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></p>
+      </article>
+        <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can the catalog prove every values combination for a chart?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>No. Claims are per chart, version, base, values path, lane, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../docs/user/what-we-refuse-to-claim.md">What we refuse to claim</a></p>
+      </article>
+        <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Can every top-100 or top-500 chart become ready-to-run?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>Not yet. The top-20 is strongest, the top-100 is increasingly legible, and the top-500 remains mostly analysis and triage data until more recipes, bases, and receipts are added.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../docs/user/top100-status.md">Top-100 status</a></p>
+      </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="trust-free-use-and-challenges">
+      <h2 id="trust-free-use-and-challenges">Trust, Free Use, And Challenges</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is free and what needs ConfigHub?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.</p>
+        <p class="faq-links"><a href="./journey.html">Journey</a> · <a href="./tiers.html">Tiers</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What can we build once the objects are data?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.</p>
+        <p class="faq-links"><a href="../data/app-readiness/summary.md">App readiness</a> · <a href="./day1-operations.html">Day-1 operations</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What should I do if this breaks on my chart?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Send the public chart and values that expose the problem. The expected response is a public fixture and a pass, watch, blocked, refused, or routed gap with evidence.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="https://github.com/confighub/helm-expt/issues/1001">P1 unanswered backlog</a></p>
+      </article>
+        <article class="faq-card later">
+        <div class="faq-head">
+          <h3>Are signatures enough to establish trust?</h3>
+          <span class="faq-status">P1 backlog</span>
+        </div>
+        <p>No. Signatures help integrity and transport. Trust also needs signer authority, policy context, scans, gates, and live evidence. Keep that boundary visible.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../data/claims-register/summary.md">Claims register</a></p>
+      </article>
+      </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Hard questions should route to evidence, not slogans.</footer>
+  <footer>Generated from helm-expt proof data. FAQ answers should route to evidence, not slogans.</footer>
 </body>
 </html>

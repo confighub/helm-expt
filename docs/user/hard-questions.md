@@ -1,10 +1,13 @@
-# Hard Questions Before You Trust The Catalog
+# FAQ: Hard Questions Before You Trust The Catalog
 
 **UNOFFICIAL/EXPERIMENTAL**
 
 This page is for a skeptical Helm user, platform engineer, or reviewer. It
 answers the questions that should be asked before using the public catalog or
 moving a chart into ConfigHub-managed operations.
+
+Questions that still need product work are tracked in
+[P1: hard-questions-for-later FAQ backlog](https://github.com/confighub/helm-expt/issues/1001).
 
 ## Is this just Helm with extra paperwork?
 
