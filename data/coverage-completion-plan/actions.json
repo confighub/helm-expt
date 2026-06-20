@@ -13,19 +13,18 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 715,
-  "familyCount": 21,
+  "nonGreenCellsCovered": 696,
+  "familyCount": 20,
   "byActionType": {
     "run-promotion": 396,
     "record-decision": 147,
     "stage-prereq": 60,
     "refresh-image": 50,
     "fix-model": 35,
-    "run-kind": 19,
     "lifecycle-observe": 8
   },
   "byOwnerLane": {
-    "Codex-live": 423,
+    "Codex-live": 404,
     "product-decision": 178,
     "Claude-non-live": 114
   },
@@ -67,38 +66,38 @@
     },
     {
       "action_id": "CCP-06",
-      "action_type": "run-kind",
-      "sub_group": "kind-ready",
-      "affected_cell_count": 19,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-07",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "affected_cell_count": 16,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-08",
+      "action_id": "CCP-07",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "affected_cell_count": 10,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "affected_cell_count": 9,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "affected_cell_count": 8,
       "owner_lane": "Codex-live"
+    },
+    {
+      "action_id": "CCP-10",
+      "action_type": "stage-prereq",
+      "sub_group": "create-namespace",
+      "affected_cell_count": 6,
+      "owner_lane": "Claude-non-live"
     }
   ],
   "families": [
@@ -813,43 +812,6 @@
     },
     {
       "action_id": "CCP-06",
-      "action_type": "run-kind",
-      "sub_group": "kind-ready",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 19,
-      "lanes": [
-        "K"
-      ],
-      "command": "npm run kind-parity:run … (data/live-run-blocks)",
-      "prerequisite": "",
-      "expected_status": "pass or watch",
-      "prediction": true,
-      "evidence_surface": "kind-parity-decisions",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "argo-cd/argo-cd@9.5.17/default [K]",
-        "bitnami/mongodb@19.0.7/existing-secret-replicaset [K]",
-        "bitnami/mongodb@19.0.7/generated-passwords [K]",
-        "bitnami/mongodb@19.0.9/existing-secret-replicaset [K]",
-        "bitnami/mongodb@19.0.9/generated-passwords [K]",
-        "bitnami/nginx@24.0.2/existing-tls-ingress [K]",
-        "bitnami/nginx@24.0.2/http-clusterip [K]",
-        "bitnami/nginx@24.0.4/existing-tls-ingress [K]",
-        "bitnami/nginx@24.0.4/http-clusterip [K]",
-        "bitnami/postgresql@18.6.10/existing-secret [K]",
-        "bitnami/postgresql@18.6.10/generated-passwords [K]",
-        "bitnami/postgresql@18.6.7/existing-secret [K]",
-        "bitnami/postgresql@18.6.7/generated-passwords [K]",
-        "bitnami/redis@25.5.3/default [K]",
-        "bitnami/redis@25.5.3/reuse-existing-secret [K]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/no-crds [K]",
-        "prometheus-community/prometheus@29.8.0/default [K]",
-        "prometheus-community/prometheus@29.8.0/server-only-ephemeral [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-07",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
@@ -886,7 +848,7 @@
       ]
     },
     {
-      "action_id": "CCP-08",
+      "action_id": "CCP-07",
       "action_type": "stage-prereq",
       "sub_group": "stage-secret",
       "owner_lane": "Claude-non-live",
@@ -915,7 +877,7 @@
       ]
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "owner_lane": "Claude-non-live",
@@ -945,7 +907,7 @@
       ]
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-09",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "owner_lane": "Codex-live",
@@ -972,7 +934,7 @@
       ]
     },
     {
-      "action_id": "CCP-11",
+      "action_id": "CCP-10",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -998,7 +960,7 @@
       ]
     },
     {
-      "action_id": "CCP-12",
+      "action_id": "CCP-11",
       "action_type": "fix-model",
       "sub_group": "base-design",
       "owner_lane": "Claude-non-live",
@@ -1023,7 +985,7 @@
       ]
     },
     {
-      "action_id": "CCP-13",
+      "action_id": "CCP-12",
       "action_type": "fix-model",
       "sub_group": "crd-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1046,7 +1008,7 @@
       ]
     },
     {
-      "action_id": "CCP-14",
+      "action_id": "CCP-13",
       "action_type": "stage-prereq",
       "sub_group": "provide-external-service",
       "owner_lane": "product-decision",
@@ -1070,7 +1032,7 @@
       ]
     },
     {
-      "action_id": "CCP-15",
+      "action_id": "CCP-14",
       "action_type": "fix-model",
       "sub_group": "semantic-normalization",
       "owner_lane": "Claude-non-live",
@@ -1093,7 +1055,7 @@
       ]
     },
     {
-      "action_id": "CCP-16",
+      "action_id": "CCP-15",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
@@ -1110,14 +1072,14 @@
       "evidence_surface": "target-prerequisite-workdown",
       "linked_issues": "#248; #753",
       "affected_rows": [
-        "argo-cd/argo-cd@9.5.15/no-crds [K]",
         "bitnami/contour@21.1.4/legacy [G]",
         "bitnami/contour@21.1.4/legacy [K]",
-        "bitnami/contour@21.1.4/legacy [P]"
+        "bitnami/contour@21.1.4/legacy [P]",
+        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]"
       ]
     },
     {
-      "action_id": "CCP-17",
+      "action_id": "CCP-16",
       "action_type": "stage-prereq",
       "sub_group": "webhook-cert-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -1139,7 +1101,7 @@
       ]
     },
     {
-      "action_id": "CCP-18",
+      "action_id": "CCP-17",
       "action_type": "fix-model",
       "sub_group": "object-set-shape",
       "owner_lane": "Claude-non-live",
@@ -1159,7 +1121,7 @@
       ]
     },
     {
-      "action_id": "CCP-19",
+      "action_id": "CCP-18",
       "action_type": "fix-model",
       "sub_group": "unknown",
       "owner_lane": "Claude-non-live",
@@ -1180,7 +1142,7 @@
       ]
     },
     {
-      "action_id": "CCP-20",
+      "action_id": "CCP-19",
       "action_type": "stage-prereq",
       "sub_group": "admission-or-rbac",
       "owner_lane": "product-decision",
@@ -1200,7 +1162,7 @@
       ]
     },
     {
-      "action_id": "CCP-21",
+      "action_id": "CCP-20",
       "action_type": "fix-model",
       "sub_group": "generated-fact",
       "owner_lane": "Claude-non-live",

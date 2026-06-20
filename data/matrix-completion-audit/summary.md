@@ -18,22 +18,22 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-715 non-green cells:
+696 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 350 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 237 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 81 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 62 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
 | `promotion` | 396 |
-| `K` | 78 |
 | `G` | 64 |
 | `P` | 64 |
 | `lifecycle` | 62 |
+| `K` | 59 |
 | `L` | 51 |
 
 | State | Cells |
@@ -41,19 +41,18 @@ columns). It changes no status and runs nothing.
 | `watch` | 237 |
 | `not-applicable-source` | 110 |
 | `blocked` | 106 |
-| `todo` | 81 |
 | `proven` | 76 |
 | `not-applicable-candidate` | 74 |
+| `todo` | 62 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (81)
+## needs-run (62)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
 | Chart | Variant | Lane | State | Reason | Next action |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-cd@9.5.17 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
@@ -61,25 +60,11 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/mongodb@19.0.7 | existing-secret-replicaset | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/mongodb@19.0.7 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.7 | generated-passwords | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/mongodb@19.0.9 | existing-secret-replicaset | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/mongodb@19.0.9 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/nginx@24.0.2 | existing-tls-ingress | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/nginx@24.0.2 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/nginx@24.0.4 | existing-tls-ingress | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/nginx@24.0.4 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/postgresql@18.6.10 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/postgresql@18.6.10 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/postgresql@18.6.7 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.7 | existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/postgresql@18.6.7 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.7 | generated-passwords | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/redis@25.5.3 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@25.5.3 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/redis@25.5.3 | reuse-existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@25.5.3 | reuse-existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -120,15 +105,11 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
-| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-operator-crds@29.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| prometheus-community/prometheus@29.8.0 | default | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | rook-release/rook-ceph@v1.19.5 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -144,7 +125,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | aqua/trivy-operator@0.32.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argo-cd@9.5.15 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argo-cd@9.5.15 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| argo-cd/argo-cd@9.5.15 | no-crds | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | argo-cd/argo-cd@9.5.15 | no-crds | L | blocked | local-live blocked: webhook-cert-lifecycle: deployment/argo-cd-argocd-applicationset-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b845 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | argo-cd/argo-cd@9.5.15 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argo-cd@9.5.17 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -413,6 +393,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | projectcalico/tigera-operator@v3.32.0 | default | L | blocked | local-live blocked: lifecycle-ordering: apply: resource mapping not found for name: "default" namespace: "" from "STDIN": no matches for kind "APIServer" in version "operator.tigera.io/v1" ensure CRDs are installed first resource mapping not found | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
 | prometheus-community/alertmanager@1.37.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/kube-prometheus-stack@85.3.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml | resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/kube-prometheus-stack@86.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
