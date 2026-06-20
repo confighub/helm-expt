@@ -435,8 +435,6 @@
     "live-matrix:burndown:verify": "node scripts/generate-live-matrix-burndown.mjs --verify",
     "gitops:health-residue": "node scripts/generate-gitops-health-residue.mjs --generate",
     "gitops:health-residue:verify": "node scripts/generate-gitops-health-residue.mjs --verify",
-    "flux-lookup:proof": "node scripts/run-flux-lookup-proof.mjs --run",
-    "flux-lookup:proof:verify": "node scripts/run-flux-lookup-proof.mjs --verify",
     "live-parity:top20": "node scripts/run-top20-live-parity.mjs --run",
     "live-parity:top20:all": "node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail",
     "live-parity:top20:summary": "node scripts/run-top20-live-parity.mjs --summary",
