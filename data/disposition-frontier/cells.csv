@@ -124,7 +124,7 @@ bitnami/apache@11.4.29,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/apache@11.4.29,legacy,local_live,L,pass,pass,no,,,
 bitnami/apache@11.4.29,legacy,gitops_oci_live,G,watch,watch,no,,,
 bitnami/apache@11.4.29,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/apache@11.4.29,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/apache@11.4.29,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 bitnami/contour@21.1.4,default,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,default,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,default,local_live,L,blocked,blocked,no,,,
@@ -160,7 +160,7 @@ bitnami/elasticsearch@22.1.6,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,legacy,local_live,L,pass,pass,no,,,
 bitnami/elasticsearch@22.1.6,legacy,gitops_oci_live,G,watch,watch,no,,,
 bitnami/elasticsearch@22.1.6,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/elasticsearch@22.1.6,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/elasticsearch@22.1.6,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 bitnami/memcached@8.5.5,default,render_parity,R,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,in_confighub,C,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,local_live,L,pass,pass,no,,,
@@ -266,9 +266,9 @@ bitnami/opensearch@2.0.10,ha,two_cluster_kind_parity,K,blocked,blocked,no,parity
 bitnami/opensearch@2.0.10,legacy,render_parity,R,pass,pass,no,,,
 bitnami/opensearch@2.0.10,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/opensearch@2.0.10,legacy,local_live,L,pass,pass,no,,,
-bitnami/opensearch@2.0.10,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/opensearch@2.0.10,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-bitnami/opensearch@2.0.10,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/opensearch@2.0.10,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/opensearch@2.0.10,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/opensearch@2.0.10,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 bitnami/phpmyadmin@20.0.0,default,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,default,local_live,L,blocked,blocked,no,,,
@@ -278,9 +278,9 @@ bitnami/phpmyadmin@20.0.0,default,two_cluster_kind_parity,K,blocked,blocked,no,r
 bitnami/phpmyadmin@20.0.0,legacy,render_parity,R,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,local_live,L,pass,pass,no,,,
-bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-bitnami/phpmyadmin@20.0.0,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/phpmyadmin@20.0.0,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
@@ -368,9 +368,9 @@ bitnami/spark@10.0.3,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-imag
 bitnami/spark@10.0.3,legacy,render_parity,R,pass,pass,no,,,
 bitnami/spark@10.0.3,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/spark@10.0.3,legacy,local_live,L,pass,pass,no,,,
-bitnami/spark@10.0.3,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/spark@10.0.3,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-bitnami/spark@10.0.3,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/spark@10.0.3,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/spark@10.0.3,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/spark@10.0.3,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 bitnami/zookeeper@13.8.7,default,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,default,local_live,L,blocked,blocked,no,,,
@@ -386,9 +386,9 @@ bitnami/zookeeper@13.8.7,ha,two_cluster_kind_parity,K,blocked,blocked,no,remote-
 bitnami/zookeeper@13.8.7,legacy,render_parity,R,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/zookeeper@13.8.7,legacy,local_live,L,pass,pass,no,,,
-bitnami/zookeeper@13.8.7,legacy,gitops_oci_live,G,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the ConfigHub OCI/Argo live lane,either
-bitnami/zookeeper@13.8.7,legacy,live_helm_vs_confighub_parity,P,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run scripts/run-top20-live-parity.mjs for this row,either
-bitnami/zookeeper@13.8.7,legacy,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/zookeeper@13.8.7,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/zookeeper@13.8.7,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
 cloudnative-pg/cloudnative-pg@0.28.2,default,render_parity,R,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,default,in_confighub,C,pass,pass,no,,,
 cloudnative-pg/cloudnative-pg@0.28.2,default,local_live,L,pass,pass,no,,,

@@ -23,9 +23,9 @@ columns). It changes no status and runs nothing.
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 350 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 229 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 95 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
-| `needs-modeling` | 41 | The catalog/model has to change before this can pass. |
+| `already-decided` | 237 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 81 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
@@ -38,16 +38,16 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `watch` | 229 |
+| `watch` | 237 |
 | `not-applicable-source` | 110 |
-| `blocked` | 100 |
-| `todo` | 95 |
+| `blocked` | 106 |
+| `todo` | 81 |
 | `proven` | 76 |
 | `not-applicable-candidate` | 74 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (95)
+## needs-run (81)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -58,11 +58,9 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/apache@11.4.29 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/elasticsearch@22.1.6 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/mongodb@19.0.7 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -73,12 +71,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/nginx@24.0.2 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/nginx@24.0.4 | http-clusterip | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/opensearch@2.0.10 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
-| bitnami/opensearch@2.0.10 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/opensearch@2.0.10 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
-| bitnami/phpmyadmin@20.0.0 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
-| bitnami/phpmyadmin@20.0.0 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/phpmyadmin@20.0.0 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | bitnami/postgresql@18.6.10 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.10 | generated-passwords | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/postgresql@18.6.7 | existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
@@ -89,12 +81,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/redis@25.5.3 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/redis@25.5.3 | reuse-existing-secret | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
 | bitnami/redis@25.5.3 | reuse-existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/spark@10.0.3 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
-| bitnami/spark@10.0.3 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/spark@10.0.3 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
-| bitnami/zookeeper@13.8.7 | legacy | G | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the ConfigHub OCI/Argo live lane |
-| bitnami/zookeeper@13.8.7 | legacy | K | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run the two-cluster kind parity lane |
-| bitnami/zookeeper@13.8.7 | legacy | P | todo | single-cluster local live passes; this live lane is runnable but not yet recorded | run scripts/run-top20-live-parity.mjs for this row |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -506,7 +492,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 
-## needs-modeling (41)
+## needs-modeling (47)
 
 The catalog/model has to change before this can pass.
 
@@ -515,17 +501,23 @@ The catalog/model has to change before this can pass.
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | K | blocked | no target fact value generator for autoDiscovery.clusterName | Catalog work: add the missing target-fact value generator, then rerun. |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=2; extra=v1|Namespace||default; objects=apps/v1|Deployment|default|ebs-csi-controller; storage.k8s.io/v1|CSIDriver||ebs.csi.aws.com | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/apache@11.4.29 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
+| bitnami/apache@11.4.29 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; objects=apps/v1|Deployment|default|apache; runtime also fails to pull docker.io/bitnami/apache:2.4.65-debian-12-r2 | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/contour@21.1.4 | default | K | blocked | helm-hook: pre-install certificate generation failed (parity passed) | Catalog work: add a lifecycle route for the hook action or provide the hook-produced object as a target prerequisite, then rerun. |
 | bitnami/contour@21.1.4 | no-crds | K | blocked | semantic object parity issue: missing=5 extra=1 diffs=0; missing=apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||contourdeployments.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||extensionservices.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||httpproxies.projectcontour.io; apiextensions.k8s.io/v1|CustomResourceDefinition||tlscertificatedelegations.projectcontour.io; extra=v1|Namespace||default; runtime also fails to pull docker.io/bitnami/contour:1.32.1-debian-12-r0; lifecycle also hits pre-install certificate-generation hook failure; runtime also requires hook/target Secret(s): envoycert | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/elasticsearch@22.1.6 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
 | bitnami/elasticsearch@22.1.6 | ha | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
+| bitnami/elasticsearch@22.1.6 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=4; extra=v1|Namespace||default; objects=apps/v1|StatefulSet|default|elasticsearch-coordinating; apps/v1|StatefulSet|default|elasticsearch-data; apps/v1|StatefulSet|default|elasticsearch-ingest; apps/v1|StatefulSet|default|elasticsearch-master; runtime also fails to pull docker.io/bitnami/os-shell:12-debian-12-r50 | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/opensearch@2.0.10 | default | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=4; extra=v1|Namespace||default; objects=v1|Service|default|opensearch-coordinating-hl; v1|Service|default|opensearch-data-hl; v1|Service|default|opensearch-ingest-hl; v1|Service|default|opensearch-master-hl; live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile; runtime also fails to pull docker.io/bitnami/os-shell:12-debian-12-r51 | Catalog work: model the required Kubernetes capability/profile field, update the base or semantic contract, then rerun. |
 | bitnami/opensearch@2.0.10 | ha | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=8; extra=v1|Namespace||default; objects=apps/v1|StatefulSet|default|opensearch-coordinating; apps/v1|StatefulSet|default|opensearch-data; apps/v1|StatefulSet|default|opensearch-ingest; apps/v1|StatefulSet|default|opensearch-master; v1|Service|default|opensearch-coordinating-hl; v1|Service|default|opensearch-data-hl; live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile; runtime also fails to pull docker.io/bitnami/os-shell:12-debian-12-r51 | Catalog work: model the required Kubernetes capability/profile field, update the base or semantic contract, then rerun. |
+| bitnami/opensearch@2.0.10 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=8; extra=v1|Namespace||default; objects=apps/v1|StatefulSet|default|opensearch-coordinating; apps/v1|StatefulSet|default|opensearch-data; apps/v1|StatefulSet|default|opensearch-ingest; apps/v1|StatefulSet|default|opensearch-master; v1|Service|default|opensearch-coordinating-hl; v1|Service|default|opensearch-data-hl; live Helm includes Service spec.trafficDistribution=PreferClose for this cluster capability profile; runtime also fails to pull docker.io/bitnami/os-shell:12-debian-12-r51 | Catalog work: model the required Kubernetes capability/profile field, update the base or semantic contract, then rerun. |
 | bitnami/phpmyadmin@20.0.0 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
+| bitnami/phpmyadmin@20.0.0 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; objects=apps/v1|Deployment|default|phpmyadmin; runtime also fails to pull docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22 | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/spark@10.0.3 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
 | bitnami/spark@10.0.3 | ha | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
+| bitnami/spark@10.0.3 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=2; extra=v1|Namespace||default; objects=apps/v1|StatefulSet|default|spark-master; apps/v1|StatefulSet|default|spark-worker; runtime also fails to pull docker.io/bitnami/spark:4.0.0-debian-12-r20 | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | bitnami/zookeeper@13.8.7 | default | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
 | bitnami/zookeeper@13.8.7 | ha | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
+| bitnami/zookeeper@13.8.7 | legacy | K | blocked | semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; objects=apps/v1|StatefulSet|default|zookeeper; runtime also fails to pull docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | grafana/pyroscope@2.0.2 | ha | K | blocked | semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com; v1|Namespace||default | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | hashicorp/terraform@1.1.2 | default | K | blocked | semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||workspaces.app.terraform.io; v1|Namespace||default; runtime also requires hook/target Secret(s): terraformrc, workspacesecrets | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | istio/gateway@1.30.0 | controller-default-reviewed | K | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun. |
@@ -554,7 +546,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (229)
+## already-decided (237)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -624,9 +616,13 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/opensearch@2.0.10 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/opensearch@2.0.10 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/opensearch@2.0.10 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/opensearch@2.0.10 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/opensearch@2.0.10 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/phpmyadmin@20.0.0 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/phpmyadmin@20.0.0 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/postgresql@18.6.10 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.6.10 | generated-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.7.0 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
@@ -639,12 +635,16 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/spark@10.0.3 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/spark@10.0.3 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/spark@10.0.3 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/spark@10.0.3 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/spark@10.0.3 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/zookeeper@13.8.7 | ha | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/zookeeper@13.8.7 | ha | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/zookeeper@13.8.7 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/zookeeper@13.8.7 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | coredns/coredns@1.45.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |

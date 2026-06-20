@@ -1,0 +1,1069 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-phpmyadmin-20.0.0-legacy-live-parity-20260605
+spec:
+  chart: bitnami/phpmyadmin
+  version: 20.0.0
+  base: legacy
+  result: watch
+  observedAt: '2026-06-19T08:01:47Z'
+  package:
+    path: packages/bitnami/phpmyadmin/20.0.0
+  recipe:
+    path: recipes/bitnami/phpmyadmin/20.0.0
+  variantRevision: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd
+    kubeContext: kind-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd"...
+
+        Deleting cluster "helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd" ...
+
+        Deleted nodes: ["helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-control-plane"]
+
+        Deleting Space "helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install phpmyadmin phpmyadmin --repo https://charts.bitnami.com/bitnami
+        --version 20.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942
+      objectCount: 5
+      liveHelmManifestSHA256: ad75bbdcdddc7bc4fddc86c3c1f738491769de29f1751bb4798e3c17f82d3b94
+      liveHelmManifestObjectCount: 5
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: deployment.apps/phpmyadmin   0/1   1     0     8m1s
+        pods: phpmyadmin-f67d9cfd6-2nl4k   0/1   Init:ImagePullBackOff   0     8m1s
+        notReady:
+        - namespace: default-helm
+          pod: phpmyadmin-f67d9cfd6-2nl4k
+          ready: 0/1
+          status: Init:ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 0770a00a98ea807d2c58fc31d562f36631dba22b1b7858caa6de6efe04ca2006
+            bytes: 1520
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 7a9d4d10f0e017ce89e28e93e5082dfa0fd25f60019b4153677898fcf6317c81
+            bytes: 4940
+          podArtifacts:
+          - namespace: default-helm
+            pod: phpmyadmin-f67d9cfd6-2nl4k
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/phpmyadmin-f67d9cfd6-2nl4k/describe.txt
+            sha256: 5cc4be56072664b5a80fad47fd5ec78dd00636753d6c03f3ef27ad46336eef09
+            bytes: 5990
+          - namespace: default-helm
+            pod: phpmyadmin-f67d9cfd6-2nl4k
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/phpmyadmin-f67d9cfd6-2nl4k/logs.txt
+            sha256: 7fb038937f1cd19a018efcc0a878d3f9aaf69a53b845414623fdb527bf807484
+            bytes: 150
+          - namespace: default-helm
+            pod: phpmyadmin-f67d9cfd6-2nl4k
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/phpmyadmin-f67d9cfd6-2nl4k/previous-logs.txt
+            sha256: b8f2630664c56bb2b3c4a075d5d8b1822b097bde7379826c56f34aa7d01d37d8
+            bytes: 126
+      stderr: 'Error: resource Deployment/default-helm/phpmyadmin not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
+        --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: b6a1cd0015b15d8012a63ea99d2e9cece4bea79b286b3913313a68448b081190
+      objectCount: 6
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/phpmyadmin   1/1   1     1     61s'
+        pods: '# default
+
+          phpmyadmin-76d75c8d86-6z4ww   1/1   Running   0     61s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|Deployment|default|phpmyadmin
+          - networking.k8s.io/v1|NetworkPolicy|default|phpmyadmin
+          - policy/v1|PodDisruptionBudget|default|phpmyadmin
+          - v1|ServiceAccount|default|phpmyadmin
+          - v1|Service|default|phpmyadmin
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+      controller: Argo CD OCI
+      app: phpmyadmin-parity
+      manifestSHA256: 3f6a90933fed827dca7260f5bb67c8335a3d15cd9a165454699cdda21b4d7ac6
+      objectCount: 6
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+              targetRevision: latest
+          revision: sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T08:13:08Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T08:13:08Z'
+          finishedAt: '2026-06-19T08:13:10Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+          deployedAt: '2026-06-19T08:13:10Z'
+          deployStartedAt: '2026-06-19T08:13:08Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: phpmyadmin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: phpmyadmin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: phpmyadmin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: phpmyadmin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: phpmyadmin
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         phpmyadmin-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster:argoproj.io/Application:argocd/phpmyadmin-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ f07badb7-413b-4e43-97b6-28c60d34cb64\n              confighub.com/UnitSlug:\
+              \ phpmyadmin-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-19T08:13:06Z\n\
+              \  Generation:          8\n  Resource Version:    1831\n  UID:     \
+              \            d30576c8-3401-4b69-9e0f-310737f38428\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-19T08:13:08Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-19T08:13:08Z\n    Deployed At:        2026-06-19T08:13:10Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \    Source:\n      Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T08:13:10Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \        Source:\n          Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-19T08:13:08Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/phpmyadmin serverside-applied\n\
+              \        Name:        phpmyadmin\n        Namespace:   default\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/phpmyadmin\
+              \ serverside-applied\n        Name:        phpmyadmin\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/phpmyadmin serverside-applied\n        Name:    \
+              \    phpmyadmin\n        Namespace:   default\n        Status:     \
+              \ Synced\n        Sync Phase:  Sync\n        Version:     v1\n     \
+              \   Group:       \n        Hook Phase:  Running\n        Kind:     \
+              \   Service\n        Message:     service/phpmyadmin serverside-applied\n\
+              \        Name:        phpmyadmin\n        Namespace:   default\n   \
+              \     Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       apps\n        Hook Phase:  Running\n\
+              \        Images:\n          docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/phpmyadmin\
+              \ serverside-applied\n        Name:        phpmyadmin\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \      Source:\n        Path:              ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-19T08:13:11Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n    Status:     Synced\n    Version: \
+              \   v1\n    Kind:       Service\n    Name:       phpmyadmin\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Kind:  \
+              \     ServiceAccount\n    Name:       phpmyadmin\n    Namespace:  default\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apps\n\
+              \    Kind:       Deployment\n    Name:       phpmyadmin\n    Namespace:\
+              \  default\n    Status:     Synced\n    Version:    v1\n    Group: \
+              \     networking.k8s.io\n    Kind:       NetworkPolicy\n    Name:  \
+              \     phpmyadmin\n    Namespace:  default\n    Status:     Synced\n\
+              \    Version:    v1\n    Group:      policy\n    Kind:       PodDisruptionBudget\n\
+              \    Name:       phpmyadmin\n    Namespace:  default\n    Status:  \
+              \   Synced\n    Version:    v1\n  Source Hydrator:\n  Source Type: \
+              \ Directory\n  Summary:\n    Images:\n      docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22\n\
+              \  Sync:\n    Compared To:\n      Destination:\n        Namespace: \
+              \ default-oci\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+              \        Repo URL:         oci:"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              10s         Normal   OperationStarted     application/phpmyadmin-parity   Initiated
+              automated sync to ''sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf''
+
+              10s         Normal   ResourceUpdated      application/phpmyadmin-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/phpmyadmin-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/phpmyadmin-parity   Sync
+              operation to sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+              succeeded
+
+              7s          Normal   ResourceUpdated      application/phpmyadmin-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: b6d722d30e3157363c383ae9c972ba5ee18bbd09ee01bb6b424f7579edc5d5b1
+                bytes: 11159
+              output: "{\n  \"metadata\": {\n    \"name\": \"phpmyadmin-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"d30576c8-3401-4b69-9e0f-310737f38428\"\
+                ,\n    \"resourceVersion\": \"1851\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-19T08:13:06Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster:argoproj.io/Application:argocd/phpmyadmin-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"f07badb7-413b-4e43-97b6-28c60d34cb64\",\n      \"confighub.com/UnitSlug\"\
+                : \"phpmyadmin-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-19T08:13:06Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-19T08:13:26Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"phpmyadmin\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"phpmyadmin\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"phpmyadmin\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"networking.k8s.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"NetworkPolicy\",\n        \"namespace\": \"\
+                default\",\n        \"name\": \"phpmyadmin\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"group\": \"policy\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"PodDisruptionBudget\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"phpmyadmin\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"PodDisruptionBudget\
+                \ has Su"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b609510a4bbb1c86d75651ab5ae9fcfb6689c8cd6653a5b91cbae32ef1916cd1
+                bytes: 1506
+              output: "Name:               argocd/phpmyadmin-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:51627/applications/phpmyadmin-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                            STATUS  HEALTH\
+                \   AGE   MESSAGE                                                \
+                \        REASON\nPodDisruptionBudget/phpmyadmin       Synced  Healthy\
+                \  2m9s  poddisruptionbudget.policy/phpmyadmin serverside-applied\
+                \       PodDisruptionBudget has SufficientPods\nNamespace/default-oci\
+                \                Synced           62s                            \
+                \                                      \nService/phpmyadmin      \
+                \             Synced  Healthy  2m9s  service/phpmyadmin serverside-applied\
+                \                          \nServiceAccount/phpmyadmin           \
+                \ Synced           2m9s  serviceaccount/phpmyadmin serverside-applied\
+                \                   \nDeployment/phpmyadmin                Synced\
+                \  Healthy  2m9s  deployment.apps/phpmyadmin serverside-applied  \
+                \                \n\u2514\u2500ReplicaSet/phpmyadmin-76d75c8d86  \
+                \         Healthy  2m9s                                          \
+                \                       \n  \u2514\u2500Pod/phpmyadmin-76d75c8d86-6z4ww\
+                \          Healthy  2m9s                                         \
+                \                        \nNetworkPolicy/phpmyadmin             Synced\
+                \           2m9s  networkpolicy.networking.k8s.io/phpmyadmin serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              phpmyadmin-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/phpmyadmin-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"phpmyadmin-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+              targetRevision: latest
+          revision: sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T08:03:21Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T08:13:05Z'
+          finishedAt: '2026-06-19T08:13:06Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+          deployedAt: '2026-06-19T08:13:06Z'
+          deployStartedAt: '2026-06-19T08:13:05Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: phpmyadmin-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-19T08:03:12Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        11\n  Resource Version:  1806\n  UID:        \
+              \       256d31ab-a51a-4513-89ec-6d44b77e8a2c\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-19T08:03:21Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-19T08:13:05Z\n\
+              \    Deployed At:        2026-06-19T08:13:06Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \    Source:\n      Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T08:13:06Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \        Source:\n          Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-19T08:13:05Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/phpmyadmin-parity serverside-applied\n\
+              \        Name:        phpmyadmin-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \      Source:\n        Path:              ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-19T08:13:07Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       phpmyadmin-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     10m   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     10m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s   argocd-application-controller  Sync operation to sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\
+              \ succeeded\n  Normal  ResourceUpdated     27s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                          MESSAGE
+
+              10m         Normal   ResourceUpdated      application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Updated
+              sync status:  -> Synced
+
+              10m         Normal   ResourceUpdated      application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Initiated
+              automated sync to ''sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Sync
+              operation to sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: a054e597da2ee6d7c9979c7d210b4458a0ce0f8efe88099afe04b10697a21028
+                bytes: 9395
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"256d31ab-a51a-4513-89ec-6d44b77e8a2c\"\
+                ,\n    \"resourceVersion\": \"1876\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-19T08:03:12Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-19T08:03:12Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-19T08:13:42Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"phpmyadmin-parity\",\n        \"status\": \"Synced\"\
+                \n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-ph"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 486fb205c03a70f6941ce161bdcce612e61d4b5f4342d5c5a396a879034891fa
+                bytes: 1154
+              output: "Name:               argocd/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51756/applications/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \             STATUS  HEALTH  AGE  MESSAGE                       \
+                \                                                                REASON\n\
+                Application/phpmyadmin-parity                                  Synced\
+                \          45s  application.argoproj.io/phpmyadmin-parity serverside-applied\
+                \                                  \nApplication/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\
+                \  Synced          10m  application.argoproj.io/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              phpmyadmin-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/phpmyadmin-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:54669e891c73abd2401b68f8d210d1f46fa22c2ddd9c63c19f82ad151e5ac2bf\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"phpmyadmin-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/phpmyadmin   1/1   1     1     2m26s'
+        pods: '# default
+
+          phpmyadmin-76d75c8d86-6z4ww   1/1   Running   0     2m26s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-19T08:03:12Z'
+    finishedAt: '2026-06-19T08:11:19Z'
+    elapsedSeconds: 486.277
+    timeoutSeconds: 900
+    command: helm upgrade --install phpmyadmin phpmyadmin --repo https://charts.bitnami.com/bitnami
+      --version 20.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-19T08:11:24Z'
+    finishedAt: '2026-06-19T08:11:25Z'
+    elapsedSeconds: 0.429
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-19T08:11:25Z'
+    finishedAt: '2026-06-19T08:11:25Z'
+    elapsedSeconds: 0.111
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd.kubeconfig
+      --context kind-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-19T08:11:25Z'
+    finishedAt: '2026-06-19T08:12:26Z'
+    elapsedSeconds: 60.989
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-19T08:12:31Z'
+    finishedAt: '2026-06-19T08:12:31Z'
+    elapsedSeconds: 0.217
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-19T08:12:32Z'
+    finishedAt: '2026-06-19T08:12:51Z'
+    elapsedSeconds: 19.411
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+      --space helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin --target helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-19T08:12:51Z'
+    finishedAt: '2026-06-19T08:12:52Z'
+    elapsedSeconds: 0.546
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-19T08:12:52Z'
+    finishedAt: '2026-06-19T08:12:55Z'
+    elapsedSeconds: 3.509
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-phpmyadmin
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-19T08:12:55Z'
+    finishedAt: '2026-06-19T08:12:56Z'
+    elapsedSeconds: 1.27
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster
+      phpmyadmin-parity-app /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/argo-application.json
+      --target helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-19T08:12:56Z'
+    finishedAt: '2026-06-19T08:12:57Z'
+    elapsedSeconds: 1.075
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-19T08:12:57Z'
+    finishedAt: '2026-06-19T08:13:18Z'
+    elapsedSeconds: 20.124
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-19T08:13:51Z'
+    finishedAt: '2026-06-19T08:13:51Z'
+    elapsedSeconds: 0.102
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqkn4bj0-1ynd.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource Deployment/default-helm/phpmyadmin not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/phpmyadmin   1/1   1     1     61s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

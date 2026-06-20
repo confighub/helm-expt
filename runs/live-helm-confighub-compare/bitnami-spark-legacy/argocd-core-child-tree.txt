@@ -1,0 +1,30 @@
+Name:               argocd/spark-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:52904/applications/spark-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-spark
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                     STATUS  HEALTH   AGE    MESSAGE                                                          REASON
+Namespace/default-oci                         Synced           6m19s
+Service/spark-headless                        Synced  Healthy  9m7s   service/spark-headless serverside-applied
+Service/spark-master-svc                      Synced  Healthy  9m7s   service/spark-master-svc serverside-applied
+ServiceAccount/spark                          Synced           9m7s   serviceaccount/spark serverside-applied
+StatefulSet/spark-master                      Synced  Healthy  9m7s   statefulset.apps/spark-master serverside-applied                 statefulset rolling update complete 1 pods at revision spark-master-664c49767c...
+├─Pod/spark-master-0                                  Healthy  9m7s
+└─ControllerRevision/spark-master-664c49767c                   9m7s
+StatefulSet/spark-worker                      Synced  Healthy  9m7s   statefulset.apps/spark-worker serverside-applied                 statefulset rolling update complete 2 pods at revision spark-worker-567479b4bc...
+├─Pod/spark-worker-0                                  Healthy  9m7s
+├─Pod/spark-worker-1                                  Healthy  6m57s
+└─ControllerRevision/spark-worker-567479b4bc                   9m7s
+PodDisruptionBudget/spark-master              Synced  Healthy  9m7s   poddisruptionbudget.policy/spark-master serverside-applied       PodDisruptionBudget has SufficientPods
+NetworkPolicy/spark-master                    Synced           9m7s   networkpolicy.networking.k8s.io/spark-master serverside-applied
+NetworkPolicy/spark-worker                    Synced           9m7s   networkpolicy.networking.k8s.io/spark-worker serverside-applied
+PodDisruptionBudget/spark-worker              Synced  Healthy  9m7s   poddisruptionbudget.policy/spark-worker serverside-applied       PodDisruptionBudget has SufficientPods

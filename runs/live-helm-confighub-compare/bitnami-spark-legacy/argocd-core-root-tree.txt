@@ -1,0 +1,17 @@
+Name:               argocd/helm-expt-parity-spark-mqkol7fy-1p2-cluster
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:53015/applications/helm-expt-parity-spark-mqkol7fy-1p2-cluster
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+  Target:           latest
+  Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH  AGE  MESSAGE                                                                                 REASON
+Application/helm-expt-parity-spark-mqkol7fy-1p2-cluster  Synced          17m  application.argoproj.io/helm-expt-parity-spark-mqkol7fy-1p2-cluster serverside-applied
+Application/spark-parity                                 Synced          44s  application.argoproj.io/spark-parity serverside-applied

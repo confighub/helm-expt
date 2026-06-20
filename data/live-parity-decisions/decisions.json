@@ -228,6 +228,20 @@
       "receipt": "runs/live-helm-confighub-compare/bitnami-opensearch-ha/receipt.yaml"
     },
     {
+      "chart": "bitnami/opensearch",
+      "version": "2.0.10",
+      "variant": "legacy",
+      "result": "watch",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — image reference must be resolved",
+      "user_decision": "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-opensearch-legacy/receipt.yaml"
+    },
+    {
       "chart": "bitnami/phpmyadmin",
       "version": "20.0.0",
       "variant": "default",
@@ -240,6 +254,20 @@
       "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
       "support_artifact": "data/image-digest-workdown/summary.md",
       "receipt": "runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/phpmyadmin",
+      "version": "20.0.0",
+      "variant": "legacy",
+      "result": "watch",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — image reference must be resolved",
+      "user_decision": "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/receipt.yaml"
     },
     {
       "chart": "bitnami/spark",
@@ -270,6 +298,20 @@
       "receipt": "runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml"
     },
     {
+      "chart": "bitnami/spark",
+      "version": "10.0.3",
+      "variant": "legacy",
+      "result": "watch",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — image reference must be resolved",
+      "user_decision": "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml"
+    },
+    {
       "chart": "bitnami/zookeeper",
       "version": "13.8.7",
       "variant": "default",
@@ -296,6 +338,20 @@
       "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
       "support_artifact": "data/image-digest-workdown/summary.md",
       "receipt": "runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "variant": "legacy",
+      "result": "watch",
+      "residue_category": "remote-image",
+      "blocker_owner": "catalog or image publisher",
+      "usable_today": "watch — image reference must be resolved",
+      "user_decision": "The rendered objects matched regular Helm, but at least one image reference was not pullable on the target. This is image retention, registry access, or image override work, not a ConfigHub object-model defect.",
+      "next_action": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "reason": "remote-image: image pull failed or pinned image is unavailable (parity passed)",
+      "support_artifact": "data/image-digest-workdown/summary.md",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-zookeeper-legacy/receipt.yaml"
     },
     {
       "chart": "dex/dex",

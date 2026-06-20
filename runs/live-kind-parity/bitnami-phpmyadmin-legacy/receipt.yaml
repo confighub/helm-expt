@@ -1,0 +1,279 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-phpmyadmin-20.0.0-legacy-kind-parity-20260606
+spec:
+  chart: bitnami/phpmyadmin
+  version: 20.0.0
+  base: legacy
+  result: blocked
+  observedAt: '2026-06-19T22:27:15Z'
+  package:
+    path: packages/bitnami/phpmyadmin/20.0.0
+  recipe:
+    path: recipes/bitnami/phpmyadmin/20.0.0
+  variantRevision: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-phpmya-bd435-1bjt-helm
+    installerCluster: hx-phpmya-bd435-1bjt-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-phpmya-bd435-1bjt-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-phpmya-bd435-1bjt-helm" ...
+
+          Deleted nodes: ["hx-phpmya-bd435-1bjt-helm-control-plane"]'
+      - cluster: hx-phpmya-bd435-1bjt-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-phpmya-bd435-1bjt-installer" ...
+
+          Deleted nodes: ["hx-phpmya-bd435-1bjt-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install phpmyadmin phpmyadmin --repo https://charts.bitnami.com/bitnami
+        --version 20.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-phpmyadmin-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942
+      objectCount: 5
+      liveHelmManifestSHA256: 00bcc624f2ddf3bf093ddf0321e18a66a90caed890106e1d5dfebb7a48bdd788
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: blocked
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/phpmyadmin   0/1   1     0     8m'
+        pods: '# default
+
+          phpmyadmin-f67d9cfd6-kbwq6   0/1   Init:ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default
+          pod: phpmyadmin-f67d9cfd6-kbwq6
+          ready: 0/1
+          status: Init:ImagePullBackOff
+          blockedReason: pod-runtime-failure
+        diagnostics:
+        - namespace: default
+          pod: phpmyadmin-f67d9cfd6-kbwq6
+          result: blocked
+          detailHead: "Name:             phpmyadmin-f67d9cfd6-kbwq6\nNamespace:  \
+            \      default\nPriority:         0\nService Account:  phpmyadmin\nNode:\
+            \             hx-phpmya-bd435-1bjt-helm-control-plane/192.168.97.2\nStart\
+            \ Time:       Fri, 19 Jun 2026 23:28:12 +0100\nLabels:           app.kubernetes.io/instance=phpmyadmin\n\
+            \                  app.kubernetes.io/managed-by=Helm\n               \
+            \   app.kubernetes.io/name=phpmyadmin\n                  app.kubernetes.io/version=5.2.2\n\
+            \                  helm.sh/chart=phpmyadmin-20.0.0\n                 \
+            \ pod-template-hash=f67d9cfd6\nAnnotations:      <none>\nStatus:     \
+            \      Pending\nIP:               10.244.0.5\nIPs:\n  IP:           10.244.0.5\n\
+            Controlled By:  ReplicaSet/phpmyadmin-f67d9cfd6\nInit Containers:\n  prepare-base-dir:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\n\
+            \    Image ID:        \n    Port:            <none>\n    Host Port:  \
+            \     <none>\n    SeccompProfile:  RuntimeDefault\n    Command:\n    \
+            \  /bin/bash\n    Args:\n      -ec\n      #!/bin/bash\n      \n      .\
+            \ /opt/bitnami/scripts/liblog.sh\n      . /opt/bitnami/scripts/libfs.sh\n\
+            \      \n      info \"Copying base dir to empty dir\"\n      # In order\
+            \ to not break the application functionality (such as upgrades or plugins)\
+            \ we need\n      # to make the base directory writable, so we need to\
+            \ copy it to an empty dir volume\n      cp -r --preserve=mode /opt/bitnami/phpmyadmin\
+            \ /emptydir/app-base-dir\n      \n      info \"Copying symlinks to stdout/stderr\"\
+            \n      # We copy the logs folder because it has symlinks to stdout and\
+            \ stderr\n      if ! is_dir_empty /opt/bitnami/apache/logs; then\n   \
+            \     cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir\n     \
+            \ fi\n      info \"Copying php var directory\"\n      # PhpMyAdmin will\
+            \ fail to start if the php var folder is not populated\n      if ! is_dir_empty\
+            \ /opt/bitnami/php/var; then\n        cp -r /opt/bitnami/php/var /emptydir/php-var-dir\n\
+            \      fi\n      info \"Copy operation completed\"\n      \n    State:\
+            \          Waiting\n      Reason:       ImagePullBackOff\n    Ready: \
+            \         False\n    Restart Count:  0\n    Limits:\n      cpu:      \
+            \          375m\n      ephemeral-storage:  2Gi\n      memory:        \
+            \     384Mi\n    Requests:\n      cpu:                250m\n      ephemeral-storage:\
+            \  50Mi\n      memory:             256Mi\n    Environment:          <none>\n\
+            \    Mounts:\n      /emptydir from empty-dir (rw)\nContainers:\n  phpmyadmin:\n\
+            \    Container ID:    \n    Image:           docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\n\
+            \    Image ID:        \n    Ports:           8080/TCP (http), 8443/TCP\
+            \ (https)\n    Host Ports:      0/TCP (http), 0/TCP (https)\n    SeccompProfile:\
+            \  RuntimeDefault\n    State:           Waiting\n      Reason:       \
+            \ PodInitializing\n    Ready:           False\n    Restart Count:   0\n\
+            \    Limits:\n      cpu:                375m\n      ephemeral-storage:\
+            \  2Gi\n      memory:             384Mi\n    Requests:\n      cpu:   \
+            \             250m\n      ephemeral-storage:  50Mi\n      memory:    \
+            \         256Mi\n    Liveness:             tcp-so"
+          detailTail: "ry:             256Mi\n    Liveness:             tcp-socket\
+            \ :http delay=30s timeout=30s period=10s #success=1 #failure=6\n    Readiness:\
+            \            http-get http://:http/ delay=30s timeout=30s period=10s #success=1\
+            \ #failure=6\n    Environment:\n      BITNAMI_DEBUG:                 \
+            \     false\n      DATABASE_PORT_NUMBER:               3306\n      DATABASE_HOST:\
+            \                      \n      PHPMYADMIN_ALLOW_NO_PASSWORD:       true\n\
+            \      PHPMYADMIN_ALLOW_ARBITRARY_SERVER:  true\n      DATABASE_ENABLE_SSL:\
+            \                no\n    Mounts:\n      /opt/bitnami/apache/conf from\
+            \ empty-dir (rw,path=\"apache-conf-dir\")\n      /opt/bitnami/apache/logs\
+            \ from empty-dir (rw,path=\"apache-logs-dir\")\n      /opt/bitnami/apache/var/run\
+            \ from empty-dir (rw,path=\"apache-tmp-dir\")\n      /opt/bitnami/php/etc\
+            \ from empty-dir (rw,path=\"php-conf-dir\")\n      /opt/bitnami/php/tmp\
+            \ from empty-dir (rw,path=\"php-tmp-dir\")\n      /opt/bitnami/php/var\
+            \ from empty-dir (rw,path=\"php-var-dir\")\n      /opt/bitnami/phpmyadmin\
+            \ from empty-dir (rw,path=\"app-base-dir\")\n      /tmp from empty-dir\
+            \ (rw,path=\"tmp-dir\")\nConditions:\n  Type                        Status\n\
+            \  PodReadyToStartContainers   True \n  Initialized                 False\
+            \ \n  Ready                       False \n  ContainersReady          \
+            \   False \n  PodScheduled                True \nVolumes:\n  empty-dir:\n\
+            \    Type:        EmptyDir (a temporary directory that shares a pod's\
+            \ lifetime)\n    Medium:      \n    SizeLimit:   <unset>\nQoS Class: \
+            \      Burstable\nNode-Selectors:  <none>\nTolerations:     node.kubernetes.io/not-ready:NoExecute\
+            \ op=Exists for 300s\n                 node.kubernetes.io/unreachable:NoExecute\
+            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
+            \        From               Message\n  ----     ------     ----      \
+            \              ----               -------\n  Normal   Scheduled  8m  \
+            \                    default-scheduler  Successfully assigned default/phpmyadmin-f67d9cfd6-kbwq6\
+            \ to hx-phpmya-bd435-1bjt-helm-control-plane\n  Normal   Pulling    5m8s\
+            \ (x5 over 7m59s)    kubelet            spec.initContainers{prepare-base-dir}:\
+            \ Pulling image \"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\"\n\
+            \  Warning  Failed     5m7s (x5 over 7m58s)    kubelet            spec.initContainers{prepare-base-dir}:\
+            \ Failed to pull image \"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\"\
+            : rpc error: code = NotFound desc = failed to pull and unpack image \"\
+            docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\": failed to resolve\
+            \ reference \"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\": docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22:\
+            \ not found\n  Warning  Failed     5m7s (x5 over 7m58s)    kubelet   \
+            \         spec.initContainers{prepare-base-dir}: Error: ErrImagePull\n\
+            \  Warning  Failed     2m51s (x20 over 7m58s)  kubelet            spec.initContainers{prepare-base-dir}:\
+            \ Error: ImagePullBackOff\n  Normal   BackOff    2m38s (x21 over 7m58s)\
+            \  kubelet            spec.initContainers{prepare-base-dir}: Back-off\
+            \ pulling image \"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\""
+          logsHead: 'Error from server (BadRequest): container "prepare-base-dir"
+            in pod "phpmyadmin-f67d9cfd6-kbwq6" is waiting to start: trying and failing
+            to pull image'
+          logsTail: 'Error from server (BadRequest): container "prepare-base-dir"
+            in pod "phpmyadmin-f67d9cfd6-kbwq6" is waiting to start: trying and failing
+            to pull image'
+          blockedReason: pod-runtime-failure
+        apiServices:
+          result: pass
+          items: []
+      stderr: 'Error: resource Deployment/default/phpmyadmin not ready. status: InProgress,
+        message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
+        --base legacy --work-dir /tmp/helm-expt-kind-parity-hx-phpmya-bd435-1bjt-phpmyadmin
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 9c607de8ba9b0c77485bedde6e1b7e1ebf434c1ed12de68d36e2c55f9f5850e2
+      objectCount: 6
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/phpmyadmin   1/1   1     1     61s'
+        pods: '# default
+
+          phpmyadmin-76d75c8d86-8bbvx   1/1   Running   0     61s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    regularHelmRenderVsLive:
+      result: blocked
+      helmObjectCount: 5
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs:
+      - apps/v1|Deployment|default|phpmyadmin
+      semanticNormalizations: *id003
+      comparisonSHA256: 0271f57e6297c19c148ba2881fb985dc12dc7d702ce0cfbf0859f3ec9085117c
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs:
+      - apps/v1|Deployment|default|phpmyadmin
+      semanticNormalizations: *id003
+      comparisonSHA256: b828530d1c8a158efe7528d6fb063b2ada6a721406f49c2844466422d060c1da
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-render-live-parity
+    result: blocked
+    detail: missing=0 extra=[] diffs=1
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/default/phpmyadmin not ready. status: InProgress,
+      message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/phpmyadmin   1/1   1     1     61s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=1
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

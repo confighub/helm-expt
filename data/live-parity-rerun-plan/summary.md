@@ -10,14 +10,14 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 109
+rows: 119
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 51
-watch: 58
-configHub-oci-live-comparison: 59
-two-cluster-kind-parity: 50
-semantic-parity-defects: 10
+blocked: 57
+watch: 62
+configHub-oci-live-comparison: 63
+two-cluster-kind-parity: 56
+semantic-parity-defects: 16
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 20
 runtime-or-watch-rows: 43
@@ -25,7 +25,7 @@ runtime-or-watch-rows: 43
 
 ## Current Interpretation
 
-10 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
+16 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live
 claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.
 
 | Chart | Base | Current | Meaning | Next action |
@@ -47,11 +47,15 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `bitnami/opensearch@2.0.10` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/opensearch@2.0.10` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/opensearch@2.0.10` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/phpmyadmin@20.0.0` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/phpmyadmin@20.0.0` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/spark@10.0.3` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/spark@10.0.3` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/spark@10.0.3` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/zookeeper@13.8.7` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `bitnami/zookeeper@13.8.7` | ha | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
+| `bitnami/zookeeper@13.8.7` | legacy | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `dex/dex@0.24.0` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `elastic/filebeat@8.5.1` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `elastic/filebeat@8.5.1` | node-or-cluster-collector | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
@@ -90,9 +94,15 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `velero/velero@12.0.1` | default | blocked | Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled. | Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity. |
 | `velero/velero@12.0.1` | no-crds | blocked | Semantic object parity passed, but the selected base did not render a functional workload because required Helm values were not modeled. | Create a non-alias base with the required Helm values, then rerun render, ConfigHub proof, and live parity. |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/apache@11.4.29` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/contour@21.1.4` | no-crds | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/elasticsearch@22.1.6` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/opensearch@2.0.10` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `bitnami/opensearch@2.0.10` | ha | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/opensearch@2.0.10` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/phpmyadmin@20.0.0` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/spark@10.0.3` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
+| `bitnami/zookeeper@13.8.7` | legacy | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `grafana/pyroscope@2.0.2` | ha | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `hashicorp/terraform@1.1.2` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
 | `nats/nack@0.34.0` | default | blocked | Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning. | Open a parity issue only if the diff is not an intentional, documented normalization. |
@@ -145,8 +155,8 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 59 | 0 | 49 | 10 | 0 |
-| two-cluster-kind-parity | 50 | 0 | 9 | 41 | 0 |
+| configHub-oci-live-comparison | 63 | 0 | 53 | 10 | 0 |
+| two-cluster-kind-parity | 56 | 0 | 9 | 47 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
 the next claim can be made. A `watch` row usually means object parity passed
@@ -173,8 +183,8 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
 | gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
-| image-retention-review | 26 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
-| inspect-parity-diff | 10 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
+| image-retention-review | 30 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
+| inspect-parity-diff | 16 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
@@ -196,9 +206,9 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 10 | Do not rerun until the semantic diff has been inspected. |
+| inspect-diff-first | 16 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 58 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 43 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -252,11 +262,15 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `bitnami/nginx@25.0.0` | existing-tls-ingress | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml`](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.0.0 --base existing-tls-ingress --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/opensearch@2.0.10` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/phpmyadmin@20.0.0` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/phpmyadmin@20.0.0` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/spark@10.0.3` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/zookeeper@13.8.7` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/zookeeper@13.8.7` | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `bitnami/zookeeper@13.8.7` | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `dex/dex@0.24.0` | default | watch | target-runtime: pod config/runtime errors (parity passed) | - | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `elastic/filebeat@8.5.1` | default | watch | target-runtime: pod ContainerCreating (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `elastic/filebeat@8.5.1` | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) | [`recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml`](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector` |
@@ -295,9 +309,15 @@ faithful to the locked chart/version without changing the recipe.
 | 40 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `velero/velero@12.0.1` | default | blocked | render-input: required Velero provider values missing | [`recipes/velero/velero/12.0.1/value-model.yaml`](../../recipes/velero/velero/12.0.1/value-model.yaml) | `npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base default` |
 | 40 | model-or-stage-first | render-input-model | configHub-oci-live-comparison | `velero/velero@12.0.1` | no-crds | blocked | render-input: required Velero provider values missing | [`recipes/velero/velero/12.0.1/value-model.yaml`](../../recipes/velero/velero/12.0.1/value-model.yaml) | `npm run live-parity:run -- --recipe recipes/velero/velero/12.0.1 --base no-crds` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart aws-ebs-csi-driver/aws-ebs-csi-driver --version 2.60.1 --base default` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/apache@11.4.29` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/apache --version 11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/contour@21.1.4` | no-crds | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/elasticsearch@22.1.6` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/elasticsearch --version 22.1.6 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base default --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | ha | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/opensearch@2.0.10` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/opensearch --version 2.0.10 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/phpmyadmin@20.0.0` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/phpmyadmin --version 20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/spark@10.0.3` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/spark --version 10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `bitnami/zookeeper@13.8.7` | legacy | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart bitnami/zookeeper --version 13.8.7 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `grafana/pyroscope@2.0.2` | ha | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart grafana/pyroscope --version 2.0.2 --base ha` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `hashicorp/terraform@1.1.2` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base default` |
 | 45 | inspect-diff-first | inspect-parity-diff | two-cluster-kind-parity | `nats/nack@0.34.0` | default | blocked | parity: semantic object diff | - | `npm run kind-parity:run -- --chart nats/nack --version 0.34.0 --base default` |

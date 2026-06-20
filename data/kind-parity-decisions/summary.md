@@ -23,20 +23,20 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-51 non-pass rows: 10 watch, 41 blocked.
+57 non-pass rows: 10 watch, 47 blocked.
 17 are resolved by the **user** (stage a prerequisite or supply
-values); 13 need **catalog/model** work; the rest need a runtime or
+values); 19 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
 | Residue category | Rows |
 | --- | ---: |
+| `model-gap-render` | 14 |
 | `remote-image` | 10 |
 | `target-runtime` | 10 |
-| `model-gap-render` | 9 |
 | `target-prerequisite-crds` | 8 |
 | `target-prerequisite-secret` | 4 |
+| `capability-profile-diff` | 3 |
 | `target-prerequisite-namespace` | 3 |
-| `capability-profile-diff` | 2 |
 | `render-input` | 2 |
 | `hook-lifecycle` | 1 |
 | `model-gap-target-fact` | 1 |
@@ -44,8 +44,8 @@ readiness review.
 
 | Who fixes it | Rows |
 | --- | ---: |
+| `catalog` | 19 |
 | `user` | 17 |
-| `catalog` | 13 |
 | `catalog or image publisher` | 10 |
 | `needs runtime review` | 10 |
 | `needs readiness review` | 1 |
@@ -58,17 +58,23 @@ readiness review.
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input | user | yes, after supplying values |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/apache@11.4.29 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/apache@11.4.29 | legacy | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/contour@21.1.4 | default | blocked | hook-lifecycle | catalog | no — needs lifecycle route |
 | bitnami/contour@21.1.4 | no-crds | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/elasticsearch@22.1.6 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/elasticsearch@22.1.6 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/elasticsearch@22.1.6 | legacy | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | default | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/opensearch@2.0.10 | ha | blocked | capability-profile-diff | catalog | no — needs catalog work |
+| bitnami/opensearch@2.0.10 | legacy | blocked | capability-profile-diff | catalog | no — needs catalog work |
 | bitnami/phpmyadmin@20.0.0 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/phpmyadmin@20.0.0 | legacy | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/spark@10.0.3 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/spark@10.0.3 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/spark@10.0.3 | legacy | blocked | model-gap-render | catalog | no — needs catalog work |
 | bitnami/zookeeper@13.8.7 | default | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
 | bitnami/zookeeper@13.8.7 | ha | blocked | remote-image | catalog or image publisher | watch — objects match, image unavailable |
+| bitnami/zookeeper@13.8.7 | legacy | blocked | model-gap-render | catalog | no — needs catalog work |
 | dex/dex@0.24.0 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite-secret | user | yes, after staging a Secret |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |

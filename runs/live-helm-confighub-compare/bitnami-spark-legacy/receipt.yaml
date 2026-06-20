@@ -1,0 +1,1176 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-spark-10.0.3-legacy-live-parity-20260605
+spec:
+  chart: bitnami/spark
+  version: 10.0.3
+  base: legacy
+  result: watch
+  observedAt: '2026-06-19T08:42:55Z'
+  package:
+    path: packages/bitnami/spark/10.0.3
+  recipe:
+    path: recipes/bitnami/spark/10.0.3
+  variantRevision: recipes/bitnami/spark/10.0.3/revisions/legacy/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-spark-mqkol7fy-1p2
+    kubeContext: kind-helm-expt-parity-spark-mqkol7fy-1p2
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-spark-mqkol7fy-1p2 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-spark-mqkol7fy-1p2"...
+
+        Deleting cluster "helm-expt-parity-spark-mqkol7fy-1p2" ...
+
+        Deleted nodes: ["helm-expt-parity-spark-mqkol7fy-1p2-control-plane"]
+
+        Deleting Space "helm-expt-parity-spark-mqkol7fy-1p2-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: watch
+      command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
+        --version 10.0.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373
+      objectCount: 10
+      liveHelmManifestSHA256: ad1358d80160e5f77703ecde69016fc2deb7c89da8536d6344636fb3b8da7004
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
+      runtime:
+        result: watch
+        workloads: 'statefulset.apps/spark-master   0/1   8m
+
+          statefulset.apps/spark-worker   0/2   8m'
+        pods: 'spark-master-0   0/1   ImagePullBackOff   0     8m
+
+          spark-worker-0   0/1   ImagePullBackOff   0     8m'
+        notReady:
+        - namespace: default-helm
+          pod: spark-master-0
+          ready: 0/1
+          status: ImagePullBackOff
+        - namespace: default-helm
+          pod: spark-worker-0
+          ready: 0/1
+          status: ImagePullBackOff
+        ignoredJobPods: []
+        namespaces:
+        - default-helm
+        diagnostics:
+          result: recorded
+          namespaces:
+          - default-helm
+          namespaceArtifacts:
+          - namespace: default-helm
+            kind: events
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/events.txt
+            sha256: 26892e39f31222be380089c2658fb2a36ddff7803e54ffa5655be19689aa9cd3
+            bytes: 2649
+          - namespace: default-helm
+            kind: workload-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/workloads-describe.txt
+            sha256: 09d60df1ba1d46c6509c842e3ea2f93e7a4946cedda73a7e6b0c5bd8a0a9f5c8
+            bytes: 5310
+          podArtifacts:
+          - namespace: default-helm
+            pod: spark-master-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/spark-master-0/describe.txt
+            sha256: 3e1529bbdd79901a3e5adf60aad008bea47b46fa0819aca8e9a70eee05fc96ed
+            bytes: 4088
+          - namespace: default-helm
+            pod: spark-master-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/spark-master-0/logs.txt
+            sha256: 507cbfc0721ff53bc83ce2baeff8d82e1541425a1a8594034b2dfbb1700f4818
+            bytes: 134
+          - namespace: default-helm
+            pod: spark-master-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/spark-master-0/previous-logs.txt
+            sha256: 3916894be6ba1dc036d02f9ce16d2ccb8d4519ccca22b3875409071cedb5c21d
+            bytes: 110
+          - namespace: default-helm
+            pod: spark-worker-0
+            kind: pod-describe
+            result: pass
+            path: runtime-diagnostics/regular-helm/default-helm/spark-worker-0/describe.txt
+            sha256: d59c3aeb4f49be478311247494ba755caa16fe9b9c9cab2f1fa77ded3894e888
+            bytes: 4245
+          - namespace: default-helm
+            pod: spark-worker-0
+            kind: pod-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/spark-worker-0/logs.txt
+            sha256: e45ddf0b531d955023ed8b189e510fd2e7f4c4f08592abbff96747168fb482d8
+            bytes: 134
+          - namespace: default-helm
+            pod: spark-worker-0
+            kind: pod-previous-logs
+            result: blocked
+            path: runtime-diagnostics/regular-helm/default-helm/spark-worker-0/previous-logs.txt
+            sha256: 948cfec7f27697d93e564d64b10d098a916bdaccf2b71ccd1c7c98847b616c01
+            bytes: 110
+      stderr: 'Error: resource StatefulSet/default-helm/spark-master not ready. status:
+        InProgress, message: Ready: 0/1
+
+        resource StatefulSet/default-helm/spark-worker not ready. status: InProgress,
+        message: Replicas: 1/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+        --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: d59455d8afeecf7d82bf70809e535f1d42e57a5e2209a78f127f315c72f01fc1
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/spark-master   1/1   2m42s
+
+          statefulset.apps/spark-worker   2/2   2m42s'
+        pods: '# default
+
+          spark-master-0   1/1   Running   0     2m42s
+
+          spark-worker-0   1/1   Running   0     2m42s
+
+          spark-worker-1   1/1   Running   0     32s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - default-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces:
+          - default
+          objectCount: 0
+          preservedPreExistingObjects:
+          - apps/v1|StatefulSet|default|spark-master
+          - apps/v1|StatefulSet|default|spark-worker
+          - networking.k8s.io/v1|NetworkPolicy|default|spark-master
+          - networking.k8s.io/v1|NetworkPolicy|default|spark-worker
+          - policy/v1|PodDisruptionBudget|default|spark-master
+          - policy/v1|PodDisruptionBudget|default|spark-worker
+          - v1|Secret|default|spark-secret
+          - v1|ServiceAccount|default|spark
+          - v1|Service|default|spark-headless
+          - v1|Service|default|spark-master-svc
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-spark-mqkol7fy-1p2-spark
+      controller: Argo CD OCI
+      app: spark-parity
+      manifestSHA256: db766bed9055ca550817629211fdd780cfeaa96d9d24dceb13edcaf1c7f253ab
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-default-spark-secret.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-spark-mqkol7fy-1p2-spark
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+              targetRevision: latest
+          revision: sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T09:01:15Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T09:01:15Z'
+          finishedAt: '2026-06-19T09:01:17Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 10
+          syncResultStatusCounts:
+            Synced: 10
+        history:
+        - id: 0
+          revision: sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+          deployedAt: '2026-06-19T09:01:17Z'
+          deployStartedAt: '2026-06-19T09:01:15Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-spark-mqkol7fy-1p2-spark
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: spark-headless
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: spark-master-svc
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: spark
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: spark-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: default
+          name: spark-worker
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: spark-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: default
+          name: spark-worker
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: spark-master
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: default
+          name: spark-worker
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         spark-parity\nNamespace:    argocd\nLabels:   \
+              \    <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-spark-mqkol7fy-1p2-cluster:argoproj.io/Application:argocd/spark-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ a05602d7-9c69-487b-8648-dc5e744c276a\n              confighub.com/UnitSlug:\
+              \ spark-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:      \
+              \   Application\nMetadata:\n  Creation Timestamp:  2026-06-19T09:01:14Z\n\
+              \  Generation:          7\n  Resource Version:    2573\n  UID:     \
+              \            e3854f8d-aee9-4c3e-9e9e-f5f9ea4c03a5\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-spark\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-19T09:01:15Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-19T09:01:15Z\n    Deployed At:        2026-06-19T09:01:17Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \    Source:\n      Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-spark\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T09:01:17Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \        Source:\n          Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-spark\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-19T09:01:15Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/spark-master serverside-applied\n\
+              \        Name:        spark-master\n        Namespace:   default\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       networking.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        NetworkPolicy\n        Message:   \
+              \  networkpolicy.networking.k8s.io/spark-worker serverside-applied\n\
+              \        Name:        spark-worker\n        Namespace:   default\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/spark-worker\
+              \ serverside-applied\n        Name:        spark-worker\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       policy\n        Hook\
+              \ Phase:  Running\n        Kind:        PodDisruptionBudget\n      \
+              \  Message:     poddisruptionbudget.policy/spark-master serverside-applied\n\
+              \        Name:        spark-master\n        Namespace:   default\n \
+              \       Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/spark\
+              \ serverside-applied\n        Name:        spark\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/spark-master-svc\
+              \ serverside-applied\n        Name:        spark-master-svc\n      \
+              \  Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        Service\n        Message:  \
+              \   service/spark-headless serverside-applied\n        Name:       \
+              \ spark-headless\n        Namespace:   default\n        Status:    \
+              \  Synced\n        Sync Phase:  Sync\n        Version:     v1\n    \
+              \    Group:       apps\n        Hook Phase:  Running\n        Images:\n\
+              \          docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20\n     \
+              \   Kind:        StatefulSet\n        Message:     statefulset.apps/spark-worker\
+              \ serverside-applied\n        Name:        spark-worker\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/spark-master\
+              \ serverside-applied\n        Name:        spark-master\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \      Source:\n        Path:              ./helm-expt-parity-spark-mqkol7fy-1p2-spark\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-0"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                     MESSAGE
+
+              9s          Normal   OperationStarted     application/spark-parity   Initiated
+              automated sync to ''sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb''
+
+              9s          Normal   ResourceUpdated      application/spark-parity   Updated
+              sync status:  -> OutOfSync
+
+              9s          Normal   ResourceUpdated      application/spark-parity   Updated
+              health status:  -> Healthy
+
+              7s          Normal   OperationCompleted   application/spark-parity   Sync
+              operation to sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+              succeeded
+
+              6s          Normal   ResourceUpdated      application/spark-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 10
+              artifact:
+                path: argocd-core-child.json
+                sha256: 308f6947888cfb5f426a9b09b087e0af45402e658300db713f47c0b53fd69569
+                bytes: 13881
+              output: "{\n  \"metadata\": {\n    \"name\": \"spark-parity\",\n   \
+                \ \"namespace\": \"argocd\",\n    \"uid\": \"e3854f8d-aee9-4c3e-9e9e-f5f9ea4c03a5\"\
+                ,\n    \"resourceVersion\": \"2593\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-06-19T09:01:14Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-spark-mqkol7fy-1p2-cluster:argoproj.io/Application:argocd/spark-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"a05602d7-9c69-487b-8648-dc5e744c276a\",\n      \"confighub.com/UnitSlug\"\
+                : \"spark-parity-app\"\n    },\n    \"managedFields\": [\n      {\n\
+                \        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-19T09:01:14Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-19T09:01:32Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-spark-mqkol7fy-1p2-spark\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"spark-headless\",\n        \"status\": \"Synced\",\n        \"\
+                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"spark-master-svc\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"spark\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"StatefulSet\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"spark-master\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"statefulset\
+                \ rolling update complete 1 pods at revision spark-master-664c49767c...\"\
+                \n        }\n      },\n      {\n        \"group\": \"apps\",\n   \
+                \     \"version\": \"v1\",\n        \"kind\": \"StatefulSet\",\n \
+                \       \"namespace\": \"default\",\n        \"name\": \"spark-worker\"\
+                ,\n        \"status\": \"Synced\",\n        \"healt"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 44aa22102de7c0fe5d24c88beeb983d0564f8e94309b9cc64bc20b5d30c899ac
+                bytes: 2530
+              output: "Name:               argocd/spark-parity\nProject:         \
+                \   default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:52904/applications/spark-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-spark\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                     STATUS\
+                \  HEALTH   AGE    MESSAGE                                       \
+                \                   REASON\nNamespace/default-oci                \
+                \         Synced           6m19s                                 \
+                \                                  \nService/spark-headless      \
+                \                  Synced  Healthy  9m7s   service/spark-headless\
+                \ serverside-applied                        \nService/spark-master-svc\
+                \                      Synced  Healthy  9m7s   service/spark-master-svc\
+                \ serverside-applied                      \nServiceAccount/spark \
+                \                         Synced           9m7s   serviceaccount/spark\
+                \ serverside-applied                          \nStatefulSet/spark-master\
+                \                      Synced  Healthy  9m7s   statefulset.apps/spark-master\
+                \ serverside-applied                 statefulset rolling update complete\
+                \ 1 pods at revision spark-master-664c49767c...\n\u251C\u2500Pod/spark-master-0\
+                \                                  Healthy  9m7s                 \
+                \                                                   \n\u2514\u2500\
+                ControllerRevision/spark-master-664c49767c                   9m7s\
+                \                                                                \
+                \    \nStatefulSet/spark-worker                      Synced  Healthy\
+                \  9m7s   statefulset.apps/spark-worker serverside-applied       \
+                \          statefulset rolling update complete 2 pods at revision\
+                \ spark-worker-567479b4bc...\n\u251C\u2500Pod/spark-worker-0     \
+                \                             Healthy  9m7s                      \
+                \                                              \n\u251C\u2500Pod/spark-worker-1\
+                \                                  Healthy  6m57s                \
+                \                                                   \n\u2514\u2500\
+                ControllerRevision/spark-worker-567479b4bc                   9m7s\
+                \                                                                \
+                \    \nPodDisruptionBudget/spark-master              Synced  Healthy\
+                \  9m7s   poddisruptionbudget.policy/spark-master serverside-applied\
+                \       PodDisruptionBudget has SufficientPods\nNetworkPolicy/spark-master\
+                \                    Synced           9m7s   networkpolicy.networking.k8s.io/spark-master\
+                \ serverside-applied  \nNetworkPolicy/spark-worker               \
+                \     Synced           9m7s   networkpolicy.networking.k8s.io/spark-worker\
+                \ serverside-applied  \nPodDisruptionBudget/spark-worker         \
+                \     Synced  Healthy  9m7s   poddisruptionbudget.policy/spark-worker\
+                \ serverside-applied       PodDisruptionBudget has SufficientPods"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              spark-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/spark-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"spark-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-spark-mqkol7fy-1p2-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+              targetRevision: latest
+          revision: sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-19T08:44:35Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-19T09:01:12Z'
+          finishedAt: '2026-06-19T09:01:14Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+          deployedAt: '2026-06-19T09:01:14Z'
+          deployStartedAt: '2026-06-19T09:01:12Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-spark-mqkol7fy-1p2-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-spark-mqkol7fy-1p2-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: spark-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-spark-mqkol7fy-1p2-cluster\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-06-19T08:44:21Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  2548\n  UID:        \
+              \       d520d674-755d-4395-a700-37690e3794fd\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-19T08:44:35Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-19T09:01:12Z\n\
+              \    Deployed At:        2026-06-19T09:01:14Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \    Source:\n      Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-19T09:01:14Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \        Source:\n          Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-19T09:01:12Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-spark-mqkol7fy-1p2-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/spark-parity serverside-applied\n\
+              \        Name:        spark-parity\n        Namespace:   argocd\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n      Revision:      sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \      Source:\n        Path:              ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-19T09:01:14Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       spark-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     17m   argocd-application-controller  Updated\
+              \ sync status:  -> Synced\n  Normal  ResourceUpdated     17m   argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  28s   argocd-application-controller  Sync operation to sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\
+              \ succeeded\n  Normal  ResourceUpdated     27s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                    MESSAGE
+
+              17m         Normal   ResourceUpdated      application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Updated
+              sync status:  -> Synced
+
+              17m         Normal   ResourceUpdated      application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Initiated
+              automated sync to ''sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              28s         Normal   OperationCompleted   application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Sync
+              operation to sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-spark-mqkol7fy-1p2-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: a2dd5e6f7c0e968daef074068f67178afd98bf8ee64a3eb116b948f38bf3e382
+                bytes: 9278
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"d520d674-755d-4395-a700-37690e3794fd\"\
+                ,\n    \"resourceVersion\": \"2620\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-06-19T08:44:21Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\\\",\\\"namespace\\\"\
+                :\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-spark-mqkol7fy-1p2-cluster\\\",\\\"repoURL\\\"\
+                :\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-19T08:44:21Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-19T09:01:49Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"spark-parity\",\n        \"status\": \"Synced\"\n\
+                \      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n\
+                \      \"comparedTo\": {\n        \"source\": {\n          \"repoURL\"\
+                : \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+                ,\n          \"targetRevision\""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 0b0e06d7e13b497a8fbb3793f94e2b4c9b0d6c37d24495a8a37705e1fde33879
+                bytes: 1095
+              output: "Name:               argocd/helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:53015/applications/helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-spark-mqkol7fy-1p2-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \       STATUS  HEALTH  AGE  MESSAGE                             \
+                \                                                    REASON\nApplication/helm-expt-parity-spark-mqkol7fy-1p2-cluster\
+                \  Synced          17m  application.argoproj.io/helm-expt-parity-spark-mqkol7fy-1p2-cluster\
+                \ serverside-applied  \nApplication/spark-parity                 \
+                \                Synced          44s  application.argoproj.io/spark-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-spark-mqkol7fy-1p2-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              spark-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\":\
+              \ true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/spark-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3c87ca217780326bb28daa0bc42e9c35222f3e937fc8d1c7fe775eeb5da1baeb\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-spark-mqkol7fy-1p2-cluster\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"spark-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/spark-master   1/1   9m24s
+
+          statefulset.apps/spark-worker   2/2   9m24s'
+        pods: '# default
+
+          spark-master-0   1/1   Running   0     9m24s
+
+          spark-worker-0   1/1   Running   0     9m24s
+
+          spark-worker-1   1/1   Running   0     7m14s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: blocked
+    startedAt: '2026-06-19T08:44:21Z'
+    finishedAt: '2026-06-19T08:52:27Z'
+    elapsedSeconds: 486.308
+    timeoutSeconds: 900
+    command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
+      --version 10.0.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-19T08:52:33Z'
+    finishedAt: '2026-06-19T08:52:34Z'
+    elapsedSeconds: 0.468
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-19T08:52:34Z'
+    finishedAt: '2026-06-19T08:52:34Z'
+    elapsedSeconds: 0.137
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig
+      --context kind-helm-expt-parity-spark-mqkol7fy-1p2 apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-19T08:52:34Z'
+    finishedAt: '2026-06-19T08:55:16Z'
+    elapsedSeconds: 162.481
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-19T08:55:22Z'
+    finishedAt: '2026-06-19T08:55:22Z'
+    elapsedSeconds: 0.329
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+      --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-19T08:55:22Z'
+    finishedAt: '2026-06-19T08:55:56Z'
+    elapsedSeconds: 33.388
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
+      --space helm-expt-parity-spark-mqkol7fy-1p2-spark --target helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-19T08:55:56Z'
+    finishedAt: '2026-06-19T08:55:56Z'
+    elapsedSeconds: 0.506
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-spark-mqkol7fy-1p2-spark
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-19T08:55:56Z'
+    finishedAt: '2026-06-19T09:01:02Z'
+    elapsedSeconds: 305.468
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-spark-mqkol7fy-1p2-spark --unit
+      <10 unit(s)> --wait --timeout 5m
+    unitCount: 10
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-19T09:01:02Z'
+    finishedAt: '2026-06-19T09:01:03Z'
+    elapsedSeconds: 1.109
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-spark-mqkol7fy-1p2-cluster spark-parity-app
+      /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/argo-application.json
+      --target helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-19T09:01:03Z'
+    finishedAt: '2026-06-19T09:01:04Z'
+    elapsedSeconds: 1.244
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-spark-mqkol7fy-1p2-cluster --unit
+      <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-19T09:01:04Z'
+    finishedAt: '2026-06-19T09:01:24Z'
+    elapsedSeconds: 20.148
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-19T09:01:58Z'
+    finishedAt: '2026-06-19T09:01:58Z'
+    elapsedSeconds: 0.098
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-spark-mqkol7fy-1p2\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-spark-mqkol7fy-1p2\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-spark-mqkol7fy-1p2\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-spark-mqkol7fy-1p2\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\n"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: watch
+    detail: 'Error: resource StatefulSet/default-helm/spark-master not ready. status:
+      InProgress, message: Ready: 0/1
+
+      resource StatefulSet/default-helm/spark-worker not ready. status: InProgress,
+      message: Replicas: 1/2
+
+      context deadline exceeded'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/spark-master   1/1   2m42s
+
+      statefulset.apps/spark-worker   2/2   2m42s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci
