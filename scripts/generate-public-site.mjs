@@ -350,7 +350,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -515,7 +515,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <p>The proof corpus and source repository are still available, but they are supporting material rather than the first thing a new Helm user has to understand.</p>
       <div class="grid">
         <div class="card"><h3>Docs and data</h3><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Generated evidence index</a></p></div>
-        <div class="card"><h3>Quirks</h3><p><a href="./hooks.html">Hooks</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
+        <div class="card"><h3>Quirks</h3><p><a href="./charts/index.html#actions">ConfigHub Actions</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
         <div class="card"><h3>Source and scope</h3><p><a href="../README.md">Repository README</a> · <a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a> · <a href="../data/claims-register/summary.md">Claims register</a></p></div>
       </div>
     </section>
@@ -1694,7 +1694,7 @@ function hardQuestionsHtml(catalog) {
           question: "What happens to Helm hooks?",
           answer:
             "Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.",
-          links: [["Hooks page", "./hooks.html"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
+          links: [["ConfigHub Actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
         },
         {
           status: "answered",
@@ -1975,7 +1975,7 @@ function hooksHtml(catalog) {
         <div class="card"><h3>Creating a base</h3><p>If the behavior changes rendered objects or Helm values, create a recipe/base variant. If it is post-render operation, route it through ConfigHub or a target-owned controller.</p></div>
         <div class="card"><h3>Using GitOps</h3><p>Use Argo or Flux only when the route says the controller owns that lifecycle step or the receipt proves the selected sync path.</p></div>
         <div class="card"><h3>Automating later</h3><p>Do not mark a route automatic until product execution and evidence exist. Until then, keep the explicit route and off-ramp visible.</p></div>
-        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's Hooks &amp; Lifecycle section.</p></div>
+        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's ConfigHub Actions section.</p></div>
       </div>
     </section>
   </main>
@@ -2002,7 +2002,7 @@ function privateHtml(catalog) {
     ["Ops", "Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks."],
   ];
   const commercialRows = [
-    ["Hooks and lifecycle", "Inventory and route hooks publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review."],
+    ["ConfigHub Actions", "Inventory and route hook-like lifecycle work publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review."],
     ["Stacks", "Multiple recipes plus a custom app become one managed platform: for example monitoring, AI/RAG stacks, AICR, NIM, or customer platforms."],
     ["Bulk operations", "Bulk scan, patch, approve, promote, and observe across a fleet."],
     ["Legacy patches", "Maintain or patch older chart versions when upstream moved or broke compatibility."],
@@ -2563,6 +2563,14 @@ function chartIndexHtml(catalog) {
     entry.start_base_readiness || "see chart page",
     productionSummaryForChart(catalog, entry)?.production_support ?? entry.production_readiness,
   ]);
+  const lifecycleRoutes = catalog.lifecycleRoutes;
+  const lifecycleChartCount = new Set(lifecycleRoutes.map((row) => `${row.chart}@${row.version}`)).size;
+  const autoCount = lifecycleRoutes.filter((row) => isTruthyRouteFlag(row.safe_as_automatic)).length;
+  const dispositionRows = Object.entries(countBy(lifecycleRoutes, "disposition")).map(([label, count]) => [
+    label,
+    String(count),
+    dispositionMeaning(label),
+  ]);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2579,6 +2587,22 @@ function chartIndexHtml(catalog) {
     <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. We maintain a database of currently supported charts and variants in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
+    <section aria-labelledby="actions">
+      <h2 id="actions">ConfigHub Actions</h2>
+      <p>In Helm, some work appears as hooks or implicit lifecycle behavior. In the ConfigHub model, that work should become explicit actions: preflight checks, target-owned prerequisites, Argo/Flux sync actions, post-apply observations, or refused routes. A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is useful guidance; it is not an automatic execution claim unless the route says so and evidence proves it.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(lifecycleRoutes.length)}</strong><span>lifecycle route rows</span></div>
+        <div class="metric"><strong>${escapeHtml(lifecycleChartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
+        <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
+        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Disposition", "Rows", "Meaning"],
+        ...dispositionRows,
+      ])}
+      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a>, <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>, and the legacy <a href="../hooks.html">hooks detail page</a>.</p>
+    </section>
+
     <section aria-labelledby="charts">
       <h2 id="charts">Helm Catalog</h2>
       ${markdownLikeTable([
@@ -2770,14 +2794,14 @@ function chartPageHtml(catalog, entry) {
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <h2 id="lifecycle">ConfigHub Actions</h2>
+      <p>Where each Helm hook or hook-like lifecycle behavior becomes an explicit action, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
       ${lifecycleRows.length
         ? markdownLikeTable([
             ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
             ...lifecycleRows,
           ])
-        : "<p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>"}
+        : "<p>No hook or hook-like ConfigHub action is recorded for this chart.</p>"}
     </section>
 
     <section aria-labelledby="production">
@@ -3499,7 +3523,9 @@ Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
-Open \`site/hooks.html\` for hook and lifecycle route dispositions.
+Open \`site/charts/index.html#actions\` for ConfigHub Actions, including hook
+and lifecycle route dispositions. \`site/hooks.html\` remains as a deep
+compatibility detail page.
 Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.
 Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/index.html\`.
 Open \`site/offering.html\` for the longer public offering page.

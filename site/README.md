@@ -23,7 +23,9 @@ Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
-Open `site/hooks.html` for hook and lifecycle route dispositions.
+Open `site/charts/index.html#actions` for ConfigHub Actions, including hook
+and lifecycle route dispositions. `site/hooks.html` remains as a deep
+compatibility detail page.
 Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.
 Open `site/tiers.html` only as a compatibility redirect to `site/private/index.html`.
 Open `site/offering.html` for the longer public offering page.
