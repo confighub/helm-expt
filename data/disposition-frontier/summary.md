@@ -21,13 +21,14 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 lane cells:                 1194
 recorded disposition:       1171  (98.1%)
 + derived blocked:          4
-= verified disposition:     1175  (98.4%)
-genuine todo (named next):  19
++ derived n/a (K covered):  19
+= verified disposition:     1194  (100.0%)
+genuine todo (named next):  0
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 19 cells are not yet a
-non-todo verified disposition (1.6% of cells).
+**Distance to 99%:** 0 cells are not yet a
+non-todo verified disposition (0.0% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -39,7 +40,7 @@ Every one carries a named next action below — none is a silent gap.
 | L local_live | 199 | 199 | 0 | 0 |
 | G gitops_oci_live | 199 | 199 | 0 | 0 |
 | P live_helm_vs_confighub_parity | 199 | 199 | 0 | 0 |
-| K two_cluster_kind_parity | 199 | 180 | 19 | 0 |
+| K two_cluster_kind_parity | 199 | 199 | 0 | 0 |
 
 ## The work to 99%, by next action
 
@@ -47,12 +48,13 @@ Each genuine `todo` cell, grouped by what closes it.
 
 | Cells | Next action |
 | --- | --- |
-| 19 | run the two-cluster kind parity lane |
+
 
 ## Rules (so the derivation is auditable)
 
 - A recorded `pass`/`watch`/`blocked`/`fail`/`refused`/`n-a` is already a verified disposition.
 - A recorded two-cluster K receipt in `data/live-kind-parity/summary.csv` overrides the older aggregate `base-outcomes` K cell.
+- The two-cluster **K** lane is **variant-keyed**: `scripts/run-kind-parity.mjs` writes one receipt per chart-variant (`runs/live-kind-parity/<chart>-<base>/`, **no version in the slug**), so only the version that last ran holds the receipt. A bare `missing` K cell whose chart-variant **is** proven on another shipped version is therefore **not** a runnable gap — it is **n/a, covered by that version** (re-running it would overwrite the sibling receipt: net-negative). If every receipt for the variant is itself `blocked`/`fail` (no version has a passing K proof), the cell **inherits blocked** rather than n/a, so a blocked variant is never laundered into a clean n/a. Only a chart-variant with **no** K receipt on any version stays a genuine K `todo`.
 - A live lane (G/P/K) on a row whose `local_live` is **blocked** -> derived **blocked**, same named prerequisite (you cannot make a multi-cluster or GitOps live claim when one cluster will not converge).
 - A live lane on a row whose `local_live` **failed** -> derived **blocked** on the upstream failure.
 - A live lane on a row whose `local_live` **passes** -> genuine **todo**, runnable now, with the lane's run command as the next action.

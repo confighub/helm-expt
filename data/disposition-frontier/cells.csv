@@ -22,13 +22,13 @@ argo-cd/argo-cd@9.5.15,no-crds,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,no-crds,local_live,L,blocked,blocked,no,,,
 argo-cd/argo-cd@9.5.15,no-crds,gitops_oci_live,G,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-argo-cd/argo-cd@9.5.15,no-crds,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+argo-cd/argo-cd@9.5.15,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.17 (pass) — runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml,"none — the variant is proven on 9.5.17; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 argo-cd/argo-cd@9.5.17,default,render_parity,R,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,default,local_live,L,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,default,gitops_oci_live,G,watch,watch,no,,,
 argo-cd/argo-cd@9.5.17,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-argo-cd/argo-cd@9.5.17,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+argo-cd/argo-cd@9.5.17,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.15 (pass) — runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml,"none — the variant is proven on 9.5.15; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 argo-cd/argo-cd@9.5.17,no-crds,render_parity,R,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,local_live,L,pass,pass,no,,,
@@ -172,25 +172,25 @@ bitnami/mongodb@19.0.7,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.7,existing-secret-replicaset,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.7,existing-secret-replicaset,gitops_oci_live,G,pass,pass,no,,,
 bitnami/mongodb@19.0.7,existing-secret-replicaset,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/mongodb@19.0.7,existing-secret-replicaset,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/mongodb@19.0.7,existing-secret-replicaset,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mongodb@19.0.7,generated-passwords,render_parity,R,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/mongodb@19.0.7,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/mongodb@19.0.7,generated-passwords,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/mongodb@19.0.7,generated-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mongodb@19.0.9,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,gitops_oci_live,G,watch,watch,no,,,
 bitnami/mongodb@19.0.9,existing-secret-replicaset,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/mongodb@19.0.9,existing-secret-replicaset,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/mongodb@19.0.9,existing-secret-replicaset,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mongodb@19.0.9,generated-passwords,render_parity,R,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/mongodb@19.0.9,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/mongodb@19.0.9,generated-passwords,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/mongodb@19.0.9,generated-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mongodb@19.1.0,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
 bitnami/mongodb@19.1.0,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.1.0,existing-secret-replicaset,local_live,L,pass,pass,no,,,
@@ -220,25 +220,25 @@ bitnami/nginx@24.0.2,existing-tls-ingress,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.2,existing-tls-ingress,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.2,existing-tls-ingress,gitops_oci_live,G,pass,pass,no,,,
 bitnami/nginx@24.0.2,existing-tls-ingress,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/nginx@24.0.2,existing-tls-ingress,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/nginx@24.0.2,existing-tls-ingress,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/nginx@24.0.2,http-clusterip,render_parity,R,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,gitops_oci_live,G,pass,pass,no,,,
 bitnami/nginx@24.0.2,http-clusterip,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/nginx@24.0.2,http-clusterip,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/nginx@24.0.2,http-clusterip,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/nginx@24.0.4,existing-tls-ingress,render_parity,R,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,gitops_oci_live,G,watch,watch,no,,,
 bitnami/nginx@24.0.4,existing-tls-ingress,live_helm_vs_confighub_parity,P,watch,watch,no,,,
-bitnami/nginx@24.0.4,existing-tls-ingress,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/nginx@24.0.4,existing-tls-ingress,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/nginx@24.0.4,http-clusterip,render_parity,R,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,local_live,L,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,gitops_oci_live,G,pass,pass,no,,,
 bitnami/nginx@24.0.4,http-clusterip,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/nginx@24.0.4,http-clusterip,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/nginx@24.0.4,http-clusterip,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/nginx@25.0.0,existing-tls-ingress,render_parity,R,pass,pass,no,,,
 bitnami/nginx@25.0.0,existing-tls-ingress,in_confighub,C,pass,pass,no,,,
 bitnami/nginx@25.0.0,existing-tls-ingress,local_live,L,pass,pass,no,,,
@@ -286,25 +286,25 @@ bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,gitops_oci_live,G,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/postgresql@18.6.10,existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/postgresql@18.6.10,existing-secret,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/postgresql@18.6.10,generated-passwords,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/postgresql@18.6.10,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/postgresql@18.6.10,generated-passwords,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/postgresql@18.6.10,generated-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/postgresql@18.6.7,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.7,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.7,existing-secret,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.7,existing-secret,gitops_oci_live,G,pass,pass,no,,,
 bitnami/postgresql@18.6.7,existing-secret,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/postgresql@18.6.7,existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/postgresql@18.6.7,existing-secret,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/postgresql@18.6.7,generated-passwords,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,local_live,L,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/postgresql@18.6.7,generated-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/postgresql@18.6.7,generated-passwords,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/postgresql@18.6.7,generated-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/postgresql@18.7.0,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.7.0,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.7.0,existing-secret,local_live,L,pass,pass,no,,,
@@ -334,13 +334,13 @@ bitnami/redis@25.5.3,default,in_confighub,C,pass,pass,no,,,
 bitnami/redis@25.5.3,default,local_live,L,pass,pass,no,,,
 bitnami/redis@25.5.3,default,gitops_oci_live,G,pass,pass,no,,,
 bitnami/redis@25.5.3,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/redis@25.5.3,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/redis@25.5.3,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 27.0.0 (pass) — runs/live-kind-parity/bitnami-redis-default/receipt.yaml,"none — the variant is proven on 27.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/redis@25.5.3,reuse-existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,local_live,L,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,gitops_oci_live,G,pass,pass,no,,,
 bitnami/redis@25.5.3,reuse-existing-secret,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-bitnami/redis@25.5.3,reuse-existing-secret,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+bitnami/redis@25.5.3,reuse-existing-secret,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 27.0.0 (pass) — runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml,"none — the variant is proven on 27.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/redis@27.0.0,default,render_parity,R,pass,pass,no,,,
 bitnami/redis@27.0.0,default,in_confighub,C,pass,pass,no,,,
 bitnami/redis@27.0.0,default,local_live,L,pass,pass,no,,,
@@ -976,13 +976,13 @@ prometheus-community/kube-prometheus-stack@85.3.3,default,in_confighub,C,pass,pa
 prometheus-community/kube-prometheus-stack@85.3.3,default,local_live,L,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,default,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-prometheus-community/kube-prometheus-stack@85.3.3,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+prometheus-community/kube-prometheus-stack@85.3.3,default,two_cluster_kind_parity,K,missing,blocked,yes,"variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml","resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt",kind-parity
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,render_parity,R,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,in_confighub,C,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,local_live,L,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@85.3.3,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-prometheus-community/kube-prometheus-stack@85.3.3,no-crds,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+prometheus-community/kube-prometheus-stack@85.3.3,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 86.1.0 (pass) — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml,"none — the variant is proven on 86.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 prometheus-community/kube-prometheus-stack@86.1.0,default,render_parity,R,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/kube-prometheus-stack@86.1.0,default,local_live,L,pass,pass,no,,,
@@ -1066,13 +1066,13 @@ prometheus-community/prometheus@29.8.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,default,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,default,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-prometheus-community/prometheus@29.8.0,default,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+prometheus-community/prometheus@29.8.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 29.9.0 (pass) — runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml,"none — the variant is proven on 29.9.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,render_parity,R,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,local_live,L,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,gitops_oci_live,G,pass,pass,no,,,
 prometheus-community/prometheus@29.8.0,server-only-ephemeral,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-prometheus-community/prometheus@29.8.0,server-only-ephemeral,two_cluster_kind_parity,K,missing,todo,yes,single-cluster local live passes; this live lane is runnable but not yet recorded,run the two-cluster kind parity lane,either
+prometheus-community/prometheus@29.8.0,server-only-ephemeral,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 29.9.0 (pass) — runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml,"none — the variant is proven on 29.9.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 prometheus-community/prometheus@29.9.0,default,render_parity,R,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,default,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus@29.9.0,default,local_live,L,pass,pass,no,,,
