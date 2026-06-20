@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral"
-    upstreamUnitID: "dbe1e8c0-efb9-463c-93bc-b586cfc2e4a9"
+    upstreamUnitID: "55999061-f59f-4253-8424-5dd643cb6352"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,7 +40,7 @@ spec:
   changeset:
     slug: "cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527 (7baca168-cdfc-4a02-bdc3-17c692722622)"
+    output: "Successfully created changeset cl-prometheus-29-9-0-server-only-ephemeral-variant-promote-20260527 (b66f5af3-65b3-473f-85fb-2e9a77175288)"
   promote:
     result: "pass"
     output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-monitoring-prometheus-server\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral\nBulk create operation completed:\n  Success: 1 unit(s)"
@@ -55,7 +55,7 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-cl-prometheus-29-9-0-server-only-ephemeral"
-    addedUnitDownstreamUpstreamUnitID: "dbe1e8c0-efb9-463c-93bc-b586cfc2e4a9"
+    addedUnitDownstreamUpstreamUnitID: "55999061-f59f-4253-8424-5dd643cb6352"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
   result: "pass"

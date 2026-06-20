@@ -17,6 +17,18 @@ spec:
     configHubUnitCount: 11
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-fluentd"
+      headRevisionNum: 2
+      dataHash: "8df24caf7ea52ffdb2609b9fadb91db34ed49f539193c348a4d5738d5e957f55"
+    -
+      slug: "clusterrole-fluentd"
+      headRevisionNum: 2
+      dataHash: "0e8d1d0a8cac400d6fde7d4a6f349d1ac7af516889a0e203691dcb8408d6dca8"
+    -
+      slug: "configmap-default-dashboard-fluentd-fluentd"
+      headRevisionNum: 1
+      dataHash: "3c284623276dfdeb7d215ed3edaa9de24423101866d764e43bef041dc77d3fbf"
+    -
       slug: "configmap-fluentd-config-fluentd"
       headRevisionNum: 1
       dataHash: "ba629d7554069553151f8b80b8cd6451566c8f41b224de0d10bfde711e899065"
@@ -33,6 +45,10 @@ spec:
       headRevisionNum: 1
       dataHash: "04012ffb30019363633a43dd5bc4152905a63d32ecb58f021f8b2cdaf31f2ebe"
     -
+      slug: "daemonset-fluentd"
+      headRevisionNum: 2
+      dataHash: "3078740e45cf7e4803813f2c41ac66b6920661881de9976617a8b202ae89f041"
+    -
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
@@ -40,22 +56,6 @@ spec:
       slug: "serviceaccount-fluentd"
       headRevisionNum: 1
       dataHash: "dad4913156c2d0d2e0fa3c60e89a634f0add9ed6ed04ffd2ffa6d0ade1867d7c"
-    -
-      slug: "clusterrole-fluentd"
-      headRevisionNum: 2
-      dataHash: "0e8d1d0a8cac400d6fde7d4a6f349d1ac7af516889a0e203691dcb8408d6dca8"
-    -
-      slug: "clusterrolebinding-fluentd"
-      headRevisionNum: 2
-      dataHash: "8df24caf7ea52ffdb2609b9fadb91db34ed49f539193c348a4d5738d5e957f55"
-    -
-      slug: "configmap-default-dashboard-fluentd-fluentd"
-      headRevisionNum: 1
-      dataHash: "3c284623276dfdeb7d215ed3edaa9de24423101866d764e43bef041dc77d3fbf"
-    -
-      slug: "daemonset-fluentd"
-      headRevisionNum: 2
-      dataHash: "3078740e45cf7e4803813f2c41ac66b6920661881de9976617a8b202ae89f041"
     -
       slug: "service-fluentd"
       headRevisionNum: 2

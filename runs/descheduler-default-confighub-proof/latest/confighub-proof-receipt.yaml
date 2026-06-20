@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/descheduler/descheduler/0.36.0"
     name: "descheduler-descheduler"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-descheduler-default-confighub-proof (post-render):\n      CronJob/descheduler [descheduler] registry.k8s.io/descheduler/descheduler:v0.36.0"
   serverSideVariant:
-    command: "cub variant create staging helm-descheduler-default-confighub-proof --environment Staging --region local --space-name-pattern template:Descheduler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-descheduler-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Descheduler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-descheduler-default-confighub-proof"
     downstreamSpace: "Descheduler-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

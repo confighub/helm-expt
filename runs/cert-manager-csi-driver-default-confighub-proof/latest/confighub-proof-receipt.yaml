@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
     name: "jetstack-cert-manager-csi-driver"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cert-manager-csi-driver-default-confighub-proof (post-render):\n      DaemonSet/cert-manager-csi-driver [cert-manager-csi-driver] quay.io/jetstack/cert-manager-csi-driver:v0.14.0\n      DaemonSet/cert-manager-csi-driver [liveness-probe] quay.io/jetstack/livenessprobe:v2.18.0\n      DaemonSet/cert-manager-csi-driver [node-driver-registrar] quay.io/jetstack/csi-node-driver-registrar:v2.16.0"
   serverSideVariant:
-    command: "cub variant create staging helm-cert-manager-csi-driver-default-confighub-proof --environment Staging --region local --space-name-pattern template:CertManagerCsiDriver-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cert-manager-csi-driver-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:CertManagerCsiDriver-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cert-manager-csi-driver-default-confighub-proof"
     downstreamSpace: "CertManagerCsiDriver-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

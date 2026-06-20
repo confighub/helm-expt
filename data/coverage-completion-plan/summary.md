@@ -50,7 +50,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 ## Variant promotion (first-class family)
 
-The promotion (V) lane is the loudest hole: **76 proven / 121 watch / 0 todo / 2 blocked / 0 n/a**.
+The promotion (V) lane is the loudest hole: **180 proven / 16 watch / 1 todo / 2 blocked / 0 n/a**.
 - `CCP-01` **run-promotion** - 396 old fallback receipts to rerun on ConfigHub v0.1.80+.
 
 ## All action families

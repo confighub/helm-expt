@@ -9,13 +9,14 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/opensearch/2.0.10"
     name: "bitnami-opensearch"
     chart: "bitnami/opensearch"
     chartVersion: "2.0.10"
     bases:
+      - "legacy"
       - "default"
       - "ha"
     selectedBase: "default"
@@ -36,7 +37,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/opensearch/2.0.10 -o .tmp/confighub-proof/opensearch-default-archives/opensearch-a.tgz"
-    sha256: "a4d64a3569ce5187989d12d86a764de64dee1664f60f21acd860b41448c658a6"
+    sha256: "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/opensearch-default"
@@ -60,11 +61,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-opensearch-default-confighub-proof (post-render):\n  init  StatefulSet/opensearch-coordinating [copy-default-plugins] docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-coordinating [sysctl] docker.io/bitnami/os-shell:12-debian-12-r51\n      StatefulSet/opensearch-coordinating [opensearch] docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-data [copy-default-plugins] docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-data [sysctl] docker.io/bitnami/os-shell:12-debian-12-r51\n      StatefulSet/opensearch-data [opensearch] docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-ingest [copy-default-plugins] docker.io/bitnami/opensearch:3.2.0-debian-12-r0\n  init  StatefulSet/opensearch-ingest [sysctl] docker.io/bitnami/os-shell:12-debian-12-r51"
   serverSideVariant:
-    command: "cub variant create staging helm-opensearch-default-confighub-proof --environment Staging --region local --space-name-pattern template:OpenSearch-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-opensearch-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:OpenSearch-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-opensearch-default-confighub-proof"
     downstreamSpace: "OpenSearch-default-staging"
     clonedUnitCount: 20
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

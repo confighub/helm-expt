@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-kyverno-admission-controller --space helm-kyverno-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-kyverno-cleanup-controller --space helm-kyverno-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-kyverno-admission-controller"
-    output: "Unit deployment-default-kyverno-admission-controller (644375cb-7132-4b09-9267-a01c20d64f4e) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-kyverno-cleanup-controller"
+    output: "Unit deployment-default-kyverno-cleanup-controller (ff4f9e64-7046-44e3-9ba2-792d1112c5f1) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-kyverno-no-crds-confighub-proof --where \"Labels.Proof = 'kyverno-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req gnYBGuiEYpEjqcMAvxRCtPkecWHanAly: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req hkCUmQzhxnWbqubUYuZTrgCVQEGylDfI: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-kyverno-no-crds-confighub-proof --where \"Labels.Proof = 'kyverno-no-crds-confighub-proof'\""
     result: "pass"

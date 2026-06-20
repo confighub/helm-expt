@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/falcosecurity/falco/9.0.0"
     name: "falcosecurity-falco"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-falco-default-confighub-proof (post-render):\n  init  DaemonSet/falco [falco-driver-loader] docker.io/falcosecurity/falco-driver-loader:0.44.0\n  init  DaemonSet/falco [falcoctl-artifact-install] docker.io/falcosecurity/falcoctl:0.13.0\n      DaemonSet/falco [falco] docker.io/falcosecurity/falco:0.44.0\n      DaemonSet/falco [falcoctl-artifact-follow] docker.io/falcosecurity/falcoctl:0.13.0"
   serverSideVariant:
-    command: "cub variant create staging helm-falco-default-confighub-proof --environment Staging --region local --space-name-pattern template:Falco-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-falco-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Falco-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-falco-default-confighub-proof"
     downstreamSpace: "Falco-default-staging"
     clonedUnitCount: 8
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

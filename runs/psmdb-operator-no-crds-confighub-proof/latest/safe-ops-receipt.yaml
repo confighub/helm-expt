@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-psmdb-operator --space helm-psmdb-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-psmdb-operator"
-    output: "Unit deployment-default-psmdb-operator (cd26a779-90d0-4304-8191-7f8455543b39) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-psmdb-operator (d5fbd914-0e98-449d-98f7-ac0a19697166) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-psmdb-operator-no-crds-confighub-proof --where \"Labels.Proof = 'psmdb-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req SzWUCpBuYfZhRknoVnQbvqXCoGMudcTp: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req AaxMYeAaYKnwiTSIqfTvnbRiCtxEutNY: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-psmdb-operator-no-crds-confighub-proof --where \"Labels.Proof = 'psmdb-operator-no-crds-confighub-proof'\""
     result: "pass"

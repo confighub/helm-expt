@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     name: "argo-cd-argo-workflows"
@@ -18,17 +18,139 @@ spec:
     bases:
       - "default"
       - "controller-default-reviewed"
+      - "minimal-crds"
     selectedBase: "default"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterworkflowtemplates.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD cronworkflows.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowartifactgctasks.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workfloweventbindings.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflows.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtaskresults.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtasksets.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtemplates.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      -
+        base: "controller-default-reviewed"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterworkflowtemplates.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD cronworkflows.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowartifactgctasks.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workfloweventbindings.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflows.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtaskresults.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtasksets.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD workflowtemplates.argoproj.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   render:
     command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir .tmp/confighub-proof/argo-workflows-default --non-interactive --namespace default"
     result: "pass"
     manifestCount: 20
     separatedSecretCount: 0
     facts:
-      {}
+      targetFactChecks:
+        base: "default"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            name: "clusterworkflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "cronworkflows.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workflowartifactgctasks.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workfloweventbindings.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workflows.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workflowtaskresults.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workflowtasksets.argoproj.io"
+            sourceVariant: "minimal-crds"
+          -
+            name: "workflowtemplates.argoproj.io"
+            sourceVariant: "minimal-crds"
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/argo-workflows-default"
     result: "pass"
@@ -36,7 +158,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o .tmp/confighub-proof/argo-workflows-default-archives/argo-workflows-a.tgz"
-    sha256: "09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6"
+    sha256: "7c6a0b21ed4ee3f588cb396ce99b4bffb999251838950e6168cc2f1c22acd412"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/argo-workflows-default"
@@ -60,11 +182,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-argo-workflows-default-confighub-proof (post-render):\n      Deployment/argo-workflows-server [argo-server] quay.io/argoproj/argocli:v4.0.5\n      Deployment/argo-workflows-workflow-controller [controller] quay.io/argoproj/workflow-controller:v4.0.5"
   serverSideVariant:
-    command: "cub variant create staging helm-argo-workflows-default-confighub-proof --environment Staging --region local --space-name-pattern template:ArgoWorkflows-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-argo-workflows-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:ArgoWorkflows-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-argo-workflows-default-confighub-proof"
     downstreamSpace: "ArgoWorkflows-default-staging"
     clonedUnitCount: 21
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

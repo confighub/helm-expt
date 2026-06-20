@@ -17,14 +17,6 @@ spec:
     configHubUnitCount: 7
   unitRevisionBindings:
     -
-      slug: "namespace-default"
-      headRevisionNum: 1
-      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
-    -
-      slug: "daemonset-default-falco"
-      headRevisionNum: 2
-      dataHash: "3c7e3aabf15cc6aaa577c778ef7239803b8457b4a9ee68dcd2c1fe689709c93f"
-    -
       slug: "configmap-default-falco"
       headRevisionNum: 1
       dataHash: "f96cc397a28547c75cabe50de0bea6cd035c281622eed2f84f6ac14ff5607336"
@@ -33,13 +25,21 @@ spec:
       headRevisionNum: 1
       dataHash: "c6e2cbe65813ba1101e100d05cffb6e92e6b1a7bd4e0a241ce4c332bed22844d"
     -
-      slug: "role-default-falco"
+      slug: "daemonset-default-falco"
       headRevisionNum: 2
-      dataHash: "98029ce308d9b66c08b50631c9853c12bb7df95d075c85890edcf4463ac8129e"
+      dataHash: "3c7e3aabf15cc6aaa577c778ef7239803b8457b4a9ee68dcd2c1fe689709c93f"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
       slug: "rolebinding-default-falco"
       headRevisionNum: 2
       dataHash: "8f355885daea985c97f969edd54bdfec7e78c802e42ca61a0c17f7c8b7fd2e9e"
+    -
+      slug: "role-default-falco"
+      headRevisionNum: 2
+      dataHash: "98029ce308d9b66c08b50631c9853c12bb7df95d075c85890edcf4463ac8129e"
     -
       slug: "serviceaccount-default-falco"
       headRevisionNum: 1

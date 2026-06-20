@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/percona/psmdb-operator/1.22.0"
     name: "percona-psmdb-operator"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-psmdb-operator-no-crds-confighub-proof (post-render):\n      Deployment/psmdb-operator [psmdb-operator] percona/percona-server-mongodb-operator:1.22.0"
   serverSideVariant:
-    command: "cub variant create staging helm-psmdb-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:PerconaPSMDBOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-psmdb-operator-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:PerconaPSMDBOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-psmdb-operator-no-crds-confighub-proof"
     downstreamSpace: "PerconaPSMDBOperator-no-crds-staging"
     clonedUnitCount: 6
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-trivy-operator --space helm-trivy-operator-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-trivy-operator"
-    output: "Unit deployment-default-trivy-operator (16684dc2-55a2-417f-826d-70b744554bc9) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-trivy-operator (262192c6-4d10-455a-9758-9139166bfb8b) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-trivy-operator-confighub-proof --where \"Labels.Proof = 'trivy-operator-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req CtnNnIVPQsvECOGKpCNPAWcspcYxPcig: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req ITjbDdcQyhKrRIMsFWZtAnvkjdSereno: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-trivy-operator-confighub-proof --where \"Labels.Proof = 'trivy-operator-confighub-proof'\""
     result: "pass"

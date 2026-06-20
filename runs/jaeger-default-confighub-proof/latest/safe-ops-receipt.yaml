@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-jaeger --space helm-jaeger-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-jaeger"
-    output: "Unit deployment-jaeger (7324fd33-cbce-405e-a807-a3af560ec2f4) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-jaeger (5765a268-7ca0-4930-a8e3-0b554b3d2af4) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-jaeger-default-confighub-proof --where \"Labels.Proof = 'jaeger-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req CvtZikOMPXFmtYDnLKXLMoiuUsTwISLH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req jUgkJqayxuyljTKneDWzmbuApqJxDtkc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-jaeger-default-confighub-proof --where \"Labels.Proof = 'jaeger-default-confighub-proof'\""
     result: "pass"

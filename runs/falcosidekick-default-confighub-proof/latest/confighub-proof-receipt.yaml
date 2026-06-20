@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/falcosecurity/falcosidekick/0.13.1"
     name: "falcosecurity-falcosidekick"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-falcosidekick-default-confighub-proof (post-render):\n      Deployment/falcosidekick [falcosidekick] docker.io/falcosecurity/falcosidekick:2.32.0"
   serverSideVariant:
-    command: "cub variant create staging helm-falcosidekick-default-confighub-proof --environment Staging --region local --space-name-pattern template:Falcosidekick-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-falcosidekick-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Falcosidekick-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-falcosidekick-default-confighub-proof"
     downstreamSpace: "Falcosidekick-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

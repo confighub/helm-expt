@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve daemonset-default-fluent-bit --space helm-fluent-bit-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "daemonset-default-fluent-bit"
-    output: "Unit daemonset-default-fluent-bit (16d065d8-3292-49e5-8384-bfe634a727a4) has been approved\nAwaiting triggers..."
+    output: "Unit daemonset-default-fluent-bit (a2d8f25e-c5df-454b-9afc-04a0dfc626fe) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-fluent-bit-default-confighub-proof --where \"Labels.Proof = 'fluent-bit-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req CLtSudFOHLHaVLwMFPTwyoVZRcztkutD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req bfGYkgWICGUVrFbbnTIhBeotpmDZPNWa: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-fluent-bit-default-confighub-proof --where \"Labels.Proof = 'fluent-bit-default-confighub-proof'\""
     result: "pass"

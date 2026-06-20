@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-tigera-operator --space helm-tigera-operator-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-tigera-operator"
-    output: "Unit deployment-default-tigera-operator (54eab1fd-2156-457b-9bd3-027a79e294c1) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-tigera-operator (5bf3858e-ee8b-48aa-a5c9-f516f1bf6316) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-tigera-operator-default-confighub-proof --where \"Labels.Proof = 'tigera-operator-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req DZYWkKwKKVTQxODQCaMqziVtmknwmkty: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req ZUTFzBjoJEBzpUQXPFTcyjKxCOlsnSbi: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-tigera-operator-default-confighub-proof --where \"Labels.Proof = 'tigera-operator-default-confighub-proof'\""
     result: "pass"

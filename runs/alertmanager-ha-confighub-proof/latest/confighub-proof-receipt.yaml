@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/alertmanager/1.37.0"
     name: "prometheus-community-alertmanager"
@@ -58,13 +58,21 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/alertmanager-ha"
     result: "pass"
-    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-alertmanager-ha-confighub-proof:\n  ~ service-default-alertmanager-headless\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/alertmanager-ha/out/manifests/service-default-alertmanager-headless.yaml:\n      Resource: v1/Service default/alertmanager-headless\n        - [Delete] spec.ports.?port=9094;@1  (#2)\n          name: cluster-tcp\n          port: 9094\n          protocol: TCP\n          targetPort: clusterpeer-tcp"
+    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-alertmanager-ha-confighub-proof:\n  ~ service-default-alertmanager-headless\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/alertmanager-ha/out/manifests/service-default-alertmanager-headless.yaml:\n      Resource: v1/Service default/alertmanager-headless\n        - [Delete] spec.ports.?port=9094;@1  (#2)\n          name: cluster-tcp\n          port: 9094\n          protocol: TCP\n          targetPort: clusterpeer-tcp"
   serverSideVariant:
-    command: "cub variant create staging helm-alertmanager-ha-confighub-proof --environment Staging --region local --space-name-pattern template:Alertmanager-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-alertmanager-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Alertmanager-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-alertmanager-ha-confighub-proof"
     downstreamSpace: "Alertmanager-ha-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

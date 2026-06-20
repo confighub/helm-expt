@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/jetstack/trust-manager/v0.22.1"
     name: "jetstack-trust-manager"
@@ -21,14 +21,125 @@ spec:
     selectedBase: "no-crds"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret default/trust-manager-tls keys tls.crt,tls.key"
+            namespace: "default"
+            suggestedSource: "kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD certificates.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD issuers.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "Namespace cert-manager"
+            namespace: "cert-manager"
+            suggestedSource: "kubectl create namespace cert-manager"
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret default/trust-manager-tls keys tls.crt,tls.key"
+            namespace: "default"
+            suggestedSource: "kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD bundles.trust.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD certificates.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD issuers.cert-manager.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "Namespace cert-manager"
+            namespace: "cert-manager"
+            suggestedSource: "kubectl create namespace cert-manager"
   render:
     command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir .tmp/confighub-proof/trust-manager-no-crds --non-interactive --namespace default"
     result: "pass"
     manifestCount: 14
     separatedSecretCount: 0
     facts:
-      {}
+      targetFactChecks:
+        base: "no-crds"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "bundles.trust.cert-manager.io"
+            purpose: "trust-manager CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+            sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        requiredNamespaces:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cert-manager"
+            purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base"
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "trust-manager-tls"
+            namespace: "default"
+            purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/trust-manager-no-crds"
     result: "pass"
@@ -36,7 +147,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o .tmp/confighub-proof/trust-manager-no-crds-archives/trust-manager-a.tgz"
-    sha256: "e0f077d0158b34447fbc29a05f0cb94eb7d63127f8ac60d2a9806c54d5b4e9ce"
+    sha256: "b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/trust-manager-no-crds"
@@ -60,11 +171,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-trust-manager-no-crds-confighub-proof (post-render):\n  init  Deployment/trust-manager [cert-manager-package-debian] quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6\n      Deployment/trust-manager [trust-manager] quay.io/jetstack/trust-manager:v0.22.1"
   serverSideVariant:
-    command: "cub variant create staging helm-trust-manager-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:TrustManager-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-trust-manager-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:TrustManager-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-trust-manager-no-crds-confighub-proof"
     downstreamSpace: "TrustManager-no-crds-staging"
     clonedUnitCount: 15
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

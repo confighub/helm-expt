@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/zookeeper/13.8.7"
     name: "bitnami-zookeeper"
@@ -18,6 +18,7 @@ spec:
     bases:
       - "default"
       - "ha"
+      - "legacy"
     selectedBase: "ha"
     docVerified: true
     targetFactRequirements:
@@ -36,7 +37,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o .tmp/confighub-proof/cl-zookeeper-13-8-7-ha-archives/cl-zookeeper-13-8-7-a.tgz"
-    sha256: "b5607b35b457faecf1abe73ccf4a5d6b1d78d1de6f963ef866385aa80380cdeb"
+    sha256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cl-zookeeper-13-8-7-ha"
@@ -60,11 +61,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-zookeeper-13-8-7-ha-confighub-proof (post-render):\n      StatefulSet/zookeeper [zookeeper] docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-zookeeper-13-8-7-ha-confighub-proof --environment Staging --region local --space-name-pattern template:Zookeeper1387-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-zookeeper-13-8-7-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Zookeeper1387-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-zookeeper-13-8-7-ha-confighub-proof"
     downstreamSpace: "Zookeeper1387-ha-staging"
     clonedUnitCount: 9
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

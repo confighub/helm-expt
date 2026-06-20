@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-falcosidekick --space helm-falcosidekick-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-falcosidekick"
-    output: "Unit deployment-default-falcosidekick (b9d7c2c2-8ee1-4831-a54e-72cbaa9fe03c) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-falcosidekick (89983740-5427-44e6-8efd-ef823b952e4a) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-falcosidekick-default-confighub-proof --where \"Labels.Proof = 'falcosidekick-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req YAYfzYVOgXqZaQOjSkmrZlEPqpFaogRK: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req fOsdumgzqUGpBZMNFKqumTTqsCSbhsEn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-falcosidekick-default-confighub-proof --where \"Labels.Proof = 'falcosidekick-default-confighub-proof'\""
     result: "pass"

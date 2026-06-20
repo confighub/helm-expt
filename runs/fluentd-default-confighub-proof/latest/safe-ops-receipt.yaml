@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve daemonset-fluentd --space helm-fluentd-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "daemonset-fluentd"
-    output: "Unit daemonset-fluentd (218acfa7-39f2-412a-b96f-43696c93f33c) has been approved\nAwaiting triggers..."
+    output: "Unit daemonset-fluentd (1d546de5-1ec9-4758-b8df-04cd66bdf75d) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-fluentd-default-confighub-proof --where \"Labels.Proof = 'fluentd-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req qfjmmncUJFfSBNyoWApOIeUdKHJzcPVJ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req kffXslETffNxfxxBozVDBPoArdqhpLkF: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-fluentd-default-confighub-proof --where \"Labels.Proof = 'fluentd-default-confighub-proof'\""
     result: "pass"

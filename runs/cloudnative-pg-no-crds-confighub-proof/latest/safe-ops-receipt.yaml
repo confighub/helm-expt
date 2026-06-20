@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-cloudnative-pg --space helm-cloudnative-pg-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-cloudnative-pg"
-    output: "Unit deployment-default-cloudnative-pg (91077d1f-cd9d-4ff5-bd91-f22cec293edd) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-cloudnative-pg (de9cb548-4913-4f9c-8d17-03e74bc7bd04) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cloudnative-pg-no-crds-confighub-proof --where \"Labels.Proof = 'cloudnative-pg-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req uCAzzdVTCUijUkOWquIVQNhZpkndQJcH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req hYDWsalOeaCLVOpqYFBPrHQoBLMynsRE: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cloudnative-pg-no-crds-confighub-proof --where \"Labels.Proof = 'cloudnative-pg-no-crds-confighub-proof'\""
     result: "pass"

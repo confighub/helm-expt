@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-default-pyroscope --space helm-pyroscope-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-default-pyroscope"
-    output: "Unit statefulset-default-pyroscope (557066e9-d5a7-4fb0-8eab-0164164e89d3) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-default-pyroscope (f7e498e6-23e2-41df-909e-1e0d8aeba8cd) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-pyroscope-no-crds-confighub-proof --where \"Labels.Proof = 'pyroscope-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req AEHjodQAuLzvMwZauAKtpRQMDnOxKCyc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req kEclWhdfPIBDqHtynImOVdADcnIYCgQg: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-pyroscope-no-crds-confighub-proof --where \"Labels.Proof = 'pyroscope-no-crds-confighub-proof'\""
     result: "pass"

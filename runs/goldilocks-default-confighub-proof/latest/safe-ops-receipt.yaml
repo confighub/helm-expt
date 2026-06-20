@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-goldilocks-dashboard --space helm-goldilocks-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-goldilocks-controller --space helm-goldilocks-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-goldilocks-dashboard"
-    output: "Unit deployment-default-goldilocks-dashboard (8b82f141-1e05-425b-affe-91abd235f960) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-goldilocks-controller"
+    output: "Unit deployment-default-goldilocks-controller (ce3d56ea-a9ab-4279-b266-84a865df8943) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-goldilocks-default-confighub-proof --where \"Labels.Proof = 'goldilocks-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req siyrfhhejaZxmlBsIwNQfvgSoSnxcHal: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req caixRWmpOFvAWNJYzZXoNKMLRwQJeMhf: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-goldilocks-default-confighub-proof --where \"Labels.Proof = 'goldilocks-default-confighub-proof'\""
     result: "pass"

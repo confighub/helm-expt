@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/argo-cd/argo-events/2.4.21"
     name: "argo-cd-argo-events"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-argo-events-no-crds-confighub-proof (post-render):\n      Deployment/argo-events-controller-manager [controller-manager] quay.io/argoproj/argo-events:v1.9.10"
   serverSideVariant:
-    command: "cub variant create staging helm-argo-events-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:ArgoEvents-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-argo-events-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:ArgoEvents-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-argo-events-no-crds-confighub-proof"
     downstreamSpace: "ArgoEvents-no-crds-staging"
     clonedUnitCount: 8
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

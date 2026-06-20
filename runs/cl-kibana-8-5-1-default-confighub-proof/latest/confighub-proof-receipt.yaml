@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/elastic/kibana/8.5.1"
     name: "elastic-kibana"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-kibana-8-5-1-default-confighub-proof (post-render):\n      Deployment/kibana-kibana [kibana] docker.elastic.co/kibana/kibana:8.5.1"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-kibana-8-5-1-default-confighub-proof --environment Staging --region local --space-name-pattern template:Kibana851-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-kibana-8-5-1-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Kibana851-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-kibana-8-5-1-default-confighub-proof"
     downstreamSpace: "Kibana851-default-staging"
     clonedUnitCount: 4
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

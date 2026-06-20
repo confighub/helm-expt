@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "autoscaler/vertical-pod-autoscaler"
     chartVersion: "0.9.0"
@@ -17,21 +17,21 @@ spec:
     upstreamSpace: "helm-vertical-pod-autoscaler-no-crds-confighub-proof"
     downstreamSpace: "VerticalPodAutoscaler-no-crds-staging"
   commands:
-    upstreamUpdate: "cub unit update deployment-default-vertical-pod-autoscaler-admission-controller runs/vertical-pod-autoscaler-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-vertical-pod-autoscaler-no-crds-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update deployment-default-vertical-pod-autoscaler-recommender runs/vertical-pod-autoscaler-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-vertical-pod-autoscaler-no-crds-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-vertical-pod-autoscaler-no-crds runs/vertical-pod-autoscaler-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-vertical-pod-autoscaler-no-crds-confighub-proof --allow-exists"
     dryRun: "cub variant promote VerticalPodAutoscaler-no-crds-staging --dry-run -o mutations"
     changeset: "cub changeset create vertical-pod-autoscaler-no-crds-variant-promote-20260527 --space VerticalPodAutoscaler-no-crds-staging --description ... --allow-exists"
     promote: "cub variant promote VerticalPodAutoscaler-no-crds-staging --changeset VerticalPodAutoscaler-no-crds-staging/vertical-pod-autoscaler-no-crds-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote VerticalPodAutoscaler-no-crds-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "deployment-default-vertical-pod-autoscaler-admission-controller"
+    changedUnit: "deployment-default-vertical-pod-autoscaler-recommender"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=vertical-pod-autoscaler-no-crds-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-vertical-pod-autoscaler-no-crds"
-    upstreamUnitID: "6d7edceb-dad4-4eca-8cd4-7b95e0baf4fa"
+    upstreamUnitID: "dbfcdb9f-d79e-4b83-b740-76b89fb81fc1"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "vertical-pod-autoscaler-no-crds-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset vertical-pod-autoscaler-no-crds-variant-promote-20260527 (0c3f0406-cc22-4508-a680-1e77683aab5f)"
+    output: "Successfully created changeset vertical-pod-autoscaler-no-crds-variant-promote-20260527 (8652ec3c-772c-4682-ae75-0c99dd947197)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-vertical-pod-autoscaler-admission-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-vertical-pod-autoscaler-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-vertical-pod-autoscaler-recommender\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-vertical-pod-autoscaler-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-vertical-pod-autoscaler-no-crds"
-    addedUnitDownstreamUpstreamUnitID: "6d7edceb-dad4-4eca-8cd4-7b95e0baf4fa"
+    addedUnitDownstreamUpstreamUnitID: "dbfcdb9f-d79e-4b83-b740-76b89fb81fc1"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

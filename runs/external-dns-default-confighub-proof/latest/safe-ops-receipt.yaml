@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-external-dns --space helm-external-dns-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-external-dns"
-    output: "Unit deployment-default-external-dns (5c0b41c1-092a-435c-b503-6eb000fe8807) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-external-dns (6cd0d9ce-826a-44f0-9036-978a748b155b) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-external-dns-default-confighub-proof --where \"Labels.Proof = 'external-dns-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req kKgXrecvhOEgpIYIWmbrHSGhjCzePaQA: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req LwJpBuKXvaOzqvshGcOIAteMgpopGCmS: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-external-dns-default-confighub-proof --where \"Labels.Proof = 'external-dns-default-confighub-proof'\""
     result: "pass"

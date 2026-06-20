@@ -17,6 +17,10 @@ spec:
     configHubUnitCount: 8
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler"
+      headRevisionNum: 2
+      dataHash: "53cf57f92bf5dc85d49aa9c129a007c3a390dda9a61780eec5fb07d0e3ad6c96"
+    -
       slug: "clusterrole-cluster-autoscaler-aws-cluster-autoscaler"
       headRevisionNum: 2
       dataHash: "b021dbb8be07907aa761c4f68096a42d89c0b962b7f5e5a4ae52e5c26f970495"
@@ -24,14 +28,6 @@ spec:
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
-    -
-      slug: "role-default-cluster-autoscaler-aws-cluster-autoscaler"
-      headRevisionNum: 2
-      dataHash: "1479378f615d7b7c560ea32f3654e975bd5a98b8ecff5000f29735ae616602f2"
-    -
-      slug: "clusterrolebinding-cluster-autoscaler-aws-cluster-autoscaler"
-      headRevisionNum: 2
-      dataHash: "53cf57f92bf5dc85d49aa9c129a007c3a390dda9a61780eec5fb07d0e3ad6c96"
     -
       slug: "poddisruptionbudget-default-cluster-autoscaler-aws-cluster-autoscaler"
       headRevisionNum: 1
@@ -41,13 +37,17 @@ spec:
       headRevisionNum: 2
       dataHash: "9cd1f141ff74c120ef6739d471979bdadd722268869a1d708fb4d72ff4271491"
     -
-      slug: "service-default-cluster-autoscaler-aws-cluster-autoscaler"
+      slug: "role-default-cluster-autoscaler-aws-cluster-autoscaler"
       headRevisionNum: 2
-      dataHash: "7fe60ba141502c8e5f01941b21e7f9f6caafad390bfeeb35d6ad381942049cef"
+      dataHash: "1479378f615d7b7c560ea32f3654e975bd5a98b8ecff5000f29735ae616602f2"
     -
       slug: "serviceaccount-default-cluster-autoscaler-aws-cluster-autoscaler"
       headRevisionNum: 1
       dataHash: "07bf294328482720bc0cab535ec86cc661a6b45bbedc1d527c840e7c4e3dee4e"
+    -
+      slug: "service-default-cluster-autoscaler-aws-cluster-autoscaler"
+      headRevisionNum: 2
+      dataHash: "7fe60ba141502c8e5f01941b21e7f9f6caafad390bfeeb35d6ad381942049cef"
   validations:
     -
       function: "vet-format"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-monitoring-prometheus-server --space helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-monitoring-prometheus-server"
-    output: "Unit deployment-monitoring-prometheus-server (1362da12-c83d-4be3-808d-5f5140606057) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-monitoring-prometheus-server (bf7060b4-bb6d-4968-a6cc-3a30a0bea200) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof --where \"Labels.Proof = 'cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req evZnLFTsTgjQflySBvvOKuRySwICSzfZ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req hBvcUPxvMTBswSAWAWxrWuVQkIpUHQoZ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof --where \"Labels.Proof = 'cl-prometheus-29-9-0-server-only-ephemeral-confighub-proof'\""
     result: "pass"

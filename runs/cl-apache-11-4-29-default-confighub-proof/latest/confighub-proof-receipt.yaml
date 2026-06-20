@@ -9,13 +9,14 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/apache/11.4.29"
     name: "bitnami-apache"
     chart: "bitnami/apache"
     chartVersion: "11.4.29"
     bases:
+      - "legacy"
       - "default"
     selectedBase: "default"
     docVerified: true
@@ -35,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/apache/11.4.29 -o .tmp/confighub-proof/cl-apache-11-4-29-default-archives/cl-apache-11-4-29-a.tgz"
-    sha256: "0d97fbe6c57b4b8f47d7f4c163e1db33a0558dea2e1d879f8004e3440f53687f"
+    sha256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cl-apache-11-4-29-default"
@@ -59,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-apache-11-4-29-default-confighub-proof (post-render):\n  init  Deployment/apache [preserve-logs-symlinks] docker.io/bitnami/apache:2.4.65-debian-12-r2\n      Deployment/apache [apache] docker.io/bitnami/apache:2.4.65-debian-12-r2"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-apache-11-4-29-default-confighub-proof --environment Staging --region local --space-name-pattern template:Apache11429-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-apache-11-4-29-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Apache11429-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-apache-11-4-29-default-confighub-proof"
     downstreamSpace: "Apache11429-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/fairwinds-stable/vpa/4.11.0"
     name: "fairwinds-stable-vpa"
@@ -21,14 +21,80 @@ spec:
     selectedBase: "no-crds"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret default/vpa-tls-secret keys ca,cert,key"
+            namespace: "default"
+            suggestedSource: "kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>"
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret default/vpa-tls-secret keys ca,cert,key"
+            namespace: "default"
+            suggestedSource: "kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD verticalpodautoscalers.autoscaling.k8s.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   render:
     command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base no-crds --work-dir .tmp/confighub-proof/vpa-no-crds --non-interactive --namespace default"
     result: "pass"
     manifestCount: 27
     separatedSecretCount: 0
     facts:
-      {}
+      targetFactChecks:
+        base: "no-crds"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalers.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "vpa-tls-secret"
+            namespace: "default"
+            purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/vpa-no-crds"
     result: "pass"
@@ -36,7 +102,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o .tmp/confighub-proof/vpa-no-crds-archives/vpa-a.tgz"
-    sha256: "46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504"
+    sha256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/vpa-no-crds"
@@ -60,17 +126,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-vpa-no-crds-confighub-proof (post-render):\n      Deployment/vpa-admission-controller [vpa] registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n      Deployment/vpa-recommender [vpa] registry.k8s.io/autoscaling/vpa-recommender:1.6.0\n      Deployment/vpa-updater [vpa] registry.k8s.io/autoscaling/vpa-updater:1.6.0"
   serverSideVariant:
-    command: "cub variant create staging helm-vpa-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:VPA-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-vpa-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:VPA-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-vpa-no-crds-confighub-proof"
     downstreamSpace: "VPA-no-crds-staging"
     clonedUnitCount: 28
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-vpa-admission-controller"
+    representativeUnit: "deployment-default-vpa-recommender"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/minio-operator/operator/7.1.1"
     name: "minio-operator-operator"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-minio-operator-default-confighub-proof (post-render):\n      Deployment/minio-operator [operator] quay.io/minio/operator:v7.1.1"
   serverSideVariant:
-    command: "cub variant create staging helm-minio-operator-default-confighub-proof --environment Staging --region local --space-name-pattern template:MinioOperator-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-minio-operator-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:MinioOperator-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-minio-operator-default-confighub-proof"
     downstreamSpace: "MinioOperator-default-staging"
     clonedUnitCount: 10
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

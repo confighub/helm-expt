@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/aqua/trivy-operator/0.32.1"
     name: "aqua-trivy-operator"
@@ -168,7 +168,12 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
@@ -177,7 +182,7 @@ spec:
     separatedSecretCount: 2
   deterministicPackage:
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o .tmp/confighub-proof/trivy-operator-no-crds-archives/trivy-operator-a.tgz"
-    sha256: "1173b06d9073953455f7b9b4dd7abb5fc11c43bdba94685841e31a3139da0b9e"
+    sha256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/trivy-operator-no-crds"
@@ -202,11 +207,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-trivy-operator-no-crds-confighub-proof (post-render):\n      Deployment/trivy-operator [trivy-operator] mirror.gcr.io/aquasec/trivy-operator:0.30.1"
   serverSideVariant:
-    command: "cub variant create staging helm-trivy-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:TrivyOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-trivy-operator-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:TrivyOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-trivy-operator-no-crds-confighub-proof"
     downstreamSpace: "TrivyOperator-no-crds-staging"
     clonedUnitCount: 21
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

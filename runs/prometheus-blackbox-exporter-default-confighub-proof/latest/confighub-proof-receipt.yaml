@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
     name: "prometheus-community-prometheus-blackbox-exporter"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o .tmp/confighub-proof/prometheus-blackbox-exporter-default-archives/prometheus-blackbox-exporter-a.tgz"
-    sha256: "c79ccb65a4813be3c4eecc663fd8d9b1dce4567f220ce9a13f32dfcdc42e1620"
+    sha256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-blackbox-exporter-default"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-prometheus-blackbox-exporter-default-confighub-proof (post-render):\n      Deployment/prometheus-blackbox-exporter [blackbox-exporter] quay.io/prometheus/blackbox-exporter:v0.28.0"
   serverSideVariant:
-    command: "cub variant create staging helm-prometheus-blackbox-exporter-default-confighub-proof --environment Staging --region local --space-name-pattern template:PrometheusBlackboxExporter-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-prometheus-blackbox-exporter-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:PrometheusBlackboxExporter-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-prometheus-blackbox-exporter-default-confighub-proof"
     downstreamSpace: "PrometheusBlackboxExporter-default-staging"
     clonedUnitCount: 6
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

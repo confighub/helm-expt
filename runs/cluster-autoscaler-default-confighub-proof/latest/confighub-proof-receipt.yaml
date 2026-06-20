@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/autoscaler/cluster-autoscaler/9.57.0"
     name: "autoscaler-cluster-autoscaler"
@@ -28,7 +28,20 @@ spec:
     manifestCount: 8
     separatedSecretCount: 0
     facts:
-      {}
+      targetFactChecks:
+        base: "default"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
     result: "pass"
@@ -36,7 +49,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o .tmp/confighub-proof/cluster-autoscaler-default-archives/cluster-autoscaler-a.tgz"
-    sha256: "351121a8d10b6a6fa0ba0a81b1d5345038f25968c117c5ae4dc9c4e1a7474b8d"
+    sha256: "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cluster-autoscaler-default"
@@ -60,11 +73,19 @@ spec:
     result: "pass"
     summary: "No changes."
   serverSideVariant:
-    command: "cub variant create staging helm-cluster-autoscaler-default-confighub-proof --environment Staging --region local --space-name-pattern template:ClusterAutoscaler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cluster-autoscaler-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:ClusterAutoscaler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cluster-autoscaler-default-confighub-proof"
     downstreamSpace: "ClusterAutoscaler-default-staging"
     clonedUnitCount: 9
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

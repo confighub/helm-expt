@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-dex --space helm-dex-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-dex"
-    output: "Unit deployment-default-dex (19fd553e-06ae-4059-9161-fed91c823574) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-dex (d7183cf5-1225-45b6-b22f-5625e47e55b4) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-dex-default-confighub-proof --where \"Labels.Proof = 'dex-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req woniVVRKETGtyzlGvTQjrpXWjLcWHqaV: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req jNCSzTMrkquoLFsaJklSDwTNukEmGItc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-dex-default-confighub-proof --where \"Labels.Proof = 'dex-default-confighub-proof'\""
     result: "pass"

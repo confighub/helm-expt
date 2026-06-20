@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-opencost --space helm-opencost-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-opencost"
-    output: "Unit deployment-default-opencost (91dec64e-cd41-433d-b8ae-d8104cf625e0) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-opencost (d682a6a9-c591-4e55-9029-ef124d74174e) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-opencost-default-confighub-proof --where \"Labels.Proof = 'opencost-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req OENGjYVrsWLsRpVRYhJzDrDQyFDTXYAn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req aifpEfGlzuVBTaKiUDLfWWZKLuTOlvJv: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-opencost-default-confighub-proof --where \"Labels.Proof = 'opencost-default-confighub-proof'\""
     result: "pass"

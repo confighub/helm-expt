@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-kubernetes-ingress --space helm-haproxy-ingress-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-kubernetes-ingress"
-    output: "Unit deployment-default-kubernetes-ingress (35db4be6-b184-43e6-b883-f25810df08d7) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-kubernetes-ingress (0622952e-5029-44a1-9056-627b5f04622d) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-haproxy-ingress-default-confighub-proof --where \"Labels.Proof = 'haproxy-ingress-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req UfWHCdTqfdjBvlRIEMlukjETBWKDbpkl: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req FvHtnkbrPaHbcvtPLwWaXdhVHXcLgRNb: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-haproxy-ingress-default-confighub-proof --where \"Labels.Proof = 'haproxy-ingress-default-confighub-proof'\""
     result: "pass"

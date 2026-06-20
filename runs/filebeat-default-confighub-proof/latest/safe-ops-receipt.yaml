@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve daemonset-filebeat-filebeat --space helm-filebeat-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve configmap-filebeat-filebeat-daemonset-config --space helm-filebeat-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "daemonset-filebeat-filebeat"
-    output: "Unit daemonset-filebeat-filebeat (81a01a7f-9a13-41f9-9d84-a37c87a9c26f) has been approved\nAwaiting triggers..."
+    representativeUnit: "configmap-filebeat-filebeat-daemonset-config"
+    output: "Unit configmap-filebeat-filebeat-daemonset-config (8756a969-ab25-483f-9459-70e1dd184ec1) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-filebeat-default-confighub-proof --where \"Labels.Proof = 'filebeat-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req aemArAxIVmFRUZQXIrDrDJwQuXySRcpk: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req wVefffiKtvGzUwrSVhGjBFpAMhXDiuoO: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-filebeat-default-confighub-proof --where \"Labels.Proof = 'filebeat-default-confighub-proof'\""
     result: "pass"

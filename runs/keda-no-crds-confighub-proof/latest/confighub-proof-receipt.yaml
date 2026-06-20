@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/kedacore/keda/2.19.0"
     name: "kedacore-keda"
@@ -60,17 +60,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-keda-no-crds-confighub-proof (post-render):\n      Deployment/keda-admission-webhooks [keda-admission-webhooks] ghcr.io/kedacore/keda-admission-webhooks:2.19.0\n      Deployment/keda-operator [keda-operator] ghcr.io/kedacore/keda:2.19.0\n      Deployment/keda-operator-metrics-apiserver [keda-operator-metrics-apiserver] ghcr.io/kedacore/keda-metrics-apiserver:2.19.0"
   serverSideVariant:
-    command: "cub variant create staging helm-keda-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:KEDA-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-keda-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:KEDA-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-keda-no-crds-confighub-proof"
     downstreamSpace: "KEDA-no-crds-staging"
     clonedUnitCount: 25
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-keda-operator-metrics-apiserver"
+    representativeUnit: "deployment-default-keda-admission-webhooks"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

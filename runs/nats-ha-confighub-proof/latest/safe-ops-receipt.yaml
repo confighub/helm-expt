@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-nats --space helm-nats-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-nats"
-    output: "Unit statefulset-nats (c9d3a71c-42f7-4323-998d-f41a8d8f7c6e) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-nats (4dc708a9-9e0a-4571-8029-9e63d63190a7) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-nats-ha-confighub-proof --where \"Labels.Proof = 'nats-ha-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req NHBVpqzRsytMjDvqCYtsPUKDJCQYgTpy: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req VeLznOoKFpKqDDObJzFKBkcJInWvUNix: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-nats-ha-confighub-proof --where \"Labels.Proof = 'nats-ha-confighub-proof'\""
     result: "pass"

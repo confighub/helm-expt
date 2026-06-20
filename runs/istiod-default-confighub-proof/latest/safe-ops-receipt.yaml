@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-istiod --space helm-istiod-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-istiod"
-    output: "Unit deployment-default-istiod (eec5d6c6-1d41-455c-85f8-948a83a11d89) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-istiod (1aebf714-bfd9-4fde-9bf9-67d7f7a926bc) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-istiod-default-confighub-proof --where \"Labels.Proof = 'istiod-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req gYMulxffhfmqUlNmvKpAMxBKLAgszSQO: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req hNbaaauIbEgHtJeSpsxPHaHjPCTtWlGZ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-istiod-default-confighub-proof --where \"Labels.Proof = 'istiod-default-confighub-proof'\""
     result: "pass"

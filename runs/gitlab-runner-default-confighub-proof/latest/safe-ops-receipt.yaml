@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-gitlab-runner --space helm-gitlab-runner-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-gitlab-runner"
-    output: "Unit deployment-default-gitlab-runner (7887b5f3-5ca6-43a7-b178-d2aba9ed671e) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-gitlab-runner (a7500e2b-82e8-468c-994b-be8f7793687e) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-gitlab-runner-default-confighub-proof --where \"Labels.Proof = 'gitlab-runner-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req GQHljJftKiQSkEHrwJBvQUsUtzkRRXxM: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req RcJMYDeKPNLkJXIQZgsdNVDHnmplYafU: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-gitlab-runner-default-confighub-proof --where \"Labels.Proof = 'gitlab-runner-default-confighub-proof'\""
     result: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve configmap-metricbeat-metricbeat-deployment-config --space helm-cl-metricbeat-8-5-1-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "configmap-metricbeat-metricbeat-deployment-config"
-    output: "Unit configmap-metricbeat-metricbeat-deployment-config (16437712-1e35-4d53-be04-3e2af8b90624) has been approved\nAwaiting triggers..."
+    output: "Unit configmap-metricbeat-metricbeat-deployment-config (b5324fda-2e72-403f-b2e1-e5e5c83c99d7) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-metricbeat-8-5-1-default-confighub-proof --where \"Labels.Proof = 'cl-metricbeat-8-5-1-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req xPBDiRQsTxegrhLphJNzWckCAuqQnvZp: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req aPXSSNNyOENySbFpqlifDcysNlqNDMul: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-metricbeat-8-5-1-default-confighub-proof --where \"Labels.Proof = 'cl-metricbeat-8-5-1-default-confighub-proof'\""
     result: "pass"

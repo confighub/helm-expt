@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-argo-workflows-server --space helm-argo-workflows-minimal-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-argo-workflows-server"
-    output: "Unit deployment-default-argo-workflows-server (48ccb0d3-cb88-4d61-844a-e448767dcf53) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-argo-workflows-server (77a754e3-1bcf-468e-9eed-7ff44cb389d8) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-argo-workflows-minimal-crds-confighub-proof --where \"Labels.Proof = 'argo-workflows-minimal-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req ZsGodxqpcZpWQRMTqVSAAtlbtLbhUMZO: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req FczjrDUcuSOhasdSMaHOOkEwjzivHbxY: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-argo-workflows-minimal-crds-confighub-proof --where \"Labels.Proof = 'argo-workflows-minimal-crds-confighub-proof'\""
     result: "pass"

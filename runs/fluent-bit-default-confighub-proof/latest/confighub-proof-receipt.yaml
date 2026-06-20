@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/fluent/fluent-bit/0.57.6"
     name: "fluent-fluent-bit"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-fluent-bit-default-confighub-proof (post-render):\n      DaemonSet/fluent-bit [fluent-bit] cr.fluentbit.io/fluent/fluent-bit:5.0.6"
   serverSideVariant:
-    command: "cub variant create staging helm-fluent-bit-default-confighub-proof --environment Staging --region local --space-name-pattern template:FluentBit-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-fluent-bit-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:FluentBit-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-fluent-bit-default-confighub-proof"
     downstreamSpace: "FluentBit-default-staging"
     clonedUnitCount: 8
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

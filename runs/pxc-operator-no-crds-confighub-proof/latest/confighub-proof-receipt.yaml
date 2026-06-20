@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/percona/pxc-operator/1.19.1"
     name: "percona-pxc-operator"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-pxc-operator-no-crds-confighub-proof (post-render):\n      Deployment/pxc-operator [percona-xtradb-cluster-operator] percona/percona-xtradb-cluster-operator:1.19.1"
   serverSideVariant:
-    command: "cub variant create staging helm-pxc-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:PerconaPXCOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-pxc-operator-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:PerconaPXCOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-pxc-operator-no-crds-confighub-proof"
     downstreamSpace: "PerconaPXCOperator-no-crds-staging"
     clonedUnitCount: 6
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

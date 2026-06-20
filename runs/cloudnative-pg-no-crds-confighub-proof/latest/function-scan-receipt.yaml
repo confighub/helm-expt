@@ -17,37 +17,21 @@ spec:
     configHubUnitCount: 12
   unitRevisionBindings:
     -
-      slug: "serviceaccount-default-cloudnative-pg"
-      headRevisionNum: 1
-      dataHash: "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446"
-    -
-      slug: "namespace-cnpg-system"
-      headRevisionNum: 1
-      dataHash: "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21"
-    -
-      slug: "validatingwebhookconfiguration-cnpg-validating-webhook-configuration"
+      slug: "clusterrolebinding-cloudnative-pg"
       headRevisionNum: 2
-      dataHash: "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e"
+      dataHash: "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b"
+    -
+      slug: "clusterrole-cloudnative-pg"
+      headRevisionNum: 2
+      dataHash: "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8"
     -
       slug: "clusterrole-cloudnative-pg-edit"
       headRevisionNum: 2
       dataHash: "fe2328179ecfe48f35135cbcedea4cd552a1e575a33aaa3bd29ba8f9dee27217"
     -
-      slug: "clusterrolebinding-cloudnative-pg"
-      headRevisionNum: 2
-      dataHash: "419f728974f5ed98e37cd58360c29500815d36697bfdc46933cd2faa00373e0b"
-    -
-      slug: "service-default-cnpg-webhook-service"
-      headRevisionNum: 2
-      dataHash: "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a"
-    -
       slug: "clusterrole-cloudnative-pg-view"
       headRevisionNum: 2
       dataHash: "d5f2d4c0e2d8bf6ea7db62e1854e5dcacdce5752b1d767b275887243955d1c3f"
-    -
-      slug: "clusterrole-cloudnative-pg"
-      headRevisionNum: 2
-      dataHash: "863b5d755efe0a6e2450a91283e4c7d8cd4c3b01bf1687f82b781ba51c40a8d8"
     -
       slug: "configmap-default-cnpg-controller-manager-config"
       headRevisionNum: 1
@@ -64,6 +48,22 @@ spec:
       slug: "mutatingwebhookconfiguration-cnpg-mutating-webhook-configuration"
       headRevisionNum: 2
       dataHash: "9edf77a72d513ff8c6ec421c5b4a215f8c62226e6e43b1bb4685cd2e4389a258"
+    -
+      slug: "namespace-cnpg-system"
+      headRevisionNum: 1
+      dataHash: "ac03889db7a19858010b171478907a725914ce2a111aa88e05e483a18740cc21"
+    -
+      slug: "serviceaccount-default-cloudnative-pg"
+      headRevisionNum: 1
+      dataHash: "0a615849b3105bc47cf78c7d42ca0b523512eb286a81fc926509980b9fe73446"
+    -
+      slug: "service-default-cnpg-webhook-service"
+      headRevisionNum: 2
+      dataHash: "eb2754354c2d74e5fa4461a3602d3817e90fa76422640ba9cfde68fa6eb48f2a"
+    -
+      slug: "validatingwebhookconfiguration-cnpg-validating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "6eeb7ad0207ac0caad03741c9850e1a3a8840e58a7dc1855cdbbb99f47128f6e"
   validations:
     -
       function: "vet-format"

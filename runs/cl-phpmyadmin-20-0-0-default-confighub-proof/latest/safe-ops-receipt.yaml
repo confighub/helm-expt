@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-phpmyadmin --space helm-cl-phpmyadmin-20-0-0-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-phpmyadmin"
-    output: "Unit deployment-default-phpmyadmin (9ec07b17-1a6c-4fe5-b61e-e5fd7fa35067) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-phpmyadmin (150d2a80-6d62-43a5-9ca8-5b1952080148) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-phpmyadmin-20-0-0-default-confighub-proof --where \"Labels.Proof = 'cl-phpmyadmin-20-0-0-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req hrMHzQxCMcDRvphXvbUwrOIAfJlOODBs: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req fBNwJmVttiYRNxzquVgLicmfMprshNcK: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-phpmyadmin-20-0-0-default-confighub-proof --where \"Labels.Proof = 'cl-phpmyadmin-20-0-0-default-confighub-proof'\""
     result: "pass"

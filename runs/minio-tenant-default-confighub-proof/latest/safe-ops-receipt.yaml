@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve namespace-default --space helm-minio-tenant-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "namespace-default"
-    output: "Unit namespace-default (4c495494-c73c-437b-9c56-727584b65a61) has been approved\nAwaiting triggers..."
+    output: "Unit namespace-default (eef203b0-a280-4cda-858b-a04beb970890) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-minio-tenant-default-confighub-proof --where \"Labels.Proof = 'minio-tenant-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req GUFEYjXcDXdhAlEWWyYInvDKWwwfACCT: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req WGpPKetTJuCVVTvnZQqSarVMZaUIiWmL: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-minio-tenant-default-confighub-proof --where \"Labels.Proof = 'minio-tenant-default-confighub-proof'\""
     result: "pass"

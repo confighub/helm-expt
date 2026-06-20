@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/aqua/trivy-operator/0.32.1"
     name: "aqua-trivy-operator"
@@ -21,14 +21,89 @@ spec:
     selectedBase: "default"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustercompliancereports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterconfigauditreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterinfraassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterrbacassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustersbomreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustervulnerabilityreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD configauditreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD exposedsecretreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD infraassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD rbacassessmentreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD sbomreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD vulnerabilityreports.aquasecurity.github.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   render:
     command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir .tmp/confighub-proof/trivy-operator-default --non-interactive --namespace default"
     result: "pass"
     manifestCount: 32
     separatedSecretCount: 2
     facts:
-      {}
+      targetFactChecks:
+        base: "default"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/trivy-operator-default"
     result: "pass"
@@ -36,7 +111,7 @@ spec:
     separatedSecretCount: 2
   deterministicPackage:
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o .tmp/confighub-proof/trivy-operator-archives/trivy-operator-a.tgz"
-    sha256: "debcc8623ee9a61303bdb7df297c62f46ba17dc85355b7d35f0bd5257e000ef5"
+    sha256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/trivy-operator-default"
@@ -61,11 +136,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-trivy-operator-confighub-proof (post-render):\n      Deployment/trivy-operator [trivy-operator] mirror.gcr.io/aquasec/trivy-operator:0.30.1"
   serverSideVariant:
-    command: "cub variant create staging helm-trivy-operator-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-trivy-operator-confighub-proof --environment Staging --region local --namespace default --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-trivy-operator-confighub-proof"
     downstreamSpace: "TrivyOperator-staging"
     clonedUnitCount: 33
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

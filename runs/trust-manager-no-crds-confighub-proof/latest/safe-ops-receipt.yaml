@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-trust-manager --space helm-trust-manager-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-trust-manager"
-    output: "Unit deployment-default-trust-manager (7b9974d5-75ab-48c8-a36b-ea62f25e9067) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-trust-manager (bf8093d3-542b-430c-8ed3-ea6da6293e58) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-trust-manager-no-crds-confighub-proof --where \"Labels.Proof = 'trust-manager-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req HeIhaPFAvJFAkaHlVWRkhcdcgQVVwtKh: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req QRLeuUFYxstmowDCPauAwRpAaRdORKGJ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-trust-manager-no-crds-confighub-proof --where \"Labels.Proof = 'trust-manager-no-crds-confighub-proof'\""
     result: "pass"

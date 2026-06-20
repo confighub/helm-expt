@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-vpa-admission-controller --space helm-vpa-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-vpa-recommender --space helm-vpa-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-vpa-admission-controller"
-    output: "Unit deployment-default-vpa-admission-controller (3b0a7e60-42b1-4799-83b1-4db73dfb803b) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-vpa-recommender"
+    output: "Unit deployment-default-vpa-recommender (9731c26e-0e50-4fca-8493-957427fe8337) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-vpa-no-crds-confighub-proof --where \"Labels.Proof = 'vpa-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req vwZpahgHMaBcukEuYMFSPoGUxRqrcjou: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req imMVCMlLMvRxOnVKfxYeVXFrngEJwRVF: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-vpa-no-crds-confighub-proof --where \"Labels.Proof = 'vpa-no-crds-confighub-proof'\""
     result: "pass"

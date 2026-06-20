@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-pg-operator --space helm-pg-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-pg-operator"
-    output: "Unit deployment-default-pg-operator (34a01794-cd5c-410b-83b1-22eb5851bdba) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-pg-operator (4e724785-bed6-4e9e-832e-9da051e96404) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-pg-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pg-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req wlJAOrEcQbScduvivMCYjXfybvYUmNEl: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req OvAlyTHUXINJypmRbRTzAHsiZyIphfhv: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-pg-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pg-operator-no-crds-confighub-proof'\""
     result: "pass"

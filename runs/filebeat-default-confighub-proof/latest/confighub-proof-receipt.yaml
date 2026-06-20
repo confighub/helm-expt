@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/elastic/filebeat/8.5.1"
     name: "elastic-filebeat"
@@ -60,17 +60,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-filebeat-default-confighub-proof (post-render):\n      DaemonSet/filebeat-filebeat [filebeat] docker.elastic.co/beats/filebeat:8.5.1"
   serverSideVariant:
-    command: "cub variant create staging helm-filebeat-default-confighub-proof --environment Staging --region local --space-name-pattern template:Filebeat-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-filebeat-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Filebeat-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-filebeat-default-confighub-proof"
     downstreamSpace: "Filebeat-default-staging"
     clonedUnitCount: 9
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "daemonset-filebeat-filebeat"
+    representativeUnit: "configmap-filebeat-filebeat-daemonset-config"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

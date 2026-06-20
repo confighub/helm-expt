@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/grafana/rollout-operator/0.49.0"
     name: "grafana-rollout-operator"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-rollout-operator-no-crds-confighub-proof (post-render):\n      Deployment/rollout-operator [rollout-operator] docker.io/grafana/rollout-operator:v0.36.2"
   serverSideVariant:
-    command: "cub variant create staging helm-rollout-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:RolloutOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-rollout-operator-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:RolloutOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-rollout-operator-no-crds-confighub-proof"
     downstreamSpace: "RolloutOperator-no-crds-staging"
     clonedUnitCount: 15
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

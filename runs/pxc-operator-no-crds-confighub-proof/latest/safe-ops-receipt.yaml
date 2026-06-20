@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-pxc-operator --space helm-pxc-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-pxc-operator"
-    output: "Unit deployment-default-pxc-operator (4dd0356e-e0cb-4838-8f20-20eed58bb33d) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-pxc-operator (4eee6194-e7f9-4e6f-9618-545a3fb2d5a9) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-pxc-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pxc-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req MUwvNqihvkGbvKkBahyfIhbgyudmiVXt: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req cvINRvgDlFhqCnEFOgPVCUQIKHvdwsZT: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-pxc-operator-no-crds-confighub-proof --where \"Labels.Proof = 'pxc-operator-no-crds-confighub-proof'\""
     result: "pass"

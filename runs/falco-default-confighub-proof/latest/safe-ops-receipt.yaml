@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve daemonset-default-falco --space helm-falco-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "daemonset-default-falco"
-    output: "Unit daemonset-default-falco (759f2802-97b9-4206-9974-92d46f632c88) has been approved\nAwaiting triggers..."
+    output: "Unit daemonset-default-falco (449b6588-50a2-420f-afbf-c648de81f990) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-falco-default-confighub-proof --where \"Labels.Proof = 'falco-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req gpodJvUNnbwFFDUtSJPamXMktgzjFfgG: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req FTGNBSiXXiAdDbkUGVgEvcXbXtPHxZSB: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-falco-default-confighub-proof --where \"Labels.Proof = 'falco-default-confighub-proof'\""
     result: "pass"

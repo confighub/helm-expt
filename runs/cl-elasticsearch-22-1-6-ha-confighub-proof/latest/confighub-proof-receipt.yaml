@@ -9,13 +9,14 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/elasticsearch/22.1.6"
     name: "bitnami-elasticsearch"
     chart: "bitnami/elasticsearch"
     chartVersion: "22.1.6"
     bases:
+      - "legacy"
       - "default"
       - "ha"
     selectedBase: "ha"
@@ -36,7 +37,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o .tmp/confighub-proof/cl-elasticsearch-22-1-6-ha-archives/cl-elasticsearch-22-1-6-a.tgz"
-    sha256: "feb192f28429e4d48cce9f582db0661c8ed74d5d578612853e5bf0305da1569e"
+    sha256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-ha"
@@ -60,17 +61,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-elasticsearch-22-1-6-ha-confighub-proof (post-render):\n  init  StatefulSet/elasticsearch-coordinating [copy-default-plugins] docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-coordinating [sysctl] docker.io/bitnami/os-shell:12-debian-12-r50\n      StatefulSet/elasticsearch-coordinating [elasticsearch] docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-data [copy-default-plugins] docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-data [sysctl] docker.io/bitnami/os-shell:12-debian-12-r50\n      StatefulSet/elasticsearch-data [elasticsearch] docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-ingest [copy-default-plugins] docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\n  init  StatefulSet/elasticsearch-ingest [sysctl] docker.io/bitnami/os-shell:12-debian-12-r50"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-elasticsearch-22-1-6-ha-confighub-proof --environment Staging --region local --space-name-pattern template:Elasticsearch2216-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-elasticsearch-22-1-6-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Elasticsearch2216-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-elasticsearch-22-1-6-ha-confighub-proof"
     downstreamSpace: "Elasticsearch2216-ha-staging"
     clonedUnitCount: 23
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "statefulset-default-elasticsearch-master"
+    representativeUnit: "statefulset-default-elasticsearch-coordinating"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
