@@ -103,14 +103,26 @@ choices are authored; the gap is the *selector* that lets someone pick and appli
   (Argo/Flux), a by-hand command, or queue-for-cub — **plus a selection receipt**
   recording who chose what, when, and why.
 
-**Surfaces (same contract; reference vs product):**
+**This is a runtime module — not a catalog feature.** The selector + executor runs
+at deploy/operate time and writes runtime receipts, so it belongs in the **cub /
+cub-scout runtime, kept self-contained — NOT in helm-expt** (a static proof/catalog
+harness with no runtime). Building it here would contaminate the catalog with runtime
+concerns. helm-expt's lasting contribution is the **static contract + evidence** the
+runtime module consumes: the per-hook menu (`default_route` + `alternatives` +
+`agent_inputs`), the GitOps emission templates (Phase 2), and the live execution
+proofs (Phase 1). Stop there in helm-expt.
 
-| Surface | Owner | What it is |
+**Surfaces (all part of the runtime module; one shared contract):**
+
+| Surface | Where it lives | What it is |
 | --- | --- | --- |
-| CLI | reference in helm-expt (`select-hook-route.mjs`); product = `cub` | list the menu, `--select` validates + emits the plan + receipt |
-| AI / agent | helm-expt surface = `agent_inputs`; the agent reads it | picks a route with a rationale, emits the plan + receipt |
-| function | product (`cub function`); contract defined here | sets the chosen route on a Unit, like `set-image` |
-| GUI | product; mockup/spec in helm-expt | per-hook control to pick + preview the plan |
+| CLI | cub runtime (`cub ...`) | list the menu, select → execute/emit + receipt |
+| AI / agent | cub-scout / agent runtime; reads helm-expt's `agent_inputs` | picks a route with a rationale, executes + receipts |
+| function | cub runtime (`cub function`) | sets the chosen route on a Unit, like `set-image` |
+| GUI | product UI | per-hook control to pick + preview + apply |
+
+helm-expt may, at most, host a **static contract-conformance check** (does each route
+expose a valid menu + `agent_inputs`?) — never the live selector/executor.
 
 **Status:** the menu + the contract exist; the selector mechanism is unbuilt.
 helm-expt can ship the reference CLI + the agent path + surface the menu; the
