@@ -429,7 +429,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header>
     ${topNav(".")}
-    <h1>Manage Helm config with AI.</h1>
+    <h1>Use Helm charts. Use AI. Use ConfigHub to prove it is correct.</h1>
     ${generatedStamp(catalog, label)}
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
     <p>Start with a parity demo. Then choose a chart and base from the Helm Catalog. Move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Move into Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions.</p>
