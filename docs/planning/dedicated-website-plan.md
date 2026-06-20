@@ -20,9 +20,10 @@ back into the repo:
 What do I do after the first install?
 ```
 
-The answer should be concrete: upload or deliver through ConfigHub, inspect
-Units, compare variants, run scans, approve changes, observe live state, and
-know when a chart needs managed support rather than public-catalog use.
+The answer should be concrete: choose or create variants, upload or deliver
+through ConfigHub, inspect Units, compare variants, run scans, approve changes,
+observe live state, operate custom apps and stacks, and know when a chart needs
+managed support rather than public-catalog use.
 
 It should not expose the full internal noun ladder first. The first impression
 should be:
@@ -53,10 +54,11 @@ Content:
   package, live parity proof, ConfigHub operations;
 - proof counters drawn from generated status data, not hand-edited numbers;
 - a "what is not claimed" link next to the proof counters;
-- three start buttons: inspect catalog, try Redis, read the serious-chart proof;
+- start buttons: inspect catalog, try Redis, open variants, open apps and
+  operations, and read the serious-chart proof;
 - clear note that Helm remains the source chart ecosystem.
 
-### 2. Catalog
+### 2. Helm Catalog
 
 Purpose:
 
@@ -121,30 +123,30 @@ data/master-catalog-matrix/matrix.csv
 data/hook-disposition/top100-hook-dispositions.csv
 ```
 
-Detailed spec: [per-chart-fact-sheet-spec.md](./per-chart-fact-sheet-spec.md) —
+Detailed spec: [per-chart-fact-sheet-spec.md](./per-chart-fact-sheet-spec.md) -
 the full section list, the exact data source per item, a solid /
 needs-more-testing status for each, and the "level of support vs evidence depth"
 rule.
 
-### 4. Variant Page
+### 4. Variants
 
 Purpose:
 
 ```text
-Show exactly what a variant changes and how to operate it.
+Explain base variants, derived ConfigHub variants, promotion, and the boundary
+between render-time choices and post-render refinements.
 ```
 
 Content:
 
-- variant purpose;
-- effective values and target facts;
-- object count and diff from another variant;
-- rendered objects;
-- secret handling;
-- checks and receipts;
-- post-render Creator options where available.
-
-The page should make the base/derived boundary visible:
+- when to create a base variant;
+- when to create a derived variant;
+- when to go back to the recipe/import path;
+- first command flow: `cub installer setup`, upload, `cub variant create`,
+  `cub variant promote --dry-run`;
+- links to Redis, Prometheus, kube-prometheus-stack, and promotion receipts;
+- honest note that promotion proof is row-specific and must stay visible in
+  the matrix.
 
 ```text
 Base variant: changes Helm render input or object shape.
@@ -154,28 +156,111 @@ Delivery prerequisite: changes what must exist before Argo/Flux/apply can
 converge.
 ```
 
-### 5. Proof Page
+Current generated page:
+
+```text
+site/variants.html
+```
+
+### 5. Applications
 
 Purpose:
 
 ```text
-Make skeptical reviewers trust the catalog.
+Show what happens after the first install: public charts, custom apps, stacks,
+and platform groups become one managed desired-state graph with variants and
+promotion.
 ```
 
 Content:
 
-- how the harness works;
-- invariants and golden checks;
-- tampering self-tests;
-- regular Helm versus `cub installer` comparison;
-- live e2e doctrine;
-- GitOps/runtime observation lane;
-- hook and lifecycle disposition vocabulary;
-- sceptic tests: claims register, blast-radius accuracy, torture fixtures,
-  environment matrix, refresh survival;
-- latest-version refresh policy.
+- six-stage path from inspect to serverless try-out to sign-up to server
+  try-out to day-2 operations to managed/private use;
+- explicit Day 0 / Day 1 distinction for public charts, custom apps, stacks,
+  platform groups, variants, and promotion;
+- links to variants, custom apps, operations, private paths, and chart pages;
+- clear free/account/paid boundary.
 
-### 6. Docs
+Current generated page:
+
+```text
+site/journey.html
+```
+
+### 6. Custom Apps And Stacks
+
+Purpose:
+
+```text
+Provide a deeper example inside Applications for cases where a real application
+is several public charts plus a custom service, wrapper chart, overlay values,
+private inputs, target facts, or existing live state.
+```
+
+Content:
+
+- where each piece belongs: public chart, custom app Unit, wrapper chart,
+  overlay values, derived variant, private catalog;
+- Day 0 composition versus Day 1 change management;
+- links to the managed overlay golden, app-readiness surface, custom overlays
+  guide, and private paths;
+- clear note that private sources and production responsibility are managed
+  product lanes.
+
+Current generated page:
+
+```text
+site/custom-apps.html
+```
+
+### 7. Operations
+
+Purpose:
+
+```text
+Turn the strongest post-render product functions into one readable product
+page: scans, gates, delivery, observation, adoption, upgrades, rollback, bulk
+patching, and fleet operations.
+```
+
+Content:
+
+- operation cards with status, boundary, command, value, and evidence link;
+- bulk scan, bulk patch, fleet operations, upgrade, rollback, and observation
+  as productisation targets;
+- clear note that variants and promotion are application SDLC, while operations
+  makes releases governed and observable;
+- clear watch/planned wording where receipts or product implementation are not
+  complete.
+
+Current generated page:
+
+```text
+site/operations.html
+```
+
+### 8. FAQ
+
+Purpose:
+
+```text
+Answer hard skeptical questions without making the first screen a proof lab.
+```
+
+Content:
+
+- hooks, secrets, target prerequisites, GitOps false green, upgrades, custom
+  values, free versus managed, and what is not claimed;
+- any unanswered question becomes a P1 hard-question issue rather than vague
+  copy.
+
+Current generated page:
+
+```text
+site/hard-questions.html
+```
+
+### 9. Docs
 
 Purpose:
 
@@ -185,13 +270,66 @@ Keep deeper doctrine available without overwhelming first-time users.
 
 Start with:
 
-- How The Harness Works;
-- Introduction To The Harness;
-- Customization Algorithm;
-- Variant Creator / Promotion;
-- Kubara Customized Overlays;
-- Hook Lifecycle Strategy;
-- Product Support Tiers.
+- choose your path;
+- choosing commands;
+- creating variants;
+- custom overlays;
+- verification lanes;
+- hook lifecycle strategy.
+
+Current generated page:
+
+```text
+site/docs.html
+```
+
+### 10. Database And Deep Proof
+
+Purpose:
+
+```text
+Make skeptical reviewers trust the catalog without turning proof into the main
+product navigation.
+```
+
+Content:
+
+- Helm Catalog links to `site/matrix.html` as the current database of supported
+  charts and variants;
+- Docs links to generated evidence and claims register;
+- `site/proof.html` remains a deep reviewer reference, not a main menu item;
+- proof counters and generated status should come from generated data, not
+  hand-maintained copy.
+
+Current generated pages:
+
+```text
+site/matrix.html
+site/proof.html
+```
+
+## Productisation And Test Roadmap
+
+The website should track the features that carry the most product value, not
+only the proof lanes. Each feature needs accommodation, tests, and a product
+surface.
+
+```text
+public page -> concise user flow -> evidence surface -> verifier or receipt -> product surface
+```
+
+| Feature | Public accommodation | Test or evidence | Productisation target |
+| --- | --- | --- | --- |
+| Variants and promotions | `site/variants.html`, `site/journey.html`, chart pages, matrix variant rows. | Variant promotion receipts and `cub variant` command-surface checks. | UI/CLI flow for base selection, derived variant creation, preview, checks, approval, and promotion as application SDLC. |
+| Applications, custom apps, and stacks | `site/journey.html`, `site/custom-apps.html`, private boundary, overlay examples. | Managed overlay golden, app-readiness surface, import/adoption receipts. | Private catalog/import workflow for wrapper charts, customer values, internal services, and application release. |
+| Bulk scan, bulk patch, and fleet ops | `site/operations.html`, Docs links, fleet/blast-radius evidence. | Bulk tutorial, blast-radius fleet, cub-scout desired-vs-live design, future fleet receipts. | Server-backed fleet inventory, bulk changesets, policy gates, wave rollout, and audit after the application graph exists. |
+| Upgrade and crash prevention | FAQ, serious-chart proof, future upgrade example page. | Old/new render diffs, CRD upgrade delta, workload upgrade rehearsals, refresh-survival data. | Managed upgrade campaign: candidate version, blast radius, rehearsal, approvals, rollout, rollback, receipt pack. |
+| Target prerequisites and lifecycle routes | Hooks page, FAQ, chart pages, matrix hard-gap fields. | Target-prerequisite action packets, lifecycle-route actions, hook dispositions, live observations. | Preflight UX and machine-readable action packets for CLI, UI, agents, and fleet runs. |
+| Matrix/database reading | Helm Catalog intro and Docs database section. | `master-matrix:verify`, matrix completion audit, chart-use guide. | Future Database page/menu item if browsing/filtering becomes a first-class product surface. |
+
+Planning docs should stay private/internal unless they are distilled into one
+of these product pages. Proof data is the evidence underneath; the public
+product path should stay chart-first, application-first, and operation-aware.
 
 ## Free / Authenticated Boundary
 

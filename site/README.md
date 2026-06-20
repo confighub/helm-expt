@@ -10,10 +10,13 @@ npm run site:verify
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
-Open `site/journey.html` for apps, stacks, and operations from inspect, to
-no-account try-out, to ConfigHub-managed operations.
-Open `site/custom-apps.html` for custom apps, multi-chart stacks, and overlays.
-Open `site/operations.html` for variants, diffs, scans, promotion, delivery, adoption, and stacks.
+Open `site/journey.html` for applications: public charts, custom apps, stacks,
+and platform groups from inspect, to no-account try-out, to managed variants
+and promotion.
+Open `site/custom-apps.html` for deeper application examples with custom apps,
+multi-chart stacks, and overlays.
+Open `site/operations.html` for scans, gates, delivery, observation, adoption,
+upgrades, rollback, bulk patching, and fleet questions.
 Open `site/day1-operations.html` only as a compatibility redirect to `site/operations.html`.
 Open `site/docs.html` for the public documentation hub.
 Open `site/hard-questions.html` for the FAQ: hooks, upgrades,

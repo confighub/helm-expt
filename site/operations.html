@@ -237,25 +237,25 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps &amp; Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Applications</a><a href="./operations.html">Operations</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
     <h1>Operations</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:52:10.902Z UTC · source: committed helm-expt evidence for this operations page.</p>
-    <p class="tagline">Once a rendered chart is in ConfigHub as Units, these are the operations a team actually performs: create variants, review diffs, scan, promote, deliver, adopt existing apps, and manage custom stacks. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T19:59:46.427Z UTC · source: committed helm-expt evidence for this operations page.</p>
+    <p class="tagline">Operations is the day1-to-day2 layer after an application graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are application SDLC; operations makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
       <h2 id="ops">The operations</h2>
       <div class="op">
         <div class="ophead">
-          <h3>Create a derived variant</h3>
+          <h3>Start from an application variant</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>cub variant create &lt;name&gt; &lt;upstream-space&gt;</code> · <span class="muted">ConfigHub · free tier</span></p>
+        <p class="opmeta"><code>see Applications and Variants</code> · <span class="muted">Application SDLC · ConfigHub</span></p>
         <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
   --environment Prod --region us-east \
   --target &lt;target-space&gt;/&lt;target&gt; \
   --namespace &lt;namespace&gt;</code></pre>
-        <p>A derived ConfigHub variant refines an uploaded base for a target, environment, region, or customer - without running Helm again and without a new installer base. This is the day-1 customization most teams need first.</p>
+        <p>Variant creation and promotion are part of the application lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Operations starts from that managed application graph.</p>
         <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
       </div>
       <div class="op">
@@ -280,13 +280,13 @@
       </div>
       <div class="op">
         <div class="ophead">
-          <h3>Stage and promote across environments</h3>
+          <h3>Release an approved variant</h3>
           <span class="badge watch">watch</span>
         </div>
-        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">ConfigHub Server</span></p>
+        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Application SDLC · ConfigHub Server</span></p>
         <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
-        <p>Promotion moves a downstream variant toward its upstream Space as a first-class ConfigHub operation. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. Older watch rows remain visible until their receipts are rerun on the fixed ConfigHub server; use the matrix V column and variant-promotion status before treating a row as proven.</p>
+        <p>Promotion moves a downstream application variant toward its upstream Space. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The operational responsibility begins around the release: gates, audit, delivery, observation, rollback, and fleet visibility.</p>
         <p class="muted">See: <a href="../data/variant-promotion/summary.md">data/variant-promotion</a> · <a href="../docs/user/prometheus-overlay-promotion-example.md">prometheus-overlay-promotion-example</a></p>
       </div>
       <div class="op">
@@ -323,7 +323,7 @@ cub gitops import &lt;app&gt;</code></pre>
     </section>
     <section aria-labelledby="next">
       <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Apps &amp; Ops</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
+      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Applications</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
