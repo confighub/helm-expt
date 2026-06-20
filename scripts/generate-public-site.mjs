@@ -330,7 +330,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Charts</a><a href="${link("matrix.html")}">Status matrix</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("proof.html")}">Proof</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("matrix.html")}">Status matrix</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("proof.html")}">Proof</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -2338,19 +2338,19 @@ function chartIndexHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Chart Pages</title>
+  <title>Helm Catalog · ConfigHub Helm Catalog</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header>
     ${topNav("..")}
-    <h1>Catalog Chart Pages</h1>
+    <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
+    <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="charts">
-      <h2 id="charts">Charts</h2>
+      <h2 id="charts">Helm Catalog</h2>
       ${markdownLikeTable([
         ["Chart", "Version", "Start base", "Supported bases", "Start status", "Production disposition"],
         ...rows,
