@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookTestRouteProofReceipt"
+metadata:
+  name: "hook-test-20260620-ckj"
+spec:
+  chart: "tests/fixtures/hook-test-probe"
+  observedAt: "2026-06-20T17:32:12.684Z"
+  result: "pass"
+  claim: "A Helm test hook is not run by `helm install`; it runs only as an explicit, out-of-band step. Routed delivery re-expresses it as a named, non-automatic run-test lifecycle action with a committed receipt — visible and deliberate, never silent."
+  anchors:
+    realChart: "fluent/fluent-bit@0.57.6"
+    realReceipt: "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+    routeAction:
+      actionKind: "run-test"
+      disposition: "observed"
+      automatic: false
+  run:
+    rig: "hook-test-20260620-ckj"
+    namespace: "hook-test-probe"
+    cleanup:
+      result: "pass"
+  legs:
+    renderParity:
+      mode: "helm template (Argo-style render; no run step)"
+      hookRun: "hook-annotated"
+      result: "pass"
+      expected: "hook-annotated"
+      detail: ""
+    helmInstallSilent:
+      mode: "helm install (workload applied; test hook skipped)"
+      hookRun: "skipped"
+      result: "pass"
+      expected: "skipped"
+      detail: ""
+    explicitRouteRun:
+      mode: "helm test (explicit run-test route; recorded result)"
+      hookRun: "executed"
+      result: "pass"
+      expected: "executed"
+      detail: ""
+      observedLog: "explicit post-install check OK"
+  conclusion: "Routing proven live: the test hook renders as a separable, annotated object (render parity proves the steady-state ConfigMap); `helm install` applies the workload and silently skips the test hook; `helm test` runs it explicitly to a recorded Succeeded result. The hook is a named, non-automatic lifecycle action, never a silent imperative step. Real-catalog evidence: fluent/fluent-bit routes its test hook to an explicit post-install check (helmHooksExecutedByHarness:false)."

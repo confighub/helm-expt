@@ -437,6 +437,8 @@
     "gitops:health-residue:verify": "node scripts/generate-gitops-health-residue.mjs --verify",
     "flux-lookup:proof": "node scripts/run-flux-lookup-proof.mjs --run",
     "flux-lookup:proof:verify": "node scripts/run-flux-lookup-proof.mjs --verify",
+    "hook-test:proof": "node scripts/run-hook-test-proof.mjs --run",
+    "hook-test:proof:verify": "node scripts/run-hook-test-proof.mjs --verify",
     "live-parity:top20": "node scripts/run-top20-live-parity.mjs --run",
     "live-parity:top20:all": "node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail",
     "live-parity:top20:summary": "node scripts/run-top20-live-parity.mjs --summary",

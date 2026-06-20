@@ -1,0 +1,13 @@
+apiVersion: v2
+name: hook-test-probe
+description: >-
+  Minimal probe chart that makes Helm's "test hook" lifecycle decision
+  observable. The ConfigMap is the steady-state (non-hook) object set that render
+  parity proves and `helm install` applies; the companion Pod is a Helm test hook
+  (helm.sh/hook: test) that `helm install` silently skips and only an explicit
+  `helm test` (or an opted-in GitOps test step) ever runs. Routed delivery
+  re-expresses that hook as a named, non-automatic post-install check with a
+  receipt. Used by scripts/run-hook-test-proof.mjs.
+type: application
+version: 0.1.0
+appVersion: "1.0"
