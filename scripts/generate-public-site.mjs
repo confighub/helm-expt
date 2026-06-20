@@ -350,7 +350,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Applications</a><a href="${link("operations.html")}">Operations</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Private</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -431,12 +431,13 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <h1>Prove Helm parity first.</h1>
     ${generatedStamp(catalog, label)}
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
+    <p>Use this site in order: start with a parity demo, choose a chart and base from the Helm Catalog, then move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Use Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions. Upgrade is where private catalogs, managed workflows, and production responsibility begin.</p>
     <div class="doors">
       <div class="door">
         <span class="kicker">Start here</span>
         <h3><a href="./try.html">Run a small parity demo</a></h3>
         <p>Use Redis to see the path without needing to understand the whole evidence system.</p>
-        <span class="go"><a href="./try.html">Open Try now →</a></span>
+        <span class="go"><a href="./try.html">Open Get Started →</a></span>
       </div>
       <div class="door">
         <span class="kicker">Pick chart</span>
@@ -503,9 +504,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h2 id="confighub">4. What Else Can ConfigHub Do?</h2>
       <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, applications, variant SDLC, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
       <div class="grid">
-        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Try now</a></p></div>
-        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, create application variants, promote through environments, and publish OCI for GitOps.</p><p><a href="./journey.html">Open Applications</a></p></div>
-        <div class="card"><h3>Managed operations</h3><p>Run scans, policy gates, bulk patches, upgrades, rollback checks, observations, and live evidence across teams and targets.</p><p><a href="./operations.html">Open Operations</a></p></div>
+        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Get Started</a></p></div>
+        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, create application variants, promote through environments, and publish OCI for GitOps.</p><p><a href="./journey.html">Open Apps</a></p></div>
+        <div class="card"><h3>Managed ops</h3><p>Run scans, policy gates, bulk patches, upgrades, rollback checks, observations, and live evidence across teams and targets.</p><p><a href="./operations.html">Open Ops</a></p></div>
       </div>
     </section>
 
@@ -1451,9 +1452,9 @@ function docsHtml(catalog) {
     ["Try the catalog", "Run the short local path first.", "./try.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
     ["Create variants", "Decide whether a change is a base variant or a derived variant.", "./variants.html"],
-    ["Applications", "Use public charts, custom apps, stacks, and platform groups from first shape to variant promotion.", "./journey.html"],
+    ["Apps", "Use public charts, custom apps, stacks, and platform groups from first shape to variant promotion.", "./journey.html"],
     ["Application examples", "Combine public charts, private apps, overlays, and target-specific choices.", "./custom-apps.html"],
-    ["Operations", "Scan, patch, observe, upgrade, roll back, adopt, and answer fleet questions after upload.", "./operations.html"],
+    ["Ops", "Scan, patch, observe, upgrade, roll back, adopt, and answer fleet questions after upload.", "./operations.html"],
     ["Answer hard questions", "Hooks, upgrades, custom values, target prerequisites, limits, and refusals.", "./hard-questions.html"],
   ];
   const guideRows = [
@@ -1461,7 +1462,7 @@ function docsHtml(catalog) {
     ["Choosing commands", "When to use cub helm template, cub helm install, or cub installer setup.", "../docs/user/choosing-commands.md"],
     ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
     ["Custom overlays", "How wrapper charts, customer values, and overlays map into the model.", "../docs/user/custom-overlays.md"],
-    ["Operations page", "Public web page for scans, patches, delivery, observation, adoption, upgrades, and fleet work.", "./operations.html"],
+    ["Ops page", "Public web page for scans, patches, delivery, observation, adoption, upgrades, and fleet work.", "./operations.html"],
     ["Verification lanes", "What each check proves and which commands run it.", "../docs/user/verification-lanes.md"],
     ["Hook lifecycle strategy", "How hooks are observed, routed, blocked, refused, or marked per-target.", "../docs/user/hook-lifecycle-strategy.md"],
   ];
@@ -1806,14 +1807,14 @@ function hardQuestionsHtml(catalog) {
           question: "What is free and what needs ConfigHub?",
           answer:
             "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
-          links: [["Applications", "./journey.html"], ["Private", "./private/"]],
+          links: [["Apps", "./journey.html"], ["Upgrade", "./private/"]],
         },
         {
           status: "answered",
           question: "What can we build once the objects are data?",
           answer:
             "Read-only tools can query the held rendered objects without a cluster or a fresh Helm render. The app-readiness proof is a small RBAC review app over the catalog data; production versions can become ConfigHub apps, policies, and review workflows.",
-          links: [["App readiness", "../data/app-readiness/summary.md"], ["Operations", "./operations.html"]],
+          links: [["App readiness", "../data/app-readiness/summary.md"], ["Ops", "./operations.html"]],
         },
         {
           status: "answered",
@@ -1998,7 +1999,7 @@ function privateHtml(catalog) {
     ["Fast ConfigHub adoption", "Use cub helm install to load a rendered chart into ConfigHub Units quickly."],
     ["Supported public catalog", "Use cub installer setup --pull <package> --base <base> for curated bases with receipts."],
     ["Trust-building proof", "Run kind/live parity commands to compare regular Helm with cub installer and ConfigHub delivery."],
-    ["Operations", "Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks."],
+    ["Ops", "Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks."],
   ];
   const commercialRows = [
     ["Hooks and lifecycle", "Inventory and route hooks publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review."],
@@ -2049,7 +2050,7 @@ function privateHtml(catalog) {
 
     <section aria-labelledby="journey">
       <h2 id="journey">ConfigHub Path</h2>
-      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">Applications page</a>, with the exact command at each stage.</p>
+      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">Apps page</a>, with the exact command at each stage.</p>
       ${markdownLikeTable([
         ["Stage", "What happens"],
         ...workRows,
@@ -2138,10 +2139,10 @@ function journeyHtml(catalog) {
       n: "3",
       badge: "ConfigHub Server · try-out",
       badgeClass: "now",
-      title: "ConfigHub Server try-out - applications",
+      title: "ConfigHub Server try-out - apps",
       action: "cub variant create  ·  cub variant promote  ·  OCI + GitOps",
       code: "cub variant create prod-us-east <upstream-space> \\\n  --environment Prod --region us-east \\\n  --target <target-space>/<target> \\\n  --namespace <namespace>\ncub variant promote <variant-space> --dry-run -o mutations",
-      get: "This is the first real application step. A public chart, several Helm charts, a custom app, a platform group, or an app you already run becomes one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes <a href=\"./variants.html\">variants</a> from a base, object diffs, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a <a href=\"./custom-apps.html\">custom or private app</a>. The <a href=\"./operations.html\">Operations page</a> covers day-1/day-2 work after the application graph exists: scans, patches, live observation, upgrades, rollbacks, and fleet questions.",
+      get: "This is the first real app step. A public chart, several Helm charts, a custom app, a platform group, or an app you already run becomes one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes <a href=\"./variants.html\">variants</a> from a base, object diffs, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a <a href=\"./custom-apps.html\">custom or private app</a>. The <a href=\"./operations.html\">Ops page</a> covers day-1/day-2 work after the app graph exists: scans, patches, live observation, upgrades, rollbacks, and fleet questions.",
       next: "Once the application path is comfortable, run it like an estate: observation, upgrades, patches, rollbacks, and fleet queries.",
     },
     {
@@ -2217,7 +2218,7 @@ function journeyHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Applications · ConfigHub Helm Catalog</title>
+  <title>Apps · ConfigHub Helm Catalog</title>
   <style>${siteCss()}
     .jstage { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
     .jstage:first-of-type { border-top: 0; }
@@ -2237,9 +2238,9 @@ function journeyHtml(catalog) {
 <body>
   <header class="hero">
     ${topNav(".")}
-    <h1>Applications</h1>
-    ${generatedStamp(catalog, "applications page")}
-    <p class="tagline">Applications includes public Helm charts, custom apps, stacks, and platform groups. This is mostly the day0-to-day1 path: inspect, try locally, sign up when shared state matters, create variants, promote through environments, and hand off to GitOps. Operations is the day1-to-day2 path after that application graph exists.</p>
+    <h1>Apps</h1>
+    ${generatedStamp(catalog, "apps page")}
+    <p class="tagline">Apps includes public Helm charts, custom apps, stacks, and platform groups. This is mostly the day0-to-day1 path: inspect, try locally, sign up when shared state matters, create variants, promote through environments, and hand off to GitOps. Ops is the day1-to-day2 path after that application graph exists.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
       <a href="#s1">1 · Serverless try-out</a>
@@ -2416,10 +2417,10 @@ function operationsHtml(catalog) {
     {
       title: "Start from an application variant",
       status: "available",
-      boundary: "Application SDLC · ConfigHub",
-      action: "see Applications and Variants",
+      boundary: "Apps SDLC · ConfigHub",
+      action: "see Apps and Variants",
       code: "cub variant create prod-us-east <upstream-space> \\\n  --environment Prod --region us-east \\\n  --target <target-space>/<target> \\\n  --namespace <namespace>",
-      get: "Variant creation and promotion are part of the application lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Operations starts from that managed application graph.",
+      get: "Variant creation and promotion are part of the app lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Ops starts from that managed app graph.",
       see: ["creating-variants.md", "cub-variant-command-surface.md"],
     },
     {
@@ -2443,7 +2444,7 @@ function operationsHtml(catalog) {
     {
       title: "Release an approved variant",
       status: "watch",
-      boundary: "Application SDLC · ConfigHub Server",
+      boundary: "Apps SDLC · ConfigHub Server",
       action: "cub variant promote <space>",
       code: "cub variant promote <space> --dry-run -o mutations\ncub variant promote <space>",
       get: "Promotion moves a downstream application variant toward its upstream Space. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The operational responsibility begins around the release: gates, audit, delivery, observation, rollback, and fleet visibility.",
@@ -2500,7 +2501,7 @@ function operationsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Operations · ConfigHub Helm Catalog</title>
+  <title>Ops · ConfigHub Helm Catalog</title>
   <style>${siteCss()}
     .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
     .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
@@ -2517,9 +2518,9 @@ function operationsHtml(catalog) {
 <body>
   <header class="hero">
     ${topNav(".")}
-    <h1>Operations</h1>
-    ${generatedStamp(catalog, "operations page")}
-    <p class="tagline">Operations is the day1-to-day2 layer after an application graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are application SDLC; operations makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <h1>Ops</h1>
+    ${generatedStamp(catalog, "ops page")}
+    <p class="tagline">Ops is the day1-to-day2 layer after an app graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are app SDLC; ops makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
@@ -2528,7 +2529,7 @@ ${cards}
     </section>
     <section aria-labelledby="next">
       <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Applications</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
+      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Apps</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
@@ -2544,10 +2545,10 @@ function legacyOperationsRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./operations.html">
-  <title>Operations · ConfigHub Helm Catalog</title>
+  <title>Ops · ConfigHub Helm Catalog</title>
 </head>
 <body>
-  <p>The day-1 operations page moved to <a href="./operations.html">Operations</a>.</p>
+  <p>The day-1 ops page moved to <a href="./operations.html">Ops</a>.</p>
 </body>
 </html>
 `;
@@ -3485,12 +3486,12 @@ npm run site:verify
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.
-Open \`site/journey.html\` for applications: public charts, custom apps, stacks,
+Open \`site/journey.html\` for Apps: public charts, custom apps, stacks,
 and platform groups from inspect, to no-account try-out, to managed variants
 and promotion.
 Open \`site/custom-apps.html\` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
-Open \`site/operations.html\` for scans, gates, delivery, observation, adoption,
+Open \`site/operations.html\` for Ops: scans, gates, delivery, observation, adoption,
 upgrades, rollback, bulk patching, and fleet questions.
 Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/operations.html\`.
 Open \`site/docs.html\` for the public documentation hub.

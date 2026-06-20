@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Operations · ConfigHub Helm Catalog</title>
+  <title>Ops · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -237,10 +237,10 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Applications</a><a href="./operations.html">Operations</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
-    <h1>Operations</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:59:46.427Z UTC · source: committed helm-expt evidence for this operations page.</p>
-    <p class="tagline">Operations is the day1-to-day2 layer after an application graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are application SDLC; operations makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
+    <h1>Ops</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:03:55.126Z UTC · source: committed helm-expt evidence for this ops page.</p>
+    <p class="tagline">Ops is the day1-to-day2 layer after an app graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are app SDLC; ops makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
@@ -250,12 +250,12 @@
           <h3>Start from an application variant</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>see Applications and Variants</code> · <span class="muted">Application SDLC · ConfigHub</span></p>
+        <p class="opmeta"><code>see Apps and Variants</code> · <span class="muted">Apps SDLC · ConfigHub</span></p>
         <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
   --environment Prod --region us-east \
   --target &lt;target-space&gt;/&lt;target&gt; \
   --namespace &lt;namespace&gt;</code></pre>
-        <p>Variant creation and promotion are part of the application lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Operations starts from that managed application graph.</p>
+        <p>Variant creation and promotion are part of the app lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Ops starts from that managed app graph.</p>
         <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
       </div>
       <div class="op">
@@ -283,7 +283,7 @@
           <h3>Release an approved variant</h3>
           <span class="badge watch">watch</span>
         </div>
-        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Application SDLC · ConfigHub Server</span></p>
+        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Apps SDLC · ConfigHub Server</span></p>
         <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
         <p>Promotion moves a downstream application variant toward its upstream Space. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The operational responsibility begins around the release: gates, audit, delivery, observation, rollback, and fleet visibility.</p>
@@ -323,7 +323,7 @@ cub gitops import &lt;app&gt;</code></pre>
     </section>
     <section aria-labelledby="next">
       <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Applications</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
+      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Apps</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>

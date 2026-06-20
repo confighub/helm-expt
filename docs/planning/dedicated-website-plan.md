@@ -162,7 +162,7 @@ Current generated page:
 site/variants.html
 ```
 
-### 5. Applications
+### 5. Apps
 
 Purpose:
 
@@ -192,7 +192,7 @@ site/journey.html
 Purpose:
 
 ```text
-Provide a deeper example inside Applications for cases where a real application
+Provide a deeper example inside Apps for cases where a real application
 is several public charts plus a custom service, wrapper chart, overlay values,
 private inputs, target facts, or existing live state.
 ```
@@ -213,7 +213,7 @@ Current generated page:
 site/custom-apps.html
 ```
 
-### 7. Operations
+### 7. Ops
 
 Purpose:
 
@@ -321,7 +321,7 @@ public page -> concise user flow -> evidence surface -> verifier or receipt -> p
 | Feature | Public accommodation | Test or evidence | Productisation target |
 | --- | --- | --- | --- |
 | Variants and promotions | `site/variants.html`, `site/journey.html`, chart pages, matrix variant rows. | Variant promotion receipts and `cub variant` command-surface checks. | UI/CLI flow for base selection, derived variant creation, preview, checks, approval, and promotion as application SDLC. |
-| Applications, custom apps, and stacks | `site/journey.html`, `site/custom-apps.html`, private boundary, overlay examples. | Managed overlay golden, app-readiness surface, import/adoption receipts. | Private catalog/import workflow for wrapper charts, customer values, internal services, and application release. |
+| Apps, custom apps, and stacks | `site/journey.html`, `site/custom-apps.html`, private boundary, overlay examples. | Managed overlay golden, app-readiness surface, import/adoption receipts. | Private catalog/import workflow for wrapper charts, customer values, internal services, and application release. |
 | Bulk scan, bulk patch, and fleet ops | `site/operations.html`, Docs links, fleet/blast-radius evidence. | Bulk tutorial, blast-radius fleet, cub-scout desired-vs-live design, future fleet receipts. | Server-backed fleet inventory, bulk changesets, policy gates, wave rollout, and audit after the application graph exists. |
 | Upgrade and crash prevention | FAQ, serious-chart proof, future upgrade example page. | Old/new render diffs, CRD upgrade delta, workload upgrade rehearsals, refresh-survival data. | Managed upgrade campaign: candidate version, blast radius, rehearsal, approvals, rollout, rollback, receipt pack. |
 | Target prerequisites and lifecycle routes | Hooks page, FAQ, chart pages, matrix hard-gap fields. | Target-prerequisite action packets, lifecycle-route actions, hook dispositions, live observations. | Preflight UX and machine-readable action packets for CLI, UI, agents, and fleet runs. |

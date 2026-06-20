@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Applications · ConfigHub Helm Catalog</title>
+  <title>Apps · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -240,10 +240,10 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Applications</a><a href="./operations.html">Operations</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
-    <h1>Applications</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:59:46.427Z UTC · source: committed helm-expt evidence for this applications page.</p>
-    <p class="tagline">Applications includes public Helm charts, custom apps, stacks, and platform groups. This is mostly the day0-to-day1 path: inspect, try locally, sign up when shared state matters, create variants, promote through environments, and hand off to GitOps. Operations is the day1-to-day2 path after that application graph exists.</p>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
+    <h1>Apps</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:03:55.126Z UTC · source: committed helm-expt evidence for this apps page.</p>
+    <p class="tagline">Apps includes public Helm charts, custom apps, stacks, and platform groups. This is mostly the day0-to-day1 path: inspect, try locally, sign up when shared state matters, create variants, promote through environments, and hand off to GitOps. Ops is the day1-to-day2 path after that application graph exists.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
       <a href="#s1">1 · Serverless try-out</a>
@@ -298,14 +298,14 @@ cub installer upload --work-dir .tmp/redis --space helm-redis-default</code></pr
         <div class="jnum">3</div>
         <div class="jbody">
           <span class="badge now">ConfigHub Server · try-out</span>
-          <h3>ConfigHub Server try-out - applications</h3>
+          <h3>ConfigHub Server try-out - apps</h3>
           <p class="jaction"><code>cub variant create  ·  cub variant promote  ·  OCI + GitOps</code></p>
           <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
   --environment Prod --region us-east \
   --target &lt;target-space&gt;/&lt;target&gt; \
   --namespace &lt;namespace&gt;
 cub variant promote &lt;variant-space&gt; --dry-run -o mutations</code></pre>
-          <p>This is the first real application step. A public chart, several Helm charts, a custom app, a platform group, or an app you already run becomes one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes <a href="./variants.html">variants</a> from a base, object diffs, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a <a href="./custom-apps.html">custom or private app</a>. The <a href="./operations.html">Operations page</a> covers day-1/day-2 work after the application graph exists: scans, patches, live observation, upgrades, rollbacks, and fleet questions.</p>
+          <p>This is the first real app step. A public chart, several Helm charts, a custom app, a platform group, or an app you already run becomes one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes <a href="./variants.html">variants</a> from a base, object diffs, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a <a href="./custom-apps.html">custom or private app</a>. The <a href="./operations.html">Ops page</a> covers day-1/day-2 work after the app graph exists: scans, patches, live observation, upgrades, rollbacks, and fleet questions.</p>
           <p class="jnext"><strong>Next →</strong> Once the application path is comfortable, run it like an estate: observation, upgrades, patches, rollbacks, and fleet queries.</p>
         </div>
       </div>
