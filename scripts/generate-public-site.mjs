@@ -320,7 +320,7 @@ function html(catalog) {
   return parityFirstHomeHtml(catalog);
 }
 
-function parityFirstHomeHtml(catalog) {
+function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const proofCounters = [
     ["Render parity rows", metricValue(metric("render parity rows")), "Regular Helm render compared with cub installer render under recorded inputs."],
@@ -392,7 +392,7 @@ function parityFirstHomeHtml(catalog) {
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
     <h1>Prove Helm parity first.</h1>
-    ${generatedStamp(catalog, "public catalog homepage")}
+    ${generatedStamp(catalog, label)}
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
     <div class="doors">
       <div class="door">
@@ -1000,6 +1000,10 @@ function legacyDashboardHtml(catalog) {
 }
 
 function offeringHtml(catalog) {
+  return parityFirstHomeHtml(catalog, "public offering page");
+}
+
+function legacyOfferingHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
