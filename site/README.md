@@ -11,11 +11,12 @@ Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
 Open `site/journey.html` for the path from inspect, to no-account try-out, to
 ConfigHub-managed operations.
-Open `site/hard-questions.html` for the skeptical user route: hooks, upgrades,
+Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
 Open `site/hooks.html` for hook and lifecycle route dispositions.
-Open `site/tiers.html` for the free, authenticated, managed, and enterprise tier shape.
+Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.
+Open `site/tiers.html` only as a compatibility redirect to `site/private/index.html`.
 Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.

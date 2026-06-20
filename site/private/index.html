@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Chart Pages</title>
+  <title>Private · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -225,18 +225,31 @@
 </style>
 </head>
 <body>
-  <header>
+  <header class="hero">
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="../charts/index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../hard-questions.html">FAQ</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../private/">Private</a></span></nav>
-    <h1>Catalog Chart Pages</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:08:33.140Z UTC · source: committed helm-expt evidence for this chart index.</p>
-    <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
+    <h1>Private catalogs and managed operations.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T19:08:33.140Z UTC · source: committed helm-expt evidence for this private page.</p>
+    <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
   </header>
   <main>
-    <section aria-labelledby="charts">
-      <h2 id="charts">Charts</h2>
+    <section aria-labelledby="public-value">
+      <h2 id="public-value">Why Use The Free Public Catalog?</h2>
+      <p>Public Helm charts are flexible, but the rendered result is often opaque. The free catalog gives a Helm user the supported base choices, exact objects, proof boundary, and known gaps before they install or promote anything.</p>
+      <div class="grid">
+        <div class="metric"><strong>20/20</strong><span>Public catalog charts</span></div>
+        <div class="metric"><strong>20/100</strong><span>Top100 ready-to-try</span></div>
+        <div class="metric"><strong>199/199</strong><span>Render parity rows</span></div>
+        <div class="metric"><strong>135/199</strong><span>Live parity rows</span></div>
+        <div class="metric"><strong>17/20</strong><span>Supported decisions</span></div>
+      </div>
+      <p>Anonymous or low-friction use is better than browsing Helm charts alone because the catalog answers: which base should I start with, what objects does it create, what pain points are absorbed, what must my target provide, and what proof exists today?</p>
+    </section>
+
+    <section aria-labelledby="tiers">
+      <h2 id="tiers">Tier Shape</h2>
       <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Version</th><th>Start base</th><th>Supported bases</th><th>Start status</th><th>Production disposition</th></tr></thead>
-        <tbody><tr><td><a href="./argo-cd-argo-cd-9-5-15.html">argo-cd/argo-cd</a></td><td>9.5.15</td><td>default</td><td>default;no-crds</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-mongodb-19-0-7.html">bitnami/mongodb</a></td><td>19.0.7</td><td>generated-passwords</td><td>generated-passwords;existing-secret-replicaset</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-mysql-14-0-3.html">bitnami/mysql</a></td><td>14.0.3</td><td>generated-passwords</td><td>generated-passwords;existing-secret</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-nginx-24-0-2.html">bitnami/nginx</a></td><td>24.0.2</td><td>http-clusterip</td><td>http-clusterip;existing-tls-ingress</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-postgresql-18-6-7.html">bitnami/postgresql</a></td><td>18.6.7</td><td>generated-passwords</td><td>generated-passwords;existing-secret</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-rabbitmq-16-0-14.html">bitnami/rabbitmq</a></td><td>16.0.14</td><td>generated-passwords</td><td>generated-passwords;existing-secret</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./bitnami-redis-25-5-3.html">bitnami/redis</a></td><td>25.5.3</td><td>default</td><td>default;reuse-existing-secret</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./external-secrets-external-secrets-2-5-0.html">external-secrets/external-secrets</a></td><td>2.5.0</td><td>default</td><td>default;no-crds</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./grafana-grafana-10-5-15.html">grafana/grafana</a></td><td>10.5.15</td><td>existing-secret-ingress</td><td>generated-passwords;existing-secret-ingress</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./grafana-loki-7-0-0.html">grafana/loki</a></td><td>7.0.0</td><td>single-binary-filesystem</td><td>single-binary-filesystem;simple-scalable-minio</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./grafana-tempo-1-24-4.html">grafana/tempo</a></td><td>1.24.4</td><td>local-persistent</td><td>local-persistent;s3-query-observability</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./hashicorp-consul-2-0-0.html">hashicorp/consul</a></td><td>2.0.0</td><td>default-control-plane</td><td>default-control-plane;secure-mesh-existing-secrets</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./hashicorp-vault-0-32-0.html">hashicorp/vault</a></td><td>0.32.0</td><td>default</td><td>dev-mode;default;ha-raft-ui</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./ingress-nginx-ingress-nginx-4-15-1.html">ingress-nginx/ingress-nginx</a></td><td>4.15.1</td><td>internal-clusterip</td><td>default;admission-disabled;internal-clusterip</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./jetstack-cert-manager-v1-20-2.html">jetstack/cert-manager</a></td><td>v1.20.2</td><td>crds-enabled</td><td>default;crds-enabled</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./longhorn-longhorn-1-11-2.html">longhorn/longhorn</a></td><td>1.11.2</td><td>default</td><td>default;ui-ingress</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./metrics-server-metrics-server-3-13-0.html">metrics-server/metrics-server</a></td><td>3.13.0</td><td>default</td><td>default;external-tls-ca</td><td>start-here</td><td>production-review-ready</td></tr><tr><td><a href="./prometheus-community-kube-prometheus-stack-85-3-3.html">prometheus-community/kube-prometheus-stack</a></td><td>85.3.3</td><td>default</td><td>default;no-crds</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./prometheus-community-prometheus-29-8-0.html">prometheus-community/prometheus</a></td><td>29.8.0</td><td>server-only-ephemeral</td><td>default;server-only-ephemeral</td><td>render-only</td><td>production-review-ready</td></tr><tr><td><a href="./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html">secrets-store-csi-driver/secrets-store-csi-driver</a></td><td>1.6.0</td><td>default</td><td>default;sync-secret-rotation</td><td>start-here</td><td>production-review-ready</td></tr></tbody>
+        <thead><tr><th>Tier</th><th>User value</th><th>Boundary</th></tr></thead>
+        <tbody><tr><td>Anonymous public</td><td>Browse catalog, inspect supported variants, open proof, pull/download public artifacts where available.</td><td>Static pages and public artifacts only; no private inputs, no managed compute, rate-limited artifact access.</td></tr><tr><td>Low-friction free</td><td>Run public catalog packages, verify local receipts, optionally create a small public sandbox render.</td><td>Account/rate limits when server resources, signatures, or stored receipts are used.</td></tr><tr><td>Catalog subscription</td><td>Refresh cadence, CVE turnaround, hardened variants, digest inventory, attestation pack, old-version support.</td><td>Paid SLA over public catalog artifacts and variants.</td></tr><tr><td>Private catalog</td><td>Private charts, wrapper charts, platform values, customer overlays, internal stacks, private OCI sources.</td><td>Managed import pipeline; not an anonymous/public-catalog guarantee.</td></tr><tr><td>ConfigHub Server</td><td>Teams, policies, approvals, changesets, variants, promotions, GitOps/OCI, observations, fleet queries, audit.</td><td>SaaS or enterprise/on-prem product surface.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -245,7 +258,49 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
+
+    <section aria-labelledby="journey">
+      <h2 id="journey">User Journey</h2>
+      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">Journey page</a>, with the exact command at each stage.</p>
+      <div class="card"><table>
+        <thead><tr><th>Stage</th><th>What happens</th></tr></thead>
+        <tbody><tr><td>Curious user</td><td>Use cub helm template or the public site to inspect what a chart produces.</td></tr><tr><td>Fast ConfigHub adoption</td><td>Use cub helm install to load a rendered chart into ConfigHub Units quickly.</td></tr><tr><td>Supported public catalog</td><td>Use cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for curated bases with receipts.</td></tr><tr><td>Trust-building proof</td><td>Run kind/live parity commands to compare regular Helm with cub installer and ConfigHub delivery.</td></tr><tr><td>Operations</td><td>Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>That journey keeps the fast Helm paths as useful ancestors. <code>cub helm template</code> and <code>cub helm install</code> are quick actions. <code>cub installer</code> packages are durable product artifacts. ConfigHub operations are where teams, approvals, variants, and day-2 work become valuable.</p>
+    </section>
+
+    <section aria-labelledby="commercial">
+      <h2 id="commercial">Commercial Workloads</h2>
+      <p>The managed tier should focus on hard operational value, not merely rendering. The useful paid work is private data, production scope, fleet operations, lifecycle actions, old-version support, and audit evidence.</p>
+      <div class="card"><table>
+        <thead><tr><th>Lane</th><th>Managed value</th></tr></thead>
+        <tbody><tr><td>Hooks and lifecycle</td><td>Inventory and route hooks publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review.</td></tr><tr><td>Stacks</td><td>Multiple recipes plus a custom app become one managed platform: for example monitoring, AI/RAG stacks, AICR, NIM, or customer platforms.</td></tr><tr><td>Bulk operations</td><td>Bulk scan, patch, approve, promote, and observe across a fleet.</td></tr><tr><td>Legacy patches</td><td>Maintain or patch older chart versions when upstream moved or broke compatibility.</td></tr><tr><td>Security and audit</td><td>Signed artifacts, scan diffs, digest inventory, refresh SLAs, evidence packs, policy gates, and audit history.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="limits">
+      <h2 id="limits">What Not To Sell Too Early</h2>
+      <p>Do not sell universal Helm compatibility, universal hook execution, universal field provenance, or signature-as-safety. Sell the staged model: clear bases, explicit prerequisites, visible proof, target-scoped support, and managed operations where the public catalog stops.</p>
+      <div class="grid">
+        <div class="card"><h3>Support tiers</h3><p><a href="../../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
+        <div class="card"><h3>Commercial model</h3><p><a href="../../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
+        <div class="card"><h3>Serverless plan</h3><p><a href="../../docs/planning/serverless-verified-install-plan.md">Open serverless verified-install plan</a>.</p></div>
+        <div class="card"><h3>Claims register</h3><p><a href="../../data/claims-register/summary.md">Open current claim boundaries</a>.</p></div>
+      </div>
+    </section>
   </main>
-  <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
+  <footer>Generated from helm-expt proof data. Commercial claims require product, support, key, policy, and SLA decisions beyond the public proof corpus.</footer>
 </body>
 </html>

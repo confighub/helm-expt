@@ -237,9 +237,9 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../README.md">Repository</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">FAQ</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./private/">Private</a></span></nav>
     <h1>Day-1 operations - the work between a first variant and a running estate.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T18:56:58.080Z UTC · source: committed helm-expt evidence for this day-1 operations.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T19:08:33.140Z UTC · source: committed helm-expt evidence for this day-1 operations.</p>
     <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
@@ -312,18 +312,18 @@ cub gitops import &lt;app&gt;</code></pre>
       </div>
       <div class="op">
         <div class="ophead">
-          <h3>Bring a custom or private app</h3>
+          <h3>Bring a custom app or multi-chart stack</h3>
           <span class="badge now">available locally · private catalog is paid</span>
         </div>
-        <p class="opmeta"><code>wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
+        <p class="opmeta"><code>multiple charts, wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
         
-        <p>Your own charts - wrapper charts, platform values, customer overlay values, internal-only charts - run through the same render → scan → sign pipeline as the public catalog. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
+        <p>A real app is often several public charts plus your own service and platform values. Treat that as one desired-state graph: each chart keeps its base/variant boundary, the custom app gets its own Units, and the stack can be scanned, diffed, promoted, and delivered together. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
         <p class="muted">See: <a href="../docs/user/custom-overlays.md">custom-overlays</a> · <a href="../docs/user/product-support-tiers.md">product-support-tiers</a></p>
       </div>
     </section>
     <section aria-labelledby="next">
       <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the journey</a>; where it carries production responsibility, the <a href="./tiers.html">paid tiers</a> take over.</p>
+      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the journey</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
