@@ -9,8 +9,8 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
-Open `site/journey.html` for the path from inspect, to no-account try-out, to
-ConfigHub-managed operations.
+Open `site/journey.html` for the ConfigHub path from inspect, to no-account
+try-out, to ConfigHub-managed operations.
 Open `site/docs.html` for the public documentation hub.
 Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.

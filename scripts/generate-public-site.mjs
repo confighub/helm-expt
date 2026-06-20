@@ -335,7 +335,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("journey.html")}">ConfigHub</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Private</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -489,7 +489,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, approvals, variants, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
       <div class="grid">
         <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Try now</a></p></div>
-        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, inspect diffs and labels, approve changes, and publish OCI for GitOps.</p><p><a href="./journey.html">Read the journey</a></p></div>
+        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, inspect diffs and labels, approve changes, and publish OCI for GitOps.</p><p><a href="./journey.html">Open the ConfigHub path</a></p></div>
         <div class="card"><h3>Managed operations</h3><p>Operate variants, promotions, scans, policy gates, bulk patches, upgrades, and live evidence across teams and targets.</p><p><a href="./private/">Private and managed paths</a></p></div>
       </div>
     </section>
@@ -1435,7 +1435,7 @@ function docsHtml(catalog) {
   const userRows = [
     ["Try the catalog", "Run the short local path first.", "./try.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
-    ["Understand the journey", "Inspect, try, connect, operate, and move into private catalogs.", "./journey.html"],
+    ["Use ConfigHub", "Inspect, try, connect, operate, and move into private catalogs.", "./journey.html"],
     ["Answer hard questions", "Hooks, upgrades, custom values, target prerequisites, limits, and refusals.", "./hard-questions.html"],
   ];
   const guideRows = [
@@ -1787,7 +1787,7 @@ function hardQuestionsHtml(catalog) {
           question: "What is free and what needs ConfigHub?",
           answer:
             "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
-          links: [["Journey", "./journey.html"], ["Private", "./private/"]],
+          links: [["ConfigHub", "./journey.html"], ["Private", "./private/"]],
         },
         {
           status: "answered",
@@ -2029,8 +2029,8 @@ function privateHtml(catalog) {
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">User Journey</h2>
-      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">Journey page</a>, with the exact command at each stage.</p>
+      <h2 id="journey">ConfigHub Path</h2>
+      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">ConfigHub page</a>, with the exact command at each stage.</p>
       ${markdownLikeTable([
         ["Stage", "What happens"],
         ...workRows,
@@ -2198,7 +2198,7 @@ function journeyHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>User journey · ConfigHub Helm Catalog</title>
+  <title>ConfigHub · ConfigHub Helm Catalog</title>
   <style>${siteCss()}
     .jstage { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
     .jstage:first-of-type { border-top: 0; }
@@ -2218,8 +2218,8 @@ function journeyHtml(catalog) {
 <body>
   <header class="hero">
     ${topNav(".")}
-    <h1>From a one-line try-out to a managed estate.</h1>
-    ${generatedStamp(catalog, "user journey")}
+    <h1>ConfigHub</h1>
+    ${generatedStamp(catalog, "ConfigHub page")}
     <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid - so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
@@ -2380,7 +2380,7 @@ function day1OperationsHtml(catalog) {
     ${topNav(".")}
     <h1>Day-1 operations - the work between a first variant and a running estate.</h1>
     ${generatedStamp(catalog, "day-1 operations")}
-    <p class="tagline">This is the expansion of <a href="./journey.html">journey</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <p class="tagline">This is the expansion of <a href="./journey.html">ConfigHub</a> Stage 3. Once a rendered chart is in ConfigHub as Units, these are the day-1 operations a team actually performs - each with its command, what it gives you, and whether it is available, watch, planned, free, or paid. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
     <section aria-labelledby="ops">
@@ -2389,7 +2389,7 @@ ${cards}
     </section>
     <section aria-labelledby="next">
       <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the journey</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
+      <p>When these are routine, the work becomes day-2 and estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of the ConfigHub path</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
@@ -3329,8 +3329,8 @@ npm run site:verify
 
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
-Open \`site/journey.html\` for the path from inspect, to no-account try-out, to
-ConfigHub-managed operations.
+Open \`site/journey.html\` for the ConfigHub path from inspect, to no-account
+try-out, to ConfigHub-managed operations.
 Open \`site/docs.html\` for the public documentation hub.
 Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
