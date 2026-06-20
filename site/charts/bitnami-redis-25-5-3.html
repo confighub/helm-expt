@@ -436,7 +436,7 @@
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <p>After you deploy, who runs each hook — in plain words, per variant. Render parity delivers the objects <strong>without</strong> running Helm hooks; each hook is a named route, and no route is auto-executed today. Your Argo or Flux sync will not run these unless you add them as a deliberate step. See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
       <p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>
     </section>
 

@@ -47,6 +47,7 @@ const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", 
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
+const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
@@ -151,6 +152,7 @@ function buildSite(generatedAt) {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
+  const lifecycleByVariant = existsSync(lifecycleByVariantJsonPath) ? JSON.parse(readFileSync(lifecycleByVariantJsonPath, "utf8")).charts : [];
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
@@ -235,6 +237,7 @@ function buildSite(generatedAt) {
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
+      lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
       masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
@@ -296,6 +299,7 @@ function buildSite(generatedAt) {
     scanDisposition,
     highFanout,
     lifecycleRoutes,
+    lifecycleByVariant,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
     masterCatalogMatrix: publicMatrixRows,
@@ -1792,6 +1796,35 @@ function hardQuestionsHtml(catalog) {
 `;
 }
 
+function whoRunsVariantTables(c) {
+  return c.variants.map((v) => {
+    const rows = v.routes.map((r) => [
+      `${r.quirk_class} (${r.route_name})`,
+      r.whoRuns,
+      r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` — ${r.reason}` : ""}`,
+    ]);
+    const heading = `${v.base}${v.requiredCrdCount ? ` — needs ${v.requiredCrdCount} CRDs supplied first` : ""}`;
+    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook (route)", "After you deploy, who runs it?", "Change for this variant"], ...rows])}`;
+  }).join("\n");
+}
+
+function hooksWhoRunsSection(catalog) {
+  const charts = catalog.lifecycleByVariant ?? [];
+  if (!charts.length) return "";
+  const withVariants = charts.filter((c) => c.hasBuiltVariants);
+  const flat = charts.filter((c) => !c.hasBuiltVariants);
+  const chartBlock = (c) => `<div class="card"><h3>${escapeHtml(c.chart)}</h3>${whoRunsVariantTables(c)}</div>`;
+  return `
+    <section aria-labelledby="whoruns">
+      <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
+      <p>Per chart and per built variant, in plain words. Render parity delivers the objects <strong>without</strong> running Helm hooks; each hook is a named route. Nothing runs automatically — your Argo or Flux sync will not run these unless you add them as a deliberate, audited step. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
+      ${withVariants.map(chartBlock).join("\n")}
+      <h3>Charts without a per-variant difference yet</h3>
+      <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
+      ${simpleList(flat.map((c) => [c.chart, c.note]))}
+    </section>`;
+}
+
 function hooksHtml(catalog) {
   const routes = catalog.lifecycleRoutes;
   const dispositionCounts = countBy(routes, "disposition");
@@ -1826,6 +1859,7 @@ function hooksHtml(catalog) {
     <p>Today a routed behavior means the route and off-ramp are visible. It does not mean universal automatic hook execution. A row becomes automatic only when the execution mode is product-owned and evidence proves that path.</p>
   </header>
   <main>
+    ${hooksWhoRunsSection(catalog)}
     <section aria-labelledby="headline">
       <h2 id="headline">Current Lifecycle Route Contract</h2>
       <div class="grid">
@@ -2438,6 +2472,7 @@ function chartPageHtml(catalog, entry) {
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "-",
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
+  const lifecycleByVariantEntry = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
   const skillRows = chartSkill?.applicable?.map((skill) => [
     `<a href="../../${escapeHtml(skill.doc)}">${escapeHtml(skill.title)}</a>`,
     skill.why,
@@ -2541,13 +2576,15 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>Where each hook or hook-like behavior goes, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
-      ${lifecycleRows.length
-        ? markdownLikeTable([
-            ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
-            ...lifecycleRows,
-          ])
-        : "<p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>"}
+      <p>After you deploy, who runs each hook — in plain words, per variant. Render parity delivers the objects <strong>without</strong> running Helm hooks; each hook is a named route, and no route is auto-executed today. Your Argo or Flux sync will not run these unless you add them as a deliberate step. See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      ${lifecycleByVariantEntry
+        ? whoRunsVariantTables(lifecycleByVariantEntry)
+        : lifecycleRows.length
+          ? markdownLikeTable([
+              ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
+              ...lifecycleRows,
+            ])
+          : "<p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>"}
     </section>
 
     <section aria-labelledby="production">

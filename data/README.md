@@ -268,6 +268,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `lifecycle-observations` | [lifecycle-observations/cert-manager-eso/summary.md](./lifecycle-observations/cert-manager-eso/summary.md) | controller-owned or hook-like lifecycle observations |
 | `lifecycle-route-actions` | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md) | hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag |
 | `lifecycle-routes` | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md) | machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps |
+| `lifecycle-routes-by-variant` | [lifecycle-routes-by-variant/summary.md](./lifecycle-routes-by-variant/summary.md) | supporting generated evidence |
 | `live-e2e` | [live-e2e/summary.md](./live-e2e/summary.md) | top-20 local kind runtime status |
 | `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
 | `live-kind-parity` | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | two-cluster kind parity receipts |
@@ -330,7 +331,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 155 CSV files. Each row records the path, audience,
+It includes 156 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
