@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "FluxLookupProofReceipt"
+metadata:
+  name: "flux-lookup-20260620-14zd"
+spec:
+  chart: "tests/fixtures/flux-lookup-probe"
+  observedAt: "2026-06-20T07:06:26.490Z"
+  result: "pass"
+  claim: "Helm lookup() resolves under install-time render (helm install / Flux helm-controller `helm upgrade --install`) and returns empty under template-time render (helm template / Argo CD server-side render)."
+  run:
+    rig: "flux-lookup-20260620-14zd"
+    namespace: "lookup-probe"
+    secret: "flux-lookup-probe"
+    cleanup:
+      result: "pass"
+  legs:
+    helmTemplate:
+      mode: "helm template (Argo-style render; no cluster read)"
+      secretFound: "false"
+      result: "pass"
+      expected: "false"
+    helmInstall:
+      mode: "helm install (install-time render; live cluster read)"
+      secretFound: "true"
+      result: "pass"
+      expected: "true"
+      detail: ""
+    fluxHelmController:
+      mode: "Flux helm-controller (helm upgrade --install)"
+      result: "pass"
+      secretFound: "true"
+      reason: "HelmRelease reconciled; lookup() resolved the live Secret"
+  conclusion: "Core distinction proven live: template-time render does not see the Secret (secret-found=false); install-time render does (secret-found=true). Flux helm-controller runs `helm upgrade --install`, so it inherits the install-time behavior; Argo CD renders with `helm template`, so it inherits the template-time behavior."
