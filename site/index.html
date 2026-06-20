@@ -145,676 +145,94 @@
 <body>
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">Hard questions</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./tiers.html">Tiers</a><a href="../data/README.md">Evidence</a><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a><a href="../README.md">Repository</a></span></nav>
-    <h1>Use Helm charts. Ship ConfigHub variants.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T06:30:46.139Z UTC · source: committed helm-expt evidence for this public catalog dashboard.</p>
-    <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
+    <h1>Prove Helm parity first.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T07:43:58.252Z UTC · source: committed helm-expt evidence for this public catalog homepage.</p>
+    <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
     <div class="doors">
       <div class="door">
-        <span class="kicker">Run it</span>
-        <h3><a href="./try.html">Try the catalog in 5 minutes</a></h3>
-        <p>Render, review, and apply Redis from the public catalog - locally, no account.</p>
-        <pre><code>cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
-  --base default --work-dir .tmp/redis \
-  --non-interactive --namespace redis</code></pre>
-        <span class="go"><a href="./try.html">All three try paths →</a></span>
+        <span class="kicker">Start here</span>
+        <h3><a href="./try.html">Run a small parity demo</a></h3>
+        <p>Use Redis to see the path without needing to understand the whole evidence system.</p>
+        <span class="go"><a href="./try.html">Open Try now →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">See the state</span>
-        <h3><a href="./matrix.html">The whole catalog, one matrix</a></h3>
-        <p>Every chart variant against every proof lane - render parity, ConfigHub, local live, GitOps, parity - colored by committed evidence. Grey means not yet run, never hidden.</p>
-        <span class="go"><a href="./matrix.html">Open the status matrix →</a></span>
+        <span class="kicker">Pick chart</span>
+        <h3><a href="./charts/index.html">Choose from the catalog</a></h3>
+        <p>Find the chart, version, base variants, receipts, quirks, and current evidence.</p>
+        <span class="go"><a href="./charts/index.html">Open chart pages →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Check our honesty</span>
-        <h3><a href="./hard-questions.html">Hard questions before trust</a></h3>
-        <p>Hooks, upgrades, custom values, target prerequisites, false-green sync, and what we still refuse to claim.</p>
-        <span class="go"><a href="./hard-questions.html">Questions → evidence →</a></span>
+        <span class="kicker">Check state</span>
+        <h3><a href="./matrix.html">Read the master matrix</a></h3>
+        <p>Pass, watch, blocked, not yet run, not applicable, and deferred accepted are all visible.</p>
+        <span class="go"><a href="./matrix.html">Open matrix →</a></span>
       </div>
       <div class="door">
         <span class="kicker">Challenge it</span>
         <h3><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a></h3>
-        <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, send it. The response should be a fixture, receipt, named refusal, or routed gap.</p>
-        <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the issue template →</a></span>
+        <p>If a chart breaks the model, the answer should be a fixture, receipt, named refusal, or routed gap.</p>
+        <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open issue template →</a></span>
       </div>
     </div>
-    <h2>What This Gives A Helm User</h2>
-    <div class="grid">
-      <div class="card"><h3>Pick a safe starting point</h3><p>Choose a reviewed base variant instead of guessing through a large values file.</p></div>
-      <div class="card"><h3>See the real objects</h3><p>Review the rendered Kubernetes objects, object counts, CRDs, RBAC, Secrets model, and extension slots before install.</p></div>
-      <div class="card"><h3>Build apps on the data</h3><p>Rendered objects are held as queryable data, so tools such as RBAC review can run across the catalog without a cluster or a fresh Helm render.</p></div>
-      <div class="card"><h3>Make prerequisites explicit</h3><p>Target facts, lifecycle routes, hook dispositions, and controller-owned fields are named before they surprise the rollout.</p></div>
-      <div class="card"><h3>Operate the same objects</h3><p>After upload, ConfigHub Units can be diffed, scanned, approved, promoted, observed, and audited.</p></div>
-      <div class="card"><h3>Keep Helm semantics visible</h3><p>The selected live lane currently has zero semantic parity defects across committed Helm-vs-ConfigHub receipts.</p></div>
-      <div class="card"><h3>Know the boundary</h3><p>Watch, blocked, refused, and not-yet-run rows stay visible instead of becoming hidden product claims.</p></div>
-    </div>
-    <p><a href="https://artifacthub.io/" rel="noopener">Artifact Hub</a> answers what exists and who published it. <a href="https://helm.sh/" rel="noopener">Helm</a> renders and installs it. This catalog adds a per-chart, per-variant <strong>proof</strong> chain - rendered, uploaded, applied, observed, compared, with a receipt for each step.</p>
-    <h2>The chain of proof</h2>
-    <div class="chain">
-      <a href="../docs/user/verify-it-yourself.md">Helm-equivalent render, byte-compared</a>
-      <a href="../docs/user/helm-pain-points.md">Provenance, quirks &amp; hooks classified</a>
-      <a href="./charts/index.html">Package + named base variants</a>
-      <a href="../data/README.md">ConfigHub units, scans, safe ops</a>
-      <a href="./matrix.html">Live observation on real clusters</a>
-      <a href="../docs/user/live-parity.md">Helm-vs-ConfigHub parity receipts</a>
-    </div>
-    <h2>Where it goes from free</h2>
-    <div class="tiers">
-      <div class="tier"><span class="stage">tier 0</span><h3>Public catalog</h3><p>Top charts, proof-grade recipes and packages, with committed receipts that can be checked locally.</p><span class="badge now">available</span></div>
-      <div class="tier"><span class="stage">tier 1</span><h3>Verified install</h3><p>Resolve, verify, apply, and record an in-cluster receipt - before any login.</p><span class="badge planned">planned</span></div>
-      <div class="tier"><span class="stage">tier 2</span><h3>Catalog subscription</h3><p>Refresh cadence, CVE turnaround, and the attestation pack per variant.</p><span class="badge planned">planned</span></div>
-      <div class="tier"><span class="stage">tier 3</span><h3>Private catalog</h3><p>The same render-scan-sign pipeline over your own charts and overlays.</p><span class="badge planned">planned</span></div>
-      <div class="tier"><span class="stage">tier 4</span><h3>ConfigHub Server</h3><p>Fleet inventory, variants, promotions, gates, and live operations at estate scale.</p><span class="badge planned">planned</span></div>
-    </div>
-    <p>Tier boundaries and what each one proves are spelled out on the <a href="./tiers.html">tiers page</a>; planned tiers are plans, not shipped behavior - the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary.</p>
   </header>
   <main>
-    <section aria-labelledby="first-time">
-      <h2 id="first-time">First-Time Helm User Path</h2>
-      <p>Start with the smallest step that answers your question. Direct Helm paths are for quick inspection. The public catalog is for maintained bases and proof. ConfigHub-managed workflows are for private inputs, teams, policies, approvals, variants, promotions, GitOps/OCI operations, full stacks, patch and upgrade services, and production support.</p>
-      <div class="card"><table>
-        <thead><tr><th>Step</th><th>What to do</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Browse first</td><td>Open the catalog, chart pages, proof status, and known gaps before trusting an install path.</td><td>Free</td></tr><tr><td>Inspect a render</td><td>Use cub helm template when you only need to see the Kubernetes objects a chart produces.</td><td>Free</td></tr><tr><td>Try a public package</td><td>Use cub installer setup for a maintained public base with rendered objects, receipts, scans, and local verification.</td><td>Free or low-friction</td></tr><tr><td>Upload when state matters</td><td>Use cub installer upload when the reviewed objects should become ConfigHub Units for teams, approvals, or variants.</td><td>Managed</td></tr><tr><td>Operate after upload</td><td>Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.</td><td>Managed or paid</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The extra value starts after rendering: reviewed objects can become Units, then day-1 variants, then day-2 operations with diffs, scans, gates, promotions, observations, and receipts.</p>
-    </section>
-
-    <section aria-labelledby="proof-counters">
-      <h2 id="proof-counters">Proof Counters</h2>
+    <section aria-labelledby="parity-demos">
+      <h2 id="parity-demos">1. Prove Parity</h2>
+      <p>Start with parity, not platform features. These demos ask the same question at different depths: under the same chart, version, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
       <div class="grid">
-        <div class="metric"><strong>108/110</strong><span>Model-supported charts</span></div>
-        <div class="metric"><strong>20/100</strong><span>Top100 contract covered</span></div>
-        <div class="metric"><strong>199/199</strong><span>Render parity rows</span></div>
-        <div class="metric"><strong>20/100</strong><span>Catalog-supported charts</span></div>
-        <div class="metric"><strong>80/100</strong><span>Proof-grade non-catalog</span></div>
-        <div class="metric"><strong>7/20</strong><span>Top20 update candidates</span></div>
-        <div class="metric"><strong>10/10</strong><span>Derived create receipts</span></div>
-        <div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span></div>
-        <div class="metric"><strong>135/199</strong><span>Live parity pass</span></div>
-        <div class="metric"><strong>121/172</strong><span>Two-cluster parity pass</span></div>
+        <div class="metric"><strong>199/199</strong><span>Render parity rows</span><p>Regular Helm render compared with cub installer render under recorded inputs.</p></div>
+        <div class="metric"><strong>121/172</strong><span>Two-cluster kind parity pass</span><p>Regular Helm in one vanilla kind cluster, cub installer output in another.</p></div>
+        <div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span><p>ConfigHub-published OCI reconciled by a GitOps controller and observed live.</p></div>
+        <div class="metric"><strong>135/199</strong><span>Live parity pass</span><p>Regular Helm and ConfigHub delivery reached the same semantic live outcome.</p></div>
       </div>
-    </section>
-
-    <section aria-labelledby="how-it-works">
-      <h2 id="how-it-works">Seven-Stage Lifecycle</h2>
-      <p>The catalog separates Helm rendering, variant choices, delivery, and live evidence so each claim can be checked at the right boundary.</p>
-      <div class="stage-grid">
-        <div class="lane"><h3>1. Acquire and pin</h3><p>Lock chart source, dependencies, digests, and provenance.</p></div>
-        <div class="lane"><h3>2. Render and capture</h3><p>Run Helm under recorded inputs and prove render parity with cub installer.</p></div>
-        <div class="lane"><h3>3. Shape base variants</h3><p>Name the install shapes that change Helm inputs or object shape.</p></div>
-        <div class="lane"><h3>4. Scan and gate</h3><p>Scan the exact rendered objects and record allow, warn, or block decisions.</p></div>
-        <div class="lane"><h3>5. Settle prerequisites</h3><p>Record target facts, preflight needs, approvals, signatures, and delivery requirements.</p></div>
-        <div class="lane"><h3>6. Publish and deploy</h3><p>Publish or apply the approved object set and route lifecycle behavior.</p></div>
-        <div class="lane"><h3>7. Observe and operate</h3><p>Record live state, freshness, drift, promotion, upgrade, and rollback evidence.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="serious-chart">
-      <h2 id="serious-chart">Serious Chart Proof</h2>
-      <p>Redis is the teaching chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
-      <div class="card"><table>
-        <thead><tr><th>Base</th><th>User choice</th><th>Render</th><th>Two-cluster kind</th><th>OCI/GitOps</th><th>Production</th><th>Next hard work</th></tr></thead>
-        <tbody><tr><td>default</td><td>install the stack including Prometheus Operator CRDs</td><td>pass</td><td>missing</td><td>pass</td><td>supported-for-declared-target-scope</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr><tr><td>no-crds</td><td>install the stack without creating CRDs</td><td>pass</td><td>missing</td><td>pass</td><td>support-evidence-present</td><td>decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Production support for this chart is target-scoped. The checklist below is the short version of the generated high-fanout report.</p>
-      <div class="card"><table>
-        <thead><tr><th>Decision</th><th>What must be settled</th></tr></thead>
-        <tbody><tr><td>CRD ownership</td><td>Decide whether the package owns Prometheus Operator CRDs or the target cluster owns compatible CRDs first.</td></tr><tr><td>Admission Secret</td><td>Stage or manage monitoring/kube-prometheus-stack-admission before config-only delivery.</td></tr><tr><td>Webhook freshness</td><td>Observe webhook, operator, and caBundle readiness after apply.</td></tr><tr><td>RBAC and scrape scope</td><td>Approve the rendered cluster RBAC and monitoring blast radius for the target.</td></tr><tr><td>Scan and image posture</td><td>Accept the findings for this infrastructure scope or create a hardened base.</td></tr><tr><td>Final live evidence</td><td>Refresh target-scoped live parity, GitOps/OCI, and observation receipts before claiming production support.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a>, <a href="../docs/user/prometheus-high-fanout.md">read the KPS user guide</a>, or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
-    </section>
-
-    <section aria-labelledby="command-choice">
-      <h2 id="command-choice">Choose The Shortest Useful Command</h2>
-      <p>The Helm command family is not one path. Use direct Helm commands for quick inspection or one-shot loading. Use cub installer when you want a maintained catalog entry with bases, receipts, scans, and live evidence.</p>
-      <div class="card"><table>
-        <thead><tr><th>Goal</th><th>Command path</th></tr></thead>
-        <tbody><tr><td>See what a chart renders without ConfigHub state.</td><td>cub helm template</td></tr><tr><td>Load one Helm render into ConfigHub Units quickly.</td><td>cub helm install</td></tr><tr><td>Adopt an existing Argo, Flux, KRM, or rendered-manifest app.</td><td>cub gitops discover/import, cub unit import, or managed import</td></tr><tr><td>Use a maintained catalog entry with supported bases and proof.</td><td>cub installer setup --pull &lt;package&gt; --base &lt;base&gt;</td></tr><tr><td>Upload a reviewed rendered base into ConfigHub.</td><td>cub installer upload</td></tr><tr><td>Create an environment, region, customer, or target variant after upload.</td><td>cub variant create</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../docs/user/choosing-commands.md">Open the command-routing guide</a>.</p>
-    </section>
-
-    <section aria-labelledby="current-status">
-      <h2 id="current-status">Current Status</h2>
-      <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
-      <div class="card"><table>
-        <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>199/199</td><td>partial</td></tr><tr><td>local live rows</td><td>148/199</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>135/199</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>135/199</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>121/172</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>10/172</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
-    </section>
-
-    <section aria-labelledby="chart-use">
-      <h2 id="chart-use">Can I Use This Chart?</h2>
-      <p>The chart-use guide gives one practical answer per top-100 chart. It is the fastest route when a user already knows the chart name and wants to know whether to try the public catalog, promote after review, design a better base, or settle a limitation first.</p>
-      <div class="card"><table>
-        <thead><tr><th>Answer</th><th>Charts</th><th>Meaning</th><th>First examples</th></tr></thead>
-        <tbody><tr><td>yes-public-catalog</td><td>20</td><td>Use the public catalog entry, then check the exact base and lane.</td><td>argo-cd/argo-cd@9.5.15, bitnami/mongodb@19.0.7, bitnami/mysql@14.0.3, bitnami/nginx@24.0.2</td></tr><tr><td>not-yet-public-catalog-proof-ready</td><td>37</td><td>Proof and useful variants exist, but catalog promotion review is not done.</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0</td></tr><tr><td>not-yet-user-ready</td><td>35</td><td>The current proof is too default-shaped; design a better base variant first.</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td></tr><tr><td>decision-needed-first</td><td>7</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/chart-use-guide/summary.md">Open the generated chart-use guide</a> or <a href="../data/chart-use-guide/chart-use-guide.csv">download the chart-use CSV</a>.</p>
-    </section>
-
-    <section aria-labelledby="trust-surfaces">
-      <h2 id="trust-surfaces">Trust Surfaces</h2>
-      <p>The catalog is designed to show non-pass evidence instead of hiding it. A strict live witness block must be routed through the watchlist or a named normalization rule before anyone claims parity for that row.</p>
-      <div class="grid">
-        <div class="card"><h3>Outcome evidence</h3><p><a href="../data/outcome-evidence-contract/summary.md">Open the outcome contract</a>.</p></div>
-        <div class="card"><h3>What we refuse to claim</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Read the claim boundary</a>.</p></div>
-        <div class="card"><h3>Why Synced is not working</h3><p><a href="../docs/user/why-synced-is-not-working.md">Read the false-green example</a>.</p></div>
-        <div class="card"><h3>Why this does not collapse</h3><p><a href="../docs/user/why-this-does-not-collapse.md">Read the hook, quirk, and config-volume answer</a>.</p></div>
-        <div class="card"><h3>Verify it yourself</h3><p><a href="../docs/user/verify-it-yourself.md">Run the checks yourself</a>.</p></div>
-        <div class="card"><h3>Watchlist</h3><p><a href="../data/live-e2e/cub-scout-watchlist.md">Open strict witness findings</a>.</p></div>
-        <div class="card"><h3>Normalization log</h3><p><a href="../data/live-e2e/normalization-rules.md">Open accepted live-witness normalization rules</a>.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="production-readiness">
-      <h2 id="production-readiness">Production Readiness Boundary</h2>
-      <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately. A review-ready chart has required dispositions closed, but still needs a final target-scoped support decision.</p>
-      <div class="grid">
-        <div class="metric"><strong>17/20</strong><span>Supported target scopes</span></div>
-        <div class="metric"><strong>3/20</strong><span>Closed, not supported</span></div>
-        <div class="metric"><strong>20/20</strong><span>Production-review-ready charts</span></div>
-        <div class="metric"><strong>0/20</strong><span>Draft support decisions</span></div>
-        <div class="metric"><strong>20/20</strong><span>Charts with accepted dispositions</span></div>
-        <div class="metric"><strong>0/20</strong><span>Mutable-image scan rows</span></div>
-      </div>
-      <p>Scan warnings are routed before production support is claimed. The current high-priority rows are security or privileged-infrastructure disposition work, not simple image-pin fixes.</p>
-      <p>The final support queue is grouped by the decision that must happen next.</p>
-      <div class="card"><table>
-        <thead><tr><th>Workstream</th><th>Charts</th><th>Next action</th></tr></thead>
-        <tbody><tr><td>Supported scope evidence</td><td>17</td><td>Keep target-scoped evidence fresh before using the supported scope as a production example. argo-cd/argo-cd@9.5.15 (default); bitnami/mongodb@19.0.7 (generated-passwords); bitnami/mysql@14.0.3 (generated-passwords); bitnami/nginx@24.0.2 (http-clusterip); bitnami/postgresql@18.6.7 (generated-passwords); and 12 more</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card"><table>
-        <thead><tr><th>Scan route</th><th>Charts</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>accept-or-patch-pdb-policy</td><td>6</td><td>Accept chart PDB behavior or add a reviewed patch.</td></tr><tr><td>add-resource-policy</td><td>5</td><td>Add resource requests/limits or keep the base scoped to local/test.</td></tr><tr><td>harden-security-context</td><td>5</td><td>Harden pod/container security settings or record explicit acceptance.</td></tr><tr><td>accept-or-split-privileged-infrastructure</td><td>4</td><td>Accept privileged infrastructure behavior or create a narrower hardened base.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card"><table>
-        <thead><tr><th>Open disposition</th><th>Charts</th></tr></thead>
-        <tbody></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Production</th><th>Accepted</th><th>Open</th><th>Next action</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>production-review-ready</td><td>7</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>production-review-ready</td><td>6</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>production-review-ready</td><td>5</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>production-review-ready</td><td>4</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>production-review-ready</td><td>5</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>production-review-ready</td><td>5</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>bitnami/redis@25.5.3</td><td>production-review-ready</td><td>4</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>production-review-ready</td><td>6</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>grafana/grafana@10.5.15</td><td>production-review-ready</td><td>5</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr><tr><td>grafana/loki@7.0.0</td><td>production-review-ready</td><td>5</td><td>0</td><td>record final target-scoped support decision and refresh live/e2e evidence for that scope</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../docs/user/production-support-decisions.md">Open the production support decision guide</a>, <a href="../data/hard-chart-production-packets/summary.md">open the hard-chart production packets</a>, <a href="../data/production-disposition/summary.md">open the full production disposition report</a>, or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
-    </section>
-
-    <section aria-labelledby="live-rerun-plan">
-      <h2 id="live-rerun-plan">Live Parity Rerun Plan</h2>
-      <p>The live non-pass rows are work queues, not hidden failures. The rerun plan separates semantic parity defects from target prerequisites, runtime watch rows, hooks, and operating-policy decisions.</p>
-      <div class="grid">
-        <div class="metric"><strong>119</strong><span>Rows in rerun queue</span></div>
-        <div class="metric"><strong>16</strong><span>Semantic parity defects</span></div>
-        <div class="metric"><strong>63</strong><span>ConfigHub/OCI non-pass rows</span></div>
-        <div class="metric"><strong>56</strong><span>Two-cluster rows to resolve</span></div>
-      </div>
-      <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th><th>Support artifact</th></tr></thead>
-        <tbody><tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>default</td><td>blocked</td><td>runtime-review</td><td>helm-runtime: upstream leg blocked</td><td></td></tr><tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>blocked</td><td>crd-bootstrap</td><td>crd-bootstrap: required CRDs missing before custom resources apply</td><td>recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml</td></tr><tr><td>argo-cd/argo-cd@9.5.17</td><td>default</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td><td>recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml</td></tr><tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>default</td><td>watch</td><td>target-fit-review</td><td>target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)</td><td>recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml</td></tr><tr><td>bitnami/apache@11.4.29</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>data/image-digest-workdown/summary.md</td></tr><tr><td>bitnami/contour@21.1.4</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>data/image-digest-workdown/summary.md</td></tr><tr><td>bitnami/contour@21.1.4</td><td>no-crds</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>data/image-digest-workdown/summary.md</td></tr><tr><td>bitnami/elasticsearch@22.1.6</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>data/image-digest-workdown/summary.md</td></tr><tr><td>bitnami/elasticsearch@22.1.6</td><td>ha</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>data/image-digest-workdown/summary.md</td></tr><tr><td>bitnami/mongodb@19.0.9</td><td>existing-secret-replicaset</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed)</td><td>recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/status-dashboard/active-proof-queue.csv">Open the active proof queue</a> or <a href="../data/live-parity-rerun-plan/summary.md">open the full live parity rerun plan</a>.</p>
-    </section>
-
-    <section aria-labelledby="top100-readiness">
-      <h2 id="top100-readiness">Top-100 Readiness</h2>
-      <p>The top-100 corpus is not one claim. It separates charts a Helm user can try now from charts that need target prerequisites, operator review, better base variants, or limitation decisions.</p>
-      <div class="grid">
-        <div class="metric"><strong>79/100</strong><span>Charts with live evidence</span></div>
-        <div class="metric"><strong>20/100</strong><span>Ready to try</span></div>
-        <div class="metric"><strong>15/100</strong><span>Need target input</span></div>
-        <div class="metric"><strong>23/100</strong><span>Need operator review</span></div>
-        <div class="metric"><strong>35/100</strong><span>Need useful variants</span></div>
-        <div class="metric"><strong>37/80</strong><span>Strict promotion queue</span></div>
-        <div class="metric"><strong>30</strong><span>First strict promotion wave</span></div>
-        <div class="metric"><strong>7/100</strong><span>Not ready yet</span></div>
-      </div>
-      <div class="card"><table>
-        <thead><tr><th>User-readiness group</th><th>Charts</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with a reviewed first base and live evidence.</td></tr><tr><td>works-with-target-prerequisites</td><td>15</td><td>Works once the target provides a named prerequisite such as a Secret, StorageClass, or CRD ownership choice.</td></tr><tr><td>works-with-operator-review</td><td>23</td><td>Render proof exists, but an operator should review the named lifecycle, hook, HA, or shape concern before relying on it.</td></tr><tr><td>needs-better-base-variant</td><td>35</td><td>The mechanism is proven, but the useful install shape has not been built and reviewed yet.</td></tr><tr><td>not-ready-yet</td><td>7</td><td>A named limitation needs a support, disclose, defer, or block decision before this catalog should vouch for it.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Hard gaps are capability warnings, not automatic chart failures. Read them with the adoption bucket.</p>
-      <div class="card"><table>
-        <thead><tr><th>Adoption bucket</th><th>Rows</th><th>With hard gaps</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>try-from-public-catalog</td><td>20</td><td>10</td><td>Reviewed bases exist; gaps usually point to additional paths that still need support or disclosure.</td></tr><tr><td>promote-after-review</td><td>37</td><td>0</td><td>No named hard gap currently blocks promotion review.</td></tr><tr><td>needs-useful-variant</td><td>35</td><td>8</td><td>Add realistic variants first; use any gap to shape or disclose the variant boundary.</td></tr><tr><td>limitation-decision-first</td><td>7</td><td>7</td><td>The named gap blocks promotion until it is supported, disclosed, or deferred.</td></tr><tr><td>not-ready</td><td>1</td><td>0</td><td>Review before promotion.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card"><table>
-        <thead><tr><th>Queue</th><th>First rows</th></tr></thead>
-        <tbody><tr><td>Promotion review</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, prometheus-community/kube-state-metrics@7.4.0, elastic/eck-operator@3.4.0</td></tr><tr><td>Needs useful variant</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18, elastic/kibana@8.5.1</td></tr><tr><td>Limitation decision</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3, bitnami/zookeeper@13.8.7</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a>, <a href="../data/top100-user-readiness/summary.md">open the user-readiness table</a>, <a href="../data/useful-base-design-queue/summary.md">open the useful-base design queue</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
-    </section>
-
-    <section aria-labelledby="top500-evidence">
-      <h2 id="top500-evidence">Top-500 Evidence Map</h2>
-      <p>The top-500 data is reconnaissance plus proof indexing. It shows how common Helm quirks are and which popular charts already match current recipe/package evidence. It is not blanket certification.</p>
-      <div class="grid">
-        <div class="metric"><strong>495/500</strong><span>Source rows scanned</span></div>
-        <div class="metric"><strong>91/500</strong><span>Rows matched to current proofs</span></div>
-        <div class="metric"><strong>409/500</strong><span>Reconnaissance only</span></div>
-        <div class="metric"><strong>60</strong><span>Matched multi-variant proofs</span></div>
-      </div>
-      <div class="card"><table>
-        <thead><tr><th>Signal</th><th>Count</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>catalog-supported</td><td>20</td><td>Current public catalog entries in the matched top-500 evidence.</td></tr><tr><td>proof-grade</td><td>71</td><td>Matched charts with deterministic proof artifacts but not public catalog promotion.</td></tr><tr><td>different current version</td><td>21</td><td>A current recipe exists, but the source-scan row used a different version.</td></tr><tr><td>no current recipe proof</td><td>409</td><td>Backlog data only: create recipe, variants, scans, and receipts before product claims.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/top500-catalog-analysis/summary.md">Open the full top-500 catalog analysis</a>.</p>
-    </section>
-
-    <section aria-labelledby="base-readiness">
-      <h2 id="base-readiness">Which Base Should I Start With?</h2>
-      <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, has related lifecycle evidence, or needs runtime/prerequisite review.</p>
-      <div class="lanes">
-        <div class="metric"><strong>13</strong><span>render-only</span></div>
-        <div class="metric"><strong>3</strong><span>runtime-watch</span></div>
-        <div class="metric"><strong>26</strong><span>start-here</span></div>
-      </div>
-      <div class="card"><table>
-        <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>start-here</td><td>Best current demo/catalog path for the declared scope.</td></tr><tr><td>try-with-proof</td><td>Render parity and two-cluster parity pass, but broader lanes are still incomplete.</td></tr><tr><td>lifecycle-observed</td><td>Lifecycle behavior has a committed observation receipt.</td></tr><tr><td>prerequisite-observed</td><td>A target prerequisite is explicit and has observation evidence.</td></tr><tr><td>runtime-watch</td><td>Object parity passed, but the live target did not fully settle during the run.</td></tr><tr><td>runtime-review-needed</td><td>Runtime state needs investigation before the base is presented as easy.</td></tr><tr><td>target-prerequisite-needed</td><td>The target must provide a prerequisite such as CRDs, APIs, Secrets, or storage.</td></tr><tr><td>hook-lifecycle-review-needed</td><td>Helm hook or hook-like lifecycle behavior needs an explicit route and receipt.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Recommended base</th><th>Readiness</th><th>Command</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace postgresql</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace rabbitmq</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>render-only</td><td>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace redis</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace external-secrets</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>existing-secret-ingress</td><td>start-here</td><td>cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir &lt;tmp&gt; --non-interactive --namespace loki</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>start-here</td><td>cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>start-here</td><td>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>start-here</td><td>cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir &lt;tmp&gt; --non-interactive --namespace cert-manager</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace longhorn-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>render-only</td><td>cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>render-only</td><td>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/top20-base-readiness/summary.md">Open the full base-readiness table</a>.</p>
-    </section>
-
-    <section aria-labelledby="catalog">
-      <h2 id="catalog">Catalog-Supported Charts</h2>
-      <p>These entries are supported for the declared local-test scope. Production support is tracked separately by target-scoped decisions: supported, superseded, rejected, or draft.</p>
       <div class="catalog">
         <article class="card">
-          <h3>argo-cd/argo-cd</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 9.5.17</span>
-          <dl>
-            <dt>Supported version</dt><dd>9.5.15</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;no-crds</dd>
-            <dt>Chart page</dt><dd><a href="./charts/argo-cd-argo-cd-9-5-15.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/argo-cd/argo-cd/9.5.15">packages/argo-cd/argo-cd/9.5.15</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/argo-cd/argo-cd/9.5.15/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
+          <span class="kicker">Serverless parity</span>
+          <h3>No account: Helm vs cub installer in two kind clusters</h3>
+          <p>This is the cleanest parity check. The harness installs regular Helm into one vanilla kind cluster, applies the cub installer output into another, and compares the live object meaning.</p>
+          <pre><code>npm run kind-parity:run -- --chart bitnami/redis --version 27.0.0 --base default</code></pre>
+          <p><a href="../data/live-kind-parity/summary.md">Open two-cluster parity receipts</a></p>
         </article>
         <article class="card">
-          <h3>bitnami/mongodb</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 19.1.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>19.0.7</dd>
-            <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>generated-passwords;existing-secret-replicaset</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-mongodb-19-0-7.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/mongodb/19.0.7">packages/bitnami/mongodb/19.0.7</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/mongodb/19.0.7/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
+          <span class="kicker">Connected parity</span>
+          <h3>ConfigHub path: Helm vs ConfigHub OCI/GitOps</h3>
+          <p>This checks the connected path: ConfigHub publishes the rendered object set as OCI, Argo reconciles it, and the live result is compared with regular Helm.</p>
+          <pre><code>npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base default</code></pre>
+          <p><a href="../data/live-helm-confighub-compare/summary.md">Open live Helm-vs-ConfigHub receipts</a></p>
         </article>
         <article class="card">
-          <h3>bitnami/mysql</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>14.0.3</dd>
-            <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-mysql-14-0-3.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/mysql/14.0.3">packages/bitnami/mysql/14.0.3</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/mysql/14.0.3/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
+          <span class="kicker">Standard Redis</span>
+          <h3>Follow the smallest happy path</h3>
+          <p>Redis is the teaching chart: render the public package, verify your local render against the catalog, and then choose whether to apply locally or upload into ConfigHub.</p>
+          <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis
+npm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis</code></pre>
+          <p><a href="./try.html">Try Redis</a></p>
         </article>
         <article class="card">
-          <h3>bitnami/nginx</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 25.0.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>24.0.2</dd>
-            <dt>Start variant</dt><dd>http-clusterip</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>http-clusterip;existing-tls-ingress</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-nginx-24-0-2.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/nginx/24.0.2">packages/bitnami/nginx/24.0.2</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/nginx/24.0.2/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
+          <span class="kicker">Your chart choice</span>
+          <h3>Pick any catalog chart and run the same parity question</h3>
+          <p>The point is not that Redis works. The useful test is whether the same chart, version, values, and base variant can be proved against regular Helm.</p>
+          <pre><code>npm run kind-parity:run -- --chart &lt;repo/chart&gt; --version &lt;version&gt; --base &lt;base&gt;</code></pre>
+          <p><a href="./charts/index.html">Choose a chart</a></p>
         </article>
         <article class="card">
-          <h3>bitnami/postgresql</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 18.7.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>18.6.7</dd>
-            <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-postgresql-18-6-7.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/postgresql/18.6.7">packages/bitnami/postgresql/18.6.7</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/postgresql/18.6.7/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>bitnami/rabbitmq</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>16.0.14</dd>
-            <dt>Start variant</dt><dd>generated-passwords</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-rabbitmq-16-0-14.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/rabbitmq/16.0.14">packages/bitnami/rabbitmq/16.0.14</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/rabbitmq/16.0.14/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>bitnami/redis</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 27.0.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>25.5.3</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>default;reuse-existing-secret</dd>
-            <dt>Chart page</dt><dd><a href="./charts/bitnami-redis-25-5-3.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/redis/25.5.3/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>external-secrets/external-secrets</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>2.5.0</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;no-crds</dd>
-            <dt>Chart page</dt><dd><a href="./charts/external-secrets-external-secrets-2-5-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/external-secrets/external-secrets/2.5.0">packages/external-secrets/external-secrets/2.5.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/external-secrets/external-secrets/2.5.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>grafana/grafana</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>10.5.15</dd>
-            <dt>Start variant</dt><dd>existing-secret-ingress</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>generated-passwords;existing-secret-ingress</dd>
-            <dt>Chart page</dt><dd><a href="./charts/grafana-grafana-10-5-15.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/grafana/grafana/10.5.15">packages/grafana/grafana/10.5.15</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/grafana/grafana/10.5.15/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>grafana/loki</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>7.0.0</dd>
-            <dt>Start variant</dt><dd>single-binary-filesystem</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>single-binary-filesystem;simple-scalable-minio</dd>
-            <dt>Chart page</dt><dd><a href="./charts/grafana-loki-7-0-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/grafana/loki/7.0.0">packages/grafana/loki/7.0.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/grafana/loki/7.0.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>grafana/tempo</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>1.24.4</dd>
-            <dt>Start variant</dt><dd>local-persistent</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>local-persistent;s3-query-observability</dd>
-            <dt>Chart page</dt><dd><a href="./charts/grafana-tempo-1-24-4.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/grafana/tempo/1.24.4">packages/grafana/tempo/1.24.4</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/grafana/tempo/1.24.4/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>hashicorp/consul</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>2.0.0</dd>
-            <dt>Start variant</dt><dd>default-control-plane</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default-control-plane;secure-mesh-existing-secrets</dd>
-            <dt>Chart page</dt><dd><a href="./charts/hashicorp-consul-2-0-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/hashicorp/consul/2.0.0">packages/hashicorp/consul/2.0.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/hashicorp/consul/2.0.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>hashicorp/vault</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>0.32.0</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>dev-mode;default;ha-raft-ui</dd>
-            <dt>Chart page</dt><dd><a href="./charts/hashicorp-vault-0-32-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/hashicorp/vault/0.32.0">packages/hashicorp/vault/0.32.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/hashicorp/vault/0.32.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>ingress-nginx/ingress-nginx</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>4.15.1</dd>
-            <dt>Start variant</dt><dd>internal-clusterip</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;admission-disabled;internal-clusterip</dd>
-            <dt>Chart page</dt><dd><a href="./charts/ingress-nginx-ingress-nginx-4-15-1.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/ingress-nginx/ingress-nginx/4.15.1">packages/ingress-nginx/ingress-nginx/4.15.1</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>jetstack/cert-manager</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>v1.20.2</dd>
-            <dt>Start variant</dt><dd>crds-enabled</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;crds-enabled</dd>
-            <dt>Chart page</dt><dd><a href="./charts/jetstack-cert-manager-v1-20-2.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/jetstack/cert-manager/v1.20.2">packages/jetstack/cert-manager/v1.20.2</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/jetstack/cert-manager/v1.20.2/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>longhorn/longhorn</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>1.11.2</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;ui-ingress</dd>
-            <dt>Chart page</dt><dd><a href="./charts/longhorn-longhorn-1-11-2.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/longhorn/longhorn/1.11.2">packages/longhorn/longhorn/1.11.2</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/longhorn/longhorn/1.11.2/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>metrics-server/metrics-server</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>3.13.0</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;external-tls-ca</dd>
-            <dt>Chart page</dt><dd><a href="./charts/metrics-server-metrics-server-3-13-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/metrics-server/metrics-server/3.13.0">packages/metrics-server/metrics-server/3.13.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/metrics-server/metrics-server/3.13.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>prometheus-community/kube-prometheus-stack</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 86.1.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>85.3.3</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>default;no-crds</dd>
-            <dt>Chart page</dt><dd><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/prometheus-community/kube-prometheus-stack/85.3.3">packages/prometheus-community/kube-prometheus-stack/85.3.3</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>prometheus-community/prometheus</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status warn">candidate 29.9.0</span>
-          <dl>
-            <dt>Supported version</dt><dd>29.8.0</dd>
-            <dt>Start variant</dt><dd>server-only-ephemeral</dd>
-            <dt>Start status</dt><dd>render-only</dd>
-            <dt>Variants</dt><dd>default;server-only-ephemeral</dd>
-            <dt>Chart page</dt><dd><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>secrets-store-csi-driver/secrets-store-csi-driver</h3>
-          <span class="status good">catalog-supported</span>
-          <span class="status good">current</span>
-          <dl>
-            <dt>Supported version</dt><dd>1.6.0</dd>
-            <dt>Start variant</dt><dd>default</dd>
-            <dt>Start status</dt><dd>start-here</dd>
-            <dt>Variants</dt><dd>default;sync-secret-rotation</dd>
-            <dt>Chart page</dt><dd><a href="./charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0">packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0</a></dd>
-            <dt>Chart proof</dt><dd><a href="../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md">CATALOG.md</a></dd>
-          </dl>
+          <span class="kicker">Quirks included</span>
+          <h3>Use kube-prometheus-stack for the hard case</h3>
+          <p>This is the serious example: CRDs, webhooks, RBAC, generated facts, extension slots, target facts, upgrade checks, and live observations. It shows where parity is enough and where lifecycle evidence is still needed.</p>
+          <pre><code>npm run kube-prometheus-stack:verify-proof
+npm run kube-prometheus-stack:verify-package
+npm run kube-prometheus-stack:compare</code></pre>
+          <p><a href="../docs/user/serious-chart-proof.md">Open the serious chart guide</a></p>
         </article>
       </div>
     </section>
 
-    <section aria-labelledby="latest">
-      <h2 id="latest">Latest-Version Candidates</h2>
-      <p>New upstream versions are tracked separately from supported catalog versions. Some rows have proof-complete retained candidates; some retained candidates have already been superseded by newer upstream releases; some rows need a new candidate first. No row replaces a pinned supported version until a target-scoped replacement decision records whether to replace, defer, or keep both versions.</p>
+    <section aria-labelledby="do-next">
+      <h2 id="do-next">2. Show Me What I Can Do</h2>
+      <p>Once parity is visible, the value is that the rendered objects become explicit config. You can review them, create variants, apply policy, promote changes, and observe the live result.</p>
       <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Supported</th><th>Latest upstream</th><th>Candidate proof</th><th>Action</th><th>Priority</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd</td><td>9.5.15</td><td>9.5.17</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>bitnami/mongodb</td><td>19.0.7</td><td>19.1.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>bitnami/nginx</td><td>24.0.2</td><td>25.0.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>bitnami/postgresql</td><td>18.6.7</td><td>18.7.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>bitnami/redis</td><td>25.5.3</td><td>27.0.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>prometheus-community/kube-prometheus-stack</td><td>85.3.3</td><td>86.1.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr><tr><td>prometheus-community/prometheus</td><td>29.8.0</td><td>29.9.0</td><td>candidate-proof-complete-root-path-present</td><td>replacement-deferred</td><td>p2</td></tr></tbody>
+        <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
+        <tbody><tr><td>Create useful variants</td><td>Base variants capture Helm render choices. Derived ConfigHub variants handle approved post-render changes such as target, labels, gates, links, and observation policy.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Review and operate objects</td><td>Once rendered objects become ConfigHub Units, teams can diff, scan, approve, promote, observe, and audit them instead of treating Helm as one opaque action.</td><td><a href="./day1-operations.html">./day1-operations.html</a></td></tr><tr><td>Build apps on the data</td><td>Read-only tools can query the held Kubernetes objects without a live cluster or fresh Helm render. The app-readiness proof is the first small example.</td><td><a href="../data/app-readiness/summary.md">../data/app-readiness/summary.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -822,87 +240,46 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../data/latest-top20-refresh/action-queue/summary.md">Open the latest refresh action queue</a>, <a href="../data/refresh-survival/summary.md">open the refresh survival report</a>, or <a href="../data/latest-top20-refresh/replacement-decisions/summary.md">open the retained candidate replacement-decision queue</a>.</p>
     </section>
 
-    <section aria-labelledby="variants">
-      <h2 id="variants">Variant Examples</h2>
-      <p>These generated goldens show how catalog bases become downstream ConfigHub variants without hiding a Helm rerender.</p>
-      <div class="catalog">
-        <article class="card">
-          <h3>Redis production variant</h3>
-          <dl>
-            <dt>From</dt><dd>redis/default</dd>
-            <dt>Creates</dt><dd>redis/prod-us-east</dd>
-            <dt>Model</dt><dd>Spaces, Units, labels, upstream links</dd>
-            <dt>Proof</dt><dd><a href="../data/variant-goldens/redis-prod-us-east/README.md">Redis Creator golden</a></dd>
-          </dl>
-        </article>
-        <article class="card">
-          <h3>Managed overlay</h3>
-          <dl>
-            <dt>Chart</dt><dd>external-dns/external-dns</dd>
-            <dt>Input</dt><dd>wrapper chart + platform values + customer overlay</dd>
-            <dt>Model</dt><dd>render-time choices route to cub installer; post-render choices route to Creator</dd>
-            <dt>Proof</dt><dd><a href="../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md">ExternalDNS overlay golden</a></dd>
-          </dl>
-        </article>
-      </div>
+    <section aria-labelledby="limits">
+      <h2 id="limits">3. What Are The Limits?</h2>
+      <p>The homepage should not hide the hard parts. Render parity is a baseline. Hooks, CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, and controller-owned runtime state need explicit routes.</p>
+      <div class="card"><table>
+        <thead><tr><th>Limit</th><th>Meaning</th><th>Where to look</th></tr></thead>
+        <tbody><tr><td>A green render is not production proof</td><td>Target facts, lifecycle behavior, hooks, controller state, storage, and cloud identity can still matter.</td><td><a href="../docs/user/target-prerequisites.md">../docs/user/target-prerequisites.md</a></td></tr><tr><td>Watch is not fail, and not pass</td><td>A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.</td><td><a href="./matrix.html">./matrix.html</a></td></tr><tr><td>Some chart choices need new bases</td><td>If a values file, overlay, CRD choice, Secret mode, HA mode, or extension slot changes Helm output, create or import a new base and prove it.</td><td><a href="../docs/user/custom-overlays.md">../docs/user/custom-overlays.md</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="./hard-questions.html">Open hard questions</a> for the skeptical path through hooks, upgrades, custom values, target prerequisites, GitOps sync, and free versus managed boundaries.</p>
     </section>
 
-    <section aria-labelledby="extension-slots">
-      <h2 id="extension-slots">Extension Slots</h2>
-      <p>Many Helm charts expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. Supported bases keep those slots empty or controlled. If a user populates one, that should become a reviewed cub installer base with render parity, scans, gates, and receipts.</p>
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">4. What Else Can ConfigHub Do?</h2>
+      <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, approvals, variants, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
       <div class="grid">
-        <div class="metric"><strong>13/20</strong><span>Top-20 charts with extension slots</span></div>
-        <div class="metric"><strong>82/100</strong><span>Top-100 charts with surfaced extension slots</span></div>
+        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Try now</a></p></div>
+        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, inspect diffs and labels, approve changes, and publish OCI for GitOps.</p><p><a href="./journey.html">Read the journey</a></p></div>
+        <div class="card"><h3>Managed operations</h3><p>Operate variants, promotions, scans, policy gates, bulk patches, upgrades, and live evidence across teams and targets.</p><p><a href="./tiers.html">Read tiers</a></p></div>
       </div>
-      <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Example surfaces</th><th>Route</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>NGINX config blocks; raw/extra manifests; sidecars</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/grafana@10.5.15</td><td>sidecars; monitoring config; Secret/env injection</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/loki@7.0.0</td><td>raw/extra manifests; Secret/env injection; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/tempo@1.24.4</td><td>volumes/mounts; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>controller/gateway config; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>sidecars; volumes/mounts; Secret/env injection</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>raw/extra manifests; monitoring config; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>raw/extra manifests; monitoring config</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>chart-specific tpl/raw/config slots</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../data/extension-slots/summary.md">Open the full extension-slot coverage report</a>.</p>
     </section>
 
-    <section aria-labelledby="data">
-      <h2 id="data">Generated Data</h2>
-      <p>This static view is generated from repo artifacts. The machine-readable catalog is <a href="./catalog.json">catalog.json</a>.</p>
-      <ul>
-        <li><a href="../CATALOG.md">Root catalog</a></li>
-        <li><a href="../data/top100-catalog-analysis/summary.md">Top-100 catalog analysis</a></li>
-        <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
-        <li><a href="../data/refresh-survival/summary.md">Refresh survival and upgrade seed</a></li>
-        <li><a href="../data/latest-top20-refresh/action-queue/summary.md">Latest refresh action queue</a></li>
-        <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
-        <li><a href="../data/latest-top20-refresh/promotion-work-orders.md">Latest candidate promotion work orders</a></li>
-        <li><a href="../data/latest-top20-refresh/replacement-decisions/summary.md">Latest candidate replacement decisions</a></li>
-        <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
-        <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
-        <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
-        <li><a href="../data/app-readiness/summary.md">App-readiness RBAC read-app</a></li>
-        <li><a href="../data/preview-readiness/summary.md">Preview readiness</a></li>
-        <li><a href="../data/cub-scout-diff/summary.md">cub-scout diff evidence</a></li>
-        <li><a href="../data/outcome-evidence-contract/summary.md">Outcome evidence contract</a></li>
-        <li><a href="../data/hard-chart-production-packets/summary.md">Hard-chart production packets</a></li>
-        <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
-        <li><a href="../data/chart-use-guide/summary.md">Chart use guide</a></li>
-        <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
-        <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
-        <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>
-        <li><a href="../data/useful-base-design-queue/summary.md">Useful base design queue</a></li>
-        <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
-        <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
-      </ul>
+    <section aria-labelledby="background">
+      <h2 id="background">Background Evidence</h2>
+      <p>Everything else is still available, but it should be supporting material rather than the first thing a new Helm user has to understand.</p>
+      <div class="grid">
+        <div class="card"><h3>Proof pages</h3><p><a href="./proof.html">Proof overview</a> · <a href="../data/README.md">Evidence index</a> · <a href="../data/status-dashboard/summary.md">Status dashboard</a></p></div>
+        <div class="card"><h3>Quirks</h3><p><a href="./hooks.html">Hooks</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
+        <div class="card"><h3>Scope</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a> · <a href="../data/claims-register/summary.md">Claims register</a> · <a href="../docs/user/current-proof-status.md">Current proof status</a></p></div>
+      </div>
     </section>
   </main>
   <footer>
-    Generated from helm-expt proof data. Latest available chart versions and supported proof versions are intentionally shown separately.
+    Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
   </footer>
 </body>
 </html>
