@@ -2501,7 +2501,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. We maintain a database of currently supported charts and variants in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
+    <p class="tagline">Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The detailed per-chart pages listed below are the highest-detail supported subset. This page also shows ConfigHub Actions: how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently supported charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="actions">
