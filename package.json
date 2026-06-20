@@ -272,6 +272,8 @@
     "lifecycle:route-actions:verify": "node scripts/generate-lifecycle-route-actions.mjs --verify",
     "lifecycle:routes-by-variant": "node scripts/generate-lifecycle-routes-by-variant.mjs --generate",
     "lifecycle:routes-by-variant:verify": "node scripts/generate-lifecycle-routes-by-variant.mjs --verify",
+    "gitops:route-emission": "node scripts/generate-gitops-route-emission.mjs --generate",
+    "gitops:route-emission:verify": "node scripts/generate-gitops-route-emission.mjs --verify",
     "kind-parity:decisions": "node scripts/generate-kind-parity-decisions.mjs --generate",
     "kind-parity:decisions:verify": "node scripts/generate-kind-parity-decisions.mjs --verify",
     "live-parity:decisions": "node scripts/generate-live-parity-decisions.mjs --generate",
