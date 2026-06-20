@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub · ConfigHub Helm Catalog</title>
+  <title>Apps, Stacks, Operations · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -240,9 +240,9 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./journey.html">ConfigHub</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
-    <h1>ConfigHub</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:35:22.706Z UTC · source: committed helm-expt evidence for this ConfigHub page.</p>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./hooks.html">Hooks</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps &amp; Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Private</a></span></nav>
+    <h1>Apps, Stacks, Operations</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T19:52:10.902Z UTC · source: committed helm-expt evidence for this apps, stacks, operations page.</p>
     <p class="tagline">One path, six stages. Each stage names the exact action, what you get, and whether it is free, needs an account, or is paid - so you always know where the proof boundary and the price boundary are. The free stages are genuinely useful on their own; nothing here is a teaser that stops working until you pay.</p>
     <div class="ladder">
       <a href="#s0">0 · Inspect</a>
@@ -298,14 +298,14 @@ cub installer upload --work-dir .tmp/redis --space helm-redis-default</code></pr
         <div class="jnum">3</div>
         <div class="jbody">
           <span class="badge now">ConfigHub Server · try-out</span>
-          <h3>ConfigHub Server try-out - custom app and managed graph</h3>
+          <h3>ConfigHub Server try-out - apps, stacks, and operations</h3>
           <p class="jaction"><code>cub variant create  ·  scan  ·  OCI + GitOps</code></p>
           <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
   --environment Prod --region us-east \
   --target &lt;target-space&gt;/&lt;target&gt; \
   --namespace &lt;namespace&gt;
 cub variant promote &lt;variant-space&gt; --dry-run -o mutations</code></pre>
-          <p>This is the first real app or stack step: several Helm charts, a custom app, or an app you already run become one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes derived variants from a base, object diffs, RBAC and function scans, safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a custom or private app. The <a href="./day1-operations.html">day-1 operations page</a> walks each one with its command and its free/paid boundary.</p>
+          <p>This is the first real app or stack step: several Helm charts, a custom app, or an app you already run become one managed desired-state graph. It is Day 0 when you are defining the first app shape, and Day 1 when you are changing an existing app. Hands-on value includes <a href="./variants.html">variants</a> from a base, object diffs, RBAC and function scans, safe-ops, staging and promotion, content-addressed OCI delivery that an Argo or Flux controller reconciles, adopting an app you already run, and bringing a <a href="./custom-apps.html">custom or private app</a>. The <a href="./operations.html">Operations page</a> walks each one with its command and its free/paid boundary.</p>
           <p class="jnext"><strong>Next →</strong> Once day-1 is comfortable, run it like an estate: approvals, live observation, upgrades.</p>
         </div>
       </div>
