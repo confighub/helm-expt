@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "jetstack/trust-manager"
     chartVersion: "v0.22.1"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-trust-manager-default"
-    upstreamUnitID: "05b49acc-4909-4258-bad1-cfbb331ac727"
+    upstreamUnitID: "3cd99007-97fb-4cd0-9793-63ce4e8b75f6"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "trust-manager-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset trust-manager-default-variant-promote-20260527 (220c59e9-2564-476d-932a-63ae57515d3b)"
+    output: "Successfully created changeset trust-manager-default-variant-promote-20260527 (c33f8366-61ea-4473-959e-30cbd5492c51)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-trust-manager\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-trust-manager-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-trust-manager\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-trust-manager-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-trust-manager-default"
-    addedUnitDownstreamUpstreamUnitID: "05b49acc-4909-4258-bad1-cfbb331ac727"
+    addedUnitDownstreamUpstreamUnitID: "3cd99007-97fb-4cd0-9793-63ce4e8b75f6"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve customresourcedefinition-contourdeployments-projectcontour-io --space helm-cl-contour-21-1-4-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "customresourcedefinition-contourdeployments-projectcontour-io"
-    output: "Unit customresourcedefinition-contourdeployments-projectcontour-io (7ca32973-2779-4be9-be33-aeafb175fbd2) has been approved\nAwaiting triggers..."
+    output: "Unit customresourcedefinition-contourdeployments-projectcontour-io (9ddad763-c902-4fdd-8c3a-47a6d5939181) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-contour-21-1-4-default-confighub-proof --where \"Labels.Proof = 'cl-contour-21-1-4-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req xWJEuKDLZjeiQCyqTbglccpkjxtgByri: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req DSgjhPvbpSfuKADkUpbThynTzAidPZeX: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-contour-21-1-4-default-confighub-proof --where \"Labels.Proof = 'cl-contour-21-1-4-default-confighub-proof'\""
     result: "pass"

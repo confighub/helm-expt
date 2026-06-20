@@ -33,13 +33,13 @@ spec:
       headRevisionNum: 2
       dataHash: "d04f45a888a2171d3c16042e36ec9ccc423a201c21c1ea3e4767c692ec689e3d"
     -
-      slug: "clusterrole-aggregate-exposed-secret-reports-view"
+      slug: "clusterrole-aggregate-config-audit-reports-view"
       headRevisionNum: 2
-      dataHash: "ba5d59a64489dda1e2f26abad7243b8a65019414edaf3e1b8e9e39ff5cf3648c"
+      dataHash: "1255189b51ab772cd39a3bf3c7c025da67f2208bd26a9da765e5d6d97eba061a"
     -
-      slug: "configmap-default-trivy-operator-trivy-config"
-      headRevisionNum: 1
-      dataHash: "99765728a658c4df2e2202bada870f45aa6858103188419c85ff4137bf0eee50"
+      slug: "clusterrole-aggregate-vulnerability-reports-view"
+      headRevisionNum: 2
+      dataHash: "12b010cfb07cabc65600e30876a9f0898805797d86169b1b69364caa24fedcd4"
     -
       slug: "customresourcedefinition-clustercompliancereports-aquasecurity-github-io"
       headRevisionNum: 2
@@ -57,6 +57,10 @@ spec:
       headRevisionNum: 2
       dataHash: "768a40ae8a1dbbfbe78d980e4b3fdb5ff739f72d1a414b1ae9b22237cffa36b2"
     -
+      slug: "customresourcedefinition-clustersbomreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "d3c37ccca06b5df90601c8b675cac2db9718aa8881139d1896c0ab269f055ec1"
+    -
       slug: "customresourcedefinition-clustervulnerabilityreports-aquasecurity-github-io"
       headRevisionNum: 2
       dataHash: "fe26b6372bcf5b2e55e0c9e86cbe63743bc0bb64733e8d8e8ce671c332538319"
@@ -69,14 +73,6 @@ spec:
       headRevisionNum: 2
       dataHash: "7fa4f2d795c51793ce31902254ad6d6324c4b7774918c5f8aaa1d54901c59b26"
     -
-      slug: "customresourcedefinition-infraassessmentreports-aquasecurity-github-io"
-      headRevisionNum: 2
-      dataHash: "9d57b29d91a7ff677e2bcdb1bf05c446196f469012959c63d0fc1dcdb586da74"
-    -
-      slug: "customresourcedefinition-rbacassessmentreports-aquasecurity-github-io"
-      headRevisionNum: 2
-      dataHash: "705e222f50214f8abb515769a67381b480f81c59d15a37fa39400153090dd30a"
-    -
       slug: "customresourcedefinition-sbomreports-aquasecurity-github-io"
       headRevisionNum: 2
       dataHash: "931533fc431c48df8695c415663a023d187480fc2a5aa578d4deb1d77e334ba4"
@@ -85,33 +81,33 @@ spec:
       headRevisionNum: 2
       dataHash: "8af1e0d6753f0ddfa3bca0763887683686ef1936c4eec2e8ff7d66ea75426f9b"
     -
-      slug: "deployment-default-trivy-operator"
-      headRevisionNum: 2
-      dataHash: "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634"
-    -
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
-      slug: "clusterrole-aggregate-config-audit-reports-view"
+      slug: "service-default-trivy-operator"
       headRevisionNum: 2
-      dataHash: "1255189b51ab772cd39a3bf3c7c025da67f2208bd26a9da765e5d6d97eba061a"
+      dataHash: "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13"
     -
-      slug: "clusterrole-aggregate-vulnerability-reports-view"
+      slug: "clusterrole-aggregate-exposed-secret-reports-view"
       headRevisionNum: 2
-      dataHash: "12b010cfb07cabc65600e30876a9f0898805797d86169b1b69364caa24fedcd4"
+      dataHash: "ba5d59a64489dda1e2f26abad7243b8a65019414edaf3e1b8e9e39ff5cf3648c"
     -
       slug: "clusterrole-trivy-operator"
       headRevisionNum: 2
       dataHash: "ed7b758ef94c9f09dda28e0a1ac34a9defd2d245845ec6fc2a5cdaf100847724"
     -
-      slug: "customresourcedefinition-clustersbomreports-aquasecurity-github-io"
+      slug: "customresourcedefinition-infraassessmentreports-aquasecurity-github-io"
       headRevisionNum: 2
-      dataHash: "d3c37ccca06b5df90601c8b675cac2db9718aa8881139d1896c0ab269f055ec1"
+      dataHash: "9d57b29d91a7ff677e2bcdb1bf05c446196f469012959c63d0fc1dcdb586da74"
     -
-      slug: "role-default-trivy-operator"
+      slug: "customresourcedefinition-rbacassessmentreports-aquasecurity-github-io"
       headRevisionNum: 2
-      dataHash: "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a"
+      dataHash: "705e222f50214f8abb515769a67381b480f81c59d15a37fa39400153090dd30a"
+    -
+      slug: "deployment-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634"
     -
       slug: "role-default-trivy-operator-leader-election"
       headRevisionNum: 2
@@ -129,6 +125,14 @@ spec:
       headRevisionNum: 1
       dataHash: "791523fb9cf05caf7acb98a1cb5bdabc26bb6e83e9e7f0edca45749b21d209b0"
     -
+      slug: "configmap-default-trivy-operator-trivy-config"
+      headRevisionNum: 1
+      dataHash: "99765728a658c4df2e2202bada870f45aa6858103188419c85ff4137bf0eee50"
+    -
+      slug: "role-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a"
+    -
       slug: "rolebinding-default-trivy-operator"
       headRevisionNum: 2
       dataHash: "d4c440e1dd4d5226edfa7ab133329a40baf8e41ed9dfb9dce5b55a670b3880d4"
@@ -136,10 +140,6 @@ spec:
       slug: "rolebinding-default-trivy-operator-leader-election"
       headRevisionNum: 2
       dataHash: "47a0493fe39dbe9b98e462a652bc6f97551db7711c849bf33829e361efb51d0d"
-    -
-      slug: "service-default-trivy-operator"
-      headRevisionNum: 2
-      dataHash: "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13"
     -
       slug: "serviceaccount-default-trivy-operator"
       headRevisionNum: 1

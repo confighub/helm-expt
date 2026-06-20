@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-memcached --space helm-cl-memcached-8-5-5-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-memcached"
-    output: "Unit deployment-default-memcached (e553d784-a42d-4fe1-9c06-0481aa558586) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-memcached (8ba6149d-8e80-4bdc-80e0-2feb8d3bc9f2) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-memcached-8-5-5-default-confighub-proof --where \"Labels.Proof = 'cl-memcached-8-5-5-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req SKhfyBKZpLEMYIoWbKCrYMOWLkDvZpaj: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req fSDKvsDSjouBDFROcedsqLdqpqRkrvZO: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-memcached-8-5-5-default-confighub-proof --where \"Labels.Proof = 'cl-memcached-8-5-5-default-confighub-proof'\""
     result: "pass"

@@ -18,21 +18,23 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 123 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 19 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 76 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 180 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `watch-grade` | 121 |
-| `promotion-proven` | 76 |
+| `promotion-proven` | 180 |
+| `watch-grade` | 16 |
 | `blocked-proof-failed` | 2 |
+| `blocked-needs-server-variant` | 1 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `watch` | 121 |
-| `yes` | 76 |
+| `yes` | 180 |
+| `watch` | 16 |
 | `no` | 2 |
+| `todo` | 1 |
 
 ## Ready to run now (0)
 
@@ -45,7 +47,7 @@ the `cub variant promote` receipt is missing. **A representative set of commands
 
 The full 0-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — rerun on the fixed server (121)
+## Watch-grade — rerun on the fixed server (16)
 
 Server-side promotion mechanics are proven for these, but the committed receipts
 were recorded before the changeset-bound add-new-units server fix. The next action is:
@@ -54,127 +56,22 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 
 | Chart | Base | Evidence |
 | --- | --- | --- |
-| aqua/trivy-operator@0.32.1 | default | runs/trivy-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| aqua/trivy-operator@0.32.1 | no-crds | runs/trivy-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-cd@9.5.17 | default | runs/argo-cd-9517-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-cd@9.5.17 | no-crds | runs/argo-cd-9517-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-events@2.4.21 | default | runs/argo-events-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-events@2.4.21 | no-crds | runs/argo-events-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-rollouts@2.40.9 | default | runs/argo-rollouts-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-rollouts@2.40.9 | no-crds | runs/argo-rollouts-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | runs/argo-workflows-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-workflows@1.0.14 | default | runs/argo-workflows-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argo-workflows@1.0.14 | minimal-crds | runs/argo-workflows-minimal-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| argo-cd/argocd-image-updater@1.2.2 | default | runs/argocd-image-updater-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | runs/cluster-autoscaler-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
-| autoscaler/cluster-autoscaler@9.57.0 | default | runs/cluster-autoscaler-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | default | runs/vertical-pod-autoscaler-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | no-crds | runs/vertical-pod-autoscaler-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | runs/aws-ebs-csi-driver-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/apache@11.4.29 | default | runs/cl-apache-11-4-29-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/contour@21.1.4 | default | runs/cl-contour-21-1-4-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/contour@21.1.4 | no-crds | runs/cl-contour-21-1-4-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/elasticsearch@22.1.6 | default | runs/cl-elasticsearch-22-1-6-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/elasticsearch@22.1.6 | ha | runs/cl-elasticsearch-22-1-6-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/memcached@8.5.5 | default | runs/cl-memcached-8-5-5-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| argo-cd/argo-cd@9.5.15 | default | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml |
+| bitnami/mongodb@19.0.7 | generated-passwords | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mongodb@19.0.9 | generated-passwords | runs/cl-mongodb-19-0-9-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | generated-passwords | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | http-clusterip | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | http-clusterip | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/opensearch@2.0.10 | default | runs/opensearch-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/opensearch@2.0.10 | ha | runs/opensearch-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/phpmyadmin@20.0.0 | default | runs/cl-phpmyadmin-20-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.6.10 | existing-secret | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/postgresql@18.6.10 | generated-passwords | runs/cl-postgresql-18-6-10-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
+| bitnami/postgresql@18.6.7 | generated-passwords | runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | existing-secret | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | generated-passwords | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/spark@10.0.3 | default | runs/cl-spark-10-0-3-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/spark@10.0.3 | ha | runs/cl-spark-10-0-3-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/zookeeper@13.8.7 | default | runs/cl-zookeeper-13-8-7-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/zookeeper@13.8.7 | ha | runs/cl-zookeeper-13-8-7-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| cloudnative-pg/cloudnative-pg@0.28.2 | default | runs/cloudnative-pg-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | runs/cloudnative-pg-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| coredns/coredns@1.45.2 | default | runs/coredns-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| crossplane-stable/crossplane@2.3.1 | default | runs/crossplane-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| descheduler/descheduler@0.36.0 | default | runs/descheduler-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| dex/dex@0.24.0 | default | runs/dex-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/eck-operator@3.4.0 | default | runs/eck-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/eck-operator@3.4.0 | ha | runs/eck-operator-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/eck-operator@3.4.0 | no-crds | runs/eck-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/filebeat@8.5.1 | default | runs/filebeat-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/filebeat@8.5.1 | node-or-cluster-collector | runs/filebeat-node-or-cluster-collector-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/kibana@8.5.1 | default | runs/cl-kibana-8-5-1-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/logstash@8.5.1 | default | runs/logstash-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/logstash@8.5.1 | ha | runs/logstash-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| elastic/metricbeat@8.5.1 | default | runs/cl-metricbeat-8-5-1-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-dns/external-dns@1.21.1 | default | runs/external-dns-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-dns/external-dns@1.21.1 | dry-run-txt-registry | runs/external-dns-dry-run-txt-registry-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-dns/external-dns@1.21.1 | no-crds | runs/external-dns-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| fairwinds-stable/goldilocks@10.3.0 | default | runs/goldilocks-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| fairwinds-stable/vpa@4.11.0 | default | runs/vpa-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| fairwinds-stable/vpa@4.11.0 | no-crds | runs/vpa-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| falcosecurity/falco@9.0.0 | default | runs/falco-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| falcosecurity/falcosidekick@0.13.1 | default | runs/falcosidekick-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| fluent/fluent-bit@0.57.6 | default | runs/fluent-bit-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| fluent/fluentd@0.5.3 | default | runs/fluentd-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| gatekeeper/gatekeeper@3.22.2 | default | runs/gatekeeper-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| gatekeeper/gatekeeper@3.22.2 | no-crds | runs/gatekeeper-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| gitlab/gitlab-runner@0.89.0 | default | runs/gitlab-runner-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/promtail@6.17.1 | default | runs/promtail-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/pyroscope@2.0.2 | default | runs/pyroscope-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/pyroscope@2.0.2 | ha | runs/pyroscope-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/pyroscope@2.0.2 | no-crds | runs/pyroscope-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/rollout-operator@0.49.0 | default | runs/rollout-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/rollout-operator@0.49.0 | no-crds | runs/rollout-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| haproxytech/kubernetes-ingress@1.52.0 | default | runs/haproxy-ingress-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/terraform@1.1.2 | default | runs/terraform-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/terraform@1.1.2 | no-crds | runs/terraform-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| istio/gateway@1.30.0 | controller-default-reviewed | runs/istio-gateway-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
-| istio/gateway@1.30.0 | default | runs/istio-gateway-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| istio/istiod@1.30.0 | default | runs/istiod-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jaegertracing/jaeger-operator@2.57.0 | default | runs/jaeger-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | runs/jaeger-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jaegertracing/jaeger@4.8.0 | default | runs/jaeger-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/cert-manager-csi-driver@v0.14.0 | default | runs/cert-manager-csi-driver-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/trust-manager@v0.22.1 | default | runs/trust-manager-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/trust-manager@v0.22.1 | no-crds | runs/trust-manager-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| kedacore/keda@2.19.0 | default | runs/keda-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| kedacore/keda@2.19.0 | no-crds | runs/keda-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| kyverno/kyverno-policies@3.8.0 | default | runs/kyverno-policies-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| kyverno/kyverno@3.8.1 | default | runs/kyverno-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| kyverno/kyverno@3.8.1 | no-crds | runs/kyverno-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| linkerd/linkerd-crds@1.8.0 | default | runs/linkerd-crds-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| minio-operator/operator@7.1.1 | default | runs/minio-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| minio-operator/tenant@7.1.1 | default | runs/minio-tenant-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/nack@0.34.0 | default | runs/nack-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/nack@0.34.0 | no-crds | runs/nack-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/nats@2.14.0 | default | runs/nats-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/nats@2.14.0 | ha | runs/nats-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/surveyor@0.20.9 | default | runs/surveyor-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nats/surveyor@0.20.9 | default-reviewed | runs/surveyor-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml |
-| nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | runs/nfs-provisioner-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| open-telemetry/opentelemetry-operator@0.114.0 | default | runs/opentelemetry-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| open-telemetry/opentelemetry-operator@0.114.0 | no-crds | runs/opentelemetry-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| opencost/opencost@2.5.21 | default | runs/opencost-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/pg-operator@3.0.0 | default | runs/pg-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/pg-operator@3.0.0 | no-crds | runs/pg-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/psmdb-operator@1.22.0 | default | runs/psmdb-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/psmdb-operator@1.22.0 | no-crds | runs/psmdb-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/pxc-operator@1.19.1 | default | runs/pxc-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| percona/pxc-operator@1.19.1 | no-crds | runs/pxc-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml |
-| projectcalico/tigera-operator@v3.32.0 | default | runs/tigera-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/alertmanager@1.37.0 | default | runs/alertmanager-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/alertmanager@1.37.0 | ha | runs/alertmanager-ha-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus-blackbox-exporter@11.10.0 | default | runs/prometheus-blackbox-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | runs/prometheus-node-exporter-cluster-metrics-readonly-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus-node-exporter@4.55.0 | default | runs/prometheus-node-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus-pushgateway@3.6.0 | default | runs/cl-prometheus-pushgateway-3-6-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
+| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
 
 ## Boundaries
 

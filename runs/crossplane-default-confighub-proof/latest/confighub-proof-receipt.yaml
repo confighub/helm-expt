@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/crossplane-stable/crossplane/2.3.1"
     name: "crossplane-stable-crossplane"
@@ -61,17 +61,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-crossplane-default-confighub-proof (post-render):\n  init  Deployment/crossplane [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n      Deployment/crossplane [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n  init  Deployment/crossplane-rbac-manager [crossplane-init] xpkg.crossplane.io/crossplane/crossplane:v2.3.1\n      Deployment/crossplane-rbac-manager [crossplane] xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
   serverSideVariant:
-    command: "cub variant create staging helm-crossplane-default-confighub-proof --environment Staging --region local --space-name-pattern template:Crossplane-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-crossplane-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Crossplane-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-crossplane-default-confighub-proof"
     downstreamSpace: "Crossplane-default-staging"
     clonedUnitCount: 22
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-crossplane-rbac-manager"
+    representativeUnit: "deployment-default-crossplane"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

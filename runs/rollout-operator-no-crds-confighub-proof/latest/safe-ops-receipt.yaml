@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-rollout-operator --space helm-rollout-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-rollout-operator"
-    output: "Unit deployment-default-rollout-operator (7df8ff7c-c038-4777-91e0-27083d3a9ca8) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-rollout-operator (2c2b7c7b-dfb3-4987-955a-dc82e40a4d99) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-rollout-operator-no-crds-confighub-proof --where \"Labels.Proof = 'rollout-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req YrexgbdtaqXbBRKqYvuAteFTqFeDcGip: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req NnzjbUvVuNmwUqSiRLODbRwmuGAILPqD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-rollout-operator-no-crds-confighub-proof --where \"Labels.Proof = 'rollout-operator-no-crds-confighub-proof'\""
     result: "pass"

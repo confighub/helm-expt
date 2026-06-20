@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-prometheus-blackbox-exporter --space helm-prometheus-blackbox-exporter-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-prometheus-blackbox-exporter"
-    output: "Unit deployment-default-prometheus-blackbox-exporter (ceea27ff-041c-46a2-af5c-ae0fecb9bc69) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-prometheus-blackbox-exporter (63ffae8a-6516-4458-bf20-f275dcf8ac75) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-prometheus-blackbox-exporter-default-confighub-proof --where \"Labels.Proof = 'prometheus-blackbox-exporter-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req kvSHqaKYHHstyZBBmdwgimKSScDashAp: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req pmcKNSXiELiDBdtnkcSpaPwOJZfGzLeo: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-prometheus-blackbox-exporter-default-confighub-proof --where \"Labels.Proof = 'prometheus-blackbox-exporter-default-confighub-proof'\""
     result: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve service-default-cluster-autoscaler-aws-cluster-autoscaler --space helm-cluster-autoscaler-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "service-default-cluster-autoscaler-aws-cluster-autoscaler"
-    output: "Unit service-default-cluster-autoscaler-aws-cluster-autoscaler (81191983-0885-4832-bb43-1f54e42910a8) has been approved\nAwaiting triggers..."
+    output: "Unit service-default-cluster-autoscaler-aws-cluster-autoscaler (aba95e2e-d93a-4743-8738-42af9e5a73f6) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cluster-autoscaler-default-confighub-proof --where \"Labels.Proof = 'cluster-autoscaler-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req IGcRQZJHkYdCXFfbAKTHirEZbCaKMrEz: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req bAqTvyQxmnMDgoNnqYZxOIWpNXupHKGo: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cluster-autoscaler-default-confighub-proof --where \"Labels.Proof = 'cluster-autoscaler-default-confighub-proof'\""
     result: "pass"

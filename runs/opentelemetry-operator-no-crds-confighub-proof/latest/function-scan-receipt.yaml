@@ -17,21 +17,13 @@ spec:
     configHubUnitCount: 14
   unitRevisionBindings:
     -
-      slug: "service-default-opentelemetry-operator-webhook"
+      slug: "certificate-default-opentelemetry-operator-serving-cert"
       headRevisionNum: 2
-      dataHash: "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c"
+      dataHash: "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49"
     -
-      slug: "serviceaccount-default-opentelemetry-operator"
-      headRevisionNum: 1
-      dataHash: "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7"
-    -
-      slug: "validatingwebhookconfiguration-opentelemetry-operator-validation"
+      slug: "clusterrolebinding-opentelemetry-operator-manager"
       headRevisionNum: 2
-      dataHash: "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c"
-    -
-      slug: "namespace-default"
-      headRevisionNum: 1
-      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+      dataHash: "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144"
     -
       slug: "clusterrole-opentelemetry-operator-manager"
       headRevisionNum: 2
@@ -40,18 +32,6 @@ spec:
       slug: "clusterrole-opentelemetry-operator-metrics"
       headRevisionNum: 2
       dataHash: "381840ed878c9990174db9174de93778f8d05e8ca76eaaa4988d7da413d565ba"
-    -
-      slug: "service-default-opentelemetry-operator"
-      headRevisionNum: 2
-      dataHash: "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728"
-    -
-      slug: "certificate-default-opentelemetry-operator-serving-cert"
-      headRevisionNum: 2
-      dataHash: "8a1eb5771a34ddf2a59668da42c19cd9c685e8ce9563ed329c8248cb46e9fd49"
-    -
-      slug: "clusterrolebinding-opentelemetry-operator-manager"
-      headRevisionNum: 2
-      dataHash: "7a8e7fad8282b3f0334528024f70ca00aae4bc7df0c87fb724beed5567c12144"
     -
       slug: "deployment-default-opentelemetry-operator"
       headRevisionNum: 2
@@ -65,13 +45,33 @@ spec:
       headRevisionNum: 2
       dataHash: "a8c695edef9f2ce342d580c0c82fe9d41b7d84b361185230cd65f769a7f0141c"
     -
-      slug: "role-default-opentelemetry-operator-leader-election"
-      headRevisionNum: 2
-      dataHash: "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700"
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
       slug: "rolebinding-default-opentelemetry-operator-leader-election"
       headRevisionNum: 2
       dataHash: "7a8f6572af71fa2a448644bd0b7915a27d6c255ca828223850dd245838c72889"
+    -
+      slug: "role-default-opentelemetry-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "b4a2d0708ad03cde0bb00322f8786341991cf07358909fa2f1e8ccd8ffbd6700"
+    -
+      slug: "serviceaccount-default-opentelemetry-operator"
+      headRevisionNum: 1
+      dataHash: "2f61857fc403ba40b8c4ae4aa5bf17362dd4c07b4640fcf0eee40fbe0432aff7"
+    -
+      slug: "service-default-opentelemetry-operator"
+      headRevisionNum: 2
+      dataHash: "b5a4d96b2946433d780446a7ae034d19579f4540c831bc3102b3f31b8d80a728"
+    -
+      slug: "service-default-opentelemetry-operator-webhook"
+      headRevisionNum: 2
+      dataHash: "bb269d948d7b3c02f3bf443942fac7dfd2d76861f4d2835ed21b716e733eed5c"
+    -
+      slug: "validatingwebhookconfiguration-opentelemetry-operator-validation"
+      headRevisionNum: 2
+      dataHash: "f3ffa4a905ffb679dd320b292f37374dd9b167423e0312264f64f58cbd7c1c6c"
   validations:
     -
       function: "vet-format"

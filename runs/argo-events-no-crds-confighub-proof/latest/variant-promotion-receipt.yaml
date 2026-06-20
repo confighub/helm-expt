@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "argo-cd/argo-events"
     chartVersion: "2.4.21"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-argo-events-no-crds"
-    upstreamUnitID: "5dbe52f3-dcce-42f3-80dd-bb2bfdb90b57"
+    upstreamUnitID: "afc3cfbc-11c4-4e3f-8b59-7d971e82ecd9"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "argo-events-no-crds-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset argo-events-no-crds-variant-promote-20260527 (88161db7-74ee-42ae-b586-1c5de7003756)"
+    output: "Successfully created changeset argo-events-no-crds-variant-promote-20260527 (1b4d6ce9-04e7-4c97-b15e-e0c1eafdb218)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-argo-events-controller-manager\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-argo-events-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-argo-events-controller-manager\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-argo-events-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-argo-events-no-crds"
-    addedUnitDownstreamUpstreamUnitID: "5dbe52f3-dcce-42f3-80dd-bb2bfdb90b57"
+    addedUnitDownstreamUpstreamUnitID: "afc3cfbc-11c4-4e3f-8b59-7d971e82ecd9"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-vertical-pod-autoscaler-recommender --space helm-vertical-pod-autoscaler-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-vertical-pod-autoscaler-admission-controller --space helm-vertical-pod-autoscaler-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-vertical-pod-autoscaler-recommender"
-    output: "Unit deployment-default-vertical-pod-autoscaler-recommender (828a1adf-7bd9-4800-b543-fa4fed83674f) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-vertical-pod-autoscaler-admission-controller"
+    output: "Unit deployment-default-vertical-pod-autoscaler-admission-controller (a4527813-a02b-438e-9488-0254248806ff) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-vertical-pod-autoscaler-default-confighub-proof --where \"Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req XLcEjLjHCQbMVhtFHqfTEDKJsmvxLNUn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req NDSzvjzVtYTLwzQelFjorYsmOwHodbIb: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-vertical-pod-autoscaler-default-confighub-proof --where \"Labels.Proof = 'vertical-pod-autoscaler-default-confighub-proof'\""
     result: "pass"

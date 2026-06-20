@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "elastic/eck-operator"
     chartVersion: "3.4.0"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-eck-operator-no-crds"
-    upstreamUnitID: "7ab4db0e-6612-4e9e-bf7b-fdb4173747bf"
+    upstreamUnitID: "2d43cac3-0ee1-4def-98d8-a2ec39321954"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "eck-operator-no-crds-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset eck-operator-no-crds-variant-promote-20260527 (14950a77-0061-4904-9baa-2875063d0392)"
+    output: "Successfully created changeset eck-operator-no-crds-variant-promote-20260527 (e6144d77-dd3f-429b-b3aa-75f1f45ebab0)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-elastic-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-eck-operator-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-elastic-operator\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-eck-operator-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-eck-operator-no-crds"
-    addedUnitDownstreamUpstreamUnitID: "7ab4db0e-6612-4e9e-bf7b-fdb4173747bf"
+    addedUnitDownstreamUpstreamUnitID: "2d43cac3-0ee1-4def-98d8-a2ec39321954"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "bitnami/apache"
     chartVersion: "11.4.29"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-cl-apache-11-4-29-default"
-    upstreamUnitID: "401f344d-6520-4072-9d22-7672d1fb1299"
+    upstreamUnitID: "2b4a2cb6-5e97-439b-b633-d77005a3c816"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "cl-apache-11-4-29-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset cl-apache-11-4-29-default-variant-promote-20260527 (d24ccb87-d182-4576-9600-13a3f115f2a3)"
+    output: "Successfully created changeset cl-apache-11-4-29-default-variant-promote-20260527 (d640f738-63ed-4f61-8f75-94045f95fe79)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-apache\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-apache-11-4-29-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-apache\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-apache-11-4-29-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-cl-apache-11-4-29-default"
-    addedUnitDownstreamUpstreamUnitID: "401f344d-6520-4072-9d22-7672d1fb1299"
+    addedUnitDownstreamUpstreamUnitID: "2b4a2cb6-5e97-439b-b633-d77005a3c816"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

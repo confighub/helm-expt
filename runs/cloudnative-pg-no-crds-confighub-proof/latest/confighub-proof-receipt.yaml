@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     name: "cloudnative-pg-cloudnative-pg"
@@ -21,14 +21,183 @@ spec:
     selectedBase: "no-crds"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret default/cnpg-webhook-cert keys tls.crt,tls.key"
+            namespace: "default"
+            suggestedSource: "kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD backups.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterimagecatalogs.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusters.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD databases.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD failoverquorums.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD imagecatalogs.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD poolers.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD publications.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD scheduledbackups.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD subscriptions.postgresql.cnpg.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   render:
     command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base no-crds --work-dir .tmp/confighub-proof/cloudnative-pg-no-crds --non-interactive --namespace cnpg-system"
     result: "pass"
     manifestCount: 12
     separatedSecretCount: 0
     facts:
-      {}
+      targetFactChecks:
+        base: "no-crds"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "backups.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterimagecatalogs.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusters.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "databases.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "failoverquorums.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "imagecatalogs.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "poolers.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "publications.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "scheduledbackups.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "subscriptions.postgresql.cnpg.io"
+            purpose: "CloudNativePG CRD managed outside this no-crds base"
+            sourceVariant: "default"
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "cnpg-webhook-cert"
+            namespace: "default"
+            purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/cloudnative-pg-no-crds"
     result: "pass"
@@ -36,7 +205,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o .tmp/confighub-proof/cloudnative-pg-no-crds-archives/cloudnative-pg-a.tgz"
-    sha256: "a3460212e4810a3fb20b55146bdbd6ebb499b3ed0e05c6f3bd7242baa0c7a7ec"
+    sha256: "c47b2fef36ba4a4335808a7cfb0d9144d10aaa3274a276797a0497276dbbca29"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cloudnative-pg-no-crds"
@@ -60,11 +229,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cloudnative-pg-no-crds-confighub-proof (post-render):\n      Deployment/cloudnative-pg [manager] ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1"
   serverSideVariant:
-    command: "cub variant create staging helm-cloudnative-pg-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:CloudNativePG-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cloudnative-pg-no-crds-confighub-proof --environment Staging --region local --namespace cnpg-system --space-pattern template:CloudNativePG-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cloudnative-pg-no-crds-confighub-proof"
     downstreamSpace: "CloudNativePG-no-crds-staging"
     clonedUnitCount: 13
+    namespace: "cnpg-system"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

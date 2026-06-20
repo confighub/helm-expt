@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
     name: "aws-ebs-csi-driver-aws-ebs-csi-driver"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-aws-ebs-csi-driver-default-confighub-proof (post-render):\n      DaemonSet/ebs-csi-node [ebs-plugin] public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n      DaemonSet/ebs-csi-node [liveness-probe] public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\n      DaemonSet/ebs-csi-node [node-driver-registrar] public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\n      DaemonSet/ebs-csi-node-windows [ebs-plugin] public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\n      DaemonSet/ebs-csi-node-windows [liveness-probe] public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\n      DaemonSet/ebs-csi-node-windows [node-driver-registrar] public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\n      Deployment/ebs-csi-controller [csi-attacher] public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6\n      Deployment/ebs-csi-controller [csi-provisioner] public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
   serverSideVariant:
-    command: "cub variant create staging helm-aws-ebs-csi-driver-default-confighub-proof --environment Staging --region local --space-name-pattern template:AwsEbsCsiDriver-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-aws-ebs-csi-driver-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:AwsEbsCsiDriver-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-aws-ebs-csi-driver-default-confighub-proof"
     downstreamSpace: "AwsEbsCsiDriver-default-staging"
     clonedUnitCount: 21
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

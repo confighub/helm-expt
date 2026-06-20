@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/mongodb/19.0.9"
     name: "bitnami-mongodb"
@@ -80,11 +80,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof --environment Staging --region local --space-name-pattern template:Mongodb1909-generated-passwords-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof --environment Staging --region local --namespace mongodb --space-pattern template:Mongodb1909-generated-passwords-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-mongodb-19-0-9-generated-passwords-confighub-proof"
     downstreamSpace: "Mongodb1909-generated-passwords-staging"
     clonedUnitCount: 9
+    namespace: "mongodb"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

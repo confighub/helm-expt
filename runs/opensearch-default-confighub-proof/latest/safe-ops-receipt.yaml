@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-default-opensearch-coordinating --space helm-opensearch-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-default-opensearch-coordinating"
-    output: "Unit statefulset-default-opensearch-coordinating (209202c8-bd6f-414c-8629-e4d351fa44a8) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-default-opensearch-coordinating (a0e45ac8-bdb9-4650-a395-ce04127bdd84) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-opensearch-default-confighub-proof --where \"Labels.Proof = 'opensearch-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req RspbjghedWoXaUfMJfZxNKpEPLwmWYUY: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req HoTbYxrUitYkQRvSXxWsMThMEIKfbNHe: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-opensearch-default-confighub-proof --where \"Labels.Proof = 'opensearch-default-confighub-proof'\""
     result: "pass"

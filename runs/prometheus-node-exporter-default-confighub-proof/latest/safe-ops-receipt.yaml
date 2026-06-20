@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve daemonset-default-prometheus-node-exporter --space helm-prometheus-node-exporter-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "daemonset-default-prometheus-node-exporter"
-    output: "Unit daemonset-default-prometheus-node-exporter (f3468d86-b6d1-4172-b1ae-4765c24325f7) has been approved\nAwaiting triggers..."
+    output: "Unit daemonset-default-prometheus-node-exporter (002d89b8-1180-40db-948a-716418b1f1e8) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-prometheus-node-exporter-default-confighub-proof --where \"Labels.Proof = 'prometheus-node-exporter-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req bujJKClOIfeejaoHcWOrUrdPFIQPvHfH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req hszortVFeuPhzMaRBjvoCmXlXHqoqnJv: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-prometheus-node-exporter-default-confighub-proof --where \"Labels.Proof = 'prometheus-node-exporter-default-confighub-proof'\""
     result: "pass"

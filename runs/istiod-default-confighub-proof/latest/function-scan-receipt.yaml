@@ -17,9 +17,29 @@ spec:
     configHubUnitCount: 18
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-istiod-clusterrole-default"
+      headRevisionNum: 2
+      dataHash: "ff255303ca80f07e2f835fd6bd2f0a4df35b9d2a9e259a85153f28dc19eca269"
+    -
+      slug: "clusterrolebinding-istiod-gateway-controller-default"
+      headRevisionNum: 2
+      dataHash: "8a57ba39b9e0b550b75c98de7390ae8a378d522bc0247db4a91e9ae6765e7da0"
+    -
       slug: "clusterrolebinding-istio-reader-clusterrole-default"
       headRevisionNum: 2
       dataHash: "3d68f17b35e0c0a10d6c749eb79c7a461df85aaee5bbcf5d51a34da23788384f"
+    -
+      slug: "clusterrole-istiod-clusterrole-default"
+      headRevisionNum: 2
+      dataHash: "fb17bfaa1634c8a15ed30f9d3bf5874d6890c2ac2b835a05acaebfa713e1b36f"
+    -
+      slug: "clusterrole-istiod-gateway-controller-default"
+      headRevisionNum: 2
+      dataHash: "9343010b7fbf560105a163e4c388cb12f57eb92c3ddc2a993df1691d0bce2f53"
+    -
+      slug: "clusterrole-istio-reader-clusterrole-default"
+      headRevisionNum: 2
+      dataHash: "1b2f4b74966ddd4095d35d98541f1d8cbe6cd9cc3d0494c059b089a2bf400ef8"
     -
       slug: "configmap-default-istio"
       headRevisionNum: 1
@@ -29,17 +49,17 @@ spec:
       headRevisionNum: 1
       dataHash: "cd0f02239208bcb30c69bf1897b19217918f27c4ddcd554730f573171d9d4ff8"
     -
-      slug: "validatingwebhookconfiguration-istio-validator-istio-system"
-      headRevisionNum: 2
-      dataHash: "5feb274ba9b181fc6f6c5320fd751f75d7b6410c3e0daa9736d3c1a4f230c268"
+      slug: "configmap-default-values"
+      headRevisionNum: 1
+      dataHash: "a3ff405b234bb6a2050e571484635fa2aa06164886d62c873cb007434f5cb177"
     -
       slug: "deployment-default-istiod"
       headRevisionNum: 2
       dataHash: "1716068eca6ad8eb1221ef892755540e02e00ec0b2382c06115ec94792f876ec"
     -
-      slug: "configmap-default-values"
-      headRevisionNum: 1
-      dataHash: "a3ff405b234bb6a2050e571484635fa2aa06164886d62c873cb007434f5cb177"
+      slug: "horizontalpodautoscaler-default-istiod"
+      headRevisionNum: 2
+      dataHash: "d9161691f72d7fc43d49ea7ba52f7df4e4535646806edc3dd4ea312da4139a48"
     -
       slug: "mutatingwebhookconfiguration-istio-sidecar-injector-default"
       headRevisionNum: 2
@@ -49,6 +69,10 @@ spec:
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
+      slug: "rolebinding-istio-system-istiod"
+      headRevisionNum: 2
+      dataHash: "aa544e3e248f77f75bca5d5e97adb4a007860634ca41fbd9723e9c0606a333e2"
+    -
       slug: "role-istio-system-istiod"
       headRevisionNum: 2
       dataHash: "b3a4c4599bd506c84132f911f8425cbc984dc366606e31a34ae46d1f051abe23"
@@ -57,37 +81,13 @@ spec:
       headRevisionNum: 1
       dataHash: "2eff7eb5caa543cb073dac9a1046e5370cb3e1790570782b83b6399253799625"
     -
-      slug: "rolebinding-istio-system-istiod"
-      headRevisionNum: 2
-      dataHash: "aa544e3e248f77f75bca5d5e97adb4a007860634ca41fbd9723e9c0606a333e2"
-    -
-      slug: "clusterrolebinding-istiod-clusterrole-default"
-      headRevisionNum: 2
-      dataHash: "ff255303ca80f07e2f835fd6bd2f0a4df35b9d2a9e259a85153f28dc19eca269"
-    -
-      slug: "clusterrole-istiod-clusterrole-default"
-      headRevisionNum: 2
-      dataHash: "fb17bfaa1634c8a15ed30f9d3bf5874d6890c2ac2b835a05acaebfa713e1b36f"
-    -
-      slug: "clusterrole-istio-reader-clusterrole-default"
-      headRevisionNum: 2
-      dataHash: "1b2f4b74966ddd4095d35d98541f1d8cbe6cd9cc3d0494c059b089a2bf400ef8"
-    -
-      slug: "clusterrolebinding-istiod-gateway-controller-default"
-      headRevisionNum: 2
-      dataHash: "8a57ba39b9e0b550b75c98de7390ae8a378d522bc0247db4a91e9ae6765e7da0"
-    -
       slug: "service-default-istiod"
       headRevisionNum: 2
       dataHash: "10b2ec48541c39fdb2e33fac33860d723c4da4c06da8221054551f8b891bd5e1"
     -
-      slug: "clusterrole-istiod-gateway-controller-default"
+      slug: "validatingwebhookconfiguration-istio-validator-istio-system"
       headRevisionNum: 2
-      dataHash: "9343010b7fbf560105a163e4c388cb12f57eb92c3ddc2a993df1691d0bce2f53"
-    -
-      slug: "horizontalpodautoscaler-default-istiod"
-      headRevisionNum: 2
-      dataHash: "d9161691f72d7fc43d49ea7ba52f7df4e4535646806edc3dd4ea312da4139a48"
+      dataHash: "5feb274ba9b181fc6f6c5320fd751f75d7b6410c3e0daa9736d3c1a4f230c268"
   validations:
     -
       function: "vet-format"

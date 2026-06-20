@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "bitnami/spark"
     chartVersion: "10.0.3"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-cl-spark-10-0-3-default"
-    upstreamUnitID: "b721f534-ec1e-4e8d-9b50-f9f41986a73f"
+    upstreamUnitID: "03219dbf-46fe-4575-a107-ee9d8e8fe3f8"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "cl-spark-10-0-3-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset cl-spark-10-0-3-default-variant-promote-20260527 (e9f89e56-8e59-45aa-a2cd-daad7e5531b3)"
+    output: "Successfully created changeset cl-spark-10-0-3-default-variant-promote-20260527 (e4465ac1-36b3-4635-92e5-919713a1737a)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-spark-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-spark-10-0-3-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-spark-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-spark-10-0-3-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-cl-spark-10-0-3-default"
-    addedUnitDownstreamUpstreamUnitID: "b721f534-ec1e-4e8d-9b50-f9f41986a73f"
+    addedUnitDownstreamUpstreamUnitID: "03219dbf-46fe-4575-a107-ee9d8e8fe3f8"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

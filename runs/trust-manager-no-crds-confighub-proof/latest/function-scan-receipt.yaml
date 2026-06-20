@@ -17,9 +17,21 @@ spec:
     configHubUnitCount: 14
   unitRevisionBindings:
     -
+      slug: "certificate-default-trust-manager"
+      headRevisionNum: 2
+      dataHash: "d42dd30a963b26ee14f9ed72c80e8c1ded10a5828bb1c0213ab24bb4bd8c0116"
+    -
+      slug: "clusterrolebinding-trust-manager"
+      headRevisionNum: 2
+      dataHash: "2d7f26649cd4fe2c3c9b0c789029e67600dce3bba0f123c57171aa419bb300ce"
+    -
       slug: "clusterrole-trust-manager"
       headRevisionNum: 2
       dataHash: "6b17fc8b4bff3250affefe711748c609a8c7559e7b793f75241fe295042fcf5b"
+    -
+      slug: "deployment-default-trust-manager"
+      headRevisionNum: 2
+      dataHash: "528de66fa02629a3e82acb90379d532ca9e29aa705f2754b1a3f950a98eeec00"
     -
       slug: "issuer-default-trust-manager"
       headRevisionNum: 1
@@ -33,37 +45,13 @@ spec:
       headRevisionNum: 2
       dataHash: "93b7d3e5f5bc6e57679931e98e614150adca16342de150dee38381149d3dc28c"
     -
-      slug: "service-default-trust-manager-metrics"
-      headRevisionNum: 2
-      dataHash: "ff409e8bee532c5c83986e7f6e23778a495401bbd817ef9c58369dfa8a496d6b"
-    -
-      slug: "validatingwebhookconfiguration-trust-manager"
-      headRevisionNum: 2
-      dataHash: "ffc834ed48b36c48f168a30d7eb526f635eee4cfb97b66ce8249d5411d20fe75"
-    -
-      slug: "certificate-default-trust-manager"
-      headRevisionNum: 2
-      dataHash: "d42dd30a963b26ee14f9ed72c80e8c1ded10a5828bb1c0213ab24bb4bd8c0116"
-    -
-      slug: "deployment-default-trust-manager"
-      headRevisionNum: 2
-      dataHash: "528de66fa02629a3e82acb90379d532ca9e29aa705f2754b1a3f950a98eeec00"
-    -
       slug: "rolebinding-default-trust-managerleaderelection"
       headRevisionNum: 2
       dataHash: "4bebab6f80b544031a932ba4e293a8cdea7d9fbd6ad42f2325ebab91dcc86d6c"
     -
-      slug: "service-default-trust-manager"
-      headRevisionNum: 2
-      dataHash: "6131d719db588f2e8a8293b8d8d94db96f2b1a29f883bba7957570e080e5a8d5"
-    -
       slug: "role-cert-manager-trust-manager"
       headRevisionNum: 2
       dataHash: "5c74cca37660a3f1c86dd554390edac75358bcec9d2c93762a140c60489db708"
-    -
-      slug: "clusterrolebinding-trust-manager"
-      headRevisionNum: 2
-      dataHash: "2d7f26649cd4fe2c3c9b0c789029e67600dce3bba0f123c57171aa419bb300ce"
     -
       slug: "role-default-trust-managerleaderelection"
       headRevisionNum: 2
@@ -72,6 +60,18 @@ spec:
       slug: "serviceaccount-default-trust-manager"
       headRevisionNum: 1
       dataHash: "0c088da7f6ecfa7077dad4c1f7ec302603ce9b4a839fdce68334d7f39d35cafb"
+    -
+      slug: "service-default-trust-manager"
+      headRevisionNum: 2
+      dataHash: "6131d719db588f2e8a8293b8d8d94db96f2b1a29f883bba7957570e080e5a8d5"
+    -
+      slug: "service-default-trust-manager-metrics"
+      headRevisionNum: 2
+      dataHash: "ff409e8bee532c5c83986e7f6e23778a495401bbd817ef9c58369dfa8a496d6b"
+    -
+      slug: "validatingwebhookconfiguration-trust-manager"
+      headRevisionNum: 2
+      dataHash: "ffc834ed48b36c48f168a30d7eb526f635eee4cfb97b66ce8249d5411d20fe75"
   validations:
     -
       function: "vet-format"

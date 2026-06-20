@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-terraform-terraform-sync-workspace --space helm-terraform-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-terraform-terraform-sync-workspace"
-    output: "Unit deployment-default-terraform-terraform-sync-workspace (4c65ab3f-2370-4803-bc0e-c4b36ebbc2a4) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-terraform-terraform-sync-workspace (c43745c7-fb10-4528-86c2-03f15b315e7a) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-terraform-default-confighub-proof --where \"Labels.Proof = 'terraform-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req RmDQFCPpOXWxgXdiZKkVxdUiWuebnPZK: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req eksuDUnpEXvKlqUXgnqAFLzAgigJNNdc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-terraform-default-confighub-proof --where \"Labels.Proof = 'terraform-default-confighub-proof'\""
     result: "pass"

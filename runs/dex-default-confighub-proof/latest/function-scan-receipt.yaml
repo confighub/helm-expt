@@ -17,6 +17,18 @@ spec:
     configHubUnitCount: 8
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-dex-cluster"
+      headRevisionNum: 2
+      dataHash: "70111338d8e4ccfbb1ae6db30a1afbcd1ca9224cb94dd872387cf4e905e8450c"
+    -
+      slug: "clusterrole-dex"
+      headRevisionNum: 2
+      dataHash: "b3057b5355d370bce5c764f965164bf9f3c8b5ba63449c3dfe44e6c23d6f9019"
+    -
+      slug: "deployment-default-dex"
+      headRevisionNum: 2
+      dataHash: "c1655656a3e65cb5c0a9b866a1380561818a6f0aa078ab2a5ff1dd80cf815cd2"
+    -
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
@@ -25,29 +37,17 @@ spec:
       headRevisionNum: 2
       dataHash: "328110ed624db01d4f7632a5c7395d4136061f5516590649f5c7174047f16bec"
     -
-      slug: "service-default-dex"
-      headRevisionNum: 2
-      dataHash: "a81c1eb66986127f49198fa8e49d573ecc5cf18ba087d6885e03dab9f24e4c09"
-    -
-      slug: "clusterrole-dex"
-      headRevisionNum: 2
-      dataHash: "b3057b5355d370bce5c764f965164bf9f3c8b5ba63449c3dfe44e6c23d6f9019"
-    -
       slug: "role-default-dex"
       headRevisionNum: 2
       dataHash: "aaba58ce334cafce058ec4b2954f22315a21aac274c9944860b95096f7c26626"
     -
-      slug: "clusterrolebinding-dex-cluster"
-      headRevisionNum: 2
-      dataHash: "70111338d8e4ccfbb1ae6db30a1afbcd1ca9224cb94dd872387cf4e905e8450c"
-    -
-      slug: "deployment-default-dex"
-      headRevisionNum: 2
-      dataHash: "c1655656a3e65cb5c0a9b866a1380561818a6f0aa078ab2a5ff1dd80cf815cd2"
-    -
       slug: "serviceaccount-default-dex"
       headRevisionNum: 1
       dataHash: "c3127d9a2643018d453507e03ae791130698439de43b46ec9470fc3418abd24f"
+    -
+      slug: "service-default-dex"
+      headRevisionNum: 2
+      dataHash: "a81c1eb66986127f49198fa8e49d573ecc5cf18ba087d6885e03dab9f24e4c09"
   validations:
     -
       function: "vet-format"

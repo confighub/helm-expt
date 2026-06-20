@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-contour-contour --space helm-cl-contour-21-1-4-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-contour-contour"
-    output: "Unit deployment-default-contour-contour (f36b7274-e1cf-4739-affd-96f0a34885cd) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-contour-contour (686cfbc4-9fad-4649-b2de-b02bde952e69) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-contour-21-1-4-no-crds-confighub-proof --where \"Labels.Proof = 'cl-contour-21-1-4-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req QmfIzfHobzMLqoxyaxuWLUkIfOtEKHmH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req BbPtwkyptsOILypStQTdBOGDeppodDqW: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-contour-21-1-4-no-crds-confighub-proof --where \"Labels.Proof = 'cl-contour-21-1-4-no-crds-confighub-proof'\""
     result: "pass"

@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve statefulset-default-elasticsearch-master --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve statefulset-default-elasticsearch-coordinating --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "statefulset-default-elasticsearch-master"
-    output: "Unit statefulset-default-elasticsearch-master (387cbf2b-9202-411b-9043-81b305231692) has been approved\nAwaiting triggers..."
+    representativeUnit: "statefulset-default-elasticsearch-coordinating"
+    output: "Unit statefulset-default-elasticsearch-coordinating (0e75f59c-1db1-40e7-9003-d510087a6bca) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --where \"Labels.Proof = 'cl-elasticsearch-22-1-6-ha-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req rLRjGxLWZZxQLnghgzqSRdsWAIQscoaG: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req OoGzznuRcVAPVariGrXNFdYsviaWEUbk: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-elasticsearch-22-1-6-ha-confighub-proof --where \"Labels.Proof = 'cl-elasticsearch-22-1-6-ha-confighub-proof'\""
     result: "pass"

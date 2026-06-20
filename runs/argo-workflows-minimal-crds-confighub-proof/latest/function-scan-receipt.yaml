@@ -17,41 +17,17 @@ spec:
     configHubUnitCount: 28
   unitRevisionBindings:
     -
-      slug: "clusterrole-argo-workflows-admin"
+      slug: "customresourcedefinition-workfloweventbindings-argoproj-io"
       headRevisionNum: 2
-      dataHash: "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e"
-    -
-      slug: "clusterrole-argo-workflows-server-cluster-template"
-      headRevisionNum: 2
-      dataHash: "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6"
-    -
-      slug: "clusterrole-argo-workflows-workflow-controller-cluster-template"
-      headRevisionNum: 2
-      dataHash: "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3"
-    -
-      slug: "customresourcedefinition-cronworkflows-argoproj-io"
-      headRevisionNum: 2
-      dataHash: "d00fbc2cce1ad2024bf3ea1832b2eceda8c3cadcbefcb7864fe912c3be42da7b"
+      dataHash: "dc75be2d11b5a3b0cf3424950b4c7f7d97c12e6b1969f65c2826a22aca921a21"
     -
       slug: "customresourcedefinition-workflowartifactgctasks-argoproj-io"
       headRevisionNum: 2
       dataHash: "7947cc2f13dd7b36e81fa634d074d7d3714ee337d5806f5bcb8e881522f9fdd0"
     -
-      slug: "customresourcedefinition-workfloweventbindings-argoproj-io"
-      headRevisionNum: 2
-      dataHash: "dc75be2d11b5a3b0cf3424950b4c7f7d97c12e6b1969f65c2826a22aca921a21"
-    -
-      slug: "customresourcedefinition-workflowtaskresults-argoproj-io"
-      headRevisionNum: 2
-      dataHash: "a336af07400686ad31b89fd8777c5e9a5ec80e4dff5a7a6d8886a31bdc884e61"
-    -
       slug: "customresourcedefinition-workflowtasksets-argoproj-io"
       headRevisionNum: 2
       dataHash: "06152acfb9a397021730d4eeef560930db59eb63de376434a5da882ec4298f5c"
-    -
-      slug: "customresourcedefinition-workflowtemplates-argoproj-io"
-      headRevisionNum: 2
-      dataHash: "b43f5d067236e72edb5b1a3cead788d74a65c25c866b691e51cba65c6a776e68"
     -
       slug: "deployment-default-argo-workflows-server"
       headRevisionNum: 2
@@ -69,29 +45,57 @@ spec:
       headRevisionNum: 2
       dataHash: "3a08d322305a97c668ab0234cf1af44a73a3310eeda80bedc459745bf7b059e0"
     -
-      slug: "clusterrole-argo-workflows-server"
+      slug: "service-default-argo-workflows-server"
       headRevisionNum: 2
-      dataHash: "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278"
+      dataHash: "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35"
     -
       slug: "clusterrole-argo-workflows-edit"
       headRevisionNum: 2
       dataHash: "8e50337c263b451151178c0479d3fa6c25f57784d604a22c19060d0ade191cb9"
     -
-      slug: "clusterrole-argo-workflows-workflow-controller"
+      slug: "clusterrole-argo-workflows-admin"
       headRevisionNum: 2
-      dataHash: "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e"
+      dataHash: "0691ef8db7ef8770fbde1ab22e1820dde975f9a8b41f7ca03836a181c0ee481e"
     -
       slug: "clusterrole-argo-workflows-view"
       headRevisionNum: 2
       dataHash: "a44b90fc93c9c7cdf994e75d5b85f86d7311a67b314f1fc81b927c4fa100a0b6"
     -
+      slug: "clusterrole-argo-workflows-server"
+      headRevisionNum: 2
+      dataHash: "492bb72f57faca7e10a883bd36d25e33d2561b5018969cea5332e8945f6af278"
+    -
+      slug: "clusterrole-argo-workflows-server-cluster-template"
+      headRevisionNum: 2
+      dataHash: "b089d1ad71fd23a6ae82323d217876a1934abb37c808c8d4270dacb656d51ca6"
+    -
+      slug: "clusterrole-argo-workflows-workflow-controller-cluster-template"
+      headRevisionNum: 2
+      dataHash: "04f40c94e1ef205d76c891e048e2fa4f05c5d5e9799f7196ca27f3c5ae6731d3"
+    -
+      slug: "clusterrole-argo-workflows-workflow-controller"
+      headRevisionNum: 2
+      dataHash: "2de13cbf43872823c9393bc88a1e8df1bf35a95da9f792524ccdef354344435e"
+    -
       slug: "customresourcedefinition-clusterworkflowtemplates-argoproj-io"
       headRevisionNum: 2
       dataHash: "dd1749dcd86e2a78c2df3c2580ed4ff1f8e047f68c5de708e52614d74336dd37"
     -
+      slug: "customresourcedefinition-cronworkflows-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "d00fbc2cce1ad2024bf3ea1832b2eceda8c3cadcbefcb7864fe912c3be42da7b"
+    -
+      slug: "customresourcedefinition-workflowtaskresults-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "a336af07400686ad31b89fd8777c5e9a5ec80e4dff5a7a6d8886a31bdc884e61"
+    -
       slug: "customresourcedefinition-workflows-argoproj-io"
       headRevisionNum: 2
       dataHash: "aac0250894abd3e4e88df0dd2e3a9066078f38a2938d3e54815c00274857e7ad"
+    -
+      slug: "customresourcedefinition-workflowtemplates-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "b43f5d067236e72edb5b1a3cead788d74a65c25c866b691e51cba65c6a776e68"
     -
       slug: "clusterrolebinding-argo-workflows-server"
       headRevisionNum: 2
@@ -116,10 +120,6 @@ spec:
       slug: "rolebinding-default-argo-workflows-workflow"
       headRevisionNum: 2
       dataHash: "28178070c8caaac17a9427295fad2d9af2cd4bfdae2046d34e2c9235e3ccda35"
-    -
-      slug: "service-default-argo-workflows-server"
-      headRevisionNum: 2
-      dataHash: "973675304cba69694570ccafa3581cfc63bcd9b2977404de61326d05074b9d35"
     -
       slug: "serviceaccount-default-argo-workflows-server"
       headRevisionNum: 1

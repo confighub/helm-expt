@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-argo-events-controller-manager --space helm-argo-events-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-argo-events-controller-manager"
-    output: "Unit deployment-default-argo-events-controller-manager (5518efe0-35b4-4e04-804c-a67dcdc0db60) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-argo-events-controller-manager (37c5e561-9360-4cc4-8486-cdc006af7aac) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-argo-events-no-crds-confighub-proof --where \"Labels.Proof = 'argo-events-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req ydGRHOdEOOPErlsuifCHmavFHcjIWFXo: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req cASCyQFMxdkxNqEinnjnKhAqrNWgCTgD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-argo-events-no-crds-confighub-proof --where \"Labels.Proof = 'argo-events-no-crds-confighub-proof'\""
     result: "pass"

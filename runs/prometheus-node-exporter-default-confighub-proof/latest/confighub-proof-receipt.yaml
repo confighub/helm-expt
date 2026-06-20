@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     name: "prometheus-community-prometheus-node-exporter"
@@ -42,7 +42,12 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
           []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/prometheus-node-exporter-default"
@@ -51,7 +56,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o .tmp/confighub-proof/prometheus-node-exporter-default-archives/prometheus-node-exporter-a.tgz"
-    sha256: "87f803baa591654674f0851b9b10bfaf95e08e7ced9b0d695922373e3beade74"
+    sha256: "f833c703c0bae8f7c426211f8216662c049e2d8e664cb25bf48f89533bd006e0"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-node-exporter-default"
@@ -75,11 +80,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-prometheus-node-exporter-default-confighub-proof (post-render):\n      DaemonSet/prometheus-node-exporter [node-exporter] quay.io/prometheus/node-exporter:v1.11.1"
   serverSideVariant:
-    command: "cub variant create staging helm-prometheus-node-exporter-default-confighub-proof --environment Staging --region local --space-name-pattern template:PrometheusNodeExporter-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-prometheus-node-exporter-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:PrometheusNodeExporter-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-prometheus-node-exporter-default-confighub-proof"
     downstreamSpace: "PrometheusNodeExporter-default-staging"
     clonedUnitCount: 5
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

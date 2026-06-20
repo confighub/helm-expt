@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/projectcalico/tigera-operator/v3.32.0"
     name: "projectcalico-tigera-operator"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-tigera-operator-default-confighub-proof (post-render):\n      Deployment/tigera-operator [tigera-operator] quay.io/tigera/operator:v1.42.0"
   serverSideVariant:
-    command: "cub variant create staging helm-tigera-operator-default-confighub-proof --environment Staging --region local --space-name-pattern template:TigeraOperator-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-tigera-operator-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:TigeraOperator-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-tigera-operator-default-confighub-proof"
     downstreamSpace: "TigeraOperator-default-staging"
     clonedUnitCount: 12
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -17,6 +17,14 @@ spec:
     configHubUnitCount: 8
   unitRevisionBindings:
     -
+      slug: "clusterrolebinding-run-nfs-subdir-external-provisioner"
+      headRevisionNum: 2
+      dataHash: "7dd503ba0f742de78f98dd4af03e7fa1636d1679018918bc3244be18c771360d"
+    -
+      slug: "clusterrole-nfs-subdir-external-provisioner-runner"
+      headRevisionNum: 2
+      dataHash: "01e2ad87af0ec88fcd9e8c248b18aad3abfa7785152510e9241b1a7ac8e29ed2"
+    -
       slug: "deployment-nfs-subdir-external-provisioner"
       headRevisionNum: 2
       dataHash: "8f7525c082bfb0dd7760b4f498e555d18c6e00880ced95bfa7a596dea52cbe16"
@@ -29,6 +37,10 @@ spec:
       headRevisionNum: 2
       dataHash: "43d735b826f2adaee4bee972ebd00bc36bf3db19830ee3baae2e9eccfeef236d"
     -
+      slug: "role-leader-locking-nfs-subdir-external-provisioner"
+      headRevisionNum: 2
+      dataHash: "698a7df9f4e91b9a5a4882b52b63076a289ac6284b596bc256ec067817e09996"
+    -
       slug: "serviceaccount-nfs-subdir-external-provisioner"
       headRevisionNum: 1
       dataHash: "e1327b481f92639514f42f5900ccb4c0ef450511cb7eed5e1b83040a3eec4c53"
@@ -36,18 +48,6 @@ spec:
       slug: "storageclass-nfs-client"
       headRevisionNum: 1
       dataHash: "3e007d9f9037c2ca4024f378ef702f1e3124f333c7dd862bf51067b3d5277576"
-    -
-      slug: "clusterrole-nfs-subdir-external-provisioner-runner"
-      headRevisionNum: 2
-      dataHash: "01e2ad87af0ec88fcd9e8c248b18aad3abfa7785152510e9241b1a7ac8e29ed2"
-    -
-      slug: "role-leader-locking-nfs-subdir-external-provisioner"
-      headRevisionNum: 2
-      dataHash: "698a7df9f4e91b9a5a4882b52b63076a289ac6284b596bc256ec067817e09996"
-    -
-      slug: "clusterrolebinding-run-nfs-subdir-external-provisioner"
-      headRevisionNum: 2
-      dataHash: "7dd503ba0f742de78f98dd4af03e7fa1636d1679018918bc3244be18c771360d"
   validations:
     -
       function: "vet-format"

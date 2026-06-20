@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/istio/istiod/1.30.0"
     name: "istio-istiod"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-istiod-default-confighub-proof (post-render):\n      Deployment/istiod [discovery] registry.istio.io/release/pilot:1.30.0"
   serverSideVariant:
-    command: "cub variant create staging helm-istiod-default-confighub-proof --environment Staging --region local --space-name-pattern template:Istiod-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-istiod-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Istiod-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-istiod-default-confighub-proof"
     downstreamSpace: "Istiod-default-staging"
     clonedUnitCount: 19
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

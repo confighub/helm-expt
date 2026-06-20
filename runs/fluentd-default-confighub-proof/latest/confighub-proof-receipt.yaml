@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/fluent/fluentd/0.5.3"
     name: "fluent-fluentd"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-fluentd-default-confighub-proof (post-render):\n      DaemonSet/fluentd [fluentd] fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2"
   serverSideVariant:
-    command: "cub variant create staging helm-fluentd-default-confighub-proof --environment Staging --region local --space-name-pattern template:Fluentd-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-fluentd-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Fluentd-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-fluentd-default-confighub-proof"
     downstreamSpace: "Fluentd-default-staging"
     clonedUnitCount: 12
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

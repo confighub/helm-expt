@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     name: "open-telemetry-opentelemetry-operator"
@@ -155,6 +155,8 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             deliveryLanes:
@@ -169,6 +171,9 @@ spec:
             namespace: "default"
             purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
             suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/opentelemetry-operator-no-crds"
     result: "pass"
@@ -176,7 +181,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o .tmp/confighub-proof/opentelemetry-operator-no-crds-archives/opentelemetry-operator-a.tgz"
-    sha256: "e7089ed3f2f16699e8a0713beee3c6af770ac7d877012e2a2ae2aa3b65dfd86b"
+    sha256: "321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/opentelemetry-operator-no-crds"
@@ -200,11 +205,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-opentelemetry-operator-no-crds-confighub-proof (post-render):\n      Deployment/opentelemetry-operator [manager] ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0"
   serverSideVariant:
-    command: "cub variant create staging helm-opentelemetry-operator-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:OpenTelemetryOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-opentelemetry-operator-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:OpenTelemetryOperator-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-opentelemetry-operator-no-crds-confighub-proof"
     downstreamSpace: "OpenTelemetryOperator-no-crds-staging"
     clonedUnitCount: 15
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

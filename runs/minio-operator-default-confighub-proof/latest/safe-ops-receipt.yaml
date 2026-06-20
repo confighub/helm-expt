@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-minio-operator --space helm-minio-operator-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-minio-operator"
-    output: "Unit deployment-default-minio-operator (0fcea537-2836-4dd0-8587-7f0ee9aac9c3) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-minio-operator (320d1120-bc44-45e9-9f6b-9da95a078745) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-minio-operator-default-confighub-proof --where \"Labels.Proof = 'minio-operator-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req fwbxaiQUnEMydeAYpgVzFvajmYOBuLGx: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req pYzBkRDbyqsGpHDnJlgiOXddQEjtaUtc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-minio-operator-default-confighub-proof --where \"Labels.Proof = 'minio-operator-default-confighub-proof'\""
     result: "pass"

@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-default-crossplane-rbac-manager --space helm-crossplane-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-default-crossplane --space helm-crossplane-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-default-crossplane-rbac-manager"
-    output: "Unit deployment-default-crossplane-rbac-manager (fc5d000b-8365-42d3-971a-b3294ffa1184) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-default-crossplane"
+    output: "Unit deployment-default-crossplane (2f50dee9-d3d2-4967-8637-55deab5582b9) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-crossplane-default-confighub-proof --where \"Labels.Proof = 'crossplane-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req wxuUHBfupAHVVvJFMqRLYUyPVliryTNC: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req UeHDoKuBYJDAfNxQlJtOkLATBguOUAoO: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-crossplane-default-confighub-proof --where \"Labels.Proof = 'crossplane-default-confighub-proof'\""
     result: "pass"

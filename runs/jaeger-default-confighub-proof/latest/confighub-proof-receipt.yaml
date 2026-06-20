@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/jaegertracing/jaeger/4.8.0"
     name: "jaegertracing-jaeger"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-jaeger-default-confighub-proof (post-render):\n      Deployment/jaeger [jaeger] jaegertracing/jaeger:2.18.0"
   serverSideVariant:
-    command: "cub variant create staging helm-jaeger-default-confighub-proof --environment Staging --region local --space-name-pattern template:Jaeger-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-jaeger-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Jaeger-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-jaeger-default-confighub-proof"
     downstreamSpace: "Jaeger-default-staging"
     clonedUnitCount: 5
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

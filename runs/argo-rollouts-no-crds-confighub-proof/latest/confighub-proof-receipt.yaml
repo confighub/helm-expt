@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/argo-cd/argo-rollouts/2.40.9"
     name: "argo-cd-argo-rollouts"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-argo-rollouts-no-crds-confighub-proof (post-render):\n      Deployment/argo-rollouts [argo-rollouts] quay.io/argoproj/argo-rollouts:v1.9.0"
   serverSideVariant:
-    command: "cub variant create staging helm-argo-rollouts-no-crds-confighub-proof --environment Staging --region local --space-name-pattern template:ArgoRollouts-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-argo-rollouts-no-crds-confighub-proof --environment Staging --region local --namespace default --space-pattern template:ArgoRollouts-no-crds-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-argo-rollouts-no-crds-confighub-proof"
     downstreamSpace: "ArgoRollouts-no-crds-staging"
     clonedUnitCount: 11
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

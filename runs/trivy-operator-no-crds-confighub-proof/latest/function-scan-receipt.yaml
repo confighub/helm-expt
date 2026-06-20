@@ -17,17 +17,9 @@ spec:
     configHubUnitCount: 20
   unitRevisionBindings:
     -
-      slug: "clustercompliancereport-k8s-pss-restricted-0-1"
+      slug: "clustercompliancereport-k8s-cis-1-23"
       headRevisionNum: 2
-      dataHash: "d04f45a888a2171d3c16042e36ec9ccc423a201c21c1ea3e4767c692ec689e3d"
-    -
-      slug: "namespace-default"
-      headRevisionNum: 1
-      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
-    -
-      slug: "role-default-trivy-operator-leader-election"
-      headRevisionNum: 2
-      dataHash: "582d0290109d647846b2ab6e482547b5ea265c72ba3f2b670e589ad5ea21ecb3"
+      dataHash: "a86e3832261c289257b5ca6c7425553c9562035983bb6925a4905daa338289be"
     -
       slug: "clustercompliancereport-k8s-nsa-1-0"
       headRevisionNum: 2
@@ -36,6 +28,10 @@ spec:
       slug: "clustercompliancereport-k8s-pss-baseline-0-1"
       headRevisionNum: 2
       dataHash: "2c1f99c230da9e8231a26aa6cee82df774d2aea49bf785b926af2f88030b5f8c"
+    -
+      slug: "clustercompliancereport-k8s-pss-restricted-0-1"
+      headRevisionNum: 2
+      dataHash: "d04f45a888a2171d3c16042e36ec9ccc423a201c21c1ea3e4767c692ec689e3d"
     -
       slug: "clusterrole-aggregate-config-audit-reports-view"
       headRevisionNum: 2
@@ -49,25 +45,13 @@ spec:
       headRevisionNum: 2
       dataHash: "12b010cfb07cabc65600e30876a9f0898805797d86169b1b69364caa24fedcd4"
     -
-      slug: "deployment-default-trivy-operator"
+      slug: "clusterrolebinding-trivy-operator"
       headRevisionNum: 2
-      dataHash: "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634"
+      dataHash: "60d4c5d753f79e94c2ba7e0a8d4e597988b5882a31f8df5946f300f61583983f"
     -
       slug: "clusterrole-trivy-operator"
       headRevisionNum: 2
       dataHash: "ed7b758ef94c9f09dda28e0a1ac34a9defd2d245845ec6fc2a5cdaf100847724"
-    -
-      slug: "rolebinding-default-trivy-operator"
-      headRevisionNum: 2
-      dataHash: "d4c440e1dd4d5226edfa7ab133329a40baf8e41ed9dfb9dce5b55a670b3880d4"
-    -
-      slug: "service-default-trivy-operator"
-      headRevisionNum: 2
-      dataHash: "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13"
-    -
-      slug: "clusterrolebinding-trivy-operator"
-      headRevisionNum: 2
-      dataHash: "60d4c5d753f79e94c2ba7e0a8d4e597988b5882a31f8df5946f300f61583983f"
     -
       slug: "configmap-default-trivy-operator"
       headRevisionNum: 1
@@ -81,21 +65,37 @@ spec:
       headRevisionNum: 1
       dataHash: "99765728a658c4df2e2202bada870f45aa6858103188419c85ff4137bf0eee50"
     -
-      slug: "role-default-trivy-operator"
+      slug: "deployment-default-trivy-operator"
       headRevisionNum: 2
-      dataHash: "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a"
+      dataHash: "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "d4c440e1dd4d5226edfa7ab133329a40baf8e41ed9dfb9dce5b55a670b3880d4"
     -
       slug: "rolebinding-default-trivy-operator-leader-election"
       headRevisionNum: 2
       dataHash: "47a0493fe39dbe9b98e462a652bc6f97551db7711c849bf33829e361efb51d0d"
     -
+      slug: "role-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a"
+    -
+      slug: "role-default-trivy-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "582d0290109d647846b2ab6e482547b5ea265c72ba3f2b670e589ad5ea21ecb3"
+    -
       slug: "serviceaccount-default-trivy-operator"
       headRevisionNum: 1
       dataHash: "f32a7fae3d6abb649ebf56e4c2f51bb3446aa19786a3912446595f94aa8115c5"
     -
-      slug: "clustercompliancereport-k8s-cis-1-23"
+      slug: "service-default-trivy-operator"
       headRevisionNum: 2
-      dataHash: "a86e3832261c289257b5ca6c7425553c9562035983bb6925a4905daa338289be"
+      dataHash: "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13"
   validations:
     -
       function: "vet-format"

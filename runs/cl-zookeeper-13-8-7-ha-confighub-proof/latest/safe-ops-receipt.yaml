@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-default-zookeeper --space helm-cl-zookeeper-13-8-7-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-default-zookeeper"
-    output: "Unit statefulset-default-zookeeper (b23e2a5c-534f-4f33-b8eb-47472a70142a) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-default-zookeeper (d2698ddd-eb8a-4ffd-869b-264769b8a350) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-zookeeper-13-8-7-ha-confighub-proof --where \"Labels.Proof = 'cl-zookeeper-13-8-7-ha-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req NQkFatuBhdALtyjVBUMvXtmluMVuDRbX: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req boCaLtszoHzhLpOVyyzZPzCXMuBGlTRy: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-zookeeper-13-8-7-ha-confighub-proof --where \"Labels.Proof = 'cl-zookeeper-13-8-7-ha-confighub-proof'\""
     result: "pass"

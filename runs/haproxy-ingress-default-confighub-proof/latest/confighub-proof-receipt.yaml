@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/haproxytech/kubernetes-ingress/1.52.0"
     name: "haproxytech-kubernetes-ingress"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-haproxy-ingress-default-confighub-proof:\n  ~ deployment-default-kubernetes-ingress\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/haproxy-ingress-default/out/manifests/deployment-default-kubernetes-ingress.yaml:\n      Resource: apps/v1/Deployment default/kubernetes-ingress\n        - [Delete] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@2  (#2)\n          containerPort: 8443\n          name: https\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@3.name  (#2)"
   serverSideVariant:
-    command: "cub variant create staging helm-haproxy-ingress-default-confighub-proof --environment Staging --region local --space-name-pattern template:HaproxyIngress-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-haproxy-ingress-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:HaproxyIngress-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-haproxy-ingress-default-confighub-proof"
     downstreamSpace: "HaproxyIngress-default-staging"
     clonedUnitCount: 9
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-gateway --space helm-istio-gateway-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-gateway"
-    output: "Unit deployment-default-gateway (b4d7b75a-6ed9-432d-b448-f7d3db299b7b) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-gateway (4ae77ca5-3ca3-40e3-862e-d6c7505b9a4b) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-istio-gateway-default-confighub-proof --where \"Labels.Proof = 'istio-gateway-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req MgwQHhkFtwaQNARbzKVaoQXhdtcRHGEY: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req OhqWoEHEeUJLPRxMAqvpQiLlcqaKTMXn: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-istio-gateway-default-confighub-proof --where \"Labels.Proof = 'istio-gateway-default-confighub-proof'\""
     result: "pass"

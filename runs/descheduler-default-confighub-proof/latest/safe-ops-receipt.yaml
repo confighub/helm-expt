@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve clusterrolebinding-descheduler --space helm-descheduler-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "clusterrolebinding-descheduler"
-    output: "Unit clusterrolebinding-descheduler (cb55bbc6-ca2e-43ef-ad60-bb19e8f2e334) has been approved\nAwaiting triggers..."
+    output: "Unit clusterrolebinding-descheduler (15034f84-2ac9-4b45-9f63-38b85ba343cf) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-descheduler-default-confighub-proof --where \"Labels.Proof = 'descheduler-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req sMYowVpdfrubdXRyAPleUfYNJcremoES: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req KGDsqJOqWFCuRniDfnMYwLelxrjuyraJ: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-descheduler-default-confighub-proof --where \"Labels.Proof = 'descheduler-default-confighub-proof'\""
     result: "pass"

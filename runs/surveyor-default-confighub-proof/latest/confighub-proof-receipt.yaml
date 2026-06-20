@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/nats/surveyor/0.20.9"
     name: "nats-surveyor"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/nats/surveyor/0.20.9 -o .tmp/confighub-proof/surveyor-default-archives/surveyor-a.tgz"
-    sha256: "477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f"
+    sha256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/surveyor-default"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-surveyor-default-confighub-proof (post-render):\n      Deployment/surveyor [surveyor] natsio/nats-surveyor:0.9.9"
   serverSideVariant:
-    command: "cub variant create staging helm-surveyor-default-confighub-proof --environment Staging --region local --space-name-pattern template:NATSSurveyor-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-surveyor-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:NATSSurveyor-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-surveyor-default-confighub-proof"
     downstreamSpace: "NATSSurveyor-default-staging"
     clonedUnitCount: 5
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-opentelemetry-operator --space helm-opentelemetry-operator-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-opentelemetry-operator"
-    output: "Unit deployment-default-opentelemetry-operator (53cc9187-b679-476c-b9e8-30d893e7b19d) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-opentelemetry-operator (084f7103-c8b9-4dab-992c-10223ab21e63) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-opentelemetry-operator-no-crds-confighub-proof --where \"Labels.Proof = 'opentelemetry-operator-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req kLQuROpIZPFRUZXmfTEWyKvgxlFbpHnB: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req tstokPnybYEeRKINlDixpAcZFSLngJTh: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-opentelemetry-operator-no-crds-confighub-proof --where \"Labels.Proof = 'opentelemetry-operator-no-crds-confighub-proof'\""
     result: "pass"

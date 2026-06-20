@@ -33,6 +33,10 @@ spec:
       headRevisionNum: 2
       dataHash: "0c794b581f746775f0db0d3eb7a3dac2873977dd0c7dd10233afc2ee80f6b76e"
     -
+      slug: "customresourcedefinition-networkauthentications-policy-linkerd-io"
+      headRevisionNum: 2
+      dataHash: "5ca4da0b042eed5560781b0f602b10abef0995f6cf5e048942291c3cb04bbf83"
+    -
       slug: "customresourcedefinition-serverauthorizations-policy-linkerd-io"
       headRevisionNum: 2
       dataHash: "951eac22aee9bec1a1b12a9eb5e5676049ff2c057c3eaf8e788d56dd663b38bd"
@@ -48,10 +52,6 @@ spec:
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
-    -
-      slug: "customresourcedefinition-networkauthentications-policy-linkerd-io"
-      headRevisionNum: 2
-      dataHash: "5ca4da0b042eed5560781b0f602b10abef0995f6cf5e048942291c3cb04bbf83"
   validations:
     -
       function: "vet-format"

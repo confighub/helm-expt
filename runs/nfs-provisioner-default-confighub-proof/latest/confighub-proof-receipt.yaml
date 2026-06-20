@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
     name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner"
@@ -59,11 +59,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-nfs-provisioner-default-confighub-proof (post-render):\n      Deployment/nfs-subdir-external-provisioner [nfs-subdir-external-provisioner] registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2"
   serverSideVariant:
-    command: "cub variant create staging helm-nfs-provisioner-default-confighub-proof --environment Staging --region local --space-name-pattern template:NfsProvisioner-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-nfs-provisioner-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:NfsProvisioner-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-nfs-provisioner-default-confighub-proof"
     downstreamSpace: "NfsProvisioner-default-staging"
     clonedUnitCount: 9
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

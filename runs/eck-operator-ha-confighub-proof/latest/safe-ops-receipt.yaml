@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-default-elastic-operator --space helm-eck-operator-ha-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-default-elastic-operator"
-    output: "Unit statefulset-default-elastic-operator (0cb6afd3-b17a-4740-bdff-3d7b65939c10) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-default-elastic-operator (05629551-5eac-4d16-84e0-ae059e451710) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-eck-operator-ha-confighub-proof --where \"Labels.Proof = 'eck-operator-ha-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req eutakSigiUqNayiZfnYnWKYRWznNPPCh: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req TqOUOpcwwwWhTvSDGcBjETzQIycwRORK: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-eck-operator-ha-confighub-proof --where \"Labels.Proof = 'eck-operator-ha-confighub-proof'\""
     result: "pass"

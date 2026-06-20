@@ -9,13 +9,14 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/phpmyadmin/20.0.0"
     name: "bitnami-phpmyadmin"
     chart: "bitnami/phpmyadmin"
     chartVersion: "20.0.0"
     bases:
+      - "legacy"
       - "default"
     selectedBase: "default"
     docVerified: true
@@ -35,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/bitnami/phpmyadmin/20.0.0 -o .tmp/confighub-proof/cl-phpmyadmin-20-0-0-default-archives/cl-phpmyadmin-20-0-0-a.tgz"
-    sha256: "52400ac4aadb463d6377a584650b30678f5a0b19e37adc04decbb9916e60b29d"
+    sha256: "f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cl-phpmyadmin-20-0-0-default"
@@ -59,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-phpmyadmin-20-0-0-default-confighub-proof (post-render):\n  init  Deployment/phpmyadmin [prepare-base-dir] docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\n      Deployment/phpmyadmin [phpmyadmin] docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-phpmyadmin-20-0-0-default-confighub-proof --environment Staging --region local --space-name-pattern template:Phpmyadmin2000-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-phpmyadmin-20-0-0-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Phpmyadmin2000-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-phpmyadmin-20-0-0-default-confighub-proof"
     downstreamSpace: "Phpmyadmin2000-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

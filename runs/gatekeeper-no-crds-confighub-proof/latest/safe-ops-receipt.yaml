@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-default-gatekeeper-audit --space helm-gatekeeper-no-crds-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-default-gatekeeper-audit"
-    output: "Unit deployment-default-gatekeeper-audit (2c86dadf-4ac3-4aba-a397-29933f8c0afa) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-default-gatekeeper-audit (f50ef907-a52d-4898-807f-7473677fb326) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-gatekeeper-no-crds-confighub-proof --where \"Labels.Proof = 'gatekeeper-no-crds-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req HzVvlinljCzeVeyGDkaXIxZurAglbIyg: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req rYcuvSxQBLJECOSwthjctPKdCnTzKNgc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-gatekeeper-no-crds-confighub-proof --where \"Labels.Proof = 'gatekeeper-no-crds-confighub-proof'\""
     result: "pass"

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/fairwinds-stable/goldilocks/10.3.0"
     name: "fairwinds-stable-goldilocks"
@@ -59,17 +59,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-goldilocks-default-confighub-proof (post-render):\n      Deployment/goldilocks-controller [goldilocks] us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1\n      Deployment/goldilocks-dashboard [goldilocks] us-docker.pkg.dev/fairwinds-ops/oss/goldilocks:v4.14.1"
   serverSideVariant:
-    command: "cub variant create staging helm-goldilocks-default-confighub-proof --environment Staging --region local --space-name-pattern template:Goldilocks-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-goldilocks-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Goldilocks-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-goldilocks-default-confighub-proof"
     downstreamSpace: "Goldilocks-default-staging"
     clonedUnitCount: 11
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-goldilocks-dashboard"
+    representativeUnit: "deployment-default-goldilocks-controller"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

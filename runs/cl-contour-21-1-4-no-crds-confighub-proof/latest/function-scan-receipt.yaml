@@ -17,13 +17,25 @@ spec:
     configHubUnitCount: 16
   unitRevisionBindings:
     -
-      slug: "networkpolicy-default-contour-contour-certgen"
+      slug: "clusterrolebinding-contour-contour"
       headRevisionNum: 2
-      dataHash: "3978173535da7e31ac7ae2be43303d2a47b2674f65d62d9aebb193806aa6d30e"
+      dataHash: "f35fcaad58853cee5410d86ec8d6d0416f15e153609ea02438b2af1f55eb348d"
+    -
+      slug: "clusterrole-contour-contour"
+      headRevisionNum: 2
+      dataHash: "7d5cc70a2f1f1f499228c60a9a4613cfd6f911b0e4d46d98d29f56005c0c15f6"
+    -
+      slug: "configmap-default-contour"
+      headRevisionNum: 1
+      dataHash: "1ef0b6bb8708a3700f29af94da962157448a2e65d2fcc28bb0cf01fc85c55f43"
     -
       slug: "daemonset-default-contour-envoy"
       headRevisionNum: 2
       dataHash: "9a3d9ade77ec5fe35691014e680befb37de0f130c333ca035c6f79eb0538bb77"
+    -
+      slug: "deployment-default-contour-contour"
+      headRevisionNum: 2
+      dataHash: "0ba216f811ad57c6100ba0234db6951bc6d299fcd230f2a6960f1819ca16fed7"
     -
       slug: "ingressclass-contour"
       headRevisionNum: 1
@@ -33,53 +45,41 @@ spec:
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
-      slug: "serviceaccount-default-contour-envoy"
-      headRevisionNum: 1
-      dataHash: "29f43e94851c130b692d17d94b4794d451dc6a5a7dd54680c14957ec62581d2c"
-    -
-      slug: "role-default-contour-contour"
-      headRevisionNum: 2
-      dataHash: "6f1024395d33041bf5e261a4c51d37194259db6d438264a60148db44085f5fa5"
-    -
-      slug: "deployment-default-contour-contour"
-      headRevisionNum: 2
-      dataHash: "0ba216f811ad57c6100ba0234db6951bc6d299fcd230f2a6960f1819ca16fed7"
-    -
       slug: "networkpolicy-default-contour-contour"
       headRevisionNum: 2
       dataHash: "001118a6ba7badeae17137223c8f7ccf63b5de082ceacbdb784a00db07500437"
     -
-      slug: "clusterrole-contour-contour"
+      slug: "networkpolicy-default-contour-contour-certgen"
       headRevisionNum: 2
-      dataHash: "7d5cc70a2f1f1f499228c60a9a4613cfd6f911b0e4d46d98d29f56005c0c15f6"
-    -
-      slug: "clusterrolebinding-contour-contour"
-      headRevisionNum: 2
-      dataHash: "f35fcaad58853cee5410d86ec8d6d0416f15e153609ea02438b2af1f55eb348d"
-    -
-      slug: "service-default-contour-envoy"
-      headRevisionNum: 2
-      dataHash: "9071a6fd75e5b373a9e4593de40fcc7daef55cec925ffe690594fcf03015afbb"
+      dataHash: "3978173535da7e31ac7ae2be43303d2a47b2674f65d62d9aebb193806aa6d30e"
     -
       slug: "networkpolicy-default-contour-envoy"
       headRevisionNum: 2
       dataHash: "ef20b4a4dd8ba742e333db08091af4e9014d00aac2e67817f433127a371c4cec"
     -
+      slug: "rolebinding-default-contour-contour-role"
+      headRevisionNum: 2
+      dataHash: "4daf24499d7dc64a268031499441e491ea65aee74f83679f76666a719514042b"
+    -
+      slug: "role-default-contour-contour"
+      headRevisionNum: 2
+      dataHash: "6f1024395d33041bf5e261a4c51d37194259db6d438264a60148db44085f5fa5"
+    -
       slug: "serviceaccount-default-contour-contour"
       headRevisionNum: 1
       dataHash: "863330589c5a44baa0208d7e7e53d312babe0433aab4bcc7a3da543c823faf0e"
     -
-      slug: "rolebinding-default-contour-contour-role"
-      headRevisionNum: 2
-      dataHash: "4daf24499d7dc64a268031499441e491ea65aee74f83679f76666a719514042b"
+      slug: "serviceaccount-default-contour-envoy"
+      headRevisionNum: 1
+      dataHash: "29f43e94851c130b692d17d94b4794d451dc6a5a7dd54680c14957ec62581d2c"
     -
       slug: "service-default-contour"
       headRevisionNum: 2
       dataHash: "7f9a86bdd1de4a94ece494025dadb1b9f05c9d71183547547937e36b699d19bb"
     -
-      slug: "configmap-default-contour"
-      headRevisionNum: 1
-      dataHash: "1ef0b6bb8708a3700f29af94da962157448a2e65d2fcc28bb0cf01fc85c55f43"
+      slug: "service-default-contour-envoy"
+      headRevisionNum: 2
+      dataHash: "9071a6fd75e5b373a9e4593de40fcc7daef55cec925ffe690594fcf03015afbb"
   validations:
     -
       function: "vet-format"

@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve customresourcedefinition-authorizationpolicies-policy-linkerd-io --space helm-linkerd-crds-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "customresourcedefinition-authorizationpolicies-policy-linkerd-io"
-    output: "Unit customresourcedefinition-authorizationpolicies-policy-linkerd-io (65ed0a85-4dc3-4372-82d5-632fc7faeb5d) has been approved\nAwaiting triggers..."
+    output: "Unit customresourcedefinition-authorizationpolicies-policy-linkerd-io (d43b899a-c3d0-4c11-9218-d5aa67c588bb) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-linkerd-crds-default-confighub-proof --where \"Labels.Proof = 'linkerd-crds-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req LSlcUfPCUUdrkfgPWzUSvxgQaNrTFWzC: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req rKtLqUIHCMXewxDTSvbnFiPBOlPiidFt: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-linkerd-crds-default-confighub-proof --where \"Labels.Proof = 'linkerd-crds-default-confighub-proof'\""
     result: "pass"

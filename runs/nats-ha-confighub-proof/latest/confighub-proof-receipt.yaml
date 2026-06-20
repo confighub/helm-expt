@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/nats/nats/2.14.0"
     name: "nats-nats"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-nats-ha-confighub-proof (post-render):\n      Deployment/nats-box [nats-box] natsio/nats-box:0.19.5\n      StatefulSet/nats [nats] nats:2.14.0-alpine\n      StatefulSet/nats [reloader] natsio/nats-server-config-reloader:0.23.0"
   serverSideVariant:
-    command: "cub variant create staging helm-nats-ha-confighub-proof --environment Staging --region local --space-name-pattern template:NATS-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-nats-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:NATS-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-nats-ha-confighub-proof"
     downstreamSpace: "NATS-ha-staging"
     clonedUnitCount: 8
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

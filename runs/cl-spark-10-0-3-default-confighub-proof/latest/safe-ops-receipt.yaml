@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-default-spark-master --space helm-cl-spark-10-0-3-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-default-spark-master"
-    output: "Unit statefulset-default-spark-master (2f417d17-6aca-4a3d-a486-38f985466b15) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-default-spark-master (792c2c9a-70e2-40a8-bb09-4381ca315b90) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cl-spark-10-0-3-default-confighub-proof --where \"Labels.Proof = 'cl-spark-10-0-3-default-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req QmaFysYxYhKzVBlgRrRCRIlCUAwgIqQf: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req wDUtKjyMgUsZMNmxgdsmPNFbNmHgYmQd: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cl-spark-10-0-3-default-confighub-proof --where \"Labels.Proof = 'cl-spark-10-0-3-default-confighub-proof'\""
     result: "pass"

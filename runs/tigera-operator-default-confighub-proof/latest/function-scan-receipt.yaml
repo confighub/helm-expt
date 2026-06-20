@@ -17,6 +17,14 @@ spec:
     configHubUnitCount: 11
   unitRevisionBindings:
     -
+      slug: "apiserver-default"
+      headRevisionNum: 1
+      dataHash: "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808"
+    -
+      slug: "clusterrolebinding-tigera-operator"
+      headRevisionNum: 2
+      dataHash: "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00"
+    -
       slug: "clusterrole-tigera-operator"
       headRevisionNum: 2
       dataHash: "097ae9944be0f812a416dd978da33f0e7add22ef400bd2794a82a883664d733d"
@@ -25,21 +33,9 @@ spec:
       headRevisionNum: 2
       dataHash: "844e72db8dc917547a0935099f45d9ba7e71369ab4912ad6d541c95f14618a1e"
     -
-      slug: "clusterrolebinding-tigera-operator"
-      headRevisionNum: 2
-      dataHash: "eaaee74bf919f2ba7cde356570834468960dc04209e51ad0d0d68f8d5ec29b00"
-    -
       slug: "deployment-default-tigera-operator"
       headRevisionNum: 2
       dataHash: "b99f61287be914256cd887c85eee31860bf0045b54f38f1851316d203f4fcb43"
-    -
-      slug: "rolebinding-default-tigera-operator-secrets"
-      headRevisionNum: 2
-      dataHash: "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48"
-    -
-      slug: "apiserver-default"
-      headRevisionNum: 1
-      dataHash: "b77b52908dc08746fc064ec0b3c3bfb84ec2685a17e5a3a8f726da48ca001808"
     -
       slug: "goldmane-default"
       headRevisionNum: 1
@@ -52,6 +48,10 @@ spec:
       slug: "namespace-default"
       headRevisionNum: 1
       dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-tigera-operator-secrets"
+      headRevisionNum: 2
+      dataHash: "633550a363369bb03543dc31d08a4eabe2aa2f97e4d7073ea99ddeb8a2f6ca48"
     -
       slug: "serviceaccount-default-tigera-operator"
       headRevisionNum: 1

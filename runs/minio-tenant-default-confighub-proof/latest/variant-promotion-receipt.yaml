@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "minio-operator/tenant"
     chartVersion: "7.1.1"
@@ -31,7 +31,7 @@ spec:
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-minio-tenant-default"
-    upstreamUnitID: "bcfbc3f1-ffea-49d7-8319-c644db3117e6"
+    upstreamUnitID: "a1e29926-d848-4190-af55-5f0b2e496184"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "minio-tenant-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset minio-tenant-default-variant-promote-20260527 (5ecdf4ee-6d70-403d-bee5-0d87a909cf61)"
+    output: "Successfully created changeset minio-tenant-default-variant-promote-20260527 (159b1a24-6e5d-4c96-8b17-f09127979350)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: namespace-default\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-minio-tenant-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: namespace-default\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-minio-tenant-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 2
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 2
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-minio-tenant-default"
-    addedUnitDownstreamUpstreamUnitID: "bcfbc3f1-ffea-49d7-8319-c644db3117e6"
+    addedUnitDownstreamUpstreamUnitID: "a1e29926-d848-4190-af55-5f0b2e496184"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

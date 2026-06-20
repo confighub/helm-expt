@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "bitnami/elasticsearch"
     chartVersion: "22.1.6"
@@ -17,21 +17,21 @@ spec:
     upstreamSpace: "helm-cl-elasticsearch-22-1-6-default-confighub-proof"
     downstreamSpace: "Elasticsearch2216-default-staging"
   commands:
-    upstreamUpdate: "cub unit update statefulset-default-elasticsearch-master runs/cl-elasticsearch-22-1-6-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-elasticsearch-22-1-6-default-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update statefulset-default-elasticsearch-coordinating runs/cl-elasticsearch-22-1-6-default-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-cl-elasticsearch-22-1-6-default-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-cl-elasticsearch-22-1-6-default runs/cl-elasticsearch-22-1-6-default-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-cl-elasticsearch-22-1-6-default-confighub-proof --allow-exists"
     dryRun: "cub variant promote Elasticsearch2216-default-staging --dry-run -o mutations"
     changeset: "cub changeset create cl-elasticsearch-22-1-6-default-variant-promote-20260527 --space Elasticsearch2216-default-staging --description ... --allow-exists"
     promote: "cub variant promote Elasticsearch2216-default-staging --changeset Elasticsearch2216-default-staging/cl-elasticsearch-22-1-6-default-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Elasticsearch2216-default-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "statefulset-default-elasticsearch-master"
+    changedUnit: "statefulset-default-elasticsearch-coordinating"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=cl-elasticsearch-22-1-6-default-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-cl-elasticsearch-22-1-6-default"
-    upstreamUnitID: "7b6e1c8d-8f65-42ff-9946-33477cbbdf40"
+    upstreamUnitID: "88530e03-556e-4ee4-becb-89db4beb5058"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "cl-elasticsearch-22-1-6-default-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset cl-elasticsearch-22-1-6-default-variant-promote-20260527 (40b797c3-8439-41a5-a3b2-5b4faeb411b4)"
+    output: "Successfully created changeset cl-elasticsearch-22-1-6-default-variant-promote-20260527 (6cf2bdc3-2356-4a06-b348-64f71891d2a4)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-elasticsearch-master\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-elasticsearch-22-1-6-default\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-default-elasticsearch-coordinating\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-cl-elasticsearch-22-1-6-default\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-cl-elasticsearch-22-1-6-default"
-    addedUnitDownstreamUpstreamUnitID: "7b6e1c8d-8f65-42ff-9946-33477cbbdf40"
+    addedUnitDownstreamUpstreamUnitID: "88530e03-556e-4ee4-becb-89db4beb5058"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

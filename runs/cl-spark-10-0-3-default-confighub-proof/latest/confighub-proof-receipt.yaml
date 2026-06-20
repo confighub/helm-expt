@@ -9,13 +9,14 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/spark/10.0.3"
     name: "bitnami-spark"
     chart: "bitnami/spark"
     chartVersion: "10.0.3"
     bases:
+      - "legacy"
       - "default"
       - "ha"
     selectedBase: "default"
@@ -36,7 +37,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/bitnami/spark/10.0.3 -o .tmp/confighub-proof/cl-spark-10-0-3-default-archives/cl-spark-10-0-3-a.tgz"
-    sha256: "4cf8194410dbb69e797932629d6fc3296bf52f8e68ebacc512af4de208c66f64"
+    sha256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/cl-spark-10-0-3-default"
@@ -60,11 +61,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-spark-10-0-3-default-confighub-proof (post-render):\n      StatefulSet/spark-master [spark-master] docker.io/bitnami/spark:4.0.0-debian-12-r20\n      StatefulSet/spark-worker [spark-worker] docker.io/bitnami/spark:4.0.0-debian-12-r20"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-spark-10-0-3-default-confighub-proof --environment Staging --region local --space-name-pattern template:Spark1003-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-spark-10-0-3-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Spark1003-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-spark-10-0-3-default-confighub-proof"
     downstreamSpace: "Spark1003-default-staging"
     clonedUnitCount: 11
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

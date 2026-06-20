@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/external-dns/external-dns/1.21.1"
     name: "external-dns-external-dns"
@@ -61,11 +61,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-external-dns-default-confighub-proof (post-render):\n      Deployment/external-dns [external-dns] registry.k8s.io/external-dns/external-dns:v0.21.0"
   serverSideVariant:
-    command: "cub variant create staging helm-external-dns-default-confighub-proof --environment Staging --region local --space-name-pattern template:ExternalDNS-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-external-dns-default-confighub-proof --environment Staging --region local --namespace external-dns --space-pattern template:ExternalDNS-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-external-dns-default-confighub-proof"
     downstreamSpace: "ExternalDNS-default-staging"
     clonedUnitCount: 8
+    namespace: "external-dns"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

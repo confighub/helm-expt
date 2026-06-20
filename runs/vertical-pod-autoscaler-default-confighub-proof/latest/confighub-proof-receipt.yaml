@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
     name: "autoscaler-vertical-pod-autoscaler"
@@ -50,6 +50,8 @@ spec:
       targetFacts:
         requiredCRDs:
           []
+        requiredObjectStores:
+          []
         requiredSecrets:
           -
             deliveryLanes:
@@ -65,6 +67,9 @@ spec:
             namespace: "default"
             purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
             suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/vertical-pod-autoscaler-default"
     result: "pass"
@@ -72,7 +77,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o .tmp/confighub-proof/vertical-pod-autoscaler-default-archives/vertical-pod-autoscaler-a.tgz"
-    sha256: "d6f9c9b6c8ac5ec53e4dda67c74949a452cafe6b64352828cd2570f4c96500f7"
+    sha256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/vertical-pod-autoscaler-default"
@@ -96,17 +101,25 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-vertical-pod-autoscaler-default-confighub-proof (post-render):\n      Deployment/vertical-pod-autoscaler-admission-controller [admission-controller] registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\n      Deployment/vertical-pod-autoscaler-recommender [recommender] registry.k8s.io/autoscaling/vpa-recommender:1.6.0\n      Deployment/vertical-pod-autoscaler-updater [updater] registry.k8s.io/autoscaling/vpa-updater:1.6.0"
   serverSideVariant:
-    command: "cub variant create staging helm-vertical-pod-autoscaler-default-confighub-proof --environment Staging --region local --space-name-pattern template:VerticalPodAutoscaler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-vertical-pod-autoscaler-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:VerticalPodAutoscaler-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-vertical-pod-autoscaler-default-confighub-proof"
     downstreamSpace: "VerticalPodAutoscaler-default-staging"
     clonedUnitCount: 41
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
     revisionList: "pass"
     revisionDiff: "pass"
-    representativeUnit: "deployment-default-vertical-pod-autoscaler-recommender"
+    representativeUnit: "deployment-default-vertical-pod-autoscaler-admission-controller"
   retention:
     liveSpacesDeletedAfterProof: true
     reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."

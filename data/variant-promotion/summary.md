@@ -23,16 +23,18 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| proven | 76 |
-| proven-with-watch | 121 |
+| needs-server-variant | 1 |
+| proven | 180 |
+| proven-with-watch | 16 |
 
 Matrix values:
 
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| watch | 121 |
-| yes | 76 |
+| todo | 1 |
+| watch | 16 |
+| yes | 180 |
 
 ## Watch Rows
 
@@ -43,26 +45,26 @@ show the changeset-bound path passing.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 121 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
+| 16 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
-| `aqua/trivy-operator@0.32.1/default` | runs/trivy-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `aqua/trivy-operator@0.32.1/no-crds` | runs/trivy-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-cd@9.5.17/default` | runs/argo-cd-9517-default-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-cd@9.5.17/no-crds` | runs/argo-cd-9517-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-events@2.4.21/default` | runs/argo-events-default-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-events@2.4.21/no-crds` | runs/argo-events-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-rollouts@2.40.9/default` | runs/argo-rollouts-default-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-rollouts@2.40.9/no-crds` | runs/argo-rollouts-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-workflows@1.0.14/controller-default-reviewed` | runs/argo-workflows-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `argo-cd/argo-workflows@1.0.14/default` | runs/argo-workflows-default-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `argo-cd/argo-cd@9.5.15/default` | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/mongodb@19.0.7/generated-passwords` | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/mongodb@19.0.9/existing-secret-replicaset` | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/mongodb@19.1.0/existing-secret-replicaset` | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/mongodb@19.1.0/generated-passwords` | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/nginx@24.0.4/existing-tls-ingress` | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/nginx@24.0.4/http-clusterip` | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/nginx@25.0.0/existing-tls-ingress` | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/nginx@25.0.0/http-clusterip` | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/postgresql@18.6.10/existing-secret` | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 
 ## First TODO Rows
 
 | Row | Status | Next action |
 | --- | --- | --- |
-| — | — | — |
+| `argo-cd/argo-cd@9.5.17/no-crds` | needs-server-variant | rerun the ConfigHub proof lane with current cub variant create and then run variant promotion proof |
 
 ## Regenerate
 

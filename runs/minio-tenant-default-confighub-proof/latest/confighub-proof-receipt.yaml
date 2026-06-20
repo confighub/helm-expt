@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/minio-operator/tenant/7.1.1"
     name: "minio-operator-tenant"
@@ -20,14 +20,43 @@ spec:
     selectedBase: "default"
     docVerified: true
     targetFactRequirements:
-      []
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "CRD tenants.minio.min.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   render:
     command: "cub installer setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir .tmp/confighub-proof/minio-tenant-default --non-interactive --namespace default"
     result: "pass"
     manifestCount: 2
     separatedSecretCount: 1
     facts:
-      {}
+      targetFactChecks:
+        base: "default"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "tenants.minio.min.io"
+            purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+            sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "minio-operator/operator@7.1.1/default"
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
   rerender:
     command: "cub installer render --work-dir .tmp/confighub-proof/minio-tenant-default"
     result: "pass"
@@ -35,7 +64,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/minio-operator/tenant/7.1.1 -o .tmp/confighub-proof/minio-tenant-default-archives/minio-tenant-a.tgz"
-    sha256: "7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42"
+    sha256: "410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/minio-tenant-default"
@@ -59,11 +88,19 @@ spec:
     result: "pass"
     summary: "No changes."
   serverSideVariant:
-    command: "cub variant create staging helm-minio-tenant-default-confighub-proof --environment Staging --region local --space-name-pattern template:MinioTenant-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-minio-tenant-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:MinioTenant-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-minio-tenant-default-confighub-proof"
     downstreamSpace: "MinioTenant-default-staging"
     clonedUnitCount: 3
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

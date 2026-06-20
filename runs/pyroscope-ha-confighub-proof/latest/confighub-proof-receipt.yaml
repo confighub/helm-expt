@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/grafana/pyroscope/2.0.2"
     name: "grafana-pyroscope"
@@ -61,11 +61,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-pyroscope-ha-confighub-proof (post-render):\n      StatefulSet/pyroscope [pyroscope] grafana/pyroscope:2.0.2\n      StatefulSet/pyroscope-alloy [alloy] docker.io/grafana/alloy:v1.12.2\n      StatefulSet/pyroscope-alloy [config-reloader] quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0"
   serverSideVariant:
-    command: "cub variant create staging helm-pyroscope-ha-confighub-proof --environment Staging --region local --space-name-pattern template:Pyroscope-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-pyroscope-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Pyroscope-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-pyroscope-ha-confighub-proof"
     downstreamSpace: "Pyroscope-ha-staging"
     clonedUnitCount: 20
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/hashicorp/terraform/1.1.2"
     name: "hashicorp-terraform"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-terraform-default-confighub-proof (post-render):\n      Deployment/terraform-terraform-sync-workspace [terraform-sync-workspace] hashicorp/terraform-k8s:1.1.2"
   serverSideVariant:
-    command: "cub variant create staging helm-terraform-default-confighub-proof --environment Staging --region local --space-name-pattern template:Terraform-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-terraform-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Terraform-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-terraform-default-confighub-proof"
     downstreamSpace: "Terraform-default-staging"
     clonedUnitCount: 7
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

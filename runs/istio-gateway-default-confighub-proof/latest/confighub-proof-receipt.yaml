@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/istio/gateway/1.30.0"
     name: "istio-gateway"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/istio/gateway/1.30.0 -o .tmp/confighub-proof/istio-gateway-default-archives/istio-gateway-a.tgz"
-    sha256: "42db618bfad3b83002abc50d06a2950526e0bf548bca689fc41a8be1a3bd948f"
+    sha256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/istio-gateway-default"
@@ -60,11 +60,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-istio-gateway-default-confighub-proof (post-render):\n      Deployment/gateway [istio-proxy] auto"
   serverSideVariant:
-    command: "cub variant create staging helm-istio-gateway-default-confighub-proof --environment Staging --region local --space-name-pattern template:IstioGateway-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-istio-gateway-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:IstioGateway-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-istio-gateway-default-confighub-proof"
     downstreamSpace: "IstioGateway-default-staging"
     clonedUnitCount: 8
+    namespace: "default"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"

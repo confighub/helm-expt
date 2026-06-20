@@ -8,7 +8,7 @@ spec:
     organization: "Kubara"
     server: "https://hub.confighub.com"
     cubClientVersion: "Version:    dev"
-    cubServerVersion: "v0.1.79"
+    cubServerVersion: "v0.1.80"
   subject:
     chart: "kyverno/kyverno"
     chartVersion: "3.8.1"
@@ -17,21 +17,21 @@ spec:
     upstreamSpace: "helm-kyverno-no-crds-confighub-proof"
     downstreamSpace: "Kyverno-no-crds-staging"
   commands:
-    upstreamUpdate: "cub unit update deployment-default-kyverno-background-controller runs/kyverno-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-kyverno-no-crds-confighub-proof --change-desc ..."
+    upstreamUpdate: "cub unit update deployment-default-kyverno-cleanup-controller runs/kyverno-no-crds-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-kyverno-no-crds-confighub-proof --change-desc ..."
     upstreamAddUnit: "cub unit create promotion-marker-kyverno-no-crds runs/kyverno-no-crds-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-kyverno-no-crds-confighub-proof --allow-exists"
     dryRun: "cub variant promote Kyverno-no-crds-staging --dry-run -o mutations"
     changeset: "cub changeset create kyverno-no-crds-variant-promote-20260527 --space Kyverno-no-crds-staging --description ... --allow-exists"
     promote: "cub variant promote Kyverno-no-crds-staging --changeset Kyverno-no-crds-staging/kyverno-no-crds-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Kyverno-no-crds-staging --change-desc ..."
   upstreamChange:
-    changedUnit: "deployment-default-kyverno-background-controller"
+    changedUnit: "deployment-default-kyverno-cleanup-controller"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
     annotation: "helm-expt.confighub.com/promotion-proof=kyverno-no-crds-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
     markerUnit: "promotion-marker-kyverno-no-crds"
-    upstreamUnitID: "c42fb3d1-ca93-44f8-bbe0-b6d9d9e48d0b"
+    upstreamUnitID: "c1741e6c-ef00-4ef9-b82c-bf808ed609b6"
     result: "pass"
     proofOnly: true
   preview:
@@ -40,14 +40,14 @@ spec:
   changeset:
     slug: "kyverno-no-crds-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset kyverno-no-crds-variant-promote-20260527 (cf603932-d109-49b3-861c-8626f9616dcf)"
+    output: "Successfully created changeset kyverno-no-crds-variant-promote-20260527 (808e36b6-841e-41c1-bc54-a49750183e3c)"
   promote:
-    result: "fail"
-    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-kyverno-background-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
-  fallbackPromote:
-    used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-kyverno-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-default-kyverno-cleanup-controller\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-kyverno-no-crds\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
@@ -55,13 +55,12 @@ spec:
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
     addedUnitSlug: "promotion-marker-kyverno-no-crds"
-    addedUnitDownstreamUpstreamUnitID: "c42fb3d1-ca93-44f8-bbe0-b6d9d9e48d0b"
+    addedUnitDownstreamUpstreamUnitID: "c1741e6c-ef00-4ef9-b82c-bf808ed609b6"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"
-  result: "watch"
-  reason: "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
   limitations:
     - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
-    - "The changeset-bound promote path failed in this run; the no-changeset promote path was used to prove the server-side promotion mechanics."
     - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
     - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

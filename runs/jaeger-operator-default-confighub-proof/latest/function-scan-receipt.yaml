@@ -17,17 +17,13 @@ spec:
     configHubUnitCount: 12
   unitRevisionBindings:
     -
-      slug: "namespace-default"
-      headRevisionNum: 1
-      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+      slug: "certificate-default-jaeger-operator-service-cert"
+      headRevisionNum: 2
+      dataHash: "9951864e5b1ba03e2939e6021f9d8da6b815cedbdf0b41da947c9912c90619e9"
     -
       slug: "customresourcedefinition-jaegers-jaegertracing-io"
       headRevisionNum: 2
       dataHash: "34529a4c1bf21fb8163dc7734cc7eb82342d70709352a4458595837e555d7dbe"
-    -
-      slug: "certificate-default-jaeger-operator-service-cert"
-      headRevisionNum: 2
-      dataHash: "9951864e5b1ba03e2939e6021f9d8da6b815cedbdf0b41da947c9912c90619e9"
     -
       slug: "deployment-default-jaeger-operator"
       headRevisionNum: 2
@@ -41,13 +37,21 @@ spec:
       headRevisionNum: 2
       dataHash: "517a1bca396f633516a210b2500f766d922ee6c22fd01d11ef7ad564119ede6b"
     -
-      slug: "role-default-jaeger-operator"
-      headRevisionNum: 2
-      dataHash: "deccda321a3a0b037b905be81f66f3b292597c7b11b8be25312eb4fa53da7a5f"
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
     -
       slug: "rolebinding-default-jaeger-operator"
       headRevisionNum: 2
       dataHash: "87ef2ce406505310dfa3b01b3d7f2ebeac125f21d9f6a46bbf376897e5fbbb03"
+    -
+      slug: "role-default-jaeger-operator"
+      headRevisionNum: 2
+      dataHash: "deccda321a3a0b037b905be81f66f3b292597c7b11b8be25312eb4fa53da7a5f"
+    -
+      slug: "serviceaccount-default-jaeger-operator"
+      headRevisionNum: 1
+      dataHash: "3813e1214b3c141f436e73c9ad35c062031b4c5d6fd6204a170fa06ac1f53980"
     -
       slug: "service-default-jaeger-operator-metrics"
       headRevisionNum: 2
@@ -56,10 +60,6 @@ spec:
       slug: "service-default-jaeger-operator-webhook-service"
       headRevisionNum: 2
       dataHash: "25367380b633eedc9fe56aab8b7d361d0a4260c91e14068a184187f08d38e8a8"
-    -
-      slug: "serviceaccount-default-jaeger-operator"
-      headRevisionNum: 1
-      dataHash: "3813e1214b3c141f436e73c9ad35c062031b4c5d6fd6204a170fa06ac1f53980"
     -
       slug: "validatingwebhookconfiguration-jaeger-operator-validating-webhook-configuration"
       headRevisionNum: 2

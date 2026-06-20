@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.79"
+      cubServerVersion: "v0.1.80"
   package:
     path: "packages/bitnami/postgresql/18.6.10"
     name: "bitnami-postgresql"
@@ -80,11 +80,19 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-cl-postgresql-18-6-10-generated-passwords-confighub-proof (post-render):\n      StatefulSet/postgresql [postgresql] registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
   serverSideVariant:
-    command: "cub variant create staging helm-cl-postgresql-18-6-10-generated-passwords-confighub-proof --environment Staging --region local --space-name-pattern template:Postgresql18610-generated-passwords-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    command: "cub variant create staging helm-cl-postgresql-18-6-10-generated-passwords-confighub-proof --environment Staging --region local --namespace postgresql --space-pattern template:Postgresql18610-generated-passwords-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
     upstreamSpace: "helm-cl-postgresql-18-6-10-generated-passwords-confighub-proof"
     downstreamSpace: "Postgresql18610-generated-passwords-staging"
     clonedUnitCount: 8
+    namespace: "postgresql"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
   review:
     unitList: "pass"
     unitData: "pass"
