@@ -47,6 +47,7 @@ const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-productio
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
+const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -146,6 +147,7 @@ function buildSite(generatedAt) {
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
+  const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
@@ -170,6 +172,7 @@ function buildSite(generatedAt) {
   const publicChartKeys = new Set(catalogEntries.map((entry) => `${entry.chart}|${entry.version}`));
   const publicChartSkills = chartSkills.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const publicChartEvidenceRouter = chartEvidenceRouter.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
+  const publicMatrixRows = masterCatalogMatrix.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const replacementByChart = new Map(latestReplacementDecisions.map((row) => [row.chart, row]));
   const latestActionByChart = new Map(latestActionQueue.map((row) => [row.chart, row]));
@@ -228,6 +231,7 @@ function buildSite(generatedAt) {
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
+      masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -288,6 +292,7 @@ function buildSite(generatedAt) {
     lifecycleRoutes,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
+    masterCatalogMatrix: publicMatrixRows,
   };
   const chartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
@@ -2284,6 +2289,9 @@ function evidenceDepthSummary(lanes) {
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
+  const matrixRows = catalog.masterCatalogMatrix
+    .filter((row) => row.chart === entry.chart && row.version === entry.version)
+    .sort(compareMatrixRows);
   const production = productionSummaryForChart(catalog, entry);
   const support = catalog.productionSupportDecisions.find((row) => row.chart === entry.chart && row.version === entry.version);
   const chartUse = catalog.chartUseGuide.find((row) => row.chart === chartKey);
@@ -2383,6 +2391,13 @@ function chartPageHtml(catalog, entry) {
       ])}
     </section>
 
+    <section aria-labelledby="matrix-options">
+      <h2 id="matrix-options">Options From The Matrix</h2>
+      <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>
+      <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
+      ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
+    </section>
+
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
       <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
@@ -2464,6 +2479,138 @@ function chartPageHtml(catalog, entry) {
 </body>
 </html>
 `;
+}
+
+function compareMatrixRows(left, right) {
+  const layerRank = new Map([
+    ["F1", 1],
+    ["F2a", 2],
+    ["F2b", 3],
+    ["F2c", 4],
+    ["F3", 5],
+    ["F4a", 6],
+    ["F4b", 7],
+  ]);
+  const leftRank = layerRank.get(left.catalog_layer) ?? 99;
+  const rightRank = layerRank.get(right.catalog_layer) ?? 99;
+  if (leftRank !== rightRank) return leftRank - rightRank;
+  const kind = left.row_kind.localeCompare(right.row_kind);
+  if (kind !== 0) return kind;
+  return left.variant.localeCompare(right.variant);
+}
+
+function matrixRowCard(row, entry) {
+  const title = row.variant || "(unnamed)";
+  const command = matrixRowRunPath(row, entry);
+  const nextAction = row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "";
+  const reason = row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "";
+  const rowLinks = matrixRowLinks(row);
+  const laneBadges = [
+    ["R", "Render", row.lane_render_parity],
+    ["C", "ConfigHub", row.lane_confighub_scan_ops],
+    ["L", "Local", row.lane_local_kind],
+    ["Y", "Lifecycle", row.lane_lifecycle_observed],
+    ["G", "GitOps", row.lane_gitops_oci_live],
+    ["P", "Live parity", row.lane_live_dual_parity],
+    ["K", "Kind parity", row.lane_two_cluster_kind],
+    ["V", "Promotion", row.variant_promotion],
+  ];
+  return `<article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">${escapeHtml(row.catalog_layer || "?")}</span>
+            <h3>${escapeHtml(title)}</h3>
+          </div>
+          <span class="row-kind">${escapeHtml(row.row_kind || "row")}</span>
+        </div>
+        <p class="row-purpose">${escapeHtml(row.customization_layer || row.adoption_bucket || row.row_status || "matrix option")}</p>
+        <dl>
+          <dt>Status</dt><dd>${escapeHtml(row.row_status || "unknown")}${row.custom_discussion === "yes" ? " · custom discussion" : ""}</dd>
+          <dt>How to run</dt><dd>${command}</dd>
+          <dt>Evidence</dt><dd>${escapeHtml(row.strongest_evidence || row.outcome_level || "not recorded")}</dd>
+          <dt>Hooks</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
+          <dt>Next</dt><dd>${escapeHtml(nextAction || "No next action recorded.")}</dd>
+          ${reason ? `<dt>Reason</dt><dd>${escapeHtml(reason)}</dd>` : ""}
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for ${escapeHtml(title)}">
+          ${laneBadges.map(([code, label, value]) => lanePill(code, label, value)).join("")}
+        </div>
+        ${rowLinks.length ? `<p class="row-links">${rowLinks.join(" · ")}</p>` : ""}
+      </article>`;
+}
+
+function matrixRowRunPath(row, entry) {
+  if (row.row_kind === "source") {
+    return "Source chart. Choose an F2 base below before running the installer.";
+  }
+  if (row.row_kind === "candidate") {
+    const required = row.candidate_required_before || row.next_action || "finish the candidate work order";
+    return `Candidate option. Required before running: ${escapeHtml(required)}.`;
+  }
+  if (row.row_kind === "derived") {
+    const parent = row.parent_base || "a reviewed base";
+    const target = row.downstream_space || row.variant;
+    return `Derived ConfigHub variant from ${escapeHtml(parent)}. Create or promote after uploading the base; target row: ${escapeHtml(target)}.`;
+  }
+  if (row.package_base_path) {
+    const packagePath = row.package_base_path.replace(/\/bases\/[^/]+$/, "");
+    const namespace = entry.namespace ? ` --namespace ${escapeHtml(entry.namespace)}` : "";
+    return `<code>cub installer setup --pull ${escapeHtml(packagePath)} --base ${escapeHtml(row.variant)} --work-dir &lt;tmp&gt; --non-interactive${namespace}</code>`;
+  }
+  if (entry.package_path && row.variant && row.variant !== "(source)") {
+    const namespace = entry.namespace ? ` --namespace ${escapeHtml(entry.namespace)}` : "";
+    return `<code>cub installer setup --pull ${escapeHtml(entry.package_path)} --base ${escapeHtml(row.variant)} --work-dir &lt;tmp&gt; --non-interactive${namespace}</code>`;
+  }
+  return "Review the matrix row before running this option.";
+}
+
+function matrixHookSummary(row) {
+  const parts = [];
+  if (row.hook_count) parts.push(`${row.hook_count} source hook(s)`);
+  if (row.hook_disposition) parts.push(row.hook_disposition);
+  if (row.hook_live_status && row.hook_live_status !== "n/a") parts.push(`live: ${row.hook_live_status}`);
+  if (row.lifecycle_route_contract && row.lifecycle_route_contract !== "n/a") {
+    parts.push(`route: ${row.lifecycle_route_contract}`);
+  }
+  return parts.join("; ") || "n/a";
+}
+
+function matrixRowLinks(row) {
+  const links = [];
+  const maybe = (label, path) => {
+    if (!path) return;
+    links.push(`<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`);
+  };
+  maybe("catalog", row.recipe_catalog_path);
+  maybe("variant", row.variant_path);
+  maybe("package base", row.package_base_path);
+  maybe("receipt", row.target_run_receipt || row.variant_promotion_evidence || row.active_proof_support_artifact);
+  if (row.source_repository_url) links.push(`<a href="${escapeHtml(row.source_repository_url)}" rel="noopener">source repo</a>`);
+  return links;
+}
+
+function lanePill(code, label, value) {
+  const normalized = normalizeLaneValue(value);
+  return `<span class="lane-pill ${escapeHtml(normalized)}" title="${escapeHtml(label)}: ${escapeHtml(value || "blank")}"><b>${escapeHtml(code)}</b><em>${escapeHtml(laneShortValue(value))}</em></span>`;
+}
+
+function normalizeLaneValue(value) {
+  const text = String(value ?? "").trim().toLowerCase();
+  if (!text) return "blank";
+  if (["yes", "pass", "proven", "supported"].includes(text)) return "yes";
+  if (["watch", "proven-with-watch"].includes(text)) return "watch";
+  if (["no", "blocked", "rejected"].includes(text)) return "no";
+  if (["todo", "not-yet-run"].includes(text)) return "todo";
+  if (text === "n/a") return "na";
+  return "other";
+}
+
+function laneShortValue(value) {
+  const text = String(value ?? "").trim();
+  if (!text) return "blank";
+  if (text === "n/a") return "n/a";
+  if (text === "proven-with-watch") return "watch";
+  return text;
 }
 
 function chartCard(entry) {
@@ -2896,6 +3043,57 @@ function siteCss() {
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
     .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
@@ -2905,11 +3103,13 @@ function siteCss() {
     thead th { background: var(--panel); position: sticky; top: 49px; }
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .topbar { flex-wrap: wrap; }
       .navlinks { margin-left: 0; }
     }
