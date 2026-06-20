@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proof · ConfigHub Helm Catalog</title>
+  <title>Ops · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -222,91 +222,110 @@
       .topbar { flex-wrap: wrap; }
       .navlinks { margin-left: 0; }
     }
-</style>
+
+    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
+    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .ophead h3 { margin: 0; font-size: 1.08rem; }
+    .opmeta { margin: 6px 0 8px; }
+    .op .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
+    .op .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .op .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
+    .op .badge.planned { color: var(--muted); background: var(--panel); }
+    .muted { color: var(--muted); }
+    @media (max-width: 600px) { .ophead { flex-direction: column; } }
+  </style>
 </head>
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Proof, not promises.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T20:12:22.317Z UTC · source: committed helm-expt evidence for this proof page.</p>
-    <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
-    <p>Render parity is the starting point. The stronger claim is staged: exact objects, ConfigHub Units, scans, live apply, GitOps/OCI reconciliation, semantic comparison with Helm, lifecycle routing, and observation receipts.</p>
+    <h1>Ops</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:12:22.317Z UTC · source: committed helm-expt evidence for this ops page.</p>
+    <p class="tagline">Ops is the day1-to-day2 layer after an app graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are app SDLC; ops makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
   </header>
   <main>
-    <section aria-labelledby="counters">
-      <h2 id="counters">Current Proof Counters</h2>
-      <div class="grid">
-        <div class="metric"><strong>199/199</strong><span>Render parity · Regular Helm output and cub installer package output match under recorded inputs.</span></div>
-        <div class="metric"><strong>199/199</strong><span>In-ConfigHub proof · Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units.</span></div>
-        <div class="metric"><strong>148/199</strong><span>Local live · The package was applied to a local Kubernetes target and observed.</span></div>
-        <div class="metric"><strong>135/199</strong><span>GitOps/OCI live · ConfigHub-published OCI was pulled and reconciled by Argo in a live run.</span></div>
-        <div class="metric"><strong>135/199</strong><span>Live dual parity · Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo reached the same semantic object outcome.</span></div>
-        <div class="metric"><strong>121/172</strong><span>Two-cluster kind parity · Regular Helm and cub installer were compared on two vanilla kind clusters.</span></div>
-        <div class="metric"><strong>127/199</strong><span>Complete core lane · Rows with render, ConfigHub, local live, GitOps/OCI, live parity, and two-cluster evidence.</span></div>
-        <div class="metric"><strong>0/192</strong><span>Semantic defects · Committed live parity rows where ConfigHub and Helm disagree semantically.</span></div>
+    <section aria-labelledby="ops">
+      <h2 id="ops">The operations</h2>
+      <div class="op">
+        <div class="ophead">
+          <h3>Start from an application variant</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>see Apps and Variants</code> · <span class="muted">Apps SDLC · ConfigHub</span></p>
+        <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
+  --environment Prod --region us-east \
+  --target &lt;target-space&gt;/&lt;target&gt; \
+  --namespace &lt;namespace&gt;</code></pre>
+        <p>Variant creation and promotion are part of the app lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Ops starts from that managed app graph.</p>
+        <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Diff before you ship</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>review the variant's object diff vs its base</code> · <span class="muted">ConfigHub · free tier</span></p>
+        
+        <p>Every derived variant carries an exact, reviewable object diff against the base it came from - so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
+        <p class="muted">See: <a href="../docs/user/change-routing-before-oci.md">change-routing-before-oci</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Scan and gate</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>function scans + safe-ops over rendered objects</code> · <span class="muted">free locally · paid for managed policy</span></p>
+        
+        <p>Run policy/function scans over the rendered objects (privilege, capabilities, exposure, deprecated APIs) and safe operations, and hold delivery behind a gate until findings are accepted or waived with a named reason. The scan receipts carry the safety-relevant findings; signing proves origin, not safety.</p>
+        <p class="muted">See: <a href="../data/external-scan-lane/summary.md">data/external-scan-lane</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Release an approved variant</h3>
+          <span class="badge watch">watch</span>
+        </div>
+        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Apps SDLC · ConfigHub Server</span></p>
+        <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
+cub variant promote &lt;space&gt;</code></pre>
+        <p>Promotion moves a downstream application variant toward its upstream Space. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The operational responsibility begins around the release: gates, audit, delivery, observation, rollback, and fleet visibility.</p>
+        <p class="muted">See: <a href="../data/variant-promotion/summary.md">data/variant-promotion</a> · <a href="../docs/user/prometheus-overlay-promotion-example.md">prometheus-overlay-promotion-example</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Deliver via OCI + GitOps</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>publish content-addressed OCI; a controller reconciles</code> · <span class="muted">free to run · standard Argo/Flux</span></p>
+        
+        <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
+        <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Adopt an app you already run</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>cub gitops discover  /  cub gitops import</code> · <span class="muted">ConfigHub · free tier</span></p>
+        <pre><code>cub gitops discover
+cub gitops import &lt;app&gt;</code></pre>
+        <p>Existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the model without a rewrite: discover what is running, import it to ConfigHub Units, and from there it gains the same variants, diffs, scans, and observation as a catalog chart.</p>
+        <p class="muted">See: <a href="../docs/user/adopting-existing-apps.md">adopting-existing-apps</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Bring a custom app or multi-chart stack</h3>
+          <span class="badge now">available locally · private catalog is paid</span>
+        </div>
+        <p class="opmeta"><code>multiple charts, wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
+        
+        <p>A real app is often several public charts plus your own service and platform values. Treat that as one desired-state graph: each chart keeps its base/variant boundary, the custom app gets its own Units, and the stack can be scanned, diffed, promoted, and delivered together. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
+        <p class="muted">See: <a href="../docs/user/custom-overlays.md">custom-overlays</a> · <a href="../docs/user/product-support-tiers.md">product-support-tiers</a></p>
       </div>
     </section>
-
-    <section aria-labelledby="lanes">
-      <h2 id="lanes">What Each Lane Proves</h2>
-      <div class="card"><table>
-        <thead><tr><th>Lane</th><th>Question</th><th>Evidence</th><th>Limit</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>Does cub installer preserve the Helm object set for this chart/version/base?</td><td>Helm render receipt and installer comparison.</td><td>Per chart, version, base, values, capability profile, and flag profile.</td></tr><tr><td>ConfigHub proof</td><td>Can the rendered objects become Units, scans, safe ops, and receipts?</td><td>ConfigHub proof receipts, function scan receipts, safe-ops receipts.</td><td>Does not prove a GitOps controller or workload health by itself.</td></tr><tr><td>Local live</td><td>Does this package apply and converge on a Kubernetes target?</td><td>Observation receipt, workload checks, PVC/CRD/secret evidence where relevant.</td><td>Usually local kind; target-specific production support still needs scope.</td></tr><tr><td>GitOps/OCI live</td><td>Can ConfigHub-published OCI be reconciled by Argo?</td><td>Argo sync and health in the live parity receipt.</td><td>A green sync is not enough unless runtime checks also pass.</td></tr><tr><td>Live dual parity</td><td>Does regular Helm reach the same live outcome as ConfigHub delivery?</td><td>Strict live Helm-vs-ConfigHub parity receipt.</td><td>Selected rows only; absence is backlog, not a failed chart.</td></tr><tr><td>Two-cluster kind parity</td><td>Does Helm on one vanilla kind cluster match installer output on another?</td><td>Two-cluster parity receipt.</td><td>Narrowest clean parity test; no ConfigHub/OCI proof unless separately recorded.</td></tr><tr><td>Lifecycle observation</td><td>Are hooks, CRDs, webhooks, generated facts, or target prerequisites observed or routed?</td><td>Lifecycle, hook, target-fact, and serious-chart receipts.</td><td>Partial by design; some rows are routed, blocked, per-target, or refused.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Use <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for the command map and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
-    </section>
-
-    <section aria-labelledby="serious">
-      <h2 id="serious">Serious Charts Are The Test</h2>
-      <p>The hard cases are where the product has to earn trust: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
-      <p>For these charts, a green render is not enough. The proof must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
-      <div class="grid">
-        <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
-        <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
-        <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
-        <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
-        <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
-        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook dispositions</a> separate observed, routed, per-target, and recipe-needed rows.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="sceptic">
-      <h2 id="sceptic">Sceptic Tests</h2>
-      <p>A sceptic with a breaking chart is useful QA. The rule is that a breaker becomes a fixture, a named refusal, or a routed gap; it should not disappear into prose.</p>
-      <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
-      <div class="card"><table>
-        <thead><tr><th>Surface</th><th>What it answers</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Claims register</td><td>Every public claim is backed, partial, planned, or refused.</td><td><a href="../data/claims-register/summary.md">../data/claims-register/summary.md</a></td></tr><tr><td>Blast-radius accuracy</td><td>Predicted affected objects are scored against actual rerender diffs, including published failures.</td><td><a href="../data/blast-radius-accuracy/summary.md">../data/blast-radius-accuracy/summary.md</a></td></tr><tr><td>Synthetic torture suite</td><td>Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.</td><td><a href="../data/torture-suite/summary.md">../data/torture-suite/summary.md</a></td></tr><tr><td>Environment matrix</td><td>Renders are checked across timezone and locale cells for the measured corpus.</td><td><a href="../data/environment-matrix/summary.md">../data/environment-matrix/summary.md</a></td></tr><tr><td>Hook dispositions</td><td>Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.</td><td><a href="../data/hook-disposition/summary.md">../data/hook-disposition/summary.md</a></td></tr><tr><td>Master matrix</td><td>Every chart/version/base row carries lane status, source links, production scope, and next action.</td><td><a href="./matrix.html">./matrix.html</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="refusals">
-      <h2 id="refusals">What This Does Not Claim</h2>
-      <div class="card"><table>
-        <thead><tr><th>Refusal</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, lane, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and receipted.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
+    <section aria-labelledby="next">
+      <h2 id="next">Then: day-2 and beyond</h2>
+      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Apps</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. A passing verifier means committed evidence is self-consistent; it does not replace fresh live evidence for a new target.</footer>
+  <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
 </body>
 </html>

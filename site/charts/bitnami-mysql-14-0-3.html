@@ -226,9 +226,9 @@
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt</a><span class="navlinks"><a href="../try.html">Try now</a><a href="../journey.html">Journey</a><a href="../charts/index.html">Charts</a><a href="../matrix.html">Status matrix</a><a href="../hard-questions.html">FAQ</a><a href="../proof.html">Proof</a><a href="../hooks.html">Hooks</a><a href="../private/">Private</a></span></nav>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
     <h1>bitnami/mysql</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:08:33.140Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:12:22.317Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=mysql&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for bitnami/mysql@14.0.3.</p>
     <pre>cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</pre>
@@ -393,9 +393,9 @@
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">Hooks &amp; Lifecycle Routes</h2>
-      <p>After you deploy, who runs each hook — in plain words, per variant. Each hook becomes a <strong>visible, named, receipted</strong> lifecycle step instead of a hidden Helm hook — run by your delivery pipeline (a GitOps PreSync/PostSync, a cub action, or an opt-in check), not by hand. The product does not auto-execute these yet (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
-      <p>No hook or hook-like lifecycle behavior is recorded for this chart.</p>
+      <h2 id="lifecycle">ConfigHub Actions</h2>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <p>No hook or hook-like ConfigHub action is recorded for this chart.</p>
     </section>
 
     <section aria-labelledby="production">

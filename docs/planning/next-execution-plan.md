@@ -161,6 +161,33 @@ nearest to hand.
 | Variant and operations story | Product proof lane | A user can see when to use a base variant, when to use a derived ConfigHub variant, and when a change must be handled as a delivery prerequisite or managed overlay. |
 | Sceptic proofing | Adversarial lane | Claims register, blast-radius accuracy, hook dispositions, environment matrix, torture fixtures, refresh survival, and upgrade evidence all name their limits and next tests. |
 
+## Productisation Roadmap For The Highest-Value Features
+
+The public site should not only describe the proof corpus. It should
+accommodate the user jobs that make the product valuable, test them as flows,
+and turn the proven parts into product surfaces. The current public web pages
+are the entry points; the roadmap below is the acceptance layer behind them.
+
+| Feature | User value | Accommodation in the public product | Testing and evidence | Productisation path |
+| --- | --- | --- | --- | --- |
+| Variants and promotion | Users can choose a reviewed base, derive target/environment/customer variants, preview differences, and promote safely as part of application SDLC. | `site/variants.html`, `site/journey.html`, per-chart variant cards, matrix variant layer, and ConfigHub application examples. | Variant promotion receipts, Redis/NGINX/kube-prometheus-stack promotion examples, `cub variant create` and `cub variant promote` command checks. | Product UI for base-vs-derived routing, preview, checks, approvals, promotion, and receipts over existing ConfigHub primitives. |
+| Apps, custom apps, and stacks | Users can combine public charts, private services, wrapper charts, overlays, and target facts into one desired-state graph. | `site/journey.html`, `site/custom-apps.html`, private catalog boundary, custom overlay examples, and app-readiness data. | Managed overlay golden, app-readiness queries, external-dns overlay example, future private-catalog and import receipts. | ConfigHub private catalog/import workflow for wrapper charts, values overlays, internal services, and application release. |
+| Bulk scan, bulk patch, and fleet operations | Teams can answer "where is this running?", scan many Units, patch safely, and roll out in waves after the application graph exists. | `site/operations.html`, fleet and bulk operation references, matrix/database links. | Bulk scan/patch tutorial, blast-radius fleet evidence, cub-scout desired-vs-live design, fleet ledger receipts when available. | Server feature set for fleet inventory, bulk changesets, approvals, wave rollout, policy gates, and audit history. |
+| Upgrade and crash prevention | Risky Helm upgrades become staged, diffed, rehearsed, gated, observed changes instead of opaque `helm upgrade` events. | FAQ and future public upgrade page, serious-chart proof, kube-prometheus-stack upgrade examples. | Render old/new object diffs, CRD upgrade delta, workload upgrade rehearsals, refresh-survival data, hard-chart packets. | Managed upgrade campaign workflow: candidate version, blast radius, live rehearsal, approvals, rollout, rollback, and receipt pack. |
+| Target prerequisites and lifecycle routes | Users know what must exist before apply/GitOps can converge: CRDs, Secrets, storage, topology, webhooks, cloud identity, and hooks. | Helm Catalog ConfigHub Actions section, FAQ, chart pages, matrix hard-gap fields, and target-prerequisite guides. | Target-prerequisite action packets, lifecycle-route actions, hook dispositions, live observations for cert-manager/ESO and serious charts. | Product preflight checklist and target-facts UX with machine-readable action packets for CLI, UI, agents, and fleet runs. |
+| Database and matrix reading | Users can inspect the exact chart/version/base status without reading raw CSVs or treating proof rows as the product. | Helm Catalog links to `site/matrix.html`; Docs page routes to matrix, generated data index, claims register, and status dashboard. | `master-matrix:verify`, docs/site verification, matrix completion audit, chart-use guide. | Future "Database" menu/page if the matrix becomes a first-class browsing and filtering product surface. |
+
+Each row must follow the same pattern:
+
+```text
+public page -> concise user flow -> evidence surface -> verifier or receipt -> product surface
+```
+
+Planning notes stay private unless they are distilled into one of those user
+flows. A feature is not productised merely because it has proof data; it becomes
+productised when a user can find it, run or understand it, verify the result,
+and see the limits without reading internal planning material.
+
 ## Desktop Planning Sweep, 2026-06-16
 
 The Desktop planning notes were reviewed against the repo docs, open issues, and

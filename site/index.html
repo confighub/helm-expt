@@ -226,16 +226,17 @@
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="./index.html">helm-expt</a><span class="navlinks"><a href="./try.html">Try now</a><a href="./journey.html">Journey</a><a href="./charts/index.html">Charts</a><a href="./matrix.html">Status matrix</a><a href="./hard-questions.html">FAQ</a><a href="./proof.html">Proof</a><a href="./hooks.html">Hooks</a><a href="./private/">Private</a></span></nav>
+    <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>Prove Helm parity first.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T19:08:33.140Z UTC · source: committed helm-expt evidence for this public catalog homepage.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:12:22.317Z UTC · source: committed helm-expt evidence for this public catalog homepage.</p>
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
+    <p>Use this site in order: start with a parity demo, choose a chart and base from the Helm Catalog, then move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Use Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions. Upgrade is where private catalogs, managed workflows, and production responsibility begin.</p>
     <div class="doors">
       <div class="door">
         <span class="kicker">Start here</span>
         <h3><a href="./try.html">Run a small parity demo</a></h3>
         <p>Use Redis to see the path without needing to understand the whole evidence system.</p>
-        <span class="go"><a href="./try.html">Open Try now →</a></span>
+        <span class="go"><a href="./try.html">Open Get Started →</a></span>
       </div>
       <div class="door">
         <span class="kicker">Pick chart</span>
@@ -314,7 +315,7 @@ npm run kube-prometheus-stack:compare</code></pre>
       <p>Once parity is visible, the value is that the rendered objects become explicit config. You can review them, create variants, apply policy, promote changes, and observe the live result.</p>
       <div class="card"><table>
         <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
-        <tbody><tr><td>Create useful variants</td><td>Base variants capture Helm render choices. Derived ConfigHub variants handle approved post-render changes such as target, labels, gates, links, and observation policy.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Review and operate objects</td><td>Once rendered objects become ConfigHub Units, teams can diff, scan, approve, promote, observe, and audit them instead of treating Helm as one opaque action.</td><td><a href="./day1-operations.html">./day1-operations.html</a></td></tr><tr><td>Build apps on the data</td><td>Read-only tools can query the held Kubernetes objects without a live cluster or fresh Helm render. The app-readiness proof is the first small example.</td><td><a href="../data/app-readiness/summary.md">../data/app-readiness/summary.md</a></td></tr></tbody>
+        <tbody><tr><td>Create useful variants</td><td>Base variants capture Helm render choices. Derived ConfigHub variants handle approved post-render changes such as target, labels, gates, links, and observation policy.</td><td><a href="./variants.html">./variants.html</a></td></tr><tr><td>Review and operate objects</td><td>Once rendered objects become ConfigHub Units, teams can diff, scan, approve, promote, observe, and audit them instead of treating Helm as one opaque action.</td><td><a href="./operations.html">./operations.html</a></td></tr><tr><td>Build apps on the data</td><td>Several charts plus a custom service can become one managed desired-state graph with scans, diffs, promotion, and GitOps handoff.</td><td><a href="./custom-apps.html">./custom-apps.html</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -342,11 +343,11 @@ npm run kube-prometheus-stack:compare</code></pre>
 
     <section aria-labelledby="confighub">
       <h2 id="confighub">4. What Else Can ConfigHub Do?</h2>
-      <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, approvals, variants, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
+      <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, applications, variant SDLC, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
       <div class="grid">
-        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Try now</a></p></div>
-        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, inspect diffs and labels, approve changes, and publish OCI for GitOps.</p><p><a href="./journey.html">Read the journey</a></p></div>
-        <div class="card"><h3>Managed operations</h3><p>Operate variants, promotions, scans, policy gates, bulk patches, upgrades, and live evidence across teams and targets.</p><p><a href="./private/">Private and managed paths</a></p></div>
+        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Get Started</a></p></div>
+        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, create application variants, promote through environments, and publish OCI for GitOps.</p><p><a href="./journey.html">Open Apps</a></p></div>
+        <div class="card"><h3>Managed ops</h3><p>Run scans, policy gates, bulk patches, upgrades, rollback checks, observations, and live evidence across teams and targets.</p><p><a href="./operations.html">Open Ops</a></p></div>
       </div>
     </section>
 
@@ -354,8 +355,8 @@ npm run kube-prometheus-stack:compare</code></pre>
       <h2 id="background">Reviewer Evidence</h2>
       <p>The proof corpus and source repository are still available, but they are supporting material rather than the first thing a new Helm user has to understand.</p>
       <div class="grid">
-        <div class="card"><h3>Proof data</h3><p><a href="./proof.html">Proof overview</a> · <a href="../data/README.md">Generated evidence index</a> · <a href="../data/status-dashboard/summary.md">Status dashboard</a></p></div>
-        <div class="card"><h3>Quirks</h3><p><a href="./hooks.html">Hooks</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
+        <div class="card"><h3>Docs and data</h3><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Generated evidence index</a></p></div>
+        <div class="card"><h3>Quirks</h3><p><a href="./charts/index.html#actions">ConfigHub Actions</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
         <div class="card"><h3>Source and scope</h3><p><a href="../README.md">Repository README</a> · <a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a> · <a href="../data/claims-register/summary.md">Claims register</a></p></div>
       </div>
     </section>

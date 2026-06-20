@@ -9,12 +9,23 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/try.html` for the short try-now page.
-Open `site/journey.html` for the path from inspect, to no-account try-out, to
-ConfigHub-managed operations.
+Open `site/variants.html` for base variants, derived variants, and promotion entry points.
+Open `site/journey.html` for Apps: public charts, custom apps, stacks,
+and platform groups from inspect, to no-account try-out, to managed variants
+and promotion.
+Open `site/custom-apps.html` for deeper application examples with custom apps,
+multi-chart stacks, and overlays.
+Open `site/operations.html` for Ops: scans, gates, delivery, observation, adoption,
+upgrades, rollback, bulk patching, and fleet questions.
+Open `site/day1-operations.html` only as a compatibility redirect to `site/operations.html`.
+Open `site/docs.html` for the public documentation hub.
 Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
-Open `site/proof.html` for the proof lanes, sceptic tests, and refusal boundary.
-Open `site/hooks.html` for hook and lifecycle route dispositions.
+Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,
+and refusal boundaries.
+Open `site/charts/index.html#actions` for ConfigHub Actions, including hook
+and lifecycle route dispositions. `site/hooks.html` remains as a deep
+compatibility detail page.
 Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.
 Open `site/tiers.html` only as a compatibility redirect to `site/private/index.html`.
 Open `site/offering.html` for the longer public offering page.
