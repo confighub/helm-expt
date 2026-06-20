@@ -8,6 +8,7 @@ const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const docsPath = join(siteRoot, "docs.html");
 const proofPath = join(siteRoot, "proof.html");
 const hardQuestionsPath = join(siteRoot, "hard-questions.html");
 const hooksPath = join(siteRoot, "hooks.html");
@@ -60,6 +61,7 @@ if (mode === "--generate") {
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(docsPath, site.docsHtml);
   write(proofPath, site.proofHtml);
   write(hardQuestionsPath, site.hardQuestionsHtml);
   write(hooksPath, site.hooksHtml);
@@ -80,6 +82,7 @@ if (mode === "--generate") {
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(docsPath), "site/docs.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
   check(existsSync(hardQuestionsPath), "site/hard-questions.html is missing; run npm run site:generate");
   check(existsSync(hooksPath), "site/hooks.html is missing; run npm run site:generate");
@@ -94,6 +97,7 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
   check(readFileSync(hardQuestionsPath, "utf8") === site.hardQuestionsHtml, "site/hard-questions.html is stale");
   check(readFileSync(hooksPath, "utf8") === site.hooksHtml, "site/hooks.html is stale");
@@ -310,6 +314,7 @@ function buildSite(generatedAt) {
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
+    docsHtml: docsHtml(catalog),
     proofHtml: proofHtml(catalog),
     hardQuestionsHtml: hardQuestionsHtml(catalog),
     hooksHtml: hooksHtml(catalog),
@@ -330,7 +335,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("proof.html")}">Proof</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
+  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt</a><span class="navlinks"><a href="${link("try.html")}">Try now</a><a href="${link("journey.html")}">Journey</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("hooks.html")}">Hooks</a><a href="${link("private/")}">Private</a></span></nav>`;
 }
 
 function html(catalog) {
@@ -493,7 +498,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h2 id="background">Reviewer Evidence</h2>
       <p>The proof corpus and source repository are still available, but they are supporting material rather than the first thing a new Helm user has to understand.</p>
       <div class="grid">
-        <div class="card"><h3>Proof data</h3><p><a href="./proof.html">Proof overview</a> · <a href="../data/README.md">Generated evidence index</a> · <a href="../data/status-dashboard/summary.md">Status dashboard</a></p></div>
+        <div class="card"><h3>Docs and data</h3><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Generated evidence index</a></p></div>
         <div class="card"><h3>Quirks</h3><p><a href="./hooks.html">Hooks</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
         <div class="card"><h3>Source and scope</h3><p><a href="../README.md">Repository README</a> · <a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a> · <a href="../data/claims-register/summary.md">Claims register</a></p></div>
       </div>
@@ -1421,6 +1426,75 @@ npm run kube-prometheus-stack:compare</pre>
   <footer>
     The short path uses current commands only. Stronger production claims require fresh target-scoped receipts.
   </footer>
+</body>
+</html>
+`;
+}
+
+function docsHtml(catalog) {
+  const userRows = [
+    ["Try the catalog", "Run the short local path first.", "./try.html"],
+    ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
+    ["Understand the journey", "Inspect, try, connect, operate, and move into private catalogs.", "./journey.html"],
+    ["Answer hard questions", "Hooks, upgrades, custom values, target prerequisites, limits, and refusals.", "./hard-questions.html"],
+  ];
+  const guideRows = [
+    ["Choose your path", "Direct render, one-shot upload, public catalog, or ConfigHub operations.", "../docs/user/choose-your-path.md"],
+    ["Choosing commands", "When to use cub helm template, cub helm install, or cub installer setup.", "../docs/user/choosing-commands.md"],
+    ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
+    ["Custom overlays", "How wrapper charts, customer values, and overlays map into the model.", "../docs/user/custom-overlays.md"],
+    ["Verification lanes", "What each check proves and which commands run it.", "../docs/user/verification-lanes.md"],
+    ["Hook lifecycle strategy", "How hooks are observed, routed, blocked, refused, or marked per-target.", "../docs/user/hook-lifecycle-strategy.md"],
+  ];
+  const dataRows = [
+    ["Helm Catalog database", "Chart versions, variants, lanes, source links, and current status.", "./matrix.html"],
+    ["Generated data index", "The full generated data catalog behind the public site.", "../data/README.md"],
+    ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
+    ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
+    ["Deep proof page", "Proof lanes and sceptic-test routing for reviewers who want the full detail.", "./proof.html"],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docs · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero">
+    ${topNav(".")}
+    <h1>Docs</h1>
+    ${generatedStamp(catalog, "docs page")}
+    <p class="tagline">Start with the user guides. Drop into the database, generated evidence, and proof surfaces only when you need more detail.</p>
+  </header>
+  <main>
+    <section aria-labelledby="start">
+      <h2 id="start">Start Here</h2>
+      ${markdownLikeTable([
+        ["Page", "Use it for", "Open"],
+        ...userRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section aria-labelledby="guides">
+      <h2 id="guides">User Guides</h2>
+      ${markdownLikeTable([
+        ["Guide", "Use it for", "Open"],
+        ...guideRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section aria-labelledby="database">
+      <h2 id="database">Database And Evidence</h2>
+      <p>The Helm Catalog page is the browsing surface. The matrix is the database of currently supported charts and variants. The generated data files are the underlying evidence.</p>
+      ${markdownLikeTable([
+        ["Surface", "Use it for", "Open"],
+        ...dataRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
+  </main>
+  <footer>Generated from helm-expt catalog data. Use the Helm Catalog first, then the matrix and generated data when you need exact status.</footer>
 </body>
 </html>
 `;
@@ -3257,9 +3331,11 @@ Open \`site/index.html\` first for the public launch front door.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/journey.html\` for the path from inspect, to no-account try-out, to
 ConfigHub-managed operations.
+Open \`site/docs.html\` for the public documentation hub.
 Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
-Open \`site/proof.html\` for the proof lanes, sceptic tests, and refusal boundary.
+Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
+and refusal boundaries.
 Open \`site/hooks.html\` for hook and lifecycle route dispositions.
 Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.
 Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/index.html\`.
