@@ -227,48 +227,50 @@
 <body>
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Prove Helm parity first.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T20:20:37.100Z UTC · source: committed helm-expt evidence for this public offering page.</p>
-    <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
-    <p>Use this site in order: start with a parity demo, choose a chart and base from the Helm Catalog, then move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Use Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions. Upgrade is where private catalogs, managed workflows, and production responsibility begin.</p>
+    <h1>Use Helm charts. Prove the ConfigHub install matches.</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-20T20:23:11.041Z UTC · source: committed helm-expt evidence for this public offering page.</p>
+    <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
+    <p>Start with a parity demo. Then choose a chart and base from the Helm Catalog. Move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Move into Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions.</p>
     <div class="doors">
       <div class="door">
-        <span class="kicker">Start here</span>
-        <h3><a href="./try.html">Run a small parity demo</a></h3>
-        <p>Use Redis to see the path without needing to understand the whole evidence system.</p>
+        <span class="kicker">First</span>
+        <h3><a href="./try.html">Get Started</a></h3>
+        <p>Run the short Redis path and see standard Helm compared with cub installer.</p>
         <span class="go"><a href="./try.html">Open Get Started →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Pick chart</span>
-        <h3><a href="./charts/index.html">Choose from the catalog</a></h3>
-        <p>Find the chart, version, base variants, receipts, quirks, and current evidence.</p>
-        <span class="go"><a href="./charts/index.html">Open chart pages →</a></span>
+        <span class="kicker">Second</span>
+        <h3><a href="./charts/index.html">Choose a chart</a></h3>
+        <p>Browse the top-100 database, detailed chart pages, variants, quirks, and ConfigHub Actions.</p>
+        <span class="go"><a href="./charts/index.html">Open Helm Catalog →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Check state</span>
-        <h3><a href="./matrix.html">Read the master matrix</a></h3>
-        <p>Pass, watch, blocked, not yet run, not applicable, and deferred accepted are all visible.</p>
-        <span class="go"><a href="./matrix.html">Open matrix →</a></span>
+        <span class="kicker">Then</span>
+        <h3><a href="./journey.html">Build Apps</a></h3>
+        <p>Create variants, promote through environments, and combine public charts with custom app pieces.</p>
+        <span class="go"><a href="./journey.html">Open Apps →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Challenge it</span>
-        <h3><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a></h3>
-        <p>If a chart breaks the model, the answer should be a fixture, receipt, named refusal, or routed gap.</p>
-        <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open issue template →</a></span>
+        <span class="kicker">Later</span>
+        <h3><a href="./operations.html">Operate live apps</a></h3>
+        <p>Scan, gate, observe, patch, upgrade, roll back, and ask fleet-wide questions.</p>
+        <span class="go"><a href="./operations.html">Open Ops →</a></span>
       </div>
     </div>
   </header>
   <main>
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Prove Parity</h2>
-      <p>Start with parity, not platform features. These demos ask the same question at different depths: under the same chart, version, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
-      <div class="grid">
-        <div class="metric"><strong>199/199</strong><span>Render parity rows</span><p>Regular Helm render compared with cub installer render under recorded inputs.</p></div>
-        <div class="metric"><strong>121/172</strong><span>Two-cluster kind parity pass</span><p>Regular Helm in one vanilla kind cluster, cub installer output in another.</p></div>
-        <div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span><p>ConfigHub-published OCI reconciled by a GitOps controller and observed live.</p></div>
-        <div class="metric"><strong>135/199</strong><span>Live parity pass</span><p>Regular Helm and ConfigHub delivery reached the same semantic live outcome.</p></div>
-      </div>
+      <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
       <div class="catalog">
+        <article class="card">
+          <span class="kicker">Standard Redis</span>
+          <h3>Start with the smallest happy path</h3>
+          <p>Redis is the teaching chart. Render the public package, verify your local render against the catalog, then choose whether to apply locally or upload into ConfigHub.</p>
+          <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis
+npm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis</code></pre>
+          <p><a href="./try.html">Get started with Redis</a></p>
+        </article>
         <article class="card">
           <span class="kicker">Serverless parity</span>
           <h3>No account: Helm vs cub installer in two kind clusters</h3>
@@ -282,14 +284,6 @@
           <p>This checks the connected path: ConfigHub publishes the rendered object set as OCI, Argo reconciles it, and the live result is compared with regular Helm.</p>
           <pre><code>npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base default</code></pre>
           <p><a href="../data/live-helm-confighub-compare/summary.md">Open live Helm-vs-ConfigHub receipts</a></p>
-        </article>
-        <article class="card">
-          <span class="kicker">Standard Redis</span>
-          <h3>Follow the smallest happy path</h3>
-          <p>Redis is the teaching chart: render the public package, verify your local render against the catalog, and then choose whether to apply locally or upload into ConfigHub.</p>
-          <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis
-npm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis</code></pre>
-          <p><a href="./try.html">Try Redis</a></p>
         </article>
         <article class="card">
           <span class="kicker">Your chart choice</span>
@@ -308,14 +302,21 @@ npm run kube-prometheus-stack:compare</code></pre>
           <p><a href="../docs/user/serious-chart-proof.md">Open the serious chart guide</a></p>
         </article>
       </div>
+      <h3>Current evidence snapshot</h3>
+      <div class="grid">
+        <div class="metric"><strong>199/199</strong><span>Render parity rows</span><p>Regular Helm render compared with cub installer render under recorded inputs.</p></div>
+        <div class="metric"><strong>121/172</strong><span>Two-cluster kind parity pass</span><p>Regular Helm in one vanilla kind cluster, cub installer output in another.</p></div>
+        <div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span><p>ConfigHub-published OCI reconciled by a GitOps controller and observed live.</p></div>
+        <div class="metric"><strong>135/199</strong><span>Live parity pass</span><p>Regular Helm and ConfigHub delivery reached the same semantic live outcome.</p></div>
+      </div>
     </section>
 
     <section aria-labelledby="do-next">
       <h2 id="do-next">2. Show Me What I Can Do</h2>
-      <p>Once parity is visible, the value is that the rendered objects become explicit config. You can review them, create variants, apply policy, promote changes, and observe the live result.</p>
+      <p>Once parity is visible, the value is that rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
       <div class="card"><table>
         <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
-        <tbody><tr><td>Create useful variants</td><td>Base variants capture Helm render choices. Derived ConfigHub variants handle approved post-render changes such as target, labels, gates, links, and observation policy.</td><td><a href="./variants.html">./variants.html</a></td></tr><tr><td>Review and operate objects</td><td>Once rendered objects become ConfigHub Units, teams can diff, scan, approve, promote, observe, and audit them instead of treating Helm as one opaque action.</td><td><a href="./operations.html">./operations.html</a></td></tr><tr><td>Build apps on the data</td><td>Several charts plus a custom service can become one managed desired-state graph with scans, diffs, promotion, and GitOps handoff.</td><td><a href="./custom-apps.html">./custom-apps.html</a></td></tr></tbody>
+        <tbody><tr><td>Apps</td><td>Use public charts, custom apps, stacks, platform groups, variants, and promotion as one application path.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Ops</td><td>Once an app is live, scan, gate, deliver, observe, patch, upgrade, roll back, and answer fleet questions.</td><td><a href="./operations.html">./operations.html</a></td></tr><tr><td>Upgrade</td><td>Move into private catalogs, managed workflows, teams, approvals, SLAs, and production responsibility.</td><td><a href="./private/">./private/</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -327,10 +328,10 @@ npm run kube-prometheus-stack:compare</code></pre>
 
     <section aria-labelledby="limits">
       <h2 id="limits">3. What Are The Limits?</h2>
-      <p>The homepage should not hide the hard parts. Render parity is a baseline. Hooks, CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, and controller-owned runtime state need explicit routes.</p>
+      <p>Render parity is the baseline, not the end. CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, controller-owned runtime state, and hook-like lifecycle behavior need explicit routes.</p>
       <div class="card"><table>
         <thead><tr><th>Limit</th><th>Meaning</th><th>Where to look</th></tr></thead>
-        <tbody><tr><td>A green render is not production proof</td><td>Target facts, lifecycle behavior, hooks, controller state, storage, and cloud identity can still matter.</td><td><a href="../docs/user/target-prerequisites.md">../docs/user/target-prerequisites.md</a></td></tr><tr><td>Watch is not fail, and not pass</td><td>A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.</td><td><a href="./matrix.html">./matrix.html</a></td></tr><tr><td>Some chart choices need new bases</td><td>If a values file, overlay, CRD choice, Secret mode, HA mode, or extension slot changes Helm output, create or import a new base and prove it.</td><td><a href="../docs/user/custom-overlays.md">../docs/user/custom-overlays.md</a></td></tr></tbody>
+        <tbody><tr><td>Parity is the starting point</td><td>A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.</td><td><a href="../docs/user/target-prerequisites.md">../docs/user/target-prerequisites.md</a></td></tr><tr><td>Watch is not fail, and not pass</td><td>A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.</td><td><a href="./matrix.html">./matrix.html</a></td></tr><tr><td>Some chart choices need new bases</td><td>If a values file, overlay, CRD choice, Secret mode, HA mode, or extension slot changes Helm output, create or import a new base and prove it.</td><td><a href="../docs/user/custom-overlays.md">../docs/user/custom-overlays.md</a></td></tr><tr><td>Hooks become ConfigHub Actions</td><td>Hook-like lifecycle behavior should be routed as explicit preflight, target-owned, GitOps, observation, blocked, or refused actions.</td><td><a href="./charts/index.html#actions">./charts/index.html#actions</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -339,6 +340,7 @@ npm run kube-prometheus-stack:compare</code></pre>
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="./hard-questions.html">Open hard questions</a> for the skeptical path through hooks, upgrades, custom values, target prerequisites, GitOps sync, and free versus managed boundaries.</p>
+      <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send a problem chart</a>. The answer should be a fixture, receipt, named refusal, or routed gap.</p>
     </section>
 
     <section aria-labelledby="confighub">
