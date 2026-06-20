@@ -1887,99 +1887,16 @@ function hardQuestionsHtml(catalog) {
 }
 
 function hooksHtml(catalog) {
-  const routes = catalog.lifecycleRoutes;
-  const dispositionCounts = countBy(routes, "disposition");
-  const executionCounts = countBy(routes, "execution_mode");
-  const autoCount = routes.filter((row) => isTruthyRouteFlag(row.safe_as_automatic)).length;
-  const chartCount = new Set(routes.map((row) => `${row.chart}@${row.version}`)).size;
-  const dispositionRows = Object.entries(dispositionCounts).map(([label, count]) => [label, String(count), dispositionMeaning(label)]);
-  const executionRows = Object.entries(executionCounts).map(([label, count]) => [label, String(count), executionModeMeaning(label)]);
-  const routeRows = routes.map((row) => [
-    `${row.chart}@${row.version}`,
-    row.quirk_class,
-    row.disposition,
-    row.route_name,
-    row.execution_mode,
-    isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
-    shortLifecycleEvidence(row.evidence_or_next_action),
-  ]);
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hooks & Lifecycle · ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
+  <title>ConfigHub Actions · ConfigHub Helm Catalog</title>
 </head>
 <body>
-  <header class="hero">
-    ${topNav(".")}
-    <h1>Where do Helm hooks and lifecycle behavior go?</h1>
-    ${generatedStamp(catalog, "hooks and lifecycle page")}
-    <p class="tagline">The catalog does not pretend Helm hooks are ordinary static YAML. It names the lifecycle behavior, the route, who executes it, and whether the product executes it automatically.</p>
-    <p>Today a routed behavior means the route and off-ramp are visible. It does not mean universal automatic hook execution. A row becomes automatic only when the execution mode is product-owned and evidence proves that path.</p>
-  </header>
-  <main>
-    <section aria-labelledby="headline">
-      <h2 id="headline">Current Lifecycle Route Contract</h2>
-      <div class="grid">
-        <div class="metric"><strong>${escapeHtml(routes.length)}</strong><span>route rows from committed lifecycle data</span></div>
-        <div class="metric"><strong>${escapeHtml(chartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
-        <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
-        <div class="metric"><strong><a href="./matrix.html">matrix</a></strong><span>route signal beside each catalog row</span></div>
-      </div>
-      <p>The low automatic count is deliberate. It keeps the public claim honest while still making the route useful to humans and agents.</p>
-    </section>
-
-    <section aria-labelledby="meanings">
-      <h2 id="meanings">Disposition Means Claim</h2>
-      ${markdownLikeTable([
-        ["Disposition", "Rows", "Meaning"],
-        ...dispositionRows,
-      ])}
-      <p><a href="../docs/reference/what-hook-support-means.md">Read the reference vocabulary</a> for the exact claim and refusal attached to each word.</p>
-    </section>
-
-    <section aria-labelledby="execution">
-      <h2 id="execution">Execution Mode Means Who Runs It</h2>
-      ${markdownLikeTable([
-        ["Execution mode", "Rows", "Meaning"],
-        ...executionRows,
-      ])}
-      <p>This is the important split for Helm users. Helm may run a hook implicitly. The catalog must say whether ConfigHub runs it, the target owns it, the user runs it as an explicit lifecycle action, or the route is not executable yet.</p>
-    </section>
-
-    <section aria-labelledby="route">
-      <h2 id="route">How To Read A Route</h2>
-      ${simpleList([
-        ["Quirk", "What kind of lifecycle behavior was found: hook phase, CRD install, target fact, webhook readiness, or a related class."],
-        ["Route", "Where the behavior belongs: preflight, presync, managed action, target-owned controller behavior, post-apply observation, or refusal."],
-        ["Off-ramp", "How a human or agent chooses an alternative route when the default is not right for the target."],
-        ["Evidence", "A receipt path when observed, or the next action when the route is still todo, per-target, or blocked by prerequisite work."],
-      ])}
-    </section>
-
-    <section aria-labelledby="rows">
-      <h2 id="rows">Route Rows</h2>
-      ${markdownLikeTable([
-        ["Chart", "Quirk", "Disposition", "Route", "Execution", "Auto", "Evidence or next action"],
-        ...routeRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">What To Do With This</h2>
-      <div class="grid">
-        <div class="card"><h3>Trying a chart</h3><p>Open the chart page or matrix row. If lifecycle behavior exists, check the route and executor before treating a green render as a live install claim.</p></div>
-        <div class="card"><h3>Creating a base</h3><p>If the behavior changes rendered objects or Helm values, create a recipe/base variant. If it is post-render operation, route it through ConfigHub or a target-owned controller.</p></div>
-        <div class="card"><h3>Using GitOps</h3><p>Use Argo or Flux only when the route says the controller owns that lifecycle step or the receipt proves the selected sync path.</p></div>
-        <div class="card"><h3>Automating later</h3><p>Do not mark a route automatic until product execution and evidence exist. Until then, keep the explicit route and off-ramp visible.</p></div>
-        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's ConfigHub Actions section.</p></div>
-      </div>
-    </section>
-  </main>
-  <footer>Generated from helm-expt lifecycle route data. Route visibility is not an automatic execution claim.</footer>
+  <p>Hooks and lifecycle behavior are now covered on the Helm Catalog page as <a href="./charts/index.html#actions">ConfigHub Actions</a>.</p>
 </body>
 </html>
 `;
@@ -2600,7 +2517,7 @@ function chartIndexHtml(catalog) {
         ["Disposition", "Rows", "Meaning"],
         ...dispositionRows,
       ])}
-      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a>, <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>, and the legacy <a href="../hooks.html">hooks detail page</a>.</p>
+      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>. The old <a href="../hooks.html">hooks URL</a> redirects here.</p>
     </section>
 
     <section aria-labelledby="charts">
@@ -3524,8 +3441,8 @@ custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
 Open \`site/charts/index.html#actions\` for ConfigHub Actions, including hook
-and lifecycle route dispositions. \`site/hooks.html\` remains as a deep
-compatibility detail page.
+and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
+compatibility.
 Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.
 Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/index.html\`.
 Open \`site/offering.html\` for the longer public offering page.
