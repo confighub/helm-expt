@@ -1,0 +1,859 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CubInstallerFuzzReceipt"
+metadata:
+  name: "cub-installer-fuzz-20260621"
+spec:
+  observedAt: "2026-06-21T15:31:13.196Z"
+  packagesAttempted: 8
+  packagesFuzzed: 8
+  cases: 96
+  tally:
+    rendered: 8
+    rejected-unknown: 24
+    rejected-validation: 24
+    namespace-not-validated: 16
+    namespace-rough-error: 8
+    rendered-no-injection: 8
+    rejected-no-injection: 8
+  bugCount: 0
+  bugs:
+    []
+  findingCount: 24
+  findings:
+    -
+      behavior: "namespace-not-validated"
+      count: 16
+      detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+      packages:
+        - "bitnami/apache"
+        - "bitnami/memcached"
+        - "bitnami/mongodb"
+        - "bitnami/mysql"
+        - "bitnami/nginx/24.0.2"
+        - "bitnami/postgresql"
+        - "bitnami/rabbitmq"
+        - "bitnami/redis"
+    -
+      behavior: "namespace-rough-error"
+      count: 8
+      detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+      packages:
+        - "bitnami/apache"
+        - "bitnami/memcached"
+        - "bitnami/mongodb"
+        - "bitnami/mysql"
+        - "bitnami/nginx/24.0.2"
+        - "bitnami/postgresql"
+        - "bitnami/rabbitmq"
+        - "bitnami/redis"
+  result: "pass"
+  claim: "Fuzzing CUB INSTALLER (not Helm) with careless + adversarial inputs: an unknown input key is a hard error (the footgun Helm absorbs), bad base/namespace/image are validated, and shell-metacharacter inputs do not execute. Any crash, injection, or silent-swallow is reported as a bug to fix. This tests our own tool."
+  packages:
+    -
+      pkg: "bitnami/nginx/24.0.2"
+      base: "http-clusterip"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 6 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/redis"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 14 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 14 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 14 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/mysql"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 8 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 8 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 8 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/mongodb"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 8 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 8 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 8 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/rabbitmq"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 9 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 9 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 9 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/postgresql"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 7 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 7 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 7 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/apache"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 6 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
+    -
+      pkg: "bitnami/memcached"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          case: "baseline-valid"
+          category: "control"
+          code: 0
+          behavior: "rendered"
+          bug: false
+          finding: false
+          detail: "rendered 6 manifest file(s)"
+        -
+          case: "unknown-input-typo"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"thisKeyDoesNotExistAtAll\""
+        -
+          case: "unknown-input-replicas"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          case: "unknown-input-deeppath"
+          category: "unknown-input"
+          code: 1
+          behavior: "rejected-unknown"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"resources.limits.cpu\""
+        -
+          case: "bad-base"
+          category: "bad-selection"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: resolve selection: unknown base \"does-not-exist-zzz\""
+        -
+          case: "namespace-uppercase"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-special"
+          category: "bad-namespace"
+          code: 0
+          behavior: "namespace-not-validated"
+          bug: false
+          finding: true
+          detail: "cub rendered an invalid namespace into 6 file(s) — caught only at k8s apply, not by cub"
+        -
+          case: "namespace-too-long"
+          category: "bad-namespace"
+          code: 1
+          behavior: "namespace-rough-error"
+          bug: false
+          finding: true
+          detail: "opaque error on a bad namespace (not a clean validation): Error: write <tmp> open <tmp> file name too long"
+        -
+          case: "namespace-empty"
+          category: "bad-namespace"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: --namespace is required in non-interactive mode"
+        -
+          case: "inject-namespace"
+          category: "injection"
+          code: 0
+          behavior: "rendered-no-injection"
+          bug: false
+          finding: false
+          detail: "accepted; no shell execution observed"
+        -
+          case: "inject-input"
+          category: "injection"
+          code: 1
+          behavior: "rejected-no-injection"
+          bug: false
+          finding: false
+          detail: "Error: unknown input \"ns\""
+        -
+          case: "set-image-garbage"
+          category: "bad-image"
+          code: 1
+          behavior: "rejected-validation"
+          bug: false
+          finding: false
+          detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
