@@ -445,6 +445,8 @@
     "hook-test:proof:verify": "node scripts/run-hook-test-proof.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
+    "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
+    "hook-replacement:proof:verify": "node scripts/run-hook-replacement-proof.mjs --verify",
     "live-parity:top20": "node scripts/run-top20-live-parity.mjs --run",
     "live-parity:top20:all": "node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail",
     "live-parity:top20:summary": "node scripts/run-top20-live-parity.mjs --summary",

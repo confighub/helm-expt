@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hook-replacement-workload
+  labels:
+    app.kubernetes.io/name: hook-replacement-probe
+data:
+  workload: "installed"
+  note: >-
+    Steady-state object set. A delivery controller (Argo/Flux) or kubectl applies
+    this directly. The companion Job is the routed hook (see hook-job.yaml).
