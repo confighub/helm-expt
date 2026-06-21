@@ -25,7 +25,8 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 | **C. Lifecycle / hooks** | observe → **execute** → **emit** (GitOps-native) |
 | **D. Day-1 preview** (cub-scout) | `compare three-way --dry-from` (desired-vs-live, drift) |
 | **E. UX / journey** | journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe |
-| **F. Adversarial / refusal boundary** | torture suite · adversarial-10 · quirk & pain-point coverage |
+| **F. Adversarial / refusal boundary** (a *deliberate* skeptic breaking the model) | torture suite · adversarial-10 · quirk & pain-point coverage |
+| **G. Careless-dev randomness** (an *ordinary* dev making silly decisions, repeatedly, at volume) | random-bad-decisions fuzz |
 
 ## The coverage matrix
 
@@ -48,6 +49,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | UX: journey pathways | ● | ● | ● | ● | [docs/user/pathway-*](../docs/user/pathway-route-hooks-transparently.md), [user-journey-test-pathways-plan](../docs/planning/user-journey-test-pathways-plan.md) | partial — Pathway 1 (hooks) shipped; others pending |
 | UX: website / outside-user / adversarial | spans | spans | spans | spans | [WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md), [outside-user-test](../docs/planning/outside-user-test.md), [pilot-adversarial-testing](../docs/planning/pilot-adversarial-testing.md), [adversarial-strategy.md](adversarial-strategy.md) | runbook + plan + probe method |
 | Adversarial / refusal boundary | ● | ○ | – | – | [torture-suite](../data/torture-suite/summary.md), [adversarial10](../data/adversarial10/summary.md), [quirk-coverage](../data/quirk-coverage/summary.md) | refusal boundary covered |
+| Random-bad-decisions fuzz | ● | ○ | – | – | `run-bad-decisions-fuzz`, [bad-decisions-fuzz](../data/bad-decisions-fuzz/summary.md) | 180 cases, 0 unclassified (rejected 1% / leaked 33% / absorbed 66%) |
 
 ## How we state coverage
 
@@ -70,6 +72,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 
 | For… | Go to |
 | --- | --- |
+| **The standing principles (OCI transport · Argo+Flux+kubectl · never-silent · quirks through ConfigHub)** | **[doctrine.md](doctrine.md)** |
 | What claim each lane proves (the Coverage Ladder) | [strategy.md](strategy.md) |
 | Which `npm run …` matches my edit | [npm-scripts.md](npm-scripts.md) |
 | The generated inventory of every script | [npm-script-catalog.md](npm-script-catalog.md) |
