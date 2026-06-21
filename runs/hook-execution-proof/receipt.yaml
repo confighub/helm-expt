@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookRouteExecutionReceipt"
+metadata:
+  name: "hook-exec-20260620-13x6"
+spec:
+  chart: "tests/fixtures/hook-job-probe"
+  observedAt: "2026-06-20T19:50:27.032Z"
+  result: "pass"
+  claim: "A post-install Job that Helm runs silently inside `helm install` can instead be executed as an explicit, named, receipted lifecycle action — same outcome, but visible, audited, and automatable (your pipeline or cub runs it). This is the execution evidence that justifies automatic:true for this route scope."
+  route:
+    quirkClass: "hook-phase"
+    routeName: "explicit-managed-action"
+    actionKind: "run-job"
+    lifecyclePhase: "post-apply"
+  execution:
+    executor: "harness"
+    helmHooksExecutedByHarness: true
+    automaticJustified: true
+    note: "executor=harness proves a non-Helm path executed the route; automatic:true is justified for THIS scope (chart/base/cluster) only, and stays automatic:false in the catalog until folded in deliberately."
+  run:
+    rig: "hook-exec-20260620-13x6"
+    namespaces:
+      - "hook-job-probe"
+      - "hook-job-routed"
+    cleanup:
+      result: "pass"
+  legs:
+    renderParity:
+      mode: "helm template (render parity)"
+      observed: "job-is-post-install-hook"
+      result: "pass"
+      expected: "job-is-post-install-hook"
+    helmInstallSilent:
+      mode: "helm install (what Helm does)"
+      observed: "job-run-silently-by-helm"
+      result: "pass"
+      expected: "job-run-silently-by-helm"
+      detail: ""
+    routedExecution:
+      mode: "routed execution (this method)"
+      observed: "job-executed-explicitly-receipted"
+      result: "pass"
+      expected: "job-executed-explicitly-receipted"
+      detail: ""
+  conclusion: "Execution proven live: render parity delivers the workload; the post-install Job was executed explicitly in a fresh namespace and completed (executor=harness, receipted) — the same Job Helm otherwise runs silently inside install. This is the receipted-execution path that justifies automatic:true for this scope."

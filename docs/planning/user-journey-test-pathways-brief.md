@@ -3,6 +3,19 @@
 **Audience:** the next helm-expt working session (fresh Opus 4.8 chat).
 **Status:** UNOFFICIAL/EXPERIMENTAL planning brief. Do the research pass *first*; do not build from assumption.
 
+> **Update (2026-06-20) — research pass done; Pathway 1 shipped.** The verified research map,
+> the pathway matrix, and the build plan are in the companion
+> [`user-journey-test-pathways-plan.md`](user-journey-test-pathways-plan.md). **Read it
+> alongside this brief** — it corrects four specifics below that the research pass falsified:
+> (1) several charts named here are **source-scan only, not in the catalog** (kafka, minio,
+> thanos, airflow, kong, datadog, kubernetes-dashboard, keycloak, gitlab) — do not anchor
+> pathways on them; (2) **only `cub-scout compare three-way --dry-from` is shipped** —
+> `compare object-set --dry-from` / `ObjectSetDiffReceipt` (the "#498" in §2d) are
+> design/branch-only, not on `main`; (3) the **"62"** (§4, §7) is the lifecycle-lane cell
+> count, not a single named field; (4) the persona PRD has **6** personas (this brief's 5 is a
+> subset). Pathway 1 — "Route a chart's hooks, transparently" — is built:
+> [`pathway-route-hooks-transparently.md`](../user/pathway-route-hooks-transparently.md).
+
 ---
 
 ## 1. Mission

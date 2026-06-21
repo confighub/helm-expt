@@ -251,6 +251,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
 | `gitops-health-residue` | [gitops-health-residue/summary.md](./gitops-health-residue/summary.md) | ConfigHub OCI/GitOps controller-health residue classification |
+| `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
 | `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
@@ -268,6 +269,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `lifecycle-observations` | [lifecycle-observations/cert-manager-eso/summary.md](./lifecycle-observations/cert-manager-eso/summary.md) | controller-owned or hook-like lifecycle observations |
 | `lifecycle-route-actions` | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md) | hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag |
 | `lifecycle-routes` | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md) | machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps |
+| `lifecycle-routes-by-variant` | [lifecycle-routes-by-variant/summary.md](./lifecycle-routes-by-variant/summary.md) | supporting generated evidence |
 | `live-e2e` | [live-e2e/summary.md](./live-e2e/summary.md) | top-20 local kind runtime status |
 | `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
 | `live-kind-parity` | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | two-cluster kind parity receipts |
@@ -330,7 +332,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 155 CSV files. Each row records the path, audience,
+It includes 157 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

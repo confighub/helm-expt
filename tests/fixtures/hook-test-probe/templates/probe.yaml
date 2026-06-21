@@ -1,0 +1,52 @@
+{{- /*
+  hook-test-probe makes the "test hook" lifecycle decision observable.
+
+  - The ConfigMap is the steady-state (non-hook) object set. Render parity proves
+    it and `helm install` applies it.
+  - The Pod is a Helm test hook (helm.sh/hook: test). Helm does NOT run it at
+    install time; it runs only on an explicit, out-of-band `helm test` (or a
+    GitOps test step you opt into). Routed delivery re-expresses it as an explicit,
+    named post-install check (action_kind: run-test, automatic: false) with a
+    committed receipt — visible and deliberate, never silent.
+
+  scripts/run-hook-test-proof.mjs reads back: (1) the test Pod is present in the
+  rendered output but carries the hook annotation (so it is separable from the
+  steady-state set); (2) after `helm install` the ConfigMap exists but the test
+  Pod has not run; (3) `helm test` runs it explicitly to a recorded result.
+*/ -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hook-test-probe-result
+  labels:
+    app.kubernetes.io/name: hook-test-probe
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  workload: "installed"
+  release: {{ .Release.Name | quote }}
+  namespace: {{ .Release.Namespace | quote }}
+  explanation: >-
+    This ConfigMap is the steady-state object set: render parity proves it and
+    `helm install` applies it. The companion Pod is a Helm test hook. Helm skips
+    it at install and runs it only on an explicit `helm test`. Routed delivery
+    runs it as a named post-install check (run-test, automatic:false) with a
+    receipt, so the otherwise-silent check is visible and approvable.
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hook-test-probe-test
+  labels:
+    app.kubernetes.io/name: hook-test-probe
+  annotations:
+    # A Helm *test* hook. `helm install` never runs this; only `helm test` (or a
+    # GitOps test step you explicitly enable) does. before-hook-creation keeps the
+    # Completed Pod observable while making re-runs idempotent.
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  restartPolicy: Never
+  containers:
+    - name: check
+      image: busybox:1.36
+      command: ["sh", "-c", "echo 'hook-test-probe: explicit post-install check OK'"]

@@ -1,0 +1,527 @@
+{
+  "charts": [
+    {
+      "chart": "airflow-helm/airflow",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "apache-airflow/airflow",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "recipe-time-lifecycle-verification",
+              "action_kind": "verify-render",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "controller-default-reviewed",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        },
+        {
+          "base": "minimal-crds",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/kafka",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/minio",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/thanos",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "datadog/datadog",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "target-class-preflight-and-upgrade-action",
+              "action_kind": "run-preflight",
+              "quirk_class": "per-target-hook",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "fluent/fluent-bit",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "default",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "gitlab/gitlab",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "argocd-or-flux-lifecycle-hook",
+              "action_kind": "gitops-sync-hook",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "native sync hook — this is already the GitOps path",
+              "flux": "native sync hook",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "k8s-dashboard/kubernetes-dashboard",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kong/kong",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

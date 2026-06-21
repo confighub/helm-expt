@@ -1,0 +1,21 @@
+{{- /*
+  Steady-state (non-hook) object set. Render parity proves this; `helm install`
+  applies it. It carries no Helm hook annotations, so it is delivered as ordinary
+  desired-state config (the part Argo/Flux sync directly).
+*/ -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hook-job-probe-result
+  labels:
+    app.kubernetes.io/name: hook-job-probe
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  workload: "installed"
+  release: {{ .Release.Name | quote }}
+  namespace: {{ .Release.Namespace | quote }}
+  explanation: >-
+    This ConfigMap is the steady-state object set. The companion Job
+    (templates/migration-job.yaml) is a post-install Helm hook that `helm install`
+    runs silently for you. Routed delivery executes that Job as an explicit, named,
+    receipted lifecycle action instead — same outcome, but visible and automatable.

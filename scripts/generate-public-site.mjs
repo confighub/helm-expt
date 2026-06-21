@@ -51,6 +51,7 @@ const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", 
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
+const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
@@ -167,6 +168,7 @@ function buildSite(generatedAt) {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
+  const lifecycleByVariant = existsSync(lifecycleByVariantJsonPath) ? JSON.parse(readFileSync(lifecycleByVariantJsonPath, "utf8")).charts : [];
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
@@ -251,6 +253,7 @@ function buildSite(generatedAt) {
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
+      lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
       masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
@@ -312,6 +315,7 @@ function buildSite(generatedAt) {
     scanDisposition,
     highFanout,
     lifecycleRoutes,
+    lifecycleByVariant,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
     masterCatalogMatrix: publicMatrixRows,
@@ -1889,6 +1893,18 @@ function hardQuestionsHtml(catalog) {
 `;
 }
 
+function whoRunsVariantTables(c) {
+  return c.variants.map((v) => {
+    const rows = v.routes.map((r) => [
+      `${r.quirk_class} (${r.route_name})`,
+      r.whoRuns,
+      r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` — ${r.reason}` : ""}`,
+    ]);
+    const heading = `${v.base}${v.requiredCrdCount ? ` — needs ${v.requiredCrdCount} CRDs supplied first` : ""}`;
+    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook (route)", "After you deploy, who runs it?", "Change for this variant"], ...rows])}`;
+  }).join("\n");
+}
+
 function hooksHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -2612,6 +2628,7 @@ function chartPageHtml(catalog, entry) {
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "-",
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
+  const lifecycleByVariantEntry = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
   const skillRows = chartSkill?.applicable?.map((skill) => [
     `<a href="../../${escapeHtml(skill.doc)}">${escapeHtml(skill.title)}</a>`,
     skill.why,
@@ -2715,13 +2732,15 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Where each Helm hook or hook-like lifecycle behavior becomes an explicit action, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
-      ${lifecycleRows.length
-        ? markdownLikeTable([
-            ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
-            ...lifecycleRows,
-          ])
-        : "<p>No hook or hook-like ConfigHub action is recorded for this chart.</p>"}
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See the <a href="../../data/lifecycle-routes-by-variant/by-variant.html">per-variant view</a> and the <a href="../../data/gitops-route-emission/emission.html">GitOps step (Argo/Flux) per route</a>.</p>
+      ${lifecycleByVariantEntry
+        ? whoRunsVariantTables(lifecycleByVariantEntry)
+        : lifecycleRows.length
+          ? markdownLikeTable([
+              ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
+              ...lifecycleRows,
+            ])
+          : "<p>No hook or hook-like ConfigHub action is recorded for this chart.</p>"}
     </section>
 
     <section aria-labelledby="production">

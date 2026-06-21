@@ -1,0 +1,29 @@
+{{- /*
+  A post-install / post-upgrade Job hook — the "provisioning / migration Job"
+  class. Helm runs this silently inside `helm install` (a privileged step you
+  never saw or approved). Routed delivery runs it as an explicit, receipted
+  lifecycle action. before-hook-creation keeps the Completed Job observable while
+  making re-runs idempotent.
+*/ -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hook-job-probe-migration
+  labels:
+    app.kubernetes.io/name: hook-job-probe
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hook-job-probe
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: busybox:1.36
+          command: ["sh", "-c", "echo 'hook-job-probe: migration job ran'"]

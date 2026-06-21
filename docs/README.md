@@ -71,6 +71,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [product-support-tiers.md](./user/product-support-tiers.md) | Which Helm scenarios fit the public catalog, managed imports, or commercial support. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
 | [chart-hooks-what-happens.md](./user/chart-hooks-what-happens.md) | Practical answer to "if my chart has hooks, what happens with the ConfigHub/installer version?": routes, phases, who runs each, and that a known route is not an automatically executed one. |
+| [pathway-route-hooks-transparently.md](./user/pathway-route-hooks-transparently.md) | Test pathway (Helm-user + SecOps × hook/lifecycle): render parity proves the non-hook objects, the hook runs as an explicit non-automatic route with a receipt, shown side-by-side vs. what Helm/Argo/Flux do silently. Anchored on fluent/fluent-bit; live proof via `npm run hook-test:proof`. |
 | [maintenance-sla.md](./user/maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
 | [demo/redis/demo-script.md](demo/redis/demo-script.md) | Runnable Redis walkthrough. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis demo acceptance criteria. |
@@ -246,6 +247,8 @@ Generated proof data for this section lives in:
 | [helm-community-persona-prd.md](./planning/helm-community-persona-prd.md) | Product requirements for Helm-user personas, free/paid boundaries, and the shift from rendering to day-1/day-2 variant operations. |
 | [helm-community-persona-plan.md](./planning/helm-community-persona-plan.md) | Execution plan for making the public repo and catalog valuable to different Helm user personas. |
 | [helm-community-persona-reference.md](./reference/helm-community-persona-reference.md) | Reference matrix for personas, free/paid capabilities, day-0/day-1/day-2 value, and variant routing decisions. |
+| [user-journey-test-pathways-brief.md](./planning/user-journey-test-pathways-brief.md) | Brief for the user-journey test pathways (persona × decisions × chart-class) and the hook-method validation work. |
+| [user-journey-test-pathways-plan.md](./planning/user-journey-test-pathways-plan.md) | Verified research map + build plan for the test pathways: the pathway matrix, phase sequencing, live-run policy, and corrections to the brief. |
 | [catalog-promotion-review.md](./planning/catalog-promotion-review.md) | Rules for deciding whether a proven chart becomes catalog-supported. |
 | [catalog-promotion-next-candidates.md](./planning/catalog-promotion-next-candidates.md) | Candidate charts for the next promotion wave. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Planning model for the no-login verified-install wedge: public catalog package resolution, local apply, in-cluster receipt, and where ConfigHub Server begins. |
@@ -256,6 +259,7 @@ Generated proof data for this section lives in:
 | [corpus-rationalization-plan.md](./planning/corpus-rationalization-plan.md) | Named redundancy map across the data views (lane truth, hook family, readiness family) with merge/retire queue and the rules that stop view re-accretion. |
 | [maintenance-strategy.md](./planning/maintenance-strategy.md) | Maintenance NOTE: the free-tier daily-refresh SLA for public data and tests, perpetual append-only retention of all public data and its changes, and the free/paid boundary backed by a larger daily-updated private corpus. |
 | [where-does-my-hook-go.md](./planning/where-does-my-hook-go.md) | Problem analysis and solution proposal generalizing the hook disposition model (observed/routed/per-target/refused) to every Helm behavior that does not survive a config-only render: named routes, the default-plus-legible-off-ramp requirement for humans and agents, a phased plan, and the #684 review notes. |
+| [hook-route-execution-plan.md](./planning/hook-route-execution-plan.md) | Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand. |
 | [top20-full-proof-target.md](./planning/top20-full-proof-target.md) | Definition and status of the top-20 full proof milestone. |
 | [top100-full-proof-target.md](./planning/top100-full-proof-target.md) | Definition and status of the top-100 proof surface. |
 | [top500-matrix-refresh-review.md](./planning/top500-matrix-refresh-review.md) | How the top-500 analysis should be regenerated and interpreted. |

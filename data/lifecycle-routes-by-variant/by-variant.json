@@ -1,0 +1,734 @@
+{
+  "charts": [
+    {
+      "chart": "airflow-helm/airflow",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-job",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Blocked — a prerequisite must be met first",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "apache-airflow/airflow",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "recipe-time-lifecycle-verification",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-render",
+              "action_kind": "verify-render",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Prerequisite — verify the render before apply",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "hasBuiltVariants": true,
+      "note": "",
+      "variants": [
+        {
+          "base": "controller-default-reviewed",
+          "recipeVersion": "1.0.14",
+          "requiredCrdCount": 8,
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "quirk_class": "crd-install",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "install-crd",
+              "execution_mode": "not-yet-executable",
+              "disposition": "routed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply the CRDs once (default base or your platform)",
+              "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+              "delta": "prerequisite",
+              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)"
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "1.0.14",
+          "requiredCrdCount": 8,
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "quirk_class": "crd-install",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "install-crd",
+              "execution_mode": "not-yet-executable",
+              "disposition": "routed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply the CRDs once (default base or your platform)",
+              "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+              "delta": "prerequisite",
+              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)"
+            }
+          ]
+        },
+        {
+          "base": "minimal-crds",
+          "recipeVersion": "1.0.14",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "quirk_class": "crd-install",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "install-crd",
+              "execution_mode": "not-yet-executable",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Handled — this base installs the CRDs",
+              "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+              "delta": "resolved",
+              "reason": "this base installs the required CRDs (observed live)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/kafka",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-job",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Blocked — a prerequisite must be met first",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/minio",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-job",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Blocked — a prerequisite must be met first",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/thanos",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-job",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Blocked — a prerequisite must be met first",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "datadog/datadog",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "target-class-preflight-and-upgrade-action",
+              "quirk_class": "per-target-hook",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "per-target",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "fluent/fluent-bit",
+      "hasBuiltVariants": false,
+      "note": "One built base — its hook routes do not differ by variant.",
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "0.57.6",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "explicit-test-check",
+              "quirk_class": "hook-test",
+              "lifecycle_phase": "observe",
+              "action_kind": "run-test",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "command": "# run the chart's test/check (helm test equivalent)",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "gitlab/gitlab",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "argocd-or-flux-lifecycle-hook",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "gitops-sync-hook",
+              "execution_mode": "not-yet-executable",
+              "disposition": "blocked",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps sync hook (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "k8s-dashboard/kubernetes-dashboard",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "routed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kong/kong",
+      "hasBuiltVariants": false,
+      "note": "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.",
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "routed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "hasBuiltVariants": true,
+      "note": "",
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "3.8.1",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "explicit-test-check",
+              "quirk_class": "hook-test",
+              "lifecycle_phase": "observe",
+              "action_kind": "run-test",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "command": "# run the chart's test/check (helm test equivalent)",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — applies objects in order, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "3.8.1",
+          "requiredCrdCount": 22,
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "explicit-test-check",
+              "quirk_class": "hook-test",
+              "lifecycle_phase": "observe",
+              "action_kind": "run-test",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "command": "# run the chart's test/check (helm test equivalent)",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — applies objects in order, automatically",
+              "command": "",
+              "delta": "reduced",
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "strengthened",
+              "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "hasBuiltVariants": true,
+      "note": "",
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "86.1.0",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — applies objects in order, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — sets up the webhook certificate, automatically",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "86.1.0",
+          "requiredCrdCount": 10,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": ""
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — applies objects in order, automatically",
+              "command": "",
+              "delta": "reduced",
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "strengthened",
+              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — sets up the webhook certificate, automatically",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

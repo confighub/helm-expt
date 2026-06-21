@@ -415,7 +415,7 @@
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Where each Helm hook or hook-like lifecycle behavior becomes an explicit action, who runs it, and whether the installer runs it automatically. No route is auto-executed today, so <strong>safe-to-automate stays <code>no</code></strong> until execution is the product's and proven. Details (optional): <a href="../../data/lifecycle-routes/summary.md">lifecycle-routes</a>.</p>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See the <a href="../../data/lifecycle-routes-by-variant/by-variant.html">per-variant view</a> and the <a href="../../data/gitops-route-emission/emission.html">GitOps step (Argo/Flux) per route</a>.</p>
       <p>No hook or hook-like ConfigHub action is recorded for this chart.</p>
     </section>
 
