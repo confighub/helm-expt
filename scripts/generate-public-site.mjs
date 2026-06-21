@@ -419,8 +419,8 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const journeySteps = [
     ["First", "See How It Works", "Get started with a Redis example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
-    ["Then", "Manage Variants", "Create customised variants, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
-    ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, stacks, and live operations once the app is running.", "./journey.html", "Apps"],
+    ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
+    ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
   ];
   const limitRows = [
     ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
@@ -440,7 +440,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header>
     ${topNav(".")}
     <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
-    <h1>Use Helm charts. Use AI. Use ConfigHub to prove it is correct.</h1>
+    <h1>ConfigHub helps you run Helm at scale</h1>
     ${generatedStamp(catalog, label)}
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
     <p>Start with Helm parity. Then choose a chart, customise variants in ConfigHub, and move into app-level workflows. Ops, Docs, FAQ, and Upgrade are supporting pages after that first path is clear.</p>
