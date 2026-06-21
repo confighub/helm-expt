@@ -1,0 +1,168 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DefaultCredentialCheckReceipt"
+metadata:
+  name: "default-credential-check-20260621"
+spec:
+  observedAt: "2026-06-21T16:31:32.527Z"
+  packagesChecked: 12
+  fixedCredentialCount: 5
+  misleadingNameCount: 4
+  fixedCredentials:
+    -
+      pkg: "bitnami/redis"
+      base: "default"
+      misleadingName: false
+      secrets:
+        -
+          secret: "redis"
+          key: "redis-password"
+          placeholder: "confighub-redis-password"
+    -
+      pkg: "bitnami/mysql"
+      base: "generated-passwords"
+      misleadingName: true
+      secrets:
+        -
+          secret: "mysql"
+          key: "mysql-password"
+          placeholder: "confighub-mysql-user-password"
+        -
+          secret: "mysql"
+          key: "mysql-root-password"
+          placeholder: "confighub-mysql-root-password"
+    -
+      pkg: "bitnami/mongodb"
+      base: "generated-passwords"
+      misleadingName: true
+      secrets:
+        -
+          secret: "mongodb"
+          key: "mongodb-root-password"
+          placeholder: "confighub-mongodb-root-password"
+    -
+      pkg: "bitnami/rabbitmq"
+      base: "generated-passwords"
+      misleadingName: true
+      secrets:
+        -
+          secret: "rabbitmq"
+          key: "rabbitmq-password"
+          placeholder: "confighub-rabbitmq-password"
+    -
+      pkg: "bitnami/postgresql"
+      base: "generated-passwords"
+      misleadingName: true
+      secrets:
+        -
+          secret: "postgresql"
+          key: "postgres-password"
+          placeholder: "confighub-postgres-password"
+  result: "watch"
+  claim: "Helm generates a RANDOM password per install. cub renders deterministically and ships an auth Secret in out/secrets/ — but for these default bases the value is FIXED (identical across namespaces, committed in the package, e.g. `confighub-redis-password`). That is a shared, well-known default credential, not a generated one — convenient for demos, a footgun deployed unchanged. Bases named `generated-passwords` that ship a fixed value are misleadingly named."
+  packages:
+    -
+      pkg: "bitnami/nginx/24.0.2"
+      base: "http-clusterip"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/redis"
+      base: "default"
+      misleadingName: false
+      status: "fixed-credential"
+      fixed:
+        -
+          secret: "redis"
+          key: "redis-password"
+          placeholder: "confighub-redis-password"
+      varies:
+        []
+    -
+      pkg: "bitnami/mysql"
+      base: "generated-passwords"
+      misleadingName: true
+      status: "fixed-credential"
+      fixed:
+        -
+          secret: "mysql"
+          key: "mysql-password"
+          placeholder: "confighub-mysql-user-password"
+        -
+          secret: "mysql"
+          key: "mysql-root-password"
+          placeholder: "confighub-mysql-root-password"
+      varies:
+        []
+    -
+      pkg: "bitnami/mongodb"
+      base: "generated-passwords"
+      misleadingName: true
+      status: "fixed-credential"
+      fixed:
+        -
+          secret: "mongodb"
+          key: "mongodb-root-password"
+          placeholder: "confighub-mongodb-root-password"
+      varies:
+        []
+    -
+      pkg: "bitnami/rabbitmq"
+      base: "generated-passwords"
+      misleadingName: true
+      status: "fixed-credential"
+      fixed:
+        -
+          secret: "rabbitmq"
+          key: "rabbitmq-password"
+          placeholder: "confighub-rabbitmq-password"
+      varies:
+        []
+    -
+      pkg: "bitnami/postgresql"
+      base: "generated-passwords"
+      misleadingName: true
+      status: "fixed-credential"
+      fixed:
+        -
+          secret: "postgresql"
+          key: "postgres-password"
+          placeholder: "confighub-postgres-password"
+      varies:
+        []
+    -
+      pkg: "bitnami/apache"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/memcached"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/zookeeper"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/contour"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/opensearch"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
+    -
+      pkg: "bitnami/phpmyadmin"
+      base: "default"
+      misleadingName: false
+      status: "no-secret"
+      detail: ""
