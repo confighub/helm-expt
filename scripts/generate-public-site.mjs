@@ -521,6 +521,24 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </div>
   </header>
   <main>
+    <section aria-labelledby="helm-problem">
+      <h2 id="helm-problem">The Problem</h2>
+      <p>Helm charts usually start simple. Then every app, team, cluster, and customer needs one more tweak: a different Secret model, an ingress rule, CRDs on or off, a storage class, cloud identity, hooks, resources, node placement, or a provider-specific values file. Those choices are reasonable, but the install path becomes harder to see.</p>
+      <p>That is where many Helm pain points come from. Values sprawl, hidden defaults, generated Secrets, dependency drift, webhook and CRD lifecycle, hook behavior, upgrade diffs, and environment-specific overrides can combine until nobody is sure what changed or why a live app broke.</p>
+      <p>Our view is that the real problem is not Helm itself. The hard part is customization. Every useful chart becomes a set of variants, and those variants need to be visible, versioned, compared, tested, promoted, and observed.</p>
+    </section>
+
+    <section aria-labelledby="control-value">
+      <h2 id="control-value">The Value</h2>
+      <p>ConfigHub adds control around those variants. A public Helm chart remains the source, but selected install paths become cub installer recipes and ConfigHub variants. The rendered Kubernetes objects are stored as explicit desired state, with versions, labels, diffs, receipts, gates, and live observations.</p>
+      <div class="grid">
+        <div class="card"><h3>Variant store</h3><p>Keep base variants, derived variants, customer choices, environment choices, and target-specific choices in one place instead of scattering them across values files and shell history.</p></div>
+        <div class="card"><h3>Verified changes</h3><p>Compare against standard Helm, review exact object diffs, scan them, stage prerequisites, promote through environments, and keep receipts for what was rendered, delivered, and observed.</p></div>
+        <div class="card"><h3>Desired state for live apps</h3><p>Use ConfigHub as the central place that describes what should be running, then deliver through OCI, GitOps controllers, or direct apply paths and observe what actually happened.</p></div>
+        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="how-it-works">
       <h2 id="how-it-works">How It Works</h2>
       <p>The public site now uses one mental model: render, route, deliver, observe. It is the short version of the mechanism docs, with the same honesty rails as the data.</p>
