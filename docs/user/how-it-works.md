@@ -37,8 +37,10 @@ standing rules are in the [doctrine](../../tests/doctrine.md).
 
 ## 3. Deliver — one OCI bundle, your choice of controller
 ConfigHub publishes the Units once as an OCI artifact; Argo (`Application`), Flux
-(`OCIRepository`), or `cub`/`kubectl` all pull the same bytes. Includes the credentials
-story (OCI pull creds vs app secrets).
+(`OCIRepository`), or `cub`/`kubectl` all pull the same bytes. **Proven** — one bundle,
+three consumers, the routed hook ran under each
+([receipt](../../data/oci-hook-delivery-proof/summary.md)). Includes the credentials story
+(OCI pull creds vs app secrets).
 → [cub-deployment-path](cub-deployment-path.md) · [gitops-adopter-guide](gitops-adopter-guide.md)
 
 ## 4. Observe — receipts, honest disposition

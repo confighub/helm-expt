@@ -47,15 +47,18 @@ auth. A chart's Secret is either **generated** (rendered into the bundle) or **e
 the recipe + target facts, not the OCI pull credentials. See
 [target-prerequisites.md](target-prerequisites.md).
 
-## Honest status (what's proven vs. in progress)
+## Honest status — all three consumers proven
 
-- **Argo from ConfigHub OCI — proven.** End-to-end receipt: `render → ConfigHub → OCI →
-  Argo (Synced / Healthy) → runtime (workload ready)`. This is the G/P lane (see the
-  status dashboard and live-parity surfaces).
-- **Flux from ConfigHub OCI, and cub-direct (no controller) — intended; proof in progress.**
-  The `OCIRepository` and cub-direct paths are being validated on a throwaway cub-lk rig.
-  Until a committed receipt exists, they are documented here as the **design**, not a claim
-  — per the doctrine that a route is only "proven" with evidence.
+All three pull the **same** ConfigHub OCI bundle and run a routed hook on a throwaway cub-lk
+rig — committed receipt `runs/oci-hook-delivery-proof/receipt.yaml` (summary:
+[../../data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md)):
+
+- **Argo CD (OCI `Application`) — proven.** `render → ConfigHub → OCI → Argo (Synced / Healthy) → runtime`.
+- **Flux (`OCIRepository` + `Kustomization`) — proven.** Same bundle; the OCI pull secret is copied into flux-system (never printed).
+- **cub-direct (no controller) — proven.** `oras pull` of the same artifact + `kubectl apply`.
+
+The routed hook ran under each (workload applied + hook completed): OCI is genuinely **one
+transport**, not three pipelines.
 
 ## Try it
 
