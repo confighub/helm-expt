@@ -1,0 +1,101 @@
+chart,version,default_base,bakes_shared_password,password_keys,password_fix_base,password_fix_command,ships_crds,crd_count,crd_separable_base,universal_caveats
+aqua/trivy-operator,0.32.1,default,no,,no-crds,kubectl apply -f <crd-manifest.yaml>,yes,12,no-crds,customize;prune;ssa-conflict
+argo-cd/argo-cd,9.5.17,default,no,,default,kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>,yes,3,no-crds,customize;prune;ssa-conflict
+argo-cd/argo-events,2.4.21,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
+argo-cd/argo-rollouts,2.40.9,default,no,,,,yes,5,no-crds,customize;prune;ssa-conflict
+argo-cd/argo-workflows,1.0.14,default,no,,,,no,0,,customize;prune;ssa-conflict
+argo-cd/argocd-image-updater,1.2.2,default,no,,,,yes,1,,customize;prune;ssa-conflict
+autoscaler/cluster-autoscaler,9.57.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+autoscaler/vertical-pod-autoscaler,0.9.0,default,no,,default,Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller,yes,2,no-crds,customize;prune;ssa-conflict
+aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/apache,11.4.29,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/contour,21.1.4,default,no,,,,yes,5,no-crds,customize;prune;ssa-conflict
+bitnami/elasticsearch,22.1.6,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/memcached,8.5.5,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/mongodb,19.1.0,generated-passwords,yes,mongodb-root-password,existing-secret-replicaset,kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/mysql,14.0.3,generated-passwords,yes,mysql-password;mysql-root-password,existing-secret,kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/nginx,25.0.0,http-clusterip,no,,existing-tls-ingress,kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/opensearch,2.0.10,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/phpmyadmin,20.0.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/postgresql,18.7.0,generated-passwords,yes,postgres-password,existing-secret,kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/rabbitmq,16.0.14,generated-passwords,yes,rabbitmq-password,existing-secret,kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/redis,27.0.0,default,yes,redis-password,reuse-existing-secret,kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/spark,10.0.3,default,no,,,,no,0,,customize;prune;ssa-conflict
+bitnami/zookeeper,13.8.7,default,no,,,,no,0,,customize;prune;ssa-conflict
+cloudnative-pg/cloudnative-pg,0.28.2,default,no,,no-crds,kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,10,no-crds,customize;prune;ssa-conflict
+coredns/coredns,1.45.2,default,no,,,,no,0,,customize;prune;ssa-conflict
+crossplane-stable/crossplane,2.3.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+descheduler/descheduler,0.36.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+dex/dex,0.24.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+elastic/eck-operator,3.4.0,default,no,,,,yes,12,no-crds,customize;prune;ssa-conflict
+elastic/filebeat,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+elastic/kibana,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+elastic/logstash,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+elastic/metricbeat,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+external-dns/external-dns,1.21.1,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+external-secrets/external-secrets,2.5.0,default,no,,default,kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml,yes,23,no-crds,customize;prune;ssa-conflict
+fairwinds-stable/goldilocks,10.3.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+fairwinds-stable/vpa,4.11.0,default,no,,default,kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>,yes,2,no-crds,customize;prune;ssa-conflict
+falcosecurity/falco,9.0.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+falcosecurity/falcosidekick,0.13.1,default,yes,TIMESCALEDB_PASSWORD,,,no,0,,customize;prune;ssa-conflict
+fluent/fluent-bit,0.57.6,default,no,,,,no,0,,customize;prune;ssa-conflict
+fluent/fluentd,0.5.3,default,no,,,,no,0,,customize;prune;ssa-conflict
+gatekeeper/gatekeeper,3.22.2,default,no,,,,yes,17,no-crds,customize;prune;ssa-conflict
+gitlab/gitlab-runner,0.89.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+grafana/alloy,1.8.2,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+grafana/grafana,10.5.15,generated-passwords,yes,admin-password,existing-secret-ingress,kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=<value> --from-literal=admin-password=<value>,no,0,,customize;prune;ssa-conflict
+grafana/loki,7.0.0,single-binary-filesystem,no,,,,no,0,,customize;prune;ssa-conflict
+grafana/promtail,6.17.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+grafana/pyroscope,2.0.2,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+grafana/rollout-operator,0.49.0,default,no,,,,yes,2,no-crds,customize;prune;ssa-conflict
+grafana/tempo,1.24.4,local-persistent,no,,s3-query-observability,kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>,no,0,,customize;prune;ssa-conflict
+haproxytech/kubernetes-ingress,1.52.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+hashicorp/consul,2.0.0,default-control-plane,no,,secure-mesh-existing-secrets,kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value>,yes,28,,customize;prune;ssa-conflict
+hashicorp/terraform,1.1.2,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+hashicorp/vault,0.32.0,dev-mode,no,,,,no,0,,customize;prune;ssa-conflict
+ingress-nginx/ingress-nginx,4.15.1,default,no,,default,kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>,no,0,,customize;prune;ssa-conflict
+istio/gateway,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+istio/istiod,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+jaegertracing/jaeger,4.8.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+jaegertracing/jaeger-operator,2.57.0,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+jetstack/cert-manager,v1.20.2,default,no,,,,no,0,,customize;prune;ssa-conflict
+jetstack/cert-manager-csi-driver,v0.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+jetstack/trust-manager,v0.22.1,default,no,,default,kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,1,no-crds,customize;prune;ssa-conflict
+kedacore/keda,2.19.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
+kyverno/kyverno,3.8.1,default,no,,,,yes,22,no-crds,customize;prune;ssa-conflict
+kyverno/kyverno-policies,3.8.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+linkerd/linkerd-crds,1.8.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
+longhorn/longhorn,1.11.2,default,no,,,,yes,22,,customize;prune;ssa-conflict
+metrics-server/metrics-server,3.13.0,default,no,,external-tls-ca,kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,no,0,,customize;prune;ssa-conflict
+minio-operator/operator,7.1.1,default,no,,,,yes,2,,customize;prune;ssa-conflict
+minio-operator/tenant,7.1.1,default,no,,,,no,0,,customize;prune;ssa-conflict
+nats/nack,0.34.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
+nats/nats,2.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict
+nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,default,no,,,,no,0,,customize;prune;ssa-conflict
+open-telemetry/opentelemetry-operator,0.114.0,default,no,,default,"Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator",yes,4,no-crds,customize;prune;ssa-conflict
+opencost/opencost,2.5.21,default,no,,,,no,0,,customize;prune;ssa-conflict
+percona/pg-operator,3.0.0,default,no,,,,yes,8,no-crds,customize;prune;ssa-conflict
+percona/psmdb-operator,1.22.0,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
+percona/pxc-operator,1.19.1,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
+projectcalico/tigera-operator,v3.32.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/alertmanager,1.37.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/kube-prometheus-stack,86.1.0,default,no,,default,kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>,no,0,no-crds,customize;prune;ssa-conflict
+prometheus-community/kube-state-metrics,7.4.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus,29.9.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus-adapter,5.3.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus-blackbox-exporter,11.10.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus-node-exporter,4.55.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus-operator-crds,29.0.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+prometheus-community/prometheus-pushgateway,3.6.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+rook-release/rook-ceph,v1.19.5,default,no,,,,yes,25,,customize;prune;ssa-conflict
+rook-release/rook-ceph-cluster,v1.19.5,default,no,,,,no,0,,customize;prune;ssa-conflict
+runix/pgadmin4,1.62.0,default,yes,password,,,no,0,,customize;prune;ssa-conflict
+sealed-secrets/sealed-secrets,2.18.6,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
+secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,default,no,,,,yes,2,,customize;prune;ssa-conflict
+stakater/reloader,2.2.12,default,no,,,,no,0,,customize;prune;ssa-conflict
+strimzi/strimzi-kafka-operator,1.0.0,default,no,,,,yes,10,no-crds,customize;prune;ssa-conflict
+traefik/traefik,40.2.0,default,no,,,,yes,25,no-crds,customize;prune;ssa-conflict
+velero/velero,12.0.1,default,no,,,,yes,13,no-crds,customize;prune;ssa-conflict
+vm/victoria-logs-single,0.12.5,default,no,,,,no,0,,customize;prune;ssa-conflict
+vm/victoria-metrics-single,0.39.0,default,no,,,,no,0,,customize;prune;ssa-conflict
