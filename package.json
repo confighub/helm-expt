@@ -456,6 +456,8 @@
     "cub-installer:determinism:verify": "node scripts/run-cub-installer-determinism.mjs --verify",
     "default-credential:check": "node scripts/run-default-credential-check.mjs --run",
     "default-credential:check:verify": "node scripts/run-default-credential-check.mjs --verify",
+    "drift-gap:proof": "node scripts/run-drift-detection-gap.mjs --run",
+    "drift-gap:proof:verify": "node scripts/run-drift-detection-gap.mjs --verify",
     "helm-habit:friction": "node scripts/run-helm-habit-friction.mjs --run",
     "helm-habit:friction:verify": "node scripts/run-helm-habit-friction.mjs --verify",
     "prune-gap:proof": "node scripts/run-prune-gap-proof.mjs --run",
