@@ -442,6 +442,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>ConfigHub helps you run Helm at scale</h1>
     ${generatedStamp(catalog, label)}
+    <p>This page is an experimental launchpad for Helm charts. We wanted to try out some ConfigHub features, and put the product through its paces a bit. We also wanted to use AI to do things like automated testing on large numbers of different user configuration choices, and then show how ConfigHub can track and manage these. What better tool to showcase than Helm, everyone's favourite packaging system.</p>
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
     <p>Start with Helm parity. Then choose a chart, customise variants in ConfigHub, and move into app-level workflows. Ops, Docs, FAQ, and Upgrade are supporting pages after that first path is clear.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
