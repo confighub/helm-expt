@@ -419,8 +419,8 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const journeySteps = [
     ["First", "See How It Works", "Get started with a Redis example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
-    ["Then", "Custom Configurations", "Create variants, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
-    ["Later", "Build and Operate Live Apps", "Combine public charts, custom app pieces, stacks, and live operations once the app is running.", "./journey.html", "Apps"],
+    ["Then", "Manage Variants", "Create customised variants, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
+    ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, stacks, and live operations once the app is running.", "./journey.html", "Apps"],
   ];
   const limitRows = [
     ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
