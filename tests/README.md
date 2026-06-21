@@ -25,7 +25,8 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 | **C. Lifecycle / hooks** | observe → **execute** → **emit** (GitOps-native) |
 | **D. Day-1 preview** (cub-scout) | `compare three-way --dry-from` (desired-vs-live, drift) |
 | **E. UX / journey** | journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe |
-| **F. Adversarial / refusal boundary** | torture suite · adversarial-10 · quirk & pain-point coverage · **random-bad-decisions fuzz** |
+| **F. Adversarial / refusal boundary** (a *deliberate* skeptic breaking the model) | torture suite · adversarial-10 · quirk & pain-point coverage |
+| **G. Careless-dev randomness** (an *ordinary* dev making silly decisions, repeatedly, at volume) | random-bad-decisions fuzz |
 
 ## The coverage matrix
 

@@ -47,9 +47,21 @@ all three delivery paths run it (each sourced from the same OCI bundle, per #3).
 
 ## 6. Never silent — every outcome is named
 - Lanes: `pass · watch · blocked · refused · n/a` (`todo` only as a named next step).
-- Bad inputs (the "hundreds of stupid devs making random bad decisions" fuzz):
-  `rejected` (caught at render) · `leaked` (k8s API is the backstop) · `absorbed`
-  (the silent-no-op footgun, surfaced). **0 unclassified / 0 silent**, by construction.
+- **Two distinct adversarial lanes, not one:**
+  - **F — deliberate breakers** (torture suite, adversarial-10): a skeptic *trying* to break
+    the model → a named refusal or route.
+  - **G — careless-dev randomness** (`run-bad-decisions-fuzz`): an *ordinary* dev making
+    unexpected silly decisions, **repeatedly, at volume**. Each ends `rejected` (caught at
+    render) · `leaked` (the k8s API is the backstop) · `absorbed` (the silent `--set` no-op
+    footgun, surfaced). **0 unclassified / 0 silent**, by construction.
+
+## 6a. The careless-dev assumption (why lane G exists)
+Most real breakage is **ordinary, not adversarial** — devs break tools through silly
+choices we never anticipated, again and again. The evidence is the whole argument in one
+number: Helm catches **~1%** of careless decisions at render; **~66%** vanish silently
+(the `--set` footgun); **~33%** leak to the k8s API. So we fuzz random bad decisions **at
+volume** and **name every outcome** — the careless dev, not the skeptic, is the most common
+breaker, and a tool that silently swallows their mistakes is the failure mode to catch.
 
 ## 7. Live runs are serial and ephemeral
 `cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →
