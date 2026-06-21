@@ -357,6 +357,14 @@
         <p>You keep your controller. The only change is the source: instead of a git repo of Helm values re-rendered downstream, you point it at one OCI bundle ConfigHub publishes from reviewed Units. Hooks become explicit routes, not silent sync-phase steps.</p>
         <p class="faq-links"><a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
       </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is safe for AI to change?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>AI is safest when it proposes changes against explicit desired state: a new base, a derived variant, a policy change, or a patch that ConfigHub can diff, gate, and observe. AI should not silently rewrite live state or bypass the route that records what changed.</p>
+        <p class="faq-links"><a href="../docs/user/creating-variants.md">Creating variants</a> · <a href="../docs/user/change-routing-before-oci.md">Change routing before OCI</a></p>
+      </article>
       </div>
     </section>
 
@@ -459,6 +467,14 @@
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
+          <h3>Can I load my existing app, platform, stack, or live cluster?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes, but the first step should be read-only. Discover or import the existing app, show its sources, targets, objects, labels, and ownership, then decide whether it stays as imported Units, graduates to a recipe, or becomes a managed app graph.</p>
+        <p class="faq-links"><a href="../docs/user/adopting-existing-apps.md">Adopting existing apps</a> · <a href="./journey.html">Apps guide</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
           <h3>Which path should I take?</h3>
           <span class="faq-status">answered</span>
         </div>
@@ -472,6 +488,14 @@
         </div>
         <p>cub installer uses declared inputs, named bases, and image overrides instead of Helm's free-form --set model. The current lane shows cub rejects Helm idioms safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
         <p class="faq-links"><a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a> · <a href="../data/helm-habit-friction/summary.md">Helm-migrant friction data</a></p>
+      </article>
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Where would a Helm user go back to Helm today?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>The adoption audit names the places where cub is currently worse than or more confusing than Helm on the common journey: defaults, one-value customization, cub-direct upgrades, CRD ordering, uninstall, and rollback ergonomics. The value is not hiding those gaps; it is managing them until they are solved.</p>
+        <p class="faq-links"><a href="../docs/planning/helm-vs-cub-adoption-audit.md">Adoption audit</a> · <a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
@@ -528,6 +552,14 @@
         <p>Send the public chart and values that expose the problem. The expected response is a public fixture and a pass, watch, blocked, refused, or routed gap with evidence.</p>
         <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="https://github.com/confighub/helm-expt/issues/1001">P1 unanswered backlog</a></p>
       </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>My Helm chart broke. Can this help me triage it?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Use the broken-chart path: compare the render, check target prerequisites, check lifecycle routes, check image pulls, check controller sync versus workload health, then decide whether the issue is a recipe/model gap or a target/runtime gap.</p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="../docs/user/reading-the-matrix.md">Reading the matrix</a></p>
+      </article>
         <article class="faq-card later">
         <div class="faq-head">
           <h3>Are signatures enough to establish trust?</h3>
@@ -573,6 +605,14 @@
         </div>
         <p>No. The current live gap proof shows cub-scout detects replica drift but misses container environment-variable drift. Drift detection is valuable, but it must state field coverage until pod-spec coverage is complete.</p>
         <p class="faq-links"><a href="../data/drift-detection-gap/summary.md">Drift detection gap</a> · <a href="../data/cub-scout-diff/summary.md">cub-scout day-1 preview</a></p>
+      </article>
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>What happens if someone manually edits a field and cub re-applies?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>cub's managed delivery uses server-side apply, so a manual edit can produce a field-ownership conflict where Helm would silently overwrite. That can be safer, but it must be explained in plain words with a reconcile or force path instead of raw Kubernetes SSA output.</p>
+        <p class="faq-links"><a href="../data/ssa-conflict-gap/summary.md">SSA conflict gap</a> · <a href="../docs/planning/helm-vs-cub-adoption-audit.md">Adoption audit</a></p>
       </article>
       </div>
     </section>

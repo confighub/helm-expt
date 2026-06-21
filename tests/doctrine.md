@@ -96,6 +96,14 @@ misses container environment drift is still useful, but it stays `watch` until
 the covered fields are explicit and the missing pod-spec fields are added or
 refused with a reason.
 
+## 6e. Server-side apply conflicts must be product-readable
+ConfigHub/cub delivery uses server-side apply. That can be safer than Helm's
+silent overwrite when someone has edited a live field by hand, because the API
+can report field ownership conflict instead of hiding it. The current gap is
+adoption UX: a raw Kubernetes conflict is not a helpful product answer. The row
+stays `watch` until the user sees a plain reconcile choice, such as keep live,
+accept desired, or force with an explicit receipt.
+
 ## 7. Live runs are serial and ephemeral
 `cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →
 false blocks), torn down immediately after (`cub lk down --force`), orphan rigs/spaces

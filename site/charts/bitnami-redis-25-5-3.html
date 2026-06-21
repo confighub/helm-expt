@@ -298,6 +298,33 @@
       </style>
     </section>
 
+    <section aria-labelledby="run-this">
+      <h2 id="run-this">How Do I Run This Chart With cub?</h2>
+      <p>Start with <strong>default</strong> unless a row below says this chart needs a different base or custom discussion. This command is generated from the current matrix and package metadata.</p>
+      <div class="card">
+        <h3>Recommended first command</h3>
+        <p><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace redis</code></p>
+        <h3>You should see something like this</h3>
+        <pre><code>cub installer setup ...
+rendered manifests written under &lt;work-dir&gt;
+use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
+        <p><strong>Current row status:</strong> real · <strong>Reason:</strong> server-side promotion receipt passed</p>
+      </div>
+    </section>
+
+
+    <section aria-labelledby="redis-teaching">
+      <h2 id="redis-teaching">Redis Teaching Path</h2>
+      <p>Redis is the gold-standard tutorial chart for this site. Use it to see the same chart through normal Helm, cub installer, and ConfigHub Units.</p>
+      <div class="grid">
+        <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+      </div>
+      <p><a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
+    </section>
+
+
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Options From The Matrix</h2>
       <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>

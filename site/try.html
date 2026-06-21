@@ -280,8 +280,8 @@
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this try-now page.</p>
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     <div class="card"><table>
-        <thead><tr><th>Path</th><th>What it proves</th></tr></thead>
-        <tbody><tr><td>Quick render</td><td>Use cub helm template when you only need to inspect one chart render.</td></tr><tr><td>One-shot ConfigHub load</td><td>Use cub helm install when you want one render as ConfigHub Units right away.</td></tr><tr><td>Public catalog package</td><td>Use cub installer when you want a maintained public base with proof.</td></tr><tr><td>ConfigHub account</td><td>Upload rendered objects as Units, create derived variants, and use managed proof workflows.</td></tr><tr><td>Live cluster</td><td>Apply generated manifests or run the live lanes when you want Kubernetes evidence.</td></tr></tbody>
+        <thead><tr><th>Mode</th><th>What it requires and proves</th></tr></thead>
+        <tbody><tr><td>No cluster</td><td>Browse chart pages, inspect recipes, and render a package locally. No ConfigHub account or Kubernetes cluster required.</td></tr><tr><td>Local kind cluster</td><td>Apply generated manifests to a disposable cluster when you want live Kubernetes evidence without a GitOps controller.</td></tr><tr><td>ConfigHub connected</td><td>Upload rendered objects as Units, create variants, and publish OCI for Argo/Flux or other delivery paths.</td></tr><tr><td>Bring your own GitOps</td><td>Keep Argo or Flux. Point it at the ConfigHub OCI artifact instead of re-rendering Helm downstream.</td></tr><tr><td>cub-lk option</td><td>Use cub-lk when you want a quick kind plus Argo-style demo rig. Bring your own cluster for serious testing.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -291,7 +291,17 @@
       </style>
     <div class="card"><table>
         <thead><tr><th>Stage</th><th>What to check</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>After setup</td><td>cub installer --help shows the installer commands.</td><td>You can pull and render a public package.</td></tr><tr><td>After Redis render</td><td>redis:verify-install:render prints PASS and writes a receipt.</td><td>Your local render matches the catalog contract.</td></tr><tr><td>After ConfigHub upload</td><td>The ConfigHub Space contains labeled Redis Units and the verifier prints PASS.</td><td>The rendered objects became reviewable ConfigHub config.</td></tr><tr><td>After live evidence</td><td>The matrix or receipt shows pass, watch, blocked, or refused with a reason.</td><td>The claim is bounded to the target and does not rely on a green render alone.</td></tr></tbody>
+        <tbody><tr><td>After setup</td><td>`cub installer --help` shows installer commands.</td><td>You can pull and render a public package.</td></tr><tr><td>After Redis render</td><td>Look for rendered Kubernetes objects under the work directory, plus separated Secret material in `out/secrets` when present.</td><td>The chart became explicit local config.</td></tr><tr><td>After render verification</td><td>`redis:verify-install:render` prints `PASS` and writes a receipt.</td><td>Your local render matches the catalog contract.</td></tr><tr><td>After ConfigHub upload</td><td>The ConfigHub Space contains labeled Redis Units and the verifier prints `PASS`.</td><td>The rendered objects became reviewable ConfigHub config.</td></tr><tr><td>After live evidence</td><td>The matrix or receipt shows `pass`, `watch`, `blocked`, or `refused` with a reason.</td><td>The claim is bounded to the target and does not rely on a green render alone.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <div class="card"><table>
+        <thead><tr><th>Path</th><th>ConfigHub account?</th><th>Cluster?</th><th>GitOps?</th><th>Use it for</th></tr></thead>
+        <tbody><tr><td>Serverless render</td><td>No</td><td>No</td><td>No</td><td>Use for first inspection and copy/paste confidence.</td></tr><tr><td>Local kind apply</td><td>No</td><td>Yes: kind or Docker/OrbStack</td><td>No</td><td>Use for simple live Kubernetes feedback.</td></tr><tr><td>Two-cluster parity</td><td>No</td><td>Yes: two disposable kind clusters</td><td>No</td><td>Use for Helm-vs-cub live comparison.</td></tr><tr><td>ConfigHub upload</td><td>Yes</td><td>No for upload; yes for live delivery</td><td>No</td><td>Use to see Units, Spaces, labels, variants, and reviewable desired state.</td></tr><tr><td>GitOps/OCI</td><td>Yes</td><td>Yes: Argo or Flux target</td><td>Yes</td><td>Use when you want controller reconciliation evidence.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -354,6 +364,13 @@ npm run redis:verify-install:render -- \
         </section>
       </div>
       <p>Expected result: the render verifier prints PASS and writes a receipt under <code>.tmp/verify-install/</code>. That proves your rendered Redis objects match the catalog acceptance contract.</p>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>PASS verify-install:render bitnami/redis/25.5.3 default
+render matches canonical: &lt;sha256&gt;
+semantic object matches: 14/14</code></pre>
+        <p>If your work directory contains <code>out/secrets</code>, apply that directory before the main manifests when doing a local Kubernetes run. The Redis default base separates Secret material so it is not hidden inside ConfigHub by accident.</p>
+      </div>
     </section>
 
     <section aria-labelledby="confighub">
@@ -378,6 +395,12 @@ npm run redis:verify-install:confighub -- \
   --base default \
   --space helm-redis-default</pre>
       <p>Expected result: ConfigHub shows a <code>helm-redis-default</code> Space with labeled Redis Units. Open ConfigHub, choose the Space, then inspect Units and labels.</p>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>PASS verify-install:confighub bitnami/redis/25.5.3 default
+space: helm-redis-default
+units: Redis objects with Component=Redis and Variant=default labels</code></pre>
+      </div>
     </section>
 
     <section aria-labelledby="kps">
@@ -400,6 +423,13 @@ npm run kube-prometheus-stack:compare</pre>
         </section>
       </div>
       <p>Expected result: the chart proof and package checks pass. This checks the committed proof and package for the serious chart. Use the full live lanes when you need fresh cluster evidence.</p>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>verified kube-prometheus-stack proof
+verified package artifacts
+render parity: pass</code></pre>
+        <p>This is still proof of the committed package and receipts. A fresh cluster run is separate and should name target prerequisites, CRDs, webhooks, and watch rows honestly.</p>
+      </div>
     </section>
 
     <section aria-labelledby="next">

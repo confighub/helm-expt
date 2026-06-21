@@ -298,6 +298,22 @@
       </style>
     </section>
 
+    <section aria-labelledby="run-this">
+      <h2 id="run-this">How Do I Run This Chart With cub?</h2>
+      <p>Start with <strong>default</strong> unless a row below says this chart needs a different base or custom discussion. This command is generated from the current matrix and package metadata.</p>
+      <div class="card">
+        <h3>Recommended first command</h3>
+        <p><code>cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace default</code></p>
+        <h3>You should see something like this</h3>
+        <pre><code>cub installer setup ...
+rendered manifests written under &lt;work-dir&gt;
+use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
+        <p><strong>Current row status:</strong> real · <strong>Reason:</strong> target-runtime: pod crash loop (parity passed)</p>
+      </div>
+    </section>
+
+
+
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Options From The Matrix</h2>
       <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>

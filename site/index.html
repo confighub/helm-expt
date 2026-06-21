@@ -273,9 +273,9 @@
     <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>ConfigHub helps you run Helm at scale</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this public catalog homepage.</p>
-    <p>This page is an experimental launchpad for Helm charts. We wanted to try out some ConfigHub features, and put the product through its paces a bit. We also wanted to use AI to do things like automated testing on large numbers of different user configuration choices, and then show how ConfigHub can track and manage these. What better tool to showcase than Helm, everyone's favourite packaging system.</p>
-    <p>This project is called helm-expt ("helm experiment"), and it works like this: we have picked the top 100 public Helm charts, and you can use any one of these as a source package for a Kubernetes installation. But you get two paths: run a normal helm install, or run <a href="./try.html"><code>cub installer</code></a>. On the default settings the results should be the same! But the cub installer first converts charts into cub installer packages called recipes. This aims to prove the first useful question: under the same chart, base assumptions, and values, does the ConfigHub path preserve Helm semantics? The fun part is this: given a clear foundation of <strong>exact parity with Helm</strong>, can we make interesting changes at scale, and manage them without surprises?</p>
-    <p>Please can you try it out? This is the plan. First, we start with Helm parity: we'll show what this looks like without ConfigHub first, which is ok for very simple cases; then we shall add ConfigHub and show you what you can do. For example, you can choose a chart, customise variants in ConfigHub, and move them into app-level workflows.</p>
+    <p>Helm is good. The trouble starts when every real app needs one more tweak: a value here, a Secret model there, CRDs on one cluster and off on another, an emergency live edit, a customer overlay, or an upgrade that removes something important. The chart still works, but the customisation becomes hard to see.</p>
+    <p>helm-expt is an experimental launchpad for that problem. We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
+    <p>Once that parity is visible, the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       <a class="journey-step" href="./try.html">
         <span class="kicker">First</span>
@@ -304,6 +304,22 @@
     </div>
   </header>
   <main>
+    <section aria-labelledby="what-is-confighub">
+      <h2 id="what-is-confighub">What Is ConfigHub?</h2>
+      <p>ConfigHub stores Kubernetes desired state as structured, versioned config. Helm still renders the starting objects. ConfigHub then lets you keep those objects as Units, create variants, review exact changes, apply gates, publish OCI artifacts, and compare what is live against what was intended.</p>
+      <div class="card"><table>
+        <thead><tr><th>Word</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>Unit</td><td>A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe.</td></tr><tr><td>Space</td><td>A working area that groups Units for one app, base, environment, customer, or target shape.</td></tr><tr><td>Variant</td><td>A named version of the desired state: a reviewed Helm base, or a post-render ConfigHub refinement.</td></tr><tr><td>Target</td><td>The place the desired state is meant to run, including its cluster assumptions, credentials, and facts.</td></tr><tr><td>OCI bundle</td><td>The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes.</td></tr><tr><td>Observation</td><td>Live evidence about what actually happened after delivery, recorded separately from render parity.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/user/confighub-data-model.md">Open the data model guide</a> for the precise vocabulary.</p>
+    </section>
+
     <section aria-labelledby="helm-problem">
       <h2 id="helm-problem">The Problem</h2>
       <p>Helm charts usually start simple. Then every app, team, cluster, and customer needs one more tweak: a different Secret model, an ingress rule, CRDs on or off, a storage class, cloud identity, hooks, resources, node placement, or a provider-specific values file. Those choices are reasonable, but the install path becomes harder to see.</p>
@@ -341,6 +357,7 @@
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Helm Parity</h2>
       <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
+      <p>Parity does not prove target fit, production readiness, or every hook. It proves that the starting desired object set is the one Helm would have produced for the recorded inputs.</p>
       <div class="catalog">
         <article class="card">
           <span class="kicker">Standard Redis</span>

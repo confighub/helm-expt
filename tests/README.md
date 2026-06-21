@@ -50,6 +50,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | cub-scout day-1 preview | ○ | ● | ○ | ● | cub-scout `compare three-way --dry-from` | shipped command, design-stage coverage → [cub-scout-diff](../data/cub-scout-diff/summary.md) |
 | UX: journey pathways | ● | ● | ● | ● | [docs/user/pathway-*](../docs/user/pathway-route-hooks-transparently.md), [user-journey-test-pathways-plan](../docs/planning/user-journey-test-pathways-plan.md) | partial — Pathway 1 (hooks) shipped; others pending |
 | UX: website / outside-user / adversarial | spans | spans | spans | spans | [WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md), [outside-user-test](../docs/planning/outside-user-test.md), [pilot-adversarial-testing](../docs/planning/pilot-adversarial-testing.md), [adversarial-strategy.md](adversarial-strategy.md) | runbook + plan + probe method |
+| Persona UX strategy | spans | spans | spans | spans | [persona-ux-strategy.md](persona-ux-strategy.md), [issue #1018](https://github.com/confighub/helm-expt/issues/1018) | repeatable site critique method: personas, seed questions, run log, ranked improvements |
 | Adversarial / refusal boundary | ● | ○ | – | – | [torture-suite](../data/torture-suite/summary.md), [adversarial10](../data/adversarial10/summary.md), [quirk-coverage](../data/quirk-coverage/summary.md) | refusal boundary covered |
 | Random-bad-decisions fuzz | ● | ○ | – | – | `run-bad-decisions-fuzz`, [bad-decisions-fuzz](../data/bad-decisions-fuzz/summary.md) | 180 cases, 0 unclassified (rejected 1% / leaked 33% / absorbed 66%) |
 | cub-installer fuzz | – | ○ | – | ● | `cub-installer:fuzz`, [cub-installer-fuzz](../data/cub-installer-fuzz/summary.md) | pass — 96 cases, 0 serious bugs; namespace validation rough edges visible |
@@ -59,6 +60,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | cub-scout drift field coverage | – | ● | ○ | ● | `drift-gap:proof`, [drift-detection-gap](../data/drift-detection-gap/summary.md) | watch — replicas drift detected; container env-var drift missed |
 | cub-direct CRD ordering | – | ● | ○ | ● | `crd-ordering:proof`, [crd-ordering-gap](../data/crd-ordering-gap/summary.md) | watch — first install of CRD+CR bundles needs CRD-first ordering or a controller |
 | cub-direct prune gap | – | ● | ○ | ● | `prune-gap:proof`, [prune-gap-proof](../data/prune-gap-proof/summary.md) | watch — cub-direct plain apply leaves removed resources orphaned; Argo/Flux prune |
+| SSA conflict gap | – | ● | ○ | ● | `ssa-conflict:proof`, [ssa-conflict-gap](../data/ssa-conflict-gap/summary.md) | watch — server-side apply protects manual edits with a conflict, but the raw error needs a plain reconcile/force path |
 
 ## How we state coverage
 
@@ -87,6 +89,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 | The generated inventory of every script | [npm-script-catalog.md](npm-script-catalog.md) |
 | The exact reproducible per-chart procedure | [runbook.md](runbook.md) |
 | The persona / tier-aware adversarial usage probe | [adversarial-strategy.md](adversarial-strategy.md) |
+| Persona-based public-site UX testing | [persona-ux-strategy.md](persona-ux-strategy.md) |
 | The fuzz and Helm-migrant roadmap | [fuzz-corpus-tests-roadmap.md](../docs/planning/fuzz-corpus-tests-roadmap.md) |
 | The recorded F1–F4 findings | [findings.md](findings.md) |
 | The top-100 runtime/GitOps sweep plan | [top100-runtime-gitops.md](top100-runtime-gitops.md) |
