@@ -298,6 +298,21 @@
       </style>
     </section>
 
+    <section aria-labelledby="entry">
+      <h2 id="entry">Four Ways In</h2>
+      <p>Apps covers day-0 and day-1 composition: choosing the shape, loading desired state, grouping pieces, and preparing variants. Ops starts after that shape exists.</p>
+      <div class="card"><table>
+        <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
+        <tbody><tr><td>Public Helm chart</td><td>Choose a chart page, pick a base, render/upload as Units, then create variants.</td><td>First public use and catalog-supported paths.</td></tr><tr><td>Existing app or live cluster</td><td>Start read-only: discover, inventory, map Units, scan, and compare before adopting or importing.</td><td>Teams that already have Argo, Flux, KRM, rendered manifests, or live resources.</td></tr><tr><td>Custom app from scratch</td><td>Author or import desired Kubernetes objects, create Units, define labels/Spaces/targets, then deliver through OCI.</td><td>Private apps that should sit beside public chart components.</td></tr><tr><td>Multi-chart platform or stack</td><td>Group several chart bases plus custom app Units as one app graph with shared targets, gates, and promotion flow.</td><td>Platform slices such as ingress, certs, policy, observability, and app services.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="app-flow">
       <h2 id="app-flow">The App Flow</h2>
       <div class="app-flow">

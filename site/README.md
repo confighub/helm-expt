@@ -20,6 +20,7 @@ Open `site/operations.html` for Ops: scans, gates, delivery, observation, adopti
 upgrades, rollback, bulk patching, and fleet questions.
 Open `site/day1-operations.html` only as a compatibility redirect to `site/operations.html`.
 Open `site/docs.html` for the public documentation hub.
+Open `site/known-gaps.html` for current watch findings the project surfaces deliberately.
 Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,

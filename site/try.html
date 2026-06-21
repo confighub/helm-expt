@@ -340,6 +340,17 @@ cub helm install</pre>
     <section aria-labelledby="redis">
       <h2 id="redis">Path 1: Redis Happy Path</h2>
       <p>Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
+      <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
+      <div class="card"><table>
+        <thead><tr><th>Path</th><th>Command</th><th>You should see</th></tr></thead>
+        <tbody><tr><td>Standard Helm</td><td><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></td><td>A normal Helm release and Redis Kubernetes objects.</td></tr><tr><td>cub installer</td><td><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></td><td>Rendered manifests under the work directory, plus separated Secret material in <code>out/secrets</code> when present.</td></tr><tr><td>Proof check</td><td><code>npm run redis:verify-install:render -- --base default --work-dir .tmp/demo/redis-default --namespace redis</code></td><td><code>PASS</code>, the canonical SHA, and semantic object match count.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="split">
         <section class="card">
           <h3>Catalog status</h3>
@@ -370,6 +381,23 @@ npm run redis:verify-install:render -- \
 render matches canonical: &lt;sha256&gt;
 semantic object matches: 14/14</code></pre>
         <p>If your work directory contains <code>out/secrets</code>, apply that directory before the main manifests when doing a local Kubernetes run. The Redis default base separates Secret material so it is not hidden inside ConfigHub by accident.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="two-cluster">
+      <h2 id="two-cluster">Optional: Two-Cluster Helm Parity</h2>
+      <p>Use this when you want a stricter live check without a ConfigHub account. The harness installs regular Helm into one fresh kind cluster, installs the cub installer render into another fresh kind cluster, and compares the live outcome. This is slower than the Redis render check, so it is optional for first use.</p>
+      <pre><code>npm run kind-parity:run -- \
+  --chart bitnami/redis \
+  --version 25.5.3 \
+  --base default</code></pre>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>regular Helm cluster: pass
+cub installer cluster: pass
+semantic live diff: none
+receipt: runs/live-kind-parity/bitnami-redis-default/receipt.yaml</code></pre>
+        <p>This does not require ConfigHub. It proves a narrower but very useful question: regular Helm and cub installer reached the same live result on two disposable vanilla kind targets.</p>
       </div>
     </section>
 

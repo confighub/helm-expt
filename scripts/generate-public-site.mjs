@@ -15,6 +15,7 @@ const operationsPath = join(siteRoot, "operations.html");
 const docsPath = join(siteRoot, "docs.html");
 const proofPath = join(siteRoot, "proof.html");
 const hardQuestionsPath = join(siteRoot, "hard-questions.html");
+const knownGapsPath = join(siteRoot, "known-gaps.html");
 const hooksPath = join(siteRoot, "hooks.html");
 const tiersPath = join(siteRoot, "tiers.html");
 const privateRoot = join(siteRoot, "private");
@@ -74,6 +75,7 @@ if (mode === "--generate") {
   write(docsPath, site.docsHtml);
   write(proofPath, site.proofHtml);
   write(hardQuestionsPath, site.hardQuestionsHtml);
+  write(knownGapsPath, site.knownGapsHtml);
   write(hooksPath, site.hooksHtml);
   write(tiersPath, site.tiersRedirectHtml);
   write(privateIndexPath, site.privateHtml);
@@ -99,6 +101,7 @@ if (mode === "--generate") {
   check(existsSync(docsPath), "site/docs.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
   check(existsSync(hardQuestionsPath), "site/hard-questions.html is missing; run npm run site:generate");
+  check(existsSync(knownGapsPath), "site/known-gaps.html is missing; run npm run site:generate");
   check(existsSync(hooksPath), "site/hooks.html is missing; run npm run site:generate");
   check(existsSync(tiersPath), "site/tiers.html is missing; run npm run site:generate");
   check(existsSync(privateIndexPath), "site/private/index.html is missing; run npm run site:generate");
@@ -118,6 +121,7 @@ if (mode === "--generate") {
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
   check(readFileSync(hardQuestionsPath, "utf8") === site.hardQuestionsHtml, "site/hard-questions.html is stale");
+  check(readFileSync(knownGapsPath, "utf8") === site.knownGapsHtml, "site/known-gaps.html is stale");
   check(readFileSync(hooksPath, "utf8") === site.hooksHtml, "site/hooks.html is stale");
   check(readFileSync(tiersPath, "utf8") === site.tiersRedirectHtml, "site/tiers.html is stale");
   check(readFileSync(privateIndexPath, "utf8") === site.privateHtml, "site/private/index.html is stale");
@@ -352,6 +356,7 @@ function buildSite(generatedAt) {
     docsHtml: docsHtml(catalog),
     proofHtml: proofHtml(catalog),
     hardQuestionsHtml: hardQuestionsHtml(catalog),
+    knownGapsHtml: knownGapsHtml(catalog),
     hooksHtml: hooksHtml(catalog),
     privateHtml: privateHtml(catalog),
     tiersRedirectHtml: tiersRedirectHtml(),
@@ -1614,6 +1619,13 @@ cub helm install</pre>
     <section aria-labelledby="redis">
       <h2 id="redis">Path 1: Redis Happy Path</h2>
       <p>Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
+      <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
+      ${markdownLikeTable([
+        ["Path", "Command", "You should see"],
+        ["Standard Helm", "<code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code>", "A normal Helm release and Redis Kubernetes objects."],
+        ["cub installer", "<code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code>", "Rendered manifests under the work directory, plus separated Secret material in <code>out/secrets</code> when present."],
+        ["Proof check", "<code>npm run redis:verify-install:render -- --base default --work-dir .tmp/demo/redis-default --namespace redis</code>", "<code>PASS</code>, the canonical SHA, and semantic object match count."],
+      ], { rawSecondColumn: true, rawThirdColumn: true })}
       <div class="split">
         <section class="card">
           <h3>Catalog status</h3>
@@ -1647,6 +1659,23 @@ npm run redis:verify-install:render -- \\
 render matches canonical: &lt;sha256&gt;
 semantic object matches: 14/14</code></pre>
         <p>If your work directory contains <code>out/secrets</code>, apply that directory before the main manifests when doing a local Kubernetes run. The Redis default base separates Secret material so it is not hidden inside ConfigHub by accident.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="two-cluster">
+      <h2 id="two-cluster">Optional: Two-Cluster Helm Parity</h2>
+      <p>Use this when you want a stricter live check without a ConfigHub account. The harness installs regular Helm into one fresh kind cluster, installs the cub installer render into another fresh kind cluster, and compares the live outcome. This is slower than the Redis render check, so it is optional for first use.</p>
+      <pre><code>npm run kind-parity:run -- \\
+  --chart bitnami/redis \\
+  --version 25.5.3 \\
+  --base default</code></pre>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>regular Helm cluster: pass
+cub installer cluster: pass
+semantic live diff: none
+receipt: runs/live-kind-parity/bitnami-redis-default/receipt.yaml</code></pre>
+        <p>This does not require ConfigHub. It proves a narrower but very useful question: regular Helm and cub installer reached the same live result on two disposable vanilla kind targets.</p>
       </div>
     </section>
 
@@ -1741,6 +1770,7 @@ function docsHtml(catalog) {
     ["Application examples", "Combine public charts, private apps, overlays, and target-specific choices.", "./custom-apps.html"],
     ["Ops", "Scan, patch, observe, upgrade, roll back, adopt, and answer fleet questions after upload.", "./operations.html"],
     ["Answer hard questions", "Hooks, upgrades, custom values, target prerequisites, limits, and refusals.", "./hard-questions.html"],
+    ["Known gaps", "Watch findings the project surfaces deliberately instead of hiding.", "./known-gaps.html"],
   ];
   const guideRows = [
     ["How it works", "The four-move model (render → route → deliver → observe) and an index into every mechanism doc.", "../docs/user/how-it-works.md"],
@@ -1755,6 +1785,7 @@ function docsHtml(catalog) {
     ["Coming from Helm", "How common Helm flags and values habits map to cub installer bases and declared inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["AI-assisted changes", "How AI can propose Helm and ConfigHub changes safely: diff, gate, approve, deliver, observe.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "How to route a broken chart to render, target, lifecycle, image, runtime, or model gap.", "../docs/user/broken-chart-triage.md"],
+    ["Known gaps we surface", "The watch findings we want users to see before they trust a path: credentials, prune, CRD ordering, drift coverage, and SSA conflicts.", "../docs/user/known-gaps-we-surface.md"],
     ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
     ["Custom overlays", "How wrapper charts, customer values, and overlays map into the model.", "../docs/user/custom-overlays.md"],
     ["Ops page", "Public web page for scans, patches, delivery, observation, adoption, upgrades, and fleet work.", "./operations.html"],
@@ -2297,6 +2328,86 @@ function hardQuestionsHtml(catalog) {
 `;
 }
 
+function knownGapsHtml(catalog) {
+  const gaps = [
+    [
+      "Fixed placeholder credentials",
+      "watch",
+      "Repeatable demo credentials are useful for deterministic renders, but a base must not look like it generated a production secret when it ships a fixed placeholder.",
+      "../data/default-credential-check/summary.md",
+    ],
+    [
+      "cub-direct no prune",
+      "watch",
+      "Plain apply does not remove objects that disappear from desired state. Argo and Flux can prune; cub-direct needs a prune/delete-set path before clean upgrades are claimed.",
+      "../data/prune-gap-proof/summary.md",
+    ],
+    [
+      "cub-direct CRD ordering",
+      "watch",
+      "A first install that contains both CRDs and custom resources needs CRDs established before custom resources are applied, or it needs a controller that handles ordering.",
+      "../data/crd-ordering-gap/summary.md",
+    ],
+    [
+      "cub-scout drift field coverage",
+      "watch",
+      "Drift detection is useful only when field coverage is stated. The current receipt catches replica/image-style drift but misses container env-var drift.",
+      "../data/drift-detection-gap/summary.md",
+    ],
+    [
+      "SSA conflict ergonomics",
+      "watch",
+      "Server-side apply can protect a manual live edit by reporting a conflict where Helm would silently overwrite, but the product still needs a plain keep-live / accept-desired / force-with-receipt choice.",
+      "../data/ssa-conflict-gap/summary.md",
+    ],
+    [
+      "Helm-to-cub migration friction",
+      "watch",
+      "cub rejects normal Helm idioms safely today, but many errors are still too opaque for a Helm-fluent user. The migration guide is the current bridge.",
+      "../data/helm-habit-friction/summary.md",
+    ],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Known Gaps · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero">
+    ${topNav(".")}
+    <h1>Known Gaps We Surface</h1>
+    ${generatedStamp(catalog, "known gaps page")}
+    <p class="tagline">These are not hidden blemishes. They are exactly the kind of rough edges this project is meant to expose before a user trusts a path.</p>
+  </header>
+  <main>
+    <section aria-labelledby="rule">
+      <h2 id="rule">The Rule</h2>
+      <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site should mark it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
+      <p>Positive framing is allowed. Overclaiming is not. The evidence link is part of the product.</p>
+    </section>
+
+    <section aria-labelledby="gaps">
+      <h2 id="gaps">Current Watch Findings</h2>
+      ${markdownLikeTable([
+        ["Finding", "Status", "Why it matters", "Evidence"],
+        ...gaps.map(([name, status, body, href]) => [name, status, body, `<a href="${href}">${href}</a>`]),
+      ], { rawFourthColumn: true })}
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">What A User Should Do</h2>
+      <p>Use the chart page first. If a row is watch or blocked, follow its reason and evidence link. Use <a href="./hard-questions.html">FAQ</a> for the short answer, <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> for debugging, and the generated evidence when you need exact receipts.</p>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Watch findings are part of the trust model.</footer>
+</body>
+</html>
+`;
+}
+
 function whoRunsVariantTables(c) {
   return c.variants.map((v) => {
     const rows = v.routes.map((r) => [
@@ -2472,6 +2583,12 @@ function journeyHtml(catalog) {
     ["Promote or deliver", "Move the app through environments and publish the selected object set to GitOps/OCI when ready."],
     ["Hand off to Ops", "Once live, use the Ops guide for scans, patches, observation, upgrades, rollback, and fleet questions."],
   ];
+  const entryRows = [
+    ["Public Helm chart", "Choose a chart page, pick a base, render/upload as Units, then create variants.", "First public use and catalog-supported paths."],
+    ["Existing app or live cluster", "Start read-only: discover, inventory, map Units, scan, and compare before adopting or importing.", "Teams that already have Argo, Flux, KRM, rendered manifests, or live resources."],
+    ["Custom app from scratch", "Author or import desired Kubernetes objects, create Units, define labels/Spaces/targets, then deliver through OCI.", "Private apps that should sit beside public chart components."],
+    ["Multi-chart platform or stack", "Group several chart bases plus custom app Units as one app graph with shared targets, gates, and promotion flow.", "Platform slices such as ingress, certs, policy, observability, and app services."],
+  ];
   const guideRows = [
     ["Try the project", "Helm parity and the Redis first run.", "./try.html"],
     ["Choose a Helm chart", "Top-100 chart database, chart pages, variants, quirks, and hook/action routing.", "./charts/index.html"],
@@ -2510,6 +2627,15 @@ function journeyHtml(catalog) {
       ${markdownLikeTable([
         ["Kind", "Meaning"],
         ...appKinds,
+      ])}
+    </section>
+
+    <section aria-labelledby="entry">
+      <h2 id="entry">Four Ways In</h2>
+      <p>Apps covers day-0 and day-1 composition: choosing the shape, loading desired state, grouping pieces, and preparing variants. Ops starts after that shape exists.</p>
+      ${markdownLikeTable([
+        ["Entry", "First move", "Use it for"],
+        ...entryRows,
       ])}
     </section>
 
@@ -2563,6 +2689,13 @@ function journeyHtml(catalog) {
 }
 
 function variantsHtml(catalog) {
+  const journeyRows = [
+    ["Start from a base", "Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral."],
+    ["Upload to ConfigHub", "The rendered objects become Units in an upstream Space. This is where diffs, labels, links, gates, and ownership become visible."],
+    ["Create a derived variant", "Clone/refine the uploaded base for dev, staging, prod, region, customer, or target with `cub variant create`."],
+    ["Preview and check", "Use Unit diffs, labels, links, gates, and receipts to confirm the install shape stayed bounded."],
+    ["Promote later changes", "Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals."],
+  ];
   const routeRows = [
     ["Choose a base variant", "Use when the choice changes Helm inputs or rendered Kubernetes objects.", "CRDs on/off, HA mode, generated Secret vs existing Secret, ingress/TLS shape, storage mode."],
     ["Create a derived variant", "Use after render when the change is target, environment, region, customer, labels, approvals, links, or observation policy.", "prod-us-east from redis/default, region labels, target binding, namespace policy."],
@@ -2591,10 +2724,20 @@ function variantsHtml(catalog) {
   <main>
     <section aria-labelledby="choose">
       <h2 id="choose">Which Kind Of Variant?</h2>
+      <p>You start from a base, then create dev, staging, prod, region, customer, or target variants. The important split is whether Helm has to render again.</p>
       ${markdownLikeTable([
         ["Action", "Use it when", "Examples"],
         ...routeRows,
       ])}
+    </section>
+
+    <section aria-labelledby="journey">
+      <h2 id="journey">Variant Journey</h2>
+      ${markdownLikeTable([
+        ["Step", "What happens"],
+        ...journeyRows,
+      ])}
+      <p>The UI/AX/FX Creator flows described in the docs are proposals over these primitives. The shipped commands are <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, gates, changesets, and <code>cub variant promote</code>.</p>
     </section>
 
     <section aria-labelledby="flow">
@@ -2604,6 +2747,13 @@ cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
       <p>The user should see a source base, a derived Space, changed paths, target binding, checks, and receipts. The UI can hide most of that language, but the data stays available for reviewers and agents.</p>
+      <div class="card">
+        <h3>You should see something like this</h3>
+        <pre><code>created downstream Space
+cloned Units linked to upstream Units
+changed labels/target/gates only, unless an allowed mutation receipt says otherwise
+promotion dry-run lists mutations before apply</code></pre>
+      </div>
     </section>
 
     <section aria-labelledby="examples">
@@ -3066,6 +3216,7 @@ function chartPageHtml(catalog, entry) {
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
+    <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
@@ -3279,7 +3430,8 @@ function matrixRowCard(row, entry) {
           <dt>Status</dt><dd>${escapeHtml(row.row_status || "unknown")}${row.custom_discussion === "yes" ? " · custom discussion" : ""}</dd>
           <dt>How to run</dt><dd>${command}</dd>
           <dt>Evidence</dt><dd>${escapeHtml(row.strongest_evidence || row.outcome_level || "not recorded")}</dd>
-          <dt>Hooks</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
+          <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
+          <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>
           <dt>Next</dt><dd>${escapeHtml(nextAction || "No next action recorded.")}</dd>
           ${reason ? `<dt>Reason</dt><dd>${escapeHtml(reason)}</dd>` : ""}
         </dl>
@@ -3324,6 +3476,21 @@ function matrixHookSummary(row) {
     parts.push(`route: ${row.lifecycle_route_contract}`);
   }
   return parts.join("; ") || "n/a";
+}
+
+function matrixActionOwnerSummary(row) {
+  const modes = String(row.lifecycle_route_execution_modes || "")
+    .split(/[;,]/)
+    .map((mode) => mode.trim())
+    .filter(Boolean);
+  if (!modes.length || modes.every((mode) => mode === "n/a")) {
+    if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
+    return "n/a";
+  }
+  const labels = [...new Set(modes)].map(executionModePlain);
+  const automatic = String(row.lifecycle_route_safe_automatic || "").toLowerCase();
+  const suffix = automatic.includes("true") ? "automatic evidence present" : "automatic false until route execution has evidence";
+  return `${labels.join(", ")}; ${suffix}`;
 }
 
 function matrixRowLinks(row) {
@@ -3962,6 +4129,7 @@ Open \`site/operations.html\` for Ops: scans, gates, delivery, observation, adop
 upgrades, rollback, bulk patching, and fleet questions.
 Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/operations.html\`.
 Open \`site/docs.html\` for the public documentation hub.
+Open \`site/known-gaps.html\` for current watch findings the project surfaces deliberately.
 Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,

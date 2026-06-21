@@ -31,8 +31,12 @@ const checks = [
     terms: ["My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
   },
   {
+    file: "site/known-gaps.html",
+    terms: ["Known Gaps We Surface", "Fixed placeholder credentials", "SSA conflict ergonomics"],
+  },
+  {
     file: "site/docs.html",
-    terms: ["AI-assisted changes", "Broken chart triage", "Expected results and clusters"],
+    terms: ["AI-assisted changes", "Broken chart triage", "Known gaps we surface", "Expected results and clusters"],
   },
 ];
 

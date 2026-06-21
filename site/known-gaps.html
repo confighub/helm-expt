@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · ConfigHub Helm Catalog</title>
+  <title>Known Gaps · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -270,17 +270,22 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Variants</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this variants page.</p>
-    <p class="tagline">A base variant is a reviewed Helm render choice. A derived variant is a ConfigHub refinement after render. Keeping that boundary clear is how the model stays predictable.</p>
+    <h1>Known Gaps We Surface</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this known gaps page.</p>
+    <p class="tagline">These are not hidden blemishes. They are exactly the kind of rough edges this project is meant to expose before a user trusts a path.</p>
   </header>
   <main>
-    <section aria-labelledby="choose">
-      <h2 id="choose">Which Kind Of Variant?</h2>
-      <p>You start from a base, then create dev, staging, prod, region, customer, or target variants. The important split is whether Helm has to render again.</p>
+    <section aria-labelledby="rule">
+      <h2 id="rule">The Rule</h2>
+      <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site should mark it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
+      <p>Positive framing is allowed. Overclaiming is not. The evidence link is part of the product.</p>
+    </section>
+
+    <section aria-labelledby="gaps">
+      <h2 id="gaps">Current Watch Findings</h2>
       <div class="card"><table>
-        <thead><tr><th>Action</th><th>Use it when</th><th>Examples</th></tr></thead>
-        <tbody><tr><td>Choose a base variant</td><td>Use when the choice changes Helm inputs or rendered Kubernetes objects.</td><td>CRDs on/off, HA mode, generated Secret vs existing Secret, ingress/TLS shape, storage mode.</td></tr><tr><td>Create a derived variant</td><td>Use after render when the change is target, environment, region, customer, labels, approvals, links, or observation policy.</td><td>prod-us-east from redis/default, region labels, target binding, namespace policy.</td></tr><tr><td>Go back to the recipe</td><td>Use when the desired change cannot be explained as a post-render refinement.</td><td>A different values file, wrapper chart, dependency closure, capability profile, or chart version.</td></tr></tbody>
+        <thead><tr><th>Finding</th><th>Status</th><th>Why it matters</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td>Fixed placeholder credentials</td><td>watch</td><td>Repeatable demo credentials are useful for deterministic renders, but a base must not look like it generated a production secret when it ships a fixed placeholder.</td><td><a href="../data/default-credential-check/summary.md">../data/default-credential-check/summary.md</a></td></tr><tr><td>cub-direct no prune</td><td>watch</td><td>Plain apply does not remove objects that disappear from desired state. Argo and Flux can prune; cub-direct needs a prune/delete-set path before clean upgrades are claimed.</td><td><a href="../data/prune-gap-proof/summary.md">../data/prune-gap-proof/summary.md</a></td></tr><tr><td>cub-direct CRD ordering</td><td>watch</td><td>A first install that contains both CRDs and custom resources needs CRDs established before custom resources are applied, or it needs a controller that handles ordering.</td><td><a href="../data/crd-ordering-gap/summary.md">../data/crd-ordering-gap/summary.md</a></td></tr><tr><td>cub-scout drift field coverage</td><td>watch</td><td>Drift detection is useful only when field coverage is stated. The current receipt catches replica/image-style drift but misses container env-var drift.</td><td><a href="../data/drift-detection-gap/summary.md">../data/drift-detection-gap/summary.md</a></td></tr><tr><td>SSA conflict ergonomics</td><td>watch</td><td>Server-side apply can protect a manual live edit by reporting a conflict where Helm would silently overwrite, but the product still needs a plain keep-live / accept-desired / force-with-receipt choice.</td><td><a href="../data/ssa-conflict-gap/summary.md">../data/ssa-conflict-gap/summary.md</a></td></tr><tr><td>Helm-to-cub migration friction</td><td>watch</td><td>cub rejects normal Helm idioms safely today, but many errors are still too opaque for a Helm-fluent user. The migration guide is the current bridge.</td><td><a href="../data/helm-habit-friction/summary.md">../data/helm-habit-friction/summary.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -290,56 +295,11 @@
       </style>
     </section>
 
-    <section aria-labelledby="journey">
-      <h2 id="journey">Variant Journey</h2>
-      <div class="card"><table>
-        <thead><tr><th>Step</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Start from a base</td><td>Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral.</td></tr><tr><td>Upload to ConfigHub</td><td>The rendered objects become Units in an upstream Space. This is where diffs, labels, links, gates, and ownership become visible.</td></tr><tr><td>Create a derived variant</td><td>Clone/refine the uploaded base for dev, staging, prod, region, customer, or target with `cub variant create`.</td></tr><tr><td>Preview and check</td><td>Use Unit diffs, labels, links, gates, and receipts to confirm the install shape stayed bounded.</td></tr><tr><td>Promote later changes</td><td>Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The UI/AX/FX Creator flows described in the docs are proposals over these primitives. The shipped commands are <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, gates, changesets, and <code>cub variant promote</code>.</p>
-    </section>
-
-    <section aria-labelledby="flow">
-      <h2 id="flow">The Basic Flow</h2>
-      <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis
-cub installer upload --work-dir .tmp/redis --space helm-redis-default
-cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
-cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>The user should see a source base, a derived Space, changed paths, target binding, checks, and receipts. The UI can hide most of that language, but the data stays available for reviewers and agents.</p>
-      <div class="card">
-        <h3>You should see something like this</h3>
-        <pre><code>created downstream Space
-cloned Units linked to upstream Units
-changed labels/target/gates only, unless an allowed mutation receipt says otherwise
-promotion dry-run lists mutations before apply</code></pre>
-      </div>
-    </section>
-
-    <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
-      <div class="card"><table>
-        <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Redis</td><td>default and reuse-existing-secret are base variants because the Secret model changes rendered objects.</td><td><a href="./charts/bitnami-redis-25-5-3.html">./charts/bitnami-redis-25-5-3.html</a></td></tr><tr><td>Prometheus</td><td>server-only and production target variants show the base-to-derived split for a larger app.</td><td><a href="../docs/user/prometheus-overlay-promotion-example.md">../docs/user/prometheus-overlay-promotion-example.md</a></td></tr><tr><td>kube-prometheus-stack</td><td>The serious chart shows why variants must carry target facts, lifecycle routes, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">./charts/prometheus-community-kube-prometheus-stack-85-3-3.html</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="more">
-      <h2 id="more">More Detail</h2>
-      <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the doctrine. <a href="../docs/user/cub-variant-command-surface.md">cub variant command surface</a> tracks the command vocabulary. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
+    <section aria-labelledby="next">
+      <h2 id="next">What A User Should Do</h2>
+      <p>Use the chart page first. If a row is watch or blocked, follow its reason and evidence link. Use <a href="./hard-questions.html">FAQ</a> for the short answer, <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> for debugging, and the generated evidence when you need exact receipts.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>
+  <footer>Generated from helm-expt proof data. Watch findings are part of the trust model.</footer>
 </body>
 </html>

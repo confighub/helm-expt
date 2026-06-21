@@ -272,6 +272,7 @@
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
     <h1>bitnami/apache</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=apache&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">proof-grade / machine-proof-only page for bitnami/apache@11.4.29.</p>
     <pre>cub installer setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir &lt;tmp&gt; --non-interactive</pre>
@@ -331,7 +332,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Status</dt><dd>real</dd>
           <dt>How to run</dt><dd>Source chart. Choose an F2 base below before running the installer.</dd>
           <dt>Evidence</dt><dd>source-lock</dd>
-          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Hooks/actions</dt><dd>n/a</dd>
+          <dt>Who runs actions?</dt><dd>n/a</dd>
           <dt>Next</dt><dd>choose or create an F2 base before rendering or deploying</dd>
           <dt>Reason</dt><dd>source rows are upstream chart inputs, not server-side promotion evidence</dd>
         </dl>
@@ -352,7 +354,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Status</dt><dd>real</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace default</code></dd>
           <dt>Evidence</dt><dd>in-confighub-proof</dd>
-          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Hooks/actions</dt><dd>n/a</dd>
+          <dt>Who runs actions?</dt><dd>n/a</dd>
           <dt>Next</dt><dd>image-retention-review</dd>
           <dt>Reason</dt><dd>remote-image: image pull failed or pinned image is unavailable (parity passed)</dd>
         </dl>
@@ -373,7 +376,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Status</dt><dd>real</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir &lt;tmp&gt; --non-interactive --namespace default</code></dd>
           <dt>Evidence</dt><dd>in-confighub-proof</dd>
-          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Hooks/actions</dt><dd>n/a</dd>
+          <dt>Who runs actions?</dt><dd>n/a</dd>
           <dt>Next</dt><dd>image-retention-review</dd>
           <dt>Reason</dt><dd>remote-image: image pull failed or pinned image is unavailable (parity passed)</dd>
         </dl>
