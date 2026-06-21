@@ -59,6 +59,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [large-config-operations.md](./user/large-config-operations.md) | User-facing guide for watching large ConfigHub upload/apply/GitOps paths without collapsing them into a vague hang. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Short technical explanation of the harness lifecycle and where user value is created. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed recipe-generation workflow and the table for where Helm pieces belong. |
+| [how-it-works.md](./user/how-it-works.md) | The "how it works" hub: the four-move mental model (render → route → deliver → observe) plus customize/promote, day-1, day-2, secrets, and free-vs-managed — an organized index into the mechanism docs. |
 | [creating-variants.md](./user/creating-variants.md) | Simple guide to base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
 | [derived-variant-walkthrough.md](./user/derived-variant-walkthrough.md) | Captured real `cub variant create` read back from its receipt: faithful 7-unit clone, no Helm re-render, gates applied, honest intended-state-only scope. |
 | [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant` command surface and how Space/Unit metadata maps to derived variants. |
@@ -348,6 +349,7 @@ not the primary user path.
 | [outside-user-test.md](./planning/outside-user-test.md) | Fifteen-minute outside-user protocol for testing whether the public site and docs explain the product. |
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
+| [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
 | [per-chart-fact-sheet-spec.md](./planning/per-chart-fact-sheet-spec.md) | Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the "level of support vs evidence depth" rule. |
 | [archive/README.md](./planning/archive/README.md) | Historical planning snapshots retained for traceability. |
 
