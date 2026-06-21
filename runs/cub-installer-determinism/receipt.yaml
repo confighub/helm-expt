@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CubInstallerDeterminismReceipt"
+metadata:
+  name: "cub-installer-determinism-20260621"
+spec:
+  observedAt: "2026-06-21T16:10:34.554Z"
+  packagesAttempted: 12
+  packagesRendered: 12
+  deterministic: 12
+  nonDeterministicCount: 0
+  nonDeterministic:
+    []
+  result: "pass"
+  claim: "cub installer renders deterministically: rendering the same package + base + inputs twice produces byte-identical manifests. This is the property the config-as-data premise depends on — a reviewable diff is only meaningful if the render is stable; any non-determinism would make diffs noisy."
+  packages:
+    -
+      pkg: "bitnami/nginx/24.0.2"
+      base: "http-clusterip"
+      status: "deterministic"
+      detail: "6 file(s) byte-identical across two runs"
+      files: 6
+    -
+      pkg: "bitnami/redis"
+      base: "default"
+      status: "deterministic"
+      detail: "14 file(s) byte-identical across two runs"
+      files: 14
+    -
+      pkg: "bitnami/mysql"
+      base: "generated-passwords"
+      status: "deterministic"
+      detail: "8 file(s) byte-identical across two runs"
+      files: 8
+    -
+      pkg: "bitnami/mongodb"
+      base: "generated-passwords"
+      status: "deterministic"
+      detail: "8 file(s) byte-identical across two runs"
+      files: 8
+    -
+      pkg: "bitnami/rabbitmq"
+      base: "generated-passwords"
+      status: "deterministic"
+      detail: "9 file(s) byte-identical across two runs"
+      files: 9
+    -
+      pkg: "bitnami/postgresql"
+      base: "generated-passwords"
+      status: "deterministic"
+      detail: "7 file(s) byte-identical across two runs"
+      files: 7
+    -
+      pkg: "bitnami/apache"
+      base: "default"
+      status: "deterministic"
+      detail: "6 file(s) byte-identical across two runs"
+      files: 6
+    -
+      pkg: "bitnami/memcached"
+      base: "default"
+      status: "deterministic"
+      detail: "6 file(s) byte-identical across two runs"
+      files: 6
+    -
+      pkg: "bitnami/zookeeper"
+      base: "default"
+      status: "deterministic"
+      detail: "8 file(s) byte-identical across two runs"
+      files: 8
+    -
+      pkg: "bitnami/contour"
+      base: "default"
+      status: "deterministic"
+      detail: "21 file(s) byte-identical across two runs"
+      files: 21
+    -
+      pkg: "bitnami/opensearch"
+      base: "default"
+      status: "deterministic"
+      detail: "19 file(s) byte-identical across two runs"
+      files: 19
+    -
+      pkg: "bitnami/phpmyadmin"
+      base: "default"
+      status: "deterministic"
+      detail: "6 file(s) byte-identical across two runs"
+      files: 6
