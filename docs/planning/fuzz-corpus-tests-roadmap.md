@@ -17,8 +17,8 @@ real namespace-validation rough edges surfaced, not buried).
 | --- | --- | --- | --- | --- |
 | **F** adversarial | attacker | crafted to break | exploit | torture-suite / adversarial-10 (existing) |
 | **G** careless-dev | unskilled | random garbage (`replicaCount=-1`) | footgun | `bad-decisions:fuzz` (shipped) |
-| **cub-installer fuzz** | careless+adversarial → cub | bad/weird input to `cub installer` | **cub bug** | shipped (this batch) |
-| **H** Helm-fluent migrant *(new)* | **skilled in Helm, new to cub** | **valid *Helm*** (`replicaCount=3`, `-f values.yaml`) | **model mismatch / friction** | proposed (PR 2) |
+| **cub-installer fuzz** | careless+adversarial → cub | bad/weird input to `cub installer` | **cub bug** | shipped |
+| **H** Helm-fluent migrant | **skilled in Helm, new to cub** | **valid *Helm*** (`replicaCount=3`, `-f values.yaml`) | **model mismatch / friction** | shipped |
 
 Lane **H** is the adoption-friction lane: the dev does everything right *by Helm's rules*, and it
 breaks anyway because cub's model (declared inputs / bases / kustomize) isn't Helm's free-form
@@ -28,26 +28,34 @@ breaks anyway because cub's model (declared inputs / bases / kustomize) isn't He
 
 ## PR sequence (offline-first)
 
-1. **cub-installer fuzz + #1006 reframe** *(this batch)* — fuzz `cub installer` with careless +
+1. **cub-installer fuzz + #1006 reframe** *(shipped)* — fuzz `cub installer` with careless +
    adversarial input; classify cub's behavior (reject-unknown / reject-validation / rendered /
    crash / injection / silent-swallow) + honest rough-edge findings. Reframe the merged Helm
    comparison (#1006) to drop the unmeasured "config-as-data surfaces 100%" claim → "Helm's
    footgun profile," pointing to the cub fuzz as the measured lane.
-2. **Helm-fluent migrant friction lane** — feed *valid Helm idioms* to `cub installer`
+2. **Helm-fluent migrant friction lane** *(shipped)* — feed *valid Helm idioms* to `cub installer`
    (`--input replicaCount=3`, `-f values.yaml`, `--set image.tag`, `--set-string`, array syntax,
    release-name semantics) and classify the **guidance quality**. Headline metric: how often does
-   cub guide the Helm migrant vs leave them stuck? + a Helm→cub findings table.
-3. **cub-installer fuzz expansion** — more packages (8 → ~20 that render), more input classes
+   cub guide the Helm migrant vs leave them stuck? Current result: safe but opaque, with a
+   user-facing Helm→cub migration guide.
+3. **cub-installer determinism** *(shipped first cut)* — same input twice → byte-identical
+   render, across the current package sample. This proves the diff premise for that sample.
+4. **cub-installer fuzz expansion** — more packages (8 → ~20 that render), more input classes
    (bad values for *declared* inputs, `--select`/`--components` fuzzing, `--set-image` ref
-   fuzzing, edge values: unicode / empty / huge / whitespace), and a **determinism check**
-   (same input twice → byte-identical render). Hunt more cub rough edges.
-4. **Careless-dev corpus broadening** — more charts (10 → 20+ that baseline-render) and more
+   fuzzing, edge values: unicode / empty / huge / whitespace). Hunt more cub rough edges.
+5. **Careless-dev corpus broadening** — more charts (10 → 20+ that baseline-render) and more
    decision types, including **security-relevant** ones (privileged, hostPath, capabilities,
    runAsRoot) so the footgun profile covers the dangerous cases, not just the silly ones.
-5. **Helm→cub migration cheat-sheet** — turn the lane-H findings into a user-facing
+6. **Helm→cub migration cheat-sheet** *(shipped)* — turn the lane-H findings into a user-facing
    "you did X in Helm; here's the cub way" surface (md + csv + colored HTML). UX *content* that
    Codex's site can render; not the site itself.
-6. **Test-map + doctrine update** — fold the cub-installer fuzz and lane H into
+7. **Default-credential check** *(shipped first cut)* — detect deterministic placeholder
+   credentials in default bases and keep them visible as `watch` until names, warnings, and
+   production routes are clear.
+8. **cub-direct prune gap proof** *(shipped first cut)* — prove the no-controller apply path
+   does not prune removed resources unless it uses `kubectl apply --prune` or an equivalent
+   delete-set.
+9. **Test-map + doctrine update** — fold the cub-installer fuzz and lane H into
    `tests/README.md` and `tests/doctrine.md`; refresh the persona taxonomy above.
 
 ## Constraints (so this survives an unattended session)

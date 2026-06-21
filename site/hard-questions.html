@@ -467,6 +467,14 @@
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
+          <h3>I know Helm flags. Why does cub reject --set or -f values.yaml?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>cub installer uses declared inputs, named bases, and image overrides instead of Helm's free-form --set model. The current lane shows cub rejects Helm idioms safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
+        <p class="faq-links"><a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a> · <a href="../data/helm-habit-friction/summary.md">Helm-migrant friction data</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
           <h3>How much of the top-100 is ready for a user?</h3>
           <span class="faq-status">answered</span>
         </div>
@@ -527,6 +535,28 @@
         </div>
         <p>No. Signatures help integrity and transport. Trust also needs signer authority, policy context, scans, gates, and live evidence. Keep that boundary visible.</p>
         <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../data/claims-register/summary.md">Claims register</a></p>
+      </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="known-footguns-we-surface">
+      <h2 id="known-footguns-we-surface">Known Footguns We Surface</h2>
+      <div class="faq-list">
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Do default bases generate fresh passwords?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>Not always. The default-credential check found fixed placeholder credentials in five sampled default bases, including bases whose names imply generated passwords. That is useful for deterministic demos, but it stays watch until naming, warnings, and production routes make the behavior impossible to miss.</p>
+        <p class="faq-links"><a href="../data/default-credential-check/summary.md">Default credential check</a> · <a href="../docs/user/security-end-to-end.md">Security end to end</a></p>
+      </article>
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Does cub-direct remove resources that disappear during an upgrade?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector/allowlist, or another explicit delete-set. Argo and Flux are not affected because they prune declaratively.</p>
+        <p class="faq-links"><a href="../data/prune-gap-proof/summary.md">Prune gap proof</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
       </article>
       </div>
     </section>

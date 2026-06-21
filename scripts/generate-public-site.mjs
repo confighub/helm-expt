@@ -1701,6 +1701,7 @@ function docsHtml(catalog) {
     ["Day-2: upgrade & rollback", "Staged, reviewed, rehearsed, observed changes — and versioned rollback.", "../docs/user/day2-upgrade-rollback.md"],
     ["Choose your path", "Direct render, one-shot upload, public catalog, or ConfigHub operations.", "../docs/user/choose-your-path.md"],
     ["Choosing commands", "When to use cub helm template, cub helm install, or cub installer setup.", "../docs/user/choosing-commands.md"],
+    ["Coming from Helm", "How common Helm flags and values habits map to cub installer bases and declared inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
     ["Custom overlays", "How wrapper charts, customer values, and overlays map into the model.", "../docs/user/custom-overlays.md"],
     ["Ops page", "Public web page for scans, patches, delivery, observation, adoption, upgrades, and fleet work.", "./operations.html"],
@@ -2056,6 +2057,13 @@ function hardQuestionsHtml(catalog) {
         },
         {
           status: "answered",
+          question: "I know Helm flags. Why does cub reject --set or -f values.yaml?",
+          answer:
+            "cub installer uses declared inputs, named bases, and image overrides instead of Helm's free-form --set model. The current lane shows cub rejects Helm idioms safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.",
+          links: [["Helm to cub migration", "../docs/user/helm-to-cub-migration.md"], ["Helm-migrant friction data", "../data/helm-habit-friction/summary.md"]],
+        },
+        {
+          status: "answered",
           question: "How much of the top-100 is ready for a user?",
           answer:
             "The top-100 is intentionally bucketed rather than flattened into one claim. Some charts are ready to try, some need target prerequisites, some need operator review, and some need a better base.",
@@ -2113,13 +2121,33 @@ function hardQuestionsHtml(catalog) {
         },
       ],
     },
+    {
+      title: "Known Footguns We Surface",
+      rows: [
+        {
+          status: "watch",
+          question: "Do default bases generate fresh passwords?",
+          answer:
+            "Not always. The default-credential check found fixed placeholder credentials in five sampled default bases, including bases whose names imply generated passwords. That is useful for deterministic demos, but it stays watch until naming, warnings, and production routes make the behavior impossible to miss.",
+          links: [["Default credential check", "../data/default-credential-check/summary.md"], ["Security end to end", "../docs/user/security-end-to-end.md"]],
+        },
+        {
+          status: "watch",
+          question: "Does cub-direct remove resources that disappear during an upgrade?",
+          answer:
+            "Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector/allowlist, or another explicit delete-set. Argo and Flux are not affected because they prune declaratively.",
+          links: [["Prune gap proof", "../data/prune-gap-proof/summary.md"], ["Deployment path", "../docs/user/cub-deployment-path.md"]],
+        },
+      ],
+    },
   ];
   const faqCard = (row) => {
+    const statusLabel = row.status === "later" ? "P1 backlog" : row.status;
     const parts = [
       `<article class="faq-card ${escapeHtml(row.status)}">
         <div class="faq-head">
           <h3>${escapeHtml(row.question)}</h3>
-          <span class="faq-status">${row.status === "later" ? "P1 backlog" : "answered"}</span>
+          <span class="faq-status">${escapeHtml(statusLabel)}</span>
         </div>
         <p>${escapeHtml(row.answer)}</p>`,
     ];

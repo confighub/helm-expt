@@ -26,6 +26,9 @@ artifact**:
 - **Flux** → an `OCIRepository` at the same URL + the `confighub-oci-creds` secret.
 - **No controller** → **pull the OCI bundle and `kubectl apply`** (or let `cub` apply
   it directly). OCI still triggers the apply — it is the single source of truth.
+  For upgrades, plain apply is not enough: the cub-direct path must also prune
+  removed resources (`kubectl apply --prune` with a safe selector/allowlist, or
+  an equivalent delete-set), otherwise deleted desired objects remain orphaned.
 
 Re-rendering locally and `kubectl apply`-ing **bypasses OCI** — that is the
 *no-ConfigHub* fallback only, never the ConfigHub path. A *continuous* "OCI push
@@ -54,6 +57,12 @@ all three delivery paths run it (each sourced from the same OCI bundle, per #3).
     unexpected silly decisions, **repeatedly, at volume**. Each ends `rejected` (caught at
     render) · `leaked` (the k8s API is the backstop) · `absorbed` (the silent `--set` no-op
     footgun, surfaced). **0 unclassified / 0 silent**, by construction.
+- **cub-installer fuzz** tests our own CLI with bad and weird input. Serious bugs
+  are crashes, injection, or silent swallowing. Rough edges are still findings,
+  even when the result is a pass.
+- **H — Helm-fluent migrant friction** tests correct Helm habits applied to cub.
+  Safe rejection is not enough for adoption; the useful outcome is rejection
+  with a pointer to the cub model.
 
 ## 6a. The careless-dev assumption (why lane G exists)
 Most real breakage is **ordinary, not adversarial** — devs break tools through silly
@@ -62,6 +71,20 @@ number: Helm catches **~1%** of careless decisions at render; **~66%** vanish si
 (the `--set` footgun); **~33%** leak to the k8s API. So we fuzz random bad decisions **at
 volume** and **name every outcome** — the careless dev, not the skeptic, is the most common
 breaker, and a tool that silently swallows their mistakes is the failure mode to catch.
+
+## 6b. The Helm-migrant assumption
+Many users will arrive fluent in Helm and type normal Helm flags first:
+`--set`, `--set-string`, `-f values.yaml`, `--values`, and image paths expressed
+as Helm values. `cub installer` should reject what it does not support, but the
+error should teach the cub route: declared `--input`s, `--set-image`, named
+bases, or a base edit. A generic "unknown flag" is safe but opaque.
+
+## 6c. Default credentials are never silent
+Deterministic rendering is good for reviewable diffs, but a deterministic Secret
+value is not a generated password. If a demo/default base ships a fixed
+placeholder credential, the row stays `watch` until the name, warning, and
+recommended production route make that obvious. A base named
+`generated-passwords` must not quietly contain fixed shared credentials.
 
 ## 7. Live runs are serial and ephemeral
 `cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →

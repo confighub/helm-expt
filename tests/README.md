@@ -27,6 +27,8 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 | **E. UX / journey** | journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe |
 | **F. Adversarial / refusal boundary** (a *deliberate* skeptic breaking the model) | torture suite · adversarial-10 · quirk & pain-point coverage |
 | **G. Careless-dev randomness** (an *ordinary* dev making silly decisions, repeatedly, at volume) | random-bad-decisions fuzz |
+| **cub-installer fuzz** (bad or weird input aimed at our tool) | cub installer fuzz · namespace/input/image validation · injection checks |
+| **H. Helm-fluent migrant friction** (valid Helm habits applied to cub) | Helm idioms rejected safely, with migration guidance measured |
 
 ## The coverage matrix
 
@@ -50,6 +52,11 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | UX: website / outside-user / adversarial | spans | spans | spans | spans | [WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md), [outside-user-test](../docs/planning/outside-user-test.md), [pilot-adversarial-testing](../docs/planning/pilot-adversarial-testing.md), [adversarial-strategy.md](adversarial-strategy.md) | runbook + plan + probe method |
 | Adversarial / refusal boundary | ● | ○ | – | – | [torture-suite](../data/torture-suite/summary.md), [adversarial10](../data/adversarial10/summary.md), [quirk-coverage](../data/quirk-coverage/summary.md) | refusal boundary covered |
 | Random-bad-decisions fuzz | ● | ○ | – | – | `run-bad-decisions-fuzz`, [bad-decisions-fuzz](../data/bad-decisions-fuzz/summary.md) | 180 cases, 0 unclassified (rejected 1% / leaked 33% / absorbed 66%) |
+| cub-installer fuzz | – | ○ | – | ● | `cub-installer:fuzz`, [cub-installer-fuzz](../data/cub-installer-fuzz/summary.md) | pass — 96 cases, 0 serious bugs; namespace validation rough edges visible |
+| Helm-fluent migrant friction | ● | – | – | ● | `helm-habit:friction`, [helm-habit-friction](../data/helm-habit-friction/summary.md), [Helm→cub migration guide](../docs/user/helm-to-cub-migration.md) | pass for safety — 72/72 valid Helm idioms rejected; watch the 72/72 opaque guidance gap |
+| cub-installer determinism | – | – | – | ● | `cub-installer:determinism`, [cub-installer-determinism](../data/cub-installer-determinism/summary.md) | pass — 12/12 packages rendered byte-identically twice |
+| Default credential check | – | – | ○ | ● | `default-credential:check`, [default-credential-check](../data/default-credential-check/summary.md) | watch — 5/12 default bases ship fixed placeholder credentials; 4 names are misleading |
+| cub-direct prune gap | – | ● | ○ | ● | `prune-gap:proof`, [prune-gap-proof](../data/prune-gap-proof/summary.md) | watch — cub-direct plain apply leaves removed resources orphaned; Argo/Flux prune |
 
 ## How we state coverage
 
@@ -78,6 +85,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 | The generated inventory of every script | [npm-script-catalog.md](npm-script-catalog.md) |
 | The exact reproducible per-chart procedure | [runbook.md](runbook.md) |
 | The persona / tier-aware adversarial usage probe | [adversarial-strategy.md](adversarial-strategy.md) |
+| The fuzz and Helm-migrant roadmap | [fuzz-corpus-tests-roadmap.md](../docs/planning/fuzz-corpus-tests-roadmap.md) |
 | The recorded F1–F4 findings | [findings.md](findings.md) |
 | The top-100 runtime/GitOps sweep plan | [top100-runtime-gitops.md](top100-runtime-gitops.md) |
 | Current aggregate status (the live dashboard) | [status-dashboard](../data/status-dashboard/summary.md) |
