@@ -2046,14 +2046,15 @@ function tiersRedirectHtml() {
 function journeyHtml(catalog) {
   const appKinds = [
     ["Single chart app", "A public Helm chart from the catalog becomes a ConfigHub-managed app component."],
-    ["Multi-chart app", "Several reviewed chart bases are grouped as one application or platform slice."],
-    ["Custom app", "Your own Kubernetes objects, wrapper chart, overlays, or private values join the same desired-state graph."],
+    ["Multi-chart stack", "Several reviewed chart bases are grouped as one deployable stack, for example app plus database, ingress, certificates, and observability."],
+    ["Platform slice", "A platform team can group shared services such as ingress, policy, secrets, storage, monitoring, and GitOps controllers as one managed shape."],
+    ["Custom app", "Your own Kubernetes objects, wrapper chart, overlays, private values, or small custom app join the same desired-state graph."],
     ["Existing app", "An app you already run can be represented as Units, then compared, promoted, and operated with receipts."],
   ];
   const appFlow = [
-    ["Choose inputs", "Start from a proved chart/base, a managed variant, or a custom app source."],
+    ["Choose inputs", "Start from one or more proved chart/base entries, a managed variant, a platform stack, or a custom app source."],
     ["Load as Units", "Upload the rendered desired state into ConfigHub so the objects can be labeled, queried, diffed, and shared."],
-    ["Group the app", "Use labels, Spaces, components, targets, and links to describe what belongs together."],
+    ["Group the app", "Use labels, Spaces, components, targets, and links to describe what belongs together across services and platform dependencies."],
     ["Promote or deliver", "Move the app through environments and publish the selected object set to GitOps/OCI when ready."],
     ["Hand off to Ops", "Once live, use the Ops guide for scans, patches, observation, upgrades, rollback, and fleet questions."],
   ];
@@ -2086,7 +2087,7 @@ function journeyHtml(catalog) {
     ${topNav(".")}
     <h1>Apps Guide</h1>
     ${generatedStamp(catalog, "apps guide")}
-    <p>Apps are where chart-level work becomes something a team can manage: one or more Helm chart bases, customised variants, custom Kubernetes objects, targets, labels, and promotion paths held together as one desired-state graph.</p>
+    <p>Apps are where chart-level work becomes something a team can manage: one or more Helm chart bases, customised variants, platform services, custom Kubernetes objects, targets, labels, and promotion paths held together as one desired-state graph.</p>
     <p>This guide starts after the first two website steps are clear: you have seen Helm parity, and you have picked a chart or base from the Helm Catalog. Use the Variants guide when the question is how a chart changes. Use this Apps guide when the question is how those pieces become an application.</p>
   </header>
   <main>
@@ -2110,8 +2111,10 @@ function journeyHtml(catalog) {
       ${markdownLikeTable([
         ["Path", "What you are proving"],
         ["Redis app", "A single public chart can be rendered, uploaded as Units, varied by environment, and promoted."],
-        ["Prometheus or kube-prometheus-stack", "A more serious chart can expose CRDs, RBAC, webhooks, target facts, and lifecycle prerequisites before app delivery."],
+        ["Prometheus or kube-prometheus-stack", "A more serious chart or observability stack can expose CRDs, RBAC, webhooks, target facts, and lifecycle prerequisites before app delivery."],
+        ["Platform slice", "Ingress, policy, secrets, storage, monitoring, and GitOps services can be grouped as a managed platform shape."],
         ["Custom app or stack", "Public chart components and private app objects can be represented together rather than treated as unrelated YAML."],
+        ["Custom vibe app", "A small custom app can sit beside chart-provided infrastructure, with the same labels, variants, delivery path, and operating model."],
         ["Existing app", "A live application can be brought under the same object, diff, promotion, and observation model."],
       ])}
       <p>These are app-level stories. The chart-level evidence still lives on the Helm Catalog pages and matrix.</p>

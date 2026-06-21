@@ -279,8 +279,8 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>Apps Guide</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:43:40.377Z UTC · source: committed helm-expt evidence for this apps guide.</p>
-    <p>Apps are where chart-level work becomes something a team can manage: one or more Helm chart bases, customised variants, custom Kubernetes objects, targets, labels, and promotion paths held together as one desired-state graph.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this apps guide.</p>
+    <p>Apps are where chart-level work becomes something a team can manage: one or more Helm chart bases, customised variants, platform services, custom Kubernetes objects, targets, labels, and promotion paths held together as one desired-state graph.</p>
     <p>This guide starts after the first two website steps are clear: you have seen Helm parity, and you have picked a chart or base from the Helm Catalog. Use the Variants guide when the question is how a chart changes. Use this Apps guide when the question is how those pieces become an application.</p>
   </header>
   <main>
@@ -288,7 +288,7 @@
       <h2 id="app-kinds">What Counts As An App?</h2>
       <div class="card"><table>
         <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Single chart app</td><td>A public Helm chart from the catalog becomes a ConfigHub-managed app component.</td></tr><tr><td>Multi-chart app</td><td>Several reviewed chart bases are grouped as one application or platform slice.</td></tr><tr><td>Custom app</td><td>Your own Kubernetes objects, wrapper chart, overlays, or private values join the same desired-state graph.</td></tr><tr><td>Existing app</td><td>An app you already run can be represented as Units, then compared, promoted, and operated with receipts.</td></tr></tbody>
+        <tbody><tr><td>Single chart app</td><td>A public Helm chart from the catalog becomes a ConfigHub-managed app component.</td></tr><tr><td>Multi-chart stack</td><td>Several reviewed chart bases are grouped as one deployable stack, for example app plus database, ingress, certificates, and observability.</td></tr><tr><td>Platform slice</td><td>A platform team can group shared services such as ingress, policy, secrets, storage, monitoring, and GitOps controllers as one managed shape.</td></tr><tr><td>Custom app</td><td>Your own Kubernetes objects, wrapper chart, overlays, private values, or small custom app join the same desired-state graph.</td></tr><tr><td>Existing app</td><td>An app you already run can be represented as Units, then compared, promoted, and operated with receipts.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -301,9 +301,9 @@
     <section aria-labelledby="app-flow">
       <h2 id="app-flow">The App Flow</h2>
       <div class="app-flow">
-        <div class="app-step"><h3>Choose inputs</h3><p>Start from a proved chart/base, a managed variant, or a custom app source.</p></div>
+        <div class="app-step"><h3>Choose inputs</h3><p>Start from one or more proved chart/base entries, a managed variant, a platform stack, or a custom app source.</p></div>
         <div class="app-step"><h3>Load as Units</h3><p>Upload the rendered desired state into ConfigHub so the objects can be labeled, queried, diffed, and shared.</p></div>
-        <div class="app-step"><h3>Group the app</h3><p>Use labels, Spaces, components, targets, and links to describe what belongs together.</p></div>
+        <div class="app-step"><h3>Group the app</h3><p>Use labels, Spaces, components, targets, and links to describe what belongs together across services and platform dependencies.</p></div>
         <div class="app-step"><h3>Promote or deliver</h3><p>Move the app through environments and publish the selected object set to GitOps/OCI when ready.</p></div>
         <div class="app-step"><h3>Hand off to Ops</h3><p>Once live, use the Ops guide for scans, patches, observation, upgrades, rollback, and fleet questions.</p></div>
       </div>
@@ -313,7 +313,7 @@
       <h2 id="examples">Example App Paths</h2>
       <div class="card"><table>
         <thead><tr><th>Path</th><th>What you are proving</th></tr></thead>
-        <tbody><tr><td>Redis app</td><td>A single public chart can be rendered, uploaded as Units, varied by environment, and promoted.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A more serious chart can expose CRDs, RBAC, webhooks, target facts, and lifecycle prerequisites before app delivery.</td></tr><tr><td>Custom app or stack</td><td>Public chart components and private app objects can be represented together rather than treated as unrelated YAML.</td></tr><tr><td>Existing app</td><td>A live application can be brought under the same object, diff, promotion, and observation model.</td></tr></tbody>
+        <tbody><tr><td>Redis app</td><td>A single public chart can be rendered, uploaded as Units, varied by environment, and promoted.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A more serious chart or observability stack can expose CRDs, RBAC, webhooks, target facts, and lifecycle prerequisites before app delivery.</td></tr><tr><td>Platform slice</td><td>Ingress, policy, secrets, storage, monitoring, and GitOps services can be grouped as a managed platform shape.</td></tr><tr><td>Custom app or stack</td><td>Public chart components and private app objects can be represented together rather than treated as unrelated YAML.</td></tr><tr><td>Custom vibe app</td><td>A small custom app can sit beside chart-provided infrastructure, with the same labels, variants, delivery path, and operating model.</td></tr><tr><td>Existing app</td><td>A live application can be brought under the same object, diff, promotion, and observation model.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
