@@ -371,6 +371,14 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   ];
   const parityDemos = [
     {
+      label: "Standard Redis",
+      title: "Start with the smallest happy path",
+      body: "Redis is the teaching chart. Render the public package, verify your local render against the catalog, then choose whether to apply locally or upload into ConfigHub.",
+      command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis\nnpm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis",
+      link: "./try.html",
+      linkText: "Get started with Redis",
+    },
+    {
       label: "Serverless parity",
       title: "No account: Helm vs cub installer in two kind clusters",
       body: "This is the cleanest parity check. The harness installs regular Helm into one vanilla kind cluster, applies the cub installer output into another, and compares the live object meaning.",
@@ -385,14 +393,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       command: "npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base default",
       link: "../data/live-helm-confighub-compare/summary.md",
       linkText: "Open live Helm-vs-ConfigHub receipts",
-    },
-    {
-      label: "Standard Redis",
-      title: "Follow the smallest happy path",
-      body: "Redis is the teaching chart: render the public package, verify your local render against the catalog, and then choose whether to apply locally or upload into ConfigHub.",
-      command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis\nnpm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis",
-      link: "./try.html",
-      linkText: "Try Redis",
     },
     {
       label: "Your chart choice",
@@ -412,14 +412,15 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     },
   ];
   const nextStepRows = [
-    ["Create useful variants", "Base variants capture Helm render choices. Derived ConfigHub variants handle approved post-render changes such as target, labels, gates, links, and observation policy.", "./variants.html"],
-    ["Review and operate objects", "Once rendered objects become ConfigHub Units, teams can diff, scan, approve, promote, observe, and audit them instead of treating Helm as one opaque action.", "./operations.html"],
-    ["Build apps on the data", "Several charts plus a custom service can become one managed desired-state graph with scans, diffs, promotion, and GitOps handoff.", "./custom-apps.html"],
+    ["Apps", "Use public charts, custom apps, stacks, platform groups, variants, and promotion as one application path.", "./journey.html"],
+    ["Ops", "Once an app is live, scan, gate, deliver, observe, patch, upgrade, roll back, and answer fleet questions.", "./operations.html"],
+    ["Upgrade", "Move into private catalogs, managed workflows, teams, approvals, SLAs, and production responsibility.", "./private/"],
   ];
   const limitRows = [
-    ["A green render is not production proof", "Target facts, lifecycle behavior, hooks, controller state, storage, and cloud identity can still matter.", "../docs/user/target-prerequisites.md"],
+    ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
     ["Watch is not fail, and not pass", "A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.", "./matrix.html"],
     ["Some chart choices need new bases", "If a values file, overlay, CRD choice, Secret mode, HA mode, or extension slot changes Helm output, create or import a new base and prove it.", "../docs/user/custom-overlays.md"],
+    ["Hooks become ConfigHub Actions", "Hook-like lifecycle behavior should be routed as explicit preflight, target-owned, GitOps, observation, blocked, or refused actions.", "./charts/index.html#actions"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -432,44 +433,41 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header>
     ${topNav(".")}
-    <h1>Prove Helm parity first.</h1>
+    <h1>Use Helm charts. Prove the ConfigHub install matches.</h1>
     ${generatedStamp(catalog, label)}
-    <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the important question first: does standard Helm and cub installer reach the same result?</p>
-    <p>Use this site in order: start with a parity demo, choose a chart and base from the Helm Catalog, then move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Use Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions. Upgrade is where private catalogs, managed workflows, and production responsibility begin.</p>
+    <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
+    <p>Start with a parity demo. Then choose a chart and base from the Helm Catalog. Move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Move into Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions.</p>
     <div class="doors">
       <div class="door">
-        <span class="kicker">Start here</span>
-        <h3><a href="./try.html">Run a small parity demo</a></h3>
-        <p>Use Redis to see the path without needing to understand the whole evidence system.</p>
+        <span class="kicker">First</span>
+        <h3><a href="./try.html">Get Started</a></h3>
+        <p>Run the short Redis path and see standard Helm compared with cub installer.</p>
         <span class="go"><a href="./try.html">Open Get Started →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Pick chart</span>
-        <h3><a href="./charts/index.html">Choose from the catalog</a></h3>
-        <p>Find the chart, version, base variants, receipts, quirks, and current evidence.</p>
-        <span class="go"><a href="./charts/index.html">Open chart pages →</a></span>
+        <span class="kicker">Second</span>
+        <h3><a href="./charts/index.html">Choose a chart</a></h3>
+        <p>Browse the top-100 database, detailed chart pages, variants, quirks, and ConfigHub Actions.</p>
+        <span class="go"><a href="./charts/index.html">Open Helm Catalog →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Check state</span>
-        <h3><a href="./matrix.html">Read the master matrix</a></h3>
-        <p>Pass, watch, blocked, not yet run, not applicable, and deferred accepted are all visible.</p>
-        <span class="go"><a href="./matrix.html">Open matrix →</a></span>
+        <span class="kicker">Then</span>
+        <h3><a href="./journey.html">Build Apps</a></h3>
+        <p>Create variants, promote through environments, and combine public charts with custom app pieces.</p>
+        <span class="go"><a href="./journey.html">Open Apps →</a></span>
       </div>
       <div class="door">
-        <span class="kicker">Challenge it</span>
-        <h3><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a></h3>
-        <p>If a chart breaks the model, the answer should be a fixture, receipt, named refusal, or routed gap.</p>
-        <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open issue template →</a></span>
+        <span class="kicker">Later</span>
+        <h3><a href="./operations.html">Operate live apps</a></h3>
+        <p>Scan, gate, observe, patch, upgrade, roll back, and ask fleet-wide questions.</p>
+        <span class="go"><a href="./operations.html">Open Ops →</a></span>
       </div>
     </div>
   </header>
   <main>
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Prove Parity</h2>
-      <p>Start with parity, not platform features. These demos ask the same question at different depths: under the same chart, version, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
-      <div class="grid">
-        ${proofCounters.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
-      </div>
+      <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
       <div class="catalog">
         ${parityDemos
           .map(
@@ -483,11 +481,15 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
           )
           .join("\n        ")}
       </div>
+      <h3>Current evidence snapshot</h3>
+      <div class="grid">
+        ${proofCounters.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
+      </div>
     </section>
 
     <section aria-labelledby="do-next">
       <h2 id="do-next">2. Show Me What I Can Do</h2>
-      <p>Once parity is visible, the value is that the rendered objects become explicit config. You can review them, create variants, apply policy, promote changes, and observe the live result.</p>
+      <p>Once parity is visible, the value is that rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
       ${markdownLikeTable([
         ["Capability", "What it means", "Where to look"],
         ...nextStepRows.map(([capability, body, link]) => [capability, body, `<a href="${link}">${link}</a>`]),
@@ -496,12 +498,13 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 
     <section aria-labelledby="limits">
       <h2 id="limits">3. What Are The Limits?</h2>
-      <p>The homepage should not hide the hard parts. Render parity is a baseline. Hooks, CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, and controller-owned runtime state need explicit routes.</p>
+      <p>Render parity is the baseline, not the end. CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, controller-owned runtime state, and hook-like lifecycle behavior need explicit routes.</p>
       ${markdownLikeTable([
         ["Limit", "Meaning", "Where to look"],
         ...limitRows.map(([limit, body, link]) => [limit, body, `<a href="${link}">${link}</a>`]),
       ], { rawThirdColumn: true })}
       <p><a href="./hard-questions.html">Open hard questions</a> for the skeptical path through hooks, upgrades, custom values, target prerequisites, GitOps sync, and free versus managed boundaries.</p>
+      <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send a problem chart</a>. The answer should be a fixture, receipt, named refusal, or routed gap.</p>
     </section>
 
     <section aria-labelledby="confighub">
@@ -1902,118 +1905,17 @@ function whoRunsVariantTables(c) {
   }).join("\n");
 }
 
-function hooksWhoRunsSection(catalog) {
-  const charts = catalog.lifecycleByVariant ?? [];
-  if (!charts.length) return "";
-  const withVariants = charts.filter((c) => c.hasBuiltVariants);
-  const flat = charts.filter((c) => !c.hasBuiltVariants);
-  const chartBlock = (c) => `<div class="card"><h3>${escapeHtml(c.chart)}</h3>${whoRunsVariantTables(c)}</div>`;
-  return `
-    <section aria-labelledby="whoruns">
-      <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
-      <p>Per chart and per built variant, in plain words. Render parity delivers the objects; each hook becomes a <strong>visible, named, receipted</strong> lifecycle step instead of a hidden Helm hook — run by your delivery pipeline (a GitOps PreSync/PostSync, a cub action, or an opt-in check), not by hand. The product does not auto-execute these yet (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per route</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
-      ${withVariants.map(chartBlock).join("\n")}
-      <h3>Charts without a per-variant difference yet</h3>
-      <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
-      ${simpleList(flat.map((c) => [c.chart, c.note]))}
-    </section>`;
-}
-
 function hooksHtml(catalog) {
-  const routes = catalog.lifecycleRoutes;
-  const dispositionCounts = countBy(routes, "disposition");
-  const executionCounts = countBy(routes, "execution_mode");
-  const autoCount = routes.filter((row) => isTruthyRouteFlag(row.safe_as_automatic)).length;
-  const chartCount = new Set(routes.map((row) => `${row.chart}@${row.version}`)).size;
-  const dispositionRows = Object.entries(dispositionCounts).map(([label, count]) => [label, String(count), dispositionMeaning(label)]);
-  const executionRows = Object.entries(executionCounts).map(([label, count]) => [label, String(count), executionModeMeaning(label)]);
-  const routeRows = routes.map((row) => [
-    `${row.chart}@${row.version}`,
-    row.quirk_class,
-    row.disposition,
-    row.route_name,
-    row.execution_mode,
-    isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
-    shortLifecycleEvidence(row.evidence_or_next_action),
-  ]);
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hooks & Lifecycle · ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
+  <title>ConfigHub Actions · ConfigHub Helm Catalog</title>
 </head>
 <body>
-  <header class="hero">
-    ${topNav(".")}
-    <h1>Where do Helm hooks and lifecycle behavior go?</h1>
-    ${generatedStamp(catalog, "hooks and lifecycle page")}
-    <p class="tagline">The catalog does not pretend Helm hooks are ordinary static YAML. It names the lifecycle behavior, the route, who executes it, and whether the product executes it automatically.</p>
-    <p>Today a routed behavior means the route and off-ramp are visible. It does not mean universal automatic hook execution. A row becomes automatic only when the execution mode is product-owned and evidence proves that path.</p>
-  </header>
-  <main>
-    ${hooksWhoRunsSection(catalog)}
-    <section aria-labelledby="headline">
-      <h2 id="headline">Current Lifecycle Route Contract</h2>
-      <div class="grid">
-        <div class="metric"><strong>${escapeHtml(routes.length)}</strong><span>route rows from committed lifecycle data</span></div>
-        <div class="metric"><strong>${escapeHtml(chartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
-        <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
-        <div class="metric"><strong><a href="./matrix.html">matrix</a></strong><span>route signal beside each catalog row</span></div>
-      </div>
-      <p>The low automatic count is deliberate. It keeps the public claim honest while still making the route useful to humans and agents.</p>
-    </section>
-
-    <section aria-labelledby="meanings">
-      <h2 id="meanings">Disposition Means Claim</h2>
-      ${markdownLikeTable([
-        ["Disposition", "Rows", "Meaning"],
-        ...dispositionRows,
-      ])}
-      <p><a href="../docs/reference/what-hook-support-means.md">Read the reference vocabulary</a> for the exact claim and refusal attached to each word.</p>
-    </section>
-
-    <section aria-labelledby="execution">
-      <h2 id="execution">Execution Mode Means Who Runs It</h2>
-      ${markdownLikeTable([
-        ["Execution mode", "Rows", "Meaning"],
-        ...executionRows,
-      ])}
-      <p>This is the important split for Helm users. Helm may run a hook implicitly. The catalog must say whether ConfigHub runs it, the target owns it, the user runs it as an explicit lifecycle action, or the route is not executable yet.</p>
-    </section>
-
-    <section aria-labelledby="route">
-      <h2 id="route">How To Read A Route</h2>
-      ${simpleList([
-        ["Quirk", "What kind of lifecycle behavior was found: hook phase, CRD install, target fact, webhook readiness, or a related class."],
-        ["Route", "Where the behavior belongs: preflight, presync, managed action, target-owned controller behavior, post-apply observation, or refusal."],
-        ["Off-ramp", "How a human or agent chooses an alternative route when the default is not right for the target."],
-        ["Evidence", "A receipt path when observed, or the next action when the route is still todo, per-target, or blocked by prerequisite work."],
-      ])}
-    </section>
-
-    <section aria-labelledby="rows">
-      <h2 id="rows">Route Rows</h2>
-      ${markdownLikeTable([
-        ["Chart", "Quirk", "Disposition", "Route", "Execution", "Auto", "Evidence or next action"],
-        ...routeRows,
-      ])}
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">What To Do With This</h2>
-      <div class="grid">
-        <div class="card"><h3>Trying a chart</h3><p>Open the chart page or matrix row. If lifecycle behavior exists, check the route and executor before treating a green render as a live install claim.</p></div>
-        <div class="card"><h3>Creating a base</h3><p>If the behavior changes rendered objects or Helm values, create a recipe/base variant. If it is post-render operation, route it through ConfigHub or a target-owned controller.</p></div>
-        <div class="card"><h3>Using GitOps</h3><p>Use Argo or Flux only when the route says the controller owns that lifecycle step or the receipt proves the selected sync path.</p></div>
-        <div class="card"><h3>Automating later</h3><p>Do not mark a route automatic until product execution and evidence exist. Until then, keep the explicit route and off-ramp visible.</p></div>
-        <div class="card"><h3>Finding evidence</h3><p>Use <a href="../data/lifecycle-routes/routes.json">routes.json</a>, <a href="../data/lifecycle-routes/summary.md">summary.md</a>, and the chart page's ConfigHub Actions section.</p></div>
-      </div>
-    </section>
-  </main>
-  <footer>Generated from helm-expt lifecycle route data. Route visibility is not an automatic execution claim.</footer>
+  <p>Hooks and lifecycle behavior are now covered on the Helm Catalog page as <a href="./charts/index.html#actions">ConfigHub Actions</a>.</p>
 </body>
 </html>
 `;
@@ -2618,7 +2520,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p class="tagline">Currently we snapshot from public Helm repos and build per-chart pages with extra detail, listed below. We maintain a database of currently supported charts and variants in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
+    <p class="tagline">Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The detailed per-chart pages listed below are the highest-detail supported subset. This page also shows ConfigHub Actions: how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently supported charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="actions">
@@ -2634,7 +2536,7 @@ function chartIndexHtml(catalog) {
         ["Disposition", "Rows", "Meaning"],
         ...dispositionRows,
       ])}
-      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a>, <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>, and the legacy <a href="../hooks.html">hooks detail page</a>.</p>
+      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>. The old <a href="../hooks.html">hooks URL</a> redirects here.</p>
     </section>
 
     <section aria-labelledby="charts">
@@ -2830,7 +2732,7 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="../hooks.html#whoruns">hooks hub</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See the <a href="../../data/lifecycle-routes-by-variant/by-variant.html">per-variant view</a> and the <a href="../../data/gitops-route-emission/emission.html">GitOps step (Argo/Flux) per route</a>.</p>
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry)
         : lifecycleRows.length
@@ -3561,8 +3463,8 @@ custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
 Open \`site/charts/index.html#actions\` for ConfigHub Actions, including hook
-and lifecycle route dispositions. \`site/hooks.html\` remains as a deep
-compatibility detail page.
+and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
+compatibility.
 Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.
 Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/index.html\`.
 Open \`site/offering.html\` for the longer public offering page.
