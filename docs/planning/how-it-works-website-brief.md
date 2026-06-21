@@ -40,10 +40,15 @@ section: a one-line claim, a short plain-English explainer, one visual, and a "g
 - A **one-OCI-bundle / three-consumers** diagram (Argo / Flux / kubectl pulling the same artifact).
 - The **honest disposition mix** as a small stacked bar (not a green checkmark wall).
 
-## Open content gaps (candidate new user docs — confirm before writing)
+## Content gaps — now filled (surface these prominently)
 
-These would strengthen "how it works" but don't exist yet as user explainers:
-1. **ConfigHub data-model primer** — Unit / space / target / worker / OCI vocabulary for newcomers.
-2. **Day-2: how upgrade + rollback actually work** — a user explainer (beyond the crash *example*).
-3. **Security: how secrets, creds, RBAC & scanning fit together** — the "no silent privileged step" story, end to end.
-4. **GitOps adopter guide** — Argo vs Flux from OCI; what changes vs. raw Helm-through-Argo.
+All four now exist as user docs, are linked from the [hub](../user/how-it-works.md), and are
+already recapitulated on the site: 6 entries in the Docs/Guides list (`guideRows`) and a new
+"How It Works" FAQ section (`faqSections`). Give them prominent placement:
+1. **The data model** — [confighub-data-model.md](../user/confighub-data-model.md) (Unit / space / target / worker / OCI / target fact / route / receipt).
+2. **Day-2: upgrade + rollback** — [day2-upgrade-rollback.md](../user/day2-upgrade-rollback.md).
+3. **Security end to end** — [security-end-to-end.md](../user/security-end-to-end.md) (the "no silent privileged step" story).
+4. **GitOps adopter guide** — [gitops-adopter-guide.md](../user/gitops-adopter-guide.md) (Argo/Flux from one OCI bundle).
+
+Plus the spine docs: [how-it-works.md](../user/how-it-works.md) (hub) and
+[cub-deployment-path.md](../user/cub-deployment-path.md).

@@ -314,6 +314,52 @@
       </div>
     </section>
 
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How It Works</h2>
+      <div class="faq-list">
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How does it actually work, end to end?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Four moves: render the chart into the exact objects (the recipe), route everything that is not in the recipe (hooks, CRD installs) as explicit named steps, deliver the recipe once as an OCI bundle that Argo, Flux, or kubectl all pull, and observe it live with receipts. Nothing privileged runs silently.</p>
+        <p class="faq-links"><a href="../docs/user/how-it-works.md">How it works</a> · <a href="../docs/user/confighub-data-model.md">The data model</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How is config delivered - and what about OCI and credentials?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux - never printed, logged, or passed on a command line. Argo from OCI is proven; Flux and cub-direct are in progress.</p>
+        <p class="faq-links"><a href="../docs/user/cub-deployment-path.md">Deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How do upgrades and rollback work?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert - with irreversible migration steps flagged as explicit routes, never run silently.</p>
+        <p class="faq-links"><a href="../docs/user/day2-upgrade-rollback.md">Day-2: upgrade &amp; rollback</a> · <a href="../docs/user/why-synced-is-not-working.md">Why synced is not working</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is a Unit, a space, or a target?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A Unit is ConfigHub's versioned atom of desired state; a space is the container that holds Units; a target is where they are delivered (the OCI target publishes the bundle). The data model page defines the whole vocabulary in one place.</p>
+        <p class="faq-links"><a href="../docs/user/confighub-data-model.md">The data model</a> · <a href="../docs/user/how-it-works.md">How it works</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>I already run Argo or Flux - what changes?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>You keep your controller. The only change is the source: instead of a git repo of Helm values re-rendered downstream, you point it at one OCI bundle ConfigHub publishes from reviewed Units. Hooks become explicit routes, not silent sync-phase steps.</p>
+        <p class="faq-links"><a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
+      </article>
+      </div>
+    </section>
+
     <section aria-labelledby="hooks-secrets-and-targets">
       <h2 id="hooks-secrets-and-targets">Hooks, Secrets, And Targets</h2>
       <div class="faq-list">
@@ -331,7 +377,7 @@
           <span class="faq-status">answered</span>
         </div>
         <p>They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
-        <p class="faq-links"><a href="../data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="../docs/user/target-prerequisites.md">Target prerequisites</a></p>
+        <p class="faq-links"><a href="../docs/user/security-end-to-end.md">Security end to end</a> · <a href="../data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="../docs/user/target-prerequisites.md">Target prerequisites</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
