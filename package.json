@@ -443,6 +443,8 @@
     "flux-lookup:proof:verify": "node scripts/run-flux-lookup-proof.mjs --verify",
     "hook-test:proof": "node scripts/run-hook-test-proof.mjs --run",
     "hook-test:proof:verify": "node scripts/run-hook-test-proof.mjs --verify",
+    "bad-decisions:fuzz": "node scripts/run-bad-decisions-fuzz.mjs --run",
+    "bad-decisions:fuzz:verify": "node scripts/run-bad-decisions-fuzz.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",

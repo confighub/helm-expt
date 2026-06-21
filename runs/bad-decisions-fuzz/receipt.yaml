@@ -1,0 +1,788 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "BadDecisionsFuzzReceipt"
+metadata:
+  name: "bad-decisions-20260621"
+spec:
+  observedAt: "2026-06-21T08:28:07.731Z"
+  decisions: 18
+  chartsAttempted: 10
+  chartsFuzzed: 10
+  cases: 180
+  tally:
+    rejected: 2
+    leaked: 60
+    absorbed: 118
+  unclassified: 0
+  result: "pass"
+  claim: "Across hundreds of random bad config decisions over real catalog charts, every case ends in a named outcome — rejected at render, leaked into a manifest (caught by the k8s API), or silently absorbed (the footgun) — and 0 are unclassified. No bad decision is silently mishandled."
+  charts:
+    -
+      slug: "bitnami/nginx"
+      version: "25.0.0"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-zero"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-absurd"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-string"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "grace-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "bitnami/redis"
+      version: "27.0.0"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "mem-limit-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-type-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "storageclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "bitnami/mysql"
+      version: "14.0.3"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "mem-limit-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-type-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "storageclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "bitnami/mongodb"
+      version: "19.1.0"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-zero"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "bitnami/rabbitmq"
+      version: "16.0.14"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-zero"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-absurd"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "replicas-string"
+          outcome: "rejected"
+          detail: "Error: values don't meet the specifications of the schema(s) in the following chart(s):"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "fluent/fluent-bit"
+      version: "0.57.6"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "bool-as-string"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "grace-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "prometheus-community/prometheus"
+      version: "29.9.0"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "mem-limit-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-type-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "grafana/grafana"
+      version: "10.5.15"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "ingress-nginx/ingress-nginx"
+      version: "4.15.1"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "mem-limit-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-type-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-overflow"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "service-port-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "bool-as-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+    -
+      slug: "metrics-server/metrics-server"
+      version: "3.13.0"
+      status: "fuzzed"
+      cases:
+        -
+          decision: "replicas-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-zero"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-absurd"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "replicas-string"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "image-pullpolicy-bad"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "cpu-limit-nonsense"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "mem-limit-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-type-bad"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-overflow"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "service-port-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "bool-as-string"
+          outcome: "rejected"
+          detail: "Error: metrics-server/templates/deployment.yaml:51:20"
+        -
+          decision: "grace-negative"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "probe-negative"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "priorityclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "nodeselector-impossible"
+          outcome: "leaked"
+          detail: "bad value rendered into a manifest"
+        -
+          decision: "storageclass-missing"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
+        -
+          decision: "deep-typo-key-noop"
+          outcome: "absorbed"
+          detail: "Helm ignored/defaulted the value (silent no-op)"
