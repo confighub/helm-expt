@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 472
+scripts: 474
 ```
 
 ## By Category
@@ -18,7 +18,7 @@ scripts: 472
 | Category | Scripts |
 | --- | ---: |
 | `top20-chart-proof` | 123 |
-| `other` | 86 |
+| `other` | 88 |
 | `catalog-data` | 57 |
 | `production-support` | 55 |
 | `hook-lifecycle` | 29 |
@@ -38,8 +38,8 @@ scripts: 472
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 236 |
-| `generate-or-run` | 192 |
+| `verify` | 237 |
+| `generate-or-run` | 193 |
 | `run` | 34 |
 | `summary` | 7 |
 | `self-test` | 2 |
@@ -49,7 +49,7 @@ scripts: 472
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 433 |
+| `none-for-verify` | 435 |
 | `local-kubernetes` | 14 |
 | `confighub-or-live-cluster` | 13 |
 | `network-or-helm-repo` | 7 |

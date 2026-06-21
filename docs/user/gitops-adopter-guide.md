@@ -23,13 +23,14 @@ Synced / Healthy as usual. **Proven** end-to-end (render → ConfigHub → OCI �
 ## Flux
 
 An `OCIRepository` at the same URL + a `Kustomization`. Same bundle, same credentials (the
-copied secret). **In progress** — documented as the design until a committed receipt exists
-(honest, per the [doctrine](../../tests/doctrine.md)).
+copied secret). **Proven** — committed receipt (`runs/oci-hook-delivery-proof/receipt.yaml`):
+Flux pulled the same OCI bundle and ran the routed hook.
 
 ## No controller (cub-direct)
 
-`cub` / `kubectl` can pull and apply the same bundle — it isn't Argo/Flux-specific. Handy
-for a one-shot apply or a CI step. **In progress.**
+`oras` / `kubectl` can pull and apply the same bundle — it isn't Argo/Flux-specific. Handy
+for a one-shot apply or a CI step. **Proven** — same receipt: `oras pull` of the same
+artifact + `kubectl apply` ran the routed hook with no controller.
 
 ## vs. raw Helm-through-Argo
 

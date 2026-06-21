@@ -1920,7 +1920,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "How is config delivered — and what about OCI and credentials?",
           answer:
-            "ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux — never printed, logged, or passed on a command line. Argo from OCI is proven; Flux and cub-direct are in progress.",
+            "ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux — never printed, logged, or passed on a command line. Argo, Flux, and cub-direct all pull the same bundle and run a routed hook — proven by a committed receipt.",
           links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
         },
         {
