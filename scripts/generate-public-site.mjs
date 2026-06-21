@@ -1455,6 +1455,12 @@ function docsHtml(catalog) {
     ["Answer hard questions", "Hooks, upgrades, custom values, target prerequisites, limits, and refusals.", "./hard-questions.html"],
   ];
   const guideRows = [
+    ["How it works", "The four-move model (render → route → deliver → observe) and an index into every mechanism doc.", "../docs/user/how-it-works.md"],
+    ["The data model", "Unit, space, target, worker, OCI bundle, target fact, route, receipt — the vocabulary in one place.", "../docs/user/confighub-data-model.md"],
+    ["Deployment path", "cub installer → ConfigHub → OCI bundle → Argo/Flux/kubectl, and how credentials are handled.", "../docs/user/cub-deployment-path.md"],
+    ["GitOps adopter guide", "For Argo/Flux teams: keep your controller, point it at one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
+    ["Security end to end", "Secrets, delivery creds, RBAC, and scanning — no silent privileged step.", "../docs/user/security-end-to-end.md"],
+    ["Day-2: upgrade & rollback", "Staged, reviewed, rehearsed, observed changes — and versioned rollback.", "../docs/user/day2-upgrade-rollback.md"],
     ["Choose your path", "Direct render, one-shot upload, public catalog, or ConfigHub operations.", "../docs/user/choose-your-path.md"],
     ["Choosing commands", "When to use cub helm template, cub helm install, or cub installer setup.", "../docs/user/choosing-commands.md"],
     ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
@@ -1684,6 +1690,46 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
+      title: "How It Works",
+      rows: [
+        {
+          status: "answered",
+          question: "How does it actually work, end to end?",
+          answer:
+            "Four moves: render the chart into the exact objects (the recipe), route everything that is not in the recipe (hooks, CRD installs) as explicit named steps, deliver the recipe once as an OCI bundle that Argo, Flux, or kubectl all pull, and observe it live with receipts. Nothing privileged runs silently.",
+          links: [["How it works", "../docs/user/how-it-works.md"], ["The data model", "../docs/user/confighub-data-model.md"]],
+        },
+        {
+          status: "answered",
+          question: "How is config delivered — and what about OCI and credentials?",
+          answer:
+            "ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux — never printed, logged, or passed on a command line. Argo from OCI is proven; Flux and cub-direct are in progress.",
+          links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
+        },
+        {
+          status: "answered",
+          question: "How do upgrades and rollback work?",
+          answer:
+            "An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert — with irreversible migration steps flagged as explicit routes, never run silently.",
+          links: [["Day-2: upgrade & rollback", "../docs/user/day2-upgrade-rollback.md"], ["Why synced is not working", "../docs/user/why-synced-is-not-working.md"]],
+        },
+        {
+          status: "answered",
+          question: "What is a Unit, a space, or a target?",
+          answer:
+            "A Unit is ConfigHub's versioned atom of desired state; a space is the container that holds Units; a target is where they are delivered (the OCI target publishes the bundle). The data model page defines the whole vocabulary in one place.",
+          links: [["The data model", "../docs/user/confighub-data-model.md"], ["How it works", "../docs/user/how-it-works.md"]],
+        },
+        {
+          status: "answered",
+          question: "I already run Argo or Flux — what changes?",
+          answer:
+            "You keep your controller. The only change is the source: instead of a git repo of Helm values re-rendered downstream, you point it at one OCI bundle ConfigHub publishes from reviewed Units. Hooks become explicit routes, not silent sync-phase steps.",
+          links: [["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"], ["Deployment path", "../docs/user/cub-deployment-path.md"]],
+        },
+      ],
+    },
+    {
       title: "Hooks, Secrets, And Targets",
       rows: [
         {
@@ -1698,7 +1744,7 @@ function hardQuestionsHtml(catalog) {
           question: "Where do Secrets and credentials live?",
           answer:
             "They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.",
-          links: [["Secret lifecycle data", "../data/secret-lifecycle/summary.md"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
+          links: [["Security end to end", "../docs/user/security-end-to-end.md"], ["Secret lifecycle data", "../data/secret-lifecycle/summary.md"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
         },
         {
           status: "answered",

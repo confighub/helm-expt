@@ -14,6 +14,9 @@ is the map; each link goes deeper.
 4. **Observe** — prove it live with **receipts**; report an **honest disposition**, never
    "just green."
 
+_New to the vocabulary (Unit, space, target, OCI bundle)? Start with the
+[data model](confighub-data-model.md)._
+
 ---
 
 ## 1. Render — the recipe
@@ -36,7 +39,7 @@ standing rules are in the [doctrine](../../tests/doctrine.md).
 ConfigHub publishes the Units once as an OCI artifact; Argo (`Application`), Flux
 (`OCIRepository`), or `cub`/`kubectl` all pull the same bytes. Includes the credentials
 story (OCI pull creds vs app secrets).
-→ [cub-deployment-path](cub-deployment-path.md)
+→ [cub-deployment-path](cub-deployment-path.md) · [gitops-adopter-guide](gitops-adopter-guide.md)
 
 ## 4. Observe — receipts, honest disposition
 Live proof, lane by lane; `watch ≠ pass`; render parity ≠ live-ready; we say what we
@@ -63,14 +66,17 @@ See desired-vs-live *before* you apply; understand why "synced" isn't "working."
 ## Day-2 — upgrade, rollback, maintenance
 How an opaque Helm upgrade becomes staged, reviewed, rehearsed, and observed; refresh and
 support over time.
-→ [helm-upgrade-crash-example](helm-upgrade-crash-example.md) ·
+→ [day2-upgrade-rollback](day2-upgrade-rollback.md) ·
+[helm-upgrade-crash-example](helm-upgrade-crash-example.md) ·
 [remote-images-and-supported-bases](remote-images-and-supported-bases.md) ·
 [maintenance-sla](maintenance-sla.md)
 
-## Secrets + credentials
-Two separate concerns: **delivery** creds (OCI pull, copied not printed) and your **app's**
-Secrets (generated vs existing vs staged target fact).
-→ [cub-deployment-path](cub-deployment-path.md) · [target-prerequisites](target-prerequisites.md)
+## Security — secrets, credentials, RBAC, scanning
+The one "no silent privileged step" story: **delivery** creds (OCI pull, copied not
+printed), your **app's** Secrets (generated vs existing vs staged target fact), RBAC visible
+in the recipe, and scanning + the adversarial lanes.
+→ [security-end-to-end](security-end-to-end.md) ·
+[cub-deployment-path](cub-deployment-path.md) · [target-prerequisites](target-prerequisites.md)
 
 ## Why this exists / why it holds
 The Generative GitOps thesis, the Helm pain points it answers, and why it doesn't collapse
