@@ -1,5 +1,7 @@
 # helm-expt Testing Strategy
 
+_The Coverage Ladder layer of the [helm-expt test map](README.md)._
+
 This file explains when to run each class of test and what kind of claim each
 test can support. It complements [npm-scripts.md](npm-scripts.md), which lists
 the individual commands.

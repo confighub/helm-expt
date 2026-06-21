@@ -1,5 +1,7 @@
 # NPM Test And Verification Scripts
 
+_The command-runbook layer of the [helm-expt test map](README.md)._
+
 The `npm` scripts are the repository's proof harness. They answer three
 questions:
 

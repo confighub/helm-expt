@@ -1,5 +1,7 @@
 # Helm Catalog Test Findings
 
+_Findings (F1-F4) under the [helm-expt test map](README.md)._
+
 Findings from earlier live runs of the helm-expt catalog test lanes. The project
 claim is that the catalog path should match Helm where it claims parity and add
 reviewable ConfigHub controls. Silent wrong output is therefore a release

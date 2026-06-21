@@ -1,5 +1,7 @@
 # Pathway: Route a chart's hooks, transparently
 
+_A journey pathway (UX test) in the [helm-expt test map](../../tests/README.md)._
+
 **UNOFFICIAL/EXPERIMENTAL.** This is the first of the user-journey **test pathways**
 (see `docs/planning/user-journey-test-pathways-brief.md`). A test pathway is a named,
 runnable walkthrough defined by **(persona) × (the decisions they make) × (a class of

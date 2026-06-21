@@ -1,5 +1,7 @@
 # Top-100 Runtime And GitOps Test Plan
 
+_The top-100 runtime/GitOps sweep under the [helm-expt test map](README.md)._
+
 This file defines the next runtime test lane for the 100 maintained chart
 recipes. It is separate from `npm run verify`.
 

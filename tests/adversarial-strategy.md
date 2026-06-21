@@ -1,5 +1,7 @@
 # Depth-probe strategy — adversarial, multi-persona, tier-aware
 
+_The adversarial-persona UX-test layer of the [helm-expt test map](README.md)._
+
 **Status:** DRAFT (2026-06-01). Proves *how users actually use the catalog in ConfigHub* (not just
 that it installs) before broadening 20→100. Output = a usage-readiness scorecard that becomes the
 admission check for the 100.
