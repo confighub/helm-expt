@@ -450,6 +450,8 @@
     "bad-decisions:comparison": "node scripts/run-bad-decisions-comparison.mjs --run",
     "bad-decisions:comparison:verify": "node scripts/run-bad-decisions-comparison.mjs --verify",
     "bad-decisions:comparison:regenerate": "node scripts/run-bad-decisions-comparison.mjs --regenerate",
+    "crd-ordering:proof": "node scripts/run-crd-ordering-gap.mjs --run",
+    "crd-ordering:proof:verify": "node scripts/run-crd-ordering-gap.mjs --verify",
     "cub-installer:fuzz": "node scripts/run-cub-installer-fuzz.mjs --run",
     "cub-installer:fuzz:verify": "node scripts/run-cub-installer-fuzz.mjs --verify",
     "cub-installer:determinism": "node scripts/run-cub-installer-determinism.mjs --run",
