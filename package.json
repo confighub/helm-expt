@@ -268,6 +268,8 @@
     "lifecycle:routes:verify": "node scripts/generate-lifecycle-routes.mjs --verify",
     "chart-skills": "node scripts/generate-chart-skills.mjs --generate",
     "chart-skills:verify": "node scripts/generate-chart-skills.mjs --verify",
+    "per-chart-hooks": "node scripts/generate-per-chart-hooks.mjs --generate",
+    "per-chart-hooks:verify": "node scripts/generate-per-chart-hooks.mjs --verify",
     "lifecycle:route-actions": "node scripts/generate-lifecycle-route-actions.mjs --generate",
     "lifecycle:route-actions:verify": "node scripts/generate-lifecycle-route-actions.mjs --verify",
     "lifecycle:routes-by-variant": "node scripts/generate-lifecycle-routes-by-variant.mjs --generate",

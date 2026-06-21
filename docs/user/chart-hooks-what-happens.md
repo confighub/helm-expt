@@ -27,7 +27,10 @@ The machine-readable form is
 [data/lifecycle-route-actions/](../../data/lifecycle-route-actions/summary.md):
 an agent reads `actions.json` and turns a row into a preflight/action/observe
 plan. The route contract behind it is
-[data/lifecycle-routes/](../../data/lifecycle-routes/summary.md).
+[data/lifecycle-routes/](../../data/lifecycle-routes/summary.md). The **per-chart** view —
+each chart's routes, disposition, `automatic: false`, and whether a skill applies — is
+[data/per-chart-hooks/](../../data/per-chart-hooks/summary.md) (colored cards in
+`by-chart.html`).
 
 ## What you actually do
 
