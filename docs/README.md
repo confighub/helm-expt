@@ -355,6 +355,7 @@ not the primary user path.
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
 | [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
+| [helm-vs-cub-adoption-audit.md](./planning/helm-vs-cub-adoption-audit.md) | The adoption bar: where cub is worse-than or more-confusing-than plain Helm on the common journey (install/customize/upgrade/CRDs/uninstall/rollback), scored winner + managed/unmanaged, with the management fixes — plus the honest cub wins. The focusing lens for the gap-hunt. |
 | [per-chart-fact-sheet-spec.md](./planning/per-chart-fact-sheet-spec.md) | Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the "level of support vs evidence depth" rule. |
 | [archive/README.md](./planning/archive/README.md) | Historical planning snapshots retained for traceability. |
 
