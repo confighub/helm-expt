@@ -449,6 +449,8 @@
     "bad-decisions:fuzz:verify": "node scripts/run-bad-decisions-fuzz.mjs --verify",
     "bad-decisions:comparison": "node scripts/run-bad-decisions-comparison.mjs --run",
     "bad-decisions:comparison:verify": "node scripts/run-bad-decisions-comparison.mjs --verify",
+    "drift-gap:proof": "node scripts/run-drift-detection-gap.mjs --run",
+    "drift-gap:proof:verify": "node scripts/run-drift-detection-gap.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
