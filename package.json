@@ -454,6 +454,8 @@
     "cub-installer:fuzz:verify": "node scripts/run-cub-installer-fuzz.mjs --verify",
     "cub-installer:determinism": "node scripts/run-cub-installer-determinism.mjs --run",
     "cub-installer:determinism:verify": "node scripts/run-cub-installer-determinism.mjs --verify",
+    "default-credential:check": "node scripts/run-default-credential-check.mjs --run",
+    "default-credential:check:verify": "node scripts/run-default-credential-check.mjs --verify",
     "helm-habit:friction": "node scripts/run-helm-habit-friction.mjs --run",
     "helm-habit:friction:verify": "node scripts/run-helm-habit-friction.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
