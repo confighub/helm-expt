@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SsaConflictGapProofReceipt"
+metadata:
+  name: "ssagap-20260621-20yx"
+spec:
+  observedAt: "2026-06-21T19:25:32.743Z"
+  result: "watch"
+  claim: "cub's managed delivery uses server-side apply. When a user has manually edited a field (kubectl scale), a server-side re-apply FAILS with a field-manager conflict (a wall of Kubernetes SSA text); Helm's client-side apply silently OVERWRITES and 'just works'. cub's behavior is arguably safer (no silent clobber) but is different and confusing for a Helm user — and under 'people avoid different/confusing' it must be MANAGED with a plain-words message and a clear reconcile/force path, not surfaced raw."
+  legs:
+    cubServerSideReapply:
+      afterManualEdit: "kubectl scale replicas 1->3"
+      conflicted: true
+      field: ".spec.replicas"
+      result: "CONFLICT (confusing for a Helm user)"
+    helmClientSideReapply:
+      overwroteSilently: true
+      result: "overwrote silently, replicas->1 (Helm's behavior)"
+  run:
+    rig: "ssagap-20260621-20yx"
+    cleanup:
+      result: "pass"
+  conclusion: "Confirmed: cub's server-side-apply delivery conflicts on a manually-edited field where Helm silently overwrites. Defensible (safer) but different + confusing. Manage it: detect the conflict, explain in plain words ('spec.replicas was changed outside cub — reconcile, or re-apply with --force-conflicts'), and offer the choice — don't surface raw k8s SSA text."
