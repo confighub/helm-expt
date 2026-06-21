@@ -558,6 +558,22 @@
         <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector/allowlist, or another explicit delete-set. Argo and Flux are not affected because they prune declaratively.</p>
         <p class="faq-links"><a href="../data/prune-gap-proof/summary.md">Prune gap proof</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
       </article>
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Can cub-direct first-install CRD charts without ordering?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>Not safely yet. A plain apply of a bundle that contains both a CRD and a custom resource can apply the custom resource before the CRD is established. The no-controller path needs CRD-first ordering and a wait/retry step, or it should use a controller.</p>
+        <p class="faq-links"><a href="../data/crd-ordering-gap/summary.md">CRD ordering gap</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
+      </article>
+        <article class="faq-card watch">
+        <div class="faq-head">
+          <h3>Does cub-scout catch every live drift?</h3>
+          <span class="faq-status">watch</span>
+        </div>
+        <p>No. The current live gap proof shows cub-scout detects replica drift but misses container environment-variable drift. Drift detection is valuable, but it must state field coverage until pod-spec coverage is complete.</p>
+        <p class="faq-links"><a href="../data/drift-detection-gap/summary.md">Drift detection gap</a> · <a href="../data/cub-scout-diff/summary.md">cub-scout day-1 preview</a></p>
+      </article>
       </div>
     </section>
   </main>

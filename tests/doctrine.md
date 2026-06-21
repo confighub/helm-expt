@@ -29,6 +29,9 @@ artifact**:
   For upgrades, plain apply is not enough: the cub-direct path must also prune
   removed resources (`kubectl apply --prune` with a safe selector/allowlist, or
   an equivalent delete-set), otherwise deleted desired objects remain orphaned.
+  For first installs of bundles that contain CRDs and custom resources, cub-direct
+  must install CRDs first and wait for them to be established, or use a controller.
+  Without that ordering, cub-direct is apply-only and can leave the CR uncreated.
 
 Re-rendering locally and `kubectl apply`-ing **bypasses OCI** — that is the
 *no-ConfigHub* fallback only, never the ConfigHub path. A *continuous* "OCI push
@@ -85,6 +88,13 @@ value is not a generated password. If a demo/default base ships a fixed
 placeholder credential, the row stays `watch` until the name, warning, and
 recommended production route make that obvious. A base named
 `generated-passwords` must not quietly contain fixed shared credentials.
+
+## 6d. Drift detection must state field coverage
+`cub-scout compare three-way --dry-from` can detect meaningful drift, but field
+coverage is part of the claim. A lane that catches replica or image drift but
+misses container environment drift is still useful, but it stays `watch` until
+the covered fields are explicit and the missing pod-spec fields are added or
+refused with a reason.
 
 ## 7. Live runs are serial and ephemeral
 `cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →

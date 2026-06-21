@@ -56,6 +56,8 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | Helm-fluent migrant friction | ● | – | – | ● | `helm-habit:friction`, [helm-habit-friction](../data/helm-habit-friction/summary.md), [Helm→cub migration guide](../docs/user/helm-to-cub-migration.md) | pass for safety — 72/72 valid Helm idioms rejected; watch the 72/72 opaque guidance gap |
 | cub-installer determinism | – | – | – | ● | `cub-installer:determinism`, [cub-installer-determinism](../data/cub-installer-determinism/summary.md) | pass — 12/12 packages rendered byte-identically twice |
 | Default credential check | – | – | ○ | ● | `default-credential:check`, [default-credential-check](../data/default-credential-check/summary.md) | watch — 5/12 default bases ship fixed placeholder credentials; 4 names are misleading |
+| cub-scout drift field coverage | – | ● | ○ | ● | `drift-gap:proof`, [drift-detection-gap](../data/drift-detection-gap/summary.md) | watch — replicas drift detected; container env-var drift missed |
+| cub-direct CRD ordering | – | ● | ○ | ● | `crd-ordering:proof`, [crd-ordering-gap](../data/crd-ordering-gap/summary.md) | watch — first install of CRD+CR bundles needs CRD-first ordering or a controller |
 | cub-direct prune gap | – | ● | ○ | ● | `prune-gap:proof`, [prune-gap-proof](../data/prune-gap-proof/summary.md) | watch — cub-direct plain apply leaves removed resources orphaned; Argo/Flux prune |
 
 ## How we state coverage
