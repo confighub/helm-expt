@@ -8,6 +8,7 @@ const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const howItWorksPath = join(siteRoot, "how-it-works.html");
 const variantsPath = join(siteRoot, "variants.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
 const operationsPath = join(siteRoot, "operations.html");
@@ -51,6 +52,7 @@ const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", 
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
+const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
@@ -58,13 +60,14 @@ const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", 
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
-  const generatedAt = new Date().toISOString();
+  const generatedAt = process.env.HELM_EXPT_SITE_GENERATED_AT || new Date().toISOString();
   const site = buildSite(generatedAt);
   rmSync(chartPagesRoot, { recursive: true, force: true });
   rmSync(privateRoot, { recursive: true, force: true });
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(howItWorksPath, site.howItWorksHtml);
   write(variantsPath, site.variantsHtml);
   write(customAppsPath, site.customAppsHtml);
   write(operationsPath, site.operationsHtml);
@@ -89,6 +92,7 @@ if (mode === "--generate") {
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(howItWorksPath), "site/how-it-works.html is missing; run npm run site:generate");
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
   check(existsSync(customAppsPath), "site/custom-apps.html is missing; run npm run site:generate");
   check(existsSync(operationsPath), "site/operations.html is missing; run npm run site:generate");
@@ -107,6 +111,7 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(howItWorksPath, "utf8") === site.howItWorksHtml, "site/how-it-works.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
@@ -168,10 +173,16 @@ function buildSite(generatedAt) {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
+  const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
+  const lifecycleRouteActionSummary = {
+    total: lifecycleRouteActions.length,
+    automatic: lifecycleRouteActions.filter((action) => action.automatic === true || action.automatic === "true").length,
+  };
   const lifecycleByVariant = existsSync(lifecycleByVariantJsonPath) ? JSON.parse(readFileSync(lifecycleByVariantJsonPath, "utf8")).charts : [];
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
+  const matrixDisposition = matrixLaneDispositionCounts(masterCatalogMatrix);
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
@@ -253,6 +264,7 @@ function buildSite(generatedAt) {
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
+      lifecycleRouteActions: "data/lifecycle-route-actions/actions.json",
       lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
@@ -315,7 +327,9 @@ function buildSite(generatedAt) {
     scanDisposition,
     highFanout,
     lifecycleRoutes,
+    lifecycleRouteActionSummary,
     lifecycleByVariant,
+    matrixDisposition,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
     masterCatalogMatrix: publicMatrixRows,
@@ -330,6 +344,7 @@ function buildSite(generatedAt) {
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
+    howItWorksHtml: howItWorksHtml(catalog),
     variantsHtml: variantsHtml(catalog),
     customAppsHtml: customAppsHtml(catalog),
     operationsHtml: operationsHtml(catalog),
@@ -355,6 +370,50 @@ function generatedStamp(catalog, label) {
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
   return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav>`;
+}
+
+function matrixLaneDispositionCounts(rows) {
+  const laneColumns = [
+    "lane_render_parity",
+    "lane_confighub_scan_ops",
+    "lane_local_kind",
+    "lane_lifecycle_observed",
+    "lane_gitops_oci_live",
+    "lane_live_dual_parity",
+    "lane_two_cluster_kind",
+  ];
+  const counts = { pass: 0, watch: 0, blocked: 0, todo: 0, na: 0, blank: 0 };
+  for (const row of rows) {
+    for (const column of laneColumns) {
+      const value = String(row[column] ?? "").trim();
+      if (value === "yes") counts.pass += 1;
+      else if (value === "watch") counts.watch += 1;
+      else if (value === "no") counts.blocked += 1;
+      else if (value === "todo") counts.todo += 1;
+      else if (value === "n/a") counts.na += 1;
+      else counts.blank += 1;
+    }
+  }
+  counts.total = Object.values(counts).reduce((sum, value) => sum + value, 0);
+  return counts;
+}
+
+function dispositionBar(counts) {
+  const total = Math.max(1, counts.total ?? 0);
+  const segment = (key, label) => {
+    const value = counts[key] ?? 0;
+    if (value === 0) return "";
+    const width = Math.max(2, (value / total) * 100);
+    return `<span class="${key}" style="width:${width.toFixed(2)}%" title="${escapeHtml(label)}: ${escapeHtml(String(value))}"></span>`;
+  };
+  return `<div class="disposition-bar" aria-label="Matrix lane disposition mix">
+        ${segment("pass", "pass")}
+        ${segment("watch", "watch")}
+        ${segment("blocked", "blocked")}
+        ${segment("todo", "not yet run")}
+        ${segment("na", "not applicable")}
+        ${segment("blank", "blank")}
+      </div>`;
 }
 
 function html(catalog) {
@@ -422,6 +481,12 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
     ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
   ];
+  const howItWorksRows = [
+    ["Render", "Prove the cub installer package preserves Helm's rendered object set.", "../docs/user/how-it-works.md#1-render--the-recipe"],
+    ["Route", "Make hooks, CRDs, target facts, and other quirks explicit instead of silent.", "../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe"],
+    ["Deliver", "Publish one OCI bundle and let the selected controller pull the same bytes.", "../docs/user/cub-deployment-path.md"],
+    ["Observe", "Record live receipts and show pass, watch, blocked, todo, and n/a honestly.", "../docs/user/verification-lanes.md"],
+  ];
   const limitRows = [
     ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
     ["Watch is not fail, and not pass", "A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.", "./matrix.html"],
@@ -455,6 +520,16 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </div>
   </header>
   <main>
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How It Works</h2>
+      <p>The public site now uses one mental model: render, route, deliver, observe. It is the short version of the mechanism docs, with the same honesty rails as the data.</p>
+      ${markdownLikeTable([
+        ["Move", "What it means", "Go deeper"],
+        ...howItWorksRows.map(([move, body, link]) => [move, body, `<a href="${link}">${link}</a>`]),
+      ], { rawThirdColumn: true })}
+      <p><a href="./how-it-works.html">Open the visual How It Works guide</a> for the four-move spine, hook visibility, one-OCI-bundle delivery, and the current disposition mix.</p>
+    </section>
+
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Helm Parity</h2>
       <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
@@ -520,6 +595,147 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <footer>
     Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
   </footer>
+</body>
+</html>
+`;
+}
+
+function howItWorksHtml(catalog) {
+  const counts = catalog.matrixDisposition;
+  const routeActionTotal = catalog.lifecycleRouteActionSummary.total;
+  const automaticRouteActions = catalog.lifecycleRouteActionSummary.automatic;
+  const explainerRows = [
+    ["How it works", "The hub for the four moves and all mechanism docs.", "../docs/user/how-it-works.md"],
+    ["Data model", "Unit, space, target, worker, OCI bundle, target fact, route, and receipt.", "../docs/user/confighub-data-model.md"],
+    ["Deployment path", "cub installer to ConfigHub Units to one OCI bundle to Argo, Flux, or cub-direct.", "../docs/user/cub-deployment-path.md"],
+    ["GitOps adopter guide", "For Argo and Flux teams: keep the controller, change the source to one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
+    ["Security end to end", "Secrets, delivery credentials, RBAC, scanning, and no silent privileged step.", "../docs/user/security-end-to-end.md"],
+    ["Day-2 upgrade and rollback", "Staged, reviewed, rehearsed, observed changes with versioned rollback.", "../docs/user/day2-upgrade-rollback.md"],
+  ];
+  const refusalRows = [
+    ["Never silent", `Every routed step must be shown. Current route actions marked automatic: ${automaticRouteActions}/${routeActionTotal}.`],
+    ["Disposition is not green", `Current lane cells include ${counts.pass} pass, ${counts.watch} watch, ${counts.blocked} blocked, ${counts.todo} not yet run, and ${counts.na} not applicable.`],
+    ["Proven versus in progress", "Argo from ConfigHub OCI is proven. Flux from OCI and cub-direct are still in progress until committed receipts exist."],
+    ["Dry-run boundary", "<code>cub-scout compare three-way --dry-from</code> is shipped. <code>cub-scout object-set --dry-from</code> is forthcoming."],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How It Works · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}
+    .move-spine { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 24px 0 8px; }
+    .move-card { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 16px; }
+    .move-card .kicker { display: block; color: var(--good); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .78rem; margin-bottom: 8px; }
+    .move-card p { margin: 0; font-size: .92rem; }
+    .move-section { border-top: 1px solid var(--line); padding-top: 26px; }
+    .mini-visual { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 14px; margin: 14px 0; }
+    .parallel { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+    .parallel .arrow, .oci-arrow { color: var(--muted); font-size: 1.4rem; text-align: center; }
+    .node { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 12px; min-height: 74px; }
+    .node strong { display: block; margin-bottom: 4px; }
+    .node p { margin: 0; font-size: .86rem; }
+    .oci-visual { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
+    .consumer-list { display: grid; gap: 8px; }
+    .consumer { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 10px; }
+    .consumer .state { display: inline-block; border-radius: 999px; padding: 2px 7px; font-size: .72rem; margin-left: 6px; border: 1px solid var(--line); }
+    .consumer .proven { color: #fff; background: var(--good); border-color: var(--good); }
+    .consumer .coming { color: var(--muted); background: var(--panel); }
+    .proof-frame { width: 100%; min-height: 420px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .disposition-bar { display: flex; width: 100%; height: 28px; overflow: hidden; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); margin: 14px 0 10px; }
+    .disposition-bar span { display: block; height: 100%; }
+    .disposition-bar .pass { background: var(--good); }
+    .disposition-bar .watch { background: #f9ab00; }
+    .disposition-bar .blocked { background: var(--bad); }
+    .disposition-bar .todo { background: #8ab4f8; }
+    .disposition-bar .na { background: #c8ced5; }
+    .disposition-bar .blank { background: #edf0f3; }
+    @media (max-width: 760px) {
+      .move-spine, .parallel, .oci-visual { grid-template-columns: 1fr; }
+      .parallel .arrow, .oci-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    ${topNav(".")}
+    <h1>How It Works</h1>
+    ${generatedStamp(catalog, "how it works guide")}
+    <p class="tagline">The model is four moves: render, route, deliver, observe. Each move makes a Helm install more visible without pretending every live case is already green.</p>
+    <div class="move-spine" aria-label="Four-move spine">
+      <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
+      <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
+      <div class="move-card"><span class="kicker">03</span><h3>Deliver</h3><p>ConfigHub publishes one OCI bundle. Your chosen controller pulls the same bytes.</p></div>
+      <div class="move-card"><span class="kicker">04</span><h3>Observe</h3><p>Receipts show the live result, including watch, blocked, and not-applicable states.</p></div>
+    </div>
+  </header>
+  <main>
+    <section class="move-section" aria-labelledby="render">
+      <h2 id="render">1. Render</h2>
+      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>
+      <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
+        <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
+        <div class="arrow">&rarr;</div>
+        <div class="node"><strong>cub installer</strong><p>The recipe produces the same object set, with receipts and a repeatable package.</p></div>
+      </div>
+      <p><a href="../docs/user/how-it-works.md#1-render--the-recipe">Go deeper: render in the how-it-works hub</a> · <a href="../docs/reference/direct-cub-helm-model.md">direct cub/Helm model</a> · <a href="../docs/user/reading-the-matrix.md">reading the matrix</a></p>
+    </section>
+
+    <section class="move-section" aria-labelledby="route">
+      <h2 id="route">2. Route</h2>
+      <p><strong>Claim:</strong> anything Helm would otherwise hide as lifecycle behavior is made visible as a named route. Current route actions marked automatic: <strong>${escapeHtml(String(automaticRouteActions))}/${escapeHtml(String(routeActionTotal))}</strong>.</p>
+      <iframe class="proof-frame" title="Visible versus silent hook proof" src="../data/hook-test-proof/visible-vs-silent.html"></iframe>
+      <p><a href="../docs/user/chart-hooks-what-happens.md">Go deeper: chart hooks</a> · <a href="../docs/user/pathway-route-hooks-transparently.md">route hooks transparently</a> · <a href="../data/lifecycle-route-actions/summary.md">lifecycle route actions</a></p>
+    </section>
+
+    <section class="move-section" aria-labelledby="deliver">
+      <h2 id="deliver">3. Deliver</h2>
+      <p><strong>Claim:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub should consume the same bundle, but the proof states differ.</p>
+      <div class="mini-visual oci-visual" aria-label="One OCI bundle consumed by three delivery paths">
+        <div class="node"><strong>ConfigHub Units</strong><p>Reviewed desired state, labels, variants, gates, and receipts.</p></div>
+        <div class="oci-arrow">&rarr;<br><code>OCI</code><br>&rarr;</div>
+        <div class="consumer-list">
+          <div class="consumer"><strong>Argo CD</strong><span class="state proven">proven</span><p>Committed end-to-end OCI receipts exist.</p></div>
+          <div class="consumer"><strong>Flux</strong><span class="state coming">in progress</span><p>Documented design until committed receipts exist.</p></div>
+          <div class="consumer"><strong>cub / kubectl direct</strong><span class="state coming">in progress</span><p>Same bundle path, still marked as proof in progress.</p></div>
+        </div>
+      </div>
+      <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
+    </section>
+
+    <section class="move-section" aria-labelledby="observe">
+      <h2 id="observe">4. Observe</h2>
+      <p><strong>Claim:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
+      ${dispositionBar(counts)}
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(String(counts.pass))}</strong><span>pass cells</span></div>
+        <div class="metric"><strong>${escapeHtml(String(counts.watch))}</strong><span>watch cells</span></div>
+        <div class="metric"><strong>${escapeHtml(String(counts.blocked))}</strong><span>blocked cells</span></div>
+        <div class="metric"><strong>${escapeHtml(String(counts.todo))}</strong><span>not yet run</span></div>
+        <div class="metric"><strong>${escapeHtml(String(counts.na))}</strong><span>not applicable</span></div>
+      </div>
+      <p><a href="../docs/user/verification-lanes.md">Go deeper: verification lanes</a> · <a href="../docs/user/what-we-refuse-to-claim.md">what we refuse to claim</a> · <a href="./matrix.html">open the matrix</a></p>
+    </section>
+
+    <section class="move-section" aria-labelledby="mechanisms">
+      <h2 id="mechanisms">Mechanism Guides</h2>
+      <p>These are the plain-English guide pages behind the four moves.</p>
+      ${markdownLikeTable([
+        ["Guide", "Use it for", "Open"],
+        ...explainerRows.map(([guide, body, link]) => [guide, body, `<a href="${link}">${link}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section class="move-section" aria-labelledby="rails">
+      <h2 id="rails">Honesty Rails</h2>
+      ${markdownLikeTable([
+        ["Rule", "Public-site wording"],
+        ...refusalRows,
+      ], { rawSecondColumn: true })}
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. This guide explains the public mental model; generated evidence remains the source for exact status.</footer>
 </body>
 </html>
 `;
@@ -1446,6 +1662,7 @@ npm run kube-prometheus-stack:compare</pre>
 
 function docsHtml(catalog) {
   const userRows = [
+    ["How it works", "Understand the four-move model: render, route, deliver, observe.", "./how-it-works.html"],
     ["Try the catalog", "Run the short local path first.", "./try.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
     ["Create variants", "Decide whether a change is a base variant or a derived variant.", "./variants.html"],
@@ -3421,6 +3638,7 @@ npm run site:verify
 \`\`\`
 
 Open \`site/index.html\` first for the public launch front door.
+Open \`site/how-it-works.html\` for the four-move model: render, route, deliver, observe.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.
 Open \`site/journey.html\` for Apps: public charts, custom apps, stacks,

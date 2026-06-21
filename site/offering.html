@@ -304,6 +304,22 @@
     </div>
   </header>
   <main>
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How It Works</h2>
+      <p>The public site now uses one mental model: render, route, deliver, observe. It is the short version of the mechanism docs, with the same honesty rails as the data.</p>
+      <div class="card"><table>
+        <thead><tr><th>Move</th><th>What it means</th><th>Go deeper</th></tr></thead>
+        <tbody><tr><td>Render</td><td>Prove the cub installer package preserves Helm's rendered object set.</td><td><a href="../docs/user/how-it-works.md#1-render--the-recipe">../docs/user/how-it-works.md#1-render--the-recipe</a></td></tr><tr><td>Route</td><td>Make hooks, CRDs, target facts, and other quirks explicit instead of silent.</td><td><a href="../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe">../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe</a></td></tr><tr><td>Deliver</td><td>Publish one OCI bundle and let the selected controller pull the same bytes.</td><td><a href="../docs/user/cub-deployment-path.md">../docs/user/cub-deployment-path.md</a></td></tr><tr><td>Observe</td><td>Record live receipts and show pass, watch, blocked, todo, and n/a honestly.</td><td><a href="../docs/user/verification-lanes.md">../docs/user/verification-lanes.md</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="./how-it-works.html">Open the visual How It Works guide</a> for the four-move spine, hook visibility, one-OCI-bundle delivery, and the current disposition mix.</p>
+    </section>
+
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Helm Parity</h2>
       <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>

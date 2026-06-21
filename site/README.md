@@ -8,6 +8,7 @@ npm run site:verify
 ```
 
 Open `site/index.html` first for the public launch front door.
+Open `site/how-it-works.html` for the four-move model: render, route, deliver, observe.
 Open `site/try.html` for the short try-now page.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
 Open `site/journey.html` for Apps: public charts, custom apps, stacks,

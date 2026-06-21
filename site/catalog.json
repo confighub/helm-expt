@@ -29,6 +29,7 @@
     "scanDisposition": "data/scan-disposition-workdown/workdown.csv",
     "highFanout": "data/high-fanout-demo/prometheus-kps.csv",
     "lifecycleRoutes": "data/lifecycle-routes/routes.json",
+    "lifecycleRouteActions": "data/lifecycle-route-actions/actions.json",
     "lifecycleByVariant": "data/lifecycle-routes-by-variant/by-variant.json",
     "chartSkills": "data/chart-skills/skills.json",
     "chartEvidenceRouter": "data/chart-evidence-router/router.csv",
@@ -17639,6 +17640,10 @@
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     }
   ],
+  "lifecycleRouteActionSummary": {
+    "total": 25,
+    "automatic": 0
+  },
   "lifecycleByVariant": [
     {
       "chart": "airflow-helm/airflow",
@@ -18371,6 +18376,15 @@
       ]
     }
   ],
+  "matrixDisposition": {
+    "pass": 967,
+    "watch": 116,
+    "blocked": 119,
+    "todo": 92,
+    "na": 1478,
+    "blank": 0,
+    "total": 2772
+  },
   "chartSkills": [
     {
       "chart": "argo-cd/argo-cd",
