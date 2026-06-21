@@ -1,0 +1,762 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmHabitFrictionReceipt"
+metadata:
+  name: "helm-habit-friction-20260621"
+spec:
+  observedAt: "2026-06-21T16:05:29.538Z"
+  packagesFuzzed: 8
+  idioms: 9
+  cases: 72
+  tally:
+    opaque: 72
+  guidedCount: 0
+  opaqueCount: 72
+  bugCount: 0
+  bugs:
+    []
+  friction:
+    -
+      idiom: "flag--set"
+      label: "--set replicaCount=3"
+      why: "Helm's --set flag; cub uses --input"
+      count: 8
+      example: "Error: unknown flag: --set"
+    -
+      idiom: "flag--set-string"
+      label: "--set-string name=x"
+      why: "Helm's --set-string"
+      count: 8
+      example: "Error: unknown flag: --set-string"
+    -
+      idiom: "flag--values-f"
+      label: "-f values.yaml"
+      why: "Helm's -f values file"
+      count: 8
+      example: "Error: unknown shorthand flag: 'f' in -f"
+    -
+      idiom: "flag--values-long"
+      label: "--values values.yaml"
+      why: "Helm's --values"
+      count: 8
+      example: "Error: unknown flag: --values"
+    -
+      idiom: "flag--set-file"
+      label: "--set-file k=file"
+      why: "Helm's --set-file"
+      count: 8
+      example: "Error: unknown flag: --set-file"
+    -
+      idiom: "input-valuepath"
+      label: "--input replicaCount=3"
+      why: "a valid Helm value path as a cub input"
+      count: 8
+      example: "Error: unknown input \"replicaCount\""
+    -
+      idiom: "input-image"
+      label: "--input image.tag=v2"
+      why: "Helm image override; cub uses --set-image"
+      count: 8
+      example: "Error: unknown input \"image.tag\""
+    -
+      idiom: "input-resources"
+      label: "--input resources.requests.cpu=500m"
+      why: "a valid Helm resources path as a cub input"
+      count: 8
+      example: "Error: unknown input \"resources.requests.cpu\""
+    -
+      idiom: "input-array"
+      label: "--input servers[0]=x"
+      why: "Helm array index syntax as a cub input"
+      count: 8
+      example: "Error: unknown input \"servers[0]\""
+  result: "pass"
+  claim: "A Helm-fluent dev new to cub reaches for correct Helm idioms (--set, -f values.yaml, --input image.tag) that do not map to cub installer's declared-input model. cub safely REJECTS them (no silent mishandle) — but the question for adoption is whether it rejects WITH GUIDANCE toward the cub way, or opaquely. This lane measures that error-message quality. cub is safe; the opaque count is the migration friction to fix."
+  packages:
+    -
+      pkg: "bitnami/nginx/24.0.2"
+      base: "http-clusterip"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/redis"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/mysql"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/mongodb"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/rabbitmq"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/postgresql"
+      base: "generated-passwords"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/apache"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""
+    -
+      pkg: "bitnami/memcached"
+      base: "default"
+      status: "fuzzed"
+      cases:
+        -
+          idiom: "flag--set"
+          label: "--set replicaCount=3"
+          why: "Helm's --set flag; cub uses --input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set"
+        -
+          idiom: "flag--set-string"
+          label: "--set-string name=x"
+          why: "Helm's --set-string"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-string"
+        -
+          idiom: "flag--values-f"
+          label: "-f values.yaml"
+          why: "Helm's -f values file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown shorthand flag: 'f' in -f"
+        -
+          idiom: "flag--values-long"
+          label: "--values values.yaml"
+          why: "Helm's --values"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --values"
+        -
+          idiom: "flag--set-file"
+          label: "--set-file k=file"
+          why: "Helm's --set-file"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown flag: --set-file"
+        -
+          idiom: "input-valuepath"
+          label: "--input replicaCount=3"
+          why: "a valid Helm value path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"replicaCount\""
+        -
+          idiom: "input-image"
+          label: "--input image.tag=v2"
+          why: "Helm image override; cub uses --set-image"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"image.tag\""
+        -
+          idiom: "input-resources"
+          label: "--input resources.requests.cpu=500m"
+          why: "a valid Helm resources path as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"resources.requests.cpu\""
+        -
+          idiom: "input-array"
+          label: "--input servers[0]=x"
+          why: "Helm array index syntax as a cub input"
+          code: 1
+          behavior: "opaque"
+          bug: false
+          finding: true
+          detail: "Error: unknown input \"servers[0]\""

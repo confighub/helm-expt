@@ -452,6 +452,8 @@
     "bad-decisions:comparison:regenerate": "node scripts/run-bad-decisions-comparison.mjs --regenerate",
     "cub-installer:fuzz": "node scripts/run-cub-installer-fuzz.mjs --run",
     "cub-installer:fuzz:verify": "node scripts/run-cub-installer-fuzz.mjs --verify",
+    "helm-habit:friction": "node scripts/run-helm-habit-friction.mjs --run",
+    "helm-habit:friction:verify": "node scripts/run-helm-habit-friction.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
