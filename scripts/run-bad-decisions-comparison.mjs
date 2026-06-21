@@ -1,20 +1,18 @@
 #!/usr/bin/env node
-// Helm vs ConfigHub on the SAME 180 bad decisions. The careless-dev fuzz
-// (run-bad-decisions-fuzz.mjs) showed Helm's OUTCOMES (rejected / leaked / absorbed).
-// This asks the comparative question a skeptic actually cares about: WHEN do you find out?
-//
+// HELM's footgun timing profile, over the SAME 180 bad decisions as the careless-dev fuzz
+// (run-bad-decisions-fuzz.mjs, which showed the OUTCOMES). This asks WHEN Helm surfaces a
+// bad `--set`:
 //   - Raw Helm (`--set` -> `helm install` / Argo-helm): only a render-REJECTED decision is
 //     caught before the cluster. A LEAKED value reaches the live k8s API (caught at apply,
 //     in the cluster). An ABSORBED value silently succeeds — you never learn.
-//   - Config-as-data (cub / ConfigHub): renders the SAME output, but every outcome is a
-//     reviewable diff BEFORE apply — a concrete change, an empty no-op (the footgun made
-//     visible), or a render error. 100% surfaced at review, 0 silent.
 //
-// HONEST: cub does NOT reject more than Helm — it renders via the same engine, so the
-// rejected/leaked/absorbed split is identical. The claim is about VISIBILITY and TIMING:
-// config-as-data shows you the outcome at review instead of in prod. An empty diff still
-// requires a human to notice "my change did nothing" — the information is surfaced, not
-// force-read. Same corpus as the fuzz (scripts/lib/bad-decisions.mjs). Offline; reproducible.
+// This measures HELM, not cub. It is deliberately NOT a "config-as-data is better" claim:
+// cub renders via the same engine, so the rejected/leaked/absorbed split is identical, and
+// "config-as-data surfaces it at review" is a model property, not a measurement. Whether OUR
+// tool does better is MEASURED in the cub-installer fuzz (run-cub-installer-fuzz.mjs), where
+// an unknown input is a hard error and cub's own rough edges are surfaced. We test our own
+// tool rather than score points off Helm's. Same corpus (scripts/lib/bad-decisions.mjs);
+// offline; reproducible.
 //
 // Usage:
 //   node scripts/run-bad-decisions-comparison.mjs --run     # render + diff, write receipt + summary
@@ -30,6 +28,7 @@ const mode = process.argv[2] ?? "--help";
 const receiptPath = join(repoRoot, "runs", "bad-decisions-comparison", "receipt.yaml");
 const summaryPath = join(repoRoot, "data", "bad-decisions-comparison", "summary.md");
 const htmlPath = join(repoRoot, "data", "bad-decisions-comparison", "helm-vs-confighub.html");
+const CLAIM = "HELM's footgun timing profile (measured): where a careless --set value gets caught — at render, only at the live k8s API at apply, or never (silent). This measures HELM, not cub; whether OUR tool does better with the same kind of input is measured by the cub-installer fuzz (data/cub-installer-fuzz/), where an unknown input is a hard error and cub's own rough edges are surfaced.";
 
 function render(localChart, setArg) {
   const args = ["template", "fuzz", localChart, "--namespace", "fuzz-ns"];
@@ -44,12 +43,12 @@ function render(localChart, setArg) {
 function classifyCase(decision, localChart) {
   const r = render(localChart, decision.set);
   if (!r.ok) {
-    return { decision: decision.id, helm: "rejected", helmWhen: "render (before cluster)", cub: "render-error", cubWhen: "review (author catches it)" };
+    return { decision: decision.id, helm: "rejected", helmWhen: "render (before cluster)" };
   }
   if (decision.detect.test(r.out)) {
-    return { decision: decision.id, helm: "leaked", helmWhen: "live k8s API (at apply, in cluster)", cub: "visible-in-config", cubWhen: "review (the value is in the config you review)" };
+    return { decision: decision.id, helm: "leaked", helmWhen: "live k8s API (at apply, in cluster)" };
   }
-  return { decision: decision.id, helm: "absorbed", helmWhen: "never (silent success)", cub: "visible-noop-edit", cubWhen: "review (a visible no-op edit, not a silent success)" };
+  return { decision: decision.id, helm: "absorbed", helmWhen: "never (silent success)" };
 }
 
 function runComparison() {
@@ -94,7 +93,7 @@ function runComparison() {
       timing: { helmBeforeCluster, helmAtApiOnly, helmNever, cubAtReview },
       unclassified,
       result: unclassified === 0 && all.length > 0 ? "pass" : all.length === 0 ? "blocked" : "watch",
-      claim: "Same bad decisions, asked WHEN you find out. Raw Helm surfaces only render-rejected decisions before the cluster; leaked values reach the live k8s API at apply and absorbed values silently succeed. Config-as-data renders the same output but surfaces every outcome — change, empty no-op, or render error — as a reviewable diff before apply: 100% at review, 0 silent. (cub does not reject more; the difference is visibility and timing.)",
+      claim: CLAIM,
       charts,
     },
   };
@@ -108,31 +107,36 @@ function summaryMd(r) {
     if (c.status !== "compared") return `| ${c.slug} | — | ${c.status} |`;
     const cc = { rejected: 0, leaked: 0, absorbed: 0 };
     for (const x of c.cases) cc[x.helm] += 1;
-    return `| ${c.slug}@${c.version} | ${c.cases.length} | Helm: ${cc.rejected} rej · ${cc.leaked} leak · ${cc.absorbed} absorb → cub: ${c.cases.length} at review |`;
+    return `| ${c.slug}@${c.version} | ${c.cases.length} | ${cc.rejected} rejected · ${cc.leaked} leaked · ${cc.absorbed} absorbed |`;
   }).join("\n");
-  return `# Helm vs ConfigHub — the same bad decisions, but *when do you find out?*
+  return `# Helm's footgun profile — when does a bad \`--set\` get caught?
 
 **UNOFFICIAL/EXPERIMENTAL.** Live receipt generated by \`scripts/run-bad-decisions-comparison.mjs\`; do not hand-edit. Regenerate with \`npm run bad-decisions:comparison\`.
 
 **Claim.** ${s.claim}
 
-The [careless-dev fuzz](../bad-decisions-fuzz/summary.md) showed Helm's *outcomes*. This runs the **same ${s.cases} decisions** (${s.decisions} types × ${s.chartsCompared} charts, one corpus in \`scripts/lib/bad-decisions.mjs\`) and asks **when each is surfaced** — before the cluster, only at the live API, or never.
+> **This page measures HELM, not cub.** Whether *our* tool does better with the same kind of
+> input is measured separately — see the **[cub-installer fuzz](../cub-installer-fuzz/summary.md)**,
+> where an unknown input is a hard error (the footgun Helm absorbs) and cub's own rough edges
+> are surfaced. We test our own tool rather than score points off Helm's.
 
-| When is the bad decision surfaced? | Raw Helm (\`--set\` → install / Argo-helm) | Config-as-data (cub / ConfigHub) |
-| --- | --- | --- |
-| **Before the cluster** (at review/render) | render-rejected only — **${t.helmBeforeCluster} (${pct(t.helmBeforeCluster, s.cases)})** | **all ${t.cubAtReview} (100%)** — in the reviewed config |
-| **Only at the live k8s API** (at apply) | leaked — **${t.helmAtApiOnly} (${pct(t.helmAtApiOnly, s.cases)})** | — (already seen at review) |
-| **Never** — silent success | absorbed — **${t.helmNever} (${pct(t.helmNever, s.cases)})** | — (a visible no-op edit) |
+The [careless-dev fuzz](../bad-decisions-fuzz/summary.md) showed Helm's *outcomes*. This runs the **same ${s.cases} decisions** (${s.decisions} types × ${s.chartsCompared} charts, one corpus in \`scripts/lib/bad-decisions.mjs\`) and asks **when Helm surfaces each** — before the cluster, only at the live API, or never.
 
-Overall: **${s.result}** (${s.unclassified} unclassified). **Headline:** for the same decisions, raw Helm surfaces **${pct(t.helmBeforeCluster, s.cases)}** before the cluster; config-as-data surfaces **100%** at review (a concrete change, an empty no-op, or a render error) — *before* anything is applied.
+| When does Helm surface the bad decision? | Raw Helm (\`--set\` → install / Argo-helm) |
+| --- | --- |
+| **Before the cluster** (at render) | render-rejected only — **${t.helmBeforeCluster} (${pct(t.helmBeforeCluster, s.cases)})** |
+| **Only at the live k8s API** (at apply) | leaked — **${t.helmAtApiOnly} (${pct(t.helmAtApiOnly, s.cases)})** |
+| **Never** — silent success | absorbed — **${t.helmNever} (${pct(t.helmNever, s.cases)})** |
 
-## The honest nuance
+Overall: **${s.result}** (${s.unclassified} unclassified). **Headline:** for these ${s.cases} careless decisions, raw Helm catches only **${pct(t.helmBeforeCluster, s.cases)}** before the cluster — the rest reach the live k8s API (${pct(t.helmAtApiOnly, s.cases)}) or vanish silently (${pct(t.helmNever, s.cases)}).
 
-cub does **not** reject more than Helm — it renders with the same engine, so the rejected/leaked/absorbed split (${h.rejected}/${h.leaked}/${h.absorbed}) is identical (and matches the fuzz). The win is **visibility and timing**: a leaked value sits **in the config you review** instead of surfacing as a surprise at apply, and an absorbed value is a **visible no-op edit** — you set a key the chart ignores, which you can see in your config, instead of a silently successful install. Config-as-data *surfaces* the decision at review; a human still has to read it.
+## On the config-as-data claim (honest)
+
+It is tempting to say "config-as-data surfaces all of these at review." That is a **model property, not a measurement** — an earlier draft of this page overstated it as a cub result. cub renders with the same engine, so the rejected/leaked/absorbed split (${h.rejected}/${h.leaked}/${h.absorbed}) is identical to Helm's. The *measured* difference is in the [cub-installer fuzz](../cub-installer-fuzz/summary.md): cub's inputs are declared, so the unknown-key footgun is a hard error — and cub has its own rough edges (it does not validate namespace format or length). Measured, not asserted.
 
 ## Per chart
 
-| Chart | Cases | Helm outcome → cub visibility |
+| Chart | Cases | Helm outcome |
 | --- | --- | --- |
 ${chartRows}
 
@@ -145,13 +149,13 @@ function summaryHtml(r) {
   const chip = (v) => `<span class="chip ${v === "pass" ? "ok" : v === "watch" ? "warn" : "bad"}">${v}</span>`;
   const bar = (n, cls) => { const w = s.cases ? Math.round((n / s.cases) * 100) : 0; return `<div class="barwrap"><div class="bar ${cls}" style="width:${w}%"></div><span>${n} (${w}%)</span></div>`; };
   const rows = s.charts.map((c) => {
-    if (c.status !== "compared") return `<tr><td>${c.slug}</td><td colspan="2" class="muted">${c.status}</td></tr>`;
+    if (c.status !== "compared") return `<tr><td>${c.slug}</td><td class="muted">${c.status}</td></tr>`;
     const cc = { rejected: 0, leaked: 0, absorbed: 0 }; for (const x of c.cases) cc[x.helm] += 1;
-    return `<tr><td>${c.slug}<span class="muted"> @${c.version}</span></td><td><span class="chip ok">${cc.rejected} rej</span> <span class="chip warn">${cc.leaked} leak</span> <span class="chip gray">${cc.absorbed} absorb</span></td><td><span class="chip ok">${c.cases.length} at review</span></td></tr>`;
+    return `<tr><td>${c.slug}<span class="muted"> @${c.version}</span></td><td><span class="chip ok">${cc.rejected} rejected</span> <span class="chip warn">${cc.leaked} leaked</span> <span class="chip gray">${cc.absorbed} absorbed</span></td></tr>`;
   }).join("\n");
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Helm vs ConfigHub — when do you find out?</title>
+<title>Helm's footgun profile — when does a bad --set get caught?</title>
 <style>
   body{font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;margin:0;padding:2rem;background:#f6f8fa;color:#1f2328}
   main{max-width:920px;margin:0 auto}h1{font-size:1.5rem;margin:0 0 .25rem}.sub{color:#57606a;margin:0 0 1rem}h2{font-size:1.05rem;margin:1.6rem 0 .5rem}
@@ -164,28 +168,20 @@ function summaryHtml(r) {
   .muted{color:#8c959f}.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.col h3{font-size:.95rem;margin:.4rem 0}footer{margin-top:2rem;color:#57606a;font-size:.85rem}code{background:#eff1f3;padding:.05rem .3rem;border-radius:4px;font-size:.85em}
 </style></head>
 <body><main>
-  <h1>Helm vs ConfigHub — same bad decisions, <em>when do you find out?</em></h1>
+  <h1>Helm's footgun profile — when does a bad <code>--set</code> get caught?</h1>
   <p class="sub">${s.cases} random bad decisions · ${s.decisions} types × ${s.chartsCompared} charts · generated ${s.observedAt}</p>
-  <div class="banner"><b>UNOFFICIAL/EXPERIMENTAL.</b> Generated by <code>scripts/run-bad-decisions-comparison.mjs</code>; do not hand-edit.</div>
+  <div class="banner"><b>UNOFFICIAL/EXPERIMENTAL.</b> Generated by <code>scripts/run-bad-decisions-comparison.mjs</code>; do not hand-edit. This measures <b>Helm</b>, not cub — our tool is measured in the <a href="../cub-installer-fuzz/by-case.html">cub-installer fuzz</a>.</div>
   <div class="claim">${s.claim}</div>
-  <h2>When is the bad decision surfaced? · overall ${chip(s.result)}</h2>
-  <div class="cols">
-    <div class="col"><h3>Raw Helm (<code>--set</code> → install)</h3>
-      <table><tbody>
-      <tr><td>before the cluster</td><td>${bar(t.helmBeforeCluster, "before")}</td></tr>
-      <tr><td>only at the live API</td><td>${bar(t.helmAtApiOnly, "api")}</td></tr>
-      <tr><td>never (silent)</td><td>${bar(t.helmNever, "never")}</td></tr>
-      </tbody></table></div>
-    <div class="col"><h3>Config-as-data (cub / ConfigHub)</h3>
-      <table><tbody>
-      <tr><td>at review (before apply)</td><td>${bar(t.cubAtReview, "review")}</td></tr>
-      <tr><td>only at the live API</td><td>${bar(0, "api")}</td></tr>
-      <tr><td>never (silent)</td><td>${bar(0, "never")}</td></tr>
-      </tbody></table></div>
-  </div>
-  <h2>Per chart</h2>
-  <table><thead><tr><th>Chart</th><th>Helm outcome</th><th>cub visibility</th></tr></thead><tbody>${rows}</tbody></table>
-  <footer>cub does not reject more than Helm (same render engine) — the difference is <b>visibility and timing</b>: a leaked value sits in the config you review instead of surfacing as a surprise at apply; an absorbed value is a visible no-op edit (a key the chart ignores) instead of a silently successful install. Config-as-data surfaces the decision at review; a human still has to read it.</footer>
+  <h2>When does Helm surface the bad decision? · overall ${chip(s.result)}</h2>
+  <table><tbody>
+  <tr><td>before the cluster (at render)</td><td>${bar(t.helmBeforeCluster, "before")}</td></tr>
+  <tr><td>only at the live k8s API (at apply)</td><td>${bar(t.helmAtApiOnly, "api")}</td></tr>
+  <tr><td>never — silent success</td><td>${bar(t.helmNever, "never")}</td></tr>
+  </tbody></table>
+  <p style="margin-top:1rem">Whether <b>cub installer</b> does better with the same kind of input is measured — not asserted — in the <a href="../cub-installer-fuzz/by-case.html">cub-installer fuzz</a>: an unknown input is a hard error (the footgun Helm absorbs), with cub's own rough edges surfaced honestly.</p>
+  <h2>Per chart (Helm outcomes)</h2>
+  <table><thead><tr><th>Chart</th><th>Helm outcome</th></tr></thead><tbody>${rows}</tbody></table>
+  <footer>cub renders with the same engine, so the rejected/leaked/absorbed split is identical to Helm's — "config-as-data surfaces it at review" is a model property, not a measurement. The measured cub test is the cub-installer fuzz. We test our own tool rather than score points off Helm's.</footer>
 </main></body></html>
 `;
 }
@@ -196,7 +192,7 @@ if (mode === "--run") {
   write(summaryPath, summaryMd(r));
   write(htmlPath, summaryHtml(r));
   const t = r.spec.timing;
-  console.log(`wrote helm-vs-confighub comparison -> ${relativeRepo(receiptPath)} result=${r.spec.result} (Helm before-cluster ${t.helmBeforeCluster}/${r.spec.cases}; cub at-review ${t.cubAtReview}/${r.spec.cases})`);
+  console.log(`wrote Helm footgun profile -> ${relativeRepo(receiptPath)} result=${r.spec.result} (Helm before-cluster ${t.helmBeforeCluster}/${r.spec.cases})`);
 } else if (mode === "--verify") {
   check(existsSync(receiptPath), `${relativeRepo(receiptPath)} missing; run npm run bad-decisions:comparison`);
   const r = readYaml(receiptPath);
@@ -205,7 +201,19 @@ if (mode === "--run") {
   check(typeof r.spec?.cases === "number" && r.spec.cases > 0, "receipt has no cases");
   check(existsSync(summaryPath) && readFileSync(summaryPath, "utf8") === summaryMd(r), `${relativeRepo(summaryPath)} is stale; run npm run bad-decisions:comparison`);
   check(existsSync(htmlPath) && readFileSync(htmlPath, "utf8") === summaryHtml(r), `${relativeRepo(htmlPath)} is stale; run npm run bad-decisions:comparison`);
-  console.log(`verified helm-vs-confighub comparison: ${r.spec.cases} cases, result=${r.spec.result}`);
+  console.log(`verified Helm footgun profile: ${r.spec.cases} cases, result=${r.spec.result}`);
+} else if (mode === "--regenerate") {
+  // rebuild summary/html from the existing receipt — no re-pull/re-render (same 180 decisions);
+  // useful when only the presentation changed.
+  check(existsSync(receiptPath), `${relativeRepo(receiptPath)} missing; run npm run bad-decisions:comparison`);
+  const r = readYaml(receiptPath);
+  // migrate the receipt to the current schema: refresh the claim + drop legacy per-case cub fields
+  r.spec.claim = CLAIM;
+  for (const c of r.spec.charts || []) for (const x of c.cases || []) { delete x.cub; delete x.cubWhen; }
+  writeYaml(receiptPath, r);
+  write(summaryPath, summaryMd(r));
+  write(htmlPath, summaryHtml(r));
+  console.log(`regenerated Helm footgun profile from existing receipt (${r.spec.cases} cases)`);
 } else {
-  console.log("Usage:\n  node scripts/run-bad-decisions-comparison.mjs --run\n  node scripts/run-bad-decisions-comparison.mjs --verify");
+  console.log("Usage:\n  node scripts/run-bad-decisions-comparison.mjs --run\n  node scripts/run-bad-decisions-comparison.mjs --verify\n  node scripts/run-bad-decisions-comparison.mjs --regenerate");
 }
