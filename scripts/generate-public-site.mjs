@@ -416,6 +416,12 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Ops", "Once an app is live, scan, gate, deliver, observe, patch, upgrade, roll back, and answer fleet questions.", "./operations.html"],
     ["Upgrade", "Move into private catalogs, managed workflows, teams, approvals, SLAs, and production responsibility.", "./private/"],
   ];
+  const journeySteps = [
+    ["First", "See How It Works", "Get started with a Redis example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
+    ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
+    ["Then", "Custom Configurations", "Create variants, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
+    ["Later", "Build and Operate Live Apps", "Combine public charts, custom app pieces, stacks, and live operations once the app is running.", "./journey.html", "Apps"],
+  ];
   const limitRows = [
     ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
     ["Watch is not fail, and not pass", "A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.", "./matrix.html"],
@@ -433,35 +439,18 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header>
     ${topNav(".")}
+    <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>Use Helm charts. Use AI. Use ConfigHub to prove it is correct.</h1>
     ${generatedStamp(catalog, label)}
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
-    <p>Start with a parity demo. Then choose a chart and base from the Helm Catalog. Move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Move into Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions.</p>
-    <div class="doors">
-      <div class="door">
-        <span class="kicker">First</span>
-        <h3><a href="./try.html">Get Started</a></h3>
-        <p>Run the short Redis path and see standard Helm compared with cub installer.</p>
-        <span class="go"><a href="./try.html">Open Get Started →</a></span>
-      </div>
-      <div class="door">
-        <span class="kicker">Second</span>
-        <h3><a href="./charts/index.html">Choose a chart</a></h3>
-        <p>Browse the top-100 database, detailed chart pages, variants, quirks, and ConfigHub Actions.</p>
-        <span class="go"><a href="./charts/index.html">Open Helm Catalog →</a></span>
-      </div>
-      <div class="door">
-        <span class="kicker">Then</span>
-        <h3><a href="./journey.html">Build Apps</a></h3>
-        <p>Create variants, promote through environments, and combine public charts with custom app pieces.</p>
-        <span class="go"><a href="./journey.html">Open Apps →</a></span>
-      </div>
-      <div class="door">
-        <span class="kicker">Later</span>
-        <h3><a href="./operations.html">Operate live apps</a></h3>
-        <p>Scan, gate, observe, patch, upgrade, roll back, and ask fleet-wide questions.</p>
-        <span class="go"><a href="./operations.html">Open Ops →</a></span>
-      </div>
+    <p>Start with Helm parity. Then choose a chart, customise variants in ConfigHub, and move into app-level workflows. Ops, Docs, FAQ, and Upgrade are supporting pages after that first path is clear.</p>
+    <div class="journey-flow" aria-label="Four-step product journey">
+      ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
+        <span class="kicker">${escapeHtml(number)}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(body)}</p>
+        <span class="go">${escapeHtml(linkText)}</span>
+      </a>${index < journeySteps.length - 1 ? '<span class="journey-arrow" aria-hidden="true">&rarr;</span>' : ""}`).join("\n      ")}
     </div>
   </header>
   <main>
@@ -488,7 +477,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </section>
 
     <section aria-labelledby="do-next">
-      <h2 id="do-next">2. Show Me What I Can Do</h2>
+      <h2 id="do-next">2. Customise Helm into Variants</h2>
       <p>Once parity is visible, the value is that rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
       ${markdownLikeTable([
         ["Capability", "What it means", "Where to look"],
@@ -1905,7 +1894,24 @@ function whoRunsVariantTables(c) {
   }).join("\n");
 }
 
-function hooksHtml(catalog) {
+function hooksWhoRunsSection(catalog) {
+  const charts = catalog.lifecycleByVariant ?? [];
+  if (!charts.length) return "";
+  const withVariants = charts.filter((c) => c.hasBuiltVariants);
+  const flat = charts.filter((c) => !c.hasBuiltVariants);
+  const chartBlock = (c) => `<div class="card"><h3>${escapeHtml(c.chart)}</h3>${whoRunsVariantTables(c)}</div>`;
+  return `
+    <section aria-labelledby="whoruns">
+      <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
+      <p>Per chart and per built variant, in plain words. Render parity delivers the objects; each hook becomes a <strong>visible, named, receipted</strong> lifecycle step instead of a hidden Helm hook — run by your delivery pipeline (a GitOps PreSync/PostSync, a cub action, or an opt-in check), not by hand. The product does not auto-execute these yet (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per route</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
+      ${withVariants.map(chartBlock).join("\n")}
+      <h3>Charts without a per-variant difference yet</h3>
+      <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
+      ${simpleList(flat.map((c) => [c.chart, c.note]))}
+    </section>`;
+}
+
+function hooksHtml() {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2732,7 +2738,7 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See the <a href="../../data/lifecycle-routes-by-variant/by-variant.html">per-variant view</a> and the <a href="../../data/gitops-route-emission/emission.html">GitOps step (Argo/Flux) per route</a>.</p>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry)
         : lifecycleRows.length
@@ -3266,6 +3272,17 @@ function siteCss() {
       color: var(--muted);
       font-size: .9rem;
     }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
@@ -3296,6 +3313,36 @@ function siteCss() {
     .door p { font-size: .92rem; margin: 0; }
     .door pre { margin: 6px 0 0; }
     .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
     .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
     .chain a {
       counter-increment: step;
@@ -3423,6 +3470,8 @@ function siteCss() {
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
       .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
       .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {

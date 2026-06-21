@@ -55,6 +55,17 @@
       color: var(--muted);
       font-size: .9rem;
     }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
@@ -85,6 +96,36 @@
     .door p { font-size: .92rem; margin: 0; }
     .door pre { margin: 6px 0 0; }
     .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
     .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
     .chain a {
       counter-increment: step;
@@ -212,6 +253,8 @@
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
       .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
       .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
@@ -228,7 +271,7 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
     <h1>bitnami/nginx</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T20:28:51.973Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T07:26:24.493Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=nginx&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Public catalog page for bitnami/nginx@24.0.2.</p>
     <pre>cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</pre>
@@ -436,7 +479,7 @@
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See the <a href="../../data/lifecycle-routes-by-variant/by-variant.html">per-variant view</a> and the <a href="../../data/gitops-route-emission/emission.html">GitOps step (Argo/Flux) per route</a>.</p>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
       <p>No hook or hook-like ConfigHub action is recorded for this chart.</p>
     </section>
 

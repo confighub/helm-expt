@@ -55,6 +55,17 @@
       color: var(--muted);
       font-size: .9rem;
     }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
@@ -85,6 +96,36 @@
     .door p { font-size: .92rem; margin: 0; }
     .door pre { margin: 6px 0 0; }
     .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
     .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
     .chain a {
       counter-increment: step;
@@ -212,6 +253,8 @@
     footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
     @media (max-width: 980px) {
       .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
       .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
@@ -227,35 +270,36 @@
 <body>
   <header>
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
+    <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>Use Helm charts. Use AI. Use ConfigHub to prove it is correct.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-20T20:28:51.973Z UTC · source: committed helm-expt evidence for this public offering page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T07:26:24.493Z UTC · source: committed helm-expt evidence for this public offering page.</p>
     <p class="tagline">helm-expt keeps public Helm charts as the source, turns selected install paths into <code>cub installer</code> packages, and proves the first useful question: under the same chart, values, and base variant, does the ConfigHub path preserve Helm semantics?</p>
-    <p>Start with a parity demo. Then choose a chart and base from the Helm Catalog. Move into Apps when you want variants, promotion, custom apps, stacks, or platform groups. Move into Ops when the app is live and you need scans, patches, upgrades, rollback, observation, and fleet questions.</p>
-    <div class="doors">
-      <div class="door">
+    <p>Start with Helm parity. Then choose a chart, customise variants in ConfigHub, and move into app-level workflows. Ops, Docs, FAQ, and Upgrade are supporting pages after that first path is clear.</p>
+    <div class="journey-flow" aria-label="Four-step product journey">
+      <a class="journey-step" href="./try.html">
         <span class="kicker">First</span>
-        <h3><a href="./try.html">Get Started</a></h3>
-        <p>Run the short Redis path and see standard Helm compared with cub installer.</p>
-        <span class="go"><a href="./try.html">Open Get Started →</a></span>
-      </div>
-      <div class="door">
+        <h3>See How It Works</h3>
+        <p>Get started with a Redis example and see standard Helm compared with cub installer.</p>
+        <span class="go">Get Started</span>
+      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+      <a class="journey-step" href="./charts/index.html">
         <span class="kicker">Second</span>
-        <h3><a href="./charts/index.html">Choose a chart</a></h3>
-        <p>Browse the top-100 database, detailed chart pages, variants, quirks, and ConfigHub Actions.</p>
-        <span class="go"><a href="./charts/index.html">Open Helm Catalog →</a></span>
-      </div>
-      <div class="door">
+        <h3>Pick a Helm Chart to Try</h3>
+        <p>Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.</p>
+        <span class="go">Helm Catalog</span>
+      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+      <a class="journey-step" href="./variants.html">
         <span class="kicker">Then</span>
-        <h3><a href="./journey.html">Build Apps</a></h3>
-        <p>Create variants, promote through environments, and combine public charts with custom app pieces.</p>
-        <span class="go"><a href="./journey.html">Open Apps →</a></span>
-      </div>
-      <div class="door">
+        <h3>Custom Configurations</h3>
+        <p>Create variants, promote through environments, and manage target-specific choices before app delivery.</p>
+        <span class="go">Variants</span>
+      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+      <a class="journey-step" href="./journey.html">
         <span class="kicker">Later</span>
-        <h3><a href="./operations.html">Operate live apps</a></h3>
-        <p>Scan, gate, observe, patch, upgrade, roll back, and ask fleet-wide questions.</p>
-        <span class="go"><a href="./operations.html">Open Ops →</a></span>
-      </div>
+        <h3>Build and Operate Live Apps</h3>
+        <p>Combine public charts, custom app pieces, stacks, and live operations once the app is running.</p>
+        <span class="go">Apps</span>
+      </a>
     </div>
   </header>
   <main>
@@ -312,7 +356,7 @@ npm run kube-prometheus-stack:compare</code></pre>
     </section>
 
     <section aria-labelledby="do-next">
-      <h2 id="do-next">2. Show Me What I Can Do</h2>
+      <h2 id="do-next">2. Customise Helm into Variants</h2>
       <p>Once parity is visible, the value is that rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
       <div class="card"><table>
         <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
