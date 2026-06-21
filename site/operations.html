@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ops · ConfigHub Helm Catalog</title>
+  <title>Ops Guide · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -281,26 +281,19 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Ops</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T10:38:28.746Z UTC · source: committed helm-expt evidence for this ops page.</p>
-    <p class="tagline">Ops is the day1-to-day2 layer after an app graph exists: review changes, scan and gate, deliver, observe, adopt existing apps, upgrade, roll back, patch in bulk, and answer fleet questions. Variants and promotion are app SDLC; ops makes those releases governed and observable. Available is green; watch is amber and names a current limitation; planned product lanes are grey and described as plans, not shipped behavior (the <a href="../data/claims-register/summary.md">claims register</a> is the wording boundary).</p>
+    <h1>Ops Guide</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T11:43:40.377Z UTC · source: committed helm-expt evidence for this ops guide.</p>
+    <p>Ops starts after an app graph exists. Use this guide for release control, scans, gates, delivery, observation, upgrades, rollback, bulk patches, and fleet questions.</p>
+    <p>Use the <a href="./journey.html">Apps guide</a> for app composition, custom apps, stacks, platform groups, and existing-app adoption. Use the <a href="./variants.html">Variants guide</a> for base variants, derived variants, and target-specific choices. This page is about operating those apps once they exist.</p>
   </header>
   <main>
+    <section aria-labelledby="before-ops">
+      <h2 id="before-ops">Before Ops</h2>
+      <p>The app should already have a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+    </section>
+
     <section aria-labelledby="ops">
       <h2 id="ops">The operations</h2>
-      <div class="op">
-        <div class="ophead">
-          <h3>Start from an application variant</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>see Apps and Variants</code> · <span class="muted">Apps SDLC · ConfigHub</span></p>
-        <pre><code>cub variant create prod-us-east &lt;upstream-space&gt; \
-  --environment Prod --region us-east \
-  --target &lt;target-space&gt;/&lt;target&gt; \
-  --namespace &lt;namespace&gt;</code></pre>
-        <p>Variant creation and promotion are part of the app lifecycle: choose a base, derive target/environment/customer variants, preview the differences, and promote through the app's stages. Ops starts from that managed app graph.</p>
-        <p class="muted">See: <a href="../docs/user/creating-variants.md">creating-variants</a> · <a href="../docs/user/cub-variant-command-surface.md">cub-variant-command-surface</a></p>
-      </div>
       <div class="op">
         <div class="ophead">
           <h3>Diff before you ship</h3>
@@ -323,13 +316,13 @@
       </div>
       <div class="op">
         <div class="ophead">
-          <h3>Release an approved variant</h3>
+          <h3>Release a prepared variant</h3>
           <span class="badge watch">watch</span>
         </div>
         <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Apps SDLC · ConfigHub Server</span></p>
         <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
-        <p>Promotion moves a downstream application variant toward its upstream Space. The current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning. The operational responsibility begins around the release: gates, audit, delivery, observation, rollback, and fleet visibility.</p>
+        <p>Apps and Variants choose the base, derived variant, and target. Ops begins when a prepared variant is released with gates, audit, delivery, observation, rollback, and fleet visibility. Current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning.</p>
         <p class="muted">See: <a href="../data/variant-promotion/summary.md">data/variant-promotion</a> · <a href="../docs/user/prometheus-overlay-promotion-example.md">prometheus-overlay-promotion-example</a></p>
       </div>
       <div class="op">
@@ -342,31 +335,10 @@ cub variant promote &lt;space&gt;</code></pre>
         <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
         <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
       </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Adopt an app you already run</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>cub gitops discover  /  cub gitops import</code> · <span class="muted">ConfigHub · free tier</span></p>
-        <pre><code>cub gitops discover
-cub gitops import &lt;app&gt;</code></pre>
-        <p>Existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the model without a rewrite: discover what is running, import it to ConfigHub Units, and from there it gains the same variants, diffs, scans, and observation as a catalog chart.</p>
-        <p class="muted">See: <a href="../docs/user/adopting-existing-apps.md">adopting-existing-apps</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Bring a custom app or multi-chart stack</h3>
-          <span class="badge now">available locally · private catalog is paid</span>
-        </div>
-        <p class="opmeta"><code>multiple charts, wrapper charts, platform values, customer overlays, internal charts</code> · <span class="muted">free for your own charts · paid for managed private catalog</span></p>
-        
-        <p>A real app is often several public charts plus your own service and platform values. Treat that as one desired-state graph: each chart keeps its base/variant boundary, the custom app gets its own Units, and the stack can be scanned, diffed, promoted, and delivered together. Doing it on your machine is free; a managed private catalog (private OCI sources, private refresh SLAs) is the paid lane.</p>
-        <p class="muted">See: <a href="../docs/user/custom-overlays.md">custom-overlays</a> · <a href="../docs/user/product-support-tiers.md">product-support-tiers</a></p>
-      </div>
     </section>
     <section aria-labelledby="next">
-      <h2 id="next">Then: day-2 and beyond</h2>
-      <p>When these are routine, the work becomes estate-scale: approvals and policy gates before apply, live observation with receipts, upgrades and rollbacks, and fleet-wide queries. That is <a href="./journey.html#s4">Stage 4 of Apps</a>; where it carries production responsibility, the <a href="./private/">private and managed paths</a> take over.</p>
+      <h2 id="next">When Ops Becomes Managed Scope</h2>
+      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
