@@ -64,7 +64,10 @@ function legArgo(kctx, branch) {
   const ns = "hr-argo";
   if (!tsh("which", ["argocd"]).ok && !tsh("kubectl", ["--context", kctx, "version", "--client"]).ok) return leg("Argo CD (PostSync hook)", false, "kubectl/argocd unavailable", null);
   tsh("kubectl", ["--context", kctx, "create", "namespace", "argocd"]);
-  const inst = tsh("kubectl", ["--context", kctx, "-n", "argocd", "apply", "-f", ARGO_MANIFEST]);
+  // server-side apply: the Argo install manifest exceeds the client-side annotation
+  // size limit, so plain `kubectl apply -f` fails ("annotations too long"). cub-lk
+  // installs Argo the same way (every resource serverside-applied).
+  const inst = tsh("kubectl", ["--context", kctx, "-n", "argocd", "apply", "--server-side", "--force-conflicts", "-f", ARGO_MANIFEST]);
   if (!inst.ok) return leg("Argo CD (PostSync hook)", false, `argo install failed: ${inst.out.slice(0, 200)}`, null);
   // wait for the controllers that render + sync
   const r1 = tsh("kubectl", ["--context", kctx, "-n", "argocd", "rollout", "status", "deploy/argocd-repo-server", "--timeout=300s"]);
