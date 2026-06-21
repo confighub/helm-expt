@@ -1,5 +1,7 @@
 # Website UX Test Runbook
 
+_A UX test (website walkthrough) in the [helm-expt test map](tests/README.md)._
+
 This runbook helps another Codex, Claude, or teammate start the generated
 helm-expt website locally and walk Alexis through a six-step UX review.
 

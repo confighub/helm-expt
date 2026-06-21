@@ -1,5 +1,7 @@
 # Pilot Adversarial Testing
 
+_A UX test (adversarial-persona) in the [helm-expt test map](../../tests/README.md)._
+
 This runbook tells Pilot how to attack the 20-chart proof set.
 
 The goal is not to confirm our story politely. The goal is to find the first

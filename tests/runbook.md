@@ -1,5 +1,7 @@
 # Helm Catalog Live Test Runbook
 
+_The reproducible per-chart procedure under the [helm-expt test map](README.md)._
+
 This runbook records the reproducible per-chart path for delivering a catalog
 package through ConfigHub OCI into a live Kubernetes cluster. It is parameterized
 so the same job can run on another machine or rig.

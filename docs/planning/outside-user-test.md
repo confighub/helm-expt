@@ -1,5 +1,7 @@
 # Outside User Test
 
+_A UX test (outside-user) in the [helm-expt test map](../../tests/README.md)._
+
 This is a short test protocol for a Helm user who has not worked on helm-expt.
 The goal is to find out whether the public surface explains the product without
 inside context.

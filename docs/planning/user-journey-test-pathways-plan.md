@@ -1,5 +1,7 @@
 # Plan: User-Journey Test Pathways — verified research map + build plan
 
+_The journey-pathways UX test in the [helm-expt test map](../../tests/README.md)._
+
 **UNOFFICIAL/EXPERIMENTAL.** Companion to `user-journey-test-pathways-brief.md`. The brief
 said *do the research pass first*; this doc is the output of that pass (verified against the
 generated data/receipts on `main`, 2026-06-20) plus the build plan and live status. Update
