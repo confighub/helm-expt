@@ -464,6 +464,8 @@
     "helm-habit:friction:verify": "node scripts/run-helm-habit-friction.mjs --verify",
     "prune-gap:proof": "node scripts/run-prune-gap-proof.mjs --run",
     "prune-gap:proof:verify": "node scripts/run-prune-gap-proof.mjs --verify",
+    "ssa-conflict:proof": "node scripts/run-ssa-conflict-gap.mjs --run",
+    "ssa-conflict:proof:verify": "node scripts/run-ssa-conflict-gap.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
