@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kyverno/kyverno 3.8.1 · ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .topbar .brand::before { content: "▣ "; color: var(--good); }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .topbar { flex-wrap: wrap; }
+      .navlinks { margin-left: 0; }
+    }
+</style>
+</head>
+<body>
+  <header>
+    <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
+    <h1>kyverno/kyverno</h1>
+    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=kyverno&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
+    <p class="tagline">proof-grade / machine-proof-only page for kyverno/kyverno@3.8.1.</p>
+    <pre>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir &lt;tmp&gt; --non-interactive</pre>
+  </header>
+  <main>
+    <section aria-labelledby="summary">
+      <h2 id="summary">What To Use</h2>
+      <div class="grid">
+        <div class="metric"><strong>default</strong><span>Recommended first base</span></div>
+        <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
+        <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
+        <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
+      </div>
+      <p>A named capability gap affects the recommended path.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>3.8.1</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default;no-crds</td></tr><tr><td>Not yet enabled</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="matrix-options">
+      <h2 id="matrix-options">Options From The Matrix</h2>
+      <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>
+      <p class="mono" style="font-size:.86rem">6 matrix rows for kyverno/kyverno@3.8.1 · <a href="../matrix.html">open the full matrix</a></p>
+      <div class="matrix-row-grid"><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F1</span>
+            <h3>(source)</h3>
+          </div>
+          <span class="row-kind">source</span>
+        </div>
+        <p class="row-purpose">F1 upstream chart source</p>
+        <dl>
+          <dt>Status</dt><dd>real</dd>
+          <dt>How to run</dt><dd>Source chart. Choose an F2 base below before running the installer.</dd>
+          <dt>Evidence</dt><dd>source-lock</dd>
+          <dt>Hooks</dt><dd>8 source hook(s); observed; live: yes</dd>
+          <dt>Next</dt><dd>choose or create an F2 base before rendering or deploying</dd>
+          <dt>Reason</dt><dd>source rows are upstream chart inputs, not server-side promotion evidence</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for (source)">
+          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2a</span>
+            <h3>default</h3>
+          </div>
+          <span class="row-kind">base</span>
+        </div>
+        <p class="row-purpose">F2a honest default base</p>
+        <dl>
+          <dt>Status</dt><dd>real</dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace default</code></dd>
+          <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
+          <dt>Hooks</dt><dd>8 source hook(s); observed; live: yes; route: yes</dd>
+          <dt>Next</dt><dd>review limitation before promotion: existing-secret (chart ships no Secret toggle)</dd>
+          <dt>Reason</dt><dd>server-side promotion receipt passed</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for default">
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="../../recipes/kyverno/kyverno/3.8.1/variants/default/variant.yaml">variant</a> · <a href="../../packages/kyverno/kyverno/3.8.1/bases/default">package base</a> · <a href="../../runs/kyverno-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2b</span>
+            <h3>no-crds</h3>
+          </div>
+          <span class="row-kind">base</span>
+        </div>
+        <p class="row-purpose">F2b rendered standard fork</p>
+        <dl>
+          <dt>Status</dt><dd>real</dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir &lt;tmp&gt; --non-interactive --namespace default</code></dd>
+          <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
+          <dt>Hooks</dt><dd>8 source hook(s); observed; live: yes; route: yes</dd>
+          <dt>Next</dt><dd>review limitation before promotion: existing-secret (chart ships no Secret toggle)</dd>
+          <dt>Reason</dt><dd>server-side promotion receipt passed</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for no-crds">
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="../../recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml">variant</a> · <a href="../../packages/kyverno/kyverno/3.8.1/bases/no-crds">package base</a> · <a href="../../runs/kyverno-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2c</span>
+            <h3>default-admission</h3>
+          </div>
+          <span class="row-kind">candidate</span>
+        </div>
+        <p class="row-purpose">F2c candidate base/fork</p>
+        <dl>
+          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
+          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>candidate-plan</dd>
+          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Next</dt><dd>Normal Kyverno admission controller path with explicit webhook disposition.</dd>
+          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for default-admission">
+          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="../../data/catalog-promotion-wave2/variant-work-orders.yaml">receipt</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2c</span>
+            <h3>external-crds</h3>
+          </div>
+          <span class="row-kind">candidate</span>
+        </div>
+        <p class="row-purpose">F2c candidate base/fork</p>
+        <dl>
+          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
+          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>candidate-plan</dd>
+          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Next</dt><dd>Install controller assuming CRDs are managed by platform lifecycle.; confirm exact chart CRD ownership values</dd>
+          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for external-crds">
+          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="../../data/catalog-promotion-wave2/variant-work-orders.yaml">receipt</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2c</span>
+            <h3>ha-admission-reports</h3>
+          </div>
+          <span class="row-kind">candidate</span>
+        </div>
+        <p class="row-purpose">F2c candidate base/fork</p>
+        <dl>
+          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
+          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>candidate-plan</dd>
+          <dt>Hooks</dt><dd>n/a</dd>
+          <dt>Next</dt><dd>Production-shaped HA admission and reports controller split.; webhook rollout and disruption policy must be dispositioned</dd>
+          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Proof lanes for ha-admission-reports">
+          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+        </div>
+        <p class="row-links"><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">catalog</a> · <a href="../../data/catalog-promotion-wave2/variant-work-orders.yaml">receipt</a> · <a href="https://kyverno.github.io/kyverno/" rel="noopener">source repo</a></p>
+      </article></div>
+    </section>
+
+    <section aria-labelledby="playbooks">
+      <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
+      <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
+      <div class="card"><table>
+        <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
+        <tbody><tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.md">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../../docs/skills/target-facts-and-lifecycle.md">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../../docs/skills/large-app-evidence-funnel.md">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr><tr><td><a href="../../docs/skills/live-parity.md">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="card"><table>
+        <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
+        <tbody><tr><td>User status</td><td>not-ready-yet</td></tr><tr><td>Can I use it?</td><td>decision-needed-first</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Current proof</td><td>proof-grade-with-named-limitation (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>partial</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Source data: <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">Proof Lanes</h2>
+      <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <div class="card"><table>
+        <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
+        <tbody><tr><td>Render parity</td><td>n/a: 3/5; yes: 2/5</td></tr><tr><td>ConfigHub proof</td><td>n/a: 3/5; yes: 2/5</td></tr><tr><td>Local live</td><td>n/a: 3/5; yes: 2/5</td></tr><tr><td>GitOps/OCI live</td><td>n/a: 3/5; yes: 2/5</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>n/a: 3/5; yes: 2/5</td></tr><tr><td>Two-cluster kind</td><td>n/a: 3/5; yes: 2/5</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="card"><table>
+        <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
+        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>no-crds</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>default-admission</td><td>candidate-custom-discussion</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr><tr><td>external-crds</td><td>candidate-custom-discussion</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr><tr><td>ha-admission-reports</td><td>candidate-custom-discussion</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="quirks">
+      <h2 id="quirks">Quirks And Inputs</h2>
+      <p>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</p>
+      <div class="card"><table>
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Known quirks</td><td>hooks;crds;generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Extension slots</td><td>tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="lifecycle">
+      <h2 id="lifecycle">ConfigHub Actions</h2>
+      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <h4>default</h4><div class="card"><table>
+        <thead><tr><th>Hook (route)</th><th>After you deploy, who runs it?</th><th>Change for this variant</th></tr></thead>
+        <tbody><tr><td>hook-delete-policy (delete-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)</td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>-</td></tr><tr><td>hook-weight-ordering (preserve-ordering)</td><td>Your applier - applies objects in order, automatically</td><td>-</td></tr><tr><td>target-facts (target-facts-or-preflight)</td><td>Prerequisite - supply once (Secret / CRD / storage), like values</td><td>-</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+<h4>no-crds - needs 22 CRDs supplied first</h4><div class="card"><table>
+        <thead><tr><th>Hook (route)</th><th>After you deploy, who runs it?</th><th>Change for this variant</th></tr></thead>
+        <tbody><tr><td>hook-delete-policy (delete-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)</td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>-</td></tr><tr><td>hook-weight-ordering (preserve-ordering)</td><td>Your applier - applies objects in order, automatically</td><td>reduced - CRD-first ordering is not needed in a base that installs no CRDs</td></tr><tr><td>target-facts (target-facts-or-preflight)</td><td>Prerequisite - supply once (Secret / CRD / storage), like values</td><td>strengthened - this base needs 22 CRDs supplied before deploy (the default base installs them for you)</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="production">
+      <h2 id="production">Production Boundary</h2>
+      <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
+      <div class="card"><table>
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Production disposition</td><td>not-reviewed-for-production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted dispositions</td><td>none recorded</td></tr><tr><td>Open dispositions</td><td>none</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="files">
+      <h2 id="files">Files To Inspect</h2>
+      <div class="card"><table>
+        <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/kyverno/kyverno/3.8.1/CATALOG.md">recipes/kyverno/kyverno/3.8.1/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/kyverno/kyverno/3.8.1/recipe.yaml">recipes/kyverno/kyverno/3.8.1/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/kyverno/kyverno/3.8.1">packages/kyverno/kyverno/3.8.1</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml">recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Check current receipts before making production claims.</footer>
+</body>
+</html>

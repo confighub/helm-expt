@@ -188,7 +188,7 @@ function buildSite(generatedAt) {
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
   const top100ReadinessWithSupport = applySupportDecisionNextActions(top100Readiness, productionSupportDecisions);
   const catalogEntries = top100.entries
-    .filter((entry) => entry.proof_surface === "top20-catalog-supported")
+    .filter((entry) => ["top20-catalog-supported", "next80-proof-grade"].includes(entry.proof_surface))
     .map((entry) => {
       const chartKey = `${entry.chart}@${entry.version}`;
       const bestBase = bestBaseByChart.get(chartKey);
@@ -273,7 +273,8 @@ function buildSite(generatedAt) {
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
     summary: {
-      catalogSupported: catalogEntries.length,
+      publicCatalogCharts: catalogEntries.length,
+      catalogSupported: catalogEntries.filter((entry) => entry.proof_surface === "top20-catalog-supported").length,
       proofGrade: proofGrade.length,
       top500Rows: top500.summary.rows,
       top500MatchedProofs: top500.summary.currentRecipeRows,
@@ -1258,7 +1259,7 @@ function legacyOfferingHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
-    ["Catalog charts", `${catalog.summary.catalogSupported}/20`],
+    ["Public catalog pages", `${catalog.summary.publicCatalogCharts}/100`],
     ["Recipe proofs", metricValue(metric("maintained chart rows with model support"))],
     ["Render parity", metricValue(metric("render parity rows"))],
     ["Local live receipts", metricValue(metric("local live rows"))],
@@ -2215,7 +2216,7 @@ function privateHtml(catalog) {
     ["Security and audit", "Signed artifacts, scan diffs, digest inventory, refresh SLAs, evidence packs, policy gates, and audit history."],
   ];
   const publicCounters = [
-    ["Public catalog charts", `${catalog.summary.catalogSupported}/20`],
+    ["Public catalog pages", `${catalog.summary.publicCatalogCharts}/100`],
     ["Top100 ready-to-try", metricValue(metric("catalog-supported charts"))],
     ["Render parity rows", metricValue(metric("render parity rows"))],
     ["Live parity rows", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
@@ -2642,8 +2643,9 @@ function chartIndexHtml(catalog) {
   const rows = catalog.catalogEntries.map((entry) => [
     `<a href="./${chartPageFileName(entry)}">${entry.chart}</a>`,
     entry.version,
+    catalogLayerLabel(entry),
     entry.start_variant,
-    entry.supported_variants,
+    entry.supported_variants || entry.candidate_variants || "see chart page",
     entry.start_base_readiness || "see chart page",
     productionSummaryForChart(catalog, entry)?.production_support ?? entry.production_readiness,
   ]);
@@ -2668,7 +2670,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p>Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The detailed per-chart pages listed below are the highest-detail supported subset. This page also shows how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently supported charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
+    <p>Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The chart pages below cover all 100 chart versions: the top-20 are catalog-supported, and the next-80 are proof-grade / machine-proof-only until promoted. This page also shows how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently tracked charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="actions">
@@ -2690,7 +2692,7 @@ function chartIndexHtml(catalog) {
     <section aria-labelledby="charts">
       <h2 id="charts">Helm Catalog</h2>
       ${markdownLikeTable([
-        ["Chart", "Version", "Start base", "Supported bases", "Start status", "Production disposition"],
+        ["Chart", "Version", "Catalog level", "Start base", "Supported or candidate bases", "Start status", "Production disposition"],
         ...rows,
       ], { rawFirstColumn: true })}
     </section>
@@ -2699,6 +2701,12 @@ function chartIndexHtml(catalog) {
 </body>
 </html>
 `;
+}
+
+function catalogLayerLabel(entry) {
+  if (entry.proof_surface === "top20-catalog-supported") return "catalog-supported";
+  if (entry.proof_surface === "next80-proof-grade") return "proof-grade / machine-proof-only";
+  return entry.catalog_status || entry.proof_surface || "unknown";
 }
 
 function executionModePlain(mode) {
@@ -2746,6 +2754,19 @@ function chartPageHtml(catalog, entry) {
     row.live_helm_vs_confighub_parity,
     row.two_cluster_kind_parity,
   ]);
+  const proofMatrixRows = matrixRows
+    .filter((row) => row.row_kind !== "source")
+    .map((row) => [
+      row.variant,
+      row.row_status || row.customization_layer || "matrix row",
+      row.lane_render_parity,
+      row.lane_confighub_scan_ops,
+      row.lane_local_kind,
+      row.lane_gitops_oci_live,
+      row.lane_live_dual_parity,
+      row.lane_two_cluster_kind,
+    ]);
+  const proofEvidenceRows = proofRows.length ? proofRows : proofMatrixRows;
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
     ["Recipe", entry.recipe_path],
@@ -2753,7 +2774,7 @@ function chartPageHtml(catalog, entry) {
     ["Helm pain report", entry.helm_pain_report],
     ["Production disposition", "data/production-disposition/summary.md"],
     ["Support decision", support?.path ?? ""],
-    ["Top-20 base readiness", "data/top20-base-readiness/summary.md"],
+    [baseRows.length ? "Base readiness" : "Master matrix rows", baseRows.length ? "data/top20-base-readiness/summary.md" : "data/master-catalog-matrix/summary.md"],
     ["Chart skills", "data/chart-skills/summary.md"],
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
@@ -2761,12 +2782,12 @@ function chartPageHtml(catalog, entry) {
   const openDispositions = splitDisposition(production?.open_dispositions);
   const acceptedDispositions = splitDisposition(production?.accepted_dispositions);
   const lanes = [
-    ["Render parity", allBaseStatus(baseRows, "render_parity")],
-    ["ConfigHub proof", allBaseStatus(baseRows, "in_confighub")],
-    ["Local live", allBaseStatus(baseRows, "local_live")],
-    ["GitOps/OCI live", allBaseStatus(baseRows, "gitops_oci_live")],
-    ["Live Helm-vs-ConfigHub", allBaseStatus(baseRows, "live_helm_vs_confighub_parity")],
-    ["Two-cluster kind", allBaseStatus(baseRows, "two_cluster_kind_parity")],
+    ["Render parity", baseRows.length ? allBaseStatus(baseRows, "render_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_render_parity")],
+    ["ConfigHub proof", baseRows.length ? allBaseStatus(baseRows, "in_confighub") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_confighub_scan_ops")],
+    ["Local live", baseRows.length ? allBaseStatus(baseRows, "local_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_local_kind")],
+    ["GitOps/OCI live", baseRows.length ? allBaseStatus(baseRows, "gitops_oci_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_gitops_oci_live")],
+    ["Live Helm-vs-ConfigHub", baseRows.length ? allBaseStatus(baseRows, "live_helm_vs_confighub_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_live_dual_parity")],
+    ["Two-cluster kind", baseRows.length ? allBaseStatus(baseRows, "two_cluster_kind_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_two_cluster_kind")],
   ];
   const lifecycleRoutes = catalog.lifecycleRoutes.filter((row) => row.chart === entry.chart);
   const lifecycleRows = lifecycleRoutes.map((row) => [
@@ -2805,7 +2826,7 @@ function chartPageHtml(catalog, entry) {
     <h1>${escapeHtml(entry.chart)}</h1>
     ${generatedStamp(catalog, "chart status page")}
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
-    <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
+    <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
   </header>
   <main>
@@ -2813,16 +2834,17 @@ function chartPageHtml(catalog, entry) {
       <h2 id="summary">What To Use</h2>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>Supported base variants</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
         <div class="metric"><strong>${escapeHtml(entry.start_base_readiness || "see bases")}</strong><span>Start-base status</span></div>
         <div class="metric"><strong>${escapeHtml(production?.production_support ?? entry.production_readiness)}</strong><span>Production disposition</span></div>
       </div>
       <p>${escapeHtml(chartUse?.plain_english ?? "Use the public catalog entry, then check the exact base and proof lane before making a production claim.")}</p>
       ${markdownLikeTable([
         ["Question", "Answer"],
-        ["Supported version", entry.version],
+        ["Catalog level", catalogLayerLabel(entry)],
+        ["Chart version", entry.version],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
-        ["Supported bases", entry.supported_variants],
+        [entry.proof_surface === "next80-proof-grade" ? "Candidate bases" : "Supported bases", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
         ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
@@ -2861,7 +2883,7 @@ function chartPageHtml(catalog, entry) {
       ])}
       ${markdownLikeTable([
         ["Base", "Readiness", "Render", "ConfigHub", "Local live", "GitOps/OCI", "Live parity", "Two-cluster kind"],
-        ...proofRows,
+        ...proofEvidenceRows,
       ])}
     </section>
 
