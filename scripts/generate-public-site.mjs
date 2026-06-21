@@ -2527,11 +2527,11 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     ${generatedStamp(catalog, "chart index")}
-    <p class="tagline">Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The detailed per-chart pages listed below are the highest-detail supported subset. This page also shows ConfigHub Actions: how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently supported charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
+    <p>Currently we snapshot from public Helm repos and maintain a top-${escapeHtml(catalog.top100UserReadiness.length)} chart database of chart status, variants, quirks, and evidence. The detailed per-chart pages listed below are the highest-detail supported subset. This page also shows how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently supported charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="actions">
-      <h2 id="actions">ConfigHub Actions</h2>
+      <h2 id="actions">Hooks and other actions in ConfigHub deployments</h2>
       <p>In Helm, some work appears as hooks or implicit lifecycle behavior. In the ConfigHub model, that work should become explicit actions: preflight checks, target-owned prerequisites, Argo/Flux sync actions, post-apply observations, or refused routes. A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is useful guidance; it is not an automatic execution claim unless the route says so and evidence proves it.</p>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(lifecycleRoutes.length)}</strong><span>lifecycle route rows</span></div>
