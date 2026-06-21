@@ -1552,6 +1552,7 @@ function tryHtml(catalog) {
       ["Stage", "What to check", "Why it matters"],
       ...expectedRows,
     ])}
+    <p><a href="../docs/user/expected-results-and-clusters.md">Open Expected Results And Clusters</a> for output snippets, cluster choices, bring-your-own Kubernetes guidance, the <code>cub-lk</code> option for Argo/kind demos, and when <code>npm run ...</code> proof checks are optional.</p>
     <p><a href="../docs/user/choose-your-path.md">Open the route picker</a> if you are deciding between direct Helm commands, public catalog packages, and ConfigHub-managed operations.</p>
   </header>
   <main>
@@ -1693,6 +1694,7 @@ function docsHtml(catalog) {
   const guideRows = [
     ["How it works", "The four-move model (render → route → deliver → observe) and an index into every mechanism doc.", "../docs/user/how-it-works.md"],
     ["The data model", "Unit, space, target, worker, OCI bundle, target fact, route, receipt — the vocabulary in one place.", "../docs/user/confighub-data-model.md"],
+    ["Expected results and clusters", "What users should see after each step, when they need a cluster, and when npm verifiers are optional.", "../docs/user/expected-results-and-clusters.md"],
     ["Deployment path", "cub installer → ConfigHub → OCI bundle → Argo/Flux/kubectl, and how credentials are handled.", "../docs/user/cub-deployment-path.md"],
     ["GitOps adopter guide", "For Argo/Flux teams: keep your controller, point it at one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Secrets, delivery creds, RBAC, and scanning — no silent privileged step.", "../docs/user/security-end-to-end.md"],
@@ -2386,6 +2388,20 @@ function journeyHtml(catalog) {
       <div class="app-flow">
         ${appFlow.map(([title, body]) => `<div class="app-step"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
+    </section>
+
+    <section aria-labelledby="existing">
+      <h2 id="existing">Can I Start From An Existing App?</h2>
+      <p>Yes. Existing apps, platforms, stacks, GitOps objects, rendered manifests, and live-cluster resources should enter through discovery or import first. The first result should be read-only: ConfigHub shows what it found, where it came from, which target it belongs to, and what the next safe decision is.</p>
+      ${markdownLikeTable([
+        ["Starting point", "First route", "Expected first result"],
+        ["Argo CD app", "discover or import the Argo app", "source, target, rendered objects, and links are visible before changing delivery"],
+        ["Flux HelmRelease or Kustomization", "discover or import Flux state", "controller source and target ownership are preserved"],
+        ["Rendered YAML or KRM", "import as ConfigHub Units", "objects can be labeled, scanned, linked, and diffed"],
+        ["Live cluster", "discover or import current resources", "inventory first, then explicit import or graduation decision"],
+        ["Platform or stack", "represent several chart bases and custom app objects as one graph", "components, Spaces, targets, labels, and links show what belongs together"],
+      ])}
+      <p>Only graduate an existing app to a <code>cub installer</code> recipe when it needs a maintained render path, future chart refreshes, and catalog-grade proof. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
     </section>
 
     <section aria-labelledby="examples">

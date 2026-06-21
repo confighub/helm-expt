@@ -16,6 +16,7 @@ other.
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
 | Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run -o mutations`, then `cub variant promote` |
+| Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model. | discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
 The durable catalog path starts at `cub installer`, not at `cub helm install`.
@@ -68,6 +69,11 @@ The important boundary is whether the user wants a one-time representation or a
 maintained artifact. Direct commands are good for one-time representation.
 Catalog entries are for repeatable bases, variant support, updates, patches,
 and proof.
+
+For concrete "you should see something like this" checks after each command,
+use [Expected Results And Clusters](./expected-results-and-clusters.md). It also
+explains when users need no cluster, a local kind cluster, their own Kubernetes
+cluster, or a `cub-lk` Argo/kind rig.
 
 ## Command Roles
 
@@ -173,6 +179,28 @@ change required a Helm rerender, that rerender belongs in the `cub installer`
 recipe/package path first. `cub variant promote` then carries the reviewed
 upstream changes into the downstream ConfigHub variant.
 
+### Existing Apps, Platforms, Stacks, And Live Clusters
+
+Use this when the user asks:
+
+```text
+Can I load from my existing app, apps, platform, stack, or live cluster?
+```
+
+The answer is yes, but it is an adoption path, not the same path as starting
+from a public catalog recipe.
+
+| Existing source | First route | What the user should see first |
+| --- | --- | --- |
+| Argo CD Application | Discover/import the Argo app. | ConfigHub shows the app source, target, and rendered objects without changing the cluster. |
+| Flux HelmRelease or Kustomization | Discover/import Flux state. | ConfigHub preserves controller source and target ownership. |
+| KRM YAML or rendered manifests | Import as ConfigHub Units. | Units appear with labels and can be scanned, linked, and diffed. |
+| Live cluster resources | Discover or import what exists. | A read-only inventory first, then an explicit decision to import, variant-create, or graduate. |
+| Platform or stack | Represent multiple chart bases and app objects as one graph. | Components, labels, Spaces, targets, and links show what belongs together. |
+
+Only graduate to a `cub installer` recipe when the app needs a maintained render
+path, future chart refreshes, and catalog-grade proof.
+
 ## Routing Table
 
 | Request | Route |
@@ -208,7 +236,8 @@ build the same artifact chain.
 ## Repo Verifiers
 
 The `npm run ...` commands are not product install commands. They verify the
-repo corpus and live-test evidence.
+repo corpus and live-test evidence. Keep them out of the default user path
+unless the user is explicitly asking "how do I know this claim is true?"
 
 Use them when you want to check claims:
 

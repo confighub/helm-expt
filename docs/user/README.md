@@ -18,6 +18,7 @@ Use this route when you are trying to understand the product quickly.
 | What is this offering? | [Offering](./offering.md) | The Helm user value story without the full proof corpus. |
 | Which path should I take? | [Choose Your Path](./choose-your-path.md) | Direct render, one-shot upload, public catalog, and ConfigHub-managed operations. |
 | Can I try it now? | [Try Now](./try-now.md) | A short public package path and the serious-chart check. |
+| What should I see after each command? | [Expected Results And Clusters](./expected-results-and-clusters.md) | Output snippets, cluster choices, bring-your-own Kubernetes, cub-lk, and optional npm proof checks. |
 | What is the whole catalog status? | [Master matrix](../../site/matrix.html) | One product/status view across chart versions, bases, variants, lanes, gaps, and next actions. |
 | What hard questions should I ask? | [Hard Questions](../../site/hard-questions.html) | Hooks, upgrades, overlays, target prerequisites, false-green sync, and refusal boundaries. |
 | What can be built on the held data? | [App-readiness proof](../../data/app-readiness/summary.md) | A read-only RBAC app over already-rendered objects, showing why explicit config becomes useful data. |
@@ -39,6 +40,7 @@ If your first question is "why is this better than `cub helm install` or
 | 2b | [cub-scout Diff Design](./cub-scout-diff-design.md) | The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | 2c | [App-readiness proof](../../data/app-readiness/summary.md) | A small read-app over rendered RBAC that shows how held config becomes queryable product data. |
 | 3 | [Try Now](./try-now.md) | The shortest Redis and kube-prometheus-stack paths. |
+| 3a | [Expected Results And Clusters](./expected-results-and-clusters.md) | What users should see after each step, what cluster they need, and which npm proof checks are optional. |
 | 4 | [Choose Your Path](./choose-your-path.md) | Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations. |
 | 5 | [What You Get](./what-you-get.md) | The product model in one short read. |
 | 6 | [Choosing Commands](./choosing-commands.md) | When to use `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, and repo verifiers. |

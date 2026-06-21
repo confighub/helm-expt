@@ -12,6 +12,11 @@ what the tutorial proves
 -> what success looks like
 ```
 
+For concrete output snippets and cluster choices, keep
+[Expected Results And Clusters](./expected-results-and-clusters.md) open beside
+this page. A tutorial should always give the user a local check, a UI check, or
+a receipt to compare with their own output.
+
 The first tutorials use Redis because it is small and familiar. The later
 tutorials show promotion, custom overlays, the GitOps/runtime proof lane, and
 bulk operations over uploaded ConfigHub Units.
@@ -57,12 +62,15 @@ cub auth login
 ```
 
 Tutorials with live Kubernetes steps also need `kubectl` on `PATH` and a
-reachable cluster context. Tutorial 6 can create a disposable local rig with
-`cub lk`.
+reachable cluster context. Users can bring their own cluster. For a disposable
+local Argo/kind rig, `cub lk` is one option when the tutorial needs ConfigHub
+OCI and an in-cluster reconciler.
 
 ## Verification Names Used Here
 
-This page uses three different verification layers:
+This page uses three different verification layers. These are not all part of
+the default product UX. Use the narrowest check that matches the thing you just
+did.
 
 | Name | Scope | Reruns Helm? | Touches a cluster? |
 | --- | --- | --- | --- |
@@ -75,6 +83,17 @@ This page uses three different verification layers:
 outside-user quick-start with `recipes/bitnami/redis/25.5.3/install-checks.yaml`.
 Other tutorials use chart-specific proof/package checks, generated goldens, or
 live ConfigHub/GitOps checks until they get their own `install-checks.yaml`.
+
+For a first user journey, skip the broad `npm run verify` command unless you are
+reviewing the repository itself. The ordinary checks should be things like:
+
+```text
+cub installer setup completed
+work directory has out/manifests
+ConfigHub Space has Units
+kubectl shows workloads
+the specific receipt for this step says PASS, watch, or blocked with a reason
+```
 
 ## Picking A Path
 
@@ -162,6 +181,11 @@ Full script: [docs/demo/redis/demo-script.md](../demo/redis/demo-script.md).
 
 You can see a UX proposal for this stage here:
 [Redis Quick Start UX Proposal](./ux-proposal-redis-quick-start-tutorial.md).
+
+For a standard Helm baseline, install the same chart into a separate namespace
+or throwaway cluster, then compare at the parity layer rather than by eye. The
+strict comparison path is documented in
+[Expected Results And Clusters](./expected-results-and-clusters.md#stage-2-standard-helm-baseline).
 
 ## Tutorial 2: Redis Secret Modes
 

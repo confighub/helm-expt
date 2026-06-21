@@ -15,9 +15,16 @@ If you are deciding between `cub helm template`, `cub helm install`, public
 `cub installer` packages, and ConfigHub-managed operations, start with
 [Choose Your Path](./choose-your-path.md).
 
+At each step, compare your output with
+[Expected Results And Clusters](./expected-results-and-clusters.md). It explains
+what you should see, when you need a Kubernetes cluster, when to use kind or
+`cub-lk`, and why `npm run ...` checks are optional proof checks rather than
+the default product workflow.
+
 ## Setup
 
-Clone the repo and run the lightweight checks:
+Clone the repo. The lightweight documentation checks are optional, but useful if
+you are reviewing the site or editing docs:
 
 ```sh
 git clone https://github.com/confighub/helm-expt.git
@@ -34,6 +41,15 @@ cub version
 cub plugin install confighub/installer
 cub installer --help
 ```
+
+Expected result:
+
+```text
+cub installer --help prints installer commands.
+```
+
+No Kubernetes cluster is needed for `cub installer setup` or for the Redis
+render check below.
 
 ## Path 1: Redis Happy Path
 
@@ -60,6 +76,10 @@ PASS redis:verify-install:render bitnami/redis/25.5.3 default
 ```
 
 This proves your rendered Redis objects match the catalog acceptance contract.
+You should also see a populated work directory under
+`.tmp/demo/redis-default/out/`. For Redis `default`, generated Secret material
+is separated under `out/secrets`, and workload manifests are under
+`out/manifests`.
 
 ## Path 2: Upload To ConfigHub
 
@@ -95,7 +115,8 @@ ConfigHub has a helm-redis-default Space with labeled Redis Units.
 ```
 
 In the ConfigHub UI, open the `helm-redis-default` Space and inspect Units and
-labels.
+labels. You should see Redis Units labeled with `Component=Redis` and
+`Variant=default`.
 
 ## Path 3: Serious Chart Check
 

@@ -15,6 +15,22 @@ Attach ConfigHub labels, links, variants, scans, gates, and receipts.
 Only move to a cub installer recipe when the app needs a maintained render path.
 ```
 
+## Short Answer
+
+Yes, a user should be able to start from an existing app, a group of apps, a
+platform slice, a stack, rendered manifests, GitOps objects, or a live cluster.
+The first step should be read-only discovery or import, not a forced rewrite.
+
+The expected first result is:
+
+```text
+ConfigHub found the app or objects.
+ConfigHub shows source, target, labels, and object inventory.
+No cluster change was made yet.
+The next decision is keep imported, create a derived variant, or graduate to a
+maintained cub installer recipe.
+```
+
 ## Why This Matters
 
 Most real teams do not start from a blank cluster. They already have:
