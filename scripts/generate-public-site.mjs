@@ -511,7 +511,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header class="home-hero">
     ${topNav(".")}
-    <h1>ConfigHub helps you run Helm at scale</h1>
+    <h1>Helm operations with ConfigHub and AI</h1>
     <p class="lead">Start by comparing ordinary Helm with <code>cub installer</code>. Then pick a chart, create variants, and move toward real apps with reviewable changes.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
