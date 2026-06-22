@@ -379,7 +379,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function matrixLaneDispositionCounts(rows) {
@@ -436,7 +436,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Standard Redis",
       title: "Start with the smallest happy path",
       body: "Redis is the teaching chart. Start with ordinary Helm, then render the same chart path with cub installer so you can inspect the explicit objects before doing anything more complicated.",
-      command: "helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace\ncub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis",
       link: "./try.html",
       linkText: "Get started with Redis",
     },
@@ -444,7 +443,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Serverless parity",
       title: "No account: Helm vs cub installer in two kind clusters",
       body: "This is the cleanest live parity idea: install regular Helm into one clean kind cluster, apply the cub installer output into another clean kind cluster, then compare the live object meaning.",
-      command: "",
       link: "../data/live-kind-parity/summary.md",
       linkText: "Open two-cluster parity evidence",
     },
@@ -452,7 +450,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Connected parity",
       title: "ConfigHub path: Helm vs ConfigHub OCI/GitOps",
       body: "This checks the connected path: ConfigHub publishes the rendered object set as OCI, a GitOps controller reconciles it, and the live result is compared with regular Helm.",
-      command: "",
       link: "../data/live-helm-confighub-compare/summary.md",
       linkText: "Open live Helm-vs-ConfigHub evidence",
     },
@@ -460,7 +457,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Your chart choice",
       title: "Pick any catalog chart and run the same parity question",
       body: "The point is not that Redis works. The useful test is whether the same chart, version, values, and base variant can be proved against regular Helm.",
-      command: "",
       link: "./charts/index.html",
       linkText: "Choose a chart",
     },
@@ -468,7 +464,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Quirks included",
       title: "Use kube-prometheus-stack for the hard case",
       body: "This is the serious example: CRDs, webhooks, and more. It shows where parity is enough and where live evidence is still needed.",
-      command: "",
       link: "../docs/user/serious-chart-proof.md",
       linkText: "Open the serious chart guide",
     },
@@ -514,13 +509,12 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header>
+  <header class="home-hero">
     ${topNav(".")}
     <h1>ConfigHub helps you run Helm at scale</h1>
-    <p>Helm is good. The trouble starts when every real app needs one more tweak: a Secret model, a CRD choice, or a customer overlay. The chart still works, but the customisation becomes hard to see.</p>
-    <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. Cub includes standalone offline tools and additional long-lived services that work with ConfigHub Server. This site is for Helm users who want a better way to manage Helm charts operationally.</p>
-    <p>We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
-    <p>Once we can see the Helm install path and ConfigHub path can get the same deployment, we call that <strong>parity</strong>. And now the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
+    <p class="lead">Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
+    <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. This site shows Helm users how public charts can become explicit, reviewable config.</p>
+    <p>We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and compare the result with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>. Then we can use ConfigHub and AI to make changes at scale without hiding what changed.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
@@ -584,7 +578,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
             (demo) => `<article class="card">
           <span class="kicker">${escapeHtml(demo.label)}</span>
           <h3>${escapeHtml(demo.title)}</h3>
-          <p>${escapeHtml(demo.body)}</p>${demo.command ? `\n          <pre><code>${escapeHtml(demo.command)}</code></pre>` : ""}
+          <p>${escapeHtml(demo.body)}</p>
           <p><a href="${escapeHtml(demo.link)}">${escapeHtml(demo.linkText)}</a></p>
         </article>`,
           )
@@ -3884,7 +3878,7 @@ function siteCss() {
       line-height: 1.55;
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
-    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -4061,13 +4055,58 @@ function siteCss() {
       .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
       .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .site-chrome { margin-bottom: 14px; }
-      .topbar { flex-wrap: wrap; }
-      .navlinks { margin-left: 0; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 `;
 }

@@ -85,7 +85,7 @@
       line-height: 1.55;
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
-    .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -262,19 +262,64 @@
       .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
       .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .site-chrome { margin-bottom: 14px; }
-      .topbar { flex-wrap: wrap; }
-      .navlinks { margin-left: 0; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 </style>
 </head>
 <body>
   <header>
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>argo-cd/argo-events</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
