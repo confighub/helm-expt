@@ -444,7 +444,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       label: "Serverless parity",
       title: "No account: Helm vs cub installer in two kind clusters",
       body: "This is the cleanest parity check. The harness installs regular Helm into one vanilla kind cluster, applies the cub installer output into another, and compares the live object meaning.",
-      command: "npm run kind-parity:run -- --chart bitnami/redis --version 27.0.0 --base default",
+      command: "npm run kind-parity:run -- --chart bitnami/redis --version 25.5.3 --base default",
       link: "../data/live-kind-parity/summary.md",
       linkText: "Open two-cluster parity receipts",
     },
@@ -561,7 +561,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
         <div class="card"><h3>Variant store</h3><p>Keep base variants, derived variants, customer choices, environment choices, and target-specific choices in one place instead of scattering them across values files and shell history.</p></div>
         <div class="card"><h3>Verified changes</h3><p>Compare against standard Helm, review exact object diffs, scan them, stage prerequisites, promote through environments, and keep receipts for what was rendered, delivered, and observed.</p></div>
         <div class="card"><h3>Desired state for live apps</h3><p>Use ConfigHub as the central place that describes what should be running, then deliver through OCI, GitOps controllers, or direct apply paths and observe what actually happened.</p></div>
-        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p></div>
+        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open the AI-assisted changes guide</a></p></div>
       </div>
     </section>
 
@@ -754,6 +754,23 @@ function howItWorksHtml(catalog) {
           ...universalCubAdoptionRows(),
         ], { rawSecondColumn: true })}
         <p>Per-chart password and CRD heads-up: <a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a>.</p>
+      </div>
+      <div class="card">
+        <h3>What Argo or Flux points at</h3>
+        <p>Keep your controller. The practical change is the source: point it at the ConfigHub OCI artifact instead of asking the controller to re-render Helm downstream.</p>
+        <pre><code># Argo CD Application source
+source:
+  repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
+  path: ./&lt;space&gt;
+
+# Flux source
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+spec:
+  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
+  secretRef:
+    name: confighub-oci-creds</code></pre>
+        <p>You should see the controller report its normal synced or healthy status after it pulls the same ConfigHub OCI bundle. In this public corpus, Argo-from-OCI has committed receipts; Flux-from-OCI remains in progress until equivalent receipts are committed.</p>
       </div>
       <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
     </section>
@@ -2670,6 +2687,16 @@ function journeyHtml(catalog) {
         ["Live cluster", "discover or import current resources", "inventory first, then explicit import or graduation decision"],
         ["Platform or stack", "represent several chart bases and custom app objects as one graph", "components, Spaces, targets, labels, and links show what belongs together"],
       ])}
+      <div class="card">
+        <h3>Start read-only</h3>
+        <p>These commands should show discovery or import previews before ConfigHub changes delivery. Use a narrower <code>--where-resource</code> filter when you want to inspect one namespace or app first.</p>
+        <pre><code>cub gitops discover --space my-space my-k8s-target
+cub gitops import --space my-space my-k8s-target my-render-target \\
+  --where-resource "metadata.namespace = 'argocd'"
+kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
+cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
+        <p>You should see the resources ConfigHub found or would import, plus the target and namespace context. At this stage the safe result is visibility, not a changed live deployment.</p>
+      </div>
       <p>Only graduate an existing app to a <code>cub installer</code> recipe when it needs a maintained render path, future chart refreshes, and catalog-grade proof. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
     </section>
 
@@ -2906,6 +2933,24 @@ function operationsHtml(catalog) {
       code: null,
       get: "Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.",
       see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md"],
+    },
+    {
+      title: "Observe the live result",
+      status: "available",
+      boundary: "cub-scout · bring your own cluster",
+      action: "record live evidence after delivery",
+      code: "cub-scout receipt verify \\\n  --file <rendered-objects.yaml> \\\n  --scope namespace/<namespace> \\\n  --predicate object-set-matches \\\n  --ttl 1h \\\n  --out .tmp/object-set.receipt.json\n\ncub-scout receipt validate .tmp/object-set.receipt.json",
+      get: "After delivery, use observation to check what actually happened. The receipt should say what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.",
+      see: ["verify-it-yourself.md", "why-synced-is-not-working.md"],
+    },
+    {
+      title: "Rehearse rollback before you need it",
+      status: "watch",
+      boundary: "ConfigHub revisions · cub-scout rehearsal",
+      action: "compare live state with a previous approved desired state",
+      code: "cub unit diff <unit> --from=PreviousLiveRevisionNum --to=LiveRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
+      get: "You should see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.",
+      see: ["day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
     },
   ];
   const seeLink = (ref) =>
@@ -3360,7 +3405,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
               ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
               ...lifecycleRows,
             ])
-          : "<p>No hook or hook-like ConfigHub action is recorded for this chart.</p>"}
+          : "<p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
     </section>
 
     <section aria-labelledby="production">

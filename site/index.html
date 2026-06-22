@@ -339,7 +339,7 @@
         <div class="card"><h3>Variant store</h3><p>Keep base variants, derived variants, customer choices, environment choices, and target-specific choices in one place instead of scattering them across values files and shell history.</p></div>
         <div class="card"><h3>Verified changes</h3><p>Compare against standard Helm, review exact object diffs, scan them, stage prerequisites, promote through environments, and keep receipts for what was rendered, delivered, and observed.</p></div>
         <div class="card"><h3>Desired state for live apps</h3><p>Use ConfigHub as the central place that describes what should be running, then deliver through OCI, GitOps controllers, or direct apply paths and observe what actually happened.</p></div>
-        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p></div>
+        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open the AI-assisted changes guide</a></p></div>
       </div>
     </section>
 
@@ -376,7 +376,7 @@ npm run redis:verify-install:render -- --base default --work-dir .tmp/redis --na
           <span class="kicker">Serverless parity</span>
           <h3>No account: Helm vs cub installer in two kind clusters</h3>
           <p>This is the cleanest parity check. The harness installs regular Helm into one vanilla kind cluster, applies the cub installer output into another, and compares the live object meaning.</p>
-          <pre><code>npm run kind-parity:run -- --chart bitnami/redis --version 27.0.0 --base default</code></pre>
+          <pre><code>npm run kind-parity:run -- --chart bitnami/redis --version 25.5.3 --base default</code></pre>
           <p><a href="../data/live-kind-parity/summary.md">Open two-cluster parity receipts</a></p>
         </article>
         <article class="card">

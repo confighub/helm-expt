@@ -337,6 +337,16 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <div class="card">
+        <h3>Start read-only</h3>
+        <p>These commands should show discovery or import previews before ConfigHub changes delivery. Use a narrower <code>--where-resource</code> filter when you want to inspect one namespace or app first.</p>
+        <pre><code>cub gitops discover --space my-space my-k8s-target
+cub gitops import --space my-space my-k8s-target my-render-target \
+  --where-resource "metadata.namespace = 'argocd'"
+kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
+cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
+        <p>You should see the resources ConfigHub found or would import, plus the target and namespace context. At this stage the safe result is visibility, not a changed live deployment.</p>
+      </div>
       <p>Only graduate an existing app to a <code>cub installer</code> recipe when it needs a maintained render path, future chart refreshes, and catalog-grade proof. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
     </section>
 

@@ -357,6 +357,23 @@
       </style>
         <p>Per-chart password and CRD heads-up: <a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a>.</p>
       </div>
+      <div class="card">
+        <h3>What Argo or Flux points at</h3>
+        <p>Keep your controller. The practical change is the source: point it at the ConfigHub OCI artifact instead of asking the controller to re-render Helm downstream.</p>
+        <pre><code># Argo CD Application source
+source:
+  repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
+  path: ./&lt;space&gt;
+
+# Flux source
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+spec:
+  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
+  secretRef:
+    name: confighub-oci-creds</code></pre>
+        <p>You should see the controller report its normal synced or healthy status after it pulls the same ConfigHub OCI bundle. In this public corpus, Argo-from-OCI has committed receipts; Flux-from-OCI remains in progress until equivalent receipts are committed.</p>
+      </div>
       <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
     </section>
 

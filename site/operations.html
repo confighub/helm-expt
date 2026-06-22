@@ -335,6 +335,34 @@ cub variant promote &lt;space&gt;</code></pre>
         <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
         <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
       </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Observe the live result</h3>
+          <span class="badge now">available</span>
+        </div>
+        <p class="opmeta"><code>record live evidence after delivery</code> · <span class="muted">cub-scout · bring your own cluster</span></p>
+        <pre><code>cub-scout receipt verify \
+  --file &lt;rendered-objects.yaml&gt; \
+  --scope namespace/&lt;namespace&gt; \
+  --predicate object-set-matches \
+  --ttl 1h \
+  --out .tmp/object-set.receipt.json
+
+cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
+        <p>After delivery, use observation to check what actually happened. The receipt should say what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.</p>
+        <p class="muted">See: <a href="../docs/user/verify-it-yourself.md">verify-it-yourself</a> · <a href="../docs/user/why-synced-is-not-working.md">why-synced-is-not-working</a></p>
+      </div>
+      <div class="op">
+        <div class="ophead">
+          <h3>Rehearse rollback before you need it</h3>
+          <span class="badge watch">watch</span>
+        </div>
+        <p class="opmeta"><code>compare live state with a previous approved desired state</code> · <span class="muted">ConfigHub revisions · cub-scout rehearsal</span></p>
+        <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
+cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
+        <p>You should see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.</p>
+        <p class="muted">See: <a href="../docs/user/day2-upgrade-rollback.md">day2-upgrade-rollback</a> · <a href="../docs/user/cub-scout-diff-design.md">cub-scout-diff-design</a></p>
+      </div>
     </section>
     <section aria-labelledby="next">
       <h2 id="next">When Ops Becomes Managed Scope</h2>
