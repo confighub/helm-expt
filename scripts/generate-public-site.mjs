@@ -379,7 +379,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav>`;
+  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">helm-expt HOME</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function matrixLaneDispositionCounts(rows) {
@@ -516,7 +516,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header>
     ${topNav(".")}
-    <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>ConfigHub helps you run Helm at scale</h1>
     <p>Helm is good. The trouble starts when every real app needs one more tweak: a Secret model, a CRD choice, or a customer overlay. The chart still works, but the customisation becomes hard to see.</p>
     <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. Cub includes standalone offline tools and additional long-lived services that work with ConfigHub Server. This site is for Helm users who want a better way to manage Helm charts operationally.</p>
@@ -3829,10 +3828,14 @@ function siteCss() {
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
     .topbar {
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: baseline; gap: 18px;
-      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
       background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
       font-size: .92rem;
@@ -3857,7 +3860,7 @@ function siteCss() {
     }
     .experiment-banner {
       display: inline-block;
-      margin: 0 0 22px;
+      margin: 0 0 8px;
       padding: 8px 12px;
       border: 1px solid #f0c36d;
       border-radius: 8px;
@@ -4062,6 +4065,7 @@ function siteCss() {
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
       .topbar { flex-wrap: wrap; }
       .navlinks { margin-left: 0; }
     }

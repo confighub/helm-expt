@@ -29,10 +29,14 @@
       font-size: 15px;
     }
     header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
     .topbar {
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: baseline; gap: 18px;
-      max-width: 1180px; margin: 0 auto; padding: 12px 20px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
       background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
       font-size: .92rem;
@@ -57,7 +61,7 @@
     }
     .experiment-banner {
       display: inline-block;
-      margin: 0 0 22px;
+      margin: 0 0 8px;
       padding: 8px 12px;
       border: 1px solid #f0c36d;
       border-radius: 8px;
@@ -262,6 +266,7 @@
       .card dl { grid-template-columns: 1fr; }
       .matrix-row-card dl { grid-template-columns: 1fr; }
       .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
       .topbar { flex-wrap: wrap; }
       .navlinks { margin-left: 0; }
     }
@@ -269,7 +274,7 @@
 </head>
 <body>
   <header>
-    <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>grafana/alloy</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
