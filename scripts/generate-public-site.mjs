@@ -541,7 +541,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <main>
     <section aria-labelledby="what-is-confighub">
       <h2 id="what-is-confighub">What Is ConfigHub?</h2>
-      <p>ConfigHub stores Kubernetes desired state as structured, versioned config. Helm still renders the starting objects. ConfigHub then lets you keep those objects as Units, create variants, review exact changes, apply gates, publish OCI artifacts, and compare what is live against what was intended.</p>
+      <p>ConfigHub stores Kubernetes desired state as structured, versioned config. Every config is a data object equivalent to literal YAML without templates. Helm rendering is re-orchestrated into a workflow that operates on this data where possible, and flags the places where it cannot. ConfigHub then lets you keep those objects as atomic Units, create variants from sets of Units, review exact changes, apply gates, publish OCI artifacts, and compare what is live against what was intended.</p>
       ${markdownLikeTable([
         ["Word", "Meaning"],
         ...configHubIntroRows,
