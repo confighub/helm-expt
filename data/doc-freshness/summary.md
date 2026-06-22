@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-22 (commit `0c0b69a5`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-06-22 (commit `8b155aa8`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 200 |
+| Authored docs tracked | 201 |
 | Fresh (no linked source newer than the doc) | 21 |
 | **Review-due** | 50 |
-| No linked evidence sources (cannot auto-trigger) | 129 |
+| No linked evidence sources (cannot auto-trigger) | 130 |
 
 ## Review queue
 
@@ -154,6 +154,7 @@ into this freshness model.
 - [docs/planning/legacy-patch-review.md](../../docs/planning/legacy-patch-review.md)
 - [docs/planning/maintenance-strategy.md](../../docs/planning/maintenance-strategy.md)
 - [docs/planning/per-chart-fact-sheet-spec.md](../../docs/planning/per-chart-fact-sheet-spec.md)
+- [docs/planning/persona-ux-audit-2026-06-22.md](../../docs/planning/persona-ux-audit-2026-06-22.md)
 - [docs/planning/post-coverage-strategy.md](../../docs/planning/post-coverage-strategy.md)
 - [docs/planning/review-prompts.md](../../docs/planning/review-prompts.md)
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)

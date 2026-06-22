@@ -18,6 +18,34 @@ flows are out of scope unless a run explicitly asks for them.
 Run this after major public-site, user-doc, homepage, catalog, FAQ, or Get
 Started changes.
 
+## Depth Requirement
+
+Do not stop at the homepage or top navigation. Each persona run must include a
+depth pass through the pages the persona would naturally reach within one or
+two clicks of home:
+
+| Entry point | One-click pages | Two-click pages to sample |
+| --- | --- | --- |
+| Home | Get Started, Helm Catalog, Variants, Apps, Ops, Docs, FAQ | Redis chart page, kube-prometheus-stack chart page, How It Works, Known Gaps, AI-assisted changes, GitOps adopter guide, upgrade/rollback guide |
+| Helm Catalog | chart index, chart page, matrix link | chart recipe/catalog link, per-chart caveats, lifecycle/action route, source chart URL |
+| Apps | existing-app section, app examples | adopting existing apps, ConfigHub data model, custom app or stack guide |
+| Ops | observe, rollback, delivery, scan/gate cards | verify-it-yourself, day-2 upgrade/rollback, why-synced-is-not-working, cub-scout diff design |
+| FAQ | skeptical questions | the guide or data page linked from each answer |
+
+For every deeper page sampled, record whether the user can still answer:
+
+```text
+What am I trying to do?
+What should I type?
+What should I expect to see?
+Do I need a cluster, ConfigHub account, GitOps controller, or only local files?
+Is this a proved path, a watch path, a blocked path, or planned work?
+Where do I go next?
+```
+
+If a page answers only by linking to raw data, treat that as a possible bounce
+unless the persona is the skeptical reviewer.
+
 ## Personas
 
 | Persona | What they want |
@@ -54,6 +82,7 @@ For each persona, record:
 persona
 task or fear
 path tested
+deeper pages tested
 where the site answered well
 where the persona would bounce
 improvement candidate
@@ -76,3 +105,4 @@ links underneath the user journey.
 Recorded runs:
 
 - [Persona UX rerun, 2026-06-22](../docs/planning/persona-ux-rerun-2026-06-22.md)
+- [Persona UX audit, 2026-06-22](../docs/planning/persona-ux-audit-2026-06-22.md)

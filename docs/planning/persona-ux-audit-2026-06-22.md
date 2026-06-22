@@ -45,6 +45,37 @@ The audit checked the largest recurring complaints against generated files:
 5. Link the AI guide from the homepage and keep AI claims tied to diffs, gates, variants, and receipts.
 6. Re-run the persona audit after the site changes and compare the same ten personas against this baseline.
 
+## Required Rerun Scope
+
+The next rerun should test the homepage plus deeper pages one or two clicks
+away. The earlier runs found several homepage and top-level problems. The next
+runs should verify that the guides reached from those pages are also clear.
+
+For each persona, record the full click path. Example:
+
+```text
+Home -> Apps -> Adopting Existing Apps
+Home -> Ops -> Verify It Yourself
+Home -> Helm Catalog -> Redis chart page -> recipe catalog
+Home -> FAQ -> Known Gaps -> chart caveats
+```
+
+Every sampled guide should answer:
+
+| Question | What to check |
+| --- | --- |
+| What am I trying to do? | The first paragraph names the task plainly. |
+| What should I type? | The page has a command or explicitly says this is concept/design only. |
+| What should I expect to see? | The page gives a short expected-result checkpoint. |
+| What do I need? | The page says local files, kind, cub-lk, bring-your-own cluster, GitOps controller, or ConfigHub account. |
+| What is the proof state? | The page says proved, watch, blocked, planned, or not applicable. |
+| Where next? | The next useful page is obvious without sending every user straight to raw data. |
+
+This deeper pass should include, at minimum: Get Started, Helm Catalog, one
+simple chart page, one serious chart page, Variants, Apps, Ops, How It Works,
+FAQ, Known Gaps, AI-assisted changes, GitOps adopter guide, and one upgrade or
+rollback guide.
+
 ## Style Notes
 
 Use direct product language for public pages. A visitor should know:

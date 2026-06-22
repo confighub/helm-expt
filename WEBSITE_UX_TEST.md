@@ -3,7 +3,9 @@
 _A UX test (website walkthrough) in the [helm-expt test map](tests/README.md)._
 
 This runbook helps another Codex, Claude, or teammate start the generated
-helm-expt website locally and walk Alexis through a six-step UX review.
+helm-expt website locally and walk Alexis through a UX review. The review
+starts with the top-level pages, then follows guide and doc links one or two
+clicks deeper.
 
 Use it when the goal is to test whether the public site is understandable to a
 fresh Helm user. Do not use the walkthrough to rewrite the site live. First
@@ -69,7 +71,7 @@ http://<lan-ip>:8766/
 If that does not load, check macOS firewall settings, VPN state, and whether
 both laptops are on the same network.
 
-## 4. Six-Step UX Walkthrough
+## 4. Top-Level UX Walkthrough
 
 Ask the same question at every step:
 
@@ -124,7 +126,7 @@ Expected:
 - commands are copyable;
 - the page says what should happen after each command.
 
-### Step 3: Journey
+### Step 3: Apps
 
 URL:
 
@@ -135,25 +137,17 @@ URL:
 Question:
 
 ```text
-Are the free, sign-up, server, day-2, and paid boundaries clear?
-```
-
-Expected path:
-
-```text
-inspect
-serverless try-out
-first sign-up
-ConfigHub Server try-out
-day-2 operations
-paid features
+Does the page explain how chart bases, variants, custom apps, existing apps,
+platforms, and stacks become one application model?
 ```
 
 Look for:
 
-- no-account steps are genuinely useful;
-- sign-up and paid boundaries are visible;
-- ConfigHub value is about variants, operations, policy, and evidence, not only rendering.
+- a clear distinction between chart choice, variant management, app composition,
+  and operations;
+- a read-only path for existing Argo, Flux, KRM, rendered-manifest, or live
+  cluster inputs;
+- links to deeper app guides that tell the user what to type and what to expect.
 
 ### Step 4: Status Matrix
 
@@ -234,7 +228,49 @@ Expected:
 - kube-prometheus-stack shows serious chart complexity;
 - chart pages link back to matrix, evidence, and proof status.
 
-## 5. Record Findings
+## 5. Deeper Guide Pass
+
+After the top-level walkthrough, test the pages a real user reaches within one
+or two clicks from home. Do not stop at a guide link just because the homepage
+looks clear.
+
+For each page, ask:
+
+```text
+What am I trying to do?
+What should I type?
+What should I expect to see?
+Do I need local files, kind, cub-lk, a bring-your-own cluster, a GitOps controller, or a ConfigHub account?
+Is this proved, watch, blocked, planned, or not applicable?
+Where do I go next?
+```
+
+Minimum depth sample:
+
+| Starting page | Deeper page to test | Why |
+| --- | --- | --- |
+| Home | `how-it-works.html` | Checks whether the four-move model is actionable. |
+| Home | `docs.html` | Checks whether "Guides" are useful and not just a raw doc dump. |
+| Get Started | `../docs/user/expected-results-and-clusters.md` | Checks cluster guidance and optional npm proof language. |
+| Helm Catalog | Redis chart page | Checks simple chart run path, variants, caveats, and next action. |
+| Helm Catalog | kube-prometheus-stack chart page | Checks serious chart quirks, CRDs, lifecycle, and proof boundaries. |
+| Apps | `../docs/user/adopting-existing-apps.md` | Checks existing-app discovery/import guidance. |
+| Ops | `../docs/user/verify-it-yourself.md` | Checks observation commands and expected result language. |
+| Ops | `../docs/user/day2-upgrade-rollback.md` | Checks upgrade and rollback story. |
+| FAQ | `known-gaps.html` | Checks whether hard limitations are understandable. |
+| Home AI card | `../docs/user/ai-assisted-helm-changes.md` | Checks whether AI claims are concrete and bounded. |
+
+Record whether each deeper page is:
+
+```text
+clear enough
+clear but missing a command
+clear but missing expected output
+too much raw proof data
+confusing or contradictory
+```
+
+## 6. Record Findings
 
 Use this format:
 
@@ -254,7 +290,7 @@ What Alexis expected:
 Suggested fix:
 ```
 
-## 6. If Fixes Are Requested
+## 7. If Fixes Are Requested
 
 Do not edit generated HTML by hand.
 
@@ -291,4 +327,3 @@ If it is running in another shell, find and stop it:
 lsof -nP -iTCP:8766 -sTCP:LISTEN
 kill <pid>
 ```
-
