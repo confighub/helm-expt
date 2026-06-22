@@ -8,7 +8,11 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["What Is ConfigHub?", "Helm is good.", "ConfigHub helps you run Helm at scale"],
+    terms: ["What Is ConfigHub?", "Helm is good.", "ConfigHub helps you run Helm at scale", "Component", "base variant is a render-time Helm/recipe install shape"],
+  },
+  {
+    file: "site/variants.html",
+    terms: ["Component And Variant Model", "payments-api/prod-us", "One named configuration instance of a Component"],
   },
   {
     file: "site/try.html",

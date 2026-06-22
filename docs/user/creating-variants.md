@@ -35,6 +35,47 @@ The artifact is ready, but Kubernetes or GitOps needs something else first.
   Record or satisfy the delivery prerequisite before OCI delivery.
 ```
 
+## Component And Variant Model
+
+The higher-order model is simple: ConfigHub treats an app or workload as a
+Component, then treats each named configuration instance as a Variant.
+
+```text
+Component: payments-api
+
+Variants:
+  payments-api/base
+  payments-api/dev
+  payments-api/staging
+  payments-api/prod-us
+  payments-api/prod-eu
+```
+
+A **Component** is the logical thing being configured and shipped: an app,
+service, platform package, or deployable capability such as `payments-api`,
+`redis`, or `ingress-nginx`. Today, Component is represented by standard
+metadata rather than a separate first-class API entity. Users should mostly
+think of it as the family name for a related set of configurations.
+
+A **Variant** is one named configuration instance of that Component: `base`,
+`dev`, `staging`, `prod-us`, `customer-a`, `ha`, `tls-enabled`, and so on.
+When created through `cub variant create`, it is not just a label convention:
+it is a downstream clone of an upstream configuration, stamped with upstream
+identity so it can later be promoted or upgraded from that upstream.
+
+The unlock is that ConfigHub can ask questions about the family, not only the
+individual Units:
+
+- what changed between the base and `prod-us`;
+- which variants are downstream of this base;
+- whether this base change can promote to staging but not prod yet;
+- which target facts or overrides make `prod-eu` different;
+- whether an AI-assisted change stayed inside the approved variant boundary.
+
+Caveat: Component is currently mostly a grouping concept. Variant has stronger
+behavior because `cub variant create` and `cub variant promote` give it
+upstream/downstream clone and promotion semantics.
+
 ## Choose The Path First
 
 | What the user wants | Use | Example |

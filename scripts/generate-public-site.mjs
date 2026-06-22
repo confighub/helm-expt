@@ -506,6 +506,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const configHubIntroRows = [
     ["Unit", "A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe."],
     ["Space", "A working area that groups Units for one app, base, environment, customer, or target shape."],
+    ["Component", "The logical thing being configured and shipped: an app, service, platform package, or deployable capability."],
     ["Variant", "Two related kinds: a base variant is a render-time Helm/recipe install shape; a derived ConfigHub variant is a post-render refinement of an uploaded base."],
     ["Target", "The place the desired state is meant to run, including its cluster assumptions, credentials, and facts."],
     ["OCI bundle", "The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes."],
@@ -2704,9 +2705,15 @@ function journeyHtml(catalog) {
 }
 
 function variantsHtml(catalog) {
+  const modelRows = [
+    ["Component", "The logical thing being configured and shipped: an app, service, platform package, or deployable capability such as redis, ingress-nginx, or payments-api."],
+    ["Variant", "One named configuration instance of a Component: base, dev, staging, prod-us, customer-a, ha, tls-enabled, and so on."],
+    ["Operational behavior", "`cub variant create` makes a downstream clone of an upstream configuration, stamped with upstream identity so it can later be promoted or upgraded from that upstream."],
+    ["Caveat", "Component is currently mostly a grouping concept. Variant has stronger behavior because create and promote give it clone and promotion semantics."],
+  ];
   const journeyRows = [
     ["Start from a base", "Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral."],
-    ["Upload to ConfigHub", "The rendered objects become Units in an upstream Space. This is where diffs, labels, links, gates, and ownership become visible."],
+    ["Upload to ConfigHub", "The rendered objects become Units in the reviewed base configuration. This is where diffs, labels, links, gates, and ownership become visible."],
     ["Create a derived variant", "Clone/refine the uploaded base for dev, staging, prod, region, customer, or target with `cub variant create`."],
     ["Preview and check", "Use Unit diffs, labels, links, gates, and receipts to confirm the install shape stayed bounded."],
     ["Promote later changes", "Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals."],
@@ -2737,6 +2744,24 @@ function variantsHtml(catalog) {
     <p class="tagline">A base variant is a reviewed Helm render choice. A derived variant is a ConfigHub refinement after render. Keeping that boundary clear is how the model stays predictable.</p>
   </header>
   <main>
+    <section aria-labelledby="model">
+      <h2 id="model">Component And Variant Model</h2>
+      <p>ConfigHub should not treat an app as only a pile of Kubernetes objects. A Component is the logical thing being configured and shipped. A Variant is one named configuration instance of that Component.</p>
+      <pre><code>Component: payments-api
+
+Variants:
+  payments-api/base
+  payments-api/dev
+  payments-api/staging
+  payments-api/prod-us
+  payments-api/prod-eu</code></pre>
+      ${markdownLikeTable([
+        ["Term", "Meaning"],
+        ...modelRows,
+      ], { rawSecondColumn: true })}
+      <p>This unlocks higher-level questions: what changed between base and prod-us, which variants are downstream of a base, whether a change can promote to staging but not prod, and whether an AI-assisted change stayed inside the approved variant boundary.</p>
+    </section>
+
     <section aria-labelledby="choose">
       <h2 id="choose">Which Kind Of Variant?</h2>
       <p>You start from a base, then create dev, staging, prod, region, customer, or target variants. The important split is whether Helm has to render again.</p>
@@ -2761,10 +2786,10 @@ function variantsHtml(catalog) {
 cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>The user should see a source base, a derived Space, changed paths, target binding, checks, and receipts. The UI can hide most of that language, but the data stays available for reviewers and agents.</p>
+      <p>The user should see a source base, a derived variant, changed paths, target binding, checks, and receipts. The UI can hide most of that language, but the data stays available for reviewers and agents.</p>
       <div class="card">
         <h3>You should see something like this</h3>
-        <pre><code>created downstream Space
+        <pre><code>created downstream variant
 cloned Units linked to upstream Units
 changed labels/target/gates only, unless an allowed mutation receipt says otherwise
 promotion dry-run lists mutations before apply</code></pre>
