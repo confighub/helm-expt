@@ -510,7 +510,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Variant", "Two related kinds: a base variant is a render-time Helm/recipe install shape; a derived ConfigHub variant is a post-render refinement of an uploaded base."],
     ["Target", "The place the desired state is meant to run, including its cluster assumptions, credentials, and facts."],
     ["OCI bundle", "The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes."],
-    ["Observation", "Live evidence about what actually happened after delivery, recorded separately from render parity."],
+    ["Observation", "Using any tool to obtain live evidence about what actually happened after delivery, for example whether GitOps sync was achieved."],
   ];
   return `<!doctype html>
 <html lang="en">
