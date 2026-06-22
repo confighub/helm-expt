@@ -542,10 +542,14 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <section aria-labelledby="what-is-confighub">
       <h2 id="what-is-confighub">What Is ConfigHub?</h2>
       <p>ConfigHub stores Kubernetes desired state as structured, versioned config. Every config is a data object equivalent to literal YAML without templates. Helm rendering is re-orchestrated into a workflow that operates on this data where possible, and flags the places where it cannot. ConfigHub then lets you keep those objects as atomic Units, create variants from sets of Units, review exact changes, apply gates, publish OCI artifacts, and compare what is live against what was intended.</p>
-      ${markdownLikeTable([
+      <div class="vocab-table">${markdownLikeTable([
         ["Word", "Meaning"],
         ...configHubIntroRows,
-      ])}
+      ])}</div>
+      <style>
+        .vocab-table th:first-child,
+        .vocab-table td:first-child { width: 13ch; min-width: 13ch; white-space: nowrap; }
+      </style>
       <p><a href="../docs/user/confighub-data-model.md">Open the data model guide</a> for the precise vocabulary.</p>
     </section>
 
