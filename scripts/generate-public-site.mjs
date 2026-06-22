@@ -506,7 +506,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const configHubIntroRows = [
     ["Unit", "A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe."],
     ["Space", "A working area that groups Units for one app, base, environment, customer, or target shape."],
-    ["Variant", "A named version of the desired state: a reviewed Helm base, or a post-render ConfigHub refinement."],
+    ["Variant", "Two related kinds: a base variant is a render-time Helm/recipe install shape; a derived ConfigHub variant is a post-render refinement of an uploaded base."],
     ["Target", "The place the desired state is meant to run, including its cluster assumptions, credentials, and facts."],
     ["OCI bundle", "The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes."],
     ["Observation", "Live evidence about what actually happened after delivery, recorded separately from render parity."],
