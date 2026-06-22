@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["What Is ConfigHub?", "Helm works well until every real app needs one more tweak", "ConfigHub helps you run Helm at scale", "When both paths get the same deployment", "Component", "base variant is a render-time Helm/recipe install shape"],
+    terms: ["Why This Exists", "Start by comparing ordinary Helm with", "ConfigHub helps you run Helm at scale", "When both paths get the same deployment", "Component", "base variant is a render-time Helm/recipe install shape"],
   },
   {
     file: "site/variants.html",

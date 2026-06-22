@@ -512,9 +512,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header class="home-hero">
     ${topNav(".")}
     <h1>ConfigHub helps you run Helm at scale</h1>
-    <p class="lead">Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
-    <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. This site shows Helm users how public charts can become explicit, reviewable config.</p>
-    <p>We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and compare the result with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>. Then we can use ConfigHub and AI to make changes at scale without hiding what changed.</p>
+    <p class="lead">Start by comparing ordinary Helm with <code>cub installer</code>. Then pick a chart, create variants, and move toward real apps with reviewable changes.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
@@ -525,6 +523,13 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </div>
   </header>
   <main>
+    <section aria-labelledby="quick-context">
+      <h2 id="quick-context">Why This Exists</h2>
+      <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
+      <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. This site shows Helm users how public charts can become explicit, reviewable config.</p>
+      <p>We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and compare the result with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>. Then we can use ConfigHub and AI to make changes at scale without hiding what changed.</p>
+    </section>
+
     <section aria-labelledby="what-is-confighub">
       <h2 id="what-is-confighub">What Is ConfigHub?</h2>
     <p>ConfigHub stores Kubernetes desired state as structured, versioned config. That means the YAML Helm would create is kept as data you can inspect. ConfigHub can then keep those objects as Units, create variants from them, and review exact changes. It can also publish OCI artifacts and compare what is live with what was intended.</p>
@@ -3838,7 +3843,6 @@ function siteCss() {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
     }
-    .topbar .brand::before { content: "▣ "; color: var(--good); }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
