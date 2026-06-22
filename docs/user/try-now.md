@@ -1,4 +1,4 @@
-# Try Now
+# Get Started With Redis
 
 **UNOFFICIAL/EXPERIMENTAL**
 
@@ -6,16 +6,20 @@
 > captures this flow end-to-end on a throwaway cluster — the actual commands,
 > output, and one honest rough edge.
 
-Redis is the small teaching chart. It shows the chart to recipe to base variant
-to exact rendered objects path.
+Redis is the smallest example on this site. It lets you compare a normal Helm
+install with the ConfigHub `cub installer` path without starting with a
+complicated chart.
 
-Start with ordinary Helm as the control. Then run the cub installer path with
-the same chart version and base assumptions. The first useful proof is not that
-ConfigHub is clever; it is that the starting object set is preserved.
+First, look at what Helm would install. Then use `cub installer` with the same
+Redis chart version and the same basic assumptions. The aim is simple: check
+that the ConfigHub path starts from the same Kubernetes objects that Helm would
+create.
 
-## Helm Install Or cub Installer?
+## Helm Or cub Installer?
 
-There are two useful ways to look at the same Redis chart:
+There are two useful ways to look at the same Redis chart. Helm is the direct
+install path. `cub installer` is the path that renders the chart into files you
+can inspect and manage before delivery.
 
 | Path | Use it when | What you need |
 | --- | --- | --- |
@@ -26,10 +30,10 @@ The exact command table, expected output, catalog status, variants, caveats,
 and evidence links live on the
 [Redis chart page](../../site/charts/bitnami-redis-25-5-3.html).
 
-## What This First Step Proves
+## What This Shows
 
-Redis answers the first question: can a Helm chart be converted into a cub
-installer package without changing the intended Kubernetes object set?
+Redis answers the first question: can we use the ConfigHub path without changing
+the starting Kubernetes objects that Helm would have created?
 
 | Question | Answer |
 | --- | --- |

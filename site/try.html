@@ -278,15 +278,14 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Path 1: Redis Happy Path</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this try-now page.</p>
-    <p class="tagline">Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
-    <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
+    <h1>Get started with Redis</h1>
+    <p>Redis is the smallest example on this site. It lets you compare a normal Helm install with the ConfigHub <code>cub installer</code> path without starting with a complicated chart.</p>
+    <p>First, look at what Helm would install. Then use <code>cub installer</code> with the same Redis chart version and the same basic assumptions. The aim is simple: check that the ConfigHub path starts from the same Kubernetes objects that Helm would create.</p>
   </header>
   <main>
     <section aria-labelledby="choice">
-      <h2 id="choice">Helm install or cub installer?</h2>
-      <p>There are two useful ways to look at the same Redis chart. Helm is the direct deploy path. cub installer is the explicit-config path.</p>
+      <h2 id="choice">Helm or cub installer?</h2>
+      <p>There are two useful ways to look at the same Redis chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
       <div class="split">
         <section class="path-card">
           <h3>Normal Helm</h3>
@@ -310,8 +309,8 @@
     </section>
 
     <section aria-labelledby="what-this-proves">
-      <h2 id="what-this-proves">What This First Step Proves</h2>
-      <p>Redis answers the first question: can a Helm chart be converted into a cub installer package without changing the intended Kubernetes object set? Once that foundation is visible, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
+      <h2 id="what-this-proves">What This Shows</h2>
+      <p>Redis answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Does this replace Helm?</td><td>No. Helm remains the source chart ecosystem and the control path.</td></tr><tr><td>Does cub installer deploy the app?</td><td>Not by itself. It renders a reviewed package into explicit config first.</td></tr><tr><td>Do I need ConfigHub for this first step?</td><td>No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations.</td></tr><tr><td>Where is the evidence?</td><td>On chart pages, docs, and data surfaces. The Get Started page should stay human-first.</td></tr></tbody>

@@ -1586,15 +1586,14 @@ function tryHtml(catalog) {
 <body>
   <header class="hero">
     ${topNav(".")}
-    <h1>Path 1: Redis Happy Path</h1>
-    ${generatedStamp(catalog, "try-now page")}
-    <p class="tagline">Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
-    <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
+    <h1>Get started with Redis</h1>
+    <p>Redis is the smallest example on this site. It lets you compare a normal Helm install with the ConfigHub <code>cub installer</code> path without starting with a complicated chart.</p>
+    <p>First, look at what Helm would install. Then use <code>cub installer</code> with the same Redis chart version and the same basic assumptions. The aim is simple: check that the ConfigHub path starts from the same Kubernetes objects that Helm would create.</p>
   </header>
   <main>
     <section aria-labelledby="choice">
-      <h2 id="choice">Helm install or cub installer?</h2>
-      <p>There are two useful ways to look at the same Redis chart. Helm is the direct deploy path. cub installer is the explicit-config path.</p>
+      <h2 id="choice">Helm or cub installer?</h2>
+      <p>There are two useful ways to look at the same Redis chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
       <div class="split">
         ${pathRows
           .map(
@@ -1617,8 +1616,8 @@ function tryHtml(catalog) {
     </section>
 
     <section aria-labelledby="what-this-proves">
-      <h2 id="what-this-proves">What This First Step Proves</h2>
-      <p>Redis answers the first question: can a Helm chart be converted into a cub installer package without changing the intended Kubernetes object set? Once that foundation is visible, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
+      <h2 id="what-this-proves">What This Shows</h2>
+      <p>Redis answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
       ${markdownLikeTable([
         ["Question", "Answer"],
         ["Does this replace Helm?", "No. Helm remains the source chart ecosystem and the control path."],
