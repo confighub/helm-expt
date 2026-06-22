@@ -468,6 +468,8 @@
     "ssa-conflict:proof:verify": "node scripts/run-ssa-conflict-gap.mjs --verify",
     "managed-cub-direct:proof": "node scripts/run-managed-cub-direct-proof.mjs --run",
     "managed-cub-direct:proof:verify": "node scripts/run-managed-cub-direct-proof.mjs --verify",
+    "managed-setup-guidance:proof": "node scripts/run-managed-setup-guidance.mjs --run",
+    "managed-setup-guidance:proof:verify": "node scripts/run-managed-setup-guidance.mjs --verify",
     "hook-execution:proof": "node scripts/run-hook-execution-proof.mjs --run",
     "hook-execution:proof:verify": "node scripts/run-hook-execution-proof.mjs --verify",
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
