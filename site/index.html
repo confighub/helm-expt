@@ -325,6 +325,7 @@
       <p>Helm charts usually start simple. Then every app, team, cluster, and customer needs one more tweak: a different Secret model, an ingress rule, CRDs on or off, a storage class, cloud identity, hooks, resources, node placement, or a provider-specific values file. Those choices are reasonable, but the install path becomes harder to see.</p>
       <p>That is where many Helm pain points come from. Values sprawl, hidden defaults, generated Secrets, dependency drift, webhook and CRD lifecycle, hook behavior, upgrade diffs, and environment-specific overrides can combine until nobody is sure what changed or why a live app broke.</p>
       <p>Our view is that the real problem is not Helm itself. The hard part is customization. Every useful chart becomes a set of variants, and those variants need to be visible, versioned, compared, tested, promoted, and observed.</p>
+      <p>Once multiple charts, custom values, and configuration variants are used for platforms, apps, and real use cases, the work becomes harder to track. Some old versions may have to be pinned. Teams need to know what will break in the next upgrade, why a deployment failed unexpectedly, and which change is safe to promote next. We are here to help with that.</p>
     </section>
 
     <section aria-labelledby="control-value">
