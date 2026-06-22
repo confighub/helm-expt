@@ -256,6 +256,7 @@ Generated proof data for this section lives in:
 | [helm-community-persona-reference.md](./reference/helm-community-persona-reference.md) | Reference matrix for personas, free/paid capabilities, day-0/day-1/day-2 value, and variant routing decisions. |
 | [user-journey-test-pathways-brief.md](./planning/user-journey-test-pathways-brief.md) | Brief for the user-journey test pathways (persona × decisions × chart-class) and the hook-method validation work. |
 | [user-journey-test-pathways-plan.md](./planning/user-journey-test-pathways-plan.md) | Verified research map + build plan for the test pathways: the pathway matrix, phase sequencing, live-run policy, and corrections to the brief. |
+| [persona-ux-baseline-2026-06-21.md](./planning/persona-ux-baseline-2026-06-21.md) | First recorded persona UX audit (the worked example/baseline for the persona UX strategy): eight persona runs, page-metrics pre-scan, and the ranked site plan with voice owners and build order. |
 | [catalog-promotion-review.md](./planning/catalog-promotion-review.md) | Rules for deciding whether a proven chart becomes catalog-supported. |
 | [catalog-promotion-next-candidates.md](./planning/catalog-promotion-next-candidates.md) | Candidate charts for the next promotion wave. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Planning model for the no-login verified-install wedge: public catalog package resolution, local apply, in-cluster receipt, and where ConfigHub Server begins. |
@@ -316,6 +317,7 @@ Redis demo:
 | [../tests/runbook.md](../tests/runbook.md) | Reproducible per-chart runtime test procedure. |
 | [../tests/findings.md](../tests/findings.md) | Current runtime findings and guardrails. |
 | [../tests/adversarial-strategy.md](../tests/adversarial-strategy.md) | Adversarial usage-test methodology. |
+| [../tests/persona-ux-strategy.md](../tests/persona-ux-strategy.md) | Persona UX testing strategy: how to run a product-comprehension audit (persona set, seed questions, Alexis/Brian voice split, output format, when to re-run) — test-map group E. |
 
 ### Operating Skills
 

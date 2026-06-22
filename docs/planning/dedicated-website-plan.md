@@ -3,6 +3,12 @@
 The GitHub repo proves the work. A dedicated website should make the work easy
 to understand and try.
 
+**How we validate this:** whether the site actually explains itself is tested by a
+**persona UX audit** — see the [persona UX strategy](../../tests/persona-ux-strategy.md)
+(method, persona set, seed questions, Alexis/Brian voice split) and the first
+[baseline audit](./persona-ux-baseline-2026-06-21.md) (eight persona runs → a ranked
+site plan). Re-run the audit after major site or user-doc changes.
+
 ## Goal
 
 The website should answer three questions in under a minute:

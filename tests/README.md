@@ -24,7 +24,7 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 | **B. Live cluster proof** (kind, serial, receipted) | local k8s live · strict two-cluster kind-parity · GitOps/OCI (Argo/Flux) · live Helm-vs-ConfigHub parity · variant-promotion |
 | **C. Lifecycle / hooks** | observe → **execute** → **emit** (GitOps-native) |
 | **D. Day-1 preview** (cub-scout) | `compare three-way --dry-from` (desired-vs-live, drift) |
-| **E. UX / journey** | journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe |
+| **E. UX / journey** | **persona UX audit** · journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe |
 | **F. Adversarial / refusal boundary** (a *deliberate* skeptic breaking the model) | torture suite · adversarial-10 · quirk & pain-point coverage |
 | **G. Careless-dev randomness** (an *ordinary* dev making silly decisions, repeatedly, at volume) | random-bad-decisions fuzz |
 
@@ -46,6 +46,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | Variant-promotion | – | – | ● | ● | `target-bound-derived-variant-test`, promotion receipts | 180 proven → [variant-promotion](../data/variant-promotion/summary.md) |
 | Lifecycle / hooks (observe→execute→emit) | ● | ● | ○ | ○ | [hook-lifecycle](../data/hook-lifecycle/summary.md), `run-hook-test-proof` / `run-hook-execution-proof`, [gitops-route-emission](../data/gitops-route-emission/summary.md) | partial — observed for maintained hook charts; execute + emit proven; routed-but-unobserved cells remain → [lifecycle-boundary](../data/lifecycle-boundary/summary.md) |
 | cub-scout day-1 preview | ○ | ● | ○ | ● | cub-scout `compare three-way --dry-from` | shipped command, design-stage coverage → [cub-scout-diff](../data/cub-scout-diff/summary.md) |
+| UX: persona audit (product comprehension) | spans | spans | spans | spans | [persona-ux-strategy.md](persona-ux-strategy.md), [baseline 2026-06-21](../docs/planning/persona-ux-baseline-2026-06-21.md) | methodology + first baseline; re-run after major site/doc changes |
 | UX: journey pathways | ● | ● | ● | ● | [docs/user/pathway-*](../docs/user/pathway-route-hooks-transparently.md), [user-journey-test-pathways-plan](../docs/planning/user-journey-test-pathways-plan.md) | partial — Pathway 1 (hooks) shipped; others pending |
 | UX: website / outside-user / adversarial | spans | spans | spans | spans | [WEBSITE_UX_TEST.md](../WEBSITE_UX_TEST.md), [outside-user-test](../docs/planning/outside-user-test.md), [pilot-adversarial-testing](../docs/planning/pilot-adversarial-testing.md), [adversarial-strategy.md](adversarial-strategy.md) | runbook + plan + probe method |
 | Adversarial / refusal boundary | ● | ○ | – | – | [torture-suite](../data/torture-suite/summary.md), [adversarial10](../data/adversarial10/summary.md), [quirk-coverage](../data/quirk-coverage/summary.md) | refusal boundary covered |
@@ -78,6 +79,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 | The generated inventory of every script | [npm-script-catalog.md](npm-script-catalog.md) |
 | The exact reproducible per-chart procedure | [runbook.md](runbook.md) |
 | The persona / tier-aware adversarial usage probe | [adversarial-strategy.md](adversarial-strategy.md) |
+| Whether a visitor can understand the site (persona UX audit) | [persona-ux-strategy.md](persona-ux-strategy.md) |
 | The recorded F1–F4 findings | [findings.md](findings.md) |
 | The top-100 runtime/GitOps sweep plan | [top100-runtime-gitops.md](top100-runtime-gitops.md) |
 | Current aggregate status (the live dashboard) | [status-dashboard](../data/status-dashboard/summary.md) |
