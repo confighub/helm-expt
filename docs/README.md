@@ -359,6 +359,7 @@ not the primary user path.
 | [outside-user-test.md](./planning/outside-user-test.md) | Fifteen-minute outside-user protocol for testing whether the public site and docs explain the product. |
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
+| [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |
 | [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
 | [fuzz-corpus-tests-roadmap.md](./planning/fuzz-corpus-tests-roadmap.md) | Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work. |
 | [helm-vs-cub-adoption-audit.md](./planning/helm-vs-cub-adoption-audit.md) | Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged. |

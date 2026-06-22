@@ -6,6 +6,13 @@ replace render, live, or ConfigHub evidence.
 
 Issue: https://github.com/confighub/helm-expt/issues/1018
 
+## Scope
+
+By default, this audit covers the free/public website and documentation surface:
+home, Get Started, Helm Catalog, chart pages, Variants, Apps, Ops, Docs, FAQ,
+and generated public data linked from those pages. Commercial and managed-edition
+flows are out of scope unless a run explicitly asks for them.
+
 ## When To Run
 
 Run this after major public-site, user-doc, homepage, catalog, FAQ, or Get
@@ -66,3 +73,6 @@ current status, evidence, limits, and next actions precisely.
 The output is a ranked website plan, not a new proof surface. Keep the proof
 links underneath the user journey.
 
+Recorded runs:
+
+- [Persona UX rerun, 2026-06-22](../docs/planning/persona-ux-rerun-2026-06-22.md)

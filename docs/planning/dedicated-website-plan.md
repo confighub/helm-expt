@@ -25,6 +25,12 @@ through ConfigHub, inspect Units, compare variants, run scans, approve changes,
 observe live state, operate custom apps and stacks, and know when a chart needs
 managed support rather than public-catalog use.
 
+Website work should be checked with the persona UX strategy:
+[persona-ux-strategy.md](../../tests/persona-ux-strategy.md). That audit uses
+novice, Helm-fluent, GitOps, SRE, maintainer, AI-curious, and skeptical-reviewer
+personas to test whether the public site is understandable before users reach
+the proof surfaces.
+
 It should not expose the full internal noun ladder first. The first impression
 should be:
 
