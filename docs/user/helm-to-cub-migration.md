@@ -28,6 +28,22 @@ rejected, but with a generic "unknown flag/input" and no hint toward the cub way
 | `--set arr[0]=x` (array index) | `unknown input "arr[0]"` | set the whole structured value via a declared input, or in the base |
 | `helm install NAME chart` (release name) | n/a — different model | cub renders into a `--namespace`; the "name" is the ConfigHub **space / unit**, not a Helm release |
 
+## What the managed setup guidance should say
+
+The managed setup guidance proof records five common Helm habits and the plain-language
+hint a user should get. This is the adoption bar: safe rejection is not enough when the
+user is trying something normal from Helm.
+
+| User tries | Better guidance |
+| --- | --- |
+| `--set replicaCount=2` | cub has no `--set`. Declared values use `--input KEY=VALUE`; run `cub installer doc <pkg>` to see the inputs. Values that are not declared belong in a base. |
+| `--values values.yaml` or `-f values.yaml` | cub has no values-file flag. Choose, edit, or author a base variant instead of passing a Helm values file at runtime. |
+| `--set-string image.tag=7.4` | Use `--set-image` when the package declares images; otherwise make the image change in the base. |
+| `--input replicaCount=2` but the input is not declared | The hard error is intentional. Confirm the input exists, or edit the base so the change is visible as config. |
+| A default base bakes a placeholder password | Treat it as a demo placeholder. Use the existing-secret or reuse-existing-secret base and stage your own Secret. |
+
+Source: [managed setup guidance](../../data/managed-setup-guidance/summary.md).
+
 ## Why cub works this way (the upside of the friction)
 
 The declared-input model is what makes cub **catch the typo footgun Helm silently absorbs** —

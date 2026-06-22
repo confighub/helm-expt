@@ -24,14 +24,16 @@ ConfigHub publishes the bundle **once to OCI**; every consumer pulls that **same
 artifact**:
 - **Argo** → OCI `Application` source (`oci://oci.hub.confighub.com/...`).
 - **Flux** → an `OCIRepository` at the same URL + the `confighub-oci-creds` secret.
-- **No controller** → **pull the OCI bundle and `kubectl apply`** (or let `cub` apply
-  it directly). OCI still triggers the apply — it is the single source of truth.
-  For upgrades, plain apply is not enough: the cub-direct path must also prune
-  removed resources (`kubectl apply --prune` with a safe selector/allowlist, or
-  an equivalent delete-set), otherwise deleted desired objects remain orphaned.
-  For first installs of bundles that contain CRDs and custom resources, cub-direct
-  must install CRDs first and wait for them to be established, or use a controller.
-  Without that ordering, cub-direct is apply-only and can leave the CR uncreated.
+- **No controller** → **pull the OCI bundle and use the managed cub-direct applier**.
+  OCI is still the single source of truth. Bare `kubectl apply` is the baseline we
+  test against, not the product path for serious installs.
+  For upgrades, the managed cub-direct path must prune removed resources with a
+  safe selector/allowlist or an equivalent delete-set, otherwise deleted desired
+  objects remain orphaned. For first installs of bundles that contain CRDs and
+  custom resources, it must install CRDs first and wait for them to establish.
+  For server-side-apply conflicts, it must show a plain reconcile choice instead
+  of leaving the user with a raw Kubernetes error. If any of those are not in
+  scope, route the chart to Argo or Flux.
 
 Re-rendering locally and `kubectl apply`-ing **bypasses OCI** — that is the
 *no-ConfigHub* fallback only, never the ConfigHub path. A *continuous* "OCI push
@@ -99,10 +101,9 @@ refused with a reason.
 ## 6e. Server-side apply conflicts must be product-readable
 ConfigHub/cub delivery uses server-side apply. That can be safer than Helm's
 silent overwrite when someone has edited a live field by hand, because the API
-can report field ownership conflict instead of hiding it. The current gap is
-adoption UX: a raw Kubernetes conflict is not a helpful product answer. The row
-stays `watch` until the user sees a plain reconcile choice, such as keep live,
-accept desired, or force with an explicit receipt.
+can report field ownership conflict instead of hiding it. The adoption UX bar is
+not the raw Kubernetes error. The managed path must show a plain reconcile
+choice, such as keep live, accept desired, or force with an explicit receipt.
 
 ## 7. Live runs are serial and ephemeral
 `cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →

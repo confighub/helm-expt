@@ -410,6 +410,22 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="adoption-caveats">
+      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
+      <p>This is the chart-specific heads-up for places where cub can otherwise feel more confusing than plain Helm on the first run. These caveats are managed, but they are still visible.</p>
+      <div class="card"><table>
+        <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>; use managed cub-direct prune or Argo/Flux for upgrades; treat SSA conflicts as an explicit reconcile choice.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 10 CRD object(s) are recorded. Use the managed cub-direct applier, use Argo/Flux, or choose the separable CRD base <code>no-crds</code>.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a> · <a href="../../docs/user/cub-deployment-path.md">cub deployment path</a></p>
+    </section>
+
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
       <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>

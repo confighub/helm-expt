@@ -20,7 +20,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Redis Teaching Path", "How Do I Run This Chart With cub?", "out/secrets"],
+    terms: ["Redis Teaching Path", "How Do I Run This Chart With cub?", "Adoption Caveats Versus Plain Helm", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -36,7 +36,11 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["AI-assisted changes", "Broken chart triage", "Known gaps we surface", "Expected results and clusters"],
+    terms: ["AI-assisted changes", "Broken chart triage", "Known gaps we surface", "Expected results and clusters", "Per-chart cub adoption caveats"],
+  },
+  {
+    file: "site/how-it-works.html",
+    terms: ["Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
 ];
 

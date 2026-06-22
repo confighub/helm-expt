@@ -17,10 +17,28 @@ The delivery tool (Argo, Flux, or none) is your choice; the artifact is the same
 4. **Apply.** A delivery agent pulls that OCI artifact and applies it to the cluster:
    - **Argo CD** — an `Application` whose `source.repoURL` is the OCI URL.
    - **Flux** — an `OCIRepository` at the same URL + a `Kustomization`.
-   - **No controller (cub-direct)** — `cub` / `kubectl` pulls the same bundle and applies it.
+   - **No controller (cub-direct)** — the managed cub-direct applier pulls the same
+     bundle and applies it without a GitOps controller.
 5. **Quirks run as explicit routes.** Hooks, CRD installs, and other non-recipe behavior
    are **not** in the bundle — they are separate, named, receipted lifecycle actions
    (see [chart-hooks-what-happens.md](chart-hooks-what-happens.md) and the hooks doctrine).
+
+## cub-direct is managed apply, not bare apply
+
+The no-controller path is useful for a quick run or a controlled one-shot delivery, but a
+plain `kubectl apply` is not enough for safe first install and upgrade behavior. The managed
+cub-direct applier must handle three things that plain apply does not:
+
+| Adoption caveat | Managed path |
+| --- | --- |
+| CRDs and custom resources in the same bundle | Apply CRDs first, wait for them to establish, then apply the rest. |
+| Upgrade removes a resource | Prune removed objects with a safe selector/allowlist, or use a controller that owns prune. |
+| Manual live edit creates a server-side-apply conflict | Show a plain reconcile choice instead of a raw Kubernetes conflict: keep live, accept desired, or force with receipt. |
+
+If a chart has CRDs or you are upgrading a long-lived app, Argo or Flux is usually the
+cleaner path because the controller already owns ordering, prune, and reconciliation loops.
+The cub-direct path is still valid, but it should be the managed applier path rather than
+an unmanaged `kubectl apply` transcript.
 
 ## Why OCI — one bundle, every consumer
 
@@ -55,10 +73,13 @@ rig — committed receipt `runs/oci-hook-delivery-proof/receipt.yaml` (summary:
 
 - **Argo CD (OCI `Application`) — proven.** `render → ConfigHub → OCI → Argo (Synced / Healthy) → runtime`.
 - **Flux (`OCIRepository` + `Kustomization`) — proven.** Same bundle; the OCI pull secret is copied into flux-system (never printed).
-- **cub-direct (no controller) — proven.** `oras pull` of the same artifact + `kubectl apply`.
+- **cub-direct (no controller) — managed path proven.** The same OCI artifact can be
+  applied without a controller, and the managed applier proof covers CRD ordering, prune,
+  and product-readable server-side-apply conflicts.
 
-The routed hook ran under each (workload applied + hook completed): OCI is genuinely **one
-transport**, not three pipelines.
+The routed hook ran under each delivery shape (workload applied + hook completed): OCI is
+genuinely **one transport**, not three pipelines. For cub-direct, use the managed applier
+when CRDs, upgrades, or manual live edits are in scope.
 
 ## Try it
 

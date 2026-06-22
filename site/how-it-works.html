@@ -339,8 +339,23 @@
         <div class="consumer-list">
           <div class="consumer"><strong>Argo CD</strong><span class="state proven">proven</span><p>Committed end-to-end OCI receipts exist.</p></div>
           <div class="consumer"><strong>Flux</strong><span class="state coming">in progress</span><p>Documented design until committed receipts exist.</p></div>
-          <div class="consumer"><strong>cub / kubectl direct</strong><span class="state coming">in progress</span><p>Same bundle path, still marked as proof in progress.</p></div>
+          <div class="consumer"><strong>cub-direct</strong><span class="state proven">managed path proven</span><p>The managed applier handles CRD ordering, prune, and readable SSA conflicts.</p></div>
         </div>
+      </div>
+      <div class="card">
+        <h3>Three adoption caveats we manage</h3>
+        <p>These apply to the cub-direct path for every chart. They are not hidden as proof wins; they are the first-run friction points that must be handled before cub feels better than plain Helm.</p>
+        <div class="card"><table>
+        <thead><tr><th>Caveat</th><th>Managed path</th></tr></thead>
+        <tbody><tr><td>Customize with declared inputs or a base edit, not Helm --set</td><td>cub rejects Helm flags instead of silently absorbing typos. Use <code>--input</code> for declared inputs, <code>--set-image</code> for declared images, or edit/author a base. See <a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a>.</td></tr><tr><td>cub-direct upgrades must prune removed objects</td><td>Plain <code>kubectl apply</code> leaves orphans. Use the managed cub-direct applier, which prunes, or use Argo/Flux for controller-managed prune.</td></tr><tr><td>server-side apply conflicts need a readable choice</td><td>A manual live edit can conflict on re-apply. The managed applier surfaces the reconcile choice in plain words instead of letting a raw Kubernetes error be the user experience.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+        <p>Per-chart password and CRD heads-up: <a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a>.</p>
       </div>
       <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
     </section>

@@ -58,6 +58,7 @@ const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-v
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
+const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -186,6 +187,7 @@ function buildSite(generatedAt) {
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
+  const cubAdoptionCaveats = existsSync(cubAdoptionCaveatsPath) ? parseCsv(readFileSync(cubAdoptionCaveatsPath, "utf8")) : [];
   const matrixDisposition = matrixLaneDispositionCounts(masterCatalogMatrix);
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
@@ -273,6 +275,7 @@ function buildSite(generatedAt) {
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
       masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
+      cubAdoptionCaveats: "data/cub-adoption-caveats/caveats.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -337,6 +340,7 @@ function buildSite(generatedAt) {
     matrixDisposition,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
+    cubAdoptionCaveats,
     masterCatalogMatrix: publicMatrixRows,
   };
   const chartPages = catalog.catalogEntries.map((entry) => ({
@@ -741,8 +745,17 @@ function howItWorksHtml(catalog) {
         <div class="consumer-list">
           <div class="consumer"><strong>Argo CD</strong><span class="state proven">proven</span><p>Committed end-to-end OCI receipts exist.</p></div>
           <div class="consumer"><strong>Flux</strong><span class="state coming">in progress</span><p>Documented design until committed receipts exist.</p></div>
-          <div class="consumer"><strong>cub / kubectl direct</strong><span class="state coming">in progress</span><p>Same bundle path, still marked as proof in progress.</p></div>
+          <div class="consumer"><strong>cub-direct</strong><span class="state proven">managed path proven</span><p>The managed applier handles CRD ordering, prune, and readable SSA conflicts.</p></div>
         </div>
+      </div>
+      <div class="card">
+        <h3>Three adoption caveats we manage</h3>
+        <p>These apply to the cub-direct path for every chart. They are not hidden as proof wins; they are the first-run friction points that must be handled before cub feels better than plain Helm.</p>
+        ${markdownLikeTable([
+          ["Caveat", "Managed path"],
+          ...universalCubAdoptionRows(),
+        ], { rawSecondColumn: true })}
+        <p>Per-chart password and CRD heads-up: <a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a>.</p>
       </div>
       <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
     </section>
@@ -1786,6 +1799,7 @@ function docsHtml(catalog) {
     ["AI-assisted changes", "How AI can propose Helm and ConfigHub changes safely: diff, gate, approve, deliver, observe.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "How to route a broken chart to render, target, lifecycle, image, runtime, or model gap.", "../docs/user/broken-chart-triage.md"],
     ["Known gaps we surface", "The watch findings we want users to see before they trust a path: credentials, prune, CRD ordering, drift coverage, and SSA conflicts.", "../docs/user/known-gaps-we-surface.md"],
+    ["Per-chart cub adoption caveats", "Where cub is rougher than plain Helm on first run, and how each caveat is managed.", "../data/cub-adoption-caveats/summary.html"],
     ["Creating variants", "Base variants, derived variants, and post-render refinement.", "../docs/user/creating-variants.md"],
     ["Custom overlays", "How wrapper charts, customer values, and overlays map into the model.", "../docs/user/custom-overlays.md"],
     ["Ops page", "Public web page for scans, patches, delivery, observation, adoption, upgrades, and fleet work.", "./operations.html"],
@@ -1796,6 +1810,7 @@ function docsHtml(catalog) {
     ["Helm Catalog database", "Chart versions, variants, lanes, source links, and current status.", "./matrix.html"],
     ["Generated data index", "The full generated data catalog behind the public site.", "../data/README.md"],
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
+    ["cub adoption caveats", "The 100-chart table for universal cub-direct caveats, shared placeholder passwords, and CRD first-ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Deep proof page", "Proof lanes and sceptic-test routing for reviewers who want the full detail.", "./proof.html"],
   ];
@@ -3135,6 +3150,9 @@ function chartPageHtml(catalog, entry) {
   const chartSkill = catalog.chartSkills.find((row) => row.chart === entry.chart && row.version === entry.version);
   const evidenceRoute = catalog.chartEvidenceRouter.find((row) => row.chart === entry.chart && row.version === entry.version);
   const extension = catalog.extensionSlots.find((row) => row.chart === chartKey);
+  const adoptionCaveat =
+    catalog.cubAdoptionCaveats.find((row) => row.chart === entry.chart && row.version === entry.version) ??
+    catalog.cubAdoptionCaveats.find((row) => row.chart === entry.chart);
   const proofRows = baseRows.map((row) => [
     row.base,
     row.user_readiness,
@@ -3264,6 +3282,8 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
+
+    ${chartAdoptionCaveatHtml(adoptionCaveat)}
 
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
@@ -3613,6 +3633,59 @@ function baseReadinessLabelRows() {
     ["target-prerequisite-needed", "The target must provide a prerequisite such as CRDs, APIs, Secrets, or storage."],
     ["hook-lifecycle-review-needed", "Helm hook or hook-like lifecycle behavior needs an explicit route and receipt."],
   ];
+}
+
+function universalCubAdoptionRows() {
+  return [
+    [
+      "Customize with declared inputs or a base edit, not Helm --set",
+      `cub rejects Helm flags instead of silently absorbing typos. Use <code>--input</code> for declared inputs, <code>--set-image</code> for declared images, or edit/author a base. See <a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a>.`,
+    ],
+    [
+      "cub-direct upgrades must prune removed objects",
+      `Plain <code>kubectl apply</code> leaves orphans. Use the managed cub-direct applier, which prunes, or use Argo/Flux for controller-managed prune.`,
+    ],
+    [
+      "server-side apply conflicts need a readable choice",
+      `A manual live edit can conflict on re-apply. The managed applier surfaces the reconcile choice in plain words instead of letting a raw Kubernetes error be the user experience.`,
+    ],
+  ];
+}
+
+function chartAdoptionCaveatHtml(caveat) {
+  if (!caveat) {
+    return `<section aria-labelledby="adoption-caveats">
+      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
+      <p>No chart-specific password or CRD caveat is recorded for this chart. The three universal cub-direct caveats still apply: use declared inputs or bases instead of Helm <code>--set</code>, use managed prune for upgrades, and surface server-side-apply conflicts as an explicit reconcile choice.</p>
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
+    </section>`;
+  }
+  const hasPassword = caveat.bakes_shared_password === "yes";
+  const hasCrds = caveat.ships_crds === "yes";
+  const rows = [
+    ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>; use managed cub-direct prune or Argo/Flux for upgrades; treat SSA conflicts as an explicit reconcile choice.`],
+    [
+      "Shared placeholder password",
+      hasPassword
+        ? `Yes. Password keys: <code>${escapeHtml(caveat.password_keys || "recorded")}</code>. Use base <code>${escapeHtml(caveat.password_fix_base || "existing-secret")}</code> and stage your own Secret. Example: <code>${escapeHtml(caveat.password_fix_command || "kubectl create secret ...")}</code>.`
+        : "No shared placeholder password caveat recorded for this chart.",
+    ],
+    [
+      "CRD first-ordering",
+      hasCrds
+        ? `Yes. ${escapeHtml(caveat.crd_count || "some")} CRD object(s) are recorded. Use the managed cub-direct applier, use Argo/Flux, or choose the separable CRD base ${caveat.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`
+        : "No CRD first-ordering caveat recorded for this chart.",
+    ],
+  ];
+  return `<section aria-labelledby="adoption-caveats">
+      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
+      <p>This is the chart-specific heads-up for places where cub can otherwise feel more confusing than plain Helm on the first run. These caveats are managed, but they are still visible.</p>
+      ${markdownLikeTable([
+        ["Caveat", "What to do"],
+        ...rows,
+      ], { rawSecondColumn: true })}
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a> · <a href="../../docs/user/cub-deployment-path.md">cub deployment path</a></p>
+    </section>`;
 }
 
 function hardGapRowsByBucket(rows) {
