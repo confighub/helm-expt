@@ -431,13 +431,6 @@ function html(catalog) {
 }
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
-  const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
-  const proofCounters = [
-    ["Render parity rows", metricValue(metric("render parity rows")), "Regular Helm render compared with cub installer render under recorded inputs."],
-    ["Two-cluster kind parity pass", metricValue(metric("two-cluster kind parity pass rows")), "Regular Helm in one vanilla kind cluster, cub installer output in another."],
-    ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows")), "ConfigHub-published OCI reconciled by a GitOps controller and observed live."],
-    ["Live parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows")), "Regular Helm and ConfigHub delivery reached the same semantic live outcome."],
-  ];
   const parityDemos = [
     {
       label: "Standard Redis",
@@ -497,11 +490,11 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Deliver", "Publish one OCI bundle and let the selected controller pull the same bytes.", "../docs/user/cub-deployment-path.md"],
     ["Observe", "Record live receipts and show pass, watch, blocked, todo, and n/a honestly.", "../docs/user/verification-lanes.md"],
   ];
-  const limitRows = [
-    ["Parity is the starting point", "A green render does not prove target fit, lifecycle behavior, controller state, storage, cloud identity, or production readiness.", "../docs/user/target-prerequisites.md"],
-    ["Watch is not fail, and not pass", "A watch row means parity may hold while a target, runtime, lifecycle, or support decision remains visible.", "./matrix.html"],
-    ["Some chart choices need new bases", "If a values file, overlay, CRD choice, Secret mode, HA mode, or extension slot changes Helm output, create or import a new base and prove it.", "../docs/user/custom-overlays.md"],
-    ["Hooks become ConfigHub Actions", "Hook-like lifecycle behavior should be routed as explicit preflight, target-owned, GitOps, observation, blocked, or refused actions.", "./charts/index.html#actions"],
+  const limitCards = [
+    ["A matching render is the first check.", "It means the ConfigHub package produced the same starting Kubernetes objects that Helm would have produced for the same inputs. It does not mean every real cluster already has the secret, storage class, cloud account, CRD, or controller setup that the chart expects.", "../docs/user/target-prerequisites.md", "Read about cluster prerequisites"],
+    ["Some charts do work after the first objects are applied.", "A chart may create certificates, install CRDs, run setup jobs, wait for webhooks, or rely on a controller to finish its own setup. We try to show those steps explicitly, so you can see whether they have been observed, should be handled by Argo or Flux, or need you to prepare something first.", "./charts/index.html#actions", "See chart actions"],
+    ["Some custom choices need a new base.", "If a values file, overlay, secret mode, HA setting, or CRD choice changes what Helm would render, we should make a new base variant and prove that path. We should not quietly edit the result and pretend it is the same install.", "../docs/user/custom-overlays.md", "Read about custom overlays"],
+    ["A warning is part of the answer.", "When the catalog says watch or blocked, it is telling you what still has to happen before you rely on that path. The aim is not an all-green wall. The aim is to show what works, what needs preparation, and what we refuse to hide.", "./matrix.html", "Open the catalog database"],
   ];
   const configHubIntroRows = [
     ["Unit", "A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe."],
@@ -585,7 +578,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <section aria-labelledby="parity-demos">
       <h2 id="parity-demos">1. Helm Parity</h2>
       <p>Start here, not with platform features. Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
-      <p>Parity does not prove target fit, production readiness, or every hook. It proves that the starting desired object set is the one Helm would have produced for the recorded inputs.</p>
+      <p>Parity does not mean the app is ready for every real cluster or every operating process. It means the starting Kubernetes objects match what Helm would have produced for the same inputs.</p>
       <div class="catalog">
         ${parityDemos
           .map(
@@ -599,10 +592,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
           )
           .join("\n        ")}
       </div>
-      <h3>Current evidence snapshot</h3>
-      <div class="grid">
-        ${proofCounters.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
-      </div>
     </section>
 
     <section aria-labelledby="do-next">
@@ -615,38 +604,41 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">3. What Are The Limits?</h2>
-      <p>Render parity is the baseline, not the end. CRDs, webhooks, target facts, existing Secrets, cloud identity, storage, controller-owned runtime state, and hook-like lifecycle behavior need explicit routes.</p>
-      ${markdownLikeTable([
-        ["Limit", "Meaning", "Where to look"],
-        ...limitRows.map(([limit, body, link]) => [limit, body, `<a href="${link}">${link}</a>`]),
-      ], { rawThirdColumn: true })}
-      <p><a href="./hard-questions.html">Open hard questions</a> for the skeptical path through hooks, upgrades, custom values, target prerequisites, GitOps sync, and free versus managed boundaries.</p>
-      <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send a problem chart</a>. The answer should be a fixture, receipt, named refusal, or routed gap.</p>
+      <h2 id="limits">3. Verifying What We Can And Cannot Do With This Model</h2>
+      <p>Comparing with Helm is the start of the story, not the whole story. It answers one useful question: did this package produce the same starting Kubernetes objects that Helm would have produced?</p>
+      <p>Real deployments can still need extra preparation. A chart may expect an existing Secret, a storage class, a cloud account, a CRD, a webhook, or a setup job. Those things should be visible before a user depends on the install path.</p>
+      <div class="catalog">
+        ${limitCards.map(([title, body, link, linkText]) => `<article class="card">
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(body)}</p>
+          <p><a href="${escapeHtml(link)}">${escapeHtml(linkText)}</a></p>
+        </article>`).join("\n        ")}
+      </div>
+      <p>If you want to check the details, start with the chart page rather than the raw proof files. The chart page tells you which bases exist, what caveats apply, and where the deeper evidence lives.</p>
+      <div class="grid">
+        <div class="card"><h3>Check a chart</h3><p>Use the catalog when you want to know what choices exist for a specific Helm chart and which path is the best place to start.</p><p><a href="./charts/index.html">Open the Helm Catalog</a></p></div>
+        <div class="card"><h3>Read the limits</h3><p>Use the FAQ and known-gaps guide when you want plain answers about hooks, upgrades, custom values, GitOps sync, and current rough edges.</p><p><a href="./hard-questions.html">Open the FAQ</a> · <a href="./known-gaps.html">Known gaps</a></p></div>
+        <div class="card"><h3>Inspect the evidence</h3><p>The database and generated evidence are still available, but they are supporting material. They are for people who want to audit the claims behind a chart page.</p><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Evidence index</a></p></div>
+      </div>
+      <p>If your chart does not behave the way the catalog says it should, <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send us the problem chart</a>. We will either make it work, explain what needs to be prepared first, or say clearly why that path is not covered yet.</p>
     </section>
 
     <section aria-labelledby="confighub">
-      <h2 id="confighub">4. What Else Can ConfigHub Do?</h2>
-      <p>The public catalog proves the path. ConfigHub Server is where teams use the same explicit objects for private catalogs, applications, variant SDLC, promotions, fleet operations, GitOps/OCI handoff, observations, and audit.</p>
+      <h2 id="confighub">4. What Else Can I Do Using ConfigHub?</h2>
+      <p>The public catalog is the first proof: we can keep Helm as the source, turn chosen install paths into explicit config, and check that the starting result still matches Helm. ConfigHub Server is where the same idea becomes a team workflow for real applications.</p>
+      <p>Instead of treating each Helm install as a one-off command, teams can keep the desired state in one place, make variants deliberately, promote changes through environments, deliver through GitOps, and keep records of what happened.</p>
       <div class="grid">
-        <div class="card"><h3>Free / local</h3><p>Browse the catalog, inspect generated configs, run parity checks, and verify receipts locally.</p><p><a href="./try.html">Get Started</a></p></div>
-        <div class="card"><h3>Connected</h3><p>Upload rendered objects as ConfigHub Units, create application variants, promote through environments, and publish OCI for GitOps.</p><p><a href="./journey.html">Open Apps</a></p></div>
-        <div class="card"><h3>Managed ops</h3><p>Run scans, policy gates, bulk patches, upgrades, rollback checks, observations, and live evidence across teams and targets.</p><p><a href="./operations.html">Open Ops</a></p></div>
+        <div class="card"><h3>Private catalogs</h3><p>Bring your own charts, wrapper charts, platform bundles, and customer values into the same recipe and variant model.</p><p><a href="./private/">Upgrade</a></p></div>
+        <div class="card"><h3>Apps and variants</h3><p>Represent an app, service, platform component, or stack as a family of named variants: base, dev, staging, prod, customer, region, or target.</p><p><a href="./journey.html">Open Apps</a></p></div>
+        <div class="card"><h3>Promotions</h3><p>Move an approved change from one variant to another, preview the exact difference, and keep approvals attached to the change.</p><p><a href="./variants.html">Open Variants</a></p></div>
+        <div class="card"><h3>Operations</h3><p>Scan, patch, approve, deliver, observe, upgrade, roll back, and ask fleet-wide questions after the app is running.</p><p><a href="./operations.html">Open Ops</a></p></div>
+        <div class="card"><h3>AI with records</h3><p>Let AI propose changes, but keep the result reviewable: exact diffs, gates, receipts, delivery evidence, and a visible path back if something goes wrong.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">AI-assisted changes</a></p></div>
       </div>
     </section>
 
-    <section aria-labelledby="background">
-      <h2 id="background">Reviewer Evidence</h2>
-      <p>The proof corpus and source repository are still available, but they are supporting material rather than the first thing a new Helm user has to understand.</p>
-      <div class="grid">
-        <div class="card"><h3>Docs and data</h3><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Generated evidence index</a></p></div>
-        <div class="card"><h3>Quirks</h3><p><a href="./charts/index.html#actions">ConfigHub Actions</a> · <a href="../data/preview-readiness/summary.md">Preview readiness</a> · <a href="../data/lifecycle-routes/summary.md">Lifecycle routes</a></p></div>
-        <div class="card"><h3>Source and scope</h3><p><a href="../README.md">Repository README</a> · <a href="../docs/user/what-we-refuse-to-claim.md">Refusals</a> · <a href="../data/claims-register/summary.md">Claims register</a></p></div>
-      </div>
-    </section>
   </main>
   <footer>
-    Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
+    Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
   </footer>
 </body>
 </html>
@@ -988,7 +980,7 @@ function legacyDashboardHtml(catalog) {
       <div class="door">
         <span class="kicker">Challenge it</span>
         <h3><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Send a problem chart</a></h3>
-        <p>If a public chart, values file, hook, CRD, or live behavior breaks the model, send it. The response should be a fixture, receipt, named refusal, or routed gap.</p>
+        <p>If a public chart, values file, hook, CRD, or live behavior does not work, send it to us. We will use it as a test case: either make the path work, explain what has to be prepared first, or say clearly why it is not covered yet.</p>
         <span class="go"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the issue template →</a></span>
       </div>
     </div>
