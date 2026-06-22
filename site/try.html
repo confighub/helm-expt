@@ -269,6 +269,8 @@
 
     .hero { padding-top: 56px; }
     .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .path-card { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: var(--surface); }
+    .path-card h3 { font-size: 1.08rem; }
     .step { border-left: 3px solid var(--accent); padding-left: 12px; margin: 20px 0; }
     @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
   </style>
@@ -276,74 +278,43 @@
 <body>
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
-    <h1>Try the catalog in three short paths.</h1>
+    <h1>Path 1: Redis Happy Path</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this try-now page.</p>
-    <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
-    <div class="card"><table>
-        <thead><tr><th>Mode</th><th>What it requires and proves</th></tr></thead>
-        <tbody><tr><td>No cluster</td><td>Browse chart pages, inspect recipes, and render a package locally. No ConfigHub account or Kubernetes cluster required.</td></tr><tr><td>Local kind cluster</td><td>Apply generated manifests to a disposable cluster when you want live Kubernetes evidence without a GitOps controller.</td></tr><tr><td>ConfigHub connected</td><td>Upload rendered objects as Units, create variants, and publish OCI for Argo/Flux or other delivery paths.</td></tr><tr><td>Bring your own GitOps</td><td>Keep Argo or Flux. Point it at the ConfigHub OCI artifact instead of re-rendering Helm downstream.</td></tr><tr><td>cub-lk option</td><td>Use cub-lk when you want a quick kind plus Argo-style demo rig. Bring your own cluster for serious testing.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    <div class="card"><table>
-        <thead><tr><th>Stage</th><th>What to check</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>After setup</td><td>`cub installer --help` shows installer commands.</td><td>You can pull and render a public package.</td></tr><tr><td>After Redis render</td><td>Look for rendered Kubernetes objects under the work directory, plus separated Secret material in `out/secrets` when present.</td><td>The chart became explicit local config.</td></tr><tr><td>After render verification</td><td>`redis:verify-install:render` prints `PASS` and writes a receipt.</td><td>Your local render matches the catalog contract.</td></tr><tr><td>After ConfigHub upload</td><td>The ConfigHub Space contains labeled Redis Units and the verifier prints `PASS`.</td><td>The rendered objects became reviewable ConfigHub config.</td></tr><tr><td>After live evidence</td><td>The matrix or receipt shows `pass`, `watch`, `blocked`, or `refused` with a reason.</td><td>The claim is bounded to the target and does not rely on a green render alone.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    <div class="card"><table>
-        <thead><tr><th>Path</th><th>ConfigHub account?</th><th>Cluster?</th><th>GitOps?</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Serverless render</td><td>No</td><td>No</td><td>No</td><td>Use for first inspection and copy/paste confidence.</td></tr><tr><td>Local kind apply</td><td>No</td><td>Yes: kind or Docker/OrbStack</td><td>No</td><td>Use for simple live Kubernetes feedback.</td></tr><tr><td>Two-cluster parity</td><td>No</td><td>Yes: two disposable kind clusters</td><td>No</td><td>Use for Helm-vs-cub live comparison.</td></tr><tr><td>ConfigHub upload</td><td>Yes</td><td>No for upload; yes for live delivery</td><td>No</td><td>Use to see Units, Spaces, labels, variants, and reviewable desired state.</td></tr><tr><td>GitOps/OCI</td><td>Yes</td><td>Yes: Argo or Flux target</td><td>Yes</td><td>Use when you want controller reconciliation evidence.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    <p><a href="../docs/user/expected-results-and-clusters.md">Open Expected Results And Clusters</a> for output snippets, cluster choices, bring-your-own Kubernetes guidance, the <code>cub-lk</code> option for Argo/kind demos, and when <code>npm run ...</code> proof checks are optional.</p>
-    <p><a href="../docs/user/choose-your-path.md">Open the route picker</a> if you are deciding between direct Helm commands, public catalog packages, and ConfigHub-managed operations.</p>
+    <p class="tagline">Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
+    <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
   </header>
   <main>
-    <section aria-labelledby="setup">
-      <h2 id="setup">Setup</h2>
-      <p>Clone the repo and check the public corpus first. There are no npm dependencies.</p>
-      <pre>git clone https://github.com/confighub/helm-expt.git
-cd helm-expt
-npm run site:verify
-npm run docs:verify</pre>
-      <p>Install the ConfigHub installer plugin before running package setup commands.</p>
-      <pre>cub version
-cub plugin install confighub/installer
-cub installer --help</pre>
+    <section aria-labelledby="choice">
+      <h2 id="choice">Helm install or cub installer?</h2>
+      <p>There are two useful ways to look at the same Redis chart. Helm is the direct deploy path. cub installer is the explicit-config path.</p>
+      <div class="split">
+        <section class="path-card">
+          <h3>Normal Helm</h3>
+          <p>Use this if you want Helm to deploy Redis directly into a Kubernetes cluster.</p>
+          <p><strong>Kubernetes cluster required.</strong></p>
+        </section>
+        <section class="path-card">
+          <h3>cub installer</h3>
+          <p>Use this if you want Redis rendered into explicit local config first, so it can be inspected and managed before delivery.</p>
+          <p><strong>No cluster or ConfigHub account required for the render.</strong></p>
+        </section>
+      </div>
+      <p>The exact commands and expected output belong on the Redis chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
+      <p><a href="./charts/bitnami-redis-25-5-3.html">Open the Redis chart page</a>.</p>
     </section>
 
-    <section aria-labelledby="fastest">
-      <h2 id="fastest">Path 0: Fastest Look, No Catalog Needed</h2>
-      <p>If you only want to see what a chart renders, you do not need this repo at all. These are the direct fast paths; the catalog paths below add reviewed bases, receipts, and live evidence on top.</p>
-      <pre># See the exact objects a chart produces. No ConfigHub account.
-cub helm template
-
-# Load one Helm render into ConfigHub Units. Needs an account.
-cub helm install</pre>
-      <p>The trade-off: fast paths give you this render, today. The catalog paths give you a named, maintained base with render parity against regular Helm, scans, and committed live receipts.</p>
+    <section aria-labelledby="should-see">
+      <h2 id="should-see">You should see something like this</h2>
+      <p>With normal Helm, Redis should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Redis should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
+      <p>Use <a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a> when you want the longer checklist for clusters, local files, ConfigHub upload, and live evidence.</p>
     </section>
 
-    <section aria-labelledby="redis">
-      <h2 id="redis">Path 1: Redis Happy Path</h2>
-      <p>Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
-      <p>Start with ordinary Helm as the control. Then run the cub installer path with the same chart version and base assumptions. The first useful proof is not that ConfigHub is clever; it is that the starting object set is preserved.</p>
+    <section aria-labelledby="what-this-proves">
+      <h2 id="what-this-proves">What This First Step Proves</h2>
+      <p>Redis answers the first question: can a Helm chart be converted into a cub installer package without changing the intended Kubernetes object set? Once that foundation is visible, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
       <div class="card"><table>
-        <thead><tr><th>Path</th><th>Command</th><th>You should see</th></tr></thead>
-        <tbody><tr><td>Standard Helm</td><td><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></td><td>A normal Helm release and Redis Kubernetes objects.</td></tr><tr><td>cub installer</td><td><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></td><td>Rendered manifests under the work directory, plus separated Secret material in <code>out/secrets</code> when present.</td></tr><tr><td>Proof check</td><td><code>npm run redis:verify-install:render -- --base default --work-dir .tmp/demo/redis-default --namespace redis</code></td><td><code>PASS</code>, the canonical SHA, and semantic object match count.</td></tr></tbody>
+        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+        <tbody><tr><td>Does this replace Helm?</td><td>No. Helm remains the source chart ecosystem and the control path.</td></tr><tr><td>Does cub installer deploy the app?</td><td>Not by itself. It renders a reviewed package into explicit config first.</td></tr><tr><td>Do I need ConfigHub for this first step?</td><td>No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations.</td></tr><tr><td>Where is the evidence?</td><td>On chart pages, docs, and data surfaces. The Get Started page should stay human-first.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -351,123 +322,15 @@ cub helm install</pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <div class="split">
-        <section class="card">
-          <h3>Catalog status</h3>
-          <table>
-        <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Chart</td><td>bitnami/redis@25.5.3</td></tr><tr><td>Start base</td><td>default</td></tr><tr><td>Readiness</td><td>render-only</td></tr><tr><td>Reason</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr></tbody>
-      </table>
-        </section>
-        <section class="card">
-          <h3>Run</h3>
-          <pre>cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
-  --non-interactive \
-  --namespace redis
-
-npm run redis:verify-install:render -- \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
-  --namespace redis</pre>
-        </section>
-      </div>
-      <p>Expected result: the render verifier prints PASS and writes a receipt under <code>.tmp/verify-install/</code>. That proves your rendered Redis objects match the catalog acceptance contract.</p>
-      <div class="card">
-        <h3>You should see something like this</h3>
-        <pre><code>PASS verify-install:render bitnami/redis/25.5.3 default
-render matches canonical: &lt;sha256&gt;
-semantic object matches: 14/14</code></pre>
-        <p>If your work directory contains <code>out/secrets</code>, apply that directory before the main manifests when doing a local Kubernetes run. The Redis default base separates Secret material so it is not hidden inside ConfigHub by accident.</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="two-cluster">
-      <h2 id="two-cluster">Optional: Two-Cluster Helm Parity</h2>
-      <p>Use this when you want a stricter live check without a ConfigHub account. The harness installs regular Helm into one fresh kind cluster, installs the cub installer render into another fresh kind cluster, and compares the live outcome. This is slower than the Redis render check, so it is optional for first use.</p>
-      <pre><code>npm run kind-parity:run -- \
-  --chart bitnami/redis \
-  --version 25.5.3 \
-  --base default</code></pre>
-      <div class="card">
-        <h3>You should see something like this</h3>
-        <pre><code>regular Helm cluster: pass
-cub installer cluster: pass
-semantic live diff: none
-receipt: runs/live-kind-parity/bitnami-redis-default/receipt.yaml</code></pre>
-        <p>This does not require ConfigHub. It proves a narrower but very useful question: regular Helm and cub installer reached the same live result on two disposable vanilla kind targets.</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="confighub">
-      <h2 id="confighub">Path 2: Upload To ConfigHub</h2>
-      <p>Use this when you want to see the rendered objects as ConfigHub Units. This requires an authenticated ConfigHub context.</p>
-      <pre>cub auth login
-cub context get -o json
-cub installer upload \
-  --work-dir .tmp/demo/redis-default \
-  --space helm-redis-default \
-  --component Redis \
-  --layer App \
-  --environment Demo \
-  --owner ConfigHubHelm \
-  --variant default \
-  --unit-label Component=Redis \
-  --unit-label HelmChart=bitnami-redis \
-  --unit-label HelmChartVersion=25.5.3 \
-  --unit-label Variant=default
-
-npm run redis:verify-install:confighub -- \
-  --base default \
-  --space helm-redis-default</pre>
-      <p>Expected result: ConfigHub shows a <code>helm-redis-default</code> Space with labeled Redis Units. Open ConfigHub, choose the Space, then inspect Units and labels.</p>
-      <div class="card">
-        <h3>You should see something like this</h3>
-        <pre><code>PASS verify-install:confighub bitnami/redis/25.5.3 default
-space: helm-redis-default
-units: Redis objects with Component=Redis and Variant=default labels</code></pre>
-      </div>
-    </section>
-
-    <section aria-labelledby="kps">
-      <h2 id="kps">Path 3: Serious Chart Check</h2>
-      <p>Use kube-prometheus-stack to see why the catalog is more than a Redis demo. It includes CRDs, webhooks, RBAC, generated facts, dependency locks, extension slots, and target prerequisites.</p>
-      <p>The important question is not only whether the YAML matches Helm. Render parity is the baseline. The serious-chart path also shows target facts and lifecycle prerequisites: compatible CRDs, admission webhook certificate material, and live observation boundaries that must be explicit before a config-only install can be trusted.</p>
-      <div class="split">
-        <section class="card">
-          <h3>Catalog status</h3>
-          <table>
-        <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Chart</td><td>prometheus-community/kube-prometheus-stack@85.3.3</td></tr><tr><td>Start base</td><td>default</td></tr><tr><td>Readiness</td><td>render-only</td></tr><tr><td>Reason</td><td>render parity exists, but two-cluster live parity has no committed receipt for this base</td></tr></tbody>
-      </table>
-        </section>
-        <section class="card">
-          <h3>Run</h3>
-          <pre>npm run kube-prometheus-stack:verify-proof
-npm run kube-prometheus-stack:verify-package
-npm run kube-prometheus-stack:compare</pre>
-        </section>
-      </div>
-      <p>Expected result: the chart proof and package checks pass. This checks the committed proof and package for the serious chart. Use the full live lanes when you need fresh cluster evidence.</p>
-      <div class="card">
-        <h3>You should see something like this</h3>
-        <pre><code>verified kube-prometheus-stack proof
-verified package artifacts
-render parity: pass</code></pre>
-        <p>This is still proof of the committed package and receipts. A fresh cluster run is separate and should name target prerequisites, CRDs, webhooks, and watch rows honestly.</p>
-      </div>
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">Next</h2>
+      <h2 id="next">Where To Go Next</h2>
       <div class="grid">
-        <div class="card"><h3>Full tutorial</h3><p><a href="../docs/user/tutorial-sequence.md">Open the tutorial sequence</a>.</p></div>
-        <div class="card"><h3>Can I use this chart?</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
-        <div class="card"><h3>Current proof</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
-        <div class="card"><h3>Catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
-        <div class="card"><h3>Base readiness</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
+        <div class="card"><h3>Exact Redis commands</h3><p>The full command table, expected output, catalog status, variants, caveats, and evidence links live on the Redis chart page.</p><p><a href="./charts/bitnami-redis-25-5-3.html">Open</a></p></div>
+        <div class="card"><h3>Expected results and clusters</h3><p>Use this when you want to know what output to expect and when a Kubernetes cluster is needed.</p><p><a href="../docs/user/expected-results-and-clusters.md">Open</a></p></div>
+        <div class="card"><h3>Choose another chart</h3><p>After Redis, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.</p><p><a href="./charts/index.html">Open</a></p></div>
+        <div class="card"><h3>Serious chart example</h3><p>Use kube-prometheus-stack later when you want to see CRDs, webhooks, target facts, and lifecycle prerequisites.</p><p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Open</a></p></div>
       </div>
     </section>
   </main>

@@ -11,7 +11,7 @@ Use this page as the simple checking pattern for the public guides.
 | User is doing | Cluster needed? | What they should check |
 | --- | --- | --- |
 | Render a public catalog package with `cub installer setup` | No | A work directory with rendered manifests, and optionally separated secrets. |
-| Compare their Redis render with the catalog | No | `PASS redis:verify-install:render ...` |
+| Compare their Redis render with the catalog | No | The Redis chart page links the committed evidence for the base they rendered. |
 | Upload to ConfigHub | No Kubernetes cluster, but ConfigHub auth is required | A Space with labeled Units. |
 | Apply locally | Yes, any reachable Kubernetes context | `kubectl get` shows created workloads, and live checks show `Running` or `Ready`. |
 | Compare Helm and cub installer live behavior | Yes, usually throwaway kind clusters | The parity receipt says `pass`, `watch`, or `blocked` with a named reason. |
@@ -72,22 +72,8 @@ kubectl apply -f .tmp/demo/redis-default/out/secrets
 kubectl apply -f .tmp/demo/redis-default/out/manifests
 ```
 
-Optional proof check:
-
-```sh
-npm run redis:verify-install:render -- \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
-  --namespace redis
-```
-
-You should see:
-
-```text
-PASS redis:verify-install:render bitnami/redis/25.5.3 default
-```
-
-That verifies your local rendered objects match the Redis catalog contract.
+The Redis chart page carries the catalog evidence for this base. You do not
+need to run the repository proof harness for the first pass through the guide.
 
 ## Stage 2: Standard Helm Baseline
 
@@ -125,18 +111,11 @@ kubectl -n helm-redis get statefulset,pod,pvc
 You should see Redis StatefulSets, pods, and PVCs. Some charts take time to
 become ready; readiness is a live-cluster fact, not a render fact.
 
-For strict parity, use the repo parity runner instead of comparing namespaces by
-eye. It runs regular Helm in one vanilla kind cluster and cub installer output
-in another:
-
-```sh
-npm run kind-parity:run -- \
-  --chart bitnami/redis \
-  --version 27.0.0 \
-  --base default
-```
-
-That command is a proof-lane command. It is not the default user install path.
+For strict parity, use two clean clusters rather than comparing namespaces by
+eye. Install regular Helm into one cluster. Render with `cub installer` and
+apply the output into the other. Then compare the live Kubernetes objects and
+workload readiness. The repository has a harness that automates this for
+maintainers; that harness is not the default user install path.
 
 ## Stage 3: Upload To ConfigHub
 
@@ -174,15 +153,9 @@ In the ConfigHub UI:
 Space helm-redis-default -> Units
 ```
 
-You should see the same Units and labels. If the guide asks for proof, run:
-
-```sh
-npm run redis:verify-install:confighub -- \
-  --base default \
-  --space helm-redis-default
-```
-
-You should see a PASS result for the uploaded Redis Units.
+You should see the same Units and labels. If you want to rerun the repository
+proof harness, use [Verify It Yourself](./verify-it-yourself.md) after the
+product path is clear.
 
 ## Stage 4: Local Kubernetes
 
@@ -210,16 +183,9 @@ kubectl -n redis get statefulset,pod,pvc
 You should see Redis workloads and PVCs. A healthy Redis run should eventually
 show pods in `Running` or `Ready` state.
 
-Optional Redis cluster check:
-
-```sh
-npm run redis:verify-install:cluster -- \
-  --base default \
-  --context kind-helm-expt-demo \
-  --namespace redis
-```
-
-You should see checks for StatefulSets, PVCs, and Redis `PING`.
+For deeper checks, use `kubectl describe`, workload logs, or a cub-scout
+receipt. The repository proof harness can also check Redis-specific behavior,
+but it should not be the first thing a new user has to understand.
 
 ## Stage 5: Argo, Flux, And cub-lk
 
@@ -295,22 +261,17 @@ path, future chart refreshes, and catalog-grade proof.
 
 ## What Not To Put In The Default Guide Path
 
-Do not make a new user run the full repo gate just to understand the product:
-
-```sh
-npm run verify
-```
-
+Do not make a new user run the full repo gate just to understand the product.
 Use it for broad repo verification before release or review. In a user guide,
-prefer the narrow check tied to the thing they just did:
+prefer a visible check tied to the thing they just did:
 
 | User just did | Narrow check |
 | --- | --- |
-| Rendered Redis | `npm run redis:verify-install:render ...` |
-| Uploaded Redis | `npm run redis:verify-install:confighub ...` |
-| Applied Redis to a cluster | `npm run redis:verify-install:cluster ...` |
-| Wants strict Helm-vs-installer parity | `npm run kind-parity:run ...` |
-| Wants GitOps/OCI proof | the live parity or runtime/GitOps lane for that exact chart/base |
+| Rendered Redis | Inspect the work directory and compare with the Redis chart page evidence. |
+| Uploaded Redis | List Units in the ConfigHub Space and check labels in the UI. |
+| Applied Redis to a cluster | Use `kubectl get`, `kubectl describe`, logs, or cub-scout receipts. |
+| Wants strict Helm-vs-installer parity | Use two clean clusters: Helm in one, cub installer output in the other, then compare live objects. |
+| Wants GitOps/OCI proof | Check the controller sync, workload readiness, and the chart/base evidence page. |
 
 The default UX should stay simple. The proof machinery is there when the user
 asks, "how do I know?"

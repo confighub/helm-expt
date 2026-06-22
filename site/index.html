@@ -274,6 +274,7 @@
     <h1>ConfigHub helps you run Helm at scale</h1>
     <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this public catalog homepage.</p>
     <p>Helm is good. The trouble starts when every real app needs one more tweak: a value here, a Secret model there, CRDs on one cluster and off on another, an emergency live edit, a customer overlay, or an upgrade that removes something important. The chart still works, but the customisation becomes hard to see.</p>
+    <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. Cub includes standalone offline tools and additional long-lived services that work with ConfigHub Server. This site is for Helm users who want a better way to manage Helm charts operationally.</p>
     <p>helm-expt is an experiment for using ConfigHub to help you solve that problem. We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
     <p>Once we can see the Helm install path and ConfigHub path can get the same deployment, we call that <strong>parity</strong>. And now the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
     <div class="journey-flow" aria-label="Four-step product journey">
@@ -367,39 +368,33 @@
         <article class="card">
           <span class="kicker">Standard Redis</span>
           <h3>Start with the smallest happy path</h3>
-          <p>Redis is the teaching chart. Render the public package, verify your local render against the catalog, then choose whether to apply locally or upload into ConfigHub.</p>
-          <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis
-npm run redis:verify-install:render -- --base default --work-dir .tmp/redis --namespace redis</code></pre>
+          <p>Redis is the teaching chart. Start with ordinary Helm, then render the same chart path with cub installer so you can inspect the explicit objects before doing anything more complicated.</p>
+          <pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis</code></pre>
           <p><a href="./try.html">Get started with Redis</a></p>
         </article>
         <article class="card">
           <span class="kicker">Serverless parity</span>
           <h3>No account: Helm vs cub installer in two kind clusters</h3>
-          <p>This is the cleanest parity check. The harness installs regular Helm into one vanilla kind cluster, applies the cub installer output into another, and compares the live object meaning.</p>
-          <pre><code>npm run kind-parity:run -- --chart bitnami/redis --version 25.5.3 --base default</code></pre>
-          <p><a href="../data/live-kind-parity/summary.md">Open two-cluster parity receipts</a></p>
+          <p>This is the cleanest live parity idea: install regular Helm into one clean kind cluster, apply the cub installer output into another clean kind cluster, then compare the live object meaning.</p>
+          <p><a href="../data/live-kind-parity/summary.md">Open two-cluster parity evidence</a></p>
         </article>
         <article class="card">
           <span class="kicker">Connected parity</span>
           <h3>ConfigHub path: Helm vs ConfigHub OCI/GitOps</h3>
-          <p>This checks the connected path: ConfigHub publishes the rendered object set as OCI, Argo reconciles it, and the live result is compared with regular Helm.</p>
-          <pre><code>npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base default</code></pre>
-          <p><a href="../data/live-helm-confighub-compare/summary.md">Open live Helm-vs-ConfigHub receipts</a></p>
+          <p>This checks the connected path: ConfigHub publishes the rendered object set as OCI, a GitOps controller reconciles it, and the live result is compared with regular Helm.</p>
+          <p><a href="../data/live-helm-confighub-compare/summary.md">Open live Helm-vs-ConfigHub evidence</a></p>
         </article>
         <article class="card">
           <span class="kicker">Your chart choice</span>
           <h3>Pick any catalog chart and run the same parity question</h3>
           <p>The point is not that Redis works. The useful test is whether the same chart, version, values, and base variant can be proved against regular Helm.</p>
-          <pre><code>npm run kind-parity:run -- --chart &lt;repo/chart&gt; --version &lt;version&gt; --base &lt;base&gt;</code></pre>
           <p><a href="./charts/index.html">Choose a chart</a></p>
         </article>
         <article class="card">
           <span class="kicker">Quirks included</span>
           <h3>Use kube-prometheus-stack for the hard case</h3>
           <p>This is the serious example: CRDs, webhooks, RBAC, generated facts, extension slots, target facts, upgrade checks, and live observations. It shows where parity is enough and where lifecycle evidence is still needed.</p>
-          <pre><code>npm run kube-prometheus-stack:verify-proof
-npm run kube-prometheus-stack:verify-package
-npm run kube-prometheus-stack:compare</code></pre>
           <p><a href="../docs/user/serious-chart-proof.md">Open the serious chart guide</a></p>
         </article>
       </div>
