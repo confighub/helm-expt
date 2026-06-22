@@ -241,6 +241,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |
 | `coverage-completion-plan` | [coverage-completion-plan/summary.md](./coverage-completion-plan/summary.md) | ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family |
+| `cub-adoption-caveats` | [cub-adoption-caveats/summary.md](./cub-adoption-caveats/summary.md) | supporting generated evidence |
 | `cub-scout-diff` | [cub-scout-diff/summary.md](./cub-scout-diff/summary.md) | supporting generated evidence |
 | `data-index` | - | CSV index and generated data guide |
 | `derived-variant-target-bound` | [derived-variant-target-bound/summary.md](./derived-variant-target-bound/summary.md) | derived ConfigHub variants with target/live evidence |
@@ -289,6 +290,8 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `outcome-coverage` | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | front-door outcome, test, and status map |
 | `outcome-evidence-contract` | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md) | supporting generated evidence |
 | `pain-point-coverage` | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | front-door Helm pain point coverage map |
+| `per-chart-hooks` | [per-chart-hooks/summary.md](./per-chart-hooks/summary.md) | supporting generated evidence |
+| `persona-ux-guide-audit-2026-06-22` | [persona-ux-guide-audit-2026-06-22/summary.md](./persona-ux-guide-audit-2026-06-22/summary.md) | supporting generated evidence |
 | `preview-readiness` | [preview-readiness/summary.md](./preview-readiness/summary.md) | supporting generated evidence |
 | `production-disposition` | [production-disposition/summary.md](./production-disposition/summary.md) | top-20 production blockers and next actions |
 | `production-support-decisions` | [production-support-decisions/summary.md](./production-support-decisions/summary.md) | target-scoped production support decision artifacts |
@@ -332,7 +335,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 157 CSV files. Each row records the path, audience,
+It includes 160 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
