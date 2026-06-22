@@ -527,8 +527,8 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <h1>ConfigHub helps you run Helm at scale</h1>
     ${generatedStamp(catalog, label)}
     <p>Helm is good. The trouble starts when every real app needs one more tweak: a value here, a Secret model there, CRDs on one cluster and off on another, an emergency live edit, a customer overlay, or an upgrade that removes something important. The chart still works, but the customisation becomes hard to see.</p>
-    <p>helm-expt is an experimental launchpad for that problem. We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
-    <p>Once that parity is visible, the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
+    <p>helm-expt is an experiment for using ConfigHub to help you solve that problem. We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
+    <p>Once we can see the Helm install path and ConfigHub path can get the same deployment, we call that <strong>parity</strong>. And now the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
