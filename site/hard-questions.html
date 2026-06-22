@@ -271,8 +271,7 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>FAQ for skeptical Helm users.</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this FAQ page.</p>
-    <p class="tagline">Short answers first. Every answered question links to evidence. Questions that still need product work are marked as P1 backlog items and tracked in <a href="https://github.com/confighub/helm-expt/issues/1001">hard-questions-for-later</a>.</p>
+    <p>Short answers first. Each answer links to evidence or a tracked product gap. Questions that still need product work are marked as P1 backlog items and tracked in <a href="https://github.com/confighub/helm-expt/issues/1001">hard-questions-for-later</a>.</p>
   </header>
   <main>
     <section aria-labelledby="start-here">
@@ -392,7 +391,7 @@
           <h3>What if the cluster is the wrong shape?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>A green render is not enough. Some charts need CRDs, Secrets, storage classes, cloud identity, multiple schedulable nodes, API capabilities, or controller behavior that a generic cluster does not provide. Those conditions belong in target prerequisites, target-fit decisions, watch rows, blocked rows, or per-target routes.</p>
+        <p>A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.</p>
         <p class="faq-links"><a href="../docs/user/target-prerequisites-before-rerun.md">Before rerun</a> · <a href="../docs/user/reading-the-matrix.md">Reading the matrix</a></p>
       </article>
         <article class="faq-card later">
@@ -422,7 +421,7 @@
           <h3>What if a Helm upgrade caused a production crash?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>The model breaks the upgrade into old render, new render, object diff, blast-radius evidence, lifecycle checks, target prerequisites, gates, rehearsals, and receipts. That reduces opaque upgrades. It does not promise crash-free production.</p>
+        <p>The model breaks the upgrade into visible steps: old render, new render, object diff, and live checks. That reduces opaque upgrades. It does not promise crash-free production.</p>
         <p class="faq-links"><a href="../docs/user/helm-upgrade-crash-example.md">Upgrade crash example</a> · <a href="../data/blast-radius-accuracy/summary.md">Blast-radius accuracy</a></p>
       </article>
         <article class="faq-card answered">
@@ -430,17 +429,7 @@
           <h3>What should I do with non-green rows?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Do not hide them and do not spend time trying to make every already-dispositioned cell green. A watch, blocked, refused, or n/a cell can be the correct product answer when the reason is named and linked.</p>
-        <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>default</td><td>blocked</td><td>runtime-review</td><td>helm-runtime: upstream leg blocked</td></tr><tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>blocked</td><td>crd-bootstrap</td><td>crd-bootstrap: required CRDs missing before custom resources apply</td></tr><tr><td>argo-cd/argo-cd@9.5.17</td><td>default</td><td>watch</td><td>gitops-runtime-review</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td></tr><tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>default</td><td>watch</td><td>target-fit-review</td><td>target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)</td></tr><tr><td>bitnami/apache@11.4.29</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/contour@21.1.4</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/contour@21.1.4</td><td>no-crds</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr><tr><td>bitnami/elasticsearch@22.1.6</td><td>default</td><td>watch</td><td>image-retention-review</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+        <p>Use the matrix to read the reason. A watch, blocked, refused, or n/a cell can be the correct answer when the reason is named and linked.</p>
         <p class="faq-links"><a href="../data/status-dashboard/active-proof-queue.csv">Active proof queue</a> · <a href="./matrix.html">Matrix</a></p>
       </article>
         <article class="faq-card later">
@@ -486,7 +475,7 @@
           <h3>I know Helm flags. Why does cub reject --set or -f values.yaml?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>cub installer uses declared inputs, named bases, and image overrides instead of Helm's free-form --set model. The current lane shows cub rejects Helm idioms safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
+        <p>cub installer uses declared inputs and named bases instead of Helm's free-form --set model. Today cub rejects those Helm habits safely, but the errors are still too opaque. Use the migration guide until the CLI teaches this directly.</p>
         <p class="faq-links"><a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a> · <a href="../data/helm-habit-friction/summary.md">Helm-migrant friction data</a></p>
       </article>
         <article class="faq-card watch">
@@ -611,7 +600,7 @@
           <h3>What happens if someone manually edits a field and cub re-applies?</h3>
           <span class="faq-status">watch</span>
         </div>
-        <p>cub's managed delivery uses server-side apply, so a manual edit can produce a field-ownership conflict where Helm would silently overwrite. That can be safer, but it must be explained in plain words with a reconcile or force path instead of raw Kubernetes SSA output.</p>
+        <p>cub's managed delivery uses server-side apply. If someone edits the same field by hand, Kubernetes can block cub instead of silently overwriting the change. That can be safer, but the CLI must explain it and offer a clear reconcile or force path.</p>
         <p class="faq-links"><a href="../data/ssa-conflict-gap/summary.md">SSA conflict gap</a> · <a href="../docs/planning/helm-vs-cub-adoption-audit.md">Adoption audit</a></p>
       </article>
       </div>

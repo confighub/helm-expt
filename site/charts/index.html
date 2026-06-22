@@ -271,34 +271,12 @@
   <header>
     <nav class="topbar"><a class="brand" href="../index.html">helm-expt HOME</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav>
     <h1>Helm Catalog</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart index.</p>
-    <p>Currently we snapshot from public Helm repos and maintain a top-100 chart database of chart status, variants, quirks, and evidence. The chart pages below cover all 100 chart versions: the top-20 are catalog-supported, and the next-80 are proof-grade / machine-proof-only until promoted. This page also shows how Helm hooks and hook-like lifecycle behavior are observed, routed, blocked, refused, or made target-specific. The full database of currently tracked charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with all suggestions and questions.</p>
+    <p>This is a directory of 100 Helm charts and how each behaves in ConfigHub.</p>
+    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with suggestions and questions.</p>
   </header>
   <main>
-    <section aria-labelledby="actions">
-      <h2 id="actions">Hooks and other actions in ConfigHub deployments</h2>
-      <p>In Helm, some work appears as hooks or implicit lifecycle behavior. In the ConfigHub model, that work should become explicit actions: preflight checks, target-owned prerequisites, Argo/Flux sync actions, post-apply observations, or refused routes. A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is useful guidance; it is not an automatic execution claim unless the route says so and evidence proves it.</p>
-      <div class="grid">
-        <div class="metric"><strong>25</strong><span>lifecycle route rows</span></div>
-        <div class="metric"><strong>13</strong><span>chart/version lifecycle behaviors represented</span></div>
-        <div class="metric"><strong>0</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
-      </div>
-      <div class="card"><table>
-        <thead><tr><th>Disposition</th><th>Rows</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>observed</td><td>15</td><td>The selected lifecycle behavior has committed evidence.</td></tr><tr><td>per-target</td><td>1</td><td>The target class must choose or approve the route before a stronger claim.</td></tr><tr><td>routed</td><td>5</td><td>The route, executor, and off-ramp are named; automatic execution is not implied.</td></tr><tr><td>todo</td><td>4</td><td>The behavior is known, but the route or evidence still needs work.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>For a specific chart, open its chart page and read the ConfigHub Actions and lifecycle route details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>. The old <a href="../hooks.html">hooks URL</a> redirects here.</p>
-    </section>
-
     <section aria-labelledby="charts">
-      <h2 id="charts">Helm Catalog</h2>
+      <h2 id="charts">Chart Directory</h2>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
         <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -1243,6 +1221,29 @@
           update();
         })();
       </script>
+    </section>
+
+    <section aria-labelledby="actions">
+      <h2 id="actions">Hooks and other actions in ConfigHub deployments</h2>
+      <p>Some Helm charts use hooks or other lifecycle steps. We show those steps instead of hiding them.</p>
+      <p>A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is useful guidance; it is not an automatic execution claim unless the route says so and evidence proves it.</p>
+      <div class="card"><table>
+        <thead><tr><th>Disposition</th><th>Rows</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>observed</td><td>15</td><td>The selected lifecycle behavior has committed evidence.</td></tr><tr><td>per-target</td><td>1</td><td>The target class must choose or approve the route before a stronger claim.</td></tr><tr><td>routed</td><td>5</td><td>The route, executor, and off-ramp are named; automatic execution is not implied.</td></tr><tr><td>todo</td><td>4</td><td>The behavior is known, but the route or evidence still needs work.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>For a specific chart, open its chart page and read the action details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>.</p>
+      <div class="grid">
+        <div class="metric"><strong>25</strong><span>lifecycle route rows</span></div>
+        <div class="metric"><strong>13</strong><span>chart/version lifecycle behaviors represented</span></div>
+        <div class="metric"><strong>0</strong><span>rows safe to present as automatic</span></div>
+        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
+      </div>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>

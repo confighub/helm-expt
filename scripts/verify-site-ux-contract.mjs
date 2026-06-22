@@ -48,6 +48,17 @@ const checks = [
   },
 ];
 
+const menuGuidePages = [
+  "site/index.html",
+  "site/try.html",
+  "site/charts/index.html",
+  "site/variants.html",
+  "site/journey.html",
+  "site/operations.html",
+  "site/docs.html",
+  "site/hard-questions.html",
+];
+
 const failures = [];
 
 for (const check of checks) {
@@ -59,6 +70,21 @@ for (const check of checks) {
   const text = fs.readFileSync(fullPath, "utf8");
   for (const term of check.terms) {
     if (!text.includes(term)) failures.push(`${check.file}: missing ${JSON.stringify(term)}`);
+  }
+}
+
+for (const file of menuGuidePages) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) continue;
+  const text = fs.readFileSync(fullPath, "utf8");
+  const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
+    failures.push(`${file}: generated timestamp appears in the hero/header`);
+  }
+  const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
+    .filter(([, , label]) => label.includes("../") || /\.md(#.*)?$/.test(label.trim()));
+  for (const [, href, label] of rawPathLinks.slice(0, 5)) {
+    failures.push(`${file}: raw file path shown as link text ${JSON.stringify(label)} for href ${JSON.stringify(href)}`);
   }
 }
 

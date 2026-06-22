@@ -270,10 +270,10 @@
     .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
     .ophead h3 { margin: 0; font-size: 1.08rem; }
     .opmeta { margin: 6px 0 8px; }
-    .op .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
-    .op .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
-    .op .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
-    .op .badge.planned { color: var(--muted); background: var(--panel); }
+    .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
+    .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
+    .badge.planned { color: var(--muted); background: var(--panel); }
     .muted { color: var(--muted); }
     @media (max-width: 600px) { .ophead { flex-direction: column; } }
   </style>
@@ -282,9 +282,8 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>Ops Guide</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this ops guide.</p>
-    <p>Ops starts after an app graph exists. Use this guide for release control, scans, gates, delivery, observation, upgrades, rollback, bulk patches, and fleet questions.</p>
-    <p>Use the <a href="./journey.html">Apps guide</a> for app composition, custom apps, stacks, platform groups, and existing-app adoption. Use the <a href="./variants.html">Variants guide</a> for base variants, derived variants, and target-specific choices. This page is about operating those apps once they exist.</p>
+    <p>Use this guide for everything after an app exists: releasing, scanning, delivering, and watching it run.</p>
+    <p>Use the <a href="./journey.html">Apps guide</a> to create the app shape. Use the <a href="./variants.html">Variants guide</a> to decide how a chart changes. This page is about operating those apps once they exist.</p>
   </header>
   <main>
     <section aria-labelledby="before-ops">
@@ -294,6 +293,10 @@
 
     <section aria-labelledby="ops">
       <h2 id="ops">The operations</h2>
+      <div class="card">
+        <h3>Status legend</h3>
+        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
+      </div>
       <div class="op">
         <div class="ophead">
           <h3>Diff before you ship</h3>
@@ -301,7 +304,7 @@
         </div>
         <p class="opmeta"><code>review the variant's object diff vs its base</code> · <span class="muted">ConfigHub · free tier</span></p>
         
-        <p>Every derived variant carries an exact, reviewable object diff against the base it came from - so a reviewer sees precisely which objects and fields a change touches before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
+        <p>A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
         <p class="muted">See: <a href="../docs/user/change-routing-before-oci.md">change-routing-before-oci</a></p>
       </div>
       <div class="op">
@@ -311,7 +314,7 @@
         </div>
         <p class="opmeta"><code>function scans + safe-ops over rendered objects</code> · <span class="muted">free locally · paid for managed policy</span></p>
         
-        <p>Run policy/function scans over the rendered objects (privilege, capabilities, exposure, deprecated APIs) and safe operations, and hold delivery behind a gate until findings are accepted or waived with a named reason. The scan receipts carry the safety-relevant findings; signing proves origin, not safety.</p>
+        <p>Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.</p>
         <p class="muted">See: <a href="../data/external-scan-lane/summary.md">data/external-scan-lane</a></p>
       </div>
       <div class="op">
@@ -322,7 +325,7 @@
         <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Apps SDLC · ConfigHub Server</span></p>
         <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
-        <p>Apps and Variants choose the base, derived variant, and target. Ops begins when a prepared variant is released with gates, audit, delivery, observation, rollback, and fleet visibility. Current receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack: preview, changed Unit catch-up, and newly added Unit cloning.</p>
+        <p>Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.</p>
         <p class="muted">See: <a href="../data/variant-promotion/summary.md">data/variant-promotion</a> · <a href="../docs/user/prometheus-overlay-promotion-example.md">prometheus-overlay-promotion-example</a></p>
       </div>
       <div class="op">
@@ -332,7 +335,7 @@ cub variant promote &lt;space&gt;</code></pre>
         </div>
         <p class="opmeta"><code>publish content-addressed OCI; a controller reconciles</code> · <span class="muted">free to run · standard Argo/Flux</span></p>
         
-        <p>Publish the variant as a content-addressed OCI artifact (digest-pinned), and let an Argo or Flux controller pull and reconcile it - pull-based, drift-resistant delivery with the artifact identity fixed. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
+        <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
         <p class="muted">See: <a href="../docs/user/chain-of-proof.md">chain-of-proof</a> · <a href="../data/runtime-gitops/summary.md">data/runtime-gitops</a></p>
       </div>
       <div class="op">
@@ -369,6 +372,6 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
       <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Available operations run today; watch operations have evidence plus a named limitation; planned lanes require product, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+  <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
 </body>
 </html>

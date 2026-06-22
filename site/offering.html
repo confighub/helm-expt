@@ -272,8 +272,7 @@
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div>
     <h1>ConfigHub helps you run Helm at scale</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this public offering page.</p>
-    <p>Helm is good. The trouble starts when every real app needs one more tweak: a value here, a Secret model there, CRDs on one cluster and off on another, an emergency live edit, a customer overlay, or an upgrade that removes something important. The chart still works, but the customisation becomes hard to see.</p>
+    <p>Helm is good. The trouble starts when every real app needs one more tweak: a Secret model, a CRD choice, or a customer overlay. The chart still works, but the customisation becomes hard to see.</p>
     <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. Cub includes standalone offline tools and additional long-lived services that work with ConfigHub Server. This site is for Helm users who want a better way to manage Helm charts operationally.</p>
     <p>helm-expt is an experiment for using ConfigHub to help you solve that problem. We keep public Helm charts as the source, convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes, and ask the first useful question: under the same chart, base assumptions, values, and capability profile, does the ConfigHub path preserve Helm semantics?</p>
     <p>Once we can see the Helm install path and ConfigHub path can get the same deployment, we call that <strong>parity</strong>. And now the interesting part begins: can we use ConfigHub and AI to make changes at scale, keep those changes reviewable, and manage them without surprises?</p>
@@ -307,10 +306,10 @@
   <main>
     <section aria-labelledby="what-is-confighub">
       <h2 id="what-is-confighub">What Is ConfigHub?</h2>
-      <p>ConfigHub stores Kubernetes desired state as structured, versioned config. Every config is a data object equivalent to literal YAML without templates. Helm rendering is re-orchestrated into a workflow that operates on this data where possible, and flags the places where it cannot. ConfigHub then lets you keep those objects as atomic Units, create variants from sets of Units, review exact changes, apply gates, publish OCI artifacts, and compare what is live against what was intended.</p>
+    <p>ConfigHub stores Kubernetes desired state as structured, versioned config. That means the YAML Helm would create is kept as data you can inspect. ConfigHub can then keep those objects as Units, create variants from them, and review exact changes. It can also publish OCI artifacts and compare what is live with what was intended.</p>
       <div class="vocab-table"><div class="card"><table>
         <thead><tr><th>Word</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Unit</td><td>A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe.</td></tr><tr><td>Space</td><td>A working area that groups Units for one app, base, environment, customer, or target shape.</td></tr><tr><td>Component</td><td>The logical thing being configured and shipped: an app, service, platform package, or deployable capability.</td></tr><tr><td>Variant</td><td>Two related kinds: a base variant is a render-time Helm/recipe install shape; a derived ConfigHub variant is a post-render refinement of an uploaded base.</td></tr><tr><td>Target</td><td>The place the desired state is meant to run, including its cluster assumptions, credentials, and facts.</td></tr><tr><td>OCI bundle</td><td>The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes.</td></tr><tr><td>Observation</td><td>Using any tool to obtain live evidence about what actually happened after delivery, for example whether GitOps sync was achieved.</td></tr></tbody>
+        <tbody><tr><td>Unit</td><td>A versioned Kubernetes object or config item that ConfigHub can diff, label, gate, deliver, and observe.</td></tr><tr><td>Space</td><td>A working area that groups Units for one app, base, environment, customer, or target shape.</td></tr><tr><td>Component</td><td>The app, service, platform package, or deployable capability being configured.</td></tr><tr><td>Variant</td><td>Two related kinds: a base variant is a render-time Helm/recipe install shape; a derived ConfigHub variant is a post-render refinement of an uploaded base.</td></tr><tr><td>Target</td><td>The place the desired state is meant to run, including its cluster assumptions, credentials, and facts.</td></tr><tr><td>OCI bundle</td><td>The delivery artifact ConfigHub publishes so Argo, Flux, or a direct path can pull the same reviewed bytes.</td></tr><tr><td>Observation</td><td>Using any tool to obtain live evidence about what actually happened after delivery, for example whether GitOps sync was achieved.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -327,29 +326,29 @@
 
     <section aria-labelledby="helm-problem">
       <h2 id="helm-problem">The Problem</h2>
-      <p>Helm charts usually start simple. Then every app, team, cluster, and customer needs one more tweak: a different Secret model, an ingress rule, CRDs on or off, a storage class, cloud identity, hooks, resources, node placement, or a provider-specific values file. Those choices are reasonable, but the install path becomes harder to see.</p>
-      <p>That is where many Helm pain points come from. Values sprawl, hidden defaults, generated Secrets, dependency drift, webhook and CRD lifecycle, hook behavior, upgrade diffs, and environment-specific overrides can combine until nobody is sure what changed or why a live app broke.</p>
+      <p>Helm charts usually start simple. Then every app, team, and customer needs one more tweak: a different Secret model, an ingress rule, or a provider-specific values file. Those choices are reasonable, but the install path becomes harder to see.</p>
+      <p>That is where many Helm pain points come from. Values sprawl, hidden defaults, and upgrade diffs can combine until nobody is sure what changed or why a live app broke.</p>
       <p>Our view is that the real problem is not Helm itself. The hard part is customization. Every useful chart becomes a set of variants, and those variants need to be visible, versioned, compared, tested, promoted, and observed.</p>
       <p>Once multiple charts, custom values, and configuration variants are used for platforms, apps, and real use cases, the work becomes harder to track. Some old versions may have to be pinned. Teams need to know what will break in the next upgrade, why a deployment failed unexpectedly, and which change is safe to promote next. We are here to help with that.</p>
     </section>
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">The Value</h2>
-      <p>ConfigHub adds control around those variants. A public Helm chart remains the source, but selected install paths become cub installer recipes and ConfigHub variants. The rendered Kubernetes objects are stored as explicit desired state, with versions, labels, diffs, receipts, gates, and live observations.</p>
+      <p>ConfigHub adds control around those variants. A public Helm chart remains the source, but selected install paths become cub installer recipes and ConfigHub variants. The rendered Kubernetes objects are stored as explicit desired state, with versions, diffs, and live observations.</p>
       <div class="grid">
-        <div class="card"><h3>Variant store</h3><p>Keep base variants, derived variants, customer choices, environment choices, and target-specific choices in one place instead of scattering them across values files and shell history.</p></div>
-        <div class="card"><h3>Verified changes</h3><p>Compare against standard Helm, review exact object diffs, scan them, stage prerequisites, promote through environments, and keep receipts for what was rendered, delivered, and observed.</p></div>
+        <div class="card"><h3>Variant store</h3><p>Keep base variants, derived variants, and customer choices in one place instead of scattering them across values files and shell history.</p></div>
+        <div class="card"><h3>Verified changes</h3><p>Compare against standard Helm, review exact object diffs, and keep receipts for what was rendered, delivered, and observed.</p></div>
         <div class="card"><h3>Desired state for live apps</h3><p>Use ConfigHub as the central place that describes what should be running, then deliver through OCI, GitOps controllers, or direct apply paths and observe what actually happened.</p></div>
-        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, suggest patches, and help operate fleets. ConfigHub keeps those AI-assisted changes inspectable, versioned, gated, and verified before they become live state.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open the AI-assisted changes guide</a></p></div>
+        <div class="card"><h3>AI with guardrails</h3><p>AI can propose variants, explain diffs, and suggest patches. ConfigHub keeps those AI-assisted changes reviewed and reversible before they become live state.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open the AI-assisted changes guide</a></p></div>
       </div>
     </section>
 
     <section aria-labelledby="how-it-works">
       <h2 id="how-it-works">How It Works</h2>
-      <p>The public site now uses one mental model: render, route, deliver, observe. It is the short version of the mechanism docs, with the same honesty rails as the data.</p>
+      <p>The model has four moves: render, route, deliver, and observe. Each move has a plain job.</p>
       <div class="card"><table>
         <thead><tr><th>Move</th><th>What it means</th><th>Go deeper</th></tr></thead>
-        <tbody><tr><td>Render</td><td>Prove the cub installer package preserves Helm's rendered object set.</td><td><a href="../docs/user/how-it-works.md#1-render--the-recipe">../docs/user/how-it-works.md#1-render--the-recipe</a></td></tr><tr><td>Route</td><td>Make hooks, CRDs, target facts, and other quirks explicit instead of silent.</td><td><a href="../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe">../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe</a></td></tr><tr><td>Deliver</td><td>Publish one OCI bundle and let the selected controller pull the same bytes.</td><td><a href="../docs/user/cub-deployment-path.md">../docs/user/cub-deployment-path.md</a></td></tr><tr><td>Observe</td><td>Record live receipts and show pass, watch, blocked, todo, and n/a honestly.</td><td><a href="../docs/user/verification-lanes.md">../docs/user/verification-lanes.md</a></td></tr></tbody>
+        <tbody><tr><td>Render</td><td>Turn a Helm chart into plain Kubernetes files and compare them with Helm.</td><td><a href="../docs/user/how-it-works.md#1-render--the-recipe">Read render</a></td></tr><tr><td>Route</td><td>Helm's hidden lifecycle steps (hooks) become visible steps you can see and check before they run.</td><td><a href="../docs/user/how-it-works.md#2-route--everything-not-in-the-recipe">Read route</a></td></tr><tr><td>Deliver</td><td>Publish one OCI bundle and let the selected controller pull the same bytes.</td><td><a href="../docs/user/cub-deployment-path.md">Read delivery</a></td></tr><tr><td>Observe</td><td>Check what happened in the cluster and show the result honestly.</td><td><a href="../docs/user/verification-lanes.md">Read observation</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -394,7 +393,7 @@ cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-d
         <article class="card">
           <span class="kicker">Quirks included</span>
           <h3>Use kube-prometheus-stack for the hard case</h3>
-          <p>This is the serious example: CRDs, webhooks, RBAC, generated facts, extension slots, target facts, upgrade checks, and live observations. It shows where parity is enough and where lifecycle evidence is still needed.</p>
+          <p>This is the serious example: CRDs, webhooks, and more. It shows where parity is enough and where live evidence is still needed.</p>
           <p><a href="../docs/user/serious-chart-proof.md">Open the serious chart guide</a></p>
         </article>
       </div>
@@ -405,7 +404,7 @@ cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-d
       <p>Once parity is visible, the value is that rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
       <div class="card"><table>
         <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
-        <tbody><tr><td>Apps</td><td>Use public charts, custom apps, stacks, platform groups, variants, and promotion as one application path.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Ops</td><td>Once an app is live, scan, gate, deliver, observe, patch, upgrade, roll back, and answer fleet questions.</td><td><a href="./operations.html">./operations.html</a></td></tr><tr><td>Upgrade</td><td>Move into private catalogs, managed workflows, teams, approvals, SLAs, and production responsibility.</td><td><a href="./private/">./private/</a></td></tr></tbody>
+        <tbody><tr><td>Apps</td><td>Group charts and your own services into one app path.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Ops</td><td>Release, observe, patch, and upgrade apps after they exist.</td><td><a href="./operations.html">./operations.html</a></td></tr><tr><td>Upgrade</td><td>Move into private catalogs, teams, approvals, and managed responsibility.</td><td><a href="./private/">./private/</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -422,12 +421,12 @@ cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-d
       <div class="catalog">
         <article class="card">
           <h3>A matching render is the first check.</h3>
-          <p>It means the ConfigHub package produced the same starting Kubernetes objects that Helm would have produced for the same inputs. It does not mean every real cluster already has the secret, storage class, cloud account, CRD, or controller setup that the chart expects.</p>
+          <p>It means the ConfigHub package produced the same starting Kubernetes objects that Helm would have produced. It does not mean every cluster already has the secret, storage class, or cloud account the chart expects.</p>
           <p><a href="../docs/user/target-prerequisites.md">Read about cluster prerequisites</a></p>
         </article>
         <article class="card">
-          <h3>Some charts do work after the first objects are applied.</h3>
-          <p>A chart may create certificates, install CRDs, run setup jobs, wait for webhooks, or rely on a controller to finish its own setup. We try to show those steps explicitly, so you can see whether they have been observed, should be handled by Argo or Flux, or need you to prepare something first.</p>
+          <h3>Some charts need extra setup.</h3>
+          <p>A chart may create certificates, install CRDs, or wait for webhooks. We show those steps so you can see what has been observed and what must be prepared first.</p>
           <p><a href="./charts/index.html#actions">See chart actions</a></p>
         </article>
         <article class="card">

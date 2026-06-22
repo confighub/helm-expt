@@ -271,13 +271,12 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>Variants</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this variants page.</p>
-    <p class="tagline">A base variant is a reviewed Helm render choice. A derived variant is a ConfigHub refinement after render. Keeping that boundary clear is how the model stays predictable.</p>
+    <p>Helm starts by making files from a chart. We call this render. A base variant is a checked copy of those files. A derived variant is a later change in ConfigHub.</p>
   </header>
   <main>
     <section aria-labelledby="model">
       <h2 id="model">Component And Variant Model</h2>
-      <p>ConfigHub should not treat an app as only a pile of Kubernetes objects. A Component is the logical thing being configured and shipped. A Variant is one named configuration instance of that Component.</p>
+      <p>ConfigHub groups related config by Component and Variant. A Component is what you ship. A Variant is one named version of it.</p>
       <pre><code>Component: payments-api
 
 Variants:
@@ -288,7 +287,7 @@ Variants:
   payments-api/prod-eu</code></pre>
       <div class="card"><table>
         <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Component</td><td>The logical thing being configured and shipped: an app, service, platform package, or deployable capability such as redis, ingress-nginx, or payments-api.</td></tr><tr><td>Variant</td><td>One named configuration instance of a Component: base, dev, staging, prod-us, customer-a, ha, tls-enabled, and so on.</td></tr><tr><td>Operational behavior</td><td>`cub variant create` makes a downstream clone of an upstream configuration, stamped with upstream identity so it can later be promoted or upgraded from that upstream.</td></tr><tr><td>Caveat</td><td>Component is currently mostly a grouping concept. Variant has stronger behavior because create and promote give it clone and promotion semantics.</td></tr></tbody>
+        <tbody><tr><td>Component</td><td>The app, service, platform package, or deployable capability being configured, such as redis or payments-api.</td></tr><tr><td>Variant</td><td>One named configuration instance of a Component, such as base, dev, or prod-us.</td></tr><tr><td>Operational behavior</td><td>`cub variant create` copies a base into a downstream variant. That link lets a later promotion know where the change came from.</td></tr><tr><td>Caveat</td><td>Component groups related variants. Variant has stronger behavior because create and promote know how the copies are related.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -296,15 +295,15 @@ Variants:
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>This unlocks higher-level questions: what changed between base and prod-us, which variants are downstream of a base, whether a change can promote to staging but not prod, and whether an AI-assisted change stayed inside the approved variant boundary.</p>
+      <p>This lets a team ask clear questions: what changed, where did it come from, and did it stay inside the approved boundary?</p>
     </section>
 
     <section aria-labelledby="choose">
       <h2 id="choose">Which Kind Of Variant?</h2>
-      <p>You start from a base, then create dev, staging, prod, region, customer, or target variants. The important split is whether Helm has to render again.</p>
+      <p>You start from a base, then create variants for each environment or customer. The key question is whether Helm has to run again.</p>
       <div class="card"><table>
         <thead><tr><th>Action</th><th>Use it when</th><th>Examples</th></tr></thead>
-        <tbody><tr><td>Choose a base variant</td><td>Use when the choice changes Helm inputs or rendered Kubernetes objects.</td><td>CRDs on/off, HA mode, generated Secret vs existing Secret, ingress/TLS shape, storage mode.</td></tr><tr><td>Create a derived variant</td><td>Use after render when the change is target, environment, region, customer, labels, approvals, links, or observation policy.</td><td>prod-us-east from redis/default, region labels, target binding, namespace policy.</td></tr><tr><td>Go back to the recipe</td><td>Use when the desired change cannot be explained as a post-render refinement.</td><td>A different values file, wrapper chart, dependency closure, capability profile, or chart version.</td></tr></tbody>
+        <tbody><tr><td>Choose a base variant</td><td>Use when the choice changes what Helm renders.</td><td>CRDs on/off, HA mode, or generated Secret vs existing Secret.</td></tr><tr><td>Create a derived variant</td><td>Use after render when the change is about where or how the config is managed.</td><td>prod-us-east from redis/default, region labels, or target binding.</td></tr><tr><td>Go back to the recipe</td><td>Use when the change needs Helm to run again.</td><td>A different values file, wrapper chart, or chart version.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -318,7 +317,7 @@ Variants:
       <h2 id="journey">Variant Journey</h2>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Start from a base</td><td>Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral.</td></tr><tr><td>Upload to ConfigHub</td><td>The rendered objects become Units in the reviewed base configuration. This is where diffs, labels, links, gates, and ownership become visible.</td></tr><tr><td>Create a derived variant</td><td>Clone/refine the uploaded base for dev, staging, prod, region, customer, or target with `cub variant create`.</td></tr><tr><td>Preview and check</td><td>Use Unit diffs, labels, links, gates, and receipts to confirm the install shape stayed bounded.</td></tr><tr><td>Promote later changes</td><td>Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals.</td></tr></tbody>
+        <tbody><tr><td>Start from a base</td><td>Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral.</td></tr><tr><td>Upload to ConfigHub</td><td>Once rendered, each object becomes a Unit, which means a tracked piece of config you can diff, label, and gate before it ships.</td></tr><tr><td>Create a derived variant</td><td>Clone the uploaded base for each environment, region, or customer with `cub variant create`.</td></tr><tr><td>Preview and check</td><td>Use Unit diffs and receipts to confirm the change stayed bounded.</td></tr><tr><td>Promote later changes</td><td>Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -326,7 +325,7 @@ Variants:
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The UI/AX/FX Creator flows described in the docs are proposals over these primitives. The shipped commands are <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, gates, changesets, and <code>cub variant promote</code>.</p>
+      <p>The shipped commands are <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>.</p>
     </section>
 
     <section aria-labelledby="flow">
@@ -335,7 +334,7 @@ Variants:
 cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>The user should see a source base, a derived variant, changed paths, target binding, checks, and receipts. The UI can hide most of that language, but the data stays available for reviewers and agents.</p>
+      <p>You should see a source base, a derived variant, changed paths, and receipts. Product screens can simplify the language, while the data stays available for reviewers and agents.</p>
       <div class="card">
         <h3>You should see something like this</h3>
         <pre><code>created downstream variant
@@ -349,7 +348,7 @@ promotion dry-run lists mutations before apply</code></pre>
       <h2 id="examples">Examples</h2>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Redis</td><td>default and reuse-existing-secret are base variants because the Secret model changes rendered objects.</td><td><a href="./charts/bitnami-redis-25-5-3.html">./charts/bitnami-redis-25-5-3.html</a></td></tr><tr><td>Prometheus</td><td>server-only and production target variants show the base-to-derived split for a larger app.</td><td><a href="../docs/user/prometheus-overlay-promotion-example.md">../docs/user/prometheus-overlay-promotion-example.md</a></td></tr><tr><td>kube-prometheus-stack</td><td>The serious chart shows why variants must carry target facts, lifecycle routes, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">./charts/prometheus-community-kube-prometheus-stack-85-3-3.html</a></td></tr></tbody>
+        <tbody><tr><td>Redis</td><td>default and reuse-existing-secret are base variants because the Secret model changes rendered objects.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Prometheus</td><td>server-only and production target variants show the base-to-derived split for a larger app.</td><td><a href="../docs/user/prometheus-overlay-promotion-example.md">Prometheus</a></td></tr><tr><td>kube-prometheus-stack</td><td>The serious chart shows why variants must carry target facts, lifecycle routes, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

@@ -279,16 +279,15 @@
   <header class="hero">
     <nav class="topbar"><a class="brand" href="./index.html">helm-expt HOME</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav>
     <h1>Apps Guide</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this apps guide.</p>
-    <p>Apps are where chart-level work becomes something a team can manage: one or more Helm chart bases, customised variants, platform services, custom Kubernetes objects, targets, labels, and promotion paths held together as one desired-state graph.</p>
-    <p>This guide starts after the first two website steps are clear: you have seen Helm parity, and you have picked a chart or base from the Helm Catalog. Use the Variants guide when the question is how a chart changes. Use this Apps guide when the question is how those pieces become an application.</p>
+    <p>An App groups several charts, and your own services, so a team can manage, review, and ship them together.</p>
+    <p>A Unit is a tracked piece of config. A target is where the app will run. Use this guide when you want charts, custom objects, and targets to become one application path.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
       <h2 id="app-kinds">What Counts As An App?</h2>
       <div class="card"><table>
         <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Single chart app</td><td>A public Helm chart from the catalog becomes a ConfigHub-managed app component.</td></tr><tr><td>Multi-chart stack</td><td>Several reviewed chart bases are grouped as one deployable stack, for example app plus database, ingress, certificates, and observability.</td></tr><tr><td>Platform slice</td><td>A platform team can group shared services such as ingress, policy, secrets, storage, monitoring, and GitOps controllers as one managed shape.</td></tr><tr><td>Custom app</td><td>Your own Kubernetes objects, wrapper chart, overlays, private values, or small custom app join the same desired-state graph.</td></tr><tr><td>Existing app</td><td>An app you already run can be represented as Units, then compared, promoted, and operated with receipts.</td></tr></tbody>
+        <tbody><tr><td>Single chart app</td><td>A public Helm chart from the catalog becomes a ConfigHub-managed app component.</td></tr><tr><td>Multi-chart stack</td><td>Several chart bases are grouped as one deployable stack, for example app plus database.</td></tr><tr><td>Platform slice</td><td>A platform team can group shared services such as ingress, policy, and more.</td></tr><tr><td>Custom app</td><td>Your own Kubernetes objects or wrapper chart join the same app.</td></tr><tr><td>Existing app</td><td>An app you already run can be represented as Units, then compared, promoted, and operated with receipts.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -300,10 +299,10 @@
 
     <section aria-labelledby="entry">
       <h2 id="entry">Four Ways In</h2>
-      <p>Apps covers day-0 and day-1 composition: choosing the shape, loading desired state, grouping pieces, and preparing variants. Ops starts after that shape exists.</p>
+      <p>Apps covers day-0 and day-1 composition: choose the shape, load desired state, and prepare variants. Ops starts after that shape exists.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Public Helm chart</td><td>Choose a chart page, pick a base, render/upload as Units, then create variants.</td><td>First public use and catalog-supported paths.</td></tr><tr><td>Existing app or live cluster</td><td>Start read-only: discover, inventory, map Units, scan, and compare before adopting or importing.</td><td>Teams that already have Argo, Flux, KRM, rendered manifests, or live resources.</td></tr><tr><td>Custom app from scratch</td><td>Author or import desired Kubernetes objects, create Units, define labels/Spaces/targets, then deliver through OCI.</td><td>Private apps that should sit beside public chart components.</td></tr><tr><td>Multi-chart platform or stack</td><td>Group several chart bases plus custom app Units as one app graph with shared targets, gates, and promotion flow.</td><td>Platform slices such as ingress, certs, policy, observability, and app services.</td></tr></tbody>
+        <tbody><tr><td>Public Helm chart</td><td>Choose a chart page, pick a base, then render or upload it.</td><td>First public use.</td></tr><tr><td>Existing app or live cluster</td><td>Start read-only: discover, inventory, and compare before adopting.</td><td>Teams that already have Argo, Flux, or live resources.</td></tr><tr><td>Custom app from scratch</td><td>Author or import Kubernetes objects, then create Units.</td><td>Private apps beside public chart components.</td></tr><tr><td>Multi-chart platform or stack</td><td>Group chart bases plus custom app Units with shared targets.</td><td>Platform slices such as ingress, certs, and app services.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -318,7 +317,7 @@
       <div class="app-flow">
         <div class="app-step"><h3>Choose inputs</h3><p>Start from one or more proved chart/base entries, a managed variant, a platform stack, or a custom app source.</p></div>
         <div class="app-step"><h3>Load as Units</h3><p>Upload the rendered desired state into ConfigHub so the objects can be labeled, queried, diffed, and shared.</p></div>
-        <div class="app-step"><h3>Group the app</h3><p>Use labels, Spaces, components, targets, and links to describe what belongs together across services and platform dependencies.</p></div>
+        <div class="app-step"><h3>Group the app</h3><p>Use labels, components, and targets to describe what belongs together.</p></div>
         <div class="app-step"><h3>Promote or deliver</h3><p>Move the app through environments and publish the selected object set to GitOps/OCI when ready.</p></div>
         <div class="app-step"><h3>Hand off to Ops</h3><p>Once live, use the Ops guide for scans, patches, observation, upgrades, rollback, and fleet questions.</p></div>
       </div>
@@ -326,10 +325,10 @@
 
     <section aria-labelledby="existing">
       <h2 id="existing">Can I Start From An Existing App?</h2>
-      <p>Yes. Existing apps, platforms, stacks, GitOps objects, rendered manifests, and live-cluster resources should enter through discovery or import first. The first result should be read-only: ConfigHub shows what it found, where it came from, which target it belongs to, and what the next safe decision is.</p>
+      <p>Yes. Existing apps and live-cluster resources should enter through discovery or import first. The first result should be read-only: ConfigHub shows what it found, where it came from, and what the next safe decision is.</p>
       <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First route</th><th>Expected first result</th></tr></thead>
-        <tbody><tr><td>Argo CD app</td><td>discover or import the Argo app</td><td>source, target, rendered objects, and links are visible before changing delivery</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>discover or import Flux state</td><td>controller source and target ownership are preserved</td></tr><tr><td>Rendered YAML or KRM</td><td>import as ConfigHub Units</td><td>objects can be labeled, scanned, linked, and diffed</td></tr><tr><td>Live cluster</td><td>discover or import current resources</td><td>inventory first, then explicit import or graduation decision</td></tr><tr><td>Platform or stack</td><td>represent several chart bases and custom app objects as one graph</td><td>components, Spaces, targets, labels, and links show what belongs together</td></tr></tbody>
+        <thead><tr><th>Starting point</th><th>First route</th><th>You should see</th></tr></thead>
+        <tbody><tr><td>Argo CD app</td><td>discover or import the Argo app</td><td>source, target, rendered objects, and links are visible before changing delivery</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>discover or import Flux state</td><td>controller source and target ownership are preserved</td></tr><tr><td>Rendered YAML or KRM</td><td>import as ConfigHub Units</td><td>objects can be labeled, scanned, linked, and diffed</td></tr><tr><td>Live cluster</td><td>discover or import current resources</td><td>inventory first, then explicit import or graduation decision</td></tr><tr><td>Platform or stack</td><td>represent several chart bases and custom app objects as one app</td><td>components and targets show what belongs together</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -339,7 +338,7 @@
       </style>
       <div class="card">
         <h3>Start read-only</h3>
-        <p>These commands should show discovery or import previews before ConfigHub changes delivery. Use a narrower <code>--where-resource</code> filter when you want to inspect one namespace or app first.</p>
+        <p>These commands should show discovery or import previews before ConfigHub changes delivery.</p>
         <pre><code>cub gitops discover --space my-space my-k8s-target
 cub gitops import --space my-space my-k8s-target my-render-target \
   --where-resource "metadata.namespace = 'argocd'"
@@ -354,7 +353,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
       <h2 id="examples">Example App Paths</h2>
       <div class="card"><table>
         <thead><tr><th>Path</th><th>What you are proving</th></tr></thead>
-        <tbody><tr><td>Redis app</td><td>A single public chart can be rendered, uploaded as Units, varied by environment, and promoted.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A more serious chart or observability stack can expose CRDs, RBAC, webhooks, target facts, and lifecycle prerequisites before app delivery.</td></tr><tr><td>Platform slice</td><td>Ingress, policy, secrets, storage, monitoring, and GitOps services can be grouped as a managed platform shape.</td></tr><tr><td>Custom app or stack</td><td>Public chart components and private app objects can be represented together rather than treated as unrelated YAML.</td></tr><tr><td>Custom vibe app</td><td>A small custom app can sit beside chart-provided infrastructure, with the same labels, variants, delivery path, and operating model.</td></tr><tr><td>Existing app</td><td>A live application can be brought under the same object, diff, promotion, and observation model.</td></tr></tbody>
+        <tbody><tr><td>Redis app</td><td>A single public chart can be rendered, uploaded as Units, varied by environment, and promoted.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A more serious chart can expose CRDs, webhooks, and target setup before app delivery.</td></tr><tr><td>Platform slice</td><td>Ingress, policy, and app services can be grouped as a managed platform shape.</td></tr><tr><td>Custom app or stack</td><td>Public chart components and private app objects can be represented together rather than treated as unrelated YAML.</td></tr><tr><td>Custom app</td><td>A small custom app can sit beside chart-provided infrastructure, with the same variant and delivery path.</td></tr><tr><td>Existing app</td><td>A live application can be brought under the same object, diff, promotion, and observation model.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -363,20 +362,6 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>These are app-level stories. The chart-level evidence still lives on the Helm Catalog pages and matrix.</p>
-    </section>
-
-    <section aria-labelledby="not-here">
-      <h2 id="not-here">What Belongs On Other Guides?</h2>
-      <div class="card"><table>
-        <thead><tr><th>Question</th><th>Go to</th></tr></thead>
-        <tbody><tr><td>Try the project</td><td>Helm parity and the Redis first run. <a href="./try.html">./try.html</a></td></tr><tr><td>Choose a Helm chart</td><td>Top-100 chart database, chart pages, variants, quirks, and hook/action routing. <a href="./charts/index.html">./charts/index.html</a></td></tr><tr><td>Manage variants</td><td>Base variants, derived variants, promotion, and target-specific choices. <a href="./variants.html">./variants.html</a></td></tr><tr><td>Operate live apps</td><td>Scans, gates, delivery, observation, upgrades, rollback, and fleet work. <a href="./operations.html">./operations.html</a></td></tr><tr><td>Private and managed scope</td><td>Private catalogs, production responsibility, SLAs, and planned paid boundaries. <a href="./private/">./private/</a></td></tr><tr><td>Reference evidence</td><td>Matrix, docs, claims register, and generated data for reviewers. <a href="./docs.html">./docs.html</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. This guide explains application composition; operational proof and commercial boundaries live on their own guides.</footer>
