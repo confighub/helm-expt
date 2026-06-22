@@ -3840,7 +3840,6 @@ function siteCss() {
       font-size: .92rem;
     }
     .topbar .brand {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
     }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
