@@ -484,7 +484,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     {
       label: "Prometheus",
       title: "Start with a familiar chart",
-      body: "Compare ordinary Helm with the cub installer path for a small Prometheus base.",
+      body: "Compare ordinary Helm with a reviewed cub package for a small Prometheus base.",
       link: "./try.html",
       linkText: "Get started with Prometheus",
     },
@@ -523,7 +523,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Ops", "Release, observe, patch, and upgrade apps after they exist.", "./operations.html"],
   ];
   const journeySteps = [
-    ["First", "See How It Works", "Get started with a Prometheus example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
+    ["First", "See How It Works", "Get started with a Prometheus example and compare standard Helm with the ConfigHub path.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
     ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
     ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
@@ -558,7 +558,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header class="home-hero human-hero">
     ${topNav(".")}
     <h1>Helm operations with ConfigHub and AI</h1>
-    <p class="lead">Helm charts are easy to install and hard to change safely. ConfigHub makes the rendered config visible, so teams can review, customize, and operate it with fewer surprises.</p>
+    <p class="lead">ConfigHub helps teams turn Helm output into visible, versioned configuration they can review, customize, and operate with fewer surprises.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
@@ -570,10 +570,11 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   </header>
   <main>
     <section aria-labelledby="quick-context">
-      <h2 id="quick-context">Why This Exists</h2>
+      <h2 id="quick-context">Who We Are And Why This Exists</h2>
+      <p>ConfigHub builds software for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI. ConfigHub Server is the connected product for teams that need shared desired state, variants, approvals, OCI/GitOps delivery, and operations.</p>
       <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
-      <p><code>cub</code> is an open source configuration lifecycle and management tool from ConfigHub. This site shows how public Helm charts can become explicit, reviewable config.</p>
-      <p>We convert selected install paths into <a href="./try.html"><code>cub installer</code></a> recipes and compare the result with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>.</p>
+      <p>This site is our public experiment for that problem. The community can try the serverless path without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
+      <p>When you want ConfigHub to hold the desired state, the connected path begins with commands such as <code>cub helm install</code>. For maintained catalog entries, we also publish reviewed <a href="./try.html"><code>cub installer</code></a> packages and compare them with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>.</p>
     </section>
 
     <section aria-labelledby="helm-problem">

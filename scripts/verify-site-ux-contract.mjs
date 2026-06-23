@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm operations with ConfigHub and AI", "Helm charts are easy to install and hard to change safely", "What ConfigHub Adds", "Existing apps"],
+    terms: ["Helm operations with ConfigHub and AI", "ConfigHub helps teams turn Helm output into visible, versioned configuration", "Who We Are And Why This Exists", "cub helm install"],
   },
   {
     file: "site/variants.html",
@@ -103,7 +103,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Helm charts are easy to install and hard to change safely", "See How It Works", "Pick a Helm Chart to Try"],
+    headerTerms: ["ConfigHub helps teams turn Helm output into visible, versioned configuration", "See How It Works", "Pick a Helm Chart to Try"],
   },
   {
     file: "site/try.html",
