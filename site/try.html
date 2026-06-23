@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Try ConfigHub Helm Catalog</title>
+  <title>Get Started · ConfigHub Helm Catalog</title>
   <style>
-    
     :root {
       color-scheme: light;
       --ink: #15191d;
@@ -314,55 +313,21 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-
-    .hero { padding-top: 56px; }
-    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .path-card { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: var(--surface); }
-    .path-card h3 { font-size: 1.08rem; }
-    .step { border-left: 3px solid var(--accent); padding-left: 12px; margin: 20px 0; }
-    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
-  </style>
+</style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./serverless.html">Serverless</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Get Started</h1>
-    <p class="lead">Pick one chart and watch the idea work. Run it with Helm, the way you already know. Then render the same chart with <code>cub installer</code> and read the exact Kubernetes objects before any of them are applied.</p>
-    <p>Use Prometheus for the first pass. Helm gives you the direct install path. <code>cub installer</code> gives you files that ConfigHub can later manage as Units, variants, and releases.</p>
-    <p>The first useful check is parity: same chart, same values, same base assumptions, same Kubernetes objects.</p>
+    <p class="lead">Try the idea without a ConfigHub account. Render a public chart, compare it with Helm, and apply the exact objects yourself.</p>
+    <p>This is the serverless try-out. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
   </header>
   <main>
-    <section aria-labelledby="choice">
-      <h2 id="choice">Helm or cub installer?</h2>
-      <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
-      <div class="split">
-        <section class="path-card">
-          <h3>Normal Helm</h3>
-          <p>Use this if you want Helm to deploy Prometheus directly into a Kubernetes cluster.</p>
-          <p><strong>Kubernetes cluster required.</strong></p>
-        </section>
-        <section class="path-card">
-          <h3>cub installer</h3>
-          <p>Use this if you want Prometheus rendered into explicit local config first, so it can be inspected and managed before delivery.</p>
-          <p><strong>No cluster or ConfigHub account required for the render.</strong></p>
-        </section>
-      </div>
-      <p>The exact commands and expected output belong on the Prometheus chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
-      <p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open the Prometheus chart page</a>.</p>
-    </section>
-
-    <section aria-labelledby="should-see">
-      <h2 id="should-see">You should see something like this</h2>
-      <p>With normal Helm, Prometheus should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Prometheus should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
-      <p>Use <a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a> when you want the longer checklist for clusters, local files, ConfigHub upload, and live evidence.</p>
-    </section>
-
-    <section aria-labelledby="what-this-proves">
-      <h2 id="what-this-proves">What This Shows</h2>
-      <p>Prometheus answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
+    <section aria-labelledby="how">
+      <h2 id="how">How it works</h2>
       <div class="card"><table>
-        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Does this replace Helm?</td><td>No. Helm remains the source chart ecosystem and the control path.</td></tr><tr><td>Does cub installer deploy the app?</td><td>Not by itself. It renders a reviewed package into explicit config first.</td></tr><tr><td>Do I need ConfigHub for this first step?</td><td>No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations.</td></tr><tr><td>Where is the evidence?</td><td>On chart pages, docs, and data surfaces. The Get Started page should stay human-first.</td></tr></tbody>
+        <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+        <tbody><tr><td>See it</td><td>Render the chart and stop. Read the Kubernetes objects before anything is applied.</td></tr><tr><td>Check it</td><td>Compare the cub render with plain Helm. Same chart, same inputs, same objects.</td></tr><tr><td>Run it</td><td>Apply the rendered objects yourself, or push them to your own GitOps controller.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -372,18 +337,52 @@
       </style>
     </section>
 
-    <section aria-labelledby="next">
-      <h2 id="next">Where To Go Next</h2>
+    <section aria-labelledby="commands">
+      <h2 id="commands">The short version</h2>
+      <p>Render with Helm. Then render the reviewed cub package. Compare the objects before you apply them.</p>
       <div class="grid">
-        <div class="card"><h3>Exact Prometheus commands</h3><p>The command table, expected output, catalog status, variants, caveats, and evidence links live on the Prometheus chart page.</p><p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open</a></p></div>
-        <div class="card"><h3>Expected results and clusters</h3><p>Use this when you want to know what output to expect and when a Kubernetes cluster is needed.</p><p><a href="../docs/user/expected-results-and-clusters.md">Open</a></p></div>
-        <div class="card"><h3>Choose another chart</h3><p>After Prometheus, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.</p><p><a href="./charts/index.html">Open</a></p></div>
-        <div class="card"><h3>Serious chart example</h3><p>Use kube-prometheus-stack later when you want to see CRDs, webhooks, target facts, and lifecycle prerequisites.</p><p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Open</a></p></div>
+        <div class="card">
+          <h3>Plain Helm</h3>
+          <pre><code>helm template prometheus prometheus-community/prometheus \
+  --repo https://prometheus-community.github.io/helm-charts \
+  --version 29.8.0 \
+  --namespace monitoring &gt; helm.yaml</code></pre>
+        </div>
+        <div class="card">
+          <h3>cub package</h3>
+          <pre><code>cub installer setup \
+  --pull packages/prometheus-community/prometheus/29.8.0 \
+  --base server-only-ephemeral \
+  --work-dir ./out \
+  --non-interactive \
+  --namespace monitoring</code></pre>
+        </div>
       </div>
+      <p>You should see rendered manifests under <code>./out</code>. If you apply them yourself, create the namespace first and apply any separated Secret material before the main manifests.</p>
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">What is proven</h2>
+      <p>The serverless path is not a slogan. The repository carries receipts for the no-account path.</p>
+      <div class="card"><table>
+        <thead><tr><th>Proof</th><th>What it says</th><th>Open</th></tr></thead>
+        <tbody><tr><td>Render and install parity</td><td>Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.</td><td><a href="../data/serverless-install-parity-proof/summary.html">Render and install parity</a></td></tr><tr><td>OCI for Argo and Flux</td><td>The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.</td><td><a href="../data/serverless-oci-gitops-proof/summary.html">OCI for Argo and Flux</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="edges">
+      <h2 id="edges">What to watch</h2>
+      <p>This is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
+      <p>When you want ConfigHub to hold desired state, manage variants, apply approvals, or publish OCI artifacts for a team, move from serverless into the connected ConfigHub path.</p>
+      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
     </section>
   </main>
-  <footer>
-    The short path uses current commands only. Stronger production claims require fresh target-scoped receipts.
-  </footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
 </body>
 </html>

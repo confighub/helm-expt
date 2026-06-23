@@ -417,7 +417,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("serverless.html")}">Serverless</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -528,7 +528,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Ops", "Release, observe, patch, and upgrade apps after they exist.", "./operations.html"],
   ];
   const journeySteps = [
-    ["First", "See How It Works", "Get started with a Prometheus example and compare standard Helm with the ConfigHub path.", "./try.html", "Get Started"],
+    ["First", "See How It Works", "Try the no-account path: render a chart, compare it with Helm, and inspect the objects before apply.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
     ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
     ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
@@ -578,7 +578,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h2 id="quick-context">Who We Are And Why This Exists</h2>
       <p>ConfigHub builds software for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI. ConfigHub Server is the connected product for teams that need shared desired state, variants, approvals, OCI/GitOps delivery, and operations.</p>
       <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
-      <p>This site is our public experiment for that problem. The community can try the <a href="./serverless.html">serverless path</a> without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
+      <p>This site is our public experiment for that problem. The community can try the <a href="./try.html">serverless path</a> without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
       <p>When you want ConfigHub to hold the desired state, the connected path begins with commands such as <code>cub helm install</code>. For maintained catalog entries, we also publish reviewed <a href="./try.html"><code>cub installer</code></a> packages and compare them with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>.</p>
     </section>
 
@@ -1565,97 +1565,6 @@ function legacyOfferingHtml(catalog) {
 }
 
 function tryHtml(catalog) {
-  const pathRows = [
-    ["Normal Helm", "Use this if you want Helm to deploy Prometheus directly into a Kubernetes cluster.", "Kubernetes cluster required."],
-    ["cub installer", "Use this if you want Prometheus rendered into explicit local config first, so it can be inspected and managed before delivery.", "No cluster or ConfigHub account required for the render."],
-  ];
-  const nextRows = [
-    ["Exact Prometheus commands", "The command table, expected output, catalog status, variants, caveats, and evidence links live on the Prometheus chart page.", "./charts/prometheus-community-prometheus-29-8-0.html"],
-    ["Expected results and clusters", "Use this when you want to know what output to expect and when a Kubernetes cluster is needed.", "../docs/user/expected-results-and-clusters.md"],
-    ["Choose another chart", "After Prometheus, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.", "./charts/index.html"],
-    ["Serious chart example", "Use kube-prometheus-stack later when you want to see CRDs, webhooks, target facts, and lifecycle prerequisites.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
-  ];
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Try ConfigHub Helm Catalog</title>
-  <style>
-    ${siteCss()}
-    .hero { padding-top: 56px; }
-    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .path-card { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: var(--surface); }
-    .path-card h3 { font-size: 1.08rem; }
-    .step { border-left: 3px solid var(--accent); padding-left: 12px; margin: 20px 0; }
-    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
-  </style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Get Started</h1>
-    <p class="lead">Pick one chart and watch the idea work. Run it with Helm, the way you already know. Then render the same chart with <code>cub installer</code> and read the exact Kubernetes objects before any of them are applied.</p>
-    <p>Use Prometheus for the first pass. Helm gives you the direct install path. <code>cub installer</code> gives you files that ConfigHub can later manage as Units, variants, and releases.</p>
-    <p>The first useful check is parity: same chart, same values, same base assumptions, same Kubernetes objects.</p>
-  </header>
-  <main>
-    <section aria-labelledby="choice">
-      <h2 id="choice">Helm or cub installer?</h2>
-      <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
-      <div class="split">
-        ${pathRows
-          .map(
-            ([title, body, boundary]) => `<section class="path-card">
-          <h3>${escapeHtml(title)}</h3>
-          <p>${escapeHtml(body)}</p>
-          <p><strong>${escapeHtml(boundary)}</strong></p>
-        </section>`,
-          )
-          .join("\n        ")}
-      </div>
-      <p>The exact commands and expected output belong on the Prometheus chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
-      <p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open the Prometheus chart page</a>.</p>
-    </section>
-
-    <section aria-labelledby="should-see">
-      <h2 id="should-see">You should see something like this</h2>
-      <p>With normal Helm, Prometheus should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Prometheus should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
-      <p>Use <a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a> when you want the longer checklist for clusters, local files, ConfigHub upload, and live evidence.</p>
-    </section>
-
-    <section aria-labelledby="what-this-proves">
-      <h2 id="what-this-proves">What This Shows</h2>
-      <p>Prometheus answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
-      ${markdownLikeTable([
-        ["Question", "Answer"],
-        ["Does this replace Helm?", "No. Helm remains the source chart ecosystem and the control path."],
-        ["Does cub installer deploy the app?", "Not by itself. It renders a reviewed package into explicit config first."],
-        ["Do I need ConfigHub for this first step?", "No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations."],
-        ["Where is the evidence?", "On chart pages, docs, and data surfaces. The Get Started page should stay human-first."],
-      ])}
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">Where To Go Next</h2>
-      <div class="grid">
-        ${nextRows
-          .map(
-            ([title, body, href]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">Open</a></p></div>`,
-          )
-          .join("\n        ")}
-      </div>
-    </section>
-  </main>
-  <footer>
-    The short path uses current commands only. Stronger production claims require fresh target-scoped receipts.
-  </footer>
-</body>
-</html>
-`;
-}
-
-function serverlessHtml(catalog) {
   const runRows = [
     ["See it", "Render the chart and stop. Read the Kubernetes objects before anything is applied."],
     ["Check it", "Compare the cub render with plain Helm. Same chart, same inputs, same objects."],
@@ -1670,15 +1579,15 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless · ConfigHub Helm Catalog</title>
+  <title>Get Started · ConfigHub Helm Catalog</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Serverless mode</h1>
+    <h1>Get Started</h1>
     <p class="lead">Try the idea without a ConfigHub account. Render a public chart, compare it with Helm, and apply the exact objects yourself.</p>
-    <p>This is the no-sign-up path. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
+    <p>This is the serverless try-out. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
   </header>
   <main>
     <section aria-labelledby="how">
@@ -1724,12 +1633,36 @@ function serverlessHtml(catalog) {
 
     <section aria-labelledby="edges">
       <h2 id="edges">What to watch</h2>
-      <p>Serverless mode is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
+      <p>This is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
       <p>When you want ConfigHub to hold desired state, manage variants, apply approvals, or publish OCI artifacts for a team, move from serverless into the connected ConfigHub path.</p>
       <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
+  <footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
+</body>
+</html>
+`;
+}
+
+function serverlessHtml(catalog) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=./try.html">
+  <link rel="canonical" href="./try.html">
+  <title>Serverless moved · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Serverless moved to Get Started</h1>
+    <p class="lead">The no-account serverless try-out is now the Get Started page.</p>
+    <p><a href="./try.html">Open Get Started</a>.</p>
+  </header>
+  <footer>${generatedStamp(catalog, "serverless redirect")}</footer>
 </body>
 </html>
 `;
@@ -1738,8 +1671,7 @@ function serverlessHtml(catalog) {
 function docsHtml(catalog) {
   const guideRows = [
     ["How it works", "Start with the four moves: render, route, deliver, observe.", "./how-it-works.html"],
-    ["Try the catalog", "Run the short local path first.", "./try.html"],
-    ["Serverless mode", "Try the no-account path: render, compare, and apply the objects yourself.", "./serverless.html"],
+    ["Get Started", "Try the no-account serverless path: render, compare, and apply the objects yourself.", "./try.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
     ["Helm quirks", "See which chart behaviors need explicit handling: hooks, CRDs, webhooks, target facts, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "Decide whether a change is a base variant or a derived variant.", "./variants.html"],
