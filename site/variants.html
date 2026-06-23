@@ -319,9 +319,9 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Variants</h1>
-    <p class="lead">Most Helm trouble starts with a fair request: "same chart, slightly different needs." Dev wants one shape. Prod wants another. A customer needs a different Secret, region, target, or storage choice.</p>
-    <p>ConfigHub makes those differences visible. A variant is a named configuration of the same component, so the team can see which shape is being used, what changed, and whether that change stayed inside the approved boundary.</p>
-    <p>The first decision is simple: did this choice change the Kubernetes objects Helm would render? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
+    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Dev needs one shape. Prod needs another. A customer needs a different Secret, region, target, or storage choice.</p>
+    <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
+    <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
   </header>
   <main>
     <section aria-labelledby="model">
@@ -365,7 +365,7 @@ Variants:
 
     <section aria-labelledby="journey">
       <h2 id="journey">A Good Variant Flow</h2>
-      <p>The workflow should feel boring in the best way: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
+      <p>A good variant flow should be plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What happens</th></tr></thead>
         <tbody><tr><td>Choose a base</td><td>Pick the closest proved install shape from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes should stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>

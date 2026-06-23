@@ -24,7 +24,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Redis Proof Slice", "How To Try This Chart", "First-Run Caveats", "redis-existing-secret"],
+    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -107,23 +107,23 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["run Helm directly", "render the same chart with", "same Kubernetes objects"],
+    headerTerms: ["Pick one chart", "render the same chart with", "same chart, same values"],
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Use this page when", "Read the four cards from left to right", "Get Started"],
+    headerTerms: ["Helm installs in one step", "render the chart", "Get Started"],
   },
   {
     file: "site/variants.html",
-    headerTerms: ["same chart, slightly different needs", "did this choice change the Kubernetes objects", "make a derived ConfigHub variant"],
+    headerTerms: ["same chart, but change one thing", "does this change what Helm renders", "make a derived ConfigHub variant"],
   },
   {
     file: "site/journey.html",
-    headerTerms: ["public Helm charts", "Start by choosing what you already have", "safe first result is visibility"],
+    headerTerms: ["the thing your team operates", "Start with what you already have", "first safe result is visibility"],
   },
   {
     file: "site/operations.html",
-    headerTerms: ["after you have an app or variant", "what changed", "review diffs"],
+    headerTerms: ["Ops starts when an app already exists", "what changed", "review diffs"],
   },
 ];
 

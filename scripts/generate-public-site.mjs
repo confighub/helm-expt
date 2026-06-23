@@ -714,8 +714,8 @@ function howItWorksHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>How It Works</h1>
-    <p class="lead">Use this page when you want the basic model before trying commands. A Helm chart is rendered first, then chart-specific behavior is routed, delivered, and observed instead of being hidden in one install step.</p>
-    <p>Read the four cards from left to right. If you only want to run a chart, go to <a href="./try.html">Get Started</a>. If you want to choose a chart, go to the <a href="./charts/index.html">Helm Catalog</a>. This page explains why those steps are arranged that way.</p>
+    <p class="lead">Helm installs in one step and hides much of what happened. We split that step into four you can check: render the chart, route the tricky parts, deliver the result, and observe the live app.</p>
+    <p>Start here when you want the model before the commands. If you only want to run a chart, go to <a href="./try.html">Get Started</a>. If you want to choose a chart, go to the <a href="./charts/index.html">Helm Catalog</a>.</p>
     <div class="move-spine" aria-label="Four-move spine">
       <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
       <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
@@ -1590,9 +1590,9 @@ function tryHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Get Started</h1>
-    <p class="lead">Start here if you want to see the idea with one chart. The choice is simple: run Helm directly, or render the same chart with <code>cub installer</code> so you can inspect the objects before delivery.</p>
-    <p>Use Prometheus for the first pass. Run normal Helm if you only want a quick install. Use <code>cub installer</code> if you want the same chart rendered into files that ConfigHub can later manage as Units, variants, and releases.</p>
-    <p>The useful check is parity: with the same chart version, values, and base assumptions, both paths should produce the same Kubernetes objects.</p>
+    <p class="lead">Pick one chart and watch the idea work. Run it with Helm, the way you already know. Then render the same chart with <code>cub installer</code> and read the exact Kubernetes objects before any of them are applied.</p>
+    <p>Use Prometheus for the first pass. Helm gives you the direct install path. <code>cub installer</code> gives you files that ConfigHub can later manage as Units, variants, and releases.</p>
+    <p>The first useful check is parity: same chart, same values, same base assumptions, same Kubernetes objects.</p>
   </header>
   <main>
     <section aria-labelledby="choice">
@@ -2267,7 +2267,7 @@ function hardQuestionsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>FAQ for skeptical Helm users.</h1>
-    <p class="lead">Use this page when something sounds too good, too vague, or too risky. The short answer comes first, and the link shows where the evidence or open work lives.</p>
+    <p class="lead">This page answers the questions an engineer should ask before trusting the model. Each answer says what works today, what is still limited, and where to check the evidence.</p>
   </header>
   <main>
     ${faqSections
@@ -2568,8 +2568,8 @@ function journeyHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps Guide</h1>
-    <p class="lead">Use this page after you understand one chart and want to manage a whole application. An app can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
-    <p>Start by choosing what you already have: a catalog chart, an existing Argo or Flux app, rendered YAML, a live cluster, or a custom app. The safe first result is visibility: ConfigHub should show what belongs to the app before it changes delivery.</p>
+    <p class="lead">An app is the thing your team operates, not just one chart. It can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
+    <p>Start with what you already have: a catalog chart, an Argo or Flux app, rendered YAML, a live cluster, or custom Kubernetes objects. The first safe result is visibility. ConfigHub should show what belongs to the app before it changes delivery.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
@@ -2677,9 +2677,9 @@ function variantsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Variants</h1>
-    <p class="lead">Most Helm trouble starts with a fair request: "same chart, slightly different needs." Dev wants one shape. Prod wants another. A customer needs a different Secret, region, target, or storage choice.</p>
-    <p>ConfigHub makes those differences visible. A variant is a named configuration of the same component, so the team can see which shape is being used, what changed, and whether that change stayed inside the approved boundary.</p>
-    <p>The first decision is simple: did this choice change the Kubernetes objects Helm would render? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
+    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Dev needs one shape. Prod needs another. A customer needs a different Secret, region, target, or storage choice.</p>
+    <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
+    <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
   </header>
   <main>
     <section aria-labelledby="model">
@@ -2711,7 +2711,7 @@ Variants:
 
     <section aria-labelledby="journey">
       <h2 id="journey">A Good Variant Flow</h2>
-      <p>The workflow should feel boring in the best way: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
+      <p>A good variant flow should be plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       ${markdownLikeTable([
         ["Step", "What happens"],
         ...journeyRows,
@@ -3147,8 +3147,8 @@ function operationsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Ops Guide</h1>
-    <p class="lead">Use this page after you have an app or variant and want to change it safely. Ops starts when the question becomes: what changed, who approved it, what reached the cluster, and what happened after delivery?</p>
-    <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use the operations below to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
+    <p class="lead">Ops starts when an app already exists and the next change matters. You need to know what changed, who approved it, what reached the cluster, and what happened after delivery.</p>
+    <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use this page to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
   </header>
   <main>
     <section aria-labelledby="before-ops">
@@ -3606,8 +3606,8 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
-    ${generatedStamp(catalog, "chart status page")}
-    <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
+    <p>Everything we know about this Helm chart is on this page: how to run it, which variants exist, what we have proven, and what still needs work.</p>
+    <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
@@ -3748,7 +3748,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       ], { rawSecondColumn: true })}
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Check current receipts before making production claims.</footer>
+  <footer>${generatedStamp(catalog, "chart status page")}<p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>
 `;
