@@ -3,6 +3,9 @@
 This is the current handover for the `helm-expt` repository. It is intended for
 another engineer or agent picking up the work from public `main`.
 
+For current priorities, start with [Roadmap](./roadmap.md). This file is a
+pickup snapshot and vocabulary note, not the canonical roadmap.
+
 For the next Codex running on a machine that can perform live Kubernetes and
 GitOps testing, start with:
 

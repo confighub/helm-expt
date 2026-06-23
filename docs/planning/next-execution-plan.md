@@ -9,6 +9,9 @@ Are the top 20 the best, simplest, safest way for a Helm user to install and var
 through the current repo-structure, installer-capability, target-facts, and
 `cub variant` discussion.
 
+For the current project-wide roadmap, start with [Roadmap](./roadmap.md). This
+file is the near-term execution plan that sits underneath that index.
+
 ## Mission
 
 Prove this claim for public Helm charts:

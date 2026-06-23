@@ -10,7 +10,7 @@ sources instead:
 | Current question | Source |
 | --- | --- |
 | What is proven now? | [Current Proof Status](../user/current-proof-status.md) and [Status Dashboard](../../data/status-dashboard/summary.md) |
-| What should be worked next? | [Next 20 Tasks](./next-20-tasks.md), [Next Execution Plan](./next-execution-plan.md), and [Current Handover](./current-handover.md) |
+| What should be worked next? | [Roadmap](./roadmap.md), [Next Execution Plan](./next-execution-plan.md), and GitHub issues. |
 | Which chart/base rows have exact lane status? | [Outcome Coverage](../../data/outcome-coverage/summary.md) and [Outcome Coverage](../../data/outcome-coverage/summary.md) |
 | Which live rows need rerun or decisions? | [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) |
 

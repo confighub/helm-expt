@@ -6,6 +6,10 @@ This roadmap is for the large machine that can run live Kubernetes and GitOps
 tests. It is outcome-driven: each task is done only when committed receipts and
 verifiers prove the claimed outcome.
 
+For the current project-wide roadmap, use [Roadmap](./roadmap.md). This file is
+the live-evidence lane plan and remains useful for cluster-heavy work, but it is
+not the canonical roadmap index.
+
 ## North Star
 
 ```text

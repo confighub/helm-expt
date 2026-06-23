@@ -4,6 +4,9 @@ This document indexes the GitHub issues and merged proof surfaces that must not
 be lost in the planning docs. GitHub remains the execution tracker; this file
 keeps reviewers aligned with the written plan.
 
+For current priority and workstream shape, start with [Roadmap](./roadmap.md).
+This file is the issue mirror that supports that roadmap.
+
 Last synced with planning docs: 2026-06-23.
 
 ## Rule
