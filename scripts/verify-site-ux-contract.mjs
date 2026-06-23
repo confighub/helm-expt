@@ -12,7 +12,7 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Component And Variant Model", "payments-api/prod-us", "One named configuration instance of a Component"],
+    terms: ["The Model In One Picture", "payments-api/prod-us", "The One Decision That Matters", "A Good Variant Flow"],
   },
   {
     file: "site/try.html",
@@ -115,7 +115,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/variants.html",
-    headerTerms: ["same chart or app needs more than one configuration", "Helm has to render again", "derived ConfigHub variant"],
+    headerTerms: ["same chart, slightly different needs", "did this choice change the Kubernetes objects", "make a derived ConfigHub variant"],
   },
   {
     file: "site/journey.html",

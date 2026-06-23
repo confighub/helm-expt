@@ -2641,27 +2641,28 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
 
 function variantsHtml(catalog) {
   const modelRows = [
-    ["Component", "The app, service, platform package, or deployable capability being configured, such as redis or payments-api."],
-    ["Variant", "One named configuration instance of a Component, such as base, dev, or prod-us."],
-    ["Operational behavior", "`cub variant create` copies a base into a downstream variant. That link lets a later promotion know where the change came from."],
-    ["Caveat", "Component groups related variants. Variant has stronger behavior because create and promote know how the copies are related."],
+    ["Component", "The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice."],
+    ["Variant", "One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a."],
+    ["Base variant", "A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects."],
+    ["Derived variant", "A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and bounded post-render changes."],
+    ["Promotion", "A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied."],
   ];
   const journeyRows = [
-    ["Start from a base", "Pick a reviewed install shape from a chart page, such as Redis default or Prometheus server-only-ephemeral."],
-    ["Upload to ConfigHub", "Once rendered, each object becomes a Unit, which means a tracked piece of config you can diff, label, and gate before it ships."],
-    ["Create a derived variant", "Clone the uploaded base for each environment, region, or customer with `cub variant create`."],
-    ["Preview and check", "Use Unit diffs and receipts to confirm the change stayed bounded."],
-    ["Promote later changes", "Use `cub variant promote --dry-run -o mutations`, then promote through ConfigHub changesets and approvals."],
+    ["Choose a base", "Pick the closest proved install shape from the chart page."],
+    ["Load it into ConfigHub", "The rendered objects become managed config that can be named, compared, reviewed, and delivered."],
+    ["Name the real-world variants", "Create the dev, staging, prod, region, or customer versions people actually use."],
+    ["Preview the difference", "Look at the object and field changes before delivery. Small changes should stay small."],
+    ["Promote with a receipt", "Move a reviewed change forward only after the preview, gates, and receipts say what will happen."],
   ];
   const routeRows = [
-    ["Choose a base variant", "Use when the choice changes what Helm renders.", "CRDs on/off, HA mode, or generated Secret vs existing Secret."],
-    ["Create a derived variant", "Use after render when the change is about where or how the config is managed.", "prod-us-east from redis/default, region labels, or target binding."],
-    ["Go back to the recipe", "Use when the change needs Helm to run again.", "A different values file, wrapper chart, or chart version."],
+    ["Make a base variant", "The choice changes the objects Helm would create.", "CRDs on or off, HA mode, generated Secret vs existing Secret, different values file."],
+    ["Make a derived variant", "The object set is already right, but it needs to live in a different place or policy context.", "prod-us-east from a base, target binding, labels, approvals, observation policy."],
+    ["Go back to the recipe", "The requested change belongs before render, not after it.", "New chart version, wrapper chart, customer overlay values, or a different rendered object set."],
   ];
   const exampleRows = [
-    ["Redis", "default and reuse-existing-secret are base variants because the Secret model changes rendered objects.", "./charts/bitnami-redis-25-5-3.html"],
-    ["Prometheus", "server-only and production target variants show the base-to-derived split for a larger app.", "../docs/user/prometheus-overlay-promotion-example.md"],
-    ["kube-prometheus-stack", "The serious chart shows why variants must carry target facts, lifecycle routes, and upgrade checks.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
+    ["Redis", "Secret strategy changes the rendered objects, so it belongs in a base variant.", "./charts/bitnami-redis-25-5-3.html"],
+    ["Prometheus", "A small server-only base can become environment-specific ConfigHub variants.", "../docs/user/prometheus-overlay-promotion-example.md"],
+    ["kube-prometheus-stack", "A serious chart needs variants that carry target facts, lifecycle routes, and upgrade checks.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -2675,14 +2676,14 @@ function variantsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Variants</h1>
-    <p class="lead">Use this page when the same chart or app needs more than one configuration: default, dev, staging, prod, one region, one customer, or one target.</p>
-    <p>First decide whether Helm has to render again. If the values change the Kubernetes objects, make a base variant. If the rendered objects are already right and you only need a target, label, approval, or environment change, create a derived ConfigHub variant.</p>
-    <p>The payoff is reviewability: each variant is named, compared, promoted, and observed instead of being an invisible values-file fork.</p>
+    <p class="lead">Most Helm trouble starts with a fair request: "same chart, slightly different needs." Dev wants one shape. Prod wants another. A customer needs a different Secret, region, target, or storage choice.</p>
+    <p>ConfigHub makes those differences visible. A variant is a named configuration of the same component, so the team can see which shape is being used, what changed, and whether that change stayed inside the approved boundary.</p>
+    <p>The first decision is simple: did this choice change the Kubernetes objects Helm would render? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
   </header>
   <main>
     <section aria-labelledby="model">
-      <h2 id="model">Component And Variant Model</h2>
-      <p>ConfigHub groups related config by Component and Variant. A Component is what you ship. A Variant is one named version of it.</p>
+      <h2 id="model">The Model In One Picture</h2>
+      <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
       <pre><code>Component: payments-api
 
 Variants:
@@ -2695,12 +2696,12 @@ Variants:
         ["Term", "Meaning"],
         ...modelRows,
       ], { rawSecondColumn: true })}
-      <p>This lets a team ask clear questions: what changed, where did it come from, and did it stay inside the approved boundary?</p>
+      <p>This gives the team plain questions to answer: which shape are we using, where did it come from, what changed, and is it safe to promote?</p>
     </section>
 
     <section aria-labelledby="choose">
-      <h2 id="choose">Which Kind Of Variant?</h2>
-      <p>You start from a base, then create variants for each environment or customer. The key question is whether Helm has to run again.</p>
+      <h2 id="choose">The One Decision That Matters</h2>
+      <p>Ask whether Helm would render different Kubernetes objects. That one question decides where the change belongs.</p>
       ${markdownLikeTable([
         ["Action", "Use it when", "Examples"],
         ...routeRows,
@@ -2708,12 +2709,13 @@ Variants:
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">Variant Journey</h2>
+      <h2 id="journey">A Good Variant Flow</h2>
+      <p>The workflow should feel boring in the best way: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       ${markdownLikeTable([
         ["Step", "What happens"],
         ...journeyRows,
       ])}
-      <p>The shipped commands are <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>.</p>
+      <p>The command surface today is <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. Product screens can make this friendlier, but the same data remains available for review.</p>
     </section>
 
     <section aria-labelledby="flow">
@@ -2722,7 +2724,7 @@ Variants:
 cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>You should see a source base, a derived variant, changed paths, and receipts. Product screens can simplify the language, while the data stays available for reviewers and agents.</p>
+      <p>You should see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
       <div class="card">
         <h3>You should see something like this</h3>
         <pre><code>created downstream variant
@@ -2734,6 +2736,7 @@ promotion dry-run lists mutations before apply</code></pre>
 
     <section aria-labelledby="examples">
       <h2 id="examples">Examples</h2>
+      <p>These examples show the same rule in different chart shapes.</p>
       ${markdownLikeTable([
         ["Example", "What it shows", "Open"],
         ...exampleRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
