@@ -3373,7 +3373,10 @@ function chartIndexHtml(catalog) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Helm Catalog · ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    #chart-table { table-layout: fixed; }
+    #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
+  </style>
 </head>
 <body>
   <header>
