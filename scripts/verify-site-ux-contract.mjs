@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["For humans", "Reference", "Helm operations with ConfigHub and AI", "Helm charts are easy to install and hard to change safely", "What ConfigHub Adds", "Existing apps"],
+    terms: ["Helm operations with ConfigHub and AI", "Helm charts are easy to install and hard to change safely", "What ConfigHub Adds", "Existing apps"],
   },
   {
     file: "site/variants.html",
@@ -48,7 +48,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["For humans", "AI-Assisted Operations", "AI can help explain, propose, and check changes", "Good AI Tasks", "RBAC Manager for Agents"],
+    terms: ["AI-Assisted Operations", "AI can help explain, propose, and check changes", "Good AI Tasks", "RBAC Manager for Agents"],
   },
   {
     file: "site/custom-apps.html",
@@ -100,6 +100,33 @@ const humanSplitPages = [
   "site/private/index.html",
 ];
 
+const guideOpeningChecks = [
+  {
+    file: "site/index.html",
+    headerTerms: ["Helm charts are easy to install and hard to change safely", "See How It Works", "Pick a Helm Chart to Try"],
+  },
+  {
+    file: "site/try.html",
+    headerTerms: ["run Helm directly", "render the same chart with", "same Kubernetes objects"],
+  },
+  {
+    file: "site/how-it-works.html",
+    headerTerms: ["Use this page when", "Read the four cards from left to right", "Get Started"],
+  },
+  {
+    file: "site/variants.html",
+    headerTerms: ["same chart or app needs more than one configuration", "Helm has to render again", "derived ConfigHub variant"],
+  },
+  {
+    file: "site/journey.html",
+    headerTerms: ["public Helm charts", "Start by choosing what you already have", "safe first result is visibility"],
+  },
+  {
+    file: "site/operations.html",
+    headerTerms: ["after you have an app or variant", "what changed", "review diffs"],
+  },
+];
+
 const failures = [];
 
 for (const check of checks) {
@@ -141,9 +168,21 @@ for (const file of humanSplitPages) {
   }
   const text = fs.readFileSync(fullPath, "utf8");
   const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
-  if (!header.includes("For humans")) failures.push(`${file}: missing For humans label in header`);
-  if (!text.includes("Reference") || !text.includes("Details and data")) {
-    failures.push(`${file}: missing reference/details divider`);
+  if (header.includes("For humans")) failures.push(`${file}: hero/header must explain the page without a "For humans" label`);
+  if (text.includes("Details and data")) failures.push(`${file}: should not use the old reference/details divider`);
+  if (/<h2[^>]*>\s*Reference\s*<\/h2>/.test(text)) failures.push(`${file}: should not label the lower page as Reference`);
+}
+
+for (const check of guideOpeningChecks) {
+  const fullPath = path.join(root, check.file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${check.file}: missing file`);
+    continue;
+  }
+  const text = fs.readFileSync(fullPath, "utf8");
+  const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  for (const term of check.headerTerms) {
+    if (!header.includes(term)) failures.push(`${check.file}: guide opening missing ${JSON.stringify(term)}`);
   }
 }
 
@@ -166,4 +205,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`verified site UX contract: ${checks.length} page(s), ${humanSplitPages.length} human/reference split page(s)`);
+console.log(`verified site UX contract: ${checks.length} page(s), ${humanSplitPages.length} guide page(s), ${guideOpeningChecks.length} actionable opening(s)`);

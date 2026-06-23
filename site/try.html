@@ -326,17 +326,12 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
-    <h1>Get started with Prometheus</h1>
-    <p>Start with a familiar public Helm chart and compare two paths: a normal Helm install, and a <code>cub installer</code> render of the same chart.</p>
-    <p>The first question is deliberately simple: under the same chart, values, and base assumptions, does the ConfigHub path preserve the Kubernetes objects Helm would create?</p>
+    <h1>Get Started</h1>
+    <p class="lead">Start here if you want to see the idea with one chart. The choice is simple: run Helm directly, or render the same chart with <code>cub installer</code> so you can inspect the objects before delivery.</p>
+    <p>Use Prometheus for the first pass. Run normal Helm if you only want a quick install. Use <code>cub installer</code> if you want the same chart rendered into files that ConfigHub can later manage as Units, variants, and releases.</p>
+    <p>The useful check is parity: with the same chart version, values, and base assumptions, both paths should produce the same Kubernetes objects.</p>
   </header>
   <main>
-    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
-      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
-      <h2 id="reference" style="margin-top:0">Details and data</h2>
-      <p>The rest of this page explains what to run, what you should see, and where to go next.</p>
-    </section>
     <section aria-labelledby="choice">
       <h2 id="choice">Helm or cub installer?</h2>
       <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
