@@ -19,6 +19,12 @@ Imagine one author with three habits.
 
 One voice, not three taking turns: precise *and* plain *and* alive.
 
+**When they disagree, Jobs wins.** Dickens earns a memorable line only when it is also the
+plainest true one. The moment a phrase calls attention to itself as writing — a metaphor
+reaching for effect, a flourish you would never say aloud — cut it. The test: would Jobs
+say it on a stage? *"It just works"* — yes. *"We pull them into the light"* — never. Rhythm
+and warmth, never ornament.
+
 ## The rules
 
 1. **One idea per sentence.** Keep them short. Vary the length so the page has a pulse.
@@ -53,7 +59,7 @@ Three real surfaces, before and after. Paste the *after* into the generator.
 > **After.** "Pick one chart and watch the idea work. Run it with Helm, the way you always
 > have. Then render the same chart with cub installer and read the exact objects — every
 > one of them — before a single one is applied. Same chart, same result. The difference is
-> that you see it coming."
+> that you see it first."
 
 ### How It Works (`site/how-it-works.html`)
 
@@ -61,11 +67,10 @@ Three real surfaces, before and after. Paste the *after* into the generator.
 > chart is rendered first, then chart-specific behavior is routed, delivered, and observed
 > instead of being hidden in one install step. Read the four cards from left to right."
 
-> **After.** "Four words hold the whole model: **render, route, deliver, observe.** A Helm
-> chart becomes real Kubernetes objects (render). Its hidden behaviors — a hook here, a
-> CRD there — become named steps you can see (route). The result ships (deliver). And you
-> watch it actually run, not merely report success (observe). Helm folds all four into one
-> dark step. We pull them into the light."
+> **After.** "Helm installs in a single step and hides what it did. We split that step into
+> four you can watch. **Render** the chart into real Kubernetes objects. **Route** the tricky
+> parts — a hook, a CRD — into steps you can see. **Deliver** the result. Then **observe** it:
+> watch the workload actually run, not just report success. That is the whole model."
 
 ### Chart-page intro (`site/charts/*.html`)
 
