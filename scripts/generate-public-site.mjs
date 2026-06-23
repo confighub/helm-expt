@@ -3219,37 +3219,175 @@ function legacyOperationsRedirectHtml() {
 `;
 }
 
+function matrixRowsForCatalogEntry(catalog, entry) {
+  return catalog.masterCatalogMatrix
+    .filter((row) => row.chart === entry.chart && row.version === entry.version)
+    .sort(compareMatrixRows);
+}
+
+function firstCatalogBaseRow(rows, entry) {
+  return (
+    rows.find((row) => row.row_kind !== "source" && row.variant === entry.start_variant) ??
+    rows.find((row) => row.row_kind === "base") ??
+    rows.find((row) => row.row_kind !== "source") ??
+    rows.find((row) => row.row_kind === "source")
+  );
+}
+
+function sourceLockForEntry(entry) {
+  if (!entry.recipe_path) return undefined;
+  const sourceLockPath = entry.recipe_path.replace(/\/recipe\.yaml$/, "/source-lock.yaml");
+  const absolutePath = join(repoRoot, sourceLockPath);
+  if (!existsSync(absolutePath)) return undefined;
+  return readYaml(absolutePath);
+}
+
+function artifactHubVersionUrl(lock) {
+  const spec = lock?.spec ?? {};
+  if (!spec.repositoryName || !spec.chart || !spec.version) return "";
+  return `https://artifacthub.io/packages/helm/${encodeURIComponent(spec.repositoryName)}/${encodeURIComponent(spec.chart)}?version=${encodeURIComponent(spec.version)}`;
+}
+
+function publicCatalogVersionCell(entry, sourceRow) {
+  const lock = sourceLockForEntry(entry);
+  const href = artifactHubVersionUrl(lock) || sourceRow?.source_repository_url || "";
+  const source = lock?.spec?.contentURL || lock?.spec?.repositoryURL || sourceRow?.source_content_url || sourceRow?.source_repository_url || "";
+  const label = `${entry.version}`;
+  if (!href) return escapeHtml(label);
+  const title = source ? ` title="${escapeHtml(source)}"` : "";
+  return `<a href="${escapeHtml(href)}" rel="noopener"${title}>${escapeHtml(label)}</a>`;
+}
+
+function firstPathCell(entry, row) {
+  const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
+  const page = `./${chartPageFileName(entry)}#matrix-options`;
+  let note = "Open the chart page for the command and option cards.";
+  if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
+  else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
+  else if (row?.row_kind === "base") note = "Recommended base variant to try first.";
+  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(note)}</span>`;
+}
+
+function catalogUseCell(entry, row) {
+  if (row?.row_kind === "candidate") {
+    return `<strong>Not ready yet</strong><br><span style="color:var(--muted);font-size:.86rem">This is a planned useful base, not a runnable package.</span>`;
+  }
+  if (entry.proof_surface === "top20-catalog-supported") {
+    return `<strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.86rem">This is one of the strongest public starting points.</span>`;
+  }
+  if (entry.proof_surface === "next80-proof-grade") {
+    return `<strong>Review first</strong><br><span style="color:var(--muted);font-size:.86rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span>`;
+  }
+  return `<strong>${escapeHtml(catalogLayerLabel(entry))}</strong><br><span style="color:var(--muted);font-size:.86rem">Open the chart page for current status.</span>`;
+}
+
+function featurePlain(feature) {
+  const labels = {
+    capabilities: "Kubernetes API capabilities",
+    "cluster-rbac": "cluster RBAC",
+    crds: "CRDs",
+    "generated-facts": "generated facts",
+    hook: "hooks",
+    hooks: "hooks",
+    lookup: "Helm lookup",
+    "stateful-storage": "stateful storage",
+    tpl: "tpl templates",
+    webhooks: "webhooks",
+  };
+  return labels[feature] ?? humanizeReasonToken(feature);
+}
+
+function watchFirstCell(entry, rows, row) {
+  const notes = [];
+  const features = splitSemicolonList(entry.source_features).map(featurePlain).slice(0, 4);
+  const hasHookSignal = rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
+  const hasCrdSignal = rows.some((candidate) => /crd/i.test(candidate.quirk_features || "") || /crd/i.test(candidate.next_action || ""));
+  if (features.length) notes.push(features.join(", "));
+  if (hasHookSignal && !features.some((feature) => /hook/i.test(feature))) notes.push("hooks or lifecycle actions");
+  if (hasCrdSignal && !features.some((feature) => /CRD/.test(feature))) notes.push("CRDs");
+  const rawReason = cleanPageActionText(row?.hard_gap || row?.active_proof_reason || "");
+  const reason = humanizeReasonList(rawReason);
+  if (reason && !isCatalogOverviewNoise(reason)) notes.push(reason);
+  if (!notes.length) return "No special caveat shown in the catalog row.";
+  return escapeHtml(notes.slice(0, 3).join("; "));
+}
+
+function isCatalogOverviewNoise(value) {
+  const text = String(value || "").trim();
+  return !text || /^None/i.test(text) || /^—/.test(text) || /curated proof lane/i.test(text) || /no open gap/i.test(text);
+}
+
+function configHubOptionsCell(entry, rows) {
+  const bases = rows.filter((row) => row.row_kind === "base");
+  const candidates = rows.filter((row) => row.row_kind === "candidate" || row.row_kind === "derived");
+  const visible = bases.map((row) => row.variant).filter(Boolean).slice(0, 4);
+  const baseText = bases.length
+    ? `${bases.length} base option${bases.length === 1 ? "" : "s"}: ${visible.join(", ")}${bases.length > visible.length ? ", ..." : ""}`
+    : entry.supported_variants || entry.candidate_variants || "Open chart page.";
+  const suffix = candidates.length ? `<br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(candidates.length)} candidate or derived path${candidates.length === 1 ? "" : "s"} also shown.</span>` : "";
+  return `${escapeHtml(baseText)}${suffix}`;
+}
+
+function githubPackageUrlForEntry(entry, row) {
+  if (row?.github_package_base_url) return row.github_package_base_url;
+  if (entry.package_path && entry.start_variant) {
+    return `https://github.com/confighub/helm-expt/tree/main/${entry.package_path}/bases/${entry.start_variant}`;
+  }
+  if (entry.package_path) return `https://github.com/confighub/helm-expt/tree/main/${entry.package_path}`;
+  return "";
+}
+
+function githubRecipeUrlForEntry(entry, row) {
+  if (row?.github_recipe_url) return row.github_recipe_url;
+  const recipeRoot = entry.recipe_path?.replace(/\/recipe\.yaml$/, "");
+  return recipeRoot ? `https://github.com/confighub/helm-expt/tree/main/${recipeRoot}` : "";
+}
+
+function yamlLinksCell(entry, row) {
+  const packageUrl = githubPackageUrlForEntry(entry, row);
+  const recipeUrl = githubRecipeUrlForEntry(entry, row);
+  const links = [];
+  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">generated YAML</a>`);
+  if (recipeUrl) links.push(`<a href="${escapeHtml(recipeUrl)}" rel="noopener">recipe</a>`);
+  return links.length ? links.join("<br>") : "Open chart page.";
+}
+
 function chartIndexHtml(catalog) {
   const chartRowsHtml = catalog.catalogEntries
     .map((entry) => {
+      const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
+      const sourceRow = matrixRows.find((row) => row.row_kind === "source");
+      const firstRow = firstCatalogBaseRow(matrixRows, entry);
       const level = catalogLayerLabel(entry);
-      const variants = entry.supported_variants || entry.candidate_variants || "see chart page";
+      const variants = entry.supported_variants || entry.candidate_variants || "";
       const status = entry.start_base_readiness || "see chart page";
-      const production = productionSummaryForChart(catalog, entry)?.production_support ?? entry.production_readiness;
       const featureText = [
         entry.chart,
         entry.version,
         level,
         entry.start_variant,
-        variants,
+        entry.supported_variants,
+        entry.candidate_variants,
         status,
-        production,
         entry.source_features,
         entry.not_yet_enabled,
       ]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
-      const hasHooks = /hook/i.test(entry.source_features || "") || /hook/i.test(entry.not_yet_enabled || "");
-      const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants);
+      const hasHooks =
+        /hook/i.test(entry.source_features || "") ||
+        /hook/i.test(entry.not_yet_enabled || "") ||
+        matrixRows.some((row) => Number(row.hook_count || 0) > 0 || String(row.lifecycle_route_contract || "n/a") !== "n/a");
+      const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants) || matrixRows.some((row) => /crd/i.test(row.quirk_features || ""));
       return `<tr data-chart-row data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
         <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a></td>
-        <td>${escapeHtml(entry.version)}</td>
-        <td>${escapeHtml(level)}</td>
-        <td>${escapeHtml(entry.start_variant)}</td>
-        <td>${escapeHtml(variants)}</td>
-        <td>${escapeHtml(status)}</td>
-        <td>${escapeHtml(production)}</td>
+        <td>${publicCatalogVersionCell(entry, sourceRow)}</td>
+        <td>${firstPathCell(entry, firstRow)}</td>
+        <td>${catalogUseCell(entry, firstRow)}</td>
+        <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
+        <td>${configHubOptionsCell(entry, matrixRows)}</td>
+        <td>${yamlLinksCell(entry, firstRow)}</td>
       </tr>`;
     })
     .join("\n");
@@ -3280,6 +3418,10 @@ function chartIndexHtml(catalog) {
     <section aria-labelledby="charts">
       <h2 id="charts">Chart Directory</h2>
       <div class="card">
+        <h3>How to read this table</h3>
+        <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first base to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated YAML.</p>
+      </div>
+      <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
         <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
@@ -3291,7 +3433,7 @@ function chartIndexHtml(catalog) {
         <p class="mono" id="chart-filter-count" style="font-size:.86rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version</th><th>Catalog level</th><th>Start base</th><th>Supported or candidate bases</th><th>Start status</th><th>Production disposition</th></tr></thead>
+        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First path</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>YAML and recipe</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
