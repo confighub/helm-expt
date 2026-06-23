@@ -324,13 +324,18 @@
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>Apps Guide</h1>
-    <p>An App groups several charts, and your own services, so a team can manage, review, and ship them together.</p>
-    <p>A Unit is a tracked piece of config. A target is where the app will run. Use this guide when you want charts, custom objects, and targets to become one application path.</p>
+    <p class="lead">An app can include public charts, private services, and platform pieces. ConfigHub helps you manage them as one thing instead of a pile of YAML.</p>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The sections below explain app shapes, import paths, and how an app moves from desired state to operations.</p>
+    </section>
     <section aria-labelledby="app-kinds">
       <h2 id="app-kinds">What Counts As An App?</h2>
       <div class="card"><table>

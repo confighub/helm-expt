@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Why This Exists", "Start by comparing ordinary Helm with", "Helm operations with ConfigHub and AI", "When both paths get the same deployment", "What ConfigHub Adds", "Existing apps"],
+    terms: ["For humans", "Reference", "Helm operations with ConfigHub and AI", "Helm charts are easy to install and hard to change safely", "What ConfigHub Adds", "Existing apps"],
   },
   {
     file: "site/variants.html",
@@ -48,7 +48,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["AI-Assisted Operations", "AI proposes", "ConfigHub shows", "Good AI Tasks", "RBAC Manager for Agents"],
+    terms: ["For humans", "AI-Assisted Operations", "AI can help explain, propose, and check changes", "Good AI Tasks", "RBAC Manager for Agents"],
   },
   {
     file: "site/custom-apps.html",
@@ -77,6 +77,27 @@ const menuGuidePages = [
   "site/operations.html",
   "site/docs.html",
   "site/hard-questions.html",
+];
+
+const humanSplitPages = [
+  "site/index.html",
+  "site/try.html",
+  "site/how-it-works.html",
+  "site/variants.html",
+  "site/journey.html",
+  "site/operations.html",
+  "site/docs.html",
+  "site/hard-questions.html",
+  "site/known-gaps.html",
+  "site/quirks.html",
+  "site/proof.html",
+  "site/offering.html",
+  "site/custom-apps.html",
+  "site/existing-apps.html",
+  "site/ai.html",
+  "site/security.html",
+  "site/future.html",
+  "site/private/index.html",
 ];
 
 const failures = [];
@@ -112,6 +133,20 @@ for (const file of menuGuidePages) {
   }
 }
 
+for (const file of humanSplitPages) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${file}: missing file`);
+    continue;
+  }
+  const text = fs.readFileSync(fullPath, "utf8");
+  const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  if (!header.includes("For humans")) failures.push(`${file}: missing For humans label in header`);
+  if (!text.includes("Reference") || !text.includes("Details and data")) {
+    failures.push(`${file}: missing reference/details divider`);
+  }
+}
+
 // Chart-card placeholder lint: a chart page must never render an unresolved
 // "<action>: unknown;" Next-action placeholder or a raw "<tmp>" work-dir placeholder
 // inside a command/action field. (The card text must read as something a user can act on.)
@@ -131,4 +166,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`verified site UX contract: ${checks.length} page(s)`);
+console.log(`verified site UX contract: ${checks.length} page(s), ${humanSplitPages.length} human/reference split page(s)`);

@@ -316,13 +316,19 @@
 </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>Helm Quirks</h1>
-    <p>Some Helm chart behavior is not just a list of Kubernetes objects. Hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC all need explicit handling.</p>
-    <p>This page gives the short list. The matrix shows the exact chart, version, and variant rows.</p>
+    <p class="lead">Some charts need more than “apply these objects.” This guide names the common cases: hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC.</p>
+    <p style="margin-top:14px;font-size:.95rem"><a href="./charts/index.html">Browse charts</a> · <a href="./matrix.html">Open matrix</a></p>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The table below explains each quirk and links it back to chart examples.</p>
+    </section>
     <section aria-labelledby="how">
       <h2 id="how">How To Use This Page</h2>
       <div class="grid">

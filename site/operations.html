@@ -327,13 +327,18 @@
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>Ops Guide</h1>
-    <p>Use this guide for everything after an app exists: releasing, scanning, delivering, and watching it run.</p>
-    <p>Use the <a href="./journey.html">Apps guide</a> to create the app shape. Use the <a href="./variants.html">Variants guide</a> to decide how a chart changes. This page is about operating those apps once they exist.</p>
+    <p class="lead">Use this guide after an app exists. It covers review, scan, delivery, observation, upgrades, rollback, and fleet changes.</p>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The sections below list operation types, current status, commands, and evidence links.</p>
+    </section>
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">Before Ops</h2>
       <p>The app should already have a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>

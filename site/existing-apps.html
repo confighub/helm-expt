@@ -316,12 +316,18 @@
 </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first step is not to take over. The first step is to read what exists and compare it with a known desired shape.</p>
+    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, start read-only. First understand what exists. Then decide what ConfigHub should manage.</p>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The sections below list safe import routes and the checks to run before changing delivery.</p>
+    </section>
     <section aria-labelledby="start">
       <h2 id="start">Start Read-Only</h2>
       <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub should make those facts visible before it tries to manage them.</p>

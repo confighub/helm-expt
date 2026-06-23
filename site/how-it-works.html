@@ -347,11 +347,11 @@
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>How It Works</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this how it works guide.</p>
-    <p class="tagline">The model is four moves: render, route, deliver, observe. Each move makes a Helm install more visible without pretending every live case is already green.</p>
+    <p class="tagline">The model is four moves: render, route, deliver, observe. Each move makes a Helm install easier to inspect and safer to change.</p>
     <div class="move-spine" aria-label="Four-move spine">
       <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
       <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
@@ -360,6 +360,12 @@
     </div>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The sections below explain the four moves and link to the evidence behind them.</p>
+    </section>
+    <p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this how it works guide.</p>
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
       <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>

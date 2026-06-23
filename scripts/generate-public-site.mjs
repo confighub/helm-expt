@@ -415,6 +415,23 @@ function topNav(base = ".") {
   return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
+function audienceLabel(text) {
+  return `<p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">${escapeHtml(text)}</p>`;
+}
+
+function humanLinks(links = []) {
+  if (!links.length) return "";
+  return `<p style="margin-top:14px;font-size:.95rem">${links.map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`).join(" · ")}</p>`;
+}
+
+function referenceStartHtml(body = "The rest of this page is reference material: commands, data links, proof notes, and edge cases.") {
+  return `<section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      ${audienceLabel("Reference")}
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>${escapeHtml(body)}</p>
+    </section>`;
+}
+
 function matrixLaneDispositionCounts(rows) {
   const laneColumns = [
     "lane_render_parity",
@@ -539,10 +556,11 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="home-hero">
+  <header class="home-hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Helm operations with ConfigHub and AI</h1>
-    <p class="lead">Start by comparing ordinary Helm with <code>cub installer</code>. Then pick a chart, create variants, and move toward real apps with reviewable changes.</p>
+    <p class="lead">Helm charts are easy to install and hard to change safely. ConfigHub makes the rendered config visible, so teams can review, customize, and operate it with fewer surprises.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
@@ -553,6 +571,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     </div>
   </header>
   <main>
+    ${referenceStartHtml("The sections below explain the experiment, the evidence, and the product ideas behind the short path above.")}
     <section aria-labelledby="quick-context">
       <h2 id="quick-context">Why This Exists</h2>
       <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
@@ -694,11 +713,11 @@ function howItWorksHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>How It Works</h1>
-    ${generatedStamp(catalog, "how it works guide")}
-    <p class="tagline">The model is four moves: render, route, deliver, observe. Each move makes a Helm install more visible without pretending every live case is already green.</p>
+    <p class="tagline">The model is four moves: render, route, deliver, observe. Each move makes a Helm install easier to inspect and safer to change.</p>
     <div class="move-spine" aria-label="Four-move spine">
       <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
       <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
@@ -707,6 +726,8 @@ function howItWorksHtml(catalog) {
     </div>
   </header>
   <main>
+    ${referenceStartHtml("The sections below explain the four moves and link to the evidence behind them.")}
+    ${generatedStamp(catalog, "how it works guide")}
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
       <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>
@@ -1392,20 +1413,16 @@ function legacyOfferingHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
-    ${generatedStamp(catalog, "offering page")}
-    <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
-    <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
-    <pre>public Helm chart
--> cub installer recipe/package
--> named base variants
--> exact rendered Kubernetes objects
--> scans, gates, receipts
--> ConfigHub / OCI / GitOps / live observation</pre>
+    <p class="tagline">Keep Helm charts as the source. Use ConfigHub to make the rendered config visible, reviewable, and safer to operate.</p>
+    ${humanLinks([["Get started", "./try.html"], ["Choose a chart", "./charts/index.html"], ["Read how it works", "./how-it-works.html"]])}
   </header>
   <main>
+    ${referenceStartHtml("The sections below explain the offering, the proof boundaries, and the public-to-managed path.")}
+    ${generatedStamp(catalog, "offering page")}
     <section aria-labelledby="problem">
       <h2 id="problem">The Problem We Are Solving</h2>
       <p>Helm users can usually install something. The harder problem is knowing exactly what was produced, whether the same thing was promoted, what changed between environments, whether the exact objects were scanned, and what the cluster actually observed after deployment.</p>
@@ -1575,13 +1592,15 @@ function tryHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Get started with Prometheus</h1>
     <p>Start with a familiar public Helm chart and compare two paths: a normal Helm install, and a <code>cub installer</code> render of the same chart.</p>
     <p>The first question is deliberately simple: under the same chart, values, and base assumptions, does the ConfigHub path preserve the Kubernetes objects Helm would create?</p>
   </header>
   <main>
+    ${referenceStartHtml("The rest of this page explains what to run, what you should see, and where to go next.")}
     <section aria-labelledby="choice">
       <h2 id="choice">Helm or cub installer?</h2>
       <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
@@ -1685,12 +1704,14 @@ function docsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Docs</h1>
-    <p>Start with the guides. Use the database and generated evidence only when you need exact status.</p>
+    <p class="lead">Start with a guide. Use the database only when you need exact chart status, receipts, or generated evidence.</p>
   </header>
   <main>
+    ${referenceStartHtml("The lists below are the public documentation map and the generated data map.")}
     <section aria-labelledby="guides">
       <h2 id="guides">Guides</h2>
       ${markdownLikeTable([
@@ -1757,13 +1778,15 @@ function quirksHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Helm Quirks</h1>
-    <p>Some Helm chart behavior is not just a list of Kubernetes objects. Hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC all need explicit handling.</p>
-    <p>This page gives the short list. The matrix shows the exact chart, version, and variant rows.</p>
+    <p class="lead">Some charts need more than “apply these objects.” This guide names the common cases: hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC.</p>
+    ${humanLinks([["Browse charts", "./charts/index.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
+    ${referenceStartHtml("The table below explains each quirk and links it back to chart examples.")}
     <section aria-labelledby="how">
       <h2 id="how">How To Use This Page</h2>
       <div class="grid">
@@ -1842,14 +1865,16 @@ function proofHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Proof, not promises.</h1>
-    ${generatedStamp(catalog, "proof page")}
-    <p class="tagline">This page explains what the catalog proves, what each lane means, and where the proof stops. It is intentionally narrower than a marketing claim.</p>
-    <p>Render parity is the starting point. The stronger claim is staged: exact objects, ConfigHub Units, scans, live apply, GitOps/OCI reconciliation, semantic comparison with Helm, lifecycle routing, and observation receipts.</p>
+    <p class="tagline">This page shows what the catalog proves and where the proof stops. It is for reviewers who want to audit the claims.</p>
+    ${humanLinks([["Read the matrix", "./matrix.html"], ["Read the claims register", "../data/claims-register/summary.md"]])}
   </header>
   <main>
+    ${referenceStartHtml("The sections below are evidence and review material. They are not the first path for a new Helm user.")}
+    ${generatedStamp(catalog, "proof page")}
     <section aria-labelledby="counters">
       <h2 id="counters">Current Proof Counters</h2>
       <div class="grid">
@@ -2251,12 +2276,14 @@ function hardQuestionsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>FAQ for skeptical Helm users.</h1>
-    <p>Short answers first. Each answer links to evidence or a tracked product gap. Questions that still need product work are marked as P1 backlog items and tracked in <a href="${laterIssueUrl}">hard-questions-for-later</a>.</p>
+    <p class="lead">Use this page when something sounds too good, too vague, or too risky. The short answer comes first, and the link shows where the evidence or open work lives.</p>
   </header>
   <main>
+    ${referenceStartHtml(`Questions that still need product work are tracked in hard-questions-for-later: ${laterIssueUrl}.`)}
     ${faqSections
       .map(
         (section) => `<section aria-labelledby="${escapeHtml(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"))}">
@@ -2322,13 +2349,15 @@ function knownGapsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Known Gaps We Surface</h1>
-    ${generatedStamp(catalog, "known gaps page")}
-    <p class="tagline">These are not hidden blemishes. They are exactly the kind of rough edges this project is meant to expose before a user trusts a path.</p>
+    <p class="tagline">This project should not hide rough edges. If a path is awkward, incomplete, or target-specific, we say so.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below list the current watch findings and the evidence behind them.")}
+    ${generatedStamp(catalog, "known gaps page")}
     <section aria-labelledby="rule">
       <h2 id="rule">The Rule</h2>
       <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site should mark it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
@@ -2438,13 +2467,15 @@ function privateHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav("..")}
+    ${audienceLabel("For humans")}
     <h1>Private catalogs and managed operations.</h1>
-    ${generatedStamp(catalog, "private page")}
-    <p class="tagline">The free path must be genuinely useful: browse public charts, inspect variants, pull public artifacts where available, and verify proof locally. Paid starts when the service stores private inputs, creates private variants, runs managed workflows, or carries production responsibility.</p>
+    <p class="tagline">The public catalog is for learning and trying. Private catalogs are for your charts, your teams, your approvals, and your production workflows.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below describe the boundary between the public experiment and managed ConfigHub use.")}
+    ${generatedStamp(catalog, "private page")}
     <section aria-labelledby="public-value">
       <h2 id="public-value">Why Use The Free Public Catalog?</h2>
       <p>Public Helm charts are flexible, but the rendered result is often opaque. The free catalog gives a Helm user the supported base choices, exact objects, proof boundary, and known gaps before they install or promote anything.</p>
@@ -2552,13 +2583,14 @@ function journeyHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Apps Guide</h1>
-    <p>An App groups several charts, and your own services, so a team can manage, review, and ship them together.</p>
-    <p>A Unit is a tracked piece of config. A target is where the app will run. Use this guide when you want charts, custom objects, and targets to become one application path.</p>
+    <p class="lead">An app can include public charts, private services, and platform pieces. ConfigHub helps you manage them as one thing instead of a pile of YAML.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below explain app shapes, import paths, and how an app moves from desired state to operations.")}
     <section aria-labelledby="app-kinds">
       <h2 id="app-kinds">What Counts As An App?</h2>
       ${markdownLikeTable([
@@ -2660,12 +2692,15 @@ function variantsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Variants</h1>
-    <p>Helm starts by making files from a chart. We call this render. A base variant is a checked copy of those files. A derived variant is a later change in ConfigHub.</p>
+    <p class="lead">A variant is a named configuration for the same component: default, dev, staging, prod, customer A, or another useful shape.</p>
+    <p>Use a base variant when Helm must render a different object set. Use a derived variant when ConfigHub can safely refine the already-rendered config.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below define the model, show the commands, and explain when to go back to Helm.")}
     <section aria-labelledby="model">
       <h2 id="model">Component And Variant Model</h2>
       <p>ConfigHub groups related config by Component and Variant. A Component is what you ship. A Variant is one named version of it.</p>
@@ -2762,13 +2797,15 @@ function customAppsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Custom Apps &amp; Stacks</h1>
-    ${generatedStamp(catalog, "custom apps page")}
-    <p class="tagline">A real app is often several public charts plus your own service, platform values, customer overlays, and target prerequisites. The model treats that as one desired-state graph without hiding which pieces are public, private, rendered, or post-render.</p>
+    <p class="tagline">A real app is often several Helm charts plus your own service. ConfigHub is useful when you want those pieces reviewed and shipped together.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below show where public charts, custom app config, overlays, and private sources fit.")}
+    ${generatedStamp(catalog, "custom apps page")}
     <section aria-labelledby="map">
       <h2 id="map">Where The Pieces Go</h2>
       ${markdownLikeTable([
@@ -2820,12 +2857,14 @@ function existingAppsHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first step is not to take over. The first step is to read what exists and compare it with a known desired shape.</p>
+    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, start read-only. First understand what exists. Then decide what ConfigHub should manage.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below list safe import routes and the checks to run before changing delivery.")}
     <section aria-labelledby="start">
       <h2 id="start">Start Read-Only</h2>
       <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub should make those facts visible before it tries to manage them.</p>
@@ -2876,12 +2915,14 @@ function aiHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>AI-Assisted Operations</h1>
-    <p class="tagline">The useful AI story is not magic deployment. AI proposes, ConfigHub shows the exact config change, and the team decides whether to apply it.</p>
+    <p class="tagline">AI can help explain, propose, and check changes. ConfigHub should keep the actual config change visible before anything ships.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below list the AI tasks that fit this model and the evidence that keeps them accountable.")}
     <section aria-labelledby="model">
       <h2 id="model">The Safe Shape</h2>
       <p>Helm charts create a lot of text and a lot of choices. AI can help explain that complexity, suggest variants, and find likely fixes. ConfigHub gives those suggestions a safer shape: exact object diffs, target facts, gates, receipts, and live observations.</p>
@@ -2935,12 +2976,14 @@ function securityHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Security And Provenance</h1>
-    <p class="tagline">The public catalog is not a security certification. It shows how Helm output can be made explicit, checked, delivered, and observed with a clearer chain of evidence.</p>
+    <p class="tagline">The public catalog is not a security certification. It shows how Helm output can be made visible, checked, delivered, and observed.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below explain the security controls and where the current evidence stops.")}
     <section aria-labelledby="why">
       <h2 id="why">Why It Helps</h2>
       <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review.</p>
@@ -2993,12 +3036,14 @@ function futureHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Future And Managed Ideas</h1>
-    <p class="tagline">Some ideas are already backed by committed evidence. Others are roadmap or managed-product ideas. This page keeps that boundary visible.</p>
+    <p class="tagline">This page separates what exists now from what we want to build next. It should stop roadmap ideas from sounding like shipped features.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below list current public evidence, future product ideas, and the guardrails around them.")}
     <section aria-labelledby="now">
       <h2 id="now">What Exists In The Public Experiment</h2>
       ${markdownLikeTable([
@@ -3126,13 +3171,14 @@ function operationsHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     ${topNav(".")}
+    ${audienceLabel("For humans")}
     <h1>Ops Guide</h1>
-    <p>Use this guide for everything after an app exists: releasing, scanning, delivering, and watching it run.</p>
-    <p>Use the <a href="./journey.html">Apps guide</a> to create the app shape. Use the <a href="./variants.html">Variants guide</a> to decide how a chart changes. This page is about operating those apps once they exist.</p>
+    <p class="lead">Use this guide after an app exists. It covers review, scan, delivery, observation, upgrades, rollback, and fleet changes.</p>
   </header>
   <main>
+    ${referenceStartHtml("The sections below list operation types, current status, commands, and evidence links.")}
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">Before Ops</h2>
       <p>The app should already have a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>

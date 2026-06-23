@@ -316,12 +316,19 @@
 </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For humans</p>
     <h1>Variants</h1>
-    <p>Helm starts by making files from a chart. We call this render. A base variant is a checked copy of those files. A derived variant is a later change in ConfigHub.</p>
+    <p class="lead">A variant is a named configuration for the same component: default, dev, staging, prod, customer A, or another useful shape.</p>
+    <p>Use a base variant when Helm must render a different object set. Use a derived variant when ConfigHub can safely refine the already-rendered config.</p>
   </header>
   <main>
+    <section aria-labelledby="reference" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
+      <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">Reference</p>
+      <h2 id="reference" style="margin-top:0">Details and data</h2>
+      <p>The sections below define the model, show the commands, and explain when to go back to Helm.</p>
+    </section>
     <section aria-labelledby="model">
       <h2 id="model">Component And Variant Model</h2>
       <p>ConfigHub groups related config by Component and Variant. A Component is what you ship. A Variant is one named version of it.</p>
