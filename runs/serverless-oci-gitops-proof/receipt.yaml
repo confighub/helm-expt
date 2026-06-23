@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ServerlessOciGitopsProofReceipt"
+metadata:
+  name: "srvoci-20260623-24z"
+spec:
+  observedAt: "2026-06-23T15:50:33.106Z"
+  result: "pass"
+  claim: "A SERVERLESS cub flow can publish to OCI for an existing GitOps controller instead of kubectl-applying. With no ConfigHub login: cub installer setup renders the catalog Redis base locally; `flux push artifact` pushes the RENDERED bundle (manifests + the Secret) to an OCI registry; an existing Flux (OCIRepository + Kustomization) pulls it FROM OCI and applies it. The Secret is delivered because it is in the bundle — the tradeoff being it then lives in the registry, unlike the ConfigHub path which separates secret material. `cub installer push` is NOT this path (it pushes the un-rendered installer package); the rendered-bundle push is the GitOps-consumable one."
+  legs:
+    render:
+      ok: true
+      detail: "cub installer setup --base default -> 14 manifest file(s) + 1 secret file(s), no account"
+    push:
+      ok: true
+      detail: "flux push artifact -> oci://localhost:5000/redis-serverless:v1 (rendered bundle incl. Secret)"
+    fluxReady:
+      ok: true
+      detail: "flux source + kustomize controllers installed (an existing controller)"
+    reconcile:
+      ok: true
+      detail: "OCIRepository Ready=True + Flux applied the serverless-pushed bundle: redis StatefulSet/Service present in ns redis"
+    secret:
+      ok: true
+      detail: "Secret delivered through the OCI bundle (secret/redis) — serverless push ships it; tradeoff: it lives in the registry"
+    workload:
+      result: "pass"
+      detail: "a redis pod reached Ready"
+  run:
+    rig: "srvoci-20260623-24z"
+    registry: "in-cluster registry:2, pulled by Flux via cluster DNS; pushed via port-forward"
+    controller: "Flux (OCIRepository+Kustomization)"
+    cleanup:
+      result: "pass"
+  conclusion: "Proven: a no-login serverless render pushed to an OCI registry was pulled and applied by an existing Flux controller — no kubectl apply of the workload from us. The Secret rode along in the bundle (delivered, but now in the registry). So the 'push to OCI for existing Argo/Flux' mode works serverlessly for a vanilla chart; the honest caveats are secret-in-registry and that hook/CRD charts still need the lifecycle routes."
