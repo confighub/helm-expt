@@ -22,12 +22,12 @@ You provide: nothing beyond a cluster and namespace. Absorbed for you: exact ren
 
 ## What is at render parity?
 
-Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:1/2. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
+Current lane status is derived from committed receipts and generated matrix rows. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
 
 ## What is at live parity?
 
 - two-cluster kind parity, base `crds-enabled`: pass ([receipt](../../../runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml))
-- two-cluster kind parity, base `default`: blocked ([receipt](../../../runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml))
+- two-cluster kind parity, base `default`: pass ([receipt](../../../runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml))
 - local kind live e2e: pass, strict witness `-` (-)
 - CRD/webhook/controller runtime lifecycle observations ([evidence](../../../data/lifecycle-observations/cert-manager-eso/summary.md))
 - SelectableFields capability-profile witness on kind Kubernetes 1.35 ([evidence](../../../data/capability-profile-witnesses/selectablefields/receipts/jetstack-cert-manager-crds-enabled-kind-1.35.yaml))

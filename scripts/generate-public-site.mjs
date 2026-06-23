@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
@@ -3244,12 +3244,14 @@ function chartPageHtml(catalog, entry) {
     matrixRows.find((row) => row.row_kind === "base") ??
     matrixRows.find((row) => row.row_kind !== "source");
   const firstRunnableCommand = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry) : "No runnable row recorded yet.";
-  const firstRunnableReason =
+  const firstRunnableCommandText = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry, { html: false }) : "No runnable row recorded yet.";
+  const firstRunnableReason = cleanPageActionText(
     firstRunnableRow?.active_proof_reason ||
     firstRunnableRow?.variant_promotion_reason ||
     firstRunnableRow?.hard_gap ||
     entry.not_yet_enabled ||
-    "No blocking reason recorded.";
+    "No blocking reason recorded.",
+  );
   const teaching = chartTeachingHtml(entry);
   const production = productionSummaryForChart(catalog, entry);
   const support = catalog.productionSupportDecisions.find((row) => row.chart === entry.chart && row.version === entry.version);
@@ -3316,6 +3318,8 @@ function chartPageHtml(catalog, entry) {
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
   const lifecycleByVariantEntry = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
+  const lifecyclePolicyRows = lifecyclePolicyTableRows(readLifecyclePolicy(entry.recipe_path));
+  const dispositionActionRows = productionDispositionActionRows(production);
   const skillRows = chartSkill?.applicable?.map((skill) => [
     `<a href="../../${escapeHtml(skill.doc)}">${escapeHtml(skill.title)}</a>`,
     skill.why,
@@ -3346,7 +3350,7 @@ function chartPageHtml(catalog, entry) {
     <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
-    <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
+    <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -3447,7 +3451,17 @@ ${teaching ? `\n    ${teaching}\n` : ""}
               ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
               ...lifecycleRows,
             ])
-          : "<p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
+          : lifecyclePolicyRows.length
+            ? markdownLikeTable([
+                ["Base or route", "Status", "What must be shown"],
+                ...lifecyclePolicyRows,
+              ])
+            : dispositionActionRows.length
+              ? markdownLikeTable([
+                  ["Modeled action area", "Current status"],
+                  ...dispositionActionRows,
+                ], { rawSecondColumn: true })
+              : "<p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
     </section>
 
     <section aria-labelledby="production">
@@ -3460,7 +3474,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ["Supported base", support?.supported_base ?? ""],
         ["Target scope", support?.target_scope ?? ""],
         ["Accepted dispositions", acceptedDispositions.join("; ") || "none recorded"],
-        ["Open dispositions", openDispositions.join("; ") || "none"],
+        ["Open policy dispositions", openDispositions.join("; ") || "none recorded for this policy checklist"],
         ["Next action", support?.next_action || production?.next_action || top100?.next_action || ""],
       ])}
     </section>
@@ -3533,8 +3547,8 @@ function chartTeachingHtml(entry) {
 function matrixRowCard(row, entry) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
-  const nextAction = row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "";
-  const reason = row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "";
+  const nextAction = cleanPageActionText(row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "");
+  const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
   const rowLinks = matrixRowLinks(row);
   const laneBadges = [
     ["R", "Render", row.lane_render_parity],
@@ -3571,7 +3585,16 @@ function matrixRowCard(row, entry) {
       </article>`;
 }
 
-function matrixRowRunPath(row, entry) {
+function cleanPageActionText(value) {
+  return String(value ?? "")
+    .replaceAll("create-namespace: unknown", "choose and create the target namespace")
+    .replaceAll("operator-review: unknown", "complete the operator review")
+    .replaceAll("stage-secret: unknown", "stage the required Secret");
+}
+
+function matrixRowRunPath(row, entry, options = {}) {
+  const htmlOutput = options.html !== false;
+  const format = (text) => htmlOutput ? `<code>${escapeHtml(text)}</code>` : text;
   if (row.row_kind === "source") {
     return "Source chart. Choose an F2 base below before running the installer.";
   }
@@ -3586,14 +3609,25 @@ function matrixRowRunPath(row, entry) {
   }
   if (row.package_base_path) {
     const packagePath = row.package_base_path.replace(/\/bases\/[^/]+$/, "");
-    const namespace = entry.namespace ? ` --namespace ${escapeHtml(entry.namespace)}` : "";
-    return `<code>cub installer setup --pull ${escapeHtml(packagePath)} --base ${escapeHtml(row.variant)} --work-dir &lt;tmp&gt; --non-interactive${namespace}</code>`;
+    return format(installerSetupCommand(packagePath, row.variant, entry, row));
   }
   if (entry.package_path && row.variant && row.variant !== "(source)") {
-    const namespace = entry.namespace ? ` --namespace ${escapeHtml(entry.namespace)}` : "";
-    return `<code>cub installer setup --pull ${escapeHtml(entry.package_path)} --base ${escapeHtml(row.variant)} --work-dir &lt;tmp&gt; --non-interactive${namespace}</code>`;
+    return format(installerSetupCommand(entry.package_path, row.variant, entry, row));
   }
   return "Review the matrix row before running this option.";
+}
+
+function installerSetupCommand(packagePath, variant, entry, row) {
+  const namespace = entry.namespace ? ` --namespace ${entry.namespace}` : "";
+  return `cub installer setup --pull ${packagePath} --base ${variant} --work-dir ${demoWorkDir(entry, row)} --non-interactive${namespace}`;
+}
+
+function demoWorkDir(entry, row) {
+  const stem = `${entry.chart}-${entry.version}-${row.variant || entry.start_variant || "default"}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `.tmp/demo/${stem}`;
 }
 
 function matrixHookSummary(row) {
@@ -3693,6 +3727,70 @@ function chartPageFileName(entry) {
 
 function productionSummaryForChart(catalog, entry) {
   return catalog.productionDisposition.find((row) => row.chart === entry.chart && row.version === entry.version);
+}
+
+function readLifecyclePolicy(recipePath) {
+  if (!recipePath) return null;
+  const path = join(repoRoot, recipePath, "lifecycle-policy.yaml");
+  if (!existsSync(path)) return null;
+  try {
+    return readYaml(path);
+  } catch {
+    return null;
+  }
+}
+
+function lifecyclePolicyTableRows(policy) {
+  const bases = policy?.spec?.bases ?? {};
+  const rows = [];
+  for (const [base, detail] of Object.entries(bases)) {
+    const status = detail?.status ?? "recorded";
+    for (const route of detail?.supportedRoutes ?? []) {
+      rows.push([
+        `${base}: ${route.route}`,
+        status,
+        [route.description, evidenceNeededText(route.evidenceNeeded)].filter(Boolean).join(" "),
+      ]);
+    }
+    if (!(detail?.supportedRoutes ?? []).length && (detail?.evidenceNeeded ?? []).length) {
+      rows.push([
+        base,
+        status,
+        evidenceNeededText(detail.evidenceNeeded),
+      ]);
+    }
+  }
+  return rows;
+}
+
+function evidenceNeededText(items) {
+  if (!items?.length) return "";
+  return `Evidence still needed before claiming this route: ${items.join(", ")}.`;
+}
+
+function productionDispositionActionRows(production) {
+  if (!production) return [];
+  const rows = [];
+  const accepted = splitDisposition(production.accepted_dispositions);
+  const open = splitDisposition(production.open_dispositions);
+  if (accepted.length) rows.push(["Accepted action areas", accepted.join("; ")]);
+  if (open.length) rows.push(["Open action areas", open.join("; ")]);
+  if (production.lifecycle_policy_basis && production.lifecycle_policy_basis !== "none") {
+    rows.push(["Lifecycle basis", escapeHtml(production.lifecycle_policy_basis)]);
+  }
+  if (production.lifecycle_observation_receipts) {
+    rows.push(["Lifecycle observations", pathLinks(production.lifecycle_observation_receipts)]);
+  }
+  if (production.production_disposition_receipts) {
+    rows.push(["Disposition receipts", pathLinks(production.production_disposition_receipts)]);
+  }
+  return rows;
+}
+
+function pathLinks(value) {
+  return splitDisposition(value)
+    .map((path) => `<a href="../../${escapeHtml(path)}">${escapeHtml(path)}</a>`)
+    .join("<br>");
 }
 
 function allBaseStatus(rows, field) {

@@ -24,12 +24,11 @@ Hook disposition: `observed` (post-install, post-upgrade, pre-install, pre-upgra
 
 ## What is at render parity?
 
-Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
+Current lane status is derived from committed receipts and generated matrix rows. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
 
 ## What is at live parity?
 
-- two-cluster kind parity, base `default`: pass ([receipt](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml))
-- two-cluster kind parity, base `no-crds`: pass ([receipt](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml))
+- no matching-version two-cluster kind row is used for prometheus-community/kube-prometheus-stack@85.3.3; 2 row(s) exist for other chart versions and are deliberately excluded
 - local kind live e2e: pass, strict witness `observed` (3/4 pass)
 - Live CRD upgrade rehearsal 85.3.3 -> 86.1.0 (API-server apply of the new CRDs over the old) ([evidence](../../../data/serious-chart-reviews/kube-prometheus-stack.csv))
 - Render-level CRD upgrade delta (6/10 CRDs change; all additive) ([evidence](../../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml))

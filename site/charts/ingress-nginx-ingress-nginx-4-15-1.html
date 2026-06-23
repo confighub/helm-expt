@@ -319,11 +319,11 @@
   <header>
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>ingress-nginx/ingress-nginx</h1>
-    <p class="generated"><b>Generated at:</b> 2026-06-21T11:54:28.354Z UTC · source: committed helm-expt evidence for this chart status page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this chart status page.</p>
     <p>This page tells you what ConfigHub knows about this Helm chart today: how to run it with <code>cub</code>, which variants are available, what evidence exists, and what is still watch or blocked.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=ingress-nginx&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">catalog-supported page for ingress-nginx/ingress-nginx@4.15.1.</p>
-    <pre>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</pre>
+    <pre>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir .tmp/demo/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -352,7 +352,7 @@
       <p>Start with <strong>internal-clusterip</strong> unless a row below says this chart needs a different base or custom discussion. This command is generated from the current matrix and package metadata.</p>
       <div class="card">
         <h3>Recommended first command</h3>
-        <p><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</code></p>
+        <p><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir .tmp/demo/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx</code></p>
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -400,7 +400,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2a honest default base</p>
         <dl>
           <dt>Status</dt><dd>real</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/demo/ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx</code></dd>
           <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
           <dt>Hooks/actions</dt><dd>n/a</dd>
           <dt>Who runs actions?</dt><dd>n/a</dd>
@@ -422,7 +422,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2b rendered standard fork</p>
         <dl>
           <dt>Status</dt><dd>real</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir .tmp/demo/ingress-nginx-ingress-nginx-4-15-1-admission-disabled --non-interactive --namespace ingress-nginx</code></dd>
           <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
           <dt>Hooks/actions</dt><dd>n/a</dd>
           <dt>Who runs actions?</dt><dd>n/a</dd>
@@ -430,7 +430,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Reason</dt><dd>server-side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for admission-disabled">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
         <p class="row-links"><a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md">catalog</a> · <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml">variant</a> · <a href="../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled">package base</a> · <a href="../../runs/ingress-nginx-admission-disabled-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://kubernetes.github.io/ingress-nginx" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
@@ -444,7 +444,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2b rendered standard fork</p>
         <dl>
           <dt>Status</dt><dd>real</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir .tmp/demo/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx</code></dd>
           <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
           <dt>Hooks/actions</dt><dd>n/a</dd>
           <dt>Who runs actions?</dt><dd>n/a</dd>
@@ -544,7 +544,16 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">ConfigHub Actions</h2>
       <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
-      <p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <div class="card"><table>
+        <thead><tr><th>Modeled action area</th><th>Current status</th></tr></thead>
+        <tbody><tr><td>Accepted action areas</td><td>cluster RBAC review; hook and lifecycle phase policy; scan/gate warning disposition; target fact preflight; webhook readiness and failure policy</td></tr><tr><td>Lifecycle basis</td><td>recipe-hook-policy:no-hooks</td></tr><tr><td>Disposition receipts</td><td><a href="../../data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml">data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml</a><br><a href="../../data/production-disposition/receipts/ingress-nginx-ingress-nginx/hook-and-lifecycle-phase-policy.yaml">data/production-disposition/receipts/ingress-nginx-ingress-nginx/hook-and-lifecycle-phase-policy.yaml</a><br><a href="../../data/production-disposition/receipts/ingress-nginx-ingress-nginx/scan-gate-warning-disposition.yaml">data/production-disposition/receipts/ingress-nginx-ingress-nginx/scan-gate-warning-disposition.yaml</a><br><a href="../../data/production-disposition/receipts/ingress-nginx-ingress-nginx/target-fact-preflight.yaml">data/production-disposition/receipts/ingress-nginx-ingress-nginx/target-fact-preflight.yaml</a><br><a href="../../data/production-disposition/receipts/ingress-nginx-ingress-nginx/webhook-readiness-and-failure-policy.yaml">data/production-disposition/receipts/ingress-nginx-ingress-nginx/webhook-readiness-and-failure-policy.yaml</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     </section>
 
     <section aria-labelledby="production">
@@ -552,7 +561,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production disposition</td><td>production-review-ready</td></tr><tr><td>Target-scoped support decision</td><td>supported</td></tr><tr><td>Supported base</td><td>internal-clusterip</td></tr><tr><td>Target scope</td><td>cub-lk-kind-vanilla; namespace=ingress-nginx; delivery=confighub-oci; controller=argo</td></tr><tr><td>Accepted dispositions</td><td>cluster RBAC review; hook and lifecycle phase policy; scan/gate warning disposition; target fact preflight; webhook readiness and failure policy</td></tr><tr><td>Open dispositions</td><td>none</td></tr><tr><td>Next action</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr></tbody>
+        <tbody><tr><td>Production disposition</td><td>production-review-ready</td></tr><tr><td>Target-scoped support decision</td><td>supported</td></tr><tr><td>Supported base</td><td>internal-clusterip</td></tr><tr><td>Target scope</td><td>cub-lk-kind-vanilla; namespace=ingress-nginx; delivery=confighub-oci; controller=argo</td></tr><tr><td>Accepted dispositions</td><td>cluster RBAC review; hook and lifecycle phase policy; scan/gate warning disposition; target fact preflight; webhook readiness and failure policy</td></tr><tr><td>Open policy dispositions</td><td>none recorded for this policy checklist</td></tr><tr><td>Next action</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

@@ -22,7 +22,7 @@ You provide: an existing Secret for some bases (buildable — not yet run); a CR
 
 ## What is at render parity?
 
-Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
+Current lane status is derived from committed receipts and generated matrix rows. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
 
 ## What is at live parity?
 

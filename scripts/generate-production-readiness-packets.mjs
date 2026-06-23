@@ -157,7 +157,10 @@ const read = (path) => readFileSync(join(repoRoot, path), "utf8");
 function buildPacket(target, sources) {
   const packetRow = sources.packets.find((row) => row.chart === target.chart);
   check(packetRow, `${target.chart}: no hard-chart packet row`);
-  const kindParity = sources.kindParity.filter((row) => row.chart === target.chart);
+  const targetVersion = target.version || packetRow.version || "";
+  const kindParityForChart = sources.kindParity.filter((row) => row.chart === target.chart);
+  const kindParity = kindParityForChart.filter((row) => !targetVersion || row.version === targetVersion);
+  const otherVersionKindParity = kindParityForChart.filter((row) => targetVersion && row.version && row.version !== targetVersion);
   const liveE2e = sources.liveE2e.find((row) => target.chart.endsWith(row.chart) || row.chart === target.chart.split("/")[1]);
   const watch = sources.watchlist.filter((row) => target.chart.includes(row.chart.split("/")[1] ?? row.chart));
   const hook = sources.hooks.find((row) => row.chart === target.chart);
@@ -198,12 +201,15 @@ function buildPacket(target, sources) {
   lines.push("");
   lines.push("## What is at render parity?");
   lines.push("");
-  lines.push(`Lane summary: ${packetRow.live_summary}. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).`);
+  lines.push(`Current lane status is derived from committed receipts and generated matrix rows. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).`);
   lines.push("");
   lines.push("## What is at live parity?");
   lines.push("");
   for (const row of kindParity) {
     lines.push(`- two-cluster kind parity, base \`${row.base}\`: ${row.result || row.status || "see summary"} ([receipt](../../../${(row.receipt || row.receipt_path || "data/live-kind-parity/summary.md").trim()}))`);
+  }
+  if (!kindParity.length && otherVersionKindParity.length) {
+    lines.push(`- no matching-version two-cluster kind row is used for ${target.chart}@${targetVersion}; ${otherVersionKindParity.length} row(s) exist for other chart versions and are deliberately excluded`);
   }
   if (liveE2e) {
     lines.push(`- local kind live e2e: ${liveE2e.result}, strict witness \`${liveE2e.cubScout || "-"}\` (${liveE2e.cubScoutChecks || "-"})`);

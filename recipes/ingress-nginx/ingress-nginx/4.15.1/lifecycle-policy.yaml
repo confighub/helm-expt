@@ -21,20 +21,20 @@ spec:
         -
           route: "run-equivalent-webhook-cert-lifecycle"
           description: "Create and patch the admission webhook certificate Secret before or during apply, then observe the webhook Service and ValidatingWebhookConfiguration."
-          requiredReceipts:
+          evidenceNeeded:
             - "lifecycle-operation-receipt"
             - "admission-webhook-observation-receipt"
             - "secret-preflight-receipt"
         -
           route: "use-target-certificate-provider"
           description: "Use a target-approved certificate provider, such as cert-manager, and record the Secret, CA bundle, and webhook readiness evidence."
-          requiredReceipts:
+          evidenceNeeded:
             - "target-fact-receipt"
             - "admission-webhook-observation-receipt"
         -
           route: "choose-non-webhook-base"
           description: "Use admission-disabled or internal-clusterip when the target does not need the ingress-nginx admission webhook."
-          requiredReceipts:
+          evidenceNeeded:
             - "variant-selection-receipt"
       mustObserve:
         - "Secret ingress-nginx/ingress-nginx-admission exists with tls.crt, tls.key, and ca"
@@ -46,14 +46,14 @@ spec:
       renderedObjects:
         []
       note: "This base deliberately removes the admission Service and ValidatingWebhookConfiguration."
-      requiredReceipts:
+      evidenceNeeded:
         - "variant-selection-receipt"
     internalClusterIP:
       status: "webhook-not-rendered"
       renderedObjects:
         []
       note: "This base deliberately removes the admission webhook and changes the controller Service to ClusterIP for local or internal targets."
-      requiredReceipts:
+      evidenceNeeded:
         - "variant-selection-receipt"
   notProvenBy:
     - "render parity alone"

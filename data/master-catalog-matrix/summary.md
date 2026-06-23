@@ -46,7 +46,7 @@ from a different chart version's disposition row.
 | Matrix rows | 396 |
 | F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 74 / 13 |
 | Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 967 / 116 / 119 / 92 / 1478 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 962 / 116 / 124 / 92 / 1478 |
 | Base/derived rows with the complete core lane set | 132 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
@@ -119,6 +119,7 @@ duplicates of this one.
 | [production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv) | target run decision and target scope | delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action |
 | [variant-promotion/status.csv](../variant-promotion/status.csv) | server-side ConfigHub promotion status, matrix value, evidence path, reason, and next action | none; follow the source when you need the full per-row promotion route |
 | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) | exact chart/version/base live GitOps/OCI and live Helm-vs-ConfigHub parity result, overriding older aggregate outcome rows when a newer receipt exists | receipt reason and path; follow the source when diagnosing the run itself |
+| [runtime-gitops/receipts](../runtime-gitops/receipts) | exact committed RuntimeGitOps receipt result for a chart/base, overriding stale aggregate GitOps lane values when present | controller logs, workload diagnostics, and target-prerequisite detail; follow the receipt when diagnosing the run itself |
 | [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) | exact chart/version/base two-cluster kind parity result, overriding older aggregate outcome rows when a newer receipt exists | semantic parity details, reason, related lifecycle evidence, and receipt path |
 | [live-parity-rerun-plan/rerun-plan.csv](../live-parity-rerun-plan/rerun-plan.csv) | active non-pass live parity rows: current result, next step, rerun readiness, reason, support artifact, rerun command | priority and receipt path; follow the source when diagnosing the run itself |
 | [coverage-completion-plan/actions.json](../coverage-completion-plan/actions.json) | row-level completion action overlay: active run/fix/stage work, upstream dependency, scope decision, or deferred accepted disposition | full cell-level completion families; follow the coverage completion plan for the exact affected cells and family ranking |
@@ -142,10 +143,10 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.15` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ✅ |
-|  | F2b | base | no-crds | top20 | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ⬜ | ✅ | stage | live-parity | ⬜ |
+|  | F2b | base | no-crds | top20 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ✅ | ⬜ | ✅ | stage | live-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.17` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⬜ | ✅ | deferred | local-live | ⬜ |
-|  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ❌ | ✅ | ✅ | ⬜ | run | live-parity | ⬜ |
 | `argo-cd/argo-events@2.4.21` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
@@ -286,8 +287,8 @@ when you want the user/product view with those columns visible.
 |  | F2c | candidate discussion | cloudflare-existing-secret | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate discussion | route53-irsa | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `external-secrets/external-secrets@2.5.0` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
-|  | F2b | base | no-crds | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | no-crds | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `fairwinds-stable/goldilocks@10.3.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
@@ -347,7 +348,7 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `hashicorp/consul@2.0.0` | F1 | source | (source) | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ✅ |
-|  | F2b | base | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
+|  | F2b | base | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 | `hashicorp/terraform@1.1.2` | F1 | source | (source) | next80 | `crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2b | base | no-crds | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
@@ -363,7 +364,7 @@ when you want the user/product view with those columns visible.
 |  | F4a | derived from default | staging-us-east | derived | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 | `ingress-nginx/ingress-nginx@4.15.1` | F1 | source | (source) | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
+|  | F2b | base | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | internal-clusterip | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ✅ |
 | `istio/gateway@1.30.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |

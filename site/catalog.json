@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-21T11:54:28.354Z",
+  "generatedAt": "2026-06-23T08:32:01.928Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -20779,9 +20779,9 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 967,
+    "pass": 962,
     "watch": 116,
-    "blocked": 119,
+    "blocked": 124,
     "todo": 92,
     "na": 1478,
     "blank": 0,
@@ -26447,7 +26447,7 @@
       "password_fix_command": "kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>",
       "ships_crds": "yes",
       "crd_count": "3",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -26564,7 +26564,7 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "5",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -26872,11 +26872,11 @@
       "default_base": "default",
       "bakes_shared_password": "no",
       "password_keys": "",
-      "password_fix_base": "default",
-      "password_fix_command": "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
+      "password_fix_base": "",
+      "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "23",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -27093,8 +27093,8 @@
       "default_base": "default-control-plane",
       "bakes_shared_password": "no",
       "password_keys": "",
-      "password_fix_base": "secure-mesh-existing-secrets",
-      "password_fix_command": "kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value>",
+      "password_fix_base": "",
+      "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "28",
       "crd_separable_base": "",
@@ -27110,7 +27110,7 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "1",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -27188,7 +27188,7 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "1",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -27483,8 +27483,8 @@
       "default_base": "default",
       "bakes_shared_password": "no",
       "password_keys": "",
-      "password_fix_base": "default",
-      "password_fix_command": "kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>",
+      "password_fix_base": "",
+      "password_fix_command": "",
       "ships_crds": "no",
       "crd_count": "0",
       "crd_separable_base": "no-crds",
@@ -27695,7 +27695,7 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "13",
-      "crd_separable_base": "no-crds",
+      "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
@@ -28136,7 +28136,7 @@
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "no",
       "lane_lifecycle_observed": "n/a",
-      "lane_gitops_oci_live": "yes",
+      "lane_gitops_oci_live": "no",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "todo",
       "core_lanes_complete": "no",
@@ -37016,7 +37016,7 @@
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
       "lane_lifecycle_observed": "yes",
-      "lane_gitops_oci_live": "yes",
+      "lane_gitops_oci_live": "no",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
       "core_lanes_complete": "yes",
@@ -37090,7 +37090,7 @@
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
       "lane_lifecycle_observed": "yes",
-      "lane_gitops_oci_live": "yes",
+      "lane_gitops_oci_live": "no",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
       "core_lanes_complete": "yes",
@@ -41530,7 +41530,7 @@
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "no",
       "lane_lifecycle_observed": "todo",
-      "lane_gitops_oci_live": "watch",
+      "lane_gitops_oci_live": "no",
       "lane_live_dual_parity": "watch",
       "lane_two_cluster_kind": "yes",
       "core_lanes_complete": "no",
@@ -42714,7 +42714,7 @@
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
       "lane_lifecycle_observed": "todo",
-      "lane_gitops_oci_live": "yes",
+      "lane_gitops_oci_live": "watch",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
       "core_lanes_complete": "yes",

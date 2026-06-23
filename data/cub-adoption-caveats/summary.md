@@ -41,24 +41,24 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | Chart | Default base | CRDs | Fix |
 | --- | --- | --- | --- |
 | aqua/trivy-operator | `default` | 12 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| argo-cd/argo-cd | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| argo-cd/argo-cd | `default` | 3 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argo-events | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argo-rollouts | `default` | 5 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argocd-image-updater | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | autoscaler/vertical-pod-autoscaler | `default` | 2 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| bitnami/contour | `default` | 5 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| bitnami/contour | `default` | 5 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | cloudnative-pg/cloudnative-pg | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | elastic/eck-operator | `default` | 12 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | external-dns/external-dns | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| external-secrets/external-secrets | `default` | 23 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| external-secrets/external-secrets | `default` | 23 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | fairwinds-stable/vpa | `default` | 2 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | gatekeeper/gatekeeper | `default` | 17 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | grafana/alloy | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | grafana/pyroscope | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | grafana/rollout-operator | `default` | 2 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | hashicorp/consul | `default-control-plane` | 28 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| hashicorp/terraform | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| jaegertracing/jaeger-operator | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| hashicorp/terraform | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| jaegertracing/jaeger-operator | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jetstack/trust-manager | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kedacore/keda | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kyverno/kyverno | `default` | 22 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
@@ -75,7 +75,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | secrets-store-csi-driver/secrets-store-csi-driver | `default` | 2 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | strimzi/strimzi-kafka-operator | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | traefik/traefik | `default` | 25 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| velero/velero | `default` | 13 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| velero/velero | `default` | 13 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 
 ## How to read this
 

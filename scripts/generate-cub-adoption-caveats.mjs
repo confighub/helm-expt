@@ -86,6 +86,31 @@ function basesOf(dir) {
   try { return readYaml(join(dir, "installer.yaml"))?.spec?.bases ?? []; } catch { return []; }
 }
 
+function chartSlug(chart) {
+  return chart.replaceAll("/", "-");
+}
+
+function receiptResult(rel) {
+  const p = join(repoRoot, rel);
+  if (!existsSync(p)) return "";
+  try {
+    const doc = readYaml(p) ?? {};
+    return doc.spec?.result ?? doc.result ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function hasBlockedLiveReceipt(chart, base) {
+  const slug = chartSlug(chart);
+  const paths = [
+    `data/runtime-gitops/receipts/${slug}/${base}/latest.yaml`,
+    `runs/live-kind-parity/${slug}-${base}/receipt.yaml`,
+    `runs/live-helm-confighub-compare/${slug}-${base}/receipt.yaml`,
+  ];
+  return paths.some((path) => receiptResult(path) === "blocked");
+}
+
 function analyze() {
   const charts = listCharts();
   const detectItems = [];
@@ -98,7 +123,16 @@ function analyze() {
     const secretFixBase = bases.find((b) => (b.externalRequires ?? []).some((r) => /secret/i.test(r?.name ?? "")) || /existing-secret|reuse/i.test(b.name ?? ""));
     const fixCmd = secretFixBase?.externalRequires?.find((r) => /secret/i.test(r?.name ?? ""))?.suggestedSource ?? "";
     const crdSeparableBase = bases.find((b) => /no-?crds|crds-disabled/i.test(b.name ?? ""));
-    return { ...c, defaultBase: defBase.name, secretFixBase: secretFixBase?.name ?? "", fixCmd, crdSeparableBase: crdSeparableBase?.name ?? "" };
+    const chart = c.key;
+    const secretBaseName = secretFixBase?.name ?? "";
+    const crdBaseName = crdSeparableBase?.name ?? "";
+    return {
+      ...c,
+      defaultBase: defBase.name,
+      secretFixBase: secretBaseName && !hasBlockedLiveReceipt(chart, secretBaseName) ? secretBaseName : "",
+      fixCmd: secretBaseName && !hasBlockedLiveReceipt(chart, secretBaseName) ? fixCmd : "",
+      crdSeparableBase: crdBaseName && !hasBlockedLiveReceipt(chart, crdBaseName) ? crdBaseName : "",
+    };
   });
   const detected = detectItems.length ? py(PY_DETECT, JSON.stringify(detectItems)) : {};
   return meta.map((m) => {

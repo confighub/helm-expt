@@ -73,8 +73,6 @@ spec:
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml"
       claim: "Earlier target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope before the separated Secret delivery gap was isolated."
-    - path: "data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml"
-      claim: "Fresh default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered webhook Secret was not delivered through workload OCI."
     - path: "data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml"
       claim: "Fresh default-base ConfigHub OCI rehearsal passed through Argo and runtime readiness after the rendered webhook Secret was pre-staged as an explicit target prerequisite."
     - path: "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml"

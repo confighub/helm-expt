@@ -56,6 +56,7 @@ const SOURCES = {
   activeProof: "data/live-parity-rerun-plan/rerun-plan.csv",
   variantPromotion: "data/variant-promotion/status.csv",
   liveCompare: "data/live-helm-confighub-compare/summary.csv",
+  runtimeGitopsRoot: "data/runtime-gitops/receipts",
   kindParity: "data/live-kind-parity/summary.csv",
   coverageCompletion: "data/coverage-completion-plan/actions.json",
   derivedTargetBound: "data/derived-variant-target-bound/summary.csv",
@@ -129,6 +130,11 @@ const COLUMN_PROVENANCE = [
     source: "live-helm-confighub-compare/summary.csv",
     carried: "exact chart/version/base live GitOps/OCI and live Helm-vs-ConfigHub parity result, overriding older aggregate outcome rows when a newer receipt exists",
     dropped: "receipt reason and path; follow the source when diagnosing the run itself",
+  },
+  {
+    source: "runtime-gitops/receipts",
+    carried: "exact committed RuntimeGitOps receipt result for a chart/base, overriding stale aggregate GitOps lane values when present",
+    dropped: "controller logs, workload diagnostics, and target-prerequisite detail; follow the receipt when diagnosing the run itself",
   },
   {
     source: "live-kind-parity/summary.csv",
@@ -285,6 +291,7 @@ function buildReport(generatedAt) {
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
       const liveCompareResult = liveCompare.get(`${chartName}|${version}|${variant}`)?.result;
+      const runtimeGitopsResult = runtimeGitopsReceiptResult(chartName, variant);
       const kindParityResult = kindParity.get(`${chartName}|${version}|${variant}`)?.result;
       const activeRows = activeProof.get(`${chartName}|${version}|${variant}`) ?? [];
       const activeLive = activeRows.find((row) => row.lane === "configHub-oci-live-comparison");
@@ -369,6 +376,9 @@ function buildReport(generatedAt) {
         const value = normalizeLane(activeLive.current_result);
         row.lane_gitops_oci_live = value;
         row.lane_live_dual_parity = value;
+      }
+      if (runtimeGitopsResult) {
+        row.lane_gitops_oci_live = normalizeLane(runtimeGitopsResult);
       }
       if (kindParityResult) {
         row.lane_two_cluster_kind = normalizeLane(kindParityResult);
@@ -1566,6 +1576,13 @@ function currentLaneValue(row, lane) {
   if (lane === "lifecycle") return row.lane_lifecycle_observed;
   if (lane === "promotion") return row.variant_promotion;
   return "";
+}
+
+function runtimeGitopsReceiptResult(chart, variant) {
+  const receiptPath = join(repoRoot, SOURCES.runtimeGitopsRoot, chart.replaceAll("/", "-"), variant, "latest.yaml");
+  if (!existsSync(receiptPath)) return "";
+  const doc = readYaml(receiptPath) ?? {};
+  return doc.spec?.result ?? doc.result ?? "";
 }
 
 function completionClass(entry) {
