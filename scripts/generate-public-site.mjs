@@ -483,7 +483,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const parityDemos = [
     {
       label: "Prometheus",
-      title: "Start with a familiar non-Bitnami chart",
+      title: "Start with a familiar chart",
       body: "Compare ordinary Helm with the cub installer path for a small Prometheus base.",
       link: "./try.html",
       linkText: "Get started with Prometheus",
