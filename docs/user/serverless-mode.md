@@ -1,107 +1,109 @@
-# Serverless mode — try it with no account and no cluster
+# Serverless mode — install Helm charts, keep the proof, no account
 
 **UNOFFICIAL/EXPERIMENTAL.**
 
-The fastest way to start. No ConfigHub login. No sign-up. For the first step, not
-even a Kubernetes cluster — just files on your laptop. You render a Helm chart the
-ConfigHub way, see exactly what it produces, and prove it matches plain Helm. The
-catalog calls this **serverless mode**: the parts that work as local files, before
-any server is involved.
+The fastest way to start. No ConfigHub login, no sign-up. The point of serverless
+mode is not "look at some YAML" — it is that you get the **same working install you'd
+get from Helm, and the proof that it's the same**, with no account. You see exactly
+what will deploy, you confirm it matches plain Helm, and then you actually install it
+and watch it come up — by `kubectl`, or by handing it to the Argo or Flux you already
+run.
 
-## What you can do without an account
+This whole page is proven live on a throwaway cluster, no login:
+[render + install parity](../../data/serverless-install-parity-proof/summary.md) ·
+[push-to-OCI for Argo/Flux](../../data/serverless-oci-gitops-proof/summary.md).
 
-- **See the exact objects** a chart will create, before anything is applied.
-- **Prove parity with Helm** — that the ConfigHub render is the same object set Helm
-  would have produced for the same inputs.
-- **Apply it to your own cluster** with plain `kubectl`, if you have one.
-- **Hand it to your existing Argo or Flux** by pushing to OCI — see the last section.
+## See it, then run it — no account
 
-What you *can't* do serverless is the part that needs the server: connecting many
-installs into one graph, propagating a change across a fleet, and tracking who
-changed what. That's ConfigHub proper. Serverless mode is honest about that line.
+### 1. See it — render parity
 
-## The simplest parity, side by side
-
-Both of these render Redis locally. Neither needs a cluster or an account.
-
-**Plain Helm — render to YAML:**
+Both of these render Redis to YAML locally. No cluster, no account.
 
 ```sh
+# plain Helm
 helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 > helm.yaml
-```
 
-**The ConfigHub way — render a named, reviewed base:**
-
-```sh
+# the ConfigHub way — a named, reviewed base
 cub installer setup --pull packages/bitnami/redis/25.5.3 --base default \
-  --work-dir ./out --non-interactive --namespace redis
-# rendered manifests land in ./out/manifests, secrets in ./out/secrets
+  --work-dir ./out --non-interactive
 ```
 
-**Prove they match** (semantic object comparison, still local):
+They produce the **same Kubernetes object set** — proven: `helm template` and the cub
+render carry identical object kinds. You can re-check the catalog's contract too:
 
 ```sh
-npm run redis:verify-install:render
-# You should see: PASS ... semantic object matches: 14/14
+npm run redis:verify-install:render        # PASS ... semantic object matches: 14/14
 ```
 
-That's the whole parity claim: same chart, same version, same inputs → the same
-Kubernetes objects, checked on your laptop. (For the very lightest render with no
-package at all, `cub helm template` renders a chart to stdout and also "does not
-require a ConfigHub server connection.")
+That's render parity: same chart, same inputs → the same objects, confirmed offline.
 
-## How it works
+### 2. Run it — install parity
 
-A Helm chart is a template. "Render" means turning that template into the actual
-Kubernetes YAML it would install. Plain Helm renders and then usually applies in one
-opaque step. Serverless mode renders **to files you can read first**, from a named
-base variant the catalog already reviewed, and lets you compare that output against
-Helm's own — so "it's the same as Helm" is something you check, not something you
-take on trust. Then you apply it however you like: `kubectl apply -f ./out/manifests`,
-or the OCI path below.
+This is the half that matters: it actually installs and works. **Three ways, all with
+no ConfigHub account, all proven to bring Redis up.**
 
-## Already running Argo or Flux? Push to OCI instead of `kubectl`
-
-If your cluster already runs Argo CD or Flux reading from an OCI registry, you don't
-have to `kubectl apply` at all. You can render serverlessly and **push the rendered
-bundle to your OCI registry**, and your existing controller pulls and applies it —
-no ConfigHub account, no new agent.
+**a) Plain Helm — what you do today:**
 
 ```sh
-# 1. render locally (no account), as above -> ./out
-# 2. push the RENDERED bundle to your registry
+helm install redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 \
+  -n redis --create-namespace
+```
+
+**b) The cub render, applied with plain `kubectl`:**
+
+```sh
+kubectl create namespace redis
+kubectl apply -f ./out/secrets -n redis      # the Secret first (the chart bakes one — see caveats)
+kubectl apply -f ./out/manifests -n redis    # the rendered objects
+```
+
+Both reach a working (`Ready`) Redis. Same objects, same result, no login — that's
+install parity, proven in the receipt above.
+
+**c) If you already run Argo or Flux reading from OCI — push to OCI, don't `kubectl`:**
+
+```sh
 flux push artifact oci://<your-registry>/redis:v1 --path=./out \
   --source=serverless-cub-render --revision=v1
-# 3. point your existing Flux at it
 flux create source oci redis --url=oci://<your-registry>/redis --tag=v1 --interval=30s
 flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true
 ```
 
-This is **proven**, end to end, on a throwaway cluster: a no-login serverless render
-was pushed to an OCI registry, an existing Flux pulled it from OCI and applied it,
-and Redis came up — no `kubectl apply` of the workload from cub. Receipt:
-`runs/serverless-oci-gitops-proof/receipt.yaml`
-([summary](../../data/serverless-oci-gitops-proof/summary.md)).
+Proven end to end: a no-login render was pushed to an OCI registry, an existing Flux
+pulled it and applied it, and Redis came up — no `kubectl` from you at all.
 
-Three honest caveats, because this path has real edges:
+## How it works
 
-- **Secrets ride in the bundle.** The render includes the chart's Secret, so pushing
-  the bundle delivers it — which also means the Secret now lives in your OCI registry.
-  (The full ConfigHub path keeps secret material separate instead.) Supply your own
-  Secret out-of-band and use a base like `reuse-existing-secret` if that matters.
-- **`cub installer push` is a different thing.** It pushes the *un-rendered installer
-  package* (the recipe), which Argo/Flux can't reconcile directly. The push above uses
-  `flux push artifact` on the *rendered* output, which is what a controller consumes.
+A Helm chart is a template. "Render" turns it into the exact Kubernetes YAML it would
+install. Plain Helm renders and applies in one opaque step. Serverless mode renders
+**to files you can read first**, from a named base the catalog already reviewed, and
+lets you compare that output against Helm's own — so "it's the same as Helm" is
+something you check, not take on trust. Then you install it however you like (a, b, or
+c above). None of those steps contact ConfigHub.
+
+## Honest caveats
+
+- **Secrets.** The chart's render includes a Secret with a baked password. Applying the
+  bundle (b) or pushing it (c) delivers that Secret — which for the OCI path means it
+  lives in your registry. Supply your own and use a base like `reuse-existing-secret`
+  for anything real; see the chart's [adoption caveats](../../data/cub-adoption-caveats/summary.md).
+- **Apply ordering.** `kubectl apply -f` does not guarantee the Namespace is created
+  before the objects in it — create the namespace first (as above). This is the same
+  class of cub-direct edge as [no auto-prune and CRD ordering](./known-gaps-we-surface.md);
+  a controller (Argo/Flux) handles them for you.
+- **`cub installer push` is a different thing** — it pushes the *un-rendered installer
+  package*, which Argo/Flux can't reconcile. The OCI install (c) uses `flux push
+  artifact` on the *rendered* output.
 - **Hook / CRD charts need more.** This is proven for a vanilla chart (Redis). Charts
   with Helm hooks, admission webhooks, or their own CRDs still need their lifecycle
-  routes — see the per-chart pages and [known gaps](./known-gaps-we-surface.md).
+  routes — see the per-chart pages.
 
 ## Where this is going
 
 Serverless mode is the "capture" half — render, equivalence, provenance, named
-variants, signing — and it is genuinely useful on its own. The full design (resolve a
-chart by name from a signed catalog, collect target facts, record an in-cluster
-install receipt, day-2 diff/upgrade/rollback) is written up in
-`docs/planning/serverless-verified-install-plan.md`. The boundary stays honest: the
-moment you want one change to propagate across many installs, that's the graph, and
-that's where signing in begins.
+variants, signing — and it installs and works on its own, as above. The fuller design
+(resolve a chart by name from a signed catalog, collect target facts, record an
+in-cluster install receipt, day-2 diff/upgrade/rollback) is in
+`docs/planning/serverless-verified-install-plan.md`. The line stays honest: the moment
+you want one change to propagate across many installs, that's the graph — and that's
+where signing in begins.

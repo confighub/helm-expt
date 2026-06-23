@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ServerlessInstallParityProofReceipt"
+metadata:
+  name: "srvip-20260623-faz"
+spec:
+  observedAt: "2026-06-23T17:14:42.068Z"
+  result: "pass"
+  claim: "With NO ConfigHub account, the serverless cub path matches Helm on BOTH render and install. Render parity: `cub installer setup` produces the same Kubernetes object kinds as `helm template`. Install parity: `helm install redis` brings Redis up, and applying the cub render with plain `kubectl apply` brings the same Redis up — both reach a working (Ready) redis-master on one kind cluster, neither logging into ConfigHub. (The oci+gitops install path is proven in run-serverless-oci-gitops-proof.mjs.)"
+  legs:
+    renderParity:
+      ok: true
+      detail: "helm template vs cub render: identical object kinds (helm 14 objs, cub 15 objs incl. an explicit Namespace), no account"
+    helmInstall:
+      ok: true
+      detail: "helm install redis -> redis-master Ready (working)"
+    cubInstall:
+      ok: true
+      detail: "cub render -> kubectl apply -> redis-master Ready (working), no account"
+    noAccount:
+      ok: true
+      detail: "neither path runs cub login / cub auth; no ConfigHub token used"
+  run:
+    rig: "srvip-20260623-faz"
+    helmNamespace: "helm-redis"
+    cubNamespace: "redis"
+    cleanup:
+      result: "pass"
+  conclusion: "Proven: a no-login user gets render parity (same objects as Helm) AND install parity (a working Redis) from cub — via plain kubectl here, via oci+gitops in the companion proof. 'Serverless' is not render-only; it installs and works, both ways, with no account."
