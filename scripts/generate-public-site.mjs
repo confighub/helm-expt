@@ -1619,12 +1619,17 @@ function tryHtml(catalog) {
   --namespace monitoring</code></pre>
         </div>
       </div>
+      <style>
+        .command-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .command-grid pre { white-space: pre-wrap; }
+        @media (max-width: 760px) { .command-grid { grid-template-columns: 1fr; } }
+      </style>
       <p>You should see rendered manifests under <code>./out</code>. If you apply them yourself, create the namespace first and apply any separated Secret material before the main manifests.</p>
     </section>
 
     <section aria-labelledby="proof">
       <h2 id="proof">What is proven</h2>
-      <p>The serverless path is not a slogan. The repository carries receipts for the no-account path.</p>
+      <p>We have tested this no-account path. The links below show what was checked.</p>
       ${markdownLikeTable([
         ["Proof", "What it says", "Open"],
         ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
@@ -1633,8 +1638,9 @@ function tryHtml(catalog) {
 
     <section aria-labelledby="edges">
       <h2 id="edges">What to watch</h2>
-      <p>This is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
-      <p>When you want ConfigHub to hold desired state, manage variants, apply approvals, or publish OCI artifacts for a team, move from serverless into the connected ConfigHub path.</p>
+      <p>This page is for trying the idea. It is not the whole product path.</p>
+      <p>Some Helm charts need extra setup before they can run: for example a Custom Resource Definition, a generated certificate, a cloud account, or a Secret that you provide yourself. When a chart needs one of those steps, its chart page should say so before you run it.</p>
+      <p>Use the no-account path when you want to inspect the YAML and compare it with Helm. Use connected ConfigHub when a team needs to keep that configuration in one place, create variants, review changes, approve releases, or hand the result to Argo or Flux.</p>
       <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
     </section>
   </main>
