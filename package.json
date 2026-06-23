@@ -494,6 +494,8 @@
     "site:generate": "node scripts/generate-public-site.mjs --generate",
     "site:verify": "node scripts/generate-public-site.mjs --verify",
     "site:ux:verify": "node scripts/verify-site-ux-contract.mjs",
+    "chart-claim-integrity": "node scripts/verify-chart-claim-integrity.mjs --report",
+    "chart-claim-integrity:verify": "node scripts/verify-chart-claim-integrity.mjs --verify",
     "p0:contracts": "node scripts/verify-p0-proof-contracts.mjs",
     "docs:verify": "node scripts/verify-doc-map.mjs",
     "skills:verify": "node scripts/verify-helm-expt-skills.mjs",
