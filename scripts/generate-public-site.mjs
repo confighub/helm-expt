@@ -558,7 +558,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header class="home-hero human-hero">
     ${topNav(".")}
     <h1>ConfigHub makes Helm work properly</h1>
-    <p class="lead">ConfigHub <code>cub helm install</code> helps teams turn Helm output into visible, versioned configuration they can review, customize, and operate with fewer surprises.</p>
+    <p class="lead">ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration they can review, customize, and operate with fewer surprises.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
