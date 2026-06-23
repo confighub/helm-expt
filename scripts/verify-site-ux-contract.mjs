@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Why This Exists", "Start by comparing ordinary Helm with", "Helm operations with ConfigHub and AI", "When both paths get the same deployment", "Component", "base variant is a render-time Helm/recipe install shape"],
+    terms: ["Why This Exists", "Start by comparing ordinary Helm with", "Helm operations with ConfigHub and AI", "When both paths get the same deployment", "What ConfigHub Adds", "Existing apps"],
   },
   {
     file: "site/variants.html",
@@ -40,7 +40,23 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["AI-assisted changes", "Broken chart triage", "Known gaps we surface", "Expected results and clusters", "Per-chart cub adoption caveats"],
+    terms: ["AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+  },
+  {
+    file: "site/existing-apps.html",
+    terms: ["Existing Apps", "Start Read-Only", "Argo or Flux app", "Live cluster"],
+  },
+  {
+    file: "site/ai.html",
+    terms: ["AI-Assisted Operations", "AI proposes", "ConfigHub shows", "Good AI Tasks"],
+  },
+  {
+    file: "site/security.html",
+    terms: ["Security And Provenance", "Secrets", "Scans and gates", "Claims register"],
+  },
+  {
+    file: "site/future.html",
+    terms: ["Future And Managed Ideas", "What Exists In The Public Experiment", "roadmap", "managed"],
   },
   {
     file: "site/how-it-works.html",
