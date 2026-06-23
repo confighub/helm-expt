@@ -19,6 +19,10 @@ const checks = [
     terms: ["You should see something like this", "Expected Results And Clusters", "out/secrets"],
   },
   {
+    file: "site/serverless.html",
+    terms: ["Serverless mode", "without a ConfigHub account", "Render and install parity", "OCI for Argo and Flux"],
+  },
+  {
     file: "site/charts/index.html",
     terms: ["id=\"chart-filter\"", "Helm Catalog", "chart versions shown"],
   },
@@ -40,7 +44,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Serverless mode", "AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/existing-apps.html",
@@ -71,6 +75,7 @@ const checks = [
 const menuGuidePages = [
   "site/index.html",
   "site/try.html",
+  "site/serverless.html",
   "site/charts/index.html",
   "site/variants.html",
   "site/journey.html",
@@ -82,6 +87,7 @@ const menuGuidePages = [
 const humanSplitPages = [
   "site/index.html",
   "site/try.html",
+  "site/serverless.html",
   "site/how-it-works.html",
   "site/variants.html",
   "site/journey.html",
@@ -108,6 +114,10 @@ const guideOpeningChecks = [
   {
     file: "site/try.html",
     headerTerms: ["Pick one chart", "render the same chart with", "same chart, same values"],
+  },
+  {
+    file: "site/serverless.html",
+    headerTerms: ["without a ConfigHub account", "Render a public chart", "read the YAML first"],
   },
   {
     file: "site/how-it-works.html",

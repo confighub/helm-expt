@@ -8,6 +8,7 @@ const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const serverlessPath = join(siteRoot, "serverless.html");
 const howItWorksPath = join(siteRoot, "how-it-works.html");
 const variantsPath = join(siteRoot, "variants.html");
 const customAppsPath = join(siteRoot, "custom-apps.html");
@@ -82,6 +83,7 @@ if (mode === "--generate") {
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(serverlessPath, site.serverlessHtml);
   write(howItWorksPath, site.howItWorksHtml);
   write(variantsPath, site.variantsHtml);
   write(customAppsPath, site.customAppsHtml);
@@ -113,6 +115,7 @@ if (mode === "--generate") {
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(serverlessPath), "site/serverless.html is missing; run npm run site:generate");
   check(existsSync(howItWorksPath), "site/how-it-works.html is missing; run npm run site:generate");
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
   check(existsSync(customAppsPath), "site/custom-apps.html is missing; run npm run site:generate");
@@ -138,6 +141,7 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(serverlessPath, "utf8") === site.serverlessHtml, "site/serverless.html is stale");
   check(readFileSync(howItWorksPath, "utf8") === site.howItWorksHtml, "site/how-it-works.html is stale");
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
@@ -381,6 +385,7 @@ function buildSite(generatedAt) {
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
+    serverlessHtml: serverlessHtml(catalog),
     howItWorksHtml: howItWorksHtml(catalog),
     variantsHtml: variantsHtml(catalog),
     customAppsHtml: customAppsHtml(catalog),
@@ -412,7 +417,7 @@ function generatedStamp(catalog, label) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("serverless.html")}">Serverless</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -573,7 +578,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h2 id="quick-context">Who We Are And Why This Exists</h2>
       <p>ConfigHub builds software for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI. ConfigHub Server is the connected product for teams that need shared desired state, variants, approvals, OCI/GitOps delivery, and operations.</p>
       <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
-      <p>This site is our public experiment for that problem. The community can try the serverless path without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
+      <p>This site is our public experiment for that problem. The community can try the <a href="./serverless.html">serverless path</a> without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
       <p>When you want ConfigHub to hold the desired state, the connected path begins with commands such as <code>cub helm install</code>. For maintained catalog entries, we also publish reviewed <a href="./try.html"><code>cub installer</code></a> packages and compare them with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>.</p>
     </section>
 
@@ -1650,10 +1655,91 @@ function tryHtml(catalog) {
 `;
 }
 
+function serverlessHtml(catalog) {
+  const runRows = [
+    ["See it", "Render the chart and stop. Read the Kubernetes objects before anything is applied."],
+    ["Check it", "Compare the cub render with plain Helm. Same chart, same inputs, same objects."],
+    ["Run it", "Apply the rendered objects yourself, or push them to your own GitOps controller."],
+  ];
+  const proofRows = [
+    ["Render and install parity", "Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.", "../data/serverless-install-parity-proof/summary.html"],
+    ["OCI for Argo and Flux", "The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.", "../data/serverless-oci-gitops-proof/summary.html"],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serverless · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Serverless mode</h1>
+    <p class="lead">Try the idea without a ConfigHub account. Render a public chart, compare it with Helm, and apply the exact objects yourself.</p>
+    <p>This is the no-sign-up path. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
+  </header>
+  <main>
+    <section aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      ${markdownLikeTable([
+        ["Step", "What happens"],
+        ...runRows,
+      ])}
+    </section>
+
+    <section aria-labelledby="commands">
+      <h2 id="commands">The short version</h2>
+      <p>Render with Helm. Then render the reviewed cub package. Compare the objects before you apply them.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Plain Helm</h3>
+          <pre><code>helm template prometheus prometheus-community/prometheus \\
+  --repo https://prometheus-community.github.io/helm-charts \\
+  --version 29.8.0 \\
+  --namespace monitoring &gt; helm.yaml</code></pre>
+        </div>
+        <div class="card">
+          <h3>cub package</h3>
+          <pre><code>cub installer setup \\
+  --pull packages/prometheus-community/prometheus/29.8.0 \\
+  --base server-only-ephemeral \\
+  --work-dir ./out \\
+  --non-interactive \\
+  --namespace monitoring</code></pre>
+        </div>
+      </div>
+      <p>You should see rendered manifests under <code>./out</code>. If you apply them yourself, create the namespace first and apply any separated Secret material before the main manifests.</p>
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">What is proven</h2>
+      <p>The serverless path is not a slogan. The repository carries receipts for the no-account path.</p>
+      ${markdownLikeTable([
+        ["Proof", "What it says", "Open"],
+        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
+      ], { rawThirdColumn: true })}
+    </section>
+
+    <section aria-labelledby="edges">
+      <h2 id="edges">What to watch</h2>
+      <p>Serverless mode is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
+      <p>When you want ConfigHub to hold desired state, manage variants, apply approvals, or publish OCI artifacts for a team, move from serverless into the connected ConfigHub path.</p>
+      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
+    </section>
+  </main>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
+</body>
+</html>
+`;
+}
+
 function docsHtml(catalog) {
   const guideRows = [
     ["How it works", "Start with the four moves: render, route, deliver, observe.", "./how-it-works.html"],
     ["Try the catalog", "Run the short local path first.", "./try.html"],
+    ["Serverless mode", "Try the no-account path: render, compare, and apply the objects yourself.", "./serverless.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
     ["Helm quirks", "See which chart behaviors need explicit handling: hooks, CRDs, webhooks, target facts, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "Decide whether a change is a base variant or a derived variant.", "./variants.html"],

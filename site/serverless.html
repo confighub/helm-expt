@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security And Provenance · ConfigHub Helm Catalog</title>
+  <title>Serverless · ConfigHub Helm Catalog</title>
   <style>
     :root {
       color-scheme: light;
@@ -318,20 +318,16 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./serverless.html">Serverless</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Security And Provenance</h1>
-    <p class="tagline">The public catalog is not a security certification. It shows how Helm output can be made visible, checked, delivered, and observed.</p>
+    <h1>Serverless mode</h1>
+    <p class="lead">Try the idea without a ConfigHub account. Render a public chart, compare it with Helm, and apply the exact objects yourself.</p>
+    <p>This is the no-sign-up path. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
   </header>
   <main>
-    <section aria-labelledby="why">
-      <h2 id="why">Why It Helps</h2>
-      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review.</p>
-    </section>
-
-    <section aria-labelledby="controls">
-      <h2 id="controls">Controls</h2>
+    <section aria-labelledby="how">
+      <h2 id="how">How it works</h2>
       <div class="card"><table>
-        <thead><tr><th>Area</th><th>What the model gives you</th></tr></thead>
-        <tbody><tr><td>Rendered objects</td><td>Review the actual Kubernetes objects before delivery, not only values files.</td></tr><tr><td>Secrets</td><td>Separate, reference, or require external Secrets where appropriate. Do not hide placeholder credentials.</td></tr><tr><td>Scans and gates</td><td>Run policy and security checks against explicit desired state before delivery.</td></tr><tr><td>OCI delivery</td><td>Publish a reviewed bundle so the controller pulls the same bytes that were checked.</td></tr><tr><td>Receipts</td><td>Record what was rendered, delivered, observed, accepted, blocked, or refused.</td></tr></tbody>
+        <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+        <tbody><tr><td>See it</td><td>Render the chart and stop. Read the Kubernetes objects before anything is applied.</td></tr><tr><td>Check it</td><td>Compare the cub render with plain Helm. Same chart, same inputs, same objects.</td></tr><tr><td>Run it</td><td>Apply the rendered objects yourself, or push them to your own GitOps controller.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -341,16 +337,52 @@
       </style>
     </section>
 
-    <section aria-labelledby="limits">
-      <h2 id="limits">Current Limits</h2>
-      <p>Some evidence is partial by design. A digest proves integrity only inside a known trust chain. A scan finding needs a decision. A green render does not prove that the target has the right cloud identity, storage, or runtime policy.</p>
+    <section aria-labelledby="commands">
+      <h2 id="commands">The short version</h2>
+      <p>Render with Helm. Then render the reviewed cub package. Compare the objects before you apply them.</p>
       <div class="grid">
-        <div class="card"><h3>Security guide</h3><p><a href="../docs/user/security-end-to-end.md">Open security end to end</a></p></div>
-        <div class="card"><h3>Known caveats</h3><p><a href="../data/cub-adoption-caveats/summary.html">Open per-chart cub adoption caveats</a></p></div>
-        <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open backed, partial, planned, and refused claims</a></p></div>
+        <div class="card">
+          <h3>Plain Helm</h3>
+          <pre><code>helm template prometheus prometheus-community/prometheus \
+  --repo https://prometheus-community.github.io/helm-charts \
+  --version 29.8.0 \
+  --namespace monitoring &gt; helm.yaml</code></pre>
+        </div>
+        <div class="card">
+          <h3>cub package</h3>
+          <pre><code>cub installer setup \
+  --pull packages/prometheus-community/prometheus/29.8.0 \
+  --base server-only-ephemeral \
+  --work-dir ./out \
+  --non-interactive \
+  --namespace monitoring</code></pre>
+        </div>
       </div>
+      <p>You should see rendered manifests under <code>./out</code>. If you apply them yourself, create the namespace first and apply any separated Secret material before the main manifests.</p>
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">What is proven</h2>
+      <p>The serverless path is not a slogan. The repository carries receipts for the no-account path.</p>
+      <div class="card"><table>
+        <thead><tr><th>Proof</th><th>What it says</th><th>Open</th></tr></thead>
+        <tbody><tr><td>Render and install parity</td><td>Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.</td><td><a href="../data/serverless-install-parity-proof/summary.html">Render and install parity</a></td></tr><tr><td>OCI for Argo and Flux</td><td>The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.</td><td><a href="../data/serverless-oci-gitops-proof/summary.html">OCI for Argo and Flux</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="edges">
+      <h2 id="edges">What to watch</h2>
+      <p>Serverless mode is a first look, not a production service. If the chart needs CRDs, hooks, admission webhooks, cloud identity, or runtime Secrets, the chart page should name that work before you trust the install path.</p>
+      <p>When you want ConfigHub to hold desired state, manage variants, apply approvals, or publish OCI artifacts for a team, move from serverless into the connected ConfigHub path.</p>
+      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
     </section>
   </main>
-  <footer>Security claims are only as strong as the evidence chain and target scope behind them.</footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
 </body>
 </html>
