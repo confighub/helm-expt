@@ -18,6 +18,7 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const docsPath = join(siteRoot, "docs.html");
 const proofPath = join(siteRoot, "proof.html");
+const quirksPath = join(siteRoot, "quirks.html");
 const hardQuestionsPath = join(siteRoot, "hard-questions.html");
 const knownGapsPath = join(siteRoot, "known-gaps.html");
 const hooksPath = join(siteRoot, "hooks.html");
@@ -91,6 +92,7 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(docsPath, site.docsHtml);
   write(proofPath, site.proofHtml);
+  write(quirksPath, site.quirksHtml);
   write(hardQuestionsPath, site.hardQuestionsHtml);
   write(knownGapsPath, site.knownGapsHtml);
   write(hooksPath, site.hooksHtml);
@@ -121,6 +123,7 @@ if (mode === "--generate") {
   check(existsSync(operationsPath), "site/operations.html is missing; run npm run site:generate");
   check(existsSync(docsPath), "site/docs.html is missing; run npm run site:generate");
   check(existsSync(proofPath), "site/proof.html is missing; run npm run site:generate");
+  check(existsSync(quirksPath), "site/quirks.html is missing; run npm run site:generate");
   check(existsSync(hardQuestionsPath), "site/hard-questions.html is missing; run npm run site:generate");
   check(existsSync(knownGapsPath), "site/known-gaps.html is missing; run npm run site:generate");
   check(existsSync(hooksPath), "site/hooks.html is missing; run npm run site:generate");
@@ -145,6 +148,7 @@ if (mode === "--generate") {
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
+  check(readFileSync(quirksPath, "utf8") === site.quirksHtml, "site/quirks.html is stale");
   check(readFileSync(hardQuestionsPath, "utf8") === site.hardQuestionsHtml, "site/hard-questions.html is stale");
   check(readFileSync(knownGapsPath, "utf8") === site.knownGapsHtml, "site/known-gaps.html is stale");
   check(readFileSync(hooksPath, "utf8") === site.hooksHtml, "site/hooks.html is stale");
@@ -387,6 +391,7 @@ function buildSite(generatedAt) {
     operationsHtml: operationsHtml(catalog),
     docsHtml: docsHtml(catalog),
     proofHtml: proofHtml(catalog),
+    quirksHtml: quirksHtml(catalog),
     hardQuestionsHtml: hardQuestionsHtml(catalog),
     knownGapsHtml: knownGapsHtml(catalog),
     hooksHtml: hooksHtml(catalog),
@@ -1637,6 +1642,7 @@ function docsHtml(catalog) {
     ["How it works", "Start with the four moves: render, route, deliver, observe.", "./how-it-works.html"],
     ["Try the catalog", "Run the short local path first.", "./try.html"],
     ["Choose a chart", "Browse public Helm chart snapshots and their available bases.", "./charts/index.html"],
+    ["Helm quirks", "See which chart behaviors need explicit handling: hooks, CRDs, webhooks, target facts, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "Decide whether a change is a base variant or a derived variant.", "./variants.html"],
     ["Apps", "Group charts and your own services into one app path.", "./journey.html"],
     ["Application examples", "Combine public charts with private app pieces.", "./custom-apps.html"],
@@ -1703,6 +1709,89 @@ function docsHtml(catalog) {
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Use the Helm Catalog first, then the matrix and generated data when you need exact status.</footer>
+</body>
+</html>
+`;
+}
+
+function quirksHtml(catalog) {
+  const rows = catalog.masterCatalogMatrix.filter((row) => row.row_kind !== "source");
+  const byQuirk = new Map();
+  for (const row of rows) {
+    for (const quirk of splitSemicolonList(row.quirk_features)) {
+      if (!byQuirk.has(quirk)) byQuirk.set(quirk, { rows: 0, charts: new Set(), examples: [] });
+      const item = byQuirk.get(quirk);
+      item.rows += 1;
+      item.charts.add(row.chart);
+      if (item.examples.length < 4 && row.chart && !item.examples.some((example) => example.chart === row.chart)) {
+        item.examples.push({ chart: row.chart, version: row.version });
+      }
+    }
+  }
+  const definitions = {
+    tpl: ["Template evaluation", "The chart uses Helm templating inside values or snippets. We preserve the rendered result and keep extension slots visible."],
+    capabilities: ["Kubernetes capabilities", "The render depends on Kubernetes API capabilities. The recipe pins a capability profile so the render is repeatable."],
+    "cluster-rbac": ["Cluster RBAC", "The chart creates cluster-wide permissions. The objects are visible before delivery and can be reviewed or gated."],
+    "stateful-storage": ["Stateful storage", "The chart creates StatefulSets, PVCs, or storage-related objects. These need target-fit and upgrade care."],
+    "generated-facts": ["Generated facts", "The chart or recipe needs generated values such as passwords, certs, or names. We record those as facts instead of hiding them."],
+    lookup: ["Cluster lookups", "The render can depend on live cluster data. We route that through target facts or a named limitation."],
+    crds: ["CRDs", "The chart includes custom resource definitions or depends on them. We track whether CRDs are installed, omitted, staged, or observed."],
+    webhooks: ["Webhooks", "The chart installs admission or conversion webhooks. We track certificate lifecycle, readiness, and server-side behavior separately from render parity."],
+    hooks: ["Helm hooks", "The chart uses Helm hook behavior. Hooks are routed, observed, blocked, refused, or marked target-specific. They are not silently treated as ordinary static YAML."],
+  };
+  const quirkRows = Array.from(byQuirk.entries())
+    .sort((a, b) => b[1].rows - a[1].rows || a[0].localeCompare(b[0]))
+    .map(([quirk, item]) => {
+      const [label, meaning] = definitions[quirk] ?? [quirk, "Tracked quirk from the catalog matrix."];
+      const examples = item.examples
+        .map((example) => `<a href="./charts/${chartPageFileName({ chart: example.chart, version: example.version })}">${escapeHtml(example.chart)}</a>`)
+        .join(", ");
+      return [label, meaning, String(item.charts.size), String(item.rows), examples || "see matrix"];
+    });
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Helm Quirks · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero">
+    ${topNav(".")}
+    <h1>Helm Quirks</h1>
+    <p>Some Helm chart behavior is not just a list of Kubernetes objects. Hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC all need explicit handling.</p>
+    <p>This page gives the short list. The matrix shows the exact chart, version, and variant rows.</p>
+  </header>
+  <main>
+    <section aria-labelledby="how">
+      <h2 id="how">How To Use This Page</h2>
+      <div class="grid">
+        <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means and why it matters.</p></div>
+        <div class="card"><h3>Then check a chart</h3><p>Open the Helm Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
+        <div class="card"><h3>Then check the route</h3><p>For hooks, CRDs, webhooks, target facts, and generated facts, use the row's route, gap, and next-action fields to see what must happen before delivery.</p></div>
+      </div>
+      <p><a href="./charts/index.html">Open Helm Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="../docs/reference/helm-quirk-support-matrix.md">Read the reference matrix</a></p>
+    </section>
+
+    <section aria-labelledby="list">
+      <h2 id="list">Quirk List</h2>
+      ${markdownLikeTable([
+        ["Quirk", "What it means", "Charts", "Rows", "Example charts"],
+        ...quirkRows,
+      ], { rawFifthColumn: true })}
+    </section>
+
+    <section aria-labelledby="important">
+      <h2 id="important">Important Boundaries</h2>
+      <div class="grid">
+        <div class="card"><h3>Render parity is not enough</h3><p>A chart can render the same objects as Helm and still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller to be ready.</p></div>
+        <div class="card"><h3>Hooks are explicit routes</h3><p>A hook route tells you what must happen. It is not a claim that every hook is automatically executed by the public catalog.</p></div>
+        <div class="card"><h3>Watch is useful</h3><p>A watch or blocked row is not hidden failure. It is the catalog saying what remains to stage, observe, or decide.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer>Generated from committed helm-expt evidence. Use the matrix for exact chart and variant status.</footer>
 </body>
 </html>
 `;
@@ -3139,7 +3228,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Helm Catalog</h1>
     <p>This is a directory of ${escapeHtml(String(catalog.top100UserReadiness.length))} Helm charts and how each behaves in ConfigHub.</p>
-    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>. Contact us with suggestions and questions.</p>
+    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="charts">
@@ -3649,6 +3738,13 @@ function matrixHookSummary(row) {
   return parts.join("; ") || "n/a";
 }
 
+function splitSemicolonList(value) {
+  return String(value || "")
+    .split(/[;,]/)
+    .map((item) => item.trim())
+    .filter((item) => item && item !== "-");
+}
+
 function matrixActionOwnerSummary(row) {
   const modes = String(row.lifecycle_route_execution_modes || "")
     .split(/[;,]/)
@@ -4114,6 +4210,7 @@ function formatTableCell(cell, index, options) {
   if (options.rawSecondColumn && index === 1) return String(cell ?? "");
   if (options.rawThirdColumn && index === 2) return String(cell ?? "");
   if (options.rawFourthColumn && index === 3) return String(cell ?? "");
+  if (options.rawFifthColumn && index === 4) return String(cell ?? "");
   return escapeHtml(cell);
 }
 
@@ -4476,6 +4573,8 @@ Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
 Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
+Open \`site/quirks.html\` for the short guide to chart quirks such as hooks,
+CRDs, webhooks, generated facts, lookups, storage, and RBAC.
 Open \`site/charts/index.html#actions\` for ConfigHub Actions, including hook
 and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
 compatibility.
