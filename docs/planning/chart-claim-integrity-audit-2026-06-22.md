@@ -55,7 +55,10 @@ lane-vs-receipt contradiction. Documented here; candidate for a future gate chec
 ## The fix
 
 - **Prevention is built:** the claim-integrity gate re-checks every page claim against its cited
-  receipt and fails CI on a contradiction (13 HARD findings across 6 charts at audit time). It also protects the data —
+  receipt and fails CI on a contradiction (13 HARD findings across 6 charts at audit time —
+  including **jaeger-operator** and **velero**, two operator charts the hand-audit never looked at,
+  flagged automatically by the same "recommends a `no-crds` base whose receipt is `blocked`"
+  pattern as external-secrets/argo-cd). It also protects the data —
   you cannot make a red page green by editing a support-decision, because the gate reads the
   receipt's real `result`.
 - **Generator-side fixes (Codex owns the renderer):** derive lane colour from the receipt
