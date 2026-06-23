@@ -112,6 +112,19 @@ for (const file of menuGuidePages) {
   }
 }
 
+// Chart-card placeholder lint: a chart page must never render an unresolved
+// "<action>: unknown;" Next-action placeholder or a raw "<tmp>" work-dir placeholder
+// inside a command/action field. (The card text must read as something a user can act on.)
+const chartCardsDir = path.join(root, "site/charts");
+if (fs.existsSync(chartCardsDir)) {
+  for (const name of fs.readdirSync(chartCardsDir).filter((f) => f.endsWith(".html"))) {
+    const text = fs.readFileSync(path.join(chartCardsDir, name), "utf8");
+    const unresolved = [...new Set([...text.matchAll(/([a-z][a-z-]*): unknown;/g)].map((m) => m[1]))];
+    if (unresolved.length) failures.push(`site/charts/${name}: unresolved action placeholder(s) ${JSON.stringify(unresolved.map((a) => `${a}: unknown`))}`);
+    if (text.includes("&lt;tmp&gt;")) failures.push(`site/charts/${name}: raw <tmp> work-dir placeholder rendered in a command`);
+  }
+}
+
 if (failures.length) {
   console.error("site UX contract failed:");
   for (const failure of failures) console.error(`- ${failure}`);
