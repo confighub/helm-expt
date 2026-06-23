@@ -362,6 +362,7 @@ not the primary user path.
 | [outside-user-test.md](./planning/outside-user-test.md) | Fifteen-minute outside-user protocol for testing whether the public site and docs explain the product. |
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
+| [house-voice.md](./planning/house-voice.md) | The house voice for all tech copy: the Fowler/Jobs/Dickens hybrid, ten rules, ready-to-apply before/after rewrites of the front-door site surfaces (Get Started, How It Works, chart-page intro), and how to check it (Flesch 60–70). |
 | [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |
 | [persona-ux-audit-2026-06-22.md](./planning/persona-ux-audit-2026-06-22.md) | Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes. |
 | [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
