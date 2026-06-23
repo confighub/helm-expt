@@ -102,7 +102,7 @@ and decide whether it is canonical, lane-specific, or a snapshot.
 
 | Item | Why |
 | --- | --- |
-| Split the very long `npm run verify` script into named suites. | The current command is hard to inspect and easy to conflict on. |
+| Split the very long `npm run verify` script into named suites. | The current command is hard to inspect and easy to conflict on. Tracked in [#1029](https://github.com/confighub/helm-expt/issues/1029). |
 | Continue archiving old handoff snapshots. | The repo has many useful historical notes that should not look like current instructions. |
 | Keep website copy smaller than the docs behind it. | The site should explain the product path; detailed proof belongs in guides and generated data. |
 | Keep chart-page warnings visible but less scary. | Warnings are product honesty, not failure, when they tell users what remains to stage or decide. |

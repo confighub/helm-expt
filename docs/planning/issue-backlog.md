@@ -81,6 +81,7 @@ product claims.
 | [#1026](https://github.com/confighub/helm-expt/issues/1026) chart-page clarity fixes | closed generator work | Tracked the chart-card omissions and clarity fixes around empty action sections, boilerplate wording, and confusing placeholders. |
 | [#1027](https://github.com/confighub/helm-expt/issues/1027) unresolved next-action placeholders | closed generator work | Generalized the chart-page next-action cleanup so unresolved `<action>: unknown` values render as plain user actions. |
 | PR [#1028](https://github.com/confighub/helm-expt/pull/1028) chart-page placeholder lint | merged static release gate | Added the `site:ux:verify` guard so future generated chart pages cannot leak unresolved next-action placeholders or raw work-dir placeholders. |
+| [#1029](https://github.com/confighub/helm-expt/issues/1029) roadmap cleanup follow-up | P1 planning and release-gate hygiene | Tracks the next cleanup pass: split the giant `npm run verify` command into named suites and archive or clearly demote stale planning snapshots. |
 
 ## Current Operational Issue Groups
 
