@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["ConfigHub makes Helm work properly", "ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration", "Who We Are And Why This Exists", "cub helm install"],
+    terms: ["ConfigHub makes Helm work for you", "ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration", "Who We Are And Why This Exists", "cub helm install"],
   },
   {
     file: "site/variants.html",
