@@ -2646,11 +2646,13 @@ function customAppsHtml(catalog) {
     ["Custom app", "Represent your own service as ConfigHub Units alongside chart Units.", "Lets the stack be scanned, diffed, promoted, and delivered together."],
     ["Wrapper chart or overlay values", "Use the recipe/import path when the overlay changes Helm render inputs.", "This creates or updates a base, not just a derived variant."],
     ["Environment or customer refinement", "Use derived variants when the change is post-render.", "Targets, labels, approvals, links, observation policy, and selected field transforms."],
+    ["Agentic app or plugin", "Build a domain-specific tool on top of ConfigHub data when raw YAML edits are too low-level.", "The tool should provide domain semantics, guardrails, dry-run output, and explicit commit steps."],
     ["Private catalog", "Use ConfigHub-managed private paths when private sources, teams, SLAs, or production responsibility enter.", "This is the paid and managed boundary."],
   ];
   const proofRows = [
     ["ExternalDNS overlay", "Managed overlay golden for wrapper chart plus customer values.", "../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md"],
     ["App readiness", "Read-only app queries over rendered catalog data.", "../data/app-readiness/summary.md"],
+    ["RBAC Manager for Agents", "Example CLI/plugin plus agent skills for Kubernetes RBAC inventory, who-can queries, findings, and guardrailed edits.", "https://github.com/confighub/examples/tree/main/rbac-manager-for-agents"],
     ["Custom overlays guide", "Plain user guide for base plus overlay cases.", "../docs/user/custom-overlays.md"],
     ["Private paths", "Commercial and operational boundary for private catalogs.", "./private/"],
   ];
@@ -2681,6 +2683,7 @@ function customAppsHtml(catalog) {
     <section aria-labelledby="day">
       <h2 id="day">Day 0 Or Day 1?</h2>
       <p>For a new app, multiple charts plus a custom service is Day 0 composition: define the first desired shape, render the bases, upload Units, and create the first target variant. For an app that already exists, the same work is Day 1 change management: import or discover the current shape, compare it with the desired shape, then make controlled refinements.</p>
+      <p>An agentic custom app can sit beside this path. For example, an RBAC app can read ConfigHub Units, answer Kubernetes-specific access questions, and produce guardrailed edits without asking an agent to patch YAML by hand.</p>
     </section>
 
     <section aria-labelledby="proof">
@@ -2764,6 +2767,7 @@ function aiHtml(catalog) {
     ["Create a variant", "Good fit with review", "AI can propose labels, target facts, and transforms. A user or policy gate should approve the exact result."],
     ["Patch a fleet", "Good fit with bounds", "AI can propose a safe patch, but blast radius and affected variants must be shown before delivery."],
     ["Triage a broken chart", "Good fit", "AI can route the failure to render, target prerequisite, lifecycle, runtime, or unsupported behavior."],
+    ["Use a domain app", "Good fit", "A plugin plus skills can give the agent higher-level tools, such as Kubernetes RBAC analysis, instead of raw YAML editing."],
     ["Change production live state directly", "Not the default path", "The safe path is propose, diff, gate, deliver, observe. Direct writes need a narrow authority rule."],
   ];
   return `<!doctype html>
@@ -2795,11 +2799,18 @@ function aiHtml(catalog) {
       ])}
     </section>
 
+    <section aria-labelledby="agentic-apps">
+      <h2 id="agentic-apps">Agentic Custom Apps</h2>
+      <p>A useful pattern is a small domain app that exposes higher-level operations to an agent while ConfigHub remains the configuration store. The app supplies the domain model, dry-run behavior, guardrails, and explicit commit path.</p>
+      <p>Brian's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> is a concrete example of that shape. It is a CLI/plugin with skills for RBAC inventory, effective-access queries, hygiene findings, guarded edits, fleet edits, and promotion. That is more differentiated than asking an agent to edit YAML directly.</p>
+    </section>
+
     <section aria-labelledby="guides">
       <h2 id="guides">Guides And Evidence</h2>
       <div class="grid">
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
+        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern: CLI/plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
         <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="../data/blast-radius-accuracy/summary.md">Open evidence</a></p></div>
       </div>
     </section>

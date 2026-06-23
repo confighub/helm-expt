@@ -48,7 +48,11 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["AI-Assisted Operations", "AI proposes", "ConfigHub shows", "Good AI Tasks"],
+    terms: ["AI-Assisted Operations", "AI proposes", "ConfigHub shows", "Good AI Tasks", "RBAC Manager for Agents"],
+  },
+  {
+    file: "site/custom-apps.html",
+    terms: ["Custom Apps", "Agentic app or plugin", "RBAC Manager for Agents"],
   },
   {
     file: "site/security.html",

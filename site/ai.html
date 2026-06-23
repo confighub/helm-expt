@@ -332,7 +332,7 @@
       <h2 id="tasks">Good AI Tasks</h2>
       <div class="card"><table>
         <thead><tr><th>Task</th><th>Fit</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Explain a diff</td><td>Good fit</td><td>AI can summarize changed objects and paths. ConfigHub should keep the underlying diff as the authority.</td></tr><tr><td>Create a variant</td><td>Good fit with review</td><td>AI can propose labels, target facts, and transforms. A user or policy gate should approve the exact result.</td></tr><tr><td>Patch a fleet</td><td>Good fit with bounds</td><td>AI can propose a safe patch, but blast radius and affected variants must be shown before delivery.</td></tr><tr><td>Triage a broken chart</td><td>Good fit</td><td>AI can route the failure to render, target prerequisite, lifecycle, runtime, or unsupported behavior.</td></tr><tr><td>Change production live state directly</td><td>Not the default path</td><td>The safe path is propose, diff, gate, deliver, observe. Direct writes need a narrow authority rule.</td></tr></tbody>
+        <tbody><tr><td>Explain a diff</td><td>Good fit</td><td>AI can summarize changed objects and paths. ConfigHub should keep the underlying diff as the authority.</td></tr><tr><td>Create a variant</td><td>Good fit with review</td><td>AI can propose labels, target facts, and transforms. A user or policy gate should approve the exact result.</td></tr><tr><td>Patch a fleet</td><td>Good fit with bounds</td><td>AI can propose a safe patch, but blast radius and affected variants must be shown before delivery.</td></tr><tr><td>Triage a broken chart</td><td>Good fit</td><td>AI can route the failure to render, target prerequisite, lifecycle, runtime, or unsupported behavior.</td></tr><tr><td>Use a domain app</td><td>Good fit</td><td>A plugin plus skills can give the agent higher-level tools, such as Kubernetes RBAC analysis, instead of raw YAML editing.</td></tr><tr><td>Change production live state directly</td><td>Not the default path</td><td>The safe path is propose, diff, gate, deliver, observe. Direct writes need a narrow authority rule.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -342,11 +342,18 @@
       </style>
     </section>
 
+    <section aria-labelledby="agentic-apps">
+      <h2 id="agentic-apps">Agentic Custom Apps</h2>
+      <p>A useful pattern is a small domain app that exposes higher-level operations to an agent while ConfigHub remains the configuration store. The app supplies the domain model, dry-run behavior, guardrails, and explicit commit path.</p>
+      <p>Brian's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> is a concrete example of that shape. It is a CLI/plugin with skills for RBAC inventory, effective-access queries, hygiene findings, guarded edits, fleet edits, and promotion. That is more differentiated than asking an agent to edit YAML directly.</p>
+    </section>
+
     <section aria-labelledby="guides">
       <h2 id="guides">Guides And Evidence</h2>
       <div class="grid">
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
+        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern: CLI/plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
         <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="../data/blast-radius-accuracy/summary.md">Open evidence</a></p></div>
       </div>
     </section>
