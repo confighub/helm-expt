@@ -1526,8 +1526,8 @@ function tryHtml(catalog) {
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">What is proven</h2>
-      <p>We have tested this no-account path. The links below show what was checked.</p>
+      <h2 id="proof">What We Checked</h2>
+      <p>The important first check is simple: does this path produce the same Kubernetes objects as Helm, and can those objects still be delivered in the usual ways?</p>
       ${markdownLikeTable([
         ["Proof", "What it says", "Open"],
         ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),

@@ -368,8 +368,8 @@
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">What is proven</h2>
-      <p>We have tested this no-account path. The links below show what was checked.</p>
+      <h2 id="proof">What We Checked</h2>
+      <p>The important first check is simple: does this path produce the same Kubernetes objects as Helm, and can those objects still be delivered in the usual ways?</p>
       <div class="card"><table>
         <thead><tr><th>Proof</th><th>What it says</th><th>Open</th></tr></thead>
         <tbody><tr><td>Render and install parity</td><td>Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.</td><td><a href="../data/serverless-install-parity-proof/summary.html">Render and install parity</a></td></tr><tr><td>OCI for Argo and Flux</td><td>The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.</td><td><a href="../data/serverless-oci-gitops-proof/summary.html">OCI for Argo and Flux</a></td></tr></tbody>
