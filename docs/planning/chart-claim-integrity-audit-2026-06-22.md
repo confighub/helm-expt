@@ -55,7 +55,7 @@ lane-vs-receipt contradiction. Documented here; candidate for a future gate chec
 ## The fix
 
 - **Prevention is built:** the claim-integrity gate re-checks every page claim against its cited
-  receipt and fails CI on a contradiction (9 HARD findings today). It also protects the data —
+  receipt and fails CI on a contradiction (13 HARD findings across 6 charts at audit time). It also protects the data —
   you cannot make a red page green by editing a support-decision, because the gate reads the
   receipt's real `result`.
 - **Generator-side fixes (Codex owns the renderer):** derive lane colour from the receipt

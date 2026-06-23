@@ -150,10 +150,37 @@ function checkMatrix() {
   }
 }
 
+// ---------- Check 5: recommended remediation base is tested + in scope ----------
+function checkRecommendedBases() {
+  const p = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
+  if (!existsSync(p)) return;
+  const rows = parseCsv(readFileSync(p, "utf8"));
+  const head = rows[0]; const idx = Object.fromEntries(head.map((h, i) => [h, i]));
+  for (const r of rows.slice(1)) {
+    if (r.length < head.length) continue;
+    const chart = r[idx.chart]; if (!chart) continue;
+    const cdir = chart.replaceAll("/", "-");
+    let supportedBase = null;
+    const sdf = join(repoRoot, "data", "production-support-decisions", cdir, "support-decision.yaml");
+    if (existsSync(sdf)) { try { supportedBase = readYaml(sdf)?.spec?.supportedBase ?? null; } catch { /* skip */ } }
+    const recs = [["password", r[idx.password_fix_base]], ["CRD", r[idx.crd_separable_base]]]
+      .filter(([, b]) => b && b.trim() && !["-", "default"].includes(b.trim())); // "default" is the no-op base, not a remediation
+    for (const [kind, baseRaw] of recs) {
+      const base = baseRaw.trim();
+      let worst = null;
+      for (const lane of LANES) { const info = receiptInfo(lane.path(cdir, base)); if (info.exists && info.result && !PASS.has(String(info.result))) worst = info.result; }
+      if (worst === "blocked") add("hard", chart, "recommends-base-with-blocked-receipt", `${kind} caveat recommends base "${base}" but a live receipt for it is result: blocked`);
+      else if (worst) add("warn", chart, "recommends-base-with-nonpass-receipt", `${kind} caveat recommends base "${base}" whose live receipt is result: ${worst}`);
+      if (supportedBase && supportedBase !== base) add("warn", chart, "recommends-base-outside-supported-scope", `${kind} caveat recommends base "${base}" but the support decision covers only "${supportedBase}" — following the page's own advice steps off the supported base`);
+    }
+  }
+}
+
 // ---------- run ----------
 checkSupportDecisions();
 checkRequiredReceipts();
 checkMatrix();
+checkRecommendedBases();
 const seen = new Set();
 for (let i = findings.length - 1; i >= 0; i--) {
   const k = `${findings[i].sev}|${findings[i].chart}|${findings[i].check}|${findings[i].detail}`;
