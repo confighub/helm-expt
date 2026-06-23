@@ -127,7 +127,7 @@ duplicates of this one.
 | [derived-variant-target-bound/summary.csv](../derived-variant-target-bound/summary.csv) | target-bound status for derived variants when a downstream variant has been reconciled through OCI/Argo and observed | receipt internals; follow the target-bound receipt when diagnosing the target run |
 | [catalog-promotion-wave2/variant-work-orders.yaml](../catalog-promotion-wave2/variant-work-orders.yaml) | candidate F2 base/fork rows that are explicitly not rendered yet and need recipe/package/evidence work before becoming real bases | per-value detail beyond the compact inputs, blockers, and first action shown in the candidate row |
 | [useful-base-realization-wave/wave2-selection.csv](../useful-base-realization-wave/wave2-selection.csv) | candidate F2 user-shaped base rows from the useful-base queue, including render-time knobs, target inputs, and required receipts | priority scoring internals; follow the source for full wave ordering |
-| [target-prerequisite-actions/actions.csv](../target-prerequisite-actions/actions.csv) | candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether a custom discussion is needed | duplicate lane-level rows after they are grouped by chart/base/prerequisite/action |
+| [target-prerequisite-actions/actions.csv](../target-prerequisite-actions/actions.csv) | candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether human review is needed | duplicate lane-level rows after they are grouped by chart/base/prerequisite/action |
 
 The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next
 action, target run scope, and active proof queue details. The Markdown
@@ -162,7 +162,7 @@ when you want the user/product view with those columns visible.
 | `autoscaler/cluster-autoscaler@9.57.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | controller-default-reviewed | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
@@ -182,7 +182,7 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | model | local-live | ⬜ |
 | `bitnami/memcached@8.5.5` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/mongodb@19.0.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | run | live-parity | ✅ |
@@ -213,7 +213,7 @@ when you want the user/product view with those columns visible.
 | `bitnami/phpmyadmin@20.0.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | model | local-live | ⬜ |
-|  | F2c | candidate discussion | web-ui-existing-secret | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | web-ui-existing-secret | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/postgresql@18.6.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⬜ | ⚠️ | run | live-parity | ✅ |
@@ -247,16 +247,16 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 | `coredns/coredns@1.45.2` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | controller-default-reviewed | candidate | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | controller-default-reviewed | candidate | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `crossplane-stable/crossplane@2.3.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `descheduler/descheduler@0.36.0` | F1 | source | (source) | next80 | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cluster-metrics-readonly | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `dex/dex@0.24.0` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F2c | candidate discussion | web-ui-existing-secret | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | web-ui-existing-secret | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `elastic/eck-operator@3.4.0` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
@@ -264,59 +264,59 @@ when you want the user/product view with those columns visible.
 | `elastic/filebeat@8.5.1` | F1 | source | (source) | next80 | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
 |  | F2b | base | node-or-cluster-collector | next80 | `tpl;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate | default + secret | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
-|  | F3 | candidate discussion | node-or-cluster-collector + external-api | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | node-or-cluster-collector + review | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | node-or-cluster-collector + external-api | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | node-or-cluster-collector + review | candidate | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `elastic/kibana@8.5.1` | F1 | source | (source) | next80 | `tpl` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F2c | candidate discussion | web-ui-existing-secret | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + external-api | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | web-ui-existing-secret | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + external-api | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `elastic/logstash@8.5.1` | F1 | source | (source) | next80 | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 | `elastic/metricbeat@8.5.1` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate | default + secret | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `external-dns/external-dns@1.21.1` | F1 | source | (source) | next80 | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | dry-run-txt-registry | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `tpl;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2c | candidate discussion | cloudflare-existing-secret | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | route53-irsa | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cloudflare-existing-secret | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | route53-irsa | candidate | `tpl;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `external-secrets/external-secrets@2.5.0` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 |  | F2b | base | no-crds | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `fairwinds-stable/goldilocks@10.3.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cluster-metrics-readonly | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `fairwinds-stable/vpa@4.11.0` | F1 | source | (source) | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate | no-crds + crd | candidate | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `falcosecurity/falco@9.0.0` | F1 | source | (source) | next80 | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | node-or-cluster-collector | candidate | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | node-or-cluster-collector | candidate | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `falcosecurity/falcosidekick@0.13.1` | F1 | source | (source) | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `fluent/fluent-bit@0.57.6` | F1 | source | (source) | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
-|  | F2c | candidate discussion | node-or-cluster-collector | candidate | `tpl;capabilities;hooks;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | node-or-cluster-collector | candidate | `tpl;capabilities;hooks;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `fluent/fluentd@0.5.3` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
-|  | F2c | candidate discussion | node-or-cluster-collector | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | node-or-cluster-collector | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `gatekeeper/gatekeeper@3.22.2` | F1 | source | (source) | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | 4 observed ✅ | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 | `gitlab/gitlab-runner@0.89.0` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ⚠️ | ✅ | stage | in-confighub | ⬜ |
-|  | F2c | candidate discussion | runner-existing-secret | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + external-api | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | runner-existing-secret | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + external-api | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `grafana/alloy@1.8.2` | F1 | source | (source) | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ❌ | run | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ❌ | run | live-parity | ⬜ |
@@ -334,13 +334,13 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | ha + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | no-crds + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | ha + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | no-crds + review | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `grafana/rollout-operator@0.49.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ⚠️ | ✅ | stage | live-parity | ⬜ |
-|  | F3 | candidate discussion | no-crds + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | no-crds + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `grafana/tempo@1.24.4` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | local-persistent | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | superseded |
 |  | F2b | base | s3-query-observability | top20 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
@@ -352,14 +352,14 @@ when you want the user/product view with those columns visible.
 | `hashicorp/terraform@1.1.2` | F1 | source | (source) | next80 | `crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2b | base | no-crds | next80 | `crds` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | no-crds + review | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | no-crds + review | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate | no-crds + secret | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `hashicorp/vault@0.32.0` | F1 | source | (source) | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ❌ |
 |  | F2b | base | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
-|  | F3 | candidate discussion | ha-raft-ui + review | candidate | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | ha-raft-ui + review | candidate | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F4a | derived from default | regulated-prod-us-east | derived | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 |  | F4a | derived from default | staging-us-east | derived | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 | `ingress-nginx/ingress-nginx@4.15.1` | F1 | source | (source) | top20 | `tpl;capabilities;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -371,18 +371,18 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | controller-default-reviewed | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 | `istio/istiod@1.30.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F2c | candidate discussion | external-ca | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | external-ca | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate | minimal-profile | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | revisioned-control-plane | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | revisioned-control-plane | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate | default + namespace | candidate | - | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `jaegertracing/jaeger@4.8.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | node-or-cluster-collector | candidate | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | node-or-cluster-collector | candidate | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `jaegertracing/jaeger-operator@2.57.0` | F1 | source | (source) | next80 | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `crds;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ❌ | ❌ | ❌ | ✅ | stage | local-live | ⬜ |
 |  | F2b | base | no-crds | next80 | `crds;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F3 | candidate discussion | default + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | no-crds + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | no-crds + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `jetstack/cert-manager@v1.20.2` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | crds-enabled | top20 | - | - | - | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
@@ -398,9 +398,9 @@ when you want the user/product view with those columns visible.
 | `kyverno/kyverno@3.8.1` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
-|  | F2c | candidate discussion | default-admission | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | ha-admission-reports | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | default-admission | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | ha-admission-reports | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `kyverno/kyverno-policies@3.8.0` | F1 | source | (source) | next80 | `lookup;tpl` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;tpl` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⚠️ | ✅ | deferred | local-live | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -414,7 +414,7 @@ when you want the user/product view with those columns visible.
 |  | F4b | derived from default | prod-us-east | derived | `lookup;generated-facts;capabilities;cluster-rbac` | - | - | - | ✅ | - | - | ✅ | - | - | - | - | target-bound-derived | ✅ |
 | `minio-operator/operator@7.1.1` | F1 | source | (source) | next80 | `cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2c | candidate discussion | storage-default-reviewed | candidate | `cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | storage-default-reviewed | candidate | `cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `minio-operator/tenant@7.1.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
 | `nats/nack@0.34.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -426,20 +426,20 @@ when you want the user/product view with those columns visible.
 | `nats/surveyor@0.20.9` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
 |  | F2b | base | default-reviewed | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F3 | candidate discussion | default + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | default-reviewed + external-api | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
-|  | F3 | candidate discussion | default-reviewed + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default-reviewed + external-api | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | default-reviewed + review | candidate | - | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | F1 | source | (source) | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
-|  | F2c | candidate discussion | storage-default-reviewed | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | storage-default-reviewed | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `open-telemetry/opentelemetry-operator@0.114.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 | `opencost/opencost@2.5.21` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
-|  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F3 | candidate discussion | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F2c | candidate review | cluster-metrics-readonly | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F3 | candidate review | default + review | candidate | `tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `percona/pg-operator@3.0.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
@@ -450,10 +450,10 @@ when you want the user/product view with those columns visible.
 | `percona/pxc-operator@1.19.1` | F1 | source | (source) | next80 | `lookup;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ⚠️ | ✅ | stage | live-parity | ⬜ |
-|  | F3 | candidate discussion | no-crds + external-api | candidate | `lookup;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+|  | F3 | candidate review | no-crds + external-api | candidate | `lookup;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `projectcalico/tigera-operator@v3.32.0` | F1 | source | (source) | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;hooks;cluster-rbac` | 1 observed ✅ | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
-|  | F2c | candidate discussion | controller-default-reviewed | candidate | `lookup;hooks;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | controller-default-reviewed | candidate | `lookup;hooks;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate | default + crd | candidate | `lookup;hooks;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `prometheus-community/alertmanager@1.37.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
@@ -491,10 +491,10 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | F1 | source | (source) | next80 | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cluster-metrics-readonly | candidate | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `prometheus-community/prometheus-pushgateway@3.6.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | cluster-metrics-readonly | candidate | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cluster-metrics-readonly | candidate | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `rook-release/rook-ceph@v1.19.5` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 | `rook-release/rook-ceph-cluster@v1.19.5` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -502,7 +502,7 @@ when you want the user/product view with those columns visible.
 |  | F3 | candidate | default + namespace | candidate | - | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `runix/pgadmin4@1.62.0` | F1 | source | (source) | next80 | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2c | candidate discussion | web-ui-existing-secret | candidate | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | web-ui-existing-secret | candidate | `tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `sealed-secrets/sealed-secrets@2.18.6` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
@@ -519,15 +519,15 @@ when you want the user/product view with those columns visible.
 | `traefik/traefik@40.2.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
-|  | F2c | candidate discussion | cloud-loadbalancer | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | cloud-loadbalancer | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate | internal-clusterip-dashboard-off | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `velero/velero@12.0.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
-|  | F2c | candidate discussion | aws-s3-existing-secret | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | azure-blob-existing-secret | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate discussion | filesystem-backup-node-agent | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | aws-s3-existing-secret | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | azure-blob-existing-secret | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | filesystem-backup-node-agent | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate | no-crds + crd | candidate | - | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `vm/victoria-logs-single@0.12.5` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |

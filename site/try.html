@@ -326,39 +326,39 @@
 <body>
   <header class="hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Get started with Redis</h1>
-    <p>Redis is the smallest example on this site. It lets you compare a normal Helm install with the ConfigHub <code>cub installer</code> path without starting with a complicated chart.</p>
-    <p>First, look at what Helm would install. Then use <code>cub installer</code> with the same Redis chart version and the same basic assumptions. The aim is simple: check that the ConfigHub path starts from the same Kubernetes objects that Helm would create.</p>
+    <h1>Get started with Prometheus</h1>
+    <p>Start with a familiar public Helm chart and compare two paths: a normal Helm install, and a <code>cub installer</code> render of the same chart.</p>
+    <p>The first question is deliberately simple: under the same chart, values, and base assumptions, does the ConfigHub path preserve the Kubernetes objects Helm would create?</p>
   </header>
   <main>
     <section aria-labelledby="choice">
       <h2 id="choice">Helm or cub installer?</h2>
-      <p>There are two useful ways to look at the same Redis chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
+      <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
       <div class="split">
         <section class="path-card">
           <h3>Normal Helm</h3>
-          <p>Use this if you want Helm to deploy Redis directly into a Kubernetes cluster.</p>
+          <p>Use this if you want Helm to deploy Prometheus directly into a Kubernetes cluster.</p>
           <p><strong>Kubernetes cluster required.</strong></p>
         </section>
         <section class="path-card">
           <h3>cub installer</h3>
-          <p>Use this if you want Redis rendered into explicit local config first, so it can be inspected and managed before delivery.</p>
+          <p>Use this if you want Prometheus rendered into explicit local config first, so it can be inspected and managed before delivery.</p>
           <p><strong>No cluster or ConfigHub account required for the render.</strong></p>
         </section>
       </div>
-      <p>The exact commands and expected output belong on the Redis chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
-      <p><a href="./charts/bitnami-redis-25-5-3.html">Open the Redis chart page</a>.</p>
+      <p>The exact commands and expected output belong on the Prometheus chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
+      <p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open the Prometheus chart page</a>.</p>
     </section>
 
     <section aria-labelledby="should-see">
       <h2 id="should-see">You should see something like this</h2>
-      <p>With normal Helm, Redis should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Redis should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
+      <p>With normal Helm, Prometheus should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Prometheus should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
       <p>Use <a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a> when you want the longer checklist for clusters, local files, ConfigHub upload, and live evidence.</p>
     </section>
 
     <section aria-labelledby="what-this-proves">
       <h2 id="what-this-proves">What This Shows</h2>
-      <p>Redis answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
+      <p>Prometheus answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Does this replace Helm?</td><td>No. Helm remains the source chart ecosystem and the control path.</td></tr><tr><td>Does cub installer deploy the app?</td><td>Not by itself. It renders a reviewed package into explicit config first.</td></tr><tr><td>Do I need ConfigHub for this first step?</td><td>No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations.</td></tr><tr><td>Where is the evidence?</td><td>On chart pages, docs, and data surfaces. The Get Started page should stay human-first.</td></tr></tbody>
@@ -374,9 +374,9 @@
     <section aria-labelledby="next">
       <h2 id="next">Where To Go Next</h2>
       <div class="grid">
-        <div class="card"><h3>Exact Redis commands</h3><p>The full command table, expected output, catalog status, variants, caveats, and evidence links live on the Redis chart page.</p><p><a href="./charts/bitnami-redis-25-5-3.html">Open</a></p></div>
+        <div class="card"><h3>Exact Prometheus commands</h3><p>The command table, expected output, catalog status, variants, caveats, and evidence links live on the Prometheus chart page.</p><p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open</a></p></div>
         <div class="card"><h3>Expected results and clusters</h3><p>Use this when you want to know what output to expect and when a Kubernetes cluster is needed.</p><p><a href="../docs/user/expected-results-and-clusters.md">Open</a></p></div>
-        <div class="card"><h3>Choose another chart</h3><p>After Redis, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.</p><p><a href="./charts/index.html">Open</a></p></div>
+        <div class="card"><h3>Choose another chart</h3><p>After Prometheus, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.</p><p><a href="./charts/index.html">Open</a></p></div>
         <div class="card"><h3>Serious chart example</h3><p>Use kube-prometheus-stack later when you want to see CRDs, webhooks, target facts, and lifecycle prerequisites.</p><p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Open</a></p></div>
       </div>
     </section>

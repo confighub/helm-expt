@@ -33,7 +33,7 @@ Open `site/proof.html` only as a deep reference for proof lanes, sceptic tests,
 and refusal boundaries.
 Open `site/quirks.html` for the short guide to chart quirks such as hooks,
 CRDs, webhooks, generated facts, lookups, storage, and RBAC.
-Open `site/charts/index.html#actions` for ConfigHub Actions, including hook
+Open `site/charts/index.html#actions` for hooks and actions, including hook
 and lifecycle route dispositions. `site/hooks.html` only redirects there for
 compatibility.
 Open `site/private/index.html` for private catalogs, managed operations, and commercial boundaries.

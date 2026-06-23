@@ -24,7 +24,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Redis Teaching Path", "How Do I Run This Chart With cub?", "Adoption Caveats Versus Plain Helm", "redis-existing-secret"],
+    terms: ["Redis Proof Slice", "How To Try This Chart", "First-Run Caveats", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",

@@ -466,11 +466,11 @@ function html(catalog) {
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const parityDemos = [
     {
-      label: "Standard Redis",
-      title: "Start with the smallest happy path",
-      body: "Start with ordinary Helm, then render the same Redis path with cub installer.",
+      label: "Prometheus",
+      title: "Start with a familiar non-Bitnami chart",
+      body: "Compare ordinary Helm with the cub installer path for a small Prometheus base.",
       link: "./try.html",
-      linkText: "Get started with Redis",
+      linkText: "Get started with Prometheus",
     },
     {
       label: "Serverless parity",
@@ -507,7 +507,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Ops", "Release, observe, patch, and upgrade apps after they exist.", "./operations.html"],
   ];
   const journeySteps = [
-    ["First", "See How It Works", "Get started with a Redis example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
+    ["First", "See How It Works", "Get started with a Prometheus example and see standard Helm compared with cub installer.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
     ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
     ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
@@ -1044,7 +1044,7 @@ function legacyDashboardHtml(catalog) {
 
     <section aria-labelledby="serious-chart">
       <h2 id="serious-chart">Serious Chart Proof</h2>
-      <p>Redis is the teaching chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
+      <p>Prometheus is the public first-run chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
       ${markdownLikeTable([
         ["Base", "User choice", "Render", "Two-cluster kind", "OCI/GitOps", "Production", "Next hard work"],
         ...highFanoutRows,
@@ -1549,13 +1549,13 @@ function legacyOfferingHtml(catalog) {
 
 function tryHtml(catalog) {
   const pathRows = [
-    ["Normal Helm", "Use this if you want Helm to deploy Redis directly into a Kubernetes cluster.", "Kubernetes cluster required."],
-    ["cub installer", "Use this if you want Redis rendered into explicit local config first, so it can be inspected and managed before delivery.", "No cluster or ConfigHub account required for the render."],
+    ["Normal Helm", "Use this if you want Helm to deploy Prometheus directly into a Kubernetes cluster.", "Kubernetes cluster required."],
+    ["cub installer", "Use this if you want Prometheus rendered into explicit local config first, so it can be inspected and managed before delivery.", "No cluster or ConfigHub account required for the render."],
   ];
   const nextRows = [
-    ["Exact Redis commands", "The full command table, expected output, catalog status, variants, caveats, and evidence links live on the Redis chart page.", "./charts/bitnami-redis-25-5-3.html"],
+    ["Exact Prometheus commands", "The command table, expected output, catalog status, variants, caveats, and evidence links live on the Prometheus chart page.", "./charts/prometheus-community-prometheus-29-8-0.html"],
     ["Expected results and clusters", "Use this when you want to know what output to expect and when a Kubernetes cluster is needed.", "../docs/user/expected-results-and-clusters.md"],
-    ["Choose another chart", "After Redis, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.", "./charts/index.html"],
+    ["Choose another chart", "After Prometheus, pick a chart from the top-100 catalog and inspect its bases, variants, quirks, and actions.", "./charts/index.html"],
     ["Serious chart example", "Use kube-prometheus-stack later when you want to see CRDs, webhooks, target facts, and lifecycle prerequisites.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
   ];
   return `<!doctype html>
@@ -1577,14 +1577,14 @@ function tryHtml(catalog) {
 <body>
   <header class="hero">
     ${topNav(".")}
-    <h1>Get started with Redis</h1>
-    <p>Redis is the smallest example on this site. It lets you compare a normal Helm install with the ConfigHub <code>cub installer</code> path without starting with a complicated chart.</p>
-    <p>First, look at what Helm would install. Then use <code>cub installer</code> with the same Redis chart version and the same basic assumptions. The aim is simple: check that the ConfigHub path starts from the same Kubernetes objects that Helm would create.</p>
+    <h1>Get started with Prometheus</h1>
+    <p>Start with a familiar public Helm chart and compare two paths: a normal Helm install, and a <code>cub installer</code> render of the same chart.</p>
+    <p>The first question is deliberately simple: under the same chart, values, and base assumptions, does the ConfigHub path preserve the Kubernetes objects Helm would create?</p>
   </header>
   <main>
     <section aria-labelledby="choice">
       <h2 id="choice">Helm or cub installer?</h2>
-      <p>There are two useful ways to look at the same Redis chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
+      <p>There are two useful ways to look at the same Prometheus chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
       <div class="split">
         ${pathRows
           .map(
@@ -1596,19 +1596,19 @@ function tryHtml(catalog) {
           )
           .join("\n        ")}
       </div>
-      <p>The exact commands and expected output belong on the Redis chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
-      <p><a href="./charts/bitnami-redis-25-5-3.html">Open the Redis chart page</a>.</p>
+      <p>The exact commands and expected output belong on the Prometheus chart page, where they can sit beside the catalog status, variants, caveats, and evidence links.</p>
+      <p><a href="./charts/prometheus-community-prometheus-29-8-0.html">Open the Prometheus chart page</a>.</p>
     </section>
 
     <section aria-labelledby="should-see">
       <h2 id="should-see">You should see something like this</h2>
-      <p>With normal Helm, Redis should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Redis should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
+      <p>With normal Helm, Prometheus should appear as a Helm release and Kubernetes objects in your chosen namespace. With cub installer, Prometheus should appear as rendered local manifests under the work directory. Some bases also write separated Secret material under <code>out/secrets</code>, so those values can be handled deliberately rather than hidden inside the main render.</p>
       <p>Use <a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a> when you want the longer checklist for clusters, local files, ConfigHub upload, and live evidence.</p>
     </section>
 
     <section aria-labelledby="what-this-proves">
       <h2 id="what-this-proves">What This Shows</h2>
-      <p>Redis answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
+      <p>Prometheus answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created? Once that is clear, later guides can show variants, ConfigHub upload, GitOps delivery, operations, and AI-assisted changes.</p>
       ${markdownLikeTable([
         ["Question", "Answer"],
         ["Does this replace Helm?", "No. Helm remains the source chart ecosystem and the control path."],
@@ -2018,7 +2018,7 @@ function hardQuestionsHtml(catalog) {
           question: "What happens to Helm hooks?",
           answer:
             "Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.",
-          links: [["ConfigHub Actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
+          links: [["Hooks and actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
         },
         {
           status: "answered",
@@ -2390,10 +2390,10 @@ function hooksHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
-  <title>ConfigHub Actions · ConfigHub Helm Catalog</title>
+  <title>Hooks And Actions · ConfigHub Helm Catalog</title>
 </head>
 <body>
-  <p>Hooks and lifecycle behavior are now covered on the Helm Catalog page as <a href="./charts/index.html#actions">ConfigHub Actions</a>.</p>
+  <p>Hooks and lifecycle behavior are now covered on the Helm Catalog page as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
 </body>
 </html>
 `;
@@ -2416,7 +2416,7 @@ function privateHtml(catalog) {
     ["Ops", "Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks."],
   ];
   const commercialRows = [
-    ["ConfigHub Actions", "Inventory and route hook-like lifecycle work publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review."],
+    ["Hooks and actions", "Inventory and route hook-like lifecycle work publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review."],
     ["Stacks", "Multiple recipes plus a custom app become one managed platform: for example monitoring, AI/RAG stacks, AICR, NIM, or customer platforms."],
     ["Bulk operations", "Bulk scan, patch, approve, promote, and observe across a fleet."],
     ["Legacy patches", "Maintain or patch older chart versions when upstream moved or broke compatibility."],
@@ -3471,8 +3471,8 @@ function chartPageHtml(catalog, entry) {
     </section>
 
     <section aria-labelledby="run-this">
-      <h2 id="run-this">How Do I Run This Chart With cub?</h2>
-      <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a row below says this chart needs a different base or custom discussion. This command is generated from the current matrix and package metadata.</p>
+      <h2 id="run-this">How To Try This Chart</h2>
+      <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a card below explains that another base is a better first path. If a card says review or preparation is needed, treat that as a visible limit rather than a ready install.</p>
       <div class="card">
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
@@ -3480,15 +3480,16 @@ function chartPageHtml(catalog, entry) {
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current row status:</strong> ${escapeHtml(firstRunnableRow?.row_status || entry.start_base_readiness || "unknown")} · <strong>Reason:</strong> ${escapeHtml(firstRunnableReason)}</p>
+        <p><strong>Current status:</strong> ${escapeHtml(firstRunnableRow ? matrixRowStatusLabel(firstRunnableRow) : entry.start_base_readiness || "unknown")} · <strong>Reason:</strong> ${escapeHtml(humanizeReasonList(firstRunnableReason))}</p>
       </div>
     </section>
 
 ${teaching ? `\n    ${teaching}\n` : ""}
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Options From The Matrix</h2>
-      <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>
+      <h2 id="matrix-options">Chart Options</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable bases. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
@@ -3539,8 +3540,8 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <h2 id="lifecycle">Hooks And Other Actions</h2>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, setup jobs, webhook certificates, migrations, or checks. This section shows whether this chart has a known route for that work. If no route is shown, that does not prove the upstream chart has no hooks; it only means the public catalog has no chart-specific action to show yet.</p>
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry)
         : lifecycleRows.length
@@ -3611,12 +3612,25 @@ function compareMatrixRows(left, right) {
 function chartTeachingHtml(entry) {
   if (entry.chart === "bitnami/redis" && entry.version === "25.5.3") {
     return `<section aria-labelledby="redis-teaching">
-      <h2 id="redis-teaching">Redis Teaching Path</h2>
-      <p>Redis is the gold-standard tutorial chart for this site. Use it to see the same chart through normal Helm, cub installer, and ConfigHub Units.</p>
+      <h2 id="redis-teaching">Redis Proof Slice</h2>
+      <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
         <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
         <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+      </div>
+      <p><a href="../try.html">Open the current Get Started page</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
+    </section>`;
+  }
+  if (entry.chart === "prometheus-community/prometheus" && entry.version === "29.8.0") {
+    return `<section aria-labelledby="prometheus-teaching">
+      <h2 id="prometheus-teaching">Prometheus Teaching Path</h2>
+      <p>Use Prometheus when you want a familiar public chart without starting with Bitnami image questions. The <code>server-only-ephemeral</code> base is the small teaching path; the default base remains in the catalog for broader chart coverage.</p>
+      <div class="grid">
+        <div class="card"><h3>Normal Helm</h3><pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus prometheus-community/prometheus --version 29.8.0 --namespace monitoring --create-namespace</code></pre><p>You should see Helm create a Prometheus release and Kubernetes objects in the namespace.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir .tmp/demo/prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/prometheus-server-only --space helm-prometheus-server-only</code></pre><p>You should see Prometheus Units in ConfigHub. Derived variants can start from that uploaded base.</p></div>
       </div>
       <p><a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
     </section>`;
@@ -3641,11 +3655,104 @@ function chartTeachingHtml(entry) {
   return "";
 }
 
+function matrixRowKindLabel(kind) {
+  const labels = {
+    source: "Source",
+    base: "Base",
+    candidate: "Candidate",
+    derived: "Variant",
+  };
+  return labels[kind] || "Option";
+}
+
+function matrixRowPurpose(row) {
+  if (row.custom_discussion === "yes") return "Needs human review before use";
+  if (row.row_kind === "source") return "Upstream chart source";
+  if (row.row_kind === "candidate") return "Candidate path, not ready yet";
+  if (row.row_kind === "derived") return "Derived ConfigHub variant";
+  if (row.catalog_layer === "F2b") return "Runnable base variant";
+  if (row.customization_layer) return humanizeReasonList(row.customization_layer);
+  if (row.adoption_bucket) return humanizeReasonList(row.adoption_bucket);
+  return "Catalog option";
+}
+
+function matrixRowStatusLabel(row) {
+  const raw = String(row.row_status || "").trim();
+  const labels = {
+    real: "Available in the catalog",
+    "real-needs-work": "Needs more work before this is a ready path",
+    candidate: "Candidate path",
+    "candidate-custom-discussion": "Candidate path",
+    planned: "Planned path",
+    watch: "Watch: visible but not fully proved",
+    blocked: "Blocked until the named issue is resolved",
+  };
+  const base = labels[raw] || (raw ? humanizeReasonList(raw) : "Status not recorded");
+  return row.custom_discussion === "yes" ? `${base}; human review needed` : base;
+}
+
+function matrixEvidenceLabel(value) {
+  const raw = String(value || "").trim();
+  const labels = {
+    "derived-variant-clone": "ConfigHub variant clone evidence",
+    "target-bound-derived": "Target-bound derived variant receipt",
+    "live-parity": "Live Helm-vs-ConfigHub comparison receipt",
+    "render-parity": "Helm render parity receipt",
+    "source-lock": "Pinned chart source and dependency lock",
+    "candidate-plan": "Planning evidence only",
+    "not recorded": "No evidence recorded yet",
+  };
+  return labels[raw] || (raw ? humanizeReasonList(raw) : "No evidence recorded yet");
+}
+
+function humanizeNextAction(value) {
+  const text = String(value || "").trim();
+  const labels = {
+    "target-bound-derived-variant": "Create this as a ConfigHub variant after the base has been uploaded.",
+    "derived-variant-target-bound": "Use the derived-variant receipt for this downstream target.",
+    "keep receipt fresh when the upstream base changes": "Refresh the receipt when the upstream base changes.",
+    "keep the target-bound derived variant receipt fresh when the source base or target changes": "Refresh the receipt when the source base or target changes.",
+  };
+  return labels[text] || humanizeReasonList(text);
+}
+
+function humanizeReasonList(value) {
+  return String(value || "")
+    .split(/[;,]/)
+    .map((item) => humanizeReasonToken(item.trim()))
+    .filter(Boolean)
+    .join("; ");
+}
+
+function humanizeReasonToken(token) {
+  const labels = {
+    "namespace-mutation-not-yet-modeled": "Namespace changes are not modeled for this variant yet.",
+    "redis-secret-delivery-not-yet-modeled": "Redis Secret delivery is not modeled for this variant yet.",
+    "not-applicable-derived-variant": "This check does not apply to a derived variant.",
+    "target-bound-derived-variant": "This is a target-bound derived variant.",
+    "derived-target-variant": "This is a downstream target variant.",
+    "derived-variant": "Derived variant.",
+    "try-from-public-catalog": "Try from the public catalog.",
+    "generated-facts": "Generated facts.",
+    "cluster-rbac": "Cluster RBAC.",
+    "stateful-storage": "Stateful storage.",
+  };
+  if (!token || token === "-") return "";
+  return labels[token] || sentenceCase(token.replaceAll("_", " ").replaceAll("-", " "));
+}
+
+function sentenceCase(value) {
+  const text = String(value || "").trim();
+  if (!text) return "";
+  return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+}
+
 function matrixRowCard(row, entry) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
   const nextAction = cleanPageActionText(row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "");
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
+  const humanReason = reason ? humanizeReasonList(reason) : "";
   const rowLinks = matrixRowLinks(row);
   const laneBadges = [
     ["R", "Render", row.lane_render_parity],
@@ -3663,17 +3770,17 @@ function matrixRowCard(row, entry) {
             <span class="row-layer">${escapeHtml(row.catalog_layer || "?")}</span>
             <h3>${escapeHtml(title)}</h3>
           </div>
-          <span class="row-kind">${escapeHtml(row.row_kind || "row")}</span>
+          <span class="row-kind">${escapeHtml(matrixRowKindLabel(row.row_kind))}</span>
         </div>
-        <p class="row-purpose">${escapeHtml(row.customization_layer || row.adoption_bucket || row.row_status || "matrix option")}</p>
+        <p class="row-purpose">${escapeHtml(matrixRowPurpose(row))}</p>
         <dl>
-          <dt>Status</dt><dd>${escapeHtml(row.row_status || "unknown")}${row.custom_discussion === "yes" ? " · custom discussion" : ""}</dd>
+          <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>
           <dt>How to run</dt><dd>${command}</dd>
-          <dt>Evidence</dt><dd>${escapeHtml(row.strongest_evidence || row.outcome_level || "not recorded")}</dd>
+          <dt>Evidence</dt><dd>${escapeHtml(matrixEvidenceLabel(row.strongest_evidence || row.outcome_level || ""))}</dd>
           <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
           <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>
-          <dt>Next</dt><dd>${escapeHtml(nextAction || "No next action recorded.")}</dd>
-          ${reason ? `<dt>Reason</dt><dd>${escapeHtml(reason)}</dd>` : ""}
+          <dt>Next</dt><dd>${escapeHtml(humanizeNextAction(nextAction || "No next action recorded."))}</dd>
+          ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(humanReason)}</dd>` : ""}
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for ${escapeHtml(title)}">
           ${laneBadges.map(([code, label, value]) => lanePill(code, label, value)).join("")}
@@ -3693,16 +3800,16 @@ function matrixRowRunPath(row, entry, options = {}) {
   const htmlOutput = options.html !== false;
   const format = (text) => htmlOutput ? `<code>${escapeHtml(text)}</code>` : text;
   if (row.row_kind === "source") {
-    return "Source chart. Choose an F2 base below before running the installer.";
+    return "This is the upstream chart source. Choose a base card below before running the installer.";
   }
   if (row.row_kind === "candidate") {
     const required = row.candidate_required_before || row.next_action || "finish the candidate work order";
-    return `Candidate option. Required before running: ${escapeHtml(required)}.`;
+    return `Not ready to run yet. First: ${escapeHtml(humanizeNextAction(cleanPageActionText(required)))}.`;
   }
   if (row.row_kind === "derived") {
     const parent = row.parent_base || "a reviewed base";
     const target = row.downstream_space || row.variant;
-    return `Derived ConfigHub variant from ${escapeHtml(parent)}. Create or promote after uploading the base; target row: ${escapeHtml(target)}.`;
+    return `A ConfigHub variant based on ${escapeHtml(parent)} for ${escapeHtml(target)}. Upload the base first, then create or promote this variant in ConfigHub.`;
   }
   if (row.package_base_path) {
     const packagePath = row.package_base_path.replace(/\/bases\/[^/]+$/, "");
@@ -3735,7 +3842,7 @@ function matrixHookSummary(row) {
   if (row.lifecycle_route_contract && row.lifecycle_route_contract !== "n/a") {
     parts.push(`route: ${row.lifecycle_route_contract}`);
   }
-  return parts.join("; ") || "n/a";
+  return parts.join("; ") || "No separate hook or action for this row.";
 }
 
 function splitSemicolonList(value) {
@@ -3752,7 +3859,7 @@ function matrixActionOwnerSummary(row) {
     .filter(Boolean);
   if (!modes.length || modes.every((mode) => mode === "n/a")) {
     if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
-    return "n/a";
+    return "No separate action runner for this row.";
   }
   const labels = [...new Set(modes)].map(executionModePlain);
   const automatic = String(row.lifecycle_route_safe_automatic || "").toLowerCase();
@@ -3966,8 +4073,8 @@ function universalCubAdoptionRows() {
 function chartAdoptionCaveatHtml(caveat) {
   if (!caveat) {
     return `<section aria-labelledby="adoption-caveats">
-      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
-      <p>No chart-specific password or CRD caveat is recorded for this chart. The three universal cub-direct caveats still apply: use declared inputs or bases instead of Helm <code>--set</code>, use managed prune for upgrades, and surface server-side-apply conflicts as an explicit reconcile choice.</p>
+      <h2 id="adoption-caveats">First-Run Caveats</h2>
+      <p>No chart-specific password or CRD caveat is recorded for this chart. The usual cub-direct caveats still apply: use declared inputs or bases instead of Helm <code>--set</code>, use managed prune for upgrades, and treat server-side-apply conflicts as an explicit reconcile choice.</p>
       <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
     </section>`;
   }
@@ -3989,8 +4096,8 @@ function chartAdoptionCaveatHtml(caveat) {
     ],
   ];
   return `<section aria-labelledby="adoption-caveats">
-      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
-      <p>This is the chart-specific heads-up for places where cub can otherwise feel more confusing than plain Helm on the first run. These caveats are managed, but they are still visible.</p>
+      <h2 id="adoption-caveats">First-Run Caveats</h2>
+      <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       ${markdownLikeTable([
         ["Caveat", "What to do"],
         ...rows,
@@ -4575,7 +4682,7 @@ Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests
 and refusal boundaries.
 Open \`site/quirks.html\` for the short guide to chart quirks such as hooks,
 CRDs, webhooks, generated facts, lookups, storage, and RBAC.
-Open \`site/charts/index.html#actions\` for ConfigHub Actions, including hook
+Open \`site/charts/index.html#actions\` for hooks and actions, including hook
 and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
 compatibility.
 Open \`site/private/index.html\` for private catalogs, managed operations, and commercial boundaries.

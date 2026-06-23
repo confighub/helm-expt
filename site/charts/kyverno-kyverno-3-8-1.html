@@ -348,8 +348,8 @@
     </section>
 
     <section aria-labelledby="run-this">
-      <h2 id="run-this">How Do I Run This Chart With cub?</h2>
-      <p>Start with <strong>default</strong> unless a row below says this chart needs a different base or custom discussion. This command is generated from the current matrix and package metadata.</p>
+      <h2 id="run-this">How To Try This Chart</h2>
+      <p>Start with <strong>default</strong> unless a card below explains that another base is a better first path. If a card says review or preparation is needed, treat that as a visible limit rather than a ready install.</p>
       <div class="card">
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir .tmp/demo/kyverno-kyverno-3-8-1-default --non-interactive --namespace default</code></p>
@@ -357,15 +357,16 @@
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current row status:</strong> real · <strong>Reason:</strong> server-side promotion receipt passed</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion receipt passed</p>
       </div>
     </section>
 
 
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Options From The Matrix</h2>
-      <p>This is the chart-specific answer to: how do I run this chart with <code>cub</code>, and what are my options? Each card is one row from the master matrix for this chart/version. Runnable base rows show the installer command; candidate and derived rows show where the option sits in the flow.</p>
+      <h2 id="matrix-options">Chart Options</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable bases. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.86rem">6 matrix rows for kyverno/kyverno@3.8.1 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
@@ -373,17 +374,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F1</span>
             <h3>(source)</h3>
           </div>
-          <span class="row-kind">source</span>
+          <span class="row-kind">Source</span>
         </div>
-        <p class="row-purpose">F1 upstream chart source</p>
+        <p class="row-purpose">Upstream chart source</p>
         <dl>
-          <dt>Status</dt><dd>real</dd>
-          <dt>How to run</dt><dd>Source chart. Choose an F2 base below before running the installer.</dd>
-          <dt>Evidence</dt><dd>source-lock</dd>
+          <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
+          <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
           <dt>Hooks/actions</dt><dd>8 source hook(s); observed; live: yes</dd>
           <dt>Who runs actions?</dt><dd>read the route receipt before delivery</dd>
-          <dt>Next</dt><dd>choose or create an F2 base before rendering or deploying</dd>
-          <dt>Reason</dt><dd>source rows are upstream chart inputs, not server-side promotion evidence</dd>
+          <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
+          <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for (source)">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
@@ -395,17 +396,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F2a</span>
             <h3>default</h3>
           </div>
-          <span class="row-kind">base</span>
+          <span class="row-kind">Base</span>
         </div>
         <p class="row-purpose">F2a honest default base</p>
         <dl>
-          <dt>Status</dt><dd>real</dd>
+          <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir .tmp/demo/kyverno-kyverno-3-8-1-default --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
+          <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>8 source hook(s); observed; live: yes; route: yes</dd>
           <dt>Who runs actions?</dt><dd>target-owned:3, user-executes:3; automatic false until route execution has evidence</dd>
-          <dt>Next</dt><dd>review limitation before promotion: existing-secret (chart ships no Secret toggle)</dd>
-          <dt>Reason</dt><dd>server-side promotion receipt passed</dd>
+          <dt>Next</dt><dd>Review limitation before promotion: existing secret (chart ships no Secret toggle)</dd>
+          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
@@ -417,17 +418,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F2b</span>
             <h3>no-crds</h3>
           </div>
-          <span class="row-kind">base</span>
+          <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">F2b rendered standard fork</p>
+        <p class="row-purpose">Runnable base variant</p>
         <dl>
-          <dt>Status</dt><dd>real</dd>
+          <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir .tmp/demo/kyverno-kyverno-3-8-1-no-crds --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>live-helm-vs-confighub-parity</dd>
+          <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>8 source hook(s); observed; live: yes; route: yes</dd>
           <dt>Who runs actions?</dt><dd>target-owned:3, user-executes:3; automatic false until route execution has evidence</dd>
-          <dt>Next</dt><dd>review limitation before promotion: existing-secret (chart ships no Secret toggle)</dd>
-          <dt>Reason</dt><dd>server-side promotion receipt passed</dd>
+          <dt>Next</dt><dd>Review limitation before promotion: existing secret (chart ships no Secret toggle)</dd>
+          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for no-crds">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
@@ -439,17 +440,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F2c</span>
             <h3>default-admission</h3>
           </div>
-          <span class="row-kind">candidate</span>
+          <span class="row-kind">Candidate</span>
         </div>
-        <p class="row-purpose">F2c candidate base/fork</p>
+        <p class="row-purpose">Needs human review before use</p>
         <dl>
-          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
-          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
-          <dt>Evidence</dt><dd>candidate-plan</dd>
-          <dt>Hooks/actions</dt><dd>n/a</dd>
-          <dt>Who runs actions?</dt><dd>n/a</dd>
+          <dt>Status</dt><dd>Candidate path; human review needed</dd>
+          <dt>How to run</dt><dd>Not ready to run yet. First: Render each variant with pinned Helm inputs; Add matching recipe variant and package base; Write rendered object inventory and immutable revision; Run Helm equivalence; External scan; Local scan; And install gate; Run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>Planning evidence only</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Normal Kyverno admission controller path with explicit webhook disposition.</dd>
-          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+          <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for default-admission">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
@@ -461,17 +462,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F2c</span>
             <h3>external-crds</h3>
           </div>
-          <span class="row-kind">candidate</span>
+          <span class="row-kind">Candidate</span>
         </div>
-        <p class="row-purpose">F2c candidate base/fork</p>
+        <p class="row-purpose">Needs human review before use</p>
         <dl>
-          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
-          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
-          <dt>Evidence</dt><dd>candidate-plan</dd>
-          <dt>Hooks/actions</dt><dd>n/a</dd>
-          <dt>Who runs actions?</dt><dd>n/a</dd>
-          <dt>Next</dt><dd>Install controller assuming CRDs are managed by platform lifecycle.; confirm exact chart CRD ownership values</dd>
-          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+          <dt>Status</dt><dd>Candidate path; human review needed</dd>
+          <dt>How to run</dt><dd>Not ready to run yet. First: Render each variant with pinned Helm inputs; Add matching recipe variant and package base; Write rendered object inventory and immutable revision; Run Helm equivalence; External scan; Local scan; And install gate; Run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>Planning evidence only</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Next</dt><dd>Install controller assuming CRDs are managed by platform lifecycle.; Confirm exact chart CRD ownership values</dd>
+          <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for external-crds">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
@@ -483,17 +484,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
             <span class="row-layer">F2c</span>
             <h3>ha-admission-reports</h3>
           </div>
-          <span class="row-kind">candidate</span>
+          <span class="row-kind">Candidate</span>
         </div>
-        <p class="row-purpose">F2c candidate base/fork</p>
+        <p class="row-purpose">Needs human review before use</p>
         <dl>
-          <dt>Status</dt><dd>candidate-custom-discussion · custom discussion</dd>
-          <dt>How to run</dt><dd>Candidate option. Required before running: render each variant with pinned Helm inputs; add matching recipe variant and package base; write rendered object inventory and immutable revision; run Helm-equivalence, external scan, local scan, and install gate; run local/e2e where feasible.</dd>
-          <dt>Evidence</dt><dd>candidate-plan</dd>
-          <dt>Hooks/actions</dt><dd>n/a</dd>
-          <dt>Who runs actions?</dt><dd>n/a</dd>
-          <dt>Next</dt><dd>Production-shaped HA admission and reports controller split.; webhook rollout and disruption policy must be dispositioned</dd>
-          <dt>Reason</dt><dd>candidate rows are planning rows, not server-side promotion evidence</dd>
+          <dt>Status</dt><dd>Candidate path; human review needed</dd>
+          <dt>How to run</dt><dd>Not ready to run yet. First: Render each variant with pinned Helm inputs; Add matching recipe variant and package base; Write rendered object inventory and immutable revision; Run Helm equivalence; External scan; Local scan; And install gate; Run local/e2e where feasible.</dd>
+          <dt>Evidence</dt><dd>Planning evidence only</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Next</dt><dd>Production shaped HA admission and reports controller split.; Webhook rollout and disruption policy must be dispositioned</dd>
+          <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for ha-admission-reports">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
@@ -503,8 +504,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="adoption-caveats">
-      <h2 id="adoption-caveats">Adoption Caveats Versus Plain Helm</h2>
-      <p>This is the chart-specific heads-up for places where cub can otherwise feel more confusing than plain Helm on the first run. These caveats are managed, but they are still visible.</p>
+      <h2 id="adoption-caveats">First-Run Caveats</h2>
+      <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       <div class="card"><table>
         <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
         <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>; use managed cub-direct prune or Argo/Flux for upgrades; treat SSA conflicts as an explicit reconcile choice.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 22 CRD object(s) are recorded. Use the managed cub-direct applier, use Argo/Flux, or choose the separable CRD base <code>no-crds</code>.</td></tr></tbody>
@@ -586,8 +587,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">ConfigHub Actions</h2>
-      <p>Each Helm hook or hook-like behavior becomes an explicit <strong>ConfigHub action</strong> — visible, named, and receipted instead of a hidden Helm hook. After you deploy, who runs each (per variant): your delivery pipeline — a GitOps PreSync/PostSync, a cub action, or an opt-in check — not by hand. No action is auto-executed today (<code>automatic: false</code>); that, with a receipt, is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>). See all charts on the <a href="./index.html#actions">Helm Catalog actions section</a> · <a href="../../data/lifecycle-routes-by-variant/by-variant.html">standalone view</a>.</p>
+      <h2 id="lifecycle">Hooks And Other Actions</h2>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, setup jobs, webhook certificates, migrations, or checks. This section shows whether this chart has a known route for that work. If no route is shown, that does not prove the upstream chart has no hooks; it only means the public catalog has no chart-specific action to show yet.</p>
       <h4>default</h4><div class="card"><table>
         <thead><tr><th>Hook (route)</th><th>After you deploy, who runs it?</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>hook-delete-policy (delete-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)</td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>-</td></tr><tr><td>hook-weight-ordering (preserve-ordering)</td><td>Your applier - applies objects in order, automatically</td><td>-</td></tr><tr><td>target-facts (target-facts-or-preflight)</td><td>Prerequisite - supply once (Secret / CRD / storage), like values</td><td>-</td></tr></tbody>
