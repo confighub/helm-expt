@@ -81,6 +81,17 @@ data/live-parity-rerun-plan/summary.md
 When a row moves from todo/watch/blocked to pass, update the relevant generated
 surface and let those files carry the number.
 
+## Current Release Guardrails
+
+The errors-and-omissions pass now has two blocking static checks.
+
+| Guard | What it prevents |
+| --- | --- |
+| `chart-claim-integrity:verify` | Chart pages making claims that contradict their cited receipts. |
+| `site:ux:verify` | Chart pages leaking unresolved next-action placeholders or raw work-dir placeholders. |
+
+Both checks are wired into the broad `npm run verify` release gate.
+
 ## Current 99% Goal Shape
 
 The repo now has the main matrices that were missing earlier: pain-point

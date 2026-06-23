@@ -63,6 +63,14 @@ const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json"
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
+const UNKNOWN_ACTION_LABELS = {
+  "create-namespace": "choose and create the target namespace",
+  "install-crds": "install the chart's CRDs first",
+  "operator-review": "complete the operator review",
+  "provide-external-service": "provide the required external service",
+  "stage-secret": "stage the required Secret",
+  "unknown-preflight": "run the preflight checks",
+};
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -3586,10 +3594,10 @@ function matrixRowCard(row, entry) {
 }
 
 function cleanPageActionText(value) {
-  return String(value ?? "")
-    .replaceAll("create-namespace: unknown", "choose and create the target namespace")
-    .replaceAll("operator-review: unknown", "complete the operator review")
-    .replaceAll("stage-secret: unknown", "stage the required Secret");
+  return String(value ?? "").replace(/\b([a-z][a-z-]*): unknown\b/g, (_match, action) => {
+    const label = UNKNOWN_ACTION_LABELS[action];
+    return label ?? action.replaceAll("-", " ");
+  });
 }
 
 function matrixRowRunPath(row, entry, options = {}) {

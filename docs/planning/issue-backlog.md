@@ -4,7 +4,7 @@ This document indexes the GitHub issues and merged proof surfaces that must not
 be lost in the planning docs. GitHub remains the execution tracker; this file
 keeps reviewers aligned with the written plan.
 
-Last synced with planning docs: 2026-06-16.
+Last synced with planning docs: 2026-06-23.
 
 ## Rule
 
@@ -69,6 +69,16 @@ product claims.
 | [#753](https://github.com/confighub/helm-expt/issues/753) user-readable burn-down | matrix and decision UX | Keeps non-live work focused on making G/P/K lanes, watch/blocked decisions, and rerun queues understandable without touching live lanes. |
 | PR [#947](https://github.com/confighub/helm-expt/pull/947) target-prerequisite action packets | merged proof/data surface | Added `data/target-prerequisite-actions/` and [Target Prerequisites Before Rerun](../user/target-prerequisites-before-rerun.md). This is now the practical route from "row is blocked/watch" to "what must be staged before rerun". |
 
+## Current Canonical Trackers Added Or Confirmed 2026-06-23
+
+| Tracker | Scope | Why it matters |
+| --- | --- | --- |
+| PR [#1024](https://github.com/confighub/helm-expt/pull/1024) chart-page claim-integrity audit and gate | merged static release gate | Added the adversarial chart-page audit and `chart-claim-integrity:verify`. The errors axis is now closed: generated chart pages must not make claims contradicted by their cited receipts. |
+| [#1025](https://github.com/confighub/helm-expt/issues/1025) renderer claim fixes | closed generator work | Tracked the systemic false-green renderer fixes: derive lane colour from receipt result, carry receipt disclaimers, qualify cross-version evidence, and show scoped support decisions. |
+| [#1026](https://github.com/confighub/helm-expt/issues/1026) chart-page clarity fixes | closed generator work | Tracked the chart-card omissions and clarity fixes around empty action sections, boilerplate wording, and confusing placeholders. |
+| [#1027](https://github.com/confighub/helm-expt/issues/1027) unresolved next-action placeholders | closed generator work | Generalized the chart-page next-action cleanup so unresolved `<action>: unknown` values render as plain user actions. |
+| PR [#1028](https://github.com/confighub/helm-expt/pull/1028) chart-page placeholder lint | merged static release gate | Added the `site:ux:verify` guard so future generated chart pages cannot leak unresolved next-action placeholders or raw work-dir placeholders. |
+
 ## Current Operational Issue Groups
 
 | Group | Main issues | Roadmap role |
@@ -80,7 +90,7 @@ product claims.
 | Live lane hardening | [#248](https://github.com/confighub/helm-expt/issues/248), [#714](https://github.com/confighub/helm-expt/issues/714), [#882](https://github.com/confighub/helm-expt/issues/882) | Improves the live test/user-operability loop: progress evidence, non-pass classification, and timeout behavior. |
 | ConfigHub/server blockers surfaced by the corpus | [#645](https://github.com/confighub/helm-expt/issues/645), [#682](https://github.com/confighub/helm-expt/issues/682) | These are not chart semantics; they are product dependencies exposed by helm-expt. Keep the issue in helm-expt and cross-link upstream implementation only when needed. |
 | Chart-specific model gaps | [#838](https://github.com/confighub/helm-expt/issues/838), [#841](https://github.com/confighub/helm-expt/issues/841), [#842](https://github.com/confighub/helm-expt/issues/842), [#856](https://github.com/confighub/helm-expt/issues/856), [#861](https://github.com/confighub/helm-expt/issues/861), [#863](https://github.com/confighub/helm-expt/issues/863), [#865](https://github.com/confighub/helm-expt/issues/865), [#867](https://github.com/confighub/helm-expt/issues/867), [#876](https://github.com/confighub/helm-expt/issues/876), [#878](https://github.com/confighub/helm-expt/issues/878) | These keep individual watch/blocked rows honest until the route becomes pass, per-target, refused, or n/a. |
-| Public UX and website polish | [#679](https://github.com/confighub/helm-expt/issues/679), [#753](https://github.com/confighub/helm-expt/issues/753), [#949](https://github.com/confighub/helm-expt/issues/949) | Keeps public pages, matrix reading, tiers, commercial boundaries, and first-run walkthroughs aligned with the proof state. |
+| Public UX, claim integrity, and website polish | [#679](https://github.com/confighub/helm-expt/issues/679), [#753](https://github.com/confighub/helm-expt/issues/753), [#949](https://github.com/confighub/helm-expt/issues/949), [#1024](https://github.com/confighub/helm-expt/pull/1024), [#1025](https://github.com/confighub/helm-expt/issues/1025), [#1026](https://github.com/confighub/helm-expt/issues/1026), [#1027](https://github.com/confighub/helm-expt/issues/1027), [#1028](https://github.com/confighub/helm-expt/pull/1028) | Keeps public pages, matrix reading, first-run walkthroughs, chart-page claims, and placeholder-free chart cards aligned with the proof state. |
 
 ## Capability Roadmap
 

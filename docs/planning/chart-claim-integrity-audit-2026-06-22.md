@@ -1,6 +1,6 @@
 # Chart-page claim-integrity audit (2026-06-22)
 
-**UNOFFICIAL/EXPERIMENTAL.** An adversarial "Brian/Jesper" audit of the generated chart pages,
+**UNOFFICIAL/EXPERIMENTAL.** An adversarial reviewer audit of the generated chart pages,
 hunting two failure modes where a page implies a Helm chart's behaviour is replicated but the
 claim is false: **(a) an untested/broken alternative is proposed**, or **(b) a check was
 forgotten and the gap is left visible**. Every finding below was verified against the receipt
@@ -8,6 +8,16 @@ the page cites. The audit is now backed by a permanent gate —
 [`scripts/verify-chart-claim-integrity.mjs`](../../scripts/verify-chart-claim-integrity.mjs)
 (`npm run chart-claim-integrity:verify`) — whose machine output is
 [data/chart-claim-integrity-audit-2026-06-22/](../../data/chart-claim-integrity-audit-2026-06-22/summary.md).
+
+## Current status
+
+The false-claim errors found by this audit are closed and guarded.
+`npm run chart-claim-integrity:verify` now reports 0 HARD findings.
+
+The chart-card omissions found in the same pass are also guarded.
+`npm run site:ux:verify` fails if a generated chart page leaks an unresolved
+`<action>: unknown` next-action placeholder or a raw `<tmp>` work-dir
+placeholder. Both checks are wired into the broad `npm run verify` release gate.
 
 ## The verified false claims
 
@@ -55,18 +65,16 @@ lane-vs-receipt contradiction. Documented here; candidate for a future gate chec
 ## The fix
 
 - **Prevention is built:** the claim-integrity gate re-checks every page claim against its cited
-  receipt and fails CI on a contradiction (13 HARD findings across 6 charts at audit time —
+  receipt and fails CI on a contradiction. At audit time it found 13 HARD findings across 6 charts,
   including **jaeger-operator** and **velero**, two operator charts the hand-audit never looked at,
   flagged automatically by the same "recommends a `no-crds` base whose receipt is `blocked`"
-  pattern as external-secrets/argo-cd). It also protects the data —
+  pattern as external-secrets/argo-cd. It now reports 0 HARD findings. It also protects the data:
   you cannot make a red page green by editing a support-decision, because the gate reads the
   receipt's real `result`.
-- **Generator-side fixes (Codex owns the renderer):** derive lane colour from the receipt
-  `result` (single source of truth); carry the receipt's own disclaimers onto the page (a green
-  V must not read as "it works"); qualify cross-version evidence; render the modelled hook/webhook
-  in the ConfigHub Actions section instead of "No action route attached"; show the support scope
-  next to "supported"; remove the boilerplate placeholders. The per-chart + systemic Codex prompt
-  is in this PR's description and tracked as GitHub issues.
+- **Generator-side fixes landed:** lane colour is derived from the receipt `result`;
+  receipt disclaimers are carried onto chart pages; cross-version evidence is qualified;
+  modelled hook and webhook routes are rendered in chart cards; support scope is shown next to
+  supported claims; unresolved boilerplate placeholders are blocked by `site:ux:verify`.
 
 ## Strategy gap this closes
 This was **not** covered as a lane. The spirit existed (adversarial-strategy, claims-register,
