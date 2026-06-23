@@ -1,28 +1,21 @@
-# Why This Exists
+# Why this exists
 
-**UNOFFICIAL/EXPERIMENTAL**
+**UNOFFICIAL/EXPERIMENTAL.**
 
-This page answers the skeptical first question:
+A fair skeptic asks one question first: *isn't this just `helm template` with a wrapper
+around it?* Here is the honest answer.
 
-```text
-How is this better than cub helm template, cub helm install, or cub gitops import?
-Isn't it just helm template plus a wrapper?
-What is the wrapper and machinery for?
-How do you expect this to be used?
-```
+For three jobs, the wrapper is the wrong tool, and we will say so plainly. To inspect a
+chart's output, `cub helm template` is simpler. To load one chart into ConfigHub,
+`cub helm install` is simpler. To bring in an estate you already run, `cub gitops import`
+is simpler. Reach for those.
 
-The short answer is:
-
-```text
-For local inspection, cub helm template should be simpler.
-For a one-off ConfigHub load, cub helm install should be simpler.
-For an existing GitOps estate, direct GitOps import should be simpler.
-
-This repo is about the catalog/proof/product path:
-turn a popular Helm chart into a reviewed, named, reusable, supportable
-ConfigHub model with variants, checks, receipts, promotion, GitOps handoff, and
-maintenance expectations.
-```
+This repo is for a different job: turning a popular Helm chart into something you can
+trust at scale. Not a raw render — a render that is **reviewed, named, reusable, and
+supportable**, with variants you can compare, checks you can gate on, receipts you can
+cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm. It is
+there to make Helm's output durable, comparable, and auditable — to turn one install
+into something you can still reason about a year and a thousand installs later.
 
 ## Not A Replacement For The Fast Paths
 
