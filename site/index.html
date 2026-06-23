@@ -350,126 +350,33 @@
   <main>
     <section aria-labelledby="quick-context">
       <h2 id="quick-context">Who We Are And Why This Exists</h2>
-      <p>ConfigHub builds software for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI. ConfigHub Server is the connected product for teams that need shared desired state, variants, approvals, OCI/GitOps delivery, and operations.</p>
-      <p>Helm works well until every real app needs one more tweak: a Secret model, a CRD choice, a customer overlay, or a pinned old version. The chart still works, but the customisation becomes hard to see.</p>
-      <p>This site is our public experiment for that problem. The community can try the <a href="./try.html">serverless path</a> without a ConfigHub account: compare Helm with cub, inspect the generated Kubernetes YAML, and choose a chart from the catalog.</p>
-      <p>When you want ConfigHub to hold the desired state, the connected path begins with commands such as <code>cub helm install</code>. For maintained catalog entries, we also publish reviewed <a href="./try.html"><code>cub installer</code></a> packages and compare them with ordinary Helm. When both paths get the same deployment, we call that <strong>parity</strong>.</p>
-    </section>
-
-    <section aria-labelledby="helm-problem">
-      <h2 id="helm-problem">The Problem</h2>
-      <p>Every app and user eventually needs their own tweak: values files, old chart versions, generated Secrets, CRDs, webhooks, hooks, cloud identity, ingress rules, storage, and target-specific overrides.</p>
-      <p>Those choices are normal, but they pile up. Which version is pinned? What will break in the next upgrade? Why did this deployment fail? Which change is safe to promote?</p>
+      <p>ConfigHub builds tools for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI.</p>
+      <p>Helm is a good way to start. The trouble begins when every app needs custom values, Secrets, CRDs, hooks, storage, cloud identity, old pinned versions, or customer-specific settings.</p>
+      <p>helm-expt asks a simple question first: can the ConfigHub path produce the same Kubernetes objects as ordinary Helm, while making those objects easier to inspect and manage?</p>
     </section>
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">What ConfigHub Adds</h2>
-      <p>ConfigHub stores Kubernetes desired state as structured, versioned config. The YAML Helm would create becomes data you can inspect, diff, gate, deliver, and observe.</p>
-      <div class="grid">
-        <div class="card"><h3>Control</h3><p>Selected Helm install paths become explicit desired state. You can see the objects, name the variants, compare changes, and keep the history.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Verification</h3><p>The first check is parity with Helm. Deeper checks show target prerequisites, lifecycle routes, live observations, and current gaps.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="card"><h3>Operations</h3><p>After upload, the same objects can be scanned, gated, promoted, delivered through GitOps, observed, patched, and upgraded.</p><p><a href="./operations.html">Ops</a></p></div>
-        <div class="card"><h3>AI</h3><p>AI can suggest changes and explain diffs, while ConfigHub keeps the result reviewable, bounded, and tied to evidence.</p><p><a href="./ai.html">AI guide</a></p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="parity-demos">
-      <h2 id="parity-demos">1. Helm Parity</h2>
-      <p>Each demo asks the same question at a different depth: does the cub installer or ConfigHub path reach the same result as regular Helm?</p>
+      <p>ConfigHub turns a Helm render into visible, versioned configuration. That gives teams a place to review, customise, promote, deliver, and observe changes.</p>
       <div class="catalog">
-        <article class="card">
-          <span class="kicker">Prometheus</span>
-          <h3>Start with a familiar chart</h3>
-          <p>Compare ordinary Helm with a reviewed cub package for a small Prometheus base.</p>
-          <p><a href="./try.html">Get started with Prometheus</a></p>
-        </article>
-        <article class="card">
-          <span class="kicker">Serverless parity</span>
-          <h3>No account: Helm vs cub installer in two kind clusters</h3>
-          <p>Install Helm in one clean kind cluster, apply cub output in another, then compare the result.</p>
-          <p><a href="../data/live-kind-parity/summary.md">Open two-cluster parity evidence</a></p>
-        </article>
-        <article class="card">
-          <span class="kicker">Connected parity</span>
-          <h3>ConfigHub path: Helm vs ConfigHub OCI/GitOps</h3>
-          <p>Publish through ConfigHub OCI/GitOps, then compare the live result with regular Helm.</p>
-          <p><a href="../data/live-helm-confighub-compare/summary.md">Open live Helm-vs-ConfigHub evidence</a></p>
-        </article>
-        <article class="card">
-          <span class="kicker">Your chart choice</span>
-          <h3>Pick any catalog chart and run the same parity question</h3>
-          <p>Use the same chart, version, values, and base variant, then check the result.</p>
-          <p><a href="./charts/index.html">Choose a chart</a></p>
-        </article>
-        <article class="card">
-          <span class="kicker">Quirks included</span>
-          <h3>Use kube-prometheus-stack for the hard case</h3>
-          <p>Use the serious chart when you want CRDs, webhooks, target facts, and live evidence.</p>
-          <p><a href="../docs/user/serious-chart-proof.md">Open the serious chart guide</a></p>
-        </article>
+        <div class="card"><h3>Control</h3><p>See the Kubernetes objects Helm produced. Keep them versioned and reviewable.</p><p><a href="./variants.html">Variants</a></p></div>
+        <div class="card"><h3>Safer change</h3><p>Compare variants before rollout. Make the risky parts visible.</p><p><a href="./how-it-works.html">How it works</a></p></div>
+        <div class="card"><h3>Operations</h3><p>Promote, deliver, observe, patch, and upgrade from one managed configuration path.</p><p><a href="./operations.html">Ops</a></p></div>
+        <div class="card"><h3>AI</h3><p>Let AI propose changes while ConfigHub keeps the result inspectable.</p><p><a href="./ai.html">AI guide</a></p></div>
       </div>
     </section>
 
-    <section aria-labelledby="do-next">
-      <h2 id="do-next">2. Customise Helm into Variants</h2>
-      <p>Once parity is visible, rendered objects become explicit config. You can review them, create variants, promote apps, apply policy, and observe the live result.</p>
-      <div class="card"><table>
-        <thead><tr><th>Capability</th><th>What it means</th><th>Where to look</th></tr></thead>
-        <tbody><tr><td>Variants</td><td>Keep base variants and derived ConfigHub variants visible, named, and reviewable.</td><td><a href="./variants.html">./variants.html</a></td></tr><tr><td>Apps</td><td>Group public charts, your own services, platform pieces, and stacks into one app path.</td><td><a href="./journey.html">./journey.html</a></td></tr><tr><td>Ops</td><td>Release, observe, patch, and upgrade apps after they exist.</td><td><a href="./operations.html">./operations.html</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="start">
+      <h2 id="start">Start Here</h2>
+      <p>First try the no-account path. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
+      <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">3. Verifying What We Can And Cannot Do With This Model</h2>
-      <p>Comparing with Helm is the start of the story. Real deployments can still need an existing Secret, storage class, cloud account, CRD, webhook, or setup job.</p>
-      <div class="catalog">
-        <article class="card">
-          <h3>A matching render is the first check.</h3>
-          <p>It proves the starting objects, not that every target cluster already has the right Secret, storage, or cloud account.</p>
-          <p><a href="../docs/user/target-prerequisites.md">Cluster prerequisites</a></p>
-        </article>
-        <article class="card">
-          <h3>Some charts need extra setup.</h3>
-          <p>CRDs, webhooks, certificates, hooks, and setup jobs should be visible before the install path is trusted.</p>
-          <p><a href="./charts/index.html#actions">Chart actions</a></p>
-        </article>
-        <article class="card">
-          <h3>Some choices need a new base.</h3>
-          <p>If a values file changes what Helm would render, make and prove a new base rather than quietly editing the output.</p>
-          <p><a href="../docs/user/custom-overlays.md">Custom overlays</a></p>
-        </article>
-        <article class="card">
-          <h3>A warning is part of the answer.</h3>
-          <p>Watch or blocked means the catalog is telling you what still needs preparation or review.</p>
-          <p><a href="./matrix.html">Catalog database</a></p>
-        </article>
-      </div>
-      <p>If you want details, start with the chart page. It shows bases, caveats, actions, and evidence links.</p>
-      <div class="grid">
-        <div class="card"><h3>Check a chart</h3><p>Use the catalog when you want to know what choices exist for a specific Helm chart and which path is the best place to start.</p><p><a href="./charts/index.html">Open the Helm Catalog</a></p></div>
-        <div class="card"><h3>Read the limits</h3><p>Use the FAQ and known-gaps guide when you want plain answers about hooks, upgrades, custom values, GitOps sync, and current rough edges.</p><p><a href="./hard-questions.html">Open the FAQ</a> · <a href="./known-gaps.html">Known gaps</a></p></div>
-        <div class="card"><h3>Inspect the evidence</h3><p>The database and generated evidence are for people who want to audit the claims behind a chart page.</p><p><a href="./docs.html">Docs</a> · <a href="./matrix.html">Database</a> · <a href="../data/README.md">Evidence index</a></p></div>
-      </div>
-      <p>If your chart does not behave the way the catalog says it should, <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send us the problem chart</a>. We will either make it work, explain what needs to be prepared first, or say clearly why that path is not covered yet.</p>
+      <h2 id="limits">What To Check</h2>
+      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. The chart pages and FAQ name those cases instead of hiding them.</p>
+      <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
-
-    <section aria-labelledby="confighub">
-      <h2 id="confighub">4. What Else Can I Do Using ConfigHub?</h2>
-      <p>The public catalog proves the first path. ConfigHub Server turns the same idea into a team workflow for real applications.</p>
-      <div class="grid">
-        <div class="card"><h3>Existing apps</h3><p>Start from an Argo app, Flux app, rendered YAML, or live cluster. The safe first move is read-only comparison.</p><p><a href="./existing-apps.html">Open</a></p></div>
-        <div class="card"><h3>Security</h3><p>Understand Secrets, scans, provenance, delivery credentials, and what the public corpus does not prove yet.</p><p><a href="./security.html">Open</a></p></div>
-        <div class="card"><h3>Future ideas</h3><p>See which ideas are evidence-backed now, which are planned, and which belong to managed or commercial paths.</p><p><a href="./future.html">Open</a></p></div>
-        <div class="card"><h3>Upgrade</h3><p>Private catalogs, teams, approvals, production responsibility, and managed operations belong on the upgrade path.</p><p><a href="./private/">Open</a></p></div>
-      </div>
-    </section>
-
   </main>
   <footer>
     Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
