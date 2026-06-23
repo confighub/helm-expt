@@ -261,6 +261,7 @@ Generated proof data for this section lives in:
 | [helm-community-persona-reference.md](./reference/helm-community-persona-reference.md) | Reference matrix for personas, free/paid capabilities, day-0/day-1/day-2 value, and variant routing decisions. |
 | [user-journey-test-pathways-brief.md](./planning/user-journey-test-pathways-brief.md) | Brief for the user-journey test pathways (persona × decisions × chart-class) and the hook-method validation work. |
 | [user-journey-test-pathways-plan.md](./planning/user-journey-test-pathways-plan.md) | Verified research map + build plan for the test pathways: the pathway matrix, phase sequencing, live-run policy, and corrections to the brief. |
+| [chart-claim-integrity-audit-2026-06-22.md](./planning/chart-claim-integrity-audit-2026-06-22.md) | Adversarial audit of the generated chart pages for false claims (page contradicts its cited receipt): the verified findings, the two systemic root causes, the clarity issues, and the permanent `chart-claim-integrity` gate that prevents them. |
 | [catalog-promotion-review.md](./planning/catalog-promotion-review.md) | Rules for deciding whether a proven chart becomes catalog-supported. |
 | [catalog-promotion-next-candidates.md](./planning/catalog-promotion-next-candidates.md) | Candidate charts for the next promotion wave. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Planning model for the no-login verified-install wedge: public catalog package resolution, local apply, in-cluster receipt, and where ConfigHub Server begins. |

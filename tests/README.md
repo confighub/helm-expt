@@ -20,7 +20,7 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 
 | Group | Classes |
 | --- | --- |
-| **A. Static verification** (offline `npm run verify`) | corpus representation · render parity · disposition/frontier · consistency gates (doc-map, data-index, npm-script-catalog, site) |
+| **A. Static verification** (offline `npm run verify`) | corpus representation · render parity · disposition/frontier · **chart-page claim integrity** · consistency gates (doc-map, data-index, npm-script-catalog, site) |
 | **B. Live cluster proof** (kind, serial, receipted) | local k8s live · strict two-cluster kind-parity · GitOps/OCI (Argo/Flux) · live Helm-vs-ConfigHub parity · variant-promotion |
 | **C. Lifecycle / hooks** | observe → **execute** → **emit** (GitOps-native) |
 | **D. Day-1 preview** (cub-scout) | `compare three-way --dry-from` (desired-vs-live, drift) |
@@ -40,6 +40,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | --- | :--: | :--: | :--: | :--: | --- | --- |
 | Render parity | ● | – | – | ● | `<chart>:compare`, helm-equivalence receipts | **complete** — every catalog base (R all pass) → [outcome-coverage](../data/outcome-coverage/summary.md) |
 | Disposition / frontier | meta | meta | meta | meta | [disposition-frontier](../data/disposition-frontier/summary.md), [master-catalog-matrix](../data/master-catalog-matrix/summary.md) | **100% verified disposition, 0 genuine todo** |
+| Chart-page claim integrity | ● | ○ | ● | ● | `chart-claim-integrity:verify`, [claim-integrity audit](../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | re-checks each page claim against its cited receipt; **9 HARD findings open** (false-green lanes / blocked receipts) → [findings](../data/chart-claim-integrity-audit-2026-06-22/summary.md) |
 | ConfigHub proof (scan/safe-ops) | – | – | ● | ● | confighub proof lanes, `<chart>:verify-proof` | complete in-ConfigHub → [outcome-coverage](../data/outcome-coverage/summary.md) |
 | Local k8s live | ● | ● | ○ | ● | `chart-install-test`, local-live receipts | partial, receipt-gated → [status-dashboard](../data/status-dashboard/summary.md) |
 | Strict kind-parity (2-cluster) | ● | ● | – | ● | `live-helm-installer-kind-parity-test`, `kind-parity:run` | partial → [live-kind-parity](../data/live-kind-parity/summary.md) |
@@ -90,6 +91,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 | The exact reproducible per-chart procedure | [runbook.md](runbook.md) |
 | The persona / tier-aware adversarial usage probe | [adversarial-strategy.md](adversarial-strategy.md) |
 | Persona-based public-site UX testing | [persona-ux-strategy.md](persona-ux-strategy.md) |
+| Whether a chart page's claims match its cited receipts | `chart-claim-integrity:verify` · [claim-integrity audit](../docs/planning/chart-claim-integrity-audit-2026-06-22.md) |
 | The fuzz and Helm-migrant roadmap | [fuzz-corpus-tests-roadmap.md](../docs/planning/fuzz-corpus-tests-roadmap.md) |
 | The recorded F1–F4 findings | [findings.md](findings.md) |
 | The top-100 runtime/GitOps sweep plan | [top100-runtime-gitops.md](top100-runtime-gitops.md) |
