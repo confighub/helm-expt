@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -322,7 +373,7 @@
     <p class="tagline">This project should not hide rough edges. If a path is awkward, incomplete, or target-specific, we say so.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this known gaps page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this known gaps page.</p>
     <section aria-labelledby="rule">
       <h2 id="rule">The Rule</h2>
       <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site should mark it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>

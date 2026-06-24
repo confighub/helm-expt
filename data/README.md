@@ -48,6 +48,7 @@ smallest generated surface that answers it.
 | I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps. | [lifecycle-routes/summary.md](./lifecycle-routes/summary.md)<br>[lifecycle-routes/routes.csv](./lifecycle-routes/routes.csv)<br>[lifecycle-routes/routes.json](./lifecycle-routes/routes.json) |
 | I want to know which operating skill/playbook applies to a chart. | [chart-skills/summary.md](./chart-skills/summary.md)<br>[chart-skills/skills.csv](./chart-skills/skills.csv)<br>[chart-skills/skills.json](./chart-skills/skills.json) |
 | I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically. | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md)<br>[lifecycle-route-actions/actions.csv](./lifecycle-route-actions/actions.csv)<br>[lifecycle-route-actions/actions.json](./lifecycle-route-actions/actions.json) |
+| I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached. | [helm-render-intents/summary.md](./helm-render-intents/summary.md)<br>[helm-render-intents/intents.csv](./helm-render-intents/intents.csv)<br>[helm-render-intents/intents.json](./helm-render-intents/intents.json) |
 | I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today. | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md)<br>[kind-parity-decisions/decisions.csv](./kind-parity-decisions/decisions.csv)<br>[kind-parity-decisions/decisions.json](./kind-parity-decisions/decisions.json) |
 | I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today. | [live-parity-decisions/summary.md](./live-parity-decisions/summary.md)<br>[live-parity-decisions/decisions.csv](./live-parity-decisions/decisions.csv)<br>[live-parity-decisions/decisions.json](./live-parity-decisions/decisions.json) |
 | I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim). | [live-run-blocks/summary.md](./live-run-blocks/summary.md)<br>[live-run-blocks/run-blocks.csv](./live-run-blocks/run-blocks.csv)<br>[live-run-blocks/run-blocks.json](./live-run-blocks/run-blocks.json) |
@@ -256,6 +257,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
 | `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
+| `helm-render-intents` | [helm-render-intents/summary.md](./helm-render-intents/summary.md) | ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
 | `hook-coverage` | [hook-coverage/summary.md](./hook-coverage/summary.md) | top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans |
 | `hook-disposition` | [hook-disposition/summary.md](./hook-disposition/summary.md) | supporting generated evidence |
@@ -336,7 +338,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 161 CSV files. Each row records the path, audience,
+It includes 162 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

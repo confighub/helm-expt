@@ -1,0 +1,102 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "jaegertracing-jaeger-operator-2-57-0-no-crds"
+  labels:
+    component: "jaegertracing/jaeger-operator"
+    chart: "jaegertracing/jaeger-operator"
+    version: "2.57.0"
+    base: "no-crds"
+    catalogLayer: "F2b"
+spec:
+  component: "jaegertracing/jaeger-operator"
+  chart:
+    name: "jaegertracing/jaeger-operator"
+    version: "2.57.0"
+    sourceRepository: "https://jaegertracing.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "no-crds"
+  renderInputs:
+    recipe: "recipes/jaegertracing/jaeger-operator/2.57.0"
+    variant: "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml"
+    revision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"
+    sourceLock: "recipes/jaegertracing/jaeger-operator/2.57.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "jaeger-operator"
+    valuesProfile: "recipes/jaegertracing/jaeger-operator/2.57.0/effective-values-no-crds.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "no"
+    liveDualParity: "no"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "crd"
+        prerequisiteName: "cert-manager CRDs"
+        actionKind: "install-crds"
+        ownerClass: "operator-review"
+        requiredInputs: "cert-manager CRDs"
+        evidenceRequired: "the required CRDs Established on the target before apply; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds"
+      -
+        lane: "K"
+        prerequisiteKind: "crd"
+        prerequisiteName: "cert-manager CRDs"
+        actionKind: "install-crds"
+        ownerClass: "operator-review"
+        requiredInputs: "cert-manager CRDs"
+        evidenceRequired: "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/jaegertracing/jaeger-operator/2.57.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"
+    fullModelPath:
+      - "chart/version: jaegertracing/jaeger-operator@2.57.0"
+      - "recipe: recipes/jaegertracing/jaeger-operator/2.57.0"
+      - "base variant: no-crds"
+      - "render intent: data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
+      - "rendered revision: recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "package base: packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

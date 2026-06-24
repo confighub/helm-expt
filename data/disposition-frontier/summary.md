@@ -19,16 +19,16 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 
 ```text
 lane cells:                 1194
-recorded disposition:       1171  (98.1%)
+recorded disposition:       1170  (98.0%)
 + derived blocked:          4
 + derived n/a (K covered):  19
-= verified disposition:     1194  (100.0%)
-genuine todo (named next):  0
+= verified disposition:     1193  (99.9%)
+genuine todo (named next):  1
 un-dispositioned gap:       0
 ```
 
-**Distance to 99%:** 0 cells are not yet a
-non-todo verified disposition (0.0% of cells).
+**Distance to 99%:** 1 cells are not yet a
+non-todo verified disposition (0.1% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
@@ -36,7 +36,7 @@ Every one carries a named next action below — none is a silent gap.
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
 | R render_parity | 199 | 199 | 0 | 0 |
-| C in_confighub | 199 | 199 | 0 | 0 |
+| C in_confighub | 199 | 198 | 1 | 0 |
 | L local_live | 199 | 199 | 0 | 0 |
 | G gitops_oci_live | 199 | 199 | 0 | 0 |
 | P live_helm_vs_confighub_parity | 199 | 199 | 0 | 0 |
@@ -48,7 +48,7 @@ Each genuine `todo` cell, grouped by what closes it.
 
 | Cells | Next action |
 | --- | --- |
-
+| 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@9.5.17 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 
 ## Rules (so the derivation is auditable)
 

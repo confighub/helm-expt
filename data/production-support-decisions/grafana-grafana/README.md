@@ -10,7 +10,7 @@ support decision. It does not replace the source decision artifact:
 | Field | Value |
 | --- | --- |
 | Chart | `grafana/grafana@10.5.15` |
-| Candidate base | `generated-passwords` |
+| Candidate base | `existing-secret-ingress` |
 | Decision state | `superseded` |
 | Target scope | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
@@ -33,7 +33,7 @@ support decision. It does not replace the source decision artifact:
 
 Included:
 
-- grafana/grafana@10.5.15 generated-passwords base
+- grafana/grafana@10.5.15 existing-secret-ingress base
 - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
 - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
 
@@ -45,10 +45,10 @@ Excluded:
 
 ## Evidence
 
-- [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
-- [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](../../../recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
-- [runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml](../../../runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
-- [runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml](../../../runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
+- [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml](../../../recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
+- [runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml](../../../runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
+- [runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml](../../../runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
 - [data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml) - The cluster rbac review receipt exists for this chart.
 - [data/production-disposition/receipts/grafana-grafana/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/grafana-grafana/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy receipt exists for this chart.
 - [data/production-disposition/receipts/grafana-grafana/generated-fact-ownership.yaml](../../../data/production-disposition/receipts/grafana-grafana/generated-fact-ownership.yaml) - The generated fact ownership receipt exists for this chart.

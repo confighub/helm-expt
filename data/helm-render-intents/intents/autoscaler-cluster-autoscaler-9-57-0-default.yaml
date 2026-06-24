@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-default"
+  labels:
+    component: "autoscaler/cluster-autoscaler"
+    chart: "autoscaler/cluster-autoscaler"
+    version: "9.57.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "autoscaler/cluster-autoscaler"
+  chart:
+    name: "autoscaler/cluster-autoscaler"
+    version: "9.57.0"
+    sourceRepository: "https://kubernetes.github.io/autoscaler"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/autoscaler/cluster-autoscaler/9.57.0"
+    variant: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/default/variant.yaml"
+    revision: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/autoscaler/cluster-autoscaler/9.57.0/bases/default"
+    sourceLock: "recipes/autoscaler/cluster-autoscaler/9.57.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "cluster-autoscaler"
+    valuesProfile: "recipes/autoscaler/cluster-autoscaler/9.57.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "watch"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "K"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "unknown-preflight"
+        ownerClass: "user-stage"
+        requiredInputs: "the missing Helm input value(s)"
+        evidenceRequired: "the missing input(s) supplied and the re-render matching regular Helm; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: ""
+        sourceReceipt: "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/autoscaler/cluster-autoscaler/9.57.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/cluster-autoscaler/9.57.0/bases/default"
+    fullModelPath:
+      - "chart/version: autoscaler/cluster-autoscaler@9.57.0"
+      - "recipe: recipes/autoscaler/cluster-autoscaler/9.57.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+      - "rendered revision: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/autoscaler/cluster-autoscaler/9.57.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -10,8 +10,8 @@ support decision. It does not replace the source decision artifact:
 | Field | Value |
 | --- | --- |
 | Chart | `hashicorp/vault@0.32.0` |
-| Candidate base | `dev-mode` |
-| Decision state | `rejected` |
+| Candidate base | `default` |
+| Decision state | `draft` |
 | Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
 
@@ -26,14 +26,15 @@ support decision. It does not replace the source decision artifact:
 
 ## Required Before Final Support
 
-- None.
-
+- Resolve image digests or record an explicit target-scoped exception before production OCI support.
+- Accept, fix, or document scanner findings for the supported target scope.
+- Refresh target-scoped live/e2e evidence before final support claim.
 
 ## Support Boundary
 
 Included:
 
-- hashicorp/vault@0.32.0 dev-mode base
+- hashicorp/vault@0.32.0 default base
 - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
 - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
 
@@ -45,10 +46,10 @@ Excluded:
 
 ## Evidence
 
-- [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
-- [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/scan-receipt.yaml](../../../recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
-- [runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml](../../../runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
-- [runs/live-helm-confighub-compare/hashicorp-vault-dev-mode/receipt.yaml](../../../runs/live-helm-confighub-compare/hashicorp-vault-dev-mode/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
+- [recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
+- [runs/live-kind-parity/hashicorp-vault-default/receipt.yaml](../../../runs/live-kind-parity/hashicorp-vault-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
+- [runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml](../../../runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
 - [data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml) - The cluster rbac review receipt exists for this chart.
 - [data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy receipt exists for this chart.
 - [data/production-disposition/receipts/hashicorp-vault/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/hashicorp-vault/scan-gate-warning-disposition.yaml) - The scan gate warning disposition receipt exists for this chart.
@@ -57,7 +58,7 @@ Excluded:
 
 ## Next Action
 
-Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.
+Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.
 
 Regenerate:
 

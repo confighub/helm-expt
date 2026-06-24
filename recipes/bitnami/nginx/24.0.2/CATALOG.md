@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 |
 | Feature summary | generated-secrets;install-vs-upgrade;extension-slots;remote-dependencies |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
-| Next action | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
+| Next action | choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first |
 
 ## Artifact Chain
 

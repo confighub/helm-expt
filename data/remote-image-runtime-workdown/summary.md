@@ -19,12 +19,12 @@ Source rows: [live-parity-decisions](../live-parity-decisions/summary.md)
 
 | Recommended action | Rows |
 | --- | ---: |
-| `refresh-chart-or-base` | 10 |
+| `refresh-chart-or-base` | 18 |
 | `supported-image-override` | 2 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `catalog-refresh` | 10 |
+| `catalog-refresh` | 18 |
 | `base-design` | 2 |
 
 ## Rows
@@ -32,15 +32,23 @@ Source rows: [live-parity-decisions](../live-parity-decisions/summary.md)
 | Chart | Base | Missing image(s) | Where | Both fail | Action | Owner |
 | --- | --- | --- | --- | --- | --- | --- |
 | bitnami/apache@11.4.29 | default | docker.io/bitnami/apache:2.4.65-debian-12-r2 | init-container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/apache@11.4.29 | legacy | docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2 | init-container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/contour@21.1.4 | default | docker.io/bitnami/contour:1.32.1-debian-12-r0; docker.io/bitnami/envoy:1.34.5-debian-12-r0 | hook/lifecycle-job | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/contour@21.1.4 | no-crds | docker.io/bitnami/contour:1.32.1-debian-12-r0; docker.io/bitnami/envoy:1.34.5-debian-12-r0 | hook/lifecycle-job | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/elasticsearch@22.1.6 | default | docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r50 | init-container | both | refresh-chart-or-base | catalog-refresh |
 | bitnami/elasticsearch@22.1.6 | ha | docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r50 | init-container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/elasticsearch@22.1.6 | legacy | docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0; docker.io/bitnamilegacy/os-shell:12-debian-12-r50 | init-container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/opensearch@2.0.10 | default | docker.io/bitnami/opensearch:3.2.0-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r51 | init-container | both | refresh-chart-or-base | catalog-refresh |
 | bitnami/opensearch@2.0.10 | ha | docker.io/bitnami/opensearch:3.2.0-debian-12-r0; docker.io/bitnami/os-shell:12-debian-12-r51 | init-container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/opensearch@2.0.10 | legacy | docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0; docker.io/bitnamilegacy/os-shell:12-debian-12-r51 | init-container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/phpmyadmin@20.0.0 | default | docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22 | init-container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/phpmyadmin@20.0.0 | legacy | docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22 | init-container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | bitnami/spark@10.0.3 | default | docker.io/bitnami/spark:4.0.0-debian-12-r20 | container | both | refresh-chart-or-base | catalog-refresh |
 | bitnami/spark@10.0.3 | ha | docker.io/bitnami/spark:4.0.0-debian-12-r20 | container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/spark@10.0.3 | legacy | docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20 | container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
+| bitnami/zookeeper@13.8.7 | default | docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 | container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/zookeeper@13.8.7 | ha | docker.io/bitnami/zookeeper:3.9.3-debian-12-r21 | container | both | refresh-chart-or-base | catalog-refresh |
+| bitnami/zookeeper@13.8.7 | legacy | docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21 | container | regular-helm-only | refresh-chart-or-base | catalog-refresh |
 | istio/gateway@1.30.0 | controller-default-reviewed | auto | container | both | supported-image-override | base-design |
 | istio/gateway@1.30.0 | default | auto | container | both | supported-image-override | base-design |
 

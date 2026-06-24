@@ -14,8 +14,8 @@ any variant should be created.
 
 | Metric | Rows |
 | --- | ---: |
-| Total rows | 65 |
-| Model-gap rows | 17 |
+| Total rows | 71 |
+| Model-gap rows | 23 |
 | Target-prerequisite rows | 48 |
 
 ### Rows by resolution path
@@ -25,6 +25,7 @@ any variant should be created.
 | `operator-review-first` | 21 |
 | `crd-ownership-base-or-target-action` | 11 |
 | `derived-target-variant` | 9 |
+| `semantic-normalization` | 7 |
 | `stack-or-target-fact-variant` | 5 |
 | `new-provider-base-variant` | 3 |
 | `use-existing-sibling-base` | 3 |
@@ -32,7 +33,6 @@ any variant should be created.
 | `use-existing-capability-base` | 2 |
 | `external-crds-base` | 1 |
 | `new-storage-base-variant` | 1 |
-| `semantic-normalization` | 1 |
 | `semantic-normalization-or-smaller-base` | 1 |
 | `target-fact-generator-on-existing-base` | 1 |
 | `target-scoped-base` | 1 |
@@ -47,6 +47,7 @@ any variant should be created.
 | `no variant until cause is known` | 21 |
 | `CRD ownership base plus target prerequisite` | 11 |
 | `target-bound derived variant` | 9 |
+| `legacy image-retention base` | 6 |
 | `stack-derived variant` | 5 |
 | `CRD ownership off-ramp` | 3 |
 | `base variant if rendered objects change` | 2 |
@@ -69,9 +70,15 @@ any variant should be created.
 | --- | --- | --- | --- | --- | --- | --- |
 | model-gap | `autoscaler/cluster-autoscaler@9.57.0` | controller-default-reviewed | K | target-fact-generator-on-existing-base | existing values-profile base | teach the recipe how the cluster name and AWS region are supplied for this target profile |
 | model-gap | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | K | target-scoped-base-or-normalization | target-scoped platform base | separate vanilla-kind parity from the AWS/EKS topology claim recorded in target-topology.yaml |
+| model-gap | `bitnami/apache@11.4.29` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
 | model-gap | `bitnami/contour@21.1.4` | no-crds | K | external-crds-base | CRD ownership base | make the CRD ownership choice visible in the base name and target-prerequisite action packet |
+| model-gap | `bitnami/elasticsearch@22.1.6` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
 | model-gap | `bitnami/opensearch@2.0.10` | default | K | semantic-normalization | existing base with normalization | inspect the K receipt diffs and add only justified semantic normalization, not a blind variant |
 | model-gap | `bitnami/opensearch@2.0.10` | ha | K | semantic-normalization-or-smaller-base | HA base after normalization | inspect the HA K receipt diffs and split target topology from semantic noise |
+| model-gap | `bitnami/opensearch@2.0.10` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
+| model-gap | `bitnami/phpmyadmin@20.0.0` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
+| model-gap | `bitnami/spark@10.0.3` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
+| model-gap | `bitnami/zookeeper@13.8.7` | legacy | K | semantic-normalization | legacy image-retention base | record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference |
 | model-gap | `grafana/pyroscope@2.0.2` | ha | K | use-existing-sibling-or-split-crds | HA base with CRD ownership boundary | route HA users to the existing K-pass siblings unless the HA topology itself is needed |
 | model-gap | `hashicorp/terraform@1.1.2` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | separate Terraform Workspace CRD ownership from the Secret prerequisites needed by the controller |
 | model-gap | `nats/nack@0.34.0` | default | K | use-existing-sibling-base | CRD ownership off-ramp | mark no-crds as the first K-safe base and keep default scoped to CRD-owning targets |

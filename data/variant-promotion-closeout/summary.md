@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 19 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 15 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 180 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 184 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `promotion-proven` | 180 |
-| `watch-grade` | 16 |
+| `promotion-proven` | 184 |
+| `watch-grade` | 12 |
 | `blocked-proof-failed` | 2 |
-| `blocked-needs-server-variant` | 1 |
+| `blocked-needs-confighub-proof` | 1 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `yes` | 180 |
-| `watch` | 16 |
+| `yes` | 184 |
+| `watch` | 12 |
 | `no` | 2 |
 | `todo` | 1 |
 
@@ -47,7 +47,7 @@ the `cub variant promote` receipt is missing. **A representative set of commands
 
 The full 0-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — rerun on the fixed server (16)
+## Watch-grade — rerun on the fixed server (12)
 
 Server-side promotion mechanics are proven for these, but the committed receipts
 were recorded before the changeset-bound add-new-units server fix. The next action is:
@@ -56,8 +56,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 
 | Chart | Base | Evidence |
 | --- | --- | --- |
-| argo-cd/argo-cd@9.5.15 | default | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mongodb@19.0.7 | generated-passwords | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | generated-passwords | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -66,12 +64,18 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/nginx@25.0.0 | existing-tls-ingress | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | http-clusterip | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.6.10 | existing-secret | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/postgresql@18.6.7 | generated-passwords | runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | existing-secret | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | generated-passwords | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
+
+## Blocked — needs the ConfigHub proof first (1)
+
+No ConfigHub upload proof exists yet, so there is no clone to promote.
+
+| Chart | Base | Next action |
+| --- | --- | --- |
+| argo-cd/argo-cd@9.5.17 | no-crds | run the ConfigHub proof lane first |
 
 ## Boundaries
 

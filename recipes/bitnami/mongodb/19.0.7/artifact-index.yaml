@@ -65,7 +65,7 @@ spec:
       liveParity: "2/2"
     featureSummary: "generated-secrets;required-values;install-vs-upgrade;extension-slots;remote-dependencies"
     hardGap: "-"
-    nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    nextAction: "choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.7"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"

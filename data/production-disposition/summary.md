@@ -14,8 +14,8 @@ the target-scoped decision artifacts under
 catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
-production-review-ready disposition rows: 20
-production-blocked pending disposition: 0
+production-review-ready disposition rows: 19
+production-blocked pending disposition: 1
 target-scoped support decision artifacts: 20
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
@@ -83,9 +83,10 @@ active support state.
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
 | Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
-| Image digest resolution | 11 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 6 more |
+| Image digest resolution | 10 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (existing-secret-ingress)<br>and 5 more |
 | Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (internal-clusterip) |
 | Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (server-only-ephemeral)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
+| Close open dispositions | 1 | Write or fix missing disposition receipts before making a support decision.<br>`jetstack/cert-manager@v1.20.2` (crds-enabled) |
 
 For the full per-chart contract, use
 `data/production-disposition/support-decision-contract.md`. For the
@@ -110,7 +111,7 @@ spreadsheet form, use
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | production-review-ready | 8 |  |
 | `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | pass | local-kind-observed | production-review-ready | 6 |  |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | pass | local-kind-observed | production-review-ready | 5 |  |
-| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
+| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | blocked | 6 | target fact preflight |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | production-review-ready | 7 |  |

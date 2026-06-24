@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default"
+  labels:
+    component: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    version: "2.60.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  chart:
+    name: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    version: "2.60.1"
+    sourceRepository: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    variant: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/variants/default/variant.yaml"
+    revision: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default"
+    sourceLock: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "aws-ebs-csi-driver"
+    valuesProfile: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "topology"
+        prerequisiteName: "AWS/EKS metadata + node providerID"
+        actionKind: "provide-storage-or-topology"
+        ownerClass: "target-policy"
+        requiredInputs: "AWS/EKS metadata + node providerID"
+        evidenceRequired: "a bound PVC / a target with the required topology; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default"
+    fullModelPath:
+      - "chart/version: aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1"
+      - "recipe: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
+      - "rendered revision: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -355,7 +406,7 @@
           <span class="faq-status">answered</span>
         </div>
         <p>The current proof counters are generated from committed evidence. They are useful for orientation, but the matrix remains the source for chart-by-chart decisions.</p>
-        <div class="faq-metrics"><div class="metric"><strong>199/199</strong><span>Render parity</span></div><div class="metric"><strong>199/199</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/199</strong><span>Local live</span></div><div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>135/199</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>127/199</strong><span>Complete core lanes</span></div></div>
+        <div class="faq-metrics"><div class="metric"><strong>199/199</strong><span>Render parity</span></div><div class="metric"><strong>198/199</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/199</strong><span>Local live</span></div><div class="metric"><strong>135/199</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>135/199</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>126/199</strong><span>Complete core lanes</span></div></div>
         <p class="faq-links"><a href="./matrix.html">Master matrix</a> · <a href="../docs/user/current-proof-status.md">Current proof status</a></p>
       </article>
       </div>
@@ -540,7 +591,7 @@
           <span class="faq-status">answered</span>
         </div>
         <p>The top-100 is intentionally bucketed rather than flattened into one claim. Some charts are ready to try, some need target prerequisites, some need operator review, and some need a better base.</p>
-        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>23</strong><span>Needs operator review</span></div><div class="metric"><strong>35</strong><span>Needs a better base</span></div></div>
+        <div class="faq-metrics"><div class="metric"><strong>20</strong><span>Ready to try</span></div><div class="metric"><strong>15</strong><span>Needs target prerequisites</span></div><div class="metric"><strong>23</strong><span>Needs operator review</span></div><div class="metric"><strong>33</strong><span>Needs a better base</span></div></div>
         <p class="faq-links"><a href="../docs/user/top100-status.md">Top-100 status</a> · <a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></p>
       </article>
         <article class="faq-card later">

@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -330,14 +381,14 @@
       <h2 id="summary">What To Use</h2>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>1</strong><span>Candidate base variants</span></div>
+        <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
         <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
         <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
       </div>
       <p>The mechanism works, but the current base is too default-shaped to be a good user offer.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>11.4.29</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default</td></tr><tr><td>Not yet enabled</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>11.4.29</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default;legacy</td></tr><tr><td>Not yet enabled</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -402,7 +453,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir .tmp/demo/bitnami-apache-11-4-29-default --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>In confighub proof</dd>
+          <dt>Evidence</dt><dd>Local kubernetes live</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -411,7 +462,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/apache/11.4.29/variants/default/variant.yaml">variant</a> · <a href="../../packages/bitnami/apache/11.4.29/bases/default">package base</a> · <a href="../../runs/cl-apache-11-4-29-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/apache/11.4.29/variants/default/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/bitnami-apache-11-4-29-default.yaml">render intent</a> · <a href="../../packages/bitnami/apache/11.4.29/bases/default">package base</a> · <a href="../../runs/cl-apache-11-4-29-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -424,7 +475,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir .tmp/demo/bitnami-apache-11-4-29-legacy --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>In confighub proof</dd>
+          <dt>Evidence</dt><dd>Local kubernetes live</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -433,7 +484,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for legacy">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/apache/11.4.29/variants/legacy/variant.yaml">variant</a> · <a href="../../packages/bitnami/apache/11.4.29/bases/legacy">package base</a> · <a href="../../runs/cl-apache-11-4-29-legacy-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/apache/11.4.29/variants/legacy/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/bitnami-apache-11-4-29-legacy.yaml">render intent</a> · <a href="../../packages/bitnami/apache/11.4.29/bases/legacy">package base</a> · <a href="../../runs/cl-apache-11-4-29-legacy-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article></div>
     </section>
 
@@ -458,7 +509,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
       <div class="card"><table>
         <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
-        <tbody><tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.md">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../../docs/skills/target-facts-and-lifecycle.md">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr></tbody>
+        <tbody><tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.md">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../../docs/skills/target-facts-and-lifecycle.md">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../../docs/skills/live-parity.md">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -510,7 +561,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Extension slots</td><td>tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; a decision on the named limitation before use</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Extension slots</td><td>tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -531,7 +582,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production disposition</td><td>not-reviewed-for-production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted dispositions</td><td>none recorded</td></tr><tr><td>Open policy dispositions</td><td>none recorded for this policy checklist</td></tr><tr><td>Next action</td><td>add at least one user-shaped variant before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>Production disposition</td><td>not-reviewed-for-production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted dispositions</td><td>none recorded</td></tr><tr><td>Open policy dispositions</td><td>none recorded for this policy checklist</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -545,7 +596,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">recipes/bitnami/apache/11.4.29/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/apache/11.4.29/recipe.yaml">recipes/bitnami/apache/11.4.29/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/apache/11.4.29">packages/bitnami/apache/11.4.29</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/apache/11.4.29/helm-pain-report.yaml">recipes/bitnami/apache/11.4.29/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/apache/11.4.29/CATALOG.md">recipes/bitnami/apache/11.4.29/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/bitnami-apache-11-4-29-default.yaml">data/helm-render-intents/intents/bitnami-apache-11-4-29-default.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/apache/11.4.29/recipe.yaml">recipes/bitnami/apache/11.4.29/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/apache/11.4.29">packages/bitnami/apache/11.4.29</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/apache/11.4.29/helm-pain-report.yaml">recipes/bitnami/apache/11.4.29/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -555,6 +606,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

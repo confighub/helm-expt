@@ -62,7 +62,7 @@ spec:
       liveParity: "2/2"
     featureSummary: "generated-secrets;required-values;install-vs-upgrade;remote-dependencies"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+    nextAction: "choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/postgresql/18.6.7"
     installer: "packages/bitnami/postgresql/18.6.7/installer.yaml"

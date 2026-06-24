@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | needs-useful-variant |
-| User status | proof-grade-needs-user-shaped-variant |
-| Strongest evidence | in-confighub-proof |
-| Proof lanes | render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Adoption bucket | limitation-decision-first |
+| User status | proof-grade-with-named-limitation |
+| Strongest evidence | local-kubernetes-live |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | generated-secrets;required-values;values-schema;install-vs-upgrade;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
-| Next action | add at least one user-shaped variant before catalog promotion |
+| Next action | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 
 ## Artifact Chain
 

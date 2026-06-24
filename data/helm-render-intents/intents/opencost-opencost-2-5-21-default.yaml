@@ -1,0 +1,102 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "opencost-opencost-2-5-21-default"
+  labels:
+    component: "opencost/opencost"
+    chart: "opencost/opencost"
+    version: "2.5.21"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "opencost/opencost"
+  chart:
+    name: "opencost/opencost"
+    version: "2.5.21"
+    sourceRepository: "https://opencost.github.io/opencost-helm-chart"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/opencost/opencost/2.5.21"
+    variant: "recipes/opencost/opencost/2.5.21/variants/default/variant.yaml"
+    revision: "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/opencost/opencost/2.5.21/bases/default"
+    sourceLock: "recipes/opencost/opencost/2.5.21/source-lock.yaml"
+    namespace: "default"
+    releaseName: "opencost"
+    valuesProfile: "recipes/opencost/opencost/2.5.21/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: ""
+        sourceReceipt: "runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default"
+      -
+        lane: "K"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: ""
+        sourceReceipt: "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/opencost/opencost/2.5.21"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/opencost/opencost/2.5.21/bases/default"
+    fullModelPath:
+      - "chart/version: opencost/opencost@2.5.21"
+      - "recipe: recipes/opencost/opencost/2.5.21"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/opencost-opencost-2-5-21-default.yaml"
+      - "rendered revision: recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/opencost/opencost/2.5.21/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

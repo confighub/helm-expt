@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-no-crds"
+  labels:
+    component: "strimzi/strimzi-kafka-operator"
+    chart: "strimzi/strimzi-kafka-operator"
+    version: "1.0.0"
+    base: "no-crds"
+    catalogLayer: "F2b"
+spec:
+  component: "strimzi/strimzi-kafka-operator"
+  chart:
+    name: "strimzi/strimzi-kafka-operator"
+    version: "1.0.0"
+    sourceRepository: "https://strimzi.io/charts/"
+    sourceContent: ""
+  baseVariant: "no-crds"
+  renderInputs:
+    recipe: "recipes/strimzi/strimzi-kafka-operator/1.0.0"
+    variant: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+    revision: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds"
+    sourceLock: "recipes/strimzi/strimzi-kafka-operator/1.0.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "strimzi-kafka-operator"
+    valuesProfile: "recipes/strimzi/strimzi-kafka-operator/1.0.0/effective-values-no-crds.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "watch"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "K"
+        prerequisiteKind: "namespace"
+        prerequisiteName: "unknown"
+        actionKind: "create-namespace"
+        ownerClass: "user-stage"
+        requiredInputs: "the target Namespace named by the chart"
+        evidenceRequired: "the named Namespace exists on the target before apply; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: ""
+        sourceReceipt: "runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart strimzi/strimzi-kafka-operator --version 1.0.0 --base no-crds"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/strimzi/strimzi-kafka-operator/1.0.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds"
+    fullModelPath:
+      - "chart/version: strimzi/strimzi-kafka-operator@1.0.0"
+      - "recipe: recipes/strimzi/strimzi-kafka-operator/1.0.0"
+      - "base variant: no-crds"
+      - "render intent: data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+      - "rendered revision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "package base: packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -50,18 +50,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "in-confighub-proof"
+    adoptionBucket: "limitation-decision-first"
+    userStatus: "proof-grade-with-named-limitation"
+    strongestEvidence: "local-kubernetes-live"
     proofLanes:
-      renderParity: "1/1"
-      inConfigHub: "1/1"
-      localLive: "0/1"
-      gitopsLive: "0/1"
-      liveParity: "0/1"
+      renderParity: "2/2"
+      inConfigHub: "2/2"
+      localLive: "1/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
     featureSummary: "generated-secrets;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle)"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/apache/11.4.29"
     installer: "packages/bitnami/apache/11.4.29/installer.yaml"

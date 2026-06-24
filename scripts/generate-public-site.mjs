@@ -60,6 +60,7 @@ const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kp
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
+const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
@@ -211,6 +212,7 @@ function buildSite(generatedAt) {
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
+  const helmRenderIntents = existsSync(helmRenderIntentsPath) ? parseCsv(readFileSync(helmRenderIntentsPath, "utf8")) : [];
   const lifecycleRouteActionSummary = {
     total: lifecycleRouteActions.length,
     automatic: lifecycleRouteActions.filter((action) => action.automatic === true || action.automatic === "true").length,
@@ -368,6 +370,7 @@ function buildSite(generatedAt) {
     highFanout,
     lifecycleRoutes,
     lifecycleRouteActionSummary,
+    helmRenderIntents,
     lifecycleByVariant,
     matrixDisposition,
     chartSkills: publicChartSkills,
@@ -486,10 +489,16 @@ function html(catalog) {
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const journeySteps = [
-    ["First", "See How It Works", "Try the no-account path: render a chart, inspect the objects, and see what ConfigHub adds.", "./try.html", "Get Started"],
+    ["First", "Look before you install", "Render a chart first, read the objects, and see what ConfigHub adds before anything reaches a cluster.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.", "./charts/index.html", "Helm Catalog"],
-    ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
-    ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
+    ["Then", "Your versions", "Start from one base and make as many versions as you need: dev, staging, prod, one per region or customer.", "./variants.html", "Variants"],
+    ["Later", "Your apps, your releases", "Add your own apps alongside public charts, then move them from staging to production.", "./journey.html", "Apps"],
+  ];
+  const seeCards = [
+    ["See every object", "The exact Kubernetes resources, as plain files you can read before anything reaches the cluster."],
+    ["See the secret it bakes in", "Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry."],
+    ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
+    ["Bringing AI?", "When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML."],
   ];
   const valueCards = [
     ["Recorded inputs", "Keep the chart version, values, namespace, capabilities, and generated facts with the objects they produced.", "./how-it-works.html", "How it works"],
@@ -508,25 +517,30 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header class="home-hero human-hero">
     ${topNav(".")}
-    <h1>Change Helm charts without losing track</h1>
-    <p class="lead">Helm is easy to start and hard to customize safely. ConfigHub turns Helm output into versioned Kubernetes configuration that teams can inspect, compare, promote, and observe.</p>
-    <p>Keep Helm as the source. Use ConfigHub when values, variants, upgrades, GitOps delivery, or AI-assisted changes need a control plane.</p>
-    <div class="journey-flow" aria-label="Four-step product journey">
-      ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
-        <span class="kicker">${escapeHtml(number)}</span>
-        <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(body)}</p>
-        <span class="go">${escapeHtml(linkText)}</span>
-      </a>${index < journeySteps.length - 1 ? '<span class="journey-arrow" aria-hidden="true">&rarr;</span>' : ""}`).join("\n      ")}
+    <div class="hero-copy">
+      <h1>Look before you install</h1>
+      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
+      <div class="hero-actions" aria-label="Primary actions">
+        <a class="button primary" href="./try.html">Get started</a>
+        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
+      </div>
+    </div>
+    <div class="terminal-card home-terminal" aria-label="Look first command">
+      <div class="terminal-title">look first</div>
+      <pre class="terminal-body"><code><span class="term-comment"># render any chart first - no account, no install</span>
+<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+    --base default --work-dir ./out --non-interactive
+<span class="term-prompt">$</span> ls ./out/manifests          <span class="term-comment"># every object Helm would install - read them first</span></code></pre>
     </div>
   </header>
   <main>
-    <section aria-labelledby="quick-context">
-      <h2 id="quick-context">The Problem</h2>
-      <p>ConfigHub builds tools for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI for that model.</p>
-      <p>Helm charts usually start well. Then every team, cluster, customer, and environment needs a tweak: a Secret model, an ingress rule, CRDs on or off, storage, cloud identity, RBAC, hooks, resource limits, node placement, or a values file that only works in one place.</p>
-      <p>Those choices are normal. The risk is losing sight of the install. Defaults may be unsafe for your target. Old versions may need to stay pinned. The next upgrade may change CRDs, webhooks, storage, or permissions. A small values change can become a production surprise.</p>
-      <p>helm-expt tests whether ConfigHub can make Helm customization visible, repeatable, reviewable, and safer to operate.</p>
+    <section aria-labelledby="look-first">
+      <h2 id="look-first">What You See First</h2>
+      <div class="catalog light-grid">
+        ${seeCards.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
+      </div>
+      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
+      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
     </section>
 
     <section aria-labelledby="control-value">
@@ -541,6 +555,14 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     <section aria-labelledby="start">
       <h2 id="start">Start Here</h2>
       <p>First try the no-account path and inspect the generated Kubernetes objects. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
+      <div class="journey-flow" aria-label="Four-step product journey">
+        ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
+          <span class="kicker">${escapeHtml(number)}</span>
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(body)}</p>
+          <span class="go">${escapeHtml(linkText)}</span>
+        </a>${index < journeySteps.length - 1 ? '<span class="journey-arrow" aria-hidden="true">&rarr;</span>' : ""}`).join("\n        ")}
+      </div>
       <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
     </section>
 
@@ -566,6 +588,7 @@ function howItWorksHtml(catalog) {
   const explainerRows = [
     ["How it works", "The hub for the four moves and all mechanism docs.", "../docs/user/how-it-works.md"],
     ["Data model", "Unit, space, target, worker, OCI bundle, target fact, route, and receipt.", "../docs/user/confighub-data-model.md"],
+    ["Helm render intents", "The compact base-variant config generated from a proven Helm render path.", "../docs/user/helm-render-intents.md"],
     ["Deployment path", "cub installer to ConfigHub Units to one OCI bundle to Argo, Flux, or cub-direct.", "../docs/user/cub-deployment-path.md"],
     ["GitOps adopter guide", "For Argo and Flux teams: keep the controller, change the source to one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Secrets, delivery credentials, RBAC, scanning, and no silent privileged step.", "../docs/user/security-end-to-end.md"],
@@ -634,12 +657,13 @@ function howItWorksHtml(catalog) {
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
       <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>
+      <p>A generated render intent records the compact config for that base variant: chart version, values profile, namespace, capability profile, source lock, package base, and the evidence lanes attached to it.</p>
       <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
         <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
         <div class="arrow">&rarr;</div>
         <div class="node"><strong>cub installer</strong><p>The recipe produces the same object set, with receipts and a repeatable package.</p></div>
       </div>
-      <p><a href="../docs/user/how-it-works.md#1-render--the-recipe">Go deeper: render in the how-it-works hub</a> · <a href="../docs/reference/direct-cub-helm-model.md">direct cub/Helm model</a> · <a href="../docs/user/reading-the-matrix.md">reading the matrix</a></p>
+      <p><a href="../docs/user/how-it-works.md#1-render--the-recipe">Go deeper: render in the how-it-works hub</a> · <a href="../docs/user/helm-render-intents.md">Helm render intents</a> · <a href="../data/helm-render-intents/summary.md">generated render-intent data</a> · <a href="../docs/reference/direct-cub-helm-model.md">direct cub/Helm model</a> · <a href="../docs/user/reading-the-matrix.md">reading the matrix</a></p>
     </section>
 
     <section class="move-section" aria-labelledby="route">
@@ -1503,9 +1527,9 @@ function tryHtml(catalog) {
     <p class="caption">Same Prometheus, same namespace — that is parity.</p>
   </header>
   <main>
-    <section class="narrow-section" aria-labelledby="package-note">
+    <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>Everything here lives in this repo — nothing is fetched from outside. We review each chart as a recipe (<code>recipes/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code>: its values, variants, and version locks), then publish that recipe as an installer package under <code>packages/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> — the chart's reviewed, pre-rendered form plus a short <code>installer.yaml</code> naming its bases (here, <code>default</code> and <code>server-only-ephemeral</code>). <code>--pull</code> tells cub which package to load: a local path (as above), an <code>oci://…</code> address, or a <code>.tgz</code>. <code>--base</code> picks the shape; <code>--namespace</code> says where it lands.</p>
+      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -1587,9 +1611,9 @@ function serverlessHtml(catalog) {
     <p class="caption">Both bring up Redis in the same namespace. Same outcome — that is parity.</p>
   </header>
   <main>
-    <section class="narrow-section" aria-labelledby="package-note">
+    <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>Everything here lives in this repo — nothing is fetched from outside. We review each chart as a recipe, then publish that recipe as an installer package under <code>packages/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code>. <code>--pull</code> tells cub which package to load. <code>--base</code> picks the install shape.</p>
+      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -1657,6 +1681,7 @@ function docsHtml(catalog) {
     ["GitOps adopter guide", "Keep Argo or Flux and point it at one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Understand secrets, credentials, and scanning.", "../docs/user/security-end-to-end.md"],
     ["Day-2 upgrade and rollback", "Review, rehearse, and observe changes before rollout.", "../docs/user/day2-upgrade-rollback.md"],
+    ["Helm render intents", "See the compact config object generated for each real base variant.", "../docs/user/helm-render-intents.md"],
     ["Coming from Helm", "Map Helm flags to cub inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["AI-assisted changes", "Let AI propose changes while ConfigHub keeps review and rollback clear.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "Find whether a failure is render, target, lifecycle, or runtime.", "../docs/user/broken-chart-triage.md"],
@@ -1671,6 +1696,7 @@ function docsHtml(catalog) {
     ["Generated data index", "Open the generated data catalog.", "../data/README.md"],
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for universal cub-direct caveats, shared placeholder passwords, and CRD first-ordering.", "../data/cub-adoption-caveats/summary.html"],
+    ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Deep proof page", "Proof lanes and sceptic-test routing for reviewers who want the full detail.", "./proof.html"],
   ];
@@ -2553,7 +2579,8 @@ function journeyHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps Guide</h1>
-    <p class="lead">An app is the thing your team operates, not just one chart. It can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
+    <p class="lead">The free path is for trying public charts. An account is for running your own: your apps, your custom versions, and releases you move from staging to production.</p>
+    <p>An app is the thing your team operates, not just one chart. It can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
     <p>Start with what you already have: a catalog chart, an Argo or Flux app, rendered YAML, a live cluster, or custom Kubernetes objects. The first safe result is visibility. ConfigHub should show what belongs to the app before it changes delivery.</p>
   </header>
   <main>
@@ -3532,8 +3559,12 @@ function chartPageHtml(catalog, entry) {
       row.lane_two_cluster_kind,
     ]);
   const proofEvidenceRows = proofRows.length ? proofRows : proofMatrixRows;
+  const firstRenderIntent = catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version && row.base === entry.start_variant)
+    ?? catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version);
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
+    ["Helm render intents", "data/helm-render-intents/summary.md"],
+    ["First render intent", firstRenderIntent?.intent_path ?? ""],
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
     ["Helm pain report", entry.helm_pain_report],
@@ -4023,6 +4054,9 @@ function matrixRowLinks(row) {
   };
   maybe("catalog", row.recipe_catalog_path);
   maybe("variant", row.variant_path);
+  if (row.row_kind === "base" && row.chart && row.version && row.variant) {
+    maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
+  }
   maybe("package base", row.package_base_path);
   maybe("receipt", row.target_run_receipt || row.variant_promotion_evidence || row.active_proof_support_artifact);
   if (row.source_repository_url) links.push(`<a href="${escapeHtml(row.source_repository_url)}" rel="noopener">source repo</a>`);
@@ -4082,6 +4116,13 @@ function chartPageFileName(entry) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "") + ".html";
+}
+
+function helmRenderIntentFileName(chart, version, base) {
+  return `${chart}-${version}-${base}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") + ".yaml";
 }
 
 function productionSummaryForChart(catalog, entry) {
@@ -4562,6 +4603,57 @@ function siteCss() {
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -4797,12 +4889,15 @@ function siteCss() {
 function installPageCss() {
   return `
     .install-hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
-      gap: 28px;
-      align-items: center;
+      display: block;
+      max-width: 1080px;
+      margin: 0 auto;
     }
-    .hero-copy { max-width: 60ch; }
+    .install-hero .hero-copy {
+      max-width: 60ch;
+      margin: 0 auto;
+      text-align: center;
+    }
     .eyebrow {
       margin: 0 0 10px;
       color: var(--accent);
@@ -4820,6 +4915,10 @@ function installPageCss() {
       background: var(--panel);
       font-size: .84rem;
     }
+    .install-hero .terminal-card {
+      margin-top: 28px;
+      width: 100%;
+    }
     .caption {
       margin: 18px auto 0;
       max-width: 60ch;
@@ -4834,6 +4933,13 @@ function installPageCss() {
       border-top: 1px solid var(--line);
     }
     .narrow-section p { max-width: 60ch; }
+    .callout-section {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      background: var(--panel);
+    }
+    .callout-section h2 { margin-top: 0; }
     .step-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4867,12 +4973,11 @@ function installPageCss() {
       font-size: .88rem;
       overflow-wrap: anywhere;
     }
-    @media (max-width: 980px) {
-      .install-hero-grid { grid-template-columns: 1fr; }
-    }
     @media (max-width: 640px) {
       .step-grid { grid-template-columns: 1fr; }
       .narrow-section { margin-top: 34px; padding-top: 24px; }
+      .callout-section { padding: 16px; }
+      .install-hero .hero-copy { text-align: left; }
       .caption { text-align: left; }
     }
 `;

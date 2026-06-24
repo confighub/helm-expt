@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "minio-operator-operator-7-1-1-default"
+  labels:
+    component: "minio-operator/operator"
+    chart: "minio-operator/operator"
+    version: "7.1.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "minio-operator/operator"
+  chart:
+    name: "minio-operator/operator"
+    version: "7.1.1"
+    sourceRepository: "https://operator.min.io"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/minio-operator/operator/7.1.1"
+    variant: "recipes/minio-operator/operator/7.1.1/variants/default/variant.yaml"
+    revision: "recipes/minio-operator/operator/7.1.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/minio-operator/operator/7.1.1/bases/default"
+    sourceLock: "recipes/minio-operator/operator/7.1.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "operator"
+    valuesProfile: "recipes/minio-operator/operator/7.1.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/minio-operator/operator/7.1.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/minio-operator/operator/7.1.1/bases/default"
+    fullModelPath:
+      - "chart/version: minio-operator/operator@7.1.1"
+      - "recipe: recipes/minio-operator/operator/7.1.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml"
+      - "rendered revision: recipes/minio-operator/operator/7.1.1/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/minio-operator/operator/7.1.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

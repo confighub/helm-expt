@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | limitation-decision-first |
 | User status | proof-grade-with-named-limitation |
-| Strongest evidence | in-confighub-proof |
-| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | local-kubernetes-live |
+| Proof lanes | render parity 3/3; ConfigHub 3/3; local live 1/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
 | Next action | review limitation before promotion: existing-secret (chart ships no Secret toggle) |

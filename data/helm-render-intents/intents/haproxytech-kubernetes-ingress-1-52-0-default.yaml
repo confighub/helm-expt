@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default"
+  labels:
+    component: "haproxytech/kubernetes-ingress"
+    chart: "haproxytech/kubernetes-ingress"
+    version: "1.52.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "haproxytech/kubernetes-ingress"
+  chart:
+    name: "haproxytech/kubernetes-ingress"
+    version: "1.52.0"
+    sourceRepository: "https://haproxytech.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/haproxytech/kubernetes-ingress/1.52.0"
+    variant: "recipes/haproxytech/kubernetes-ingress/1.52.0/variants/default/variant.yaml"
+    revision: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/haproxytech/kubernetes-ingress/1.52.0/bases/default"
+    sourceLock: "recipes/haproxytech/kubernetes-ingress/1.52.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "kubernetes-ingress"
+    valuesProfile: "recipes/haproxytech/kubernetes-ingress/1.52.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/haproxytech/kubernetes-ingress/1.52.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/haproxytech/kubernetes-ingress/1.52.0/bases/default"
+    fullModelPath:
+      - "chart/version: haproxytech/kubernetes-ingress@1.52.0"
+      - "recipe: recipes/haproxytech/kubernetes-ingress/1.52.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/haproxytech-kubernetes-ingress-1-52-0-default.yaml"
+      - "rendered revision: recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/haproxytech/kubernetes-ingress/1.52.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

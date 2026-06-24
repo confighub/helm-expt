@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -652,7 +703,7 @@
         <td>2 base options: default, cluster-metrics-readonly</td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/elasticsearch 22.1.6 proof-grade / machine-proof-only default default;ha see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/elasticsearch 22.1.6 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-elasticsearch-22-1-6.html">bitnami/elasticsearch</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/elasticsearch?version=22.1.6" rel="noopener" title="https://charts.bitnami.com/bitnami">22.1.6</a></td>
         <td><a href="./bitnami-elasticsearch-22-1-6.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -733,7 +784,7 @@
         <td>2 base options: default, cluster-metrics-readonly</td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/spark 10.0.3 proof-grade / machine-proof-only default default;ha see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/spark 10.0.3 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-spark-10-0-3.html">bitnami/spark</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/spark?version=10.0.3" rel="noopener" title="https://charts.bitnami.com/bitnami">10.0.3</a></td>
         <td><a href="./bitnami-spark-10-0-3.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -787,7 +838,7 @@
         <td>1 base option: default<br><span style="color:var(--muted);font-size:.86rem">1 candidate or derived path also shown.</span></td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-operator-crds/29.0.0/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/zookeeper 13.8.7 proof-grade / machine-proof-only default default;ha see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/zookeeper 13.8.7 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-zookeeper-13-8-7.html">bitnami/zookeeper</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/zookeeper?version=13.8.7" rel="noopener" title="https://charts.bitnami.com/bitnami">13.8.7</a></td>
         <td><a href="./bitnami-zookeeper-13-8-7.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -832,7 +883,7 @@
         <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.86rem">2 candidate or derived paths also shown.</span></td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/fairwinds-stable/vpa/4.11.0/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/fairwinds-stable/vpa/4.11.0" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/phpmyadmin 20.0.0 proof-grade / machine-proof-only default default see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/phpmyadmin 20.0.0 proof-grade / machine-proof-only default default;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-phpmyadmin-20-0-0.html">bitnami/phpmyadmin</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/phpmyadmin?version=20.0.0" rel="noopener" title="https://charts.bitnami.com/bitnami">20.0.0</a></td>
         <td><a href="./bitnami-phpmyadmin-20-0-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -904,7 +955,7 @@
         <td>2 base options: default, no-crds</td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/gatekeeper/gatekeeper/3.22.2" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="bitnami/contour 21.1.4 proof-grade / machine-proof-only default default;no-crds see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="bitnami/contour 21.1.4 proof-grade / machine-proof-only default default;no-crds;legacy see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-contour-21-1-4.html">bitnami/contour</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/contour?version=21.1.4" rel="noopener" title="https://charts.bitnami.com/bitnami">21.1.4</a></td>
         <td><a href="./bitnami-contour-21-1-4.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -949,7 +1000,7 @@
         <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.86rem">1 candidate or derived path also shown.</span></td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/pxc-operator/1.19.1/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/percona/pxc-operator/1.19.1" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/apache 11.4.29 proof-grade / machine-proof-only default default see chart page lookup;generated-facts;tpl;capabilities existing-secret (chart ships no secret toggle)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/apache 11.4.29 proof-grade / machine-proof-only default default;legacy see chart page lookup;generated-facts;tpl;capabilities existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-apache-11-4-29.html">bitnami/apache</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/apache?version=11.4.29" rel="noopener" title="https://charts.bitnami.com/bitnami">11.4.29</a></td>
         <td><a href="./bitnami-apache-11-4-29.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>
@@ -1048,7 +1099,7 @@
         <td>2 base options: default, no-crds</td>
         <td><a href="https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default" rel="noopener">generated YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0" rel="noopener">recipe</a></td>
       </tr>
-<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/opensearch 2.0.10 proof-grade / machine-proof-only default default;ha see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
+<tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/opensearch 2.0.10 proof-grade / machine-proof-only default default;ha;legacy see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./bitnami-opensearch-2-0-10.html">bitnami/opensearch</a></td>
         <td><a href="https://artifacthub.io/packages/helm/bitnami/opensearch?version=2.0.10" rel="noopener" title="https://charts.bitnami.com/bitnami">2.0.10</a></td>
         <td><a href="./bitnami-opensearch-2-0-10.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.86rem">Recommended base variant to try first.</span></td>

@@ -1059,21 +1059,21 @@ need catalog promotion review before support is claimed.
 | autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | in-confighub-proof | default | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
-| bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
+| bitnami/apache@11.4.29 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
 | bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
-| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
+| bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
 | bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
 | bitnami/mongodb@19.0.9 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
 | bitnami/mongodb@19.1.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
 | bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
 | bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
-| bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
-| bitnami/phpmyadmin@20.0.0 | proof-grade | needs-useful-variant | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
+| bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
+| bitnami/phpmyadmin@20.0.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
 | bitnami/postgresql@18.6.10 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
 | bitnami/postgresql@18.7.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
 | bitnami/redis@27.0.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
-| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
-| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | in-confighub-proof | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
+| bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
+| bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
 | coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |

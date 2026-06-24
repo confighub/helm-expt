@@ -8,13 +8,13 @@ metadata:
     confighub.io/variant: "controller-default-reviewed"
   name: "controller-default-reviewed-r001"
 spec:
-  digest: "7cd0e619e5023b6d19b099a9f1f741cdc1a7f76993678eeb3e3b6b7af3633714"
+  digest: "7b46fc888a19969d6e87558651ea704282003b5cc1e47fac61b54019b4eb5e6e"
   digestInputs:
     effectiveValuesSHA256: "58f08fe6e4d3afc358d7ccbd56b553de209d7fc3048348ba076abff59ce8f773"
     recipeSHA256: "0d748f867380bc5d855ffc1f7be6858b1d14963ad11a135be81264fd6711ca13"
     renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    variantSHA256: "0315e13111bc67493d880fdcec40c0a8bb186c0f4d4dde8ecc9694e1af5cae9a"
+    variantSHA256: "eed0b422810c70f12e09ef2acf663b87ebf9fbb7d156b9bad3375667ddf31ff0"
   rendered:
     objectCount: 19
     objectInventory: "rendered/object-inventory.yaml"

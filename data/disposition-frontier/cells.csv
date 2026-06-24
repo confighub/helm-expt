@@ -30,7 +30,7 @@ argo-cd/argo-cd@9.5.17,default,gitops_oci_live,G,watch,watch,no,,,
 argo-cd/argo-cd@9.5.17,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 argo-cd/argo-cd@9.5.17,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.15 (pass) — runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml,"none — the variant is proven on 9.5.15; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 argo-cd/argo-cd@9.5.17,no-crds,render_parity,R,pass,pass,no,,,
-argo-cd/argo-cd@9.5.17,no-crds,in_confighub,C,pass,pass,no,,,
+argo-cd/argo-cd@9.5.17,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@9.5.17 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 argo-cd/argo-cd@9.5.17,no-crds,local_live,L,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,gitops_oci_live,G,pass,pass,no,,,
 argo-cd/argo-cd@9.5.17,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,

@@ -16,12 +16,12 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-101 of 110 charts have at least one applicable skill. A chart
+102 of 110 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
-| [Live Parity](../../docs/skills/live-parity.md) | 89 |
+| [Live Parity](../../docs/skills/live-parity.md) | 95 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 54 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 41 |
 | [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 22 |
@@ -49,9 +49,9 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | autoscaler/cluster-autoscaler@9.57.0 | 1 | live-parity | live |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | 1 | live-parity | live |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | 0 | none | — |
-| bitnami/apache@11.4.29 | 2 | hook-and-secret-lifecycle | generated-facts; lookup |
+| bitnami/apache@11.4.29 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | bitnami/contour@21.1.4 | 3 | hook-and-secret-lifecycle | generated-facts; crds; lookup |
-| bitnami/elasticsearch@22.1.6 | 2 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage |
+| bitnami/elasticsearch@22.1.6 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/memcached@8.5.5 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/mongodb@19.0.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/mongodb@19.0.9 | 1 | live-parity | live |
@@ -60,16 +60,16 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | bitnami/nginx@24.0.2 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | bitnami/nginx@24.0.4 | 1 | live-parity | live |
 | bitnami/nginx@25.0.0 | 1 | live-parity | live |
-| bitnami/opensearch@2.0.10 | 0 | none | — |
-| bitnami/phpmyadmin@20.0.0 | 2 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage |
+| bitnami/opensearch@2.0.10 | 1 | live-parity | live |
+| bitnami/phpmyadmin@20.0.0 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/postgresql@18.6.10 | 1 | live-parity | live |
 | bitnami/postgresql@18.6.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/postgresql@18.7.0 | 1 | live-parity | live |
 | bitnami/rabbitmq@16.0.14 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/redis@25.5.3 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/redis@27.0.0 | 1 | live-parity | live |
-| bitnami/spark@10.0.3 | 2 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage |
-| bitnami/zookeeper@13.8.7 | 2 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage |
+| bitnami/spark@10.0.3 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
+| bitnami/zookeeper@13.8.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | 5 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; live |
 | coredns/coredns@1.45.2 | 3 | hook-and-secret-lifecycle | generated-facts; live |
 | crossplane-stable/crossplane@2.3.1 | 1 | live-parity | live |

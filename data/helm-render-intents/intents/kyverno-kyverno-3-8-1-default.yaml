@@ -1,0 +1,150 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "kyverno-kyverno-3-8-1-default"
+  labels:
+    component: "kyverno/kyverno"
+    chart: "kyverno/kyverno"
+    version: "3.8.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "kyverno/kyverno"
+  chart:
+    name: "kyverno/kyverno"
+    version: "3.8.1"
+    sourceRepository: "https://kyverno.github.io/kyverno/"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/kyverno/kyverno/3.8.1"
+    variant: "recipes/kyverno/kyverno/3.8.1/variants/default/variant.yaml"
+    revision: "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/kyverno/kyverno/3.8.1/bases/default"
+    sourceLock: "recipes/kyverno/kyverno/3.8.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "kyverno"
+    valuesProfile: "recipes/kyverno/kyverno/3.8.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "6"
+    dispositions: "observed:6"
+    executionModes: "target-owned:3; user-executes:3"
+    safeAutomatic: "0/6"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "delete-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "preserve-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "explicit-test-check"
+        quirkClass: "hook-test"
+        lifecyclePhase: "observe"
+        actionKind: "run-test"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
+        command: "# run the chart's test/check (helm test equivalent)"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "preserve-ordering"
+        quirkClass: "hook-weight-ordering"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — applies objects in order, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "target-facts-or-preflight"
+        quirkClass: "target-facts"
+        lifecyclePhase: "preflight"
+        actionKind: "stage-target-facts"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/kyverno/kyverno/3.8.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default"
+    fullModelPath:
+      - "chart/version: kyverno/kyverno@3.8.1"
+      - "recipe: recipes/kyverno/kyverno/3.8.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
+      - "rendered revision: recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/kyverno/kyverno/3.8.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

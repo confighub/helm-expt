@@ -23,9 +23,9 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| needs-server-variant | 1 |
-| proven | 180 |
-| proven-with-watch | 16 |
+| missing-confighub-proof | 1 |
+| proven | 184 |
+| proven-with-watch | 12 |
 
 Matrix values:
 
@@ -33,8 +33,8 @@ Matrix values:
 | --- | ---: |
 | no | 2 |
 | todo | 1 |
-| watch | 16 |
-| yes | 180 |
+| watch | 12 |
+| yes | 184 |
 
 ## Watch Rows
 
@@ -45,12 +45,10 @@ show the changeset-bound path passing.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 16 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
+| 12 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15/default` | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `bitnami/mongodb@19.0.7/generated-passwords` | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.0.9/existing-secret-replicaset` | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.1.0/existing-secret-replicaset` | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.1.0/generated-passwords` | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
@@ -59,12 +57,14 @@ show the changeset-bound path passing.
 | `bitnami/nginx@25.0.0/existing-tls-ingress` | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/nginx@25.0.0/http-clusterip` | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/postgresql@18.6.10/existing-secret` | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/postgresql@18.7.0/existing-secret` | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/postgresql@18.7.0/generated-passwords` | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 
 ## First TODO Rows
 
 | Row | Status | Next action |
 | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.17/no-crds` | needs-server-variant | rerun the ConfigHub proof lane with current cub variant create and then run variant promotion proof |
+| `argo-cd/argo-cd@9.5.17/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

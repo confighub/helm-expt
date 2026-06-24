@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Change Helm charts without losing track", "Helm is easy to start and hard to customize safely", "The Problem", "Parity with Helm is the first safety check", "Recorded inputs"],
+    terms: ["Look before you install", "Render it with cub first", "no account", "What ConfigHub Adds", "Recorded inputs"],
   },
   {
     file: "site/variants.html",
@@ -107,7 +107,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Helm is easy to start and hard to customize safely", "Use ConfigHub when values, variants, upgrades, GitOps delivery, or AI-assisted changes need a control plane", "See How It Works", "Pick a Helm Chart to Try"],
+    headerTerms: ["Look before you install", "Render it with cub first", "no account"],
   },
   {
     file: "site/try.html",
@@ -123,7 +123,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/journey.html",
-    headerTerms: ["the thing your team operates", "Start with what you already have", "first safe result is visibility"],
+    headerTerms: ["The free path is for trying public charts", "your apps, your custom versions", "staging to production"],
   },
   {
     file: "site/operations.html",

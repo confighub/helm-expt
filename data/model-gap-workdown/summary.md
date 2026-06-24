@@ -16,21 +16,21 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 non-green triage (which rows are runs vs fixes vs decided) see
 [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 17 model-gap rows
+## 23 model-gap rows
 
 | Model-gap kind | Rows |
 | --- | ---: |
+| `object-set-shape` | 7 |
 | `crd-lifecycle` | 5 |
-| `semantic-normalization` | 4 |
+| `semantic-normalization` | 5 |
 | `base-design` | 3 |
-| `object-set-shape` | 2 |
 | `generated-fact` | 1 |
 | `missing-crd` | 1 |
 | `unknown` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `catalog-modeling` | 15 |
+| `catalog-modeling` | 21 |
 | `operator-review` | 1 |
 | `recipe-generator` | 1 |
 
@@ -40,9 +40,15 @@ non-green triage (which rows are runs vs fixes vs decided) see
 | --- | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | K | generated-fact | add-target-fact-generator | recipe-generator | none |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
+| bitnami/apache@11.4.29 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
 | bitnami/contour@21.1.4 | no-crds | K | missing-crd | design-new-base | catalog-modeling | none |
+| bitnami/elasticsearch@22.1.6 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | default | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | ha | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
+| bitnami/opensearch@2.0.10 | legacy | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
+| bitnami/phpmyadmin@20.0.0 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
+| bitnami/spark@10.0.3 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
+| bitnami/zookeeper@13.8.7 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
 | grafana/pyroscope@2.0.2 | ha | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | default (K pass); no-crds (K pass) |
 | hashicorp/terraform@1.1.2 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | none |
 | nats/nack@0.34.0 | default | K | crd-lifecycle | split-lifecycle-objects | catalog-modeling | no-crds (K pass) |

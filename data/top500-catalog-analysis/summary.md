@@ -33,8 +33,8 @@ current recipe version differs from retained source-scan row: 21
 no current recipe proof: 409
 catalog-supported: 20
 proof-grade: 71
-multi-variant proofs: 60
-default-only proofs: 31
+multi-variant proofs: 62
+default-only proofs: 29
 catalog-supported production-blocked: 0
 catalog-supported production-review-ready: 20
 ```
@@ -71,7 +71,7 @@ catalog-supported production-review-ready: 20
   `scripts/generate-variant-proof.mjs` captures a `helm template` render as a package
   base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all
   bookkeeping; `scripts/run-variant-wave.mjs` drives it in resumable waves. Three waves
-  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 60.
+  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 62.
 - **Hooks are routed through lifecycle policy.** Render equivalence does not prove hook
   execution. A chart with hooks still needs a lifecycle disposition for the chosen route,
   such as plain applied resources, GitOps-controller behavior, or an operator-reviewed

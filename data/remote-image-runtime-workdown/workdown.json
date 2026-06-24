@@ -7,13 +7,13 @@
     "runs/live-helm-confighub-compare/*/receipt.yaml",
     "data/image-digest-workdown/all-subjects.csv"
   ],
-  "rowCount": 12,
+  "rowCount": 20,
   "byAction": {
-    "refresh-chart-or-base": 10,
+    "refresh-chart-or-base": 18,
     "supported-image-override": 2
   },
   "byOwner": {
-    "catalog-refresh": 10,
+    "catalog-refresh": 18,
     "base-design": 2
   },
   "rows": [
@@ -25,6 +25,20 @@
       "missing_images": "docker.io/bitnami/apache:2.4.65-debian-12-r2",
       "image_location": "init-container",
       "both_helm_and_confighub_fail": "both",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/apache",
+      "version": "11.4.29",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2",
+      "image_location": "init-container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
       "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
       "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
       "recommended_action": "refresh-chart-or-base",
@@ -88,6 +102,20 @@
       "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
     },
     {
+      "chart": "bitnami/elasticsearch",
+      "version": "22.1.6",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-elasticsearch-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/elasticsearch:9.1.2-debian-12-r0; docker.io/bitnamilegacy/os-shell:12-debian-12-r50",
+      "image_location": "init-container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "base": "default",
@@ -116,6 +144,20 @@
       "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
     },
     {
+      "chart": "bitnami/opensearch",
+      "version": "2.0.10",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-opensearch-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/opensearch:3.2.0-debian-12-r0; docker.io/bitnamilegacy/os-shell:12-debian-12-r51",
+      "image_location": "init-container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
       "chart": "bitnami/phpmyadmin",
       "version": "20.0.0",
       "base": "default",
@@ -123,6 +165,20 @@
       "missing_images": "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22",
       "image_location": "init-container",
       "both_helm_and_confighub_fail": "both",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/phpmyadmin",
+      "version": "20.0.0",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/phpmyadmin:5.2.2-debian-12-r22",
+      "image_location": "init-container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
       "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
       "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
       "recommended_action": "refresh-chart-or-base",
@@ -151,6 +207,62 @@
       "missing_images": "docker.io/bitnami/spark:4.0.0-debian-12-r20",
       "image_location": "container",
       "both_helm_and_confighub_fail": "both",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/spark",
+      "version": "10.0.3",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20",
+      "image_location": "container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "base": "default",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-zookeeper-default/receipt.yaml",
+      "missing_images": "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21",
+      "image_location": "container",
+      "both_helm_and_confighub_fail": "both",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "base": "ha",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-zookeeper-ha/receipt.yaml",
+      "missing_images": "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21",
+      "image_location": "container",
+      "both_helm_and_confighub_fail": "both",
+      "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
+      "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
+      "recommended_action": "refresh-chart-or-base",
+      "owner_class": "catalog-refresh",
+      "next_action": "Refresh the catalog base to a chart version whose pinned image still exists upstream, or pin a retained digest; the current pinned tag(s) were removed from the publisher registry."
+    },
+    {
+      "chart": "bitnami/zookeeper",
+      "version": "13.8.7",
+      "base": "legacy",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-zookeeper-legacy/receipt.yaml",
+      "missing_images": "docker.io/bitnamilegacy/zookeeper:3.9.3-debian-12-r21",
+      "image_location": "container",
+      "both_helm_and_confighub_fail": "regular-helm-only",
       "candidate_override_path": "unknown — no image override in committed recipe artifacts (chart uses its default image.* values)",
       "current_off_ramp": "Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane.",
       "recommended_action": "refresh-chart-or-base",

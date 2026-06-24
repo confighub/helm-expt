@@ -8,9 +8,7 @@ They are drafts. They do not make any chart production-supported.
 
 | Chart | Draft | Selected base | Proposed scope | Decision state |
 | --- | --- | --- | --- | --- |
-| `elastic/logstash@8.5.1` | [elastic-logstash.yaml](./elastic-logstash.yaml) | `default` | vanilla Kubernetes target with OCI-capable GitOps controller; ConfigHub OCI/Argo live parity path used by the committed receipt; namespace selected by installer target context | draft |
-| `prometheus-community/alertmanager@1.37.0` | [prometheus-community-alertmanager.yaml](./prometheus-community-alertmanager.yaml) | `default` | vanilla Kubernetes target with OCI-capable GitOps controller; ConfigHub OCI/Argo live parity path used by the committed receipt; rendered namespace default must match the target assignment | draft |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | [prometheus-community-prometheus-blackbox-exporter.yaml](./prometheus-community-prometheus-blackbox-exporter.yaml) | `cluster-metrics-readonly` | vanilla Kubernetes target with OCI-capable GitOps controller; ConfigHub OCI/Argo live parity path used by the committed receipt; rendered namespace default must match the target assignment | draft |
+| _No current fast-track rows_ | - | - | - | - |
 
 ## Shared Rule
 

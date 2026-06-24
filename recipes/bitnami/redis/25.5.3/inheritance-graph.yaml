@@ -81,23 +81,43 @@ spec:
     -
       valuePath: "releaseName"
       source: "variant.releaseName"
-      renderedFieldCount: 4
+      renderedFieldCount: 14
       renderedFields:
-        - "apps/v1|StatefulSet|redis|redis-master:metadata.name"
-        - "apps/v1|StatefulSet|redis|redis-replicas:metadata.name"
-        - "v1|Service|redis|redis-headless:metadata.name"
-        - "apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.containers[0].env.REDIS_MASTER_HOST"
+        - "apps/v1|StatefulSet|redis|redis-master:metadata.labels.app.kubernetes.io/instance"
+        - "apps/v1|StatefulSet|redis|redis-replicas:metadata.labels.app.kubernetes.io/instance"
+        - "networking.k8s.io/v1|NetworkPolicy|redis|redis:metadata.labels.app.kubernetes.io/instance"
+        - "policy/v1|PodDisruptionBudget|redis|redis-master:metadata.labels.app.kubernetes.io/instance"
+        - "policy/v1|PodDisruptionBudget|redis|redis-replicas:metadata.labels.app.kubernetes.io/instance"
+        - "v1|ConfigMap|redis|redis-configuration:metadata.labels.app.kubernetes.io/instance"
+        - "v1|ConfigMap|redis|redis-health:metadata.labels.app.kubernetes.io/instance"
+        - "v1|ConfigMap|redis|redis-scripts:metadata.labels.app.kubernetes.io/instance"
+        - "v1|Secret|redis|redis:metadata.labels.app.kubernetes.io/instance"
+        - "v1|ServiceAccount|redis|redis-master:metadata.labels.app.kubernetes.io/instance"
+        - "v1|ServiceAccount|redis|redis-replica:metadata.labels.app.kubernetes.io/instance"
+        - "v1|Service|redis|redis-headless:metadata.labels.app.kubernetes.io/instance"
+        - "v1|Service|redis|redis-master:metadata.labels.app.kubernetes.io/instance"
+        - "v1|Service|redis|redis-replicas:metadata.labels.app.kubernetes.io/instance"
       immutableFieldRisk: true
       rolloutImpact: "changing-release-name-renames-objects"
     -
       valuePath: "namespace"
       source: "variant.namespace"
-      renderedFieldCount: 4
+      renderedFieldCount: 14
       renderedFields:
         - "apps/v1|StatefulSet|redis|redis-master:metadata.namespace"
         - "apps/v1|StatefulSet|redis|redis-replicas:metadata.namespace"
-        - "v1|Service|redis|redis-headless:metadata.namespace"
+        - "networking.k8s.io/v1|NetworkPolicy|redis|redis:metadata.namespace"
+        - "policy/v1|PodDisruptionBudget|redis|redis-master:metadata.namespace"
+        - "policy/v1|PodDisruptionBudget|redis|redis-replicas:metadata.namespace"
+        - "v1|ConfigMap|redis|redis-configuration:metadata.namespace"
+        - "v1|ConfigMap|redis|redis-health:metadata.namespace"
+        - "v1|ConfigMap|redis|redis-scripts:metadata.namespace"
         - "v1|Secret|redis|redis:metadata.namespace"
+        - "v1|ServiceAccount|redis|redis-master:metadata.namespace"
+        - "v1|ServiceAccount|redis|redis-replica:metadata.namespace"
+        - "v1|Service|redis|redis-headless:metadata.namespace"
+        - "v1|Service|redis|redis-master:metadata.namespace"
+        - "v1|Service|redis|redis-replicas:metadata.namespace"
       immutableFieldRisk: true
       rolloutImpact: "moving-namespace-creates-distinct-object-set"
     -

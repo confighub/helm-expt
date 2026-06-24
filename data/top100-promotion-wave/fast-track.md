@@ -11,7 +11,7 @@ promotion work is narrow enough to be reviewed quickly.
 ## Summary
 
 ~~~text
-fast-track rows: 3
+fast-track rows: 0
 required next proof: target storage/rollback acceptance plus target-scoped support decisions
 ~~~
 
@@ -19,9 +19,7 @@ required next proof: target storage/rollback acceptance plus target-scoped suppo
 
 | Chart | Recommended base | Why this row is first | Remaining required work |
 | --- | --- | --- | --- |
-| `elastic/logstash@8.5.1` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | review and accept/narrow storage/rollback boundary for selected target<br>record target-scoped support decision |
-| `prometheus-community/alertmanager@1.37.0` | `default` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | review and accept/narrow storage/rollback boundary for selected target<br>record target-scoped support decision |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `cluster-metrics-readonly` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | review and accept/narrow storage/rollback boundary for selected target<br>record target-scoped support decision |
+| _No current fast-track rows_ | - | No row currently meets every fast-track predicate. | Revisit after catalog review or evidence changes. |
 
 ## How To Use This
 

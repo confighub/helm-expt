@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade;extension-slots;remote-dependencies |
 | Hard gap | - |
-| Next action | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
+| Next action | choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first |
 
 ## Artifact Chain
 

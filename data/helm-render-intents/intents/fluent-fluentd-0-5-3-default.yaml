@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "fluent-fluentd-0-5-3-default"
+  labels:
+    component: "fluent/fluentd"
+    chart: "fluent/fluentd"
+    version: "0.5.3"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "fluent/fluentd"
+  chart:
+    name: "fluent/fluentd"
+    version: "0.5.3"
+    sourceRepository: "https://fluent.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/fluent/fluentd/0.5.3"
+    variant: "recipes/fluent/fluentd/0.5.3/variants/default/variant.yaml"
+    revision: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/fluent/fluentd/0.5.3/bases/default"
+    sourceLock: "recipes/fluent/fluentd/0.5.3/source-lock.yaml"
+    namespace: "default"
+    releaseName: "fluentd"
+    valuesProfile: "recipes/fluent/fluentd/0.5.3/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/fluent/fluentd/0.5.3/runtime-review.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/fluent/fluentd/0.5.3"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluentd/0.5.3/bases/default"
+    fullModelPath:
+      - "chart/version: fluent/fluentd@0.5.3"
+      - "recipe: recipes/fluent/fluentd/0.5.3"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/fluent-fluentd-0-5-3-default.yaml"
+      - "rendered revision: recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
+      - "package base: packages/fluent/fluentd/0.5.3/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

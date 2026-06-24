@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "bitnami-zookeeper-13-8-7-legacy"
+  labels:
+    component: "bitnami/zookeeper"
+    chart: "bitnami/zookeeper"
+    version: "13.8.7"
+    base: "legacy"
+    catalogLayer: "F2b"
+spec:
+  component: "bitnami/zookeeper"
+  chart:
+    name: "bitnami/zookeeper"
+    version: "13.8.7"
+    sourceRepository: "https://charts.bitnami.com/bitnami"
+    sourceContent: ""
+  baseVariant: "legacy"
+  renderInputs:
+    recipe: "recipes/bitnami/zookeeper/13.8.7"
+    variant: "recipes/bitnami/zookeeper/13.8.7/variants/legacy/variant.yaml"
+    revision: "recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/zookeeper/13.8.7/bases/legacy"
+    sourceLock: "recipes/bitnami/zookeeper/13.8.7/source-lock.yaml"
+    namespace: "default"
+    releaseName: "zookeeper"
+    valuesProfile: "recipes/bitnami/zookeeper/13.8.7/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/zookeeper/13.8.7"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/zookeeper/13.8.7/bases/legacy"
+    fullModelPath:
+      - "chart/version: bitnami/zookeeper@13.8.7"
+      - "recipe: recipes/bitnami/zookeeper/13.8.7"
+      - "base variant: legacy"
+      - "render intent: data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-legacy.yaml"
+      - "rendered revision: recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml"
+      - "package base: packages/bitnami/zookeeper/13.8.7/bases/legacy"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -201,7 +201,8 @@
       "top_skill": "hook-and-secret-lifecycle",
       "matched_signals": [
         "generated-facts",
-        "lookup"
+        "lookup",
+        "live"
       ],
       "applicable": [
         {
@@ -215,6 +216,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -255,7 +262,8 @@
       "matched_signals": [
         "generated-facts",
         "lookup",
-        "stateful-storage"
+        "stateful-storage",
+        "live"
       ],
       "applicable": [
         {
@@ -269,6 +277,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -462,9 +476,18 @@
     {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
-      "top_skill": "none",
-      "matched_signals": [],
-      "applicable": []
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
     },
     {
       "chart": "bitnami/phpmyadmin",
@@ -473,7 +496,8 @@
       "matched_signals": [
         "generated-facts",
         "lookup",
-        "stateful-storage"
+        "stateful-storage",
+        "live"
       ],
       "applicable": [
         {
@@ -487,6 +511,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -638,7 +668,8 @@
       "matched_signals": [
         "generated-facts",
         "lookup",
-        "stateful-storage"
+        "stateful-storage",
+        "live"
       ],
       "applicable": [
         {
@@ -652,6 +683,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -662,7 +699,8 @@
       "matched_signals": [
         "generated-facts",
         "lookup",
-        "stateful-storage"
+        "stateful-storage",
+        "live"
       ],
       "applicable": [
         {
@@ -676,6 +714,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },

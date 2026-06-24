@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import {
   check,
@@ -28,6 +28,9 @@ const targetScopeCsvPath = join(targetScopeDir, "target-scope-decisions.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
+  clearYamlFiles(reviewDir);
+  clearYamlFiles(storageReviewDir);
+  clearYamlFiles(targetScopeDir);
   write(csvPath, report.csv);
   write(summaryPath, report.summary);
   write(reviewIndexPath, report.reviewIndex);
@@ -99,7 +102,6 @@ function buildReport() {
     .filter(Boolean)
     .sort((left, right) => left.chart_ref.localeCompare(right.chart_ref));
 
-  check(rows.length > 0, "expected at least one fast-track promotion row");
   check(rows.every((row) => row.scan_gate_state === "clean"), "fast-track rows must have clean scan/gate state");
   check(rows.every((row) => row.lifecycle_class === "ordinary-stateful-workload"), "fast-track rows must avoid hook/CRD/webhook lifecycle classes");
   check(rows.every((row) => row.two_cluster_kind_parity === "pass"), "fast-track rows must have two-cluster kind parity");
@@ -194,6 +196,9 @@ function summary(rows) {
   const fourthStep = rowsWithMissingProof
     ? "Run only the missing proof lanes listed for the selected base."
     : "Confirm no missing proof lanes remain for the selected base.";
+  const rowLines = rows.length
+    ? rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | ${escapePipes(formatList(row.remaining_required_work))} |`).join("\n")
+    : "| _No current fast-track rows_ | - | No row currently meets every fast-track predicate. | Revisit after catalog review or evidence changes. |";
   return `# Top-100 Promotion Fast Track
 
 This generated slice identifies the simplest rows in the first top-100
@@ -215,7 +220,7 @@ required next proof: ${nextProof}
 
 | Chart | Recommended base | Why this row is first | Remaining required work |
 | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart_ref}\` | \`${row.recommended_base}\` | clean scan/gate; two-cluster kind parity; no hook/CRD/webhook lifecycle class | ${escapePipes(formatList(row.remaining_required_work))} |`).join("\n")}
+${rowLines}
 
 ## How To Use This
 
@@ -254,6 +259,14 @@ function reviewIndex(rows) {
   const reviewRule = rowsWithMissingProof
     ? "The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target, the proof lanes listed in its packet exist, and a target-scoped support decision exists for that exact base."
     : "The selected base can move forward only after the storage/rollback boundary is accepted or narrowed for the target and a target-scoped support decision exists for that exact base.";
+  const rowLines = rows.length
+    ? rows.map((row) => {
+        const fileName = `${slug(row.chart)}.yaml`;
+        const storageFileName = `storage-rollback/${fileName}`;
+        const targetScopeFileName = `target-scope/${fileName}`;
+        return `| \`${row.chart_ref}\` | [${fileName}](./${fileName}) | [${storageFileName}](./${storageFileName}) | [${targetScopeFileName}](./${targetScopeFileName}) | \`${row.recommended_base}\` | review-input-only | ${escapePipes(formatList(row.missing_live_lanes))} |`;
+      }).join("\n")
+    : "| _No current fast-track rows_ | - | - | - | - | - | - |";
   return `# Fast-Track Promotion Review Packets
 
 These generated packets bind the low-residue promotion candidates to the
@@ -264,12 +277,7 @@ claim runtime support.
 
 | Chart | Packet | Storage review | Target-scope draft | Selected base | Decision state | Missing proof lanes |
 | --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => {
-  const fileName = `${slug(row.chart)}.yaml`;
-  const storageFileName = `storage-rollback/${fileName}`;
-  const targetScopeFileName = `target-scope/${fileName}`;
-  return `| \`${row.chart_ref}\` | [${fileName}](./${fileName}) | [${storageFileName}](./${storageFileName}) | [${targetScopeFileName}](./${targetScopeFileName}) | \`${row.recommended_base}\` | review-input-only | ${escapePipes(formatList(row.missing_live_lanes))} |`;
-}).join("\n")}
+${rowLines}
 
 ## Shared Review Rule
 
@@ -372,6 +380,9 @@ function reviewPacketsToCsv(packets) {
 }
 
 function targetScopeIndex(decisions) {
+  const rowLines = decisions.length
+    ? decisions.map((decision) => `| \`${decision.chart_ref}\` | [${decision.fileName}](./${decision.fileName}) | \`${decision.base}\` | ${escapePipes(decision.proposed_scope_summary)} | ${decision.decision_state} |`).join("\n")
+    : "| _No current fast-track rows_ | - | - | - | - |";
   return `# Fast-Track Target-Scope Decision Drafts
 
 These generated files turn the remaining product decision into a concrete
@@ -382,7 +393,7 @@ They are drafts. They do not make any chart production-supported.
 
 | Chart | Draft | Selected base | Proposed scope | Decision state |
 | --- | --- | --- | --- | --- |
-${decisions.map((decision) => `| \`${decision.chart_ref}\` | [${decision.fileName}](./${decision.fileName}) | \`${decision.base}\` | ${escapePipes(decision.proposed_scope_summary)} | ${decision.decision_state} |`).join("\n")}
+${rowLines}
 
 ## Shared Rule
 
@@ -519,6 +530,9 @@ function namespacePolicyFor(row) {
 }
 
 function storageReviewIndex(reviews) {
+  const rowLines = reviews.length
+    ? reviews.map((review) => `| \`${review.chart_ref}\` | [${review.fileName}](./${review.fileName}) | \`${review.base}\` | ${escapePipes(review.storage_shape_summary)} | ${escapePipes(review.rollback_boundary)} |`).join("\n")
+    : "| _No current fast-track rows_ | - | - | - | - |";
   return `# Fast-Track Storage And Rollback Reviews
 
 These generated files inspect the rendered selected base for each fast-track
@@ -530,7 +544,7 @@ application-level data safety, or production support.
 
 | Chart | Review | Selected base | Storage shape | Rollback boundary |
 | --- | --- | --- | --- | --- |
-${reviews.map((review) => `| \`${review.chart_ref}\` | [${review.fileName}](./${review.fileName}) | \`${review.base}\` | ${escapePipes(review.storage_shape_summary)} | ${escapePipes(review.rollback_boundary)} |`).join("\n")}
+${rowLines}
 
 ## Shared Rule
 
@@ -708,6 +722,13 @@ function rowsToCsv(rows) {
 
 function parseCsvFile(path) {
   return parseCsv(readFileSync(path, "utf8"));
+}
+
+function clearYamlFiles(dir) {
+  if (!existsSync(dir)) return;
+  for (const name of readdirSync(dir)) {
+    if (name.endsWith(".yaml")) rmSync(join(dir, name));
+  }
 }
 
 function parseCsv(text) {

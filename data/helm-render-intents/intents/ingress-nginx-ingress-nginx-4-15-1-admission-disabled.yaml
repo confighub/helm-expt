@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
+  labels:
+    component: "ingress-nginx/ingress-nginx"
+    chart: "ingress-nginx/ingress-nginx"
+    version: "4.15.1"
+    base: "admission-disabled"
+    catalogLayer: "F2b"
+spec:
+  component: "ingress-nginx/ingress-nginx"
+  chart:
+    name: "ingress-nginx/ingress-nginx"
+    version: "4.15.1"
+    sourceRepository: "https://kubernetes.github.io/ingress-nginx"
+    sourceContent: ""
+  baseVariant: "admission-disabled"
+  renderInputs:
+    recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1"
+    variant: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml"
+    revision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
+    packageBase: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
+    sourceLock: "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
+    namespace: "ingress-nginx"
+    releaseName: "ingress-nginx"
+    valuesProfile: "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "watch"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/ingress-nginx/ingress-nginx/4.15.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
+    fullModelPath:
+      - "chart/version: ingress-nginx/ingress-nginx@4.15.1"
+      - "recipe: recipes/ingress-nginx/ingress-nginx/4.15.1"
+      - "base variant: admission-disabled"
+      - "render intent: data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+      - "rendered revision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
+      - "package base: packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -32,6 +32,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [known-gaps-we-surface.md](./user/known-gaps-we-surface.md) | User-facing guide to current watch findings that the project deliberately surfaces instead of hiding. |
 | [serious-chart-proof.md](./user/serious-chart-proof.md) | Concise kube-prometheus-stack proof path for the serious chart example. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
+| [helm-render-intents.md](./user/helm-render-intents.md) | The two-layer model: base variants describe how Helm is rendered, managed variants describe how ConfigHub operates the rendered config, and generated render-intent objects keep the proof chain attached. |
 | [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, or repo verifiers. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [../data/outcome-evidence-contract/summary.md](../data/outcome-evidence-contract/summary.md) | Generated user-outcome contract: question, status, evidence, verifier command, scope, and next action. |
@@ -363,6 +364,8 @@ not the primary user path.
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
 | [house-voice.md](./planning/house-voice.md) | The house voice for all tech copy: the Fowler/Jobs/Dickens hybrid, ten rules, ready-to-apply before/after rewrites of the front-door site surfaces (Get Started, How It Works, chart-page intro), and how to check it (Flesch 60–70). |
+| [free-path-pitch.md](./planning/free-path-pitch.md) | The free-path value proposition: lead with a "look before you install" pre-flight check, keep parity as a quiet assurance, and separate ship-now copy from future security and AI builds. |
+| [server-account-pitch.md](./planning/server-account-pitch.md) | The account value proposition: your versions, your apps, your releases, plus the shipped-versus-frontier wording that ties the homepage variant and Apps boxes together. |
 | [house-layout.md](./planning/house-layout.md) | The house layout (companion to house-voice): seven principles drawn from hall.kvick.dev — narrow prose, hairline sections, terminal-card commands, two-column hero, light card grid, one accent, restraint — plus the terminal-card pattern and where to apply it. |
 | [get-started-rewrite-brief.md](./planning/get-started-rewrite-brief.md) | Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of `--pull`, verified commands, and generator notes. |
 | [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |

@@ -9,7 +9,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | --- | --- |
 | Supported base | `crds-enabled` |
 | Support decision | `supported` |
-| Production disposition | `production-review-ready` |
+| Production disposition | `blocked` |
 | Target scope | cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 | Evidence count | 16 |

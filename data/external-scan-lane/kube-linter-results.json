@@ -13,8 +13,8 @@
         "version": "0.8.3"
       },
       "trivy": {
-        "available": false,
-        "version": ""
+        "available": true,
+        "version": "Version: 0.71.1"
       },
       "kubeconform": {
         "available": false,

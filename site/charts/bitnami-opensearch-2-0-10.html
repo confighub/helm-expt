@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -330,14 +381,14 @@
       <h2 id="summary">What To Use</h2>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
+        <div class="metric"><strong>3</strong><span>Candidate base variants</span></div>
         <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
         <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
       </div>
       <p>The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>2.0.10</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default;ha</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>2.0.10</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default;ha;legacy</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -402,7 +453,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir .tmp/demo/bitnami-opensearch-2-0-10-default --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>In confighub proof</dd>
+          <dt>Evidence</dt><dd>Local kubernetes live</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -411,7 +462,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/default/variant.yaml">variant</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/default">package base</a> · <a href="../../runs/opensearch-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/default/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/bitnami-opensearch-2-0-10-default.yaml">render intent</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/default">package base</a> · <a href="../../runs/opensearch-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -424,7 +475,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base ha --work-dir .tmp/demo/bitnami-opensearch-2-0-10-ha --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>In confighub proof</dd>
+          <dt>Evidence</dt><dd>Local kubernetes live</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -433,7 +484,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for ha">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/ha/variant.yaml">variant</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/ha">package base</a> · <a href="../../runs/opensearch-ha-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/ha/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/bitnami-opensearch-2-0-10-ha.yaml">render intent</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/ha">package base</a> · <a href="../../runs/opensearch-ha-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -446,7 +497,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base legacy --work-dir .tmp/demo/bitnami-opensearch-2-0-10-legacy --non-interactive --namespace default</code></dd>
-          <dt>Evidence</dt><dd>In confighub proof</dd>
+          <dt>Evidence</dt><dd>Local kubernetes live</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -455,7 +506,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for legacy">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill watch" title="GitOps: watch"><b>G</b><em>watch</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/legacy/variant.yaml">variant</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/legacy">package base</a> · <a href="../../runs/opensearch-legacy-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">catalog</a> · <a href="../../recipes/bitnami/opensearch/2.0.10/variants/legacy/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml">render intent</a> · <a href="../../packages/bitnami/opensearch/2.0.10/bases/legacy">package base</a> · <a href="../../runs/opensearch-legacy-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article></div>
     </section>
 
@@ -478,7 +529,16 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
       <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
-      <p>No special operating playbook is assigned for this chart. Use the base readiness and proof lanes.</p>
+      <div class="card"><table>
+        <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
+        <tbody><tr><td><a href="../../docs/skills/live-parity.md">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="card"><table>
         <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
         <tbody><tr><td>User status</td><td>works-with-target-prerequisites</td></tr><tr><td>Can I use it?</td><td>not-yet-public-catalog-proof-ready</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Current proof</td><td>proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)</td></tr><tr><td>Coverage</td><td>partial</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (buildable - not yet run)</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td></tr><tr><td>Next action</td><td>run catalog promotion review</td></tr></tbody>
@@ -558,7 +618,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">recipes/bitnami/opensearch/2.0.10/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/recipe.yaml">recipes/bitnami/opensearch/2.0.10/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/opensearch/2.0.10">packages/bitnami/opensearch/2.0.10</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml">recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/CATALOG.md">recipes/bitnami/opensearch/2.0.10/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/bitnami-opensearch-2-0-10-default.yaml">data/helm-render-intents/intents/bitnami-opensearch-2-0-10-default.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/recipe.yaml">recipes/bitnami/opensearch/2.0.10/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/opensearch/2.0.10">packages/bitnami/opensearch/2.0.10</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml">recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -568,6 +628,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

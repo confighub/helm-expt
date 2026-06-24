@@ -7,8 +7,8 @@ is a navigation surface over existing evidence, not a new support decision.
 
 | Field | Value |
 | --- | --- |
-| Supported base | `dev-mode` |
-| Support decision | `rejected` |
+| Supported base | `default` |
+| Support decision | `draft` |
 | Production disposition | `production-review-ready` |
 | Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
@@ -26,7 +26,7 @@ Use dev-mode only for local/demo proof. A production Vault base must cover init/
 
 ## What Remains Before Broader Production Use
 
-Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.
+Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.
 
 ## Bases
 
@@ -49,11 +49,11 @@ Keep dev-mode as the local/demo first path only; create a separate Vault product
 
 | Decision | State |
 | --- | --- |
-| Image policy | `not-production-supported-because-dev-mode-is-local-only` |
-| Scan policy | `not-production-supported-because-dev-mode-is-local-only` |
-| Lifecycle policy | `vault-dev-mode-is-local-only` |
+| Image policy | `requires-image-digest-resolution` |
+| Scan policy | `scanner-findings-need-review` |
+| Lifecycle policy | `no-lifecycle-specific-decision` |
 | Target facts | `no-unresolved-target-prerequisite-in-candidate-base` |
-| Live evidence | `not-production-supported-because-vault-dev-mode-is-local-only` |
+| Live evidence | `fresh-target-evidence-exists-but-final-support-pending` |
 
 ## Evidence Links
 

@@ -74,7 +74,7 @@ spec:
       keys:
         - "tls.crt"
       fact: "Secret/consul/consul-ca-cert:tls.crt"
-      purpose: "Consul TLS CA certificate"
+      purpose: "Consul TLS CA certificate; must sign consul-server-cert"
     -
       variant: "secure-mesh-existing-secrets"
       kind: "Secret"
@@ -84,7 +84,7 @@ spec:
         - "tls.crt"
         - "tls.key"
       fact: "Secret/consul/consul-server-cert:tls.crt+tls.key"
-      purpose: "Consul server TLS certificate and private key"
+      purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
     -
       variant: "secure-mesh-existing-secrets"
       kind: "Secret"

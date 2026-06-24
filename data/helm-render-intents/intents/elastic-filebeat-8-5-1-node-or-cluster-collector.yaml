@@ -1,0 +1,102 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "elastic-filebeat-8-5-1-node-or-cluster-collector"
+  labels:
+    component: "elastic/filebeat"
+    chart: "elastic/filebeat"
+    version: "8.5.1"
+    base: "node-or-cluster-collector"
+    catalogLayer: "F2b"
+spec:
+  component: "elastic/filebeat"
+  chart:
+    name: "elastic/filebeat"
+    version: "8.5.1"
+    sourceRepository: "https://helm.elastic.co"
+    sourceContent: ""
+  baseVariant: "node-or-cluster-collector"
+  renderInputs:
+    recipe: "recipes/elastic/filebeat/8.5.1"
+    variant: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+    revision: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+    packageBase: "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+    sourceLock: "recipes/elastic/filebeat/8.5.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "filebeat"
+    valuesProfile: "recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "target-prerequisite-actions-recorded"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector"
+      -
+        lane: "K"
+        prerequisiteKind: "external-api"
+        prerequisiteName: "unknown"
+        actionKind: "provide-external-service"
+        ownerClass: "operator-review"
+        requiredInputs: "the upstream service/endpoint the workload connects to"
+        evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/elastic/filebeat/8.5.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+    fullModelPath:
+      - "chart/version: elastic/filebeat@8.5.1"
+      - "recipe: recipes/elastic/filebeat/8.5.1"
+      - "base variant: node-or-cluster-collector"
+      - "render intent: data/helm-render-intents/intents/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
+      - "rendered revision: recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+      - "package base: packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

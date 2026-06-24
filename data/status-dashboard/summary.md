@@ -27,18 +27,18 @@ Which detailed CSV should I open next?
 | chart use | limitation decision needed answers | 7/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
-| top100 | average top100 coverage | 88/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
+| top100 | average top100 coverage | 89/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 37/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | first strict top100 promotion wave | 30/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
-| top100 | fast-track top100 promotion candidates | 3/30 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
-| top100 | fast-track promotion review packets | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
-| top100 | fast-track storage rollback reviews | 3/3 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
-| top100 | top100 user-shaped variant queue | 35/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | fast-track top100 promotion candidates | 0/30 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
+| top100 | fast-track promotion review packets | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
+| top100 | fast-track storage rollback reviews | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
+| top100 | top100 user-shaped variant queue | 33/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | useful-base proposal rows | 45 | partial | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
 | top100 | useful-base realized rows | 10/45 | partial | [data/useful-base-realization-wave/wave.csv](../../data/useful-base-realization-wave/wave.csv) |
 | top100 | useful-base proposal families | 7/7 | partial | [data/useful-base-design-queue/families.csv](../../data/useful-base-design-queue/families.csv) |
 | top100 | useful-base proposals not yet built | 35/45 | gap | [data/useful-base-design-queue/queue.csv](../../data/useful-base-design-queue/queue.csv) |
-| top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
+| top100 | top100 limitation-decision queue | 9/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -50,15 +50,15 @@ Which detailed CSV should I open next?
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 199/199 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 199/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 198/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 148/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 12/12 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 50/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 135/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 135/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 121/172 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 153/172 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 127/199 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | two-cluster kind parity pass rows | 121/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 153/178 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | complete core lane rows | 126/199 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 26/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -70,25 +70,25 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/192 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 172/172 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 107/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 52/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 43/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 135/198 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | two-cluster kind parity receipts | 178/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 119/119 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 58/119 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 43/119 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 128 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 57 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 71 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 42/192 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/192 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 10/172 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| live evidence | GitOps aggregate health residue rows | 50/198 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/198 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 16/178 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| production disposition | top20 production-review-ready charts | 19/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production support decisions | target-scoped decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | production support decisions | supported decision artifacts | 17/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | production support decisions | superseded decision artifacts | 2/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | rejected decision artifacts | 1/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | draft decision artifacts | 0/20 | good | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | rejected decision artifacts | 0/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | draft decision artifacts | 1/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -103,9 +103,9 @@ Which detailed CSV should I open next?
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| secrets | top100 variants with explicit Secret disposition | 172/172 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
-| secrets | Secret rows needing lifecycle lane support | 8/74 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
-| secrets | target-fact Secret rows | 31/74 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | top100 variants with explicit Secret disposition | 179/179 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
+| secrets | Secret rows needing lifecycle lane support | 8/75 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | target-fact Secret rows | 31/75 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -138,9 +138,9 @@ evidence work before it becomes production-supported for a target scope.
 | --- | ---: | --- |
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
 | Promote proof-grade charts | 37 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
-| Fast-track low-residue promotion rows | 3 | Open the storage/rollback reviews, choose the target boundaries, complete any proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
+| Fast-track low-residue promotion rows | 0 | Open the storage/rollback reviews, choose the target boundaries, complete any proof lanes listed in fast-track.csv, then record target-scoped support decisions. |
 | Design useful base variants | 35 | Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers. |
-| Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
+| Resolve limitation decisions | 9 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
 ### Hard Proof Gap Work
 
@@ -192,8 +192,8 @@ considered.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| inspect-diff-first | 10 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 52 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 58 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 43 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
@@ -210,21 +210,27 @@ needs a support artifact or a direct receipt review before rerun.
 | argo-cd/argo-cd@9.5.17 | default | watch | gitops-runtime-review | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | watch | target-fit-review | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml](../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml) |
 | bitnami/apache@11.4.29 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/apache@11.4.29 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/contour@21.1.4 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/contour@21.1.4 | no-crds | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/elasticsearch@22.1.6 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/elasticsearch@22.1.6 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/elasticsearch@22.1.6 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.0.9/gitops-runtime-review.yaml) |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | watch | gitops-runtime-review | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](../../recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml) |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml) |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | watch | gitops-runtime-review | [recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml](../../recipes/bitnami/nginx/25.0.0/gitops-runtime-review.yaml) |
 | bitnami/opensearch@2.0.10 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/opensearch@2.0.10 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/opensearch@2.0.10 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/phpmyadmin@20.0.0 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/phpmyadmin@20.0.0 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/spark@10.0.3 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/spark@10.0.3 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/spark@10.0.3 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/zookeeper@13.8.7 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/zookeeper@13.8.7 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/zookeeper@13.8.7 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | dex/dex@0.24.0 | default | watch | runtime-review | - |
 | elastic/filebeat@8.5.1 | default | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | runtime-review | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](../../recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml) |
@@ -263,9 +269,15 @@ needs a support artifact or a direct receipt review before rerun.
 | velero/velero@12.0.1 | default | blocked | render-input-model | [recipes/velero/velero/12.0.1/value-model.yaml](../../recipes/velero/velero/12.0.1/value-model.yaml) |
 | velero/velero@12.0.1 | no-crds | blocked | render-input-model | [recipes/velero/velero/12.0.1/value-model.yaml](../../recipes/velero/velero/12.0.1/value-model.yaml) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | inspect-parity-diff | - |
+| bitnami/apache@11.4.29 | legacy | blocked | inspect-parity-diff | - |
 | bitnami/contour@21.1.4 | no-crds | blocked | inspect-parity-diff | - |
+| bitnami/elasticsearch@22.1.6 | legacy | blocked | inspect-parity-diff | - |
 | bitnami/opensearch@2.0.10 | default | blocked | inspect-parity-diff | - |
 | bitnami/opensearch@2.0.10 | ha | blocked | inspect-parity-diff | - |
+| bitnami/opensearch@2.0.10 | legacy | blocked | inspect-parity-diff | - |
+| bitnami/phpmyadmin@20.0.0 | legacy | blocked | inspect-parity-diff | - |
+| bitnami/spark@10.0.3 | legacy | blocked | inspect-parity-diff | - |
+| bitnami/zookeeper@13.8.7 | legacy | blocked | inspect-parity-diff | - |
 | grafana/pyroscope@2.0.2 | ha | blocked | inspect-parity-diff | - |
 | hashicorp/terraform@1.1.2 | default | blocked | inspect-parity-diff | - |
 | nats/nack@0.34.0 | default | blocked | inspect-parity-diff | - |
@@ -385,17 +397,17 @@ top-100 chart and the next command or file to open.
 | Adoption bucket | Charts |
 | --- | ---: |
 | promote-after-review | 37 |
-| needs-useful-variant | 35 |
+| needs-useful-variant | 33 |
 | try-from-public-catalog | 20 |
-| limitation-decision-first | 7 |
+| limitation-decision-first | 9 |
 | not-ready | 1 |
 
 | Strongest evidence | Charts |
 | --- | ---: |
 | live-helm-vs-confighub-parity | 70 |
-| in-confighub-proof | 21 |
+| in-confighub-proof | 15 |
+| local-kubernetes-live | 9 |
 | two-cluster-kind-parity | 6 |
-| local-kubernetes-live | 3 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -469,11 +481,11 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 199 | 0 | 0 | 199 |
+| in-ConfigHub | 198 | 0 | 1 | 199 |
 | local live | 148 | 51 | 0 | 199 |
-| GitOps/OCI live | 135 | 57 | 7 | 199 |
-| live Helm-vs-ConfigHub parity | 135 | 57 | 7 | 199 |
-| two-cluster kind parity | 121 | 51 | 0 | 172 |
+| GitOps/OCI live | 135 | 63 | 1 | 199 |
+| live Helm-vs-ConfigHub parity | 135 | 63 | 1 | 199 |
+| two-cluster kind parity | 121 | 57 | 0 | 178 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -482,8 +494,8 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/192
-two-cluster kind parity:       10/172
+ConfigHub/OCI live comparison: 0/198
+two-cluster kind parity:       16/178
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -499,14 +511,14 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-diff-first | 10 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 52 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
+| model-or-stage-first | 58 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 43 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| inspect-parity-diff | 10 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
+| inspect-parity-diff | 16 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
 | stage-prerequisite | 19 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
@@ -516,7 +528,7 @@ useful.
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | capability-profile-base | 2 | Read the receipt and classify the row before rerunning. |
 | crd-bootstrap | 1 | Read the receipt and classify the row before rerunning. |
-| image-retention-review | 24 | Read the receipt and classify the row before rerunning. |
+| image-retention-review | 30 | Read the receipt and classify the row before rerunning. |
 | render-input-model | 3 | Model the required Helm values as a real base before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
@@ -537,17 +549,23 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | watch | target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed) |
 | bitnami/apache@11.4.29 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/apache@11.4.29 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/contour@21.1.4 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/elasticsearch@22.1.6 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/elasticsearch@22.1.6 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/elasticsearch@22.1.6 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/opensearch@2.0.10 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/opensearch@2.0.10 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/opensearch@2.0.10 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/phpmyadmin@20.0.0 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/phpmyadmin@20.0.0 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/spark@10.0.3 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/spark@10.0.3 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/spark@10.0.3 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/zookeeper@13.8.7 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/zookeeper@13.8.7 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/zookeeper@13.8.7 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | dex/dex@0.24.0 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
 | elastic/filebeat@8.5.1 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | watch | target-runtime: pod ContainerCreating (parity passed) |
@@ -593,17 +611,23 @@ Current two-cluster kind parity non-pass receipts:
 | autoscaler/cluster-autoscaler@9.57.0 | default | watch | render-input: required Helm values missing (parity passed) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | blocked | parity: semantic object diff |
 | bitnami/apache@11.4.29 | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/apache@11.4.29 | legacy | blocked | parity: semantic object diff |
 | bitnami/contour@21.1.4 | default | blocked | helm-hook: pre-install certificate generation failed (parity passed) |
 | bitnami/contour@21.1.4 | no-crds | blocked | parity: semantic object diff |
 | bitnami/elasticsearch@22.1.6 | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/elasticsearch@22.1.6 | ha | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/elasticsearch@22.1.6 | legacy | blocked | parity: semantic object diff |
 | bitnami/opensearch@2.0.10 | default | blocked | parity: semantic object diff |
 | bitnami/opensearch@2.0.10 | ha | blocked | parity: semantic object diff |
+| bitnami/opensearch@2.0.10 | legacy | blocked | parity: semantic object diff |
 | bitnami/phpmyadmin@20.0.0 | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/phpmyadmin@20.0.0 | legacy | blocked | parity: semantic object diff |
 | bitnami/spark@10.0.3 | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/spark@10.0.3 | ha | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/spark@10.0.3 | legacy | blocked | parity: semantic object diff |
 | bitnami/zookeeper@13.8.7 | default | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/zookeeper@13.8.7 | ha | blocked | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/zookeeper@13.8.7 | legacy | blocked | parity: semantic object diff |
 | dex/dex@0.24.0 | default | blocked | target-runtime: pod crash loop (parity passed) |
 | elastic/filebeat@8.5.1 | default | blocked | target-prerequisite: required Secret missing (parity passed) |
 | elastic/filebeat@8.5.1 | node-or-cluster-collector | blocked | helm-runtime: upstream not ready (parity passed) |
@@ -652,20 +676,20 @@ is recorded only in the target-scoped support decision artifacts.
 
 | Metric | Value |
 | --- | ---: |
-| production-review-ready disposition rows | 20/20 |
-| production-blocked pending disposition | 0/20 |
+| production-review-ready disposition rows | 19/20 |
+| production-blocked pending disposition | 1/20 |
 | charts with accepted dispositions | 20/20 |
 | target-scoped support decision artifacts | 20/20 |
 | supported decision artifacts | 17/20 |
 | superseded decision artifacts | 2/20 |
-| rejected decision artifacts | 1/20 |
-| draft decision artifacts | 0/20 |
+| rejected decision artifacts | 0/20 |
+| draft decision artifacts | 1/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| none | 0 |
+| target fact preflight | 1 |
 
 | Scan route | Charts |
 | --- | ---: |

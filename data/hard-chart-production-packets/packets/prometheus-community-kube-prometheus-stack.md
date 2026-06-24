@@ -12,7 +12,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | Production disposition | `production-review-ready` |
 | Target scope | cub-lk-kind-vanilla; namespace=monitoring; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
-| Evidence count | 17 |
+| Evidence count | 16 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
 | Live summary | local:2/2 gitops:2/2 live-parity:2/2 two-cluster:2/2 |
 

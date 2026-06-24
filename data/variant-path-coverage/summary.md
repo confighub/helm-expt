@@ -8,7 +8,7 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Path Type
 
 - base-to-base-diff: 2
-- base-variant: 192
+- base-variant: 199
 - derived-confighub-variant: 10
 - upgrade-simulation: 4
 
@@ -23,13 +23,13 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 34
+- blocked: 35
 - fail: 18
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
 - pass: 127
-- watch: 13
+- watch: 19
 
 ## Live Status Meanings
 
@@ -53,12 +53,12 @@ ConfigHub variant, or an upgrade/customization path.
 | `argo-cd/argo-workflows@1.0.14` | `default` | base-variant | blocked | local_kind_kubectl_apply |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | `default` | base-variant | fail | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/apache@11.4.29` | `default` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/apache@11.4.29` | `legacy` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `default` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/contour@21.1.4` | `legacy` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `no-crds` | base-variant | blocked | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/elasticsearch@22.1.6` | `default` | base-variant | fail | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/elasticsearch@22.1.6` | `ha` | base-variant | fail | local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `bitnami/mongodb@19.0.9` | `existing-secret-replicaset` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `bitnami/mongodb@19.1.0` | `existing-secret-replicaset` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

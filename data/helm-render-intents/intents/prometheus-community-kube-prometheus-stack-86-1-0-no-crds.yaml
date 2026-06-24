@@ -1,0 +1,162 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-86-1-0-no-crds"
+  labels:
+    component: "prometheus-community/kube-prometheus-stack"
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "86.1.0"
+    base: "no-crds"
+    catalogLayer: "F2b"
+spec:
+  component: "prometheus-community/kube-prometheus-stack"
+  chart:
+    name: "prometheus-community/kube-prometheus-stack"
+    version: "86.1.0"
+    sourceRepository: "https://prometheus-community.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "no-crds"
+  renderInputs:
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/86.1.0"
+    variant: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+    revision: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/kube-prometheus-stack/86.1.0/bases/no-crds"
+    sourceLock: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/source-lock.yaml"
+    namespace: "monitoring"
+    releaseName: "kube-prometheus-stack"
+    valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/effective-values-no-crds.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "7"
+    dispositions: "observed:7"
+    executionModes: "target-owned:3; user-executes:4"
+    safeAutomatic: "0/7"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "preserve-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "postsync-check-or-observation"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "post-apply"
+        actionKind: "run-check"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a post-apply check (receipted)"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+      -
+        routeName: "preserve-ordering"
+        quirkClass: "hook-weight-ordering"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — applies objects in order, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "reduced"
+        reason: "CRD-first ordering is not needed in a base that installs no CRDs"
+      -
+        routeName: "target-facts-or-preflight"
+        quirkClass: "target-facts"
+        lifecyclePhase: "preflight"
+        actionKind: "stage-target-facts"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+        disposition: "observed"
+        delta: "strengthened"
+        reason: "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
+      -
+        routeName: "webhook-readiness-observation"
+        quirkClass: "webhook-readiness"
+        lifecyclePhase: "observe"
+        actionKind: "observe-webhook"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — sets up the webhook certificate, automatically"
+        command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/kube-prometheus-stack/86.1.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/86.1.0/bases/no-crds"
+    fullModelPath:
+      - "chart/version: prometheus-community/kube-prometheus-stack@86.1.0"
+      - "recipe: recipes/prometheus-community/kube-prometheus-stack/86.1.0"
+      - "base variant: no-crds"
+      - "render intent: data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.yaml"
+      - "rendered revision: recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "package base: packages/prometheus-community/kube-prometheus-stack/86.1.0/bases/no-crds"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

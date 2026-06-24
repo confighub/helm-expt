@@ -9,9 +9,9 @@ argo-cd/argocd-image-updater,1.2.2,live-parity,1,live-parity,live,docs/skills/li
 autoscaler/cluster-autoscaler,9.57.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 autoscaler/vertical-pod-autoscaler,0.9.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,,0,none,,
-bitnami/apache,11.4.29,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts; lookup,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
+bitnami/apache,11.4.29,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/contour,21.1.4,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel,3,hook-and-secret-lifecycle,generated-facts; crds; lookup,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
-bitnami/elasticsearch,22.1.6,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
+bitnami/elasticsearch,22.1.6,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/memcached,8.5.5,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/mongodb,19.0.7,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/mongodb,19.0.9,live-parity,1,live-parity,live,docs/skills/live-parity.md
@@ -20,16 +20,16 @@ bitnami/mysql,14.0.3,hook-and-secret-lifecycle; target-facts-and-lifecycle; live
 bitnami/nginx,24.0.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/nginx,24.0.4,live-parity,1,live-parity,live,docs/skills/live-parity.md
 bitnami/nginx,25.0.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
-bitnami/opensearch,2.0.10,,0,none,,
-bitnami/phpmyadmin,20.0.0,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
+bitnami/opensearch,2.0.10,live-parity,1,live-parity,live,docs/skills/live-parity.md
+bitnami/phpmyadmin,20.0.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/postgresql,18.6.10,live-parity,1,live-parity,live,docs/skills/live-parity.md
 bitnami/postgresql,18.6.7,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/postgresql,18.7.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 bitnami/rabbitmq,16.0.14,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/redis,25.5.3,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/redis,27.0.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
-bitnami/spark,10.0.3,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
-bitnami/zookeeper,13.8.7,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
+bitnami/spark,10.0.3,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+bitnami/zookeeper,13.8.7,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 cloudnative-pg/cloudnative-pg,0.28.2,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; generated-facts; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 coredns/coredns,1.45.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 crossplane-stable/crossplane,2.3.1,live-parity,1,live-parity,live,docs/skills/live-parity.md

@@ -11,7 +11,7 @@ ConfigHub function checks or chart-specific production dispositions.
 | Tool | Available | Version |
 | --- | --- | --- |
 | kube-linter | yes | 0.8.3 |
-| Trivy | no | n/a |
+| Trivy | yes | Version: 0.71.1 |
 | kubeconform | no | n/a |
 
 ## Summary

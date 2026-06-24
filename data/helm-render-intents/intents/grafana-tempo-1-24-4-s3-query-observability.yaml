@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "grafana-tempo-1-24-4-s3-query-observability"
+  labels:
+    component: "grafana/tempo"
+    chart: "grafana/tempo"
+    version: "1.24.4"
+    base: "s3-query-observability"
+    catalogLayer: "F2b"
+spec:
+  component: "grafana/tempo"
+  chart:
+    name: "grafana/tempo"
+    version: "1.24.4"
+    sourceRepository: "https://grafana.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "s3-query-observability"
+  renderInputs:
+    recipe: "recipes/grafana/tempo/1.24.4"
+    variant: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+    revision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
+    sourceLock: "recipes/grafana/tempo/1.24.4/source-lock.yaml"
+    namespace: "tempo"
+    releaseName: "tempo"
+    valuesProfile: "recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml"
+    capabilityProfile:
+      apiVersions:
+        - "networking.k8s.io/v1"
+        - "monitoring.coreos.com/v1"
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+  targetFacts:
+    status: "no-target-prerequisite-action-recorded"
+    actions:
+      []
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/grafana/tempo/1.24.4"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/s3-query-observability"
+    fullModelPath:
+      - "chart/version: grafana/tempo@1.24.4"
+      - "recipe: recipes/grafana/tempo/1.24.4"
+      - "base variant: s3-query-observability"
+      - "render intent: data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+      - "rendered revision: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+      - "package base: packages/grafana/tempo/1.24.4/bases/s3-query-observability"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

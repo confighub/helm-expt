@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -323,18 +374,18 @@
     <p style="margin-top:14px;font-size:.95rem"><a href="./matrix.html">Read the matrix</a> · <a href="../data/claims-register/summary.md">Read the claims register</a></p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this proof page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this proof page.</p>
     <section aria-labelledby="counters">
       <h2 id="counters">Current Proof Counters</h2>
       <div class="grid">
         <div class="metric"><strong>199/199</strong><span>Render parity · Regular Helm output and cub installer package output match under recorded inputs.</span></div>
-        <div class="metric"><strong>199/199</strong><span>In-ConfigHub proof · Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units.</span></div>
+        <div class="metric"><strong>198/199</strong><span>In-ConfigHub proof · Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units.</span></div>
         <div class="metric"><strong>148/199</strong><span>Local live · The package was applied to a local Kubernetes target and observed.</span></div>
         <div class="metric"><strong>135/199</strong><span>GitOps/OCI live · ConfigHub-published OCI was pulled and reconciled by Argo in a live run.</span></div>
         <div class="metric"><strong>135/199</strong><span>Live dual parity · Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo reached the same semantic object outcome.</span></div>
-        <div class="metric"><strong>121/172</strong><span>Two-cluster kind parity · Regular Helm and cub installer were compared on two vanilla kind clusters.</span></div>
-        <div class="metric"><strong>127/199</strong><span>Complete core lane · Rows with render, ConfigHub, local live, GitOps/OCI, live parity, and two-cluster evidence.</span></div>
-        <div class="metric"><strong>0/192</strong><span>Semantic defects · Committed live parity rows where ConfigHub and Helm disagree semantically.</span></div>
+        <div class="metric"><strong>121/178</strong><span>Two-cluster kind parity · Regular Helm and cub installer were compared on two vanilla kind clusters.</span></div>
+        <div class="metric"><strong>126/199</strong><span>Complete core lane · Rows with render, ConfigHub, local live, GitOps/OCI, live parity, and two-cluster evidence.</span></div>
+        <div class="metric"><strong>0/198</strong><span>Semantic defects · Committed live parity rows where ConfigHub and Helm disagree semantically.</span></div>
       </div>
     </section>
 

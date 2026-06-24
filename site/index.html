@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -318,43 +369,33 @@
 <body>
   <header class="home-hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Change Helm charts without losing track</h1>
-    <p class="lead">Helm is easy to start and hard to customize safely. ConfigHub turns Helm output into versioned Kubernetes configuration that teams can inspect, compare, promote, and observe.</p>
-    <p>Keep Helm as the source. Use ConfigHub when values, variants, upgrades, GitOps delivery, or AI-assisted changes need a control plane.</p>
-    <div class="journey-flow" aria-label="Four-step product journey">
-      <a class="journey-step" href="./try.html">
-        <span class="kicker">First</span>
-        <h3>See How It Works</h3>
-        <p>Try the no-account path: render a chart, inspect the objects, and see what ConfigHub adds.</p>
-        <span class="go">Get Started</span>
-      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-      <a class="journey-step" href="./charts/index.html">
-        <span class="kicker">Second</span>
-        <h3>Pick a Helm Chart to Try</h3>
-        <p>Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.</p>
-        <span class="go">Helm Catalog</span>
-      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-      <a class="journey-step" href="./variants.html">
-        <span class="kicker">Then</span>
-        <h3>Manage Helm Variants</h3>
-        <p>Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.</p>
-        <span class="go">Variants</span>
-      </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-      <a class="journey-step" href="./journey.html">
-        <span class="kicker">Later</span>
-        <h3>Your Own Live Apps</h3>
-        <p>Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.</p>
-        <span class="go">Apps</span>
-      </a>
+    <div class="hero-copy">
+      <h1>Look before you install</h1>
+      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
+      <div class="hero-actions" aria-label="Primary actions">
+        <a class="button primary" href="./try.html">Get started</a>
+        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
+      </div>
+    </div>
+    <div class="terminal-card home-terminal" aria-label="Look first command">
+      <div class="terminal-title">look first</div>
+      <pre class="terminal-body"><code><span class="term-comment"># render any chart first - no account, no install</span>
+<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \
+    --base default --work-dir ./out --non-interactive
+<span class="term-prompt">$</span> ls ./out/manifests          <span class="term-comment"># every object Helm would install - read them first</span></code></pre>
     </div>
   </header>
   <main>
-    <section aria-labelledby="quick-context">
-      <h2 id="quick-context">The Problem</h2>
-      <p>ConfigHub builds tools for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI for that model.</p>
-      <p>Helm charts usually start well. Then every team, cluster, customer, and environment needs a tweak: a Secret model, an ingress rule, CRDs on or off, storage, cloud identity, RBAC, hooks, resource limits, node placement, or a values file that only works in one place.</p>
-      <p>Those choices are normal. The risk is losing sight of the install. Defaults may be unsafe for your target. Old versions may need to stay pinned. The next upgrade may change CRDs, webhooks, storage, or permissions. A small values change can become a production surprise.</p>
-      <p>helm-expt tests whether ConfigHub can make Helm customization visible, repeatable, reviewable, and safer to operate.</p>
+    <section aria-labelledby="look-first">
+      <h2 id="look-first">What You See First</h2>
+      <div class="catalog light-grid">
+        <div class="card"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
+        <div class="card"><h3>See the secret it bakes in</h3><p>Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry.</p></div>
+        <div class="card"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
+        <div class="card"><h3>Bringing AI?</h3><p>When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML.</p></div>
+      </div>
+      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
+      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
     </section>
 
     <section aria-labelledby="control-value">
@@ -372,6 +413,32 @@
     <section aria-labelledby="start">
       <h2 id="start">Start Here</h2>
       <p>First try the no-account path and inspect the generated Kubernetes objects. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
+      <div class="journey-flow" aria-label="Four-step product journey">
+        <a class="journey-step" href="./try.html">
+          <span class="kicker">First</span>
+          <h3>Look before you install</h3>
+          <p>Render a chart first, read the objects, and see what ConfigHub adds before anything reaches a cluster.</p>
+          <span class="go">Get Started</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./charts/index.html">
+          <span class="kicker">Second</span>
+          <h3>Pick a Helm Chart to Try</h3>
+          <p>Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.</p>
+          <span class="go">Helm Catalog</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./variants.html">
+          <span class="kicker">Then</span>
+          <h3>Your versions</h3>
+          <p>Start from one base and make as many versions as you need: dev, staging, prod, one per region or customer.</p>
+          <span class="go">Variants</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./journey.html">
+          <span class="kicker">Later</span>
+          <h3>Your apps, your releases</h3>
+          <p>Add your own apps alongside public charts, then move them from staging to production.</p>
+          <span class="go">Apps</span>
+        </a>
+      </div>
       <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
     </section>
 

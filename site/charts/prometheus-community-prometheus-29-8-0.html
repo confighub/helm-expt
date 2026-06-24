@@ -84,6 +84,57 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
@@ -357,7 +408,7 @@
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion mechanics passed; But changeset bound promote failed and required the no changeset fallback</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion receipt passed</p>
       </div>
     </section>
 
@@ -423,7 +474,7 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
         <div class="lane-strip" aria-label="Proof lanes for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/default/variant.yaml">variant</a> · <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/default">package base</a> · <a href="../../runs/prometheus-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/default/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-default.yaml">render intent</a> · <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/default">package base</a> · <a href="../../runs/prometheus-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -440,12 +491,12 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Next</dt><dd>Choose the target ready base; Then record explicit security acceptance or create a hardened base before claiming a target run path</dd>
-          <dt>Reason</dt><dd>Server side promotion mechanics passed; But changeset bound promote failed and required the no changeset fallback</dd>
+          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for server-only-ephemeral">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill watch" title="Promotion: watch"><b>V</b><em>watch</em></span>
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml">variant</a> · <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral">package base</a> · <a href="../../runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml">render intent</a> · <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral">package base</a> · <a href="../../runs/prometheus-server-only-ephemeral-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -654,7 +705,7 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">recipes/prometheus-community/prometheus/29.8.0/CATALOG.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/recipe.yaml">recipes/prometheus-community/prometheus/29.8.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml">recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml">data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">recipes/prometheus-community/prometheus/29.8.0/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml">data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/recipe.yaml">recipes/prometheus-community/prometheus/29.8.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml">recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml">data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -664,6 +715,6 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-23T08:32:01.928Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

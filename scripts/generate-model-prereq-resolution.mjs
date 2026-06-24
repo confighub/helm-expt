@@ -25,6 +25,16 @@ const prereqRows = readCsv(join(repoRoot, "data", "target-prerequisite-workdown"
 const targetActionRows = readCsv(join(repoRoot, "data", "target-prerequisite-actions", "actions.csv"));
 const targetActionByKey = new Map(targetActionRows.map((row) => [rowKey(row), row]));
 
+function legacyNamespaceNormalization(label) {
+  return {
+    resolutionPath: "semantic-normalization",
+    variantRole: "legacy image-retention base",
+    recommended: `keep ${label} as the retained-image base; normalize the installer Namespace support object before treating K parity as green`,
+    firstStep: "record the Namespace support object as expected installer scaffolding rather than a Helm semantic difference",
+    evidenceNeeded: "fresh K receipt with the Namespace support object normalized, or an explicit watch disposition if that normalization is not accepted",
+  };
+}
+
 function modelResolution(row) {
   const manual = MODEL_RESOLUTIONS[`${row.chart}@${row.version}#${row.base}#${row.lane}`];
   check(Boolean(manual), `missing model resolution for ${row.chart}@${row.version} ${row.base} ${row.lane}`);
@@ -86,6 +96,7 @@ const MODEL_RESOLUTIONS = {
     firstStep: "separate vanilla-kind parity from the AWS/EKS topology claim recorded in target-topology.yaml",
     evidenceNeeded: "fresh K or target-profile receipt that names the AWS/EKS topology and explains any support object normalization",
   },
+  "bitnami/apache@11.4.29#legacy#K": legacyNamespaceNormalization("apache legacy"),
   "bitnami/contour@21.1.4#no-crds#K": {
     resolutionPath: "external-crds-base",
     variantRole: "CRD ownership base",
@@ -93,6 +104,8 @@ const MODEL_RESOLUTIONS = {
     firstStep: "make the CRD ownership choice visible in the base name and target-prerequisite action packet",
     evidenceNeeded: "fresh K receipt after CRDs are staged, or a CRD-rendering sibling selected as the supported base",
   },
+  "bitnami/elasticsearch@22.1.6#legacy#K": legacyNamespaceNormalization("elasticsearch legacy"),
+  "bitnami/opensearch@2.0.10#legacy#K": legacyNamespaceNormalization("opensearch legacy"),
   "bitnami/opensearch@2.0.10#default#K": {
     resolutionPath: "semantic-normalization",
     variantRole: "existing base with normalization",
@@ -107,6 +120,9 @@ const MODEL_RESOLUTIONS = {
     firstStep: "inspect the HA K receipt diffs and split target topology from semantic noise",
     evidenceNeeded: "fresh K receipt for ha, or a new single-node-local base plus receipts if HA is too target-specific",
   },
+  "bitnami/phpmyadmin@20.0.0#legacy#K": legacyNamespaceNormalization("phpmyadmin legacy"),
+  "bitnami/spark@10.0.3#legacy#K": legacyNamespaceNormalization("spark legacy"),
+  "bitnami/zookeeper@13.8.7#legacy#K": legacyNamespaceNormalization("zookeeper legacy"),
   "grafana/pyroscope@2.0.2#ha#K": {
     resolutionPath: "use-existing-sibling-or-split-crds",
     variantRole: "HA base with CRD ownership boundary",

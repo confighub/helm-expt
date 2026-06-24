@@ -1,13 +1,13 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "grafana-grafana-generated-passwords-public-oci-superseded"
+  name: "grafana-grafana-existing-secret-ingress-public-oci-superseded"
 spec:
   chart: "grafana/grafana"
   version: "10.5.15"
   decision: superseded
   decisionDate: "2026-06-09"
-  supportedBase: "generated-passwords"
+  supportedBase: "existing-secret-ingress"
   targetScope:
     clusterClass: vanilla-kubernetes
     namespace: "grafana"
@@ -17,10 +17,11 @@ spec:
       - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
     networkAssumptions:
       - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
-    requiredTargetFacts: []
+    requiredTargetFacts:
+      - "Secret grafana/grafana-admin with admin-user and admin-password"
   supportBoundary:
     includes:
-      - "grafana/grafana@10.5.15 generated-passwords base"
+      - "grafana/grafana@10.5.15 existing-secret-ingress base"
       - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
     excludes:
@@ -38,19 +39,19 @@ spec:
       state: "no-lifecycle-specific-decision"
       detail: "no lifecycle-specific decision beyond standard support boundary"
     targetFactDecision:
-      state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      state: "target-secret-required-and-staged-in-receipts"
+      detail: "existing-secret-ingress requires Secret grafana/grafana-admin with admin-user and admin-password; committed live receipts stage that target fact for the tested scope"
     liveEvidenceDecision:
       state: "not-production-supported-because-source-chart-is-deprecated"
       detail: "live evidence exists for the proof corpus, but production support should be based on a maintained Grafana chart or replacement catalog source"
   evidence:
-    - path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+    - path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml"
       claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml"
+    - path: "runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml"
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
-    - path: "runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml"
+    - path: "runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml"
       claim: "The cluster rbac review receipt exists for this chart."

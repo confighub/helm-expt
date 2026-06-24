@@ -63,7 +63,7 @@ spec:
       liveParity: "2/2"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots;remote-dependencies"
     hardGap: "existing-secret (chart ships no Secret toggle)"
-    nextAction: "choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision"
+    nextAction: "choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"
