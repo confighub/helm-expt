@@ -81,8 +81,12 @@ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objec
 ls ./prom/out/manifests                                              # the same objects, plus an explicit Namespace
 ```
 
-Same objects, confirmed before you install. (cub writes the `Namespace` as its own file; Helm
-leaves it implicit — that is the one extra.)
+Same objects, confirmed before you install. Helm-verified. No surprise installs. (cub renders
+the `Namespace` as its own file; Helm leaves it implicit — the one extra object.)
+
+> A note on honesty: "Helm-verified. No surprise installs." is scoped on purpose. The proofs
+> cover *what gets installed* matching Helm (render + install parity), not how the workload
+> behaves at runtime — so the line promises no surprise *installs*, not "no more surprises."
 
 #### The other delivery — GitOps via OCI
 
