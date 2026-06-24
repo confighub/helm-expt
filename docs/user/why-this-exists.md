@@ -17,6 +17,24 @@ cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm
 there to make Helm's output durable, comparable, and auditable — to turn one install
 into something you can still reason about a year and a thousand installs later.
 
+Parity with Helm is not the product benefit by itself. It is the migration
+assurance check: before ConfigHub adds value, the user needs to know that the
+ConfigHub path did not quietly change the starting objects. The product value is
+what becomes possible after that check: recorded render inputs, explicit
+variants, safer upgrade review, policy gates, GitOps handoff, observations, and
+operations on visible desired state.
+
+The fast `cub helm install` path only becomes durable when its inputs are
+captured. Chart source, version, release name, namespace, values files, `--set`
+flags, capability assumptions, and generated facts must be recorded somewhere
+that can be reviewed and rerun. That is why the roadmap includes renderer/input
+capture work such as ConfigHub issue
+[#3393](https://github.com/confighubai/confighub/issues/3393) and the broader
+renderer model in
+[#4369](https://github.com/confighubai/confighub/issues/4369). Argo CD and Flux
+already have render inputs in their own manifests; ConfigHub should use those
+facts rather than inventing a parallel hidden install.
+
 ## Not A Replacement For The Fast Paths
 
 `cub helm template` is the fast local render path. Use it when the user wants

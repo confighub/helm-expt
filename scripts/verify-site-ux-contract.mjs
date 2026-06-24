@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["ConfigHub makes Helm work for you", "ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration", "Who We Are And Why This Exists", "cub helm install"],
+    terms: ["Change Helm charts without losing track", "Helm is easy to start and hard to customize safely", "The Problem", "Parity with Helm is the first safety check", "Recorded inputs"],
   },
   {
     file: "site/variants.html",
@@ -107,7 +107,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration", "See How It Works", "Pick a Helm Chart to Try"],
+    headerTerms: ["Helm is easy to start and hard to customize safely", "Use ConfigHub when values, variants, upgrades, GitOps delivery, or AI-assisted changes need a control plane", "See How It Works", "Pick a Helm Chart to Try"],
   },
   {
     file: "site/try.html",

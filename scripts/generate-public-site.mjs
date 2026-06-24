@@ -486,16 +486,16 @@ function html(catalog) {
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const journeySteps = [
-    ["First", "See How It Works", "Try the no-account path: render a chart, compare it with Helm, and inspect the objects before apply.", "./try.html", "Get Started"],
-    ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, evidence, and actions.", "./charts/index.html", "Helm Catalog"],
+    ["First", "See How It Works", "Try the no-account path: render a chart, inspect the objects, and see what ConfigHub adds.", "./try.html", "Get Started"],
+    ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.", "./charts/index.html", "Helm Catalog"],
     ["Then", "Manage Helm Variants", "Create customised variants of your chart, promote through environments, and manage target-specific choices before app delivery.", "./variants.html", "Variants"],
     ["Later", "Your Own Live Apps", "Combine public charts, custom app pieces, and stacks, then deploy and operate them once the app is running.", "./journey.html", "Apps"],
   ];
   const valueCards = [
-    ["Control", "See the Kubernetes objects Helm produced. Keep them versioned and reviewable.", "./variants.html", "Variants"],
-    ["Safer change", "Compare variants before rollout. Make the risky parts visible.", "./how-it-works.html", "How it works"],
-    ["Operations", "Promote, deliver, observe, patch, and upgrade from one managed configuration path.", "./operations.html", "Ops"],
-    ["AI", "Let AI propose changes while ConfigHub keeps the result inspectable.", "./ai.html", "AI guide"],
+    ["Recorded inputs", "Keep the chart version, values, namespace, capabilities, and generated facts with the objects they produced.", "./how-it-works.html", "How it works"],
+    ["Visible variants", "Make dev, staging, production, customer, and target choices explicit instead of scattering values files.", "./variants.html", "Variants"],
+    ["Upgrade checks", "Compare old and new objects before rollout, especially CRDs, webhooks, storage, Secrets, RBAC, and removed resources.", "./operations.html", "Ops"],
+    ["AI with control", "Let AI propose changes while ConfigHub shows the exact config change before it reaches a cluster.", "./ai.html", "AI guide"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -508,8 +508,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 <body>
   <header class="home-hero human-hero">
     ${topNav(".")}
-    <h1>ConfigHub makes Helm work for you</h1>
-    <p class="lead">ConfigHub <code>cub helm install</code> is open source and lets teams turn Helm output into visible, versioned configuration they can review, customize, and operate with fewer surprises.</p>
+    <h1>Change Helm charts without losing track</h1>
+    <p class="lead">Helm is easy to start and hard to customize safely. ConfigHub turns Helm output into versioned Kubernetes configuration that teams can inspect, compare, promote, and observe.</p>
+    <p>Keep Helm as the source. Use ConfigHub when values, variants, upgrades, GitOps delivery, or AI-assisted changes need a control plane.</p>
     <div class="journey-flow" aria-label="Four-step product journey">
       ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
         <span class="kicker">${escapeHtml(number)}</span>
@@ -521,15 +522,17 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   </header>
   <main>
     <section aria-labelledby="quick-context">
-      <h2 id="quick-context">Who We Are And Why This Exists</h2>
-      <p>ConfigHub builds tools for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI.</p>
-      <p>Helm is a good way to start. The trouble begins when every app needs custom values, Secrets, CRDs, hooks, storage, cloud identity, old pinned versions, or customer-specific settings.</p>
-      <p>helm-expt asks a simple question first: can the ConfigHub path produce the same Kubernetes objects as ordinary Helm, while making those objects easier to inspect and manage?</p>
+      <h2 id="quick-context">The Problem</h2>
+      <p>ConfigHub builds tools for managing Kubernetes configuration as data. <code>cub</code> is our open source CLI for that model.</p>
+      <p>Helm charts usually start well. Then every team, cluster, customer, and environment needs a tweak: a Secret model, an ingress rule, CRDs on or off, storage, cloud identity, RBAC, hooks, resource limits, node placement, or a values file that only works in one place.</p>
+      <p>Those choices are normal. The risk is losing sight of the install. Defaults may be unsafe for your target. Old versions may need to stay pinned. The next upgrade may change CRDs, webhooks, storage, or permissions. A small values change can become a production surprise.</p>
+      <p>helm-expt tests whether ConfigHub can make Helm customization visible, repeatable, reviewable, and safer to operate.</p>
     </section>
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">What ConfigHub Adds</h2>
-      <p>ConfigHub turns a Helm render into visible, versioned configuration. That gives teams a place to review, customise, promote, deliver, and observe changes.</p>
+      <p>Parity with Helm is the first safety check. It tells a Helm user that ConfigHub did not quietly change the starting objects.</p>
+      <p>The value is control after that point: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="catalog">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
@@ -537,13 +540,14 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 
     <section aria-labelledby="start">
       <h2 id="start">Start Here</h2>
-      <p>First try the no-account path. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
+      <p>First try the no-account path and inspect the generated Kubernetes objects. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
       <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
     </section>
 
     <section aria-labelledby="limits">
       <h2 id="limits">What To Check</h2>
-      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. The chart pages and FAQ name those cases instead of hiding them.</p>
+      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. Some defaults are only examples and should not be used as production security settings. The chart pages and FAQ name those cases instead of hiding them.</p>
+      <p>A one-shot Helm import is useful, but it is not enough for repeatable operations unless the render inputs are recorded. The catalog recipes record those inputs; the direct <code>cub helm install</code> path still has product work to do here.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
   </main>

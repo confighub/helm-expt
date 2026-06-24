@@ -23,6 +23,13 @@ The durable catalog path starts at `cub installer`, not at `cub helm install`.
 The fast Helm commands are still useful. They are the low-friction render and
 one-shot adoption paths.
 
+A one-shot render is only operationally safe if its inputs are recorded. For a
+Helm chart, that means chart source, version, release name, namespace, values
+files, `--set` flags, capability assumptions, CRD choices, and generated facts.
+The catalog recipe path records those inputs today. The direct
+`cub helm install` path still needs product work so upgrades and reinstalls do
+not depend on someone remembering the original command line.
+
 ## What To Check Next
 
 Each command path leaves the user at a different proof level. Check the matching

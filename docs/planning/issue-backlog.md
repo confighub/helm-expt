@@ -83,6 +83,13 @@ product claims.
 | PR [#1028](https://github.com/confighub/helm-expt/pull/1028) chart-page placeholder lint | merged static release gate | Added the `site:ux:verify` guard so future generated chart pages cannot leak unresolved next-action placeholders or raw work-dir placeholders. |
 | [#1029](https://github.com/confighub/helm-expt/issues/1029) roadmap cleanup follow-up | P1 planning and release-gate hygiene | Tracks the next cleanup pass: split the giant `npm run verify` command into named suites and archive or clearly demote stale planning snapshots. |
 
+## Current Canonical Trackers Added Or Confirmed 2026-06-24
+
+| Tracker | Scope | Why it matters |
+| --- | --- | --- |
+| Upstream ConfigHub [#3393](https://github.com/confighubai/confighub/issues/3393) `cub helm install` should record install arguments | render-input capture, upgrade safety | A one-shot Helm import is not durable unless namespace, values, `--set` flags, chart version, and other render inputs are recorded. This is required before `cub helm install` can safely support repeatable upgrade or reinstall flows. |
+| Upstream ConfigHub [#4369](https://github.com/confighubai/confighub/issues/4369) rendering model | renderer integration, Argo/Flux alignment | Argo CD and Flux already carry Helm render inputs in their own manifests. ConfigHub should use or model those inputs explicitly rather than creating a hidden parallel install path. This keeps helm-expt aligned with existing GitOps users. |
+
 ## Current Operational Issue Groups
 
 | Group | Main issues | Roadmap role |
