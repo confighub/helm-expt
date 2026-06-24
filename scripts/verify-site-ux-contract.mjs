@@ -16,11 +16,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try the idea without a ConfigHub account", "Render and install parity", "OCI for Argo and Flux"],
+    terms: ["Two installs, one outcome", "same running result", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",
-    terms: ["Serverless moved to Get Started", "Open Get Started"],
+    terms: ["Serverless mode", "Install without an account", "Same chart, same running result", "redis → redis", "The chart carries its own password"],
   },
   {
     file: "site/charts/index.html",
@@ -111,7 +111,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["without a ConfigHub account", "Render a public chart", "read the YAML first"],
+    headerTerms: ["same running result", "helm install", "cub installer"],
   },
   {
     file: "site/how-it-works.html",
@@ -197,6 +197,10 @@ const chartCardsDir = path.join(root, "site/charts");
 if (fs.existsSync(chartCardsDir)) {
   for (const name of fs.readdirSync(chartCardsDir).filter((f) => f.endsWith(".html"))) {
     const text = fs.readFileSync(path.join(chartCardsDir, name), "utf8");
+    const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+    if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
+      failures.push(`site/charts/${name}: generated timestamp appears in the chart header`);
+    }
     const unresolved = [...new Set([...text.matchAll(/([a-z][a-z-]*): unknown;/g)].map((m) => m[1]))];
     if (unresolved.length) failures.push(`site/charts/${name}: unresolved action placeholder(s) ${JSON.stringify(unresolved.map((a) => `${a}: unknown`))}`);
     if (text.includes("&lt;tmp&gt;")) failures.push(`site/charts/${name}: raw <tmp> work-dir placeholder rendered in a command`);

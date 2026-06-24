@@ -1466,11 +1466,6 @@ function legacyOfferingHtml(catalog) {
 }
 
 function tryHtml(catalog) {
-  const runRows = [
-    ["See it", "Render the chart and stop. Read the Kubernetes objects before anything is applied."],
-    ["Check it", "Compare the cub render with plain Helm. Same chart, same inputs, same objects."],
-    ["Run it", "Apply the rendered objects yourself, or push them to your own GitOps controller."],
-  ];
   const proofRows = [
     ["Render and install parity", "Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.", "../data/serverless-install-parity-proof/summary.html"],
     ["OCI for Argo and Flux", "The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.", "../data/serverless-oci-gitops-proof/summary.html"],
@@ -1481,69 +1476,73 @@ function tryHtml(catalog) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Get Started · ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero install-hero">
     ${topNav(".")}
-    <h1>Get Started</h1>
-    <p class="lead">Try the idea without a ConfigHub account. Render a public chart, compare it with Helm, and apply the exact objects yourself.</p>
-    <p>This is the serverless try-out. It proves the first useful claim: the ConfigHub package can preserve what Helm would have created, while giving you a chance to read the YAML first.</p>
+    <div class="install-hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Get started</p>
+        <h1>Two installs, one outcome</h1>
+        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is how much you can see on the way there.</p>
+        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
+      </div>
+      <div class="terminal-card" aria-label="Prometheus install comparison">
+        <div class="terminal-title">prometheus → monitoring</div>
+        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
+<span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \\
+    -n monitoring --create-namespace
+
+<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
+    --base default --work-dir ./prom --non-interactive --namespace monitoring
+<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
+      </div>
+    </div>
+    <p class="caption">Same Prometheus, same namespace — that is parity.</p>
   </header>
   <main>
-    <section aria-labelledby="how">
-      <h2 id="how">How it works</h2>
-      ${markdownLikeTable([
-        ["Step", "What happens"],
-        ...runRows,
-      ])}
+    <section class="narrow-section" aria-labelledby="package-note">
+      <h2 id="package-note">What is <code>--pull</code>?</h2>
+      <p>Everything here lives in this repo — nothing is fetched from outside. We review each chart as a recipe (<code>recipes/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code>: its values, variants, and version locks), then publish that recipe as an installer package under <code>packages/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> — the chart's reviewed, pre-rendered form plus a short <code>installer.yaml</code> naming its bases (here, <code>default</code> and <code>server-only-ephemeral</code>). <code>--pull</code> tells cub which package to load: a local path (as above), an <code>oci://…</code> address, or a <code>.tgz</code>. <code>--base</code> picks the shape; <code>--namespace</code> says where it lands.</p>
     </section>
 
-    <section aria-labelledby="commands">
-      <h2 id="commands">The short version</h2>
-      <p>Render with Helm. Then render the reviewed cub package. Compare the objects before you apply them.</p>
-      <div class="command-grid">
+    <section class="narrow-section" aria-labelledby="how">
+      <h2 id="how">Helm hides one step. cub shows it.</h2>
+      <p><code>helm install</code> renders the chart and applies it in a single step, so you only see the objects once they are already running. cub does the same in two steps you can watch.</p>
+      <div class="step-grid">
         <div class="card">
-          <h3>Plain Helm</h3>
-          <pre><code>helm template prometheus prometheus-community/prometheus \\
-  --repo https://prometheus-community.github.io/helm-charts \\
-  --version 29.8.0 \\
-  --namespace monitoring &gt; helm.yaml</code></pre>
+          <h3>1 · Render</h3>
+          <p><code>cub installer setup</code> writes the exact objects to <code>./prom/out/manifests</code> — readable before anything reaches the cluster. It does not re-run Helm; the package already holds the chart's reviewed render.</p>
         </div>
         <div class="card">
-          <h3>cub package</h3>
-          <pre><code>cub installer setup \\
-  --pull packages/prometheus-community/prometheus/29.8.0 \\
-  --base server-only-ephemeral \\
-  --work-dir ./out \\
-  --non-interactive \\
-  --namespace monitoring</code></pre>
+          <h3>2 · Apply</h3>
+          <p><code>kubectl apply</code> installs them. Same objects, now running.</p>
         </div>
       </div>
-      <style>
-        .command-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
-        .command-grid .card { min-width: 0; }
-        .command-grid pre { white-space: pre-wrap; overflow-wrap: anywhere; }
-        @media (max-width: 760px) { .command-grid { grid-template-columns: 1fr; } }
-      </style>
-      <p>You should see rendered manifests under <code>./out</code>. If you apply them yourself, create the namespace first and apply any separated Secret material before the main manifests.</p>
+      <p class="mono-line"><code>helm template prom prometheus-community/prometheus --version 29.8.0</code> # 23 objects → the same, plus cub's explicit Namespace</p>
+      <p><strong>Same objects, confirmed before you install. Helm-verified. No surprise installs.</strong></p>
     </section>
 
-    <section aria-labelledby="proof">
+    <section class="narrow-section" aria-labelledby="gitops">
+      <h2 id="gitops">The other delivery — GitOps via OCI</h2>
+      <p>Already running Argo or Flux from an OCI registry? Skip <code>kubectl</code>. Push the same rendered output to your registry and let the controller you already trust pull it in:</p>
+      <div class="terminal-card">
+        <div class="terminal-title">prometheus → OCI</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> flux push artifact oci://&lt;your-registry&gt;/prometheus:v1 --path=./prom/out \\
+    --source=cub-render --revision=v1</code></pre>
+      </div>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="proof">
       <h2 id="proof">What We Checked</h2>
-      <p>The important first check is simple: does this path produce the same Kubernetes objects as Helm, and can those objects still be delivered in the usual ways?</p>
+      <p>We checked that the no-account path can reach the same install outcome and can hand the rendered objects to existing delivery tools.</p>
       ${markdownLikeTable([
         ["Proof", "What it says", "Open"],
         ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
-    </section>
-
-    <section aria-labelledby="edges">
-      <h2 id="edges">What to watch</h2>
-      <p>This page is for trying the idea. It is not the whole product path.</p>
-      <p>Some Helm charts need extra setup before they can run: for example a Custom Resource Definition, a generated certificate, a cloud account, or a Secret that you provide yourself. When a chart needs one of those steps, its chart page should say so before you run it.</p>
-      <p>Use the no-account path when you want to inspect the YAML and compare it with Helm. Use connected ConfigHub when a team needs to keep that configuration in one place, create variants, review changes, approve releases, or hand the result to Argo or Flux.</p>
-      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="../docs/user/serverless-mode.md">Read the full serverless guide</a></p>
+      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="./serverless.html">Read the serverless guide</a></p>
     </section>
   </main>
   <footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
@@ -1558,19 +1557,79 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=./try.html">
-  <link rel="canonical" href="./try.html">
-  <title>Serverless moved · ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <title>Serverless Mode · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero install-hero">
     ${topNav(".")}
-    <h1>Serverless moved to Get Started</h1>
-    <p class="lead">The no-account serverless try-out is now the Get Started page.</p>
-    <p><a href="./try.html">Open Get Started</a>.</p>
+    <div class="install-hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Serverless mode</p>
+        <h1>Install without an account</h1>
+        <p class="lead">Serverless mode installs a Helm chart with no account and no sign-up. Same chart, same running result. The difference is that you can see every step.</p>
+        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
+      </div>
+      <div class="terminal-card" aria-label="Redis install comparison">
+        <div class="terminal-title">redis → redis</div>
+        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
+<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
+    --version 25.5.3 -n redis --create-namespace
+
+<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+    --base default --work-dir ./out --non-interactive
+<span class="term-prompt">$</span> kubectl create namespace redis
+<span class="term-prompt">$</span> kubectl apply -f ./out/secrets -n redis
+<span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
+      </div>
+    </div>
+    <p class="caption">Both bring up Redis in the same namespace. Same outcome — that is parity.</p>
   </header>
-  <footer>${generatedStamp(catalog, "serverless redirect")}</footer>
+  <main>
+    <section class="narrow-section" aria-labelledby="package-note">
+      <h2 id="package-note">What is <code>--pull</code>?</h2>
+      <p>Everything here lives in this repo — nothing is fetched from outside. We review each chart as a recipe, then publish that recipe as an installer package under <code>packages/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code>. <code>--pull</code> tells cub which package to load. <code>--base</code> picks the install shape.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="how">
+      <h2 id="how">Helm hides one step. cub shows it.</h2>
+      <p><code>helm install</code> renders and applies the chart in one command. The ConfigHub path splits that into render, inspect, then apply.</p>
+      <div class="step-grid">
+        <div class="card">
+          <h3>1 · Render</h3>
+          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code> and, for Redis, separated Secret material under <code>./out/secrets</code>.</p>
+        </div>
+        <div class="card">
+          <h3>2 · Apply</h3>
+          <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
+        </div>
+      </div>
+      <p><strong>Same render, same install result, visible before apply.</strong></p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="gitops">
+      <h2 id="gitops">The other delivery — GitOps via OCI</h2>
+      <p>Already running Argo or Flux from an OCI registry? Push the rendered output and let your controller pull it in.</p>
+      <div class="terminal-card">
+        <div class="terminal-title">redis → OCI</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> flux push artifact oci://&lt;your-registry&gt;/redis:v1 --path=./out \\
+    --source=serverless-cub-render --revision=v1
+<span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
+<span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
+      </div>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="edges">
+      <h2 id="edges">The edges, kept in plain sight</h2>
+      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with a baked-in password. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
+      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
+      <p><strong><code>cub installer push</code> is not this OCI path.</strong> That command ships the un-rendered installer package. The OCI path above pushes the rendered result that Argo and Flux understand.</p>
+      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page should say which lifecycle steps apply.</p>
+      <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
+    </section>
+  </main>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>
 </body>
 </html>
 `;
@@ -4731,6 +4790,90 @@ function siteCss() {
       .journey-step p { font-size: .9rem; }
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+`;
+}
+
+function installPageCss() {
+  return `
+    .install-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+      gap: 28px;
+      align-items: center;
+    }
+    .hero-copy { max-width: 60ch; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: .78rem;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .chips span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: var(--muted);
+      background: var(--panel);
+      font-size: .84rem;
+    }
+    .caption {
+      margin: 18px auto 0;
+      max-width: 60ch;
+      text-align: center;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .narrow-section {
+      max-width: 760px;
+      margin: 48px auto 0;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .narrow-section p { max-width: 60ch; }
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .terminal-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--term);
+      overflow: hidden;
+    }
+    .terminal-title {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #b7c3cf;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .82rem;
+      background: #111922;
+    }
+    .terminal-body {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: var(--term);
+    }
+    .term-comment { color: #7f8b96; }
+    .term-prompt { color: #78d99d; font-weight: 700; }
+    .mono-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .88rem;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 980px) {
+      .install-hero-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .step-grid { grid-template-columns: 1fr; }
+      .narrow-section { margin-top: 34px; padding-top: 24px; }
+      .caption { text-align: left; }
     }
 `;
 }
