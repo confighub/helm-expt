@@ -368,21 +368,20 @@
 </head>
 <body>
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
       <h1>Look before you install</h1>
-      <p class="lead">Helm turns values into live Kubernetes in one jump and tells you what happened afterward. Render it with cub first: free, no account, without changing how you install. Catch the Secret, AI-written value, or target assumption while it is still a file you can fix.</p>
+      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
       <div class="hero-actions" aria-label="Primary actions">
         <a class="button primary" href="./try.html">Get started</a>
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
-    <div class="terminal-card home-terminal" aria-label="Look first command">
-      <div class="terminal-title">look first</div>
-      <pre class="terminal-body"><code><span class="term-comment"># render any chart first - no account, no install</span>
-<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \
-    --base default --work-dir ./out --non-interactive
-<span class="term-prompt">$</span> ls ./out/manifests          <span class="term-comment"># every object Helm would install - read them first</span></code></pre>
+    <div class="card home-terminal" aria-label="Redis preview example">
+      <h3>Redis, before install</h3>
+      <p>The default render includes a Kubernetes Secret with generated password material.</p>
+      <p>Choose the <code>reuse-existing-secret</code> base if you want Redis to use your own Secret instead.</p>
+      <p>Nothing has touched a cluster yet.</p>
     </div>
   </header>
   <main>

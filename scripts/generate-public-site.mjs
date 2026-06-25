@@ -418,21 +418,9 @@ function generatedStamp(catalog, label) {
   return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: committed helm-expt evidence for this ${escapeHtml(label)}.</p>`;
 }
 
-function topNav(base = ".", items = null) {
+function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  const navItems =
-    items ??
-    [
-      ["Get Started", "try.html"],
-      ["Helm Catalog", "charts/index.html"],
-      ["Variants", "variants.html"],
-      ["Apps", "journey.html"],
-      ["Ops", "operations.html"],
-      ["Docs", "docs.html"],
-      ["FAQ", "hard-questions.html"],
-      ["Upgrade", "private/"],
-    ];
-  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks">${navItems.map(([label, path]) => `<a href="${link(path)}">${escapeHtml(label)}</a>`).join("")}</span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Cub Helm</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -500,10 +488,6 @@ function html(catalog) {
 }
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
-  const homeNavItems = [
-    ["Get Started", "try.html"],
-    ["Helm Catalog", "charts/index.html"],
-  ];
   const journeySteps = [
     ["First", "Look before you install", "Render a chart first, catch the parts you would change, and decide before anything reaches a cluster.", "./try.html", "Get Started"],
     ["Second", "Pick a Helm Chart to Try", "Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.", "./charts/index.html", "Helm Catalog"],
@@ -532,21 +516,20 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 </head>
 <body>
   <header class="home-hero human-hero">
-    ${topNav(".", homeNavItems)}
+    ${topNav(".")}
     <div class="hero-copy">
       <h1>Look before you install</h1>
-      <p class="lead">Helm turns values into live Kubernetes in one jump and tells you what happened afterward. Render it with cub first: free, no account, without changing how you install. Catch the Secret, AI-written value, or target assumption while it is still a file you can fix.</p>
+      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
       <div class="hero-actions" aria-label="Primary actions">
         <a class="button primary" href="./try.html">Get started</a>
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
-    <div class="terminal-card home-terminal" aria-label="Look first command">
-      <div class="terminal-title">look first</div>
-      <pre class="terminal-body"><code><span class="term-comment"># render any chart first - no account, no install</span>
-<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \\
-    --base default --work-dir ./out --non-interactive
-<span class="term-prompt">$</span> ls ./out/manifests          <span class="term-comment"># every object Helm would install - read them first</span></code></pre>
+    <div class="card home-terminal" aria-label="Redis preview example">
+      <h3>Redis, before install</h3>
+      <p>The default render includes a Kubernetes Secret with generated password material.</p>
+      <p>Choose the <code>reuse-existing-secret</code> base if you want Redis to use your own Secret instead.</p>
+      <p>Nothing has touched a cluster yet.</p>
     </div>
   </header>
   <main>
