@@ -495,10 +495,10 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ["Later", "Your apps, your releases", "Add your own apps alongside public charts, then move them from staging to production.", "./journey.html", "Apps"],
   ];
   const seeCards = [
-    ["Swap the baked-in Secret", "The Redis render includes a generated password. Catch it, choose the reuse-existing-secret base, and stage your own before it lands."],
-    ["Check AI-written values", "When AI changes values, render what it produced before it is live. Approve real objects, not a wall of plausible YAML."],
-    ["Act on every object", "Read Deployments, Services, RBAC, CRDs, hooks, and Secret references so you can remove, split, or approve them before install."],
-    ["Stage prerequisites early", "Name the CRDs, Secrets, StorageClasses, cloud credentials, and controller assumptions before apply day."],
+    ["See every object", "The exact Kubernetes resources, as plain files you can read before anything reaches the cluster."],
+    ["Catch classic errors", "Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry."],
+    ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
+    ["Bringing AI?", "When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML."],
   ];
   const valueCards = [
     ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
@@ -512,7 +512,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ConfigHub Helm Catalog</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}${homePageCss()}</style>
 </head>
 <body>
   <header class="home-hero human-hero">
@@ -525,11 +525,18 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
-    <div class="card home-terminal" aria-label="Redis preview example">
-      <h3>Redis, before install</h3>
-      <p>The default render includes a Kubernetes Secret with generated password material.</p>
-      <p>Choose the <code>reuse-existing-secret</code> base if you want Redis to use your own Secret instead.</p>
-      <p>Nothing has touched a cluster yet.</p>
+    <div class="terminal-card home-terminal" aria-label="Redis Secret preview before install">
+      <div class="terminal-title">Redis, before install</div>
+      <pre class="terminal-body"><code>apiVersion: v1
+kind: Secret
+metadata:
+  name: redis
+type: Opaque
+data:
+<span class="term-catch">  redis-password: cmFuZG9tLXJlbmRlci1wYXNzd29yZA==  # catch: generated credential</span>
+
+<span class="term-comment"># fix before install: use reuse-existing-secret and stage your own Secret</span>
+<span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
     </div>
   </header>
   <main>
@@ -538,13 +545,33 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <div class="catalog light-grid">
         ${seeCards.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
-      <p class="closing-line">Render first, decide second, install third. Keep Helm. Keep Argo or Flux. Keep your AI. Nothing changes until you choose to apply.</p>
-      <p class="quiet-line">The trust check is render parity: under the recorded chart version, values, namespace, and capability profile, cub preserves Helm's rendered Kubernetes object set. Chart pages and proof pages carry the receipts.</p>
+      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
+      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
+    </section>
+
+    <section aria-labelledby="try-now">
+      <h2 id="try-now">Try it now on Kubernetes</h2>
+      <p>Use a clean throwaway cluster for each lane. Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app.</p>
+      <div class="install-compare">
+        <div class="terminal-card" aria-label="Plain Helm install command">
+          <div class="terminal-title">plain Helm</div>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \\
+    -n monitoring --create-namespace</code></pre>
+        </div>
+        <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
+          <div class="terminal-title">cub render, then Kubernetes apply</div>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
+    --base default --work-dir ./prom --non-interactive --namespace monitoring
+<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
+        </div>
+      </div>
+      <p class="closing-line">Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
+      <p><a href="./try.html">Open the full try-now walkthrough</a></p>
     </section>
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Do More with ConfigHub</h2>
-      <p>The free render answers: what would install? ConfigHub adds the server for what comes next: store and share the chart configurations your team actually runs.</p>
+      <p>ConfigHub adds the server for what comes next: store and share the chart configurations your team actually runs.</p>
       <p>Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="catalog">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
@@ -553,7 +580,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 
     <section aria-labelledby="start">
       <h2 id="start">Start Here</h2>
-      <p>First try the no-account path and inspect the generated Kubernetes objects. Add ConfigHub when one chart becomes many: shared configurations, variants, apps, and releases.</p>
+      <p>Try it first with a couple of charts. Add GitOps instead of kubectl. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
         ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
           <span class="kicker">${escapeHtml(number)}</span>
@@ -567,7 +594,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
 
     <section aria-labelledby="limits">
       <h2 id="limits">Our Helm Catalog provides best practices</h2>
-      <p>Flat YAML shows what would run. The Helm Catalog also records the render intent behind it: chart version, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
+      <p>The Helm Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
       <div class="catalog">
         <div class="card"><h3>Preview upgrades</h3><p>Compare the old and new render intent before rollout, then inspect the exact object, CRD, Secret, hook, and prerequisite changes.</p></div>
         <div class="card"><h3>Create variants safely</h3><p>See whether a change needs a new Helm-rendered base or can be handled as a post-render ConfigHub variant.</p></div>
@@ -4526,6 +4553,30 @@ function plainTable(rows) {
 
 function simpleList(rows) {
   return `<ul>${rows.map(([title, body]) => `<li><strong>${escapeHtml(title)}:</strong> ${escapeHtml(body)}</li>`).join("")}</ul>`;
+}
+
+function homePageCss() {
+  return `
+    .install-compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .term-catch {
+      display: inline-block;
+      width: 100%;
+      margin: 2px 0;
+      padding: 2px 6px;
+      border-left: 3px solid #f0c36d;
+      background: rgba(240,195,109,.18);
+      color: #ffe3a1;
+      font-weight: 700;
+    }
+    @media (max-width: 640px) {
+      .install-compare { grid-template-columns: 1fr; }
+    }
+  `;
 }
 
 function siteCss() {
