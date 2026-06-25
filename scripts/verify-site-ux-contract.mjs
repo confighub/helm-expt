@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Look before you install", "Render it with cub first", "no account", "What ConfigHub Adds", "Recorded inputs"],
+    terms: ["Look before you install", "Render it with cub first", "no account", "Do More with ConfigHub", "Store chart configurations", "Preview upgrades"],
   },
   {
     file: "site/variants.html",

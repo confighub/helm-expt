@@ -368,10 +368,10 @@
 </head>
 <body>
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a></span></nav></div>
     <div class="hero-copy">
       <h1>Look before you install</h1>
-      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
+      <p class="lead">Helm turns values into live Kubernetes in one jump and tells you what happened afterward. Render it with cub first: free, no account, without changing how you install. Catch the Secret, AI-written value, or target assumption while it is still a file you can fix.</p>
       <div class="hero-actions" aria-label="Primary actions">
         <a class="button primary" href="./try.html">Get started</a>
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
@@ -389,35 +389,35 @@
     <section aria-labelledby="look-first">
       <h2 id="look-first">What You See First</h2>
       <div class="catalog light-grid">
-        <div class="card"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
-        <div class="card"><h3>See the secret it bakes in</h3><p>Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry.</p></div>
-        <div class="card"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
-        <div class="card"><h3>Bringing AI?</h3><p>When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML.</p></div>
+        <div class="card"><h3>Swap the baked-in Secret</h3><p>The Redis render includes a generated password. Catch it, choose the reuse-existing-secret base, and stage your own before it lands.</p></div>
+        <div class="card"><h3>Check AI-written values</h3><p>When AI changes values, render what it produced before it is live. Approve real objects, not a wall of plausible YAML.</p></div>
+        <div class="card"><h3>Act on every object</h3><p>Read Deployments, Services, RBAC, CRDs, hooks, and Secret references so you can remove, split, or approve them before install.</p></div>
+        <div class="card"><h3>Stage prerequisites early</h3><p>Name the CRDs, Secrets, StorageClasses, cloud credentials, and controller assumptions before apply day.</p></div>
       </div>
-      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
-      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
+      <p class="closing-line">Render first, decide second, install third. Keep Helm. Keep Argo or Flux. Keep your AI. Nothing changes until you choose to apply.</p>
+      <p class="quiet-line">The trust check is render parity: under the recorded chart version, values, namespace, and capability profile, cub preserves Helm's rendered Kubernetes object set. Chart pages and proof pages carry the receipts.</p>
     </section>
 
     <section aria-labelledby="control-value">
-      <h2 id="control-value">What ConfigHub Adds</h2>
-      <p>Parity with Helm is the first safety check. It tells a Helm user that ConfigHub did not quietly change the starting objects.</p>
-      <p>The value is control after that point: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
+      <h2 id="control-value">Do More with ConfigHub</h2>
+      <p>The free render answers: what would install? ConfigHub adds the server for what comes next: store and share the chart configurations your team actually runs.</p>
+      <p>Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="catalog">
-        <div class="card"><h3>Recorded inputs</h3><p>Keep the chart version, values, namespace, capabilities, and generated facts with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="card"><h3>Visible variants</h3><p>Make dev, staging, production, customer, and target choices explicit instead of scattering values files.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Upgrade checks</h3><p>Compare old and new objects before rollout, especially CRDs, webhooks, storage, Secrets, RBAC, and removed resources.</p><p><a href="./operations.html">Ops</a></p></div>
-        <div class="card"><h3>AI with control</h3><p>Let AI propose changes while ConfigHub shows the exact config change before it reaches a cluster.</p><p><a href="./ai.html">AI guide</a></p></div>
+        <div class="card"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
+        <div class="card"><h3>Make your versions</h3><p>Start from one reviewed base, then create dev, staging, prod, region, or customer variants without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
+        <div class="card"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
+        <div class="card"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
       </div>
     </section>
 
     <section aria-labelledby="start">
       <h2 id="start">Start Here</h2>
-      <p>First try the no-account path and inspect the generated Kubernetes objects. Then choose a chart, create variants, and move toward apps and operations when you are ready.</p>
+      <p>First try the no-account path and inspect the generated Kubernetes objects. Add ConfigHub when one chart becomes many: shared configurations, variants, apps, and releases.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
         <a class="journey-step" href="./try.html">
           <span class="kicker">First</span>
           <h3>Look before you install</h3>
-          <p>Render a chart first, read the objects, and see what ConfigHub adds before anything reaches a cluster.</p>
+          <p>Render a chart first, catch the parts you would change, and decide before anything reaches a cluster.</p>
           <span class="go">Get Started</span>
         </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
         <a class="journey-step" href="./charts/index.html">
@@ -443,9 +443,16 @@
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">What To Check</h2>
-      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. Some defaults are only examples and should not be used as production security settings. The chart pages and FAQ name those cases instead of hiding them.</p>
-      <p>A one-shot Helm import is useful, but it is not enough for repeatable operations unless the render inputs are recorded. The catalog recipes record those inputs; the direct <code>cub helm install</code> path still has product work to do here.</p>
+      <h2 id="limits">Our Helm Catalog provides best practices</h2>
+      <p>Flat YAML shows what would run. The Helm Catalog also records the render intent behind it: chart version, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
+      <div class="catalog">
+        <div class="card"><h3>Preview upgrades</h3><p>Compare the old and new render intent before rollout, then inspect the exact object, CRD, Secret, hook, and prerequisite changes.</p></div>
+        <div class="card"><h3>Create variants safely</h3><p>See whether a change needs a new Helm-rendered base or can be handled as a post-render ConfigHub variant.</p></div>
+        <div class="card"><h3>Review AI changes</h3><p>Let AI propose values or patches, then review concrete objects and known extras instead of trusting plausible YAML.</p></div>
+        <div class="card"><h3>Repeat releases</h3><p>Rerun, promote, audit, and support a release from recorded inputs and receipts, not from memory.</p></div>
+      </div>
+      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. Our Helm Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
+      <p>A one-shot Helm import gives you objects. The catalog gives you the intent behind those objects, plus defaults, variants, and out-of-the-box patterns that make Helm tractable.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
   </main>
