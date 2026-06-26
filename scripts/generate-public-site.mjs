@@ -519,14 +519,14 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Look before you install</h1>
-      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
+      <p class="lead">No more accidents when Helm installs a chart in one step and tells you what it did wrong - afterward. Render it with cub first, no account, and check what you are about to run. Customise any apps this way. Scale to fleet ops without Helm pains.</p>
       <div class="hero-actions" aria-label="Primary actions">
         <a class="button primary" href="./try.html">Get started</a>
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">AI key in any typical Helm chart, before install</div>
+      <div class="terminal-title">For example, have you ever forgotten to change your AI key before a new install?</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
