@@ -549,11 +549,11 @@ stringData:
   </header>
   <main>
     <section aria-labelledby="look-first">
-      <h2 id="look-first">What You See First</h2>
+      <h2 id="look-first">New Users Try It Out - no sign up, no server required!</h2>
+      <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
       <div class="catalog light-grid">
         ${seeCards.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
-      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
       <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
     </section>
 
