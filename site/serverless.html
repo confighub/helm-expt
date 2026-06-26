@@ -466,7 +466,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Serverless mode</p>
         <h1>Install without an account</h1>
-        <p class="lead">Serverless mode installs a Helm chart with no account and no sign-up. Same chart, same running result. The difference is that you can see every step.</p>
+        <p class="lead">Serverless mode is the no-account proof path. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
@@ -488,7 +488,7 @@
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -521,7 +521,7 @@
 
     <section class="narrow-section" aria-labelledby="edges">
       <h2 id="edges">The edges, kept in plain sight</h2>
-      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with a baked-in password. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
+      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path should catch. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> is not this OCI path.</strong> That command ships the un-rendered installer package. The OCI path above pushes the rendered result that Argo and Flux understand.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page should say which lifecycle steps apply.</p>

@@ -370,9 +370,24 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Docs</h1>
-    <p class="lead">Start with a guide. Use the database only when you need exact chart status, receipts, or generated evidence.</p>
+    <p class="lead">Start with the problem you have. New Helm users need visibility before install; app teams need variants and promotion; platform reviewers need proof, receipts, and honest limits.</p>
+    <p>Use the guides for the product path. Use the generated database only when you need exact chart status, receipts, or evidence for a claim.</p>
   </header>
   <main>
+    <section aria-labelledby="first-ten">
+      <h2 id="first-ten">First 10 Minutes</h2>
+      <div class="card"><table>
+        <thead><tr><th>If you are...</th><th>Start with</th><th>Why</th></tr></thead>
+        <tbody><tr><td>Trying a chart</td><td><a href="./try.html">Get Started</a></td><td>Render, inspect, then apply without creating an account.</td></tr><tr><td>Choosing a public chart</td><td><a href="./charts/index.html">Helm Catalog</a></td><td>See the first base, known prerequisites, and current proof.</td></tr><tr><td>Managing environments</td><td><a href="./variants.html">Variants</a></td><td>Decide base variant versus derived ConfigHub variant before values sprawl starts.</td></tr><tr><td>Checking trust</td><td><a href="./proof.html">Proof</a></td><td>See which lane proves render, ConfigHub, delivery, or live state.</td></tr><tr><td>Asking hard questions</td><td><a href="./hard-questions.html">FAQ</a></td><td>Read the caveats, refusals, and current limits without digging through raw data.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="guides">
       <h2 id="guides">Guides</h2>
       <div class="card"><table>

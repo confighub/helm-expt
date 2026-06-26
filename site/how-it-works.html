@@ -401,20 +401,21 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>How It Works</h1>
-    <p class="lead">Helm installs in one step and hides much of what happened. We split that step into four you can check: render the chart, route the tricky parts, deliver the result, and observe the live app.</p>
-    <p>Start here when you want the model before the commands. If you only want to run a chart, go to <a href="./try.html">Get Started</a>. If you want to choose a chart, go to the <a href="./charts/index.html">Helm Catalog</a>.</p>
+    <p class="lead">The problem is not that Helm can render objects. The problem is that a one-step install leaves teams guessing which objects were reviewed, which prerequisites were assumed, and what really happened after delivery.</p>
+    <p>Helm installs in one step; this page shows why ConfigHub splits that into four checkable moves: render the chart, route the tricky parts, deliver the result, and observe the live app. Use fast Helm paths when you only need a render; use the catalog path when the render needs to become reviewed, named, reusable, and supportable. For commands, start with <a href="./try.html">Get Started</a>.</p>
     <div class="move-spine" aria-label="Four-move spine">
-      <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
-      <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
-      <div class="move-card"><span class="kicker">03</span><h3>Deliver</h3><p>ConfigHub publishes one OCI bundle. Your chosen controller pulls the same bytes.</p></div>
-      <div class="move-card"><span class="kicker">04</span><h3>Observe</h3><p>Receipts show the live result, including watch, blocked, and not-applicable states.</p></div>
+      <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Prove ConfigHub did not quietly change Helm's starting objects.</p></div>
+      <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Name the CRDs, Secrets, hooks, targets, and lifecycle work Helm otherwise hides.</p></div>
+      <div class="move-card"><span class="kicker">03</span><h3>Deliver</h3><p>Hand the reviewed object set to kubectl, Argo, Flux, or ConfigHub-managed delivery.</p></div>
+      <div class="move-card"><span class="kicker">04</span><h3>Observe</h3><p>Record what the cluster or controller actually saw, including watch and blocked states.</p></div>
     </div>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this how it works guide.</p>
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
-      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>
+      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This is the migration assurance check, not the whole product value.</p>
+      <p>The value starts after parity: the recorded inputs, named base, receipts, and render intent give people and agents something durable to compare, scan, promote, rerun, and audit.</p>
       <p>A generated render intent records the compact config for that base variant: chart version, values profile, namespace, capability profile, source lock, package base, and the evidence lanes attached to it.</p>
       <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
         <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
@@ -427,6 +428,7 @@
     <section class="move-section" aria-labelledby="route">
       <h2 id="route">2. Route</h2>
       <p><strong>Claim:</strong> anything Helm would otherwise hide as lifecycle behavior is made visible as a named route. Current route actions marked automatic: <strong>0/25</strong>.</p>
+      <p>This is where hard charts become understandable. A CRD, webhook certificate, generated Secret, setup job, or target prerequisite should appear as a route, fact, gate, receipt, or blocker instead of an invisible surprise.</p>
       <iframe class="proof-frame" title="Visible versus silent hook proof" src="../data/hook-test-proof/visible-vs-silent.html"></iframe>
       <p><a href="../docs/user/chart-hooks-what-happens.md">Go deeper: chart hooks</a> · <a href="../docs/user/pathway-route-hooks-transparently.md">route hooks transparently</a> · <a href="../data/lifecycle-route-actions/summary.md">lifecycle route actions</a></p>
     </section>
@@ -434,6 +436,7 @@
     <section class="move-section" aria-labelledby="deliver">
       <h2 id="deliver">3. Deliver</h2>
       <p><strong>Claim:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub should consume the same bundle, but the proof states differ.</p>
+      <p>The operational problem this solves is rerender drift. The controller should pull the reviewed object set, not independently rebuild a plausible-looking result from values at delivery time.</p>
       <div class="mini-visual oci-visual" aria-label="One OCI bundle consumed by three delivery paths">
         <div class="node"><strong>ConfigHub Units</strong><p>Reviewed desired state, labels, variants, gates, and receipts.</p></div>
         <div class="oci-arrow">&rarr;<br><code>OCI</code><br>&rarr;</div>
@@ -481,6 +484,7 @@ spec:
     <section class="move-section" aria-labelledby="observe">
       <h2 id="observe">4. Observe</h2>
       <p><strong>Claim:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
+      <p>This matters because synced is not the same as working. Receipts must say what was observed, when it was observed, and which target or namespace the claim applies to.</p>
       <div class="disposition-bar" aria-label="Matrix lane disposition mix">
         <span class="pass" style="width:34.67%" title="pass: 961"></span>
         <span class="watch" style="width:4.18%" title="watch: 116"></span>

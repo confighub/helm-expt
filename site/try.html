@@ -466,7 +466,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Get started</p>
         <h1>Two installs, one outcome</h1>
-        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is how much you can see on the way there.</p>
+        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is the checkpoint: cub writes the objects first, so you can inspect, swap, or stop before anything reaches Kubernetes.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Prometheus install comparison">
@@ -486,7 +486,7 @@
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is the durable catalog path. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -518,7 +518,7 @@
 
     <section class="narrow-section" aria-labelledby="proof">
       <h2 id="proof">What We Checked</h2>
-      <p>We checked that the no-account path can reach the same install outcome and can hand the rendered objects to existing delivery tools.</p>
+      <p>We checked the low-commitment claim: a no-account path can reach the same install outcome and can hand the reviewed rendered objects to existing delivery tools.</p>
       <div class="card"><table>
         <thead><tr><th>Proof</th><th>What it says</th><th>Open</th></tr></thead>
         <tbody><tr><td>Render and install parity</td><td>Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.</td><td><a href="../data/serverless-install-parity-proof/summary.html">Render and install parity</a></td></tr><tr><td>OCI for Argo and Flux</td><td>The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.</td><td><a href="../data/serverless-oci-gitops-proof/summary.html">OCI for Argo and Flux</a></td></tr></tbody>

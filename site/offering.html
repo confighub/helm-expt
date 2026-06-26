@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Catalog</title>
+  <title>ConfigHub Helm Catalog Offering</title>
   <style>
     :root {
       color-scheme: light;
@@ -365,145 +365,192 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .install-compare {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
-    .term-catch {
-      display: inline-block;
-      width: 100%;
-      margin: 2px 0;
-      padding: 2px 6px;
-      border-left: 3px solid #f0c36d;
-      background: rgba(240,195,109,.18);
-      color: #ffe3a1;
-      font-weight: 700;
-    }
-    @media (max-width: 640px) {
-      .install-compare { grid-template-columns: 1fr; }
-    }
+    .hero { padding-top: 56px; }
+    .hero h1 { max-width: 900px; }
+    .route { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
+    .route div { border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--panel); font-size: .92rem; }
+    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    nav { color: var(--muted); margin-bottom: 24px; }
+    @media (max-width: 900px) { .route, .split { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-  <header class="home-hero human-hero">
+  <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <div class="hero-copy">
-      <h1>Look before you install</h1>
-      <p class="lead">Helm installs a chart in one step and tells you what it did afterward. Render it with cub first: free, no account, without changing how you install. Read what you are about to run.</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-      </div>
-    </div>
-    <div class="terminal-card home-terminal" aria-label="Redis Secret preview before install">
-      <div class="terminal-title">Redis, before install</div>
-      <pre class="terminal-body"><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: redis
-type: Opaque
-data:
-<span class="term-catch">  redis-password: cmFuZG9tLXJlbmRlci1wYXNzd29yZA==  # catch: generated credential</span>
-
-<span class="term-comment"># fix before install: use reuse-existing-secret and stage your own Secret</span>
-<span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
-    </div>
+    <h1>Public Helm charts, in visible and verifiable stages.</h1>
+    <p class="tagline">Keep Helm charts as the source. Use ConfigHub to make the rendered config visible, reviewable, and safer to operate.</p>
+    <p style="margin-top:14px;font-size:.95rem"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./how-it-works.html">Read how it works</a></p>
   </header>
   <main>
-    <section aria-labelledby="look-first">
-      <h2 id="look-first">What You See First</h2>
-      <div class="catalog light-grid">
-        <div class="card"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
-        <div class="card"><h3>Catch classic errors</h3><p>Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry.</p></div>
-        <div class="card"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
-        <div class="card"><h3>Bringing AI?</h3><p>When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML.</p></div>
-      </div>
-      <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
-      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
-    </section>
-
-    <section aria-labelledby="try-now">
-      <h2 id="try-now">Try it now on Kubernetes</h2>
-      <p>Use a clean throwaway cluster for each lane. Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app.</p>
-      <div class="install-compare">
-        <div class="terminal-card" aria-label="Plain Helm install command">
-          <div class="terminal-title">plain Helm</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \
-    -n monitoring --create-namespace</code></pre>
-        </div>
-        <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
-          <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
-    --base default --work-dir ./prom --non-interactive --namespace monitoring
-<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
-        </div>
-      </div>
-      <p class="closing-line">Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
-      <p><a href="./try.html">Open the full try-now walkthrough</a></p>
-    </section>
-
-    <section aria-labelledby="control-value">
-      <h2 id="control-value">Do More with ConfigHub</h2>
-      <p>ConfigHub adds the server for what comes next: store and share the chart configurations your team actually runs.</p>
-      <p>Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
-      <div class="catalog">
-        <div class="card"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="card"><h3>Make your versions</h3><p>Start from one reviewed base, then create dev, staging, prod, region, or customer variants without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
-        <div class="card"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
+    <p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this offering page.</p>
+    <section aria-labelledby="problem">
+      <h2 id="problem">The Problem We Are Solving</h2>
+      <p>Helm users can usually install something. The harder problem changes by audience: a new user cannot see what will land until after the install; an app team ends up with values-file sprawl and forks; a platform reviewer cannot prove blast radius, approvals, delivery, and live convergence at fleet scale.</p>
+      <p>ConfigHub's answer is staged visibility: render first, turn common install shapes into named bases, keep post-render variants explicit, and attach scans, gates, receipts, GitOps handoff, and observations to the object set.</p>
+      <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
+      <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, prove the boundaries, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation remain product frontier work. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
+      <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
+      <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
+      <div class="card"><table>
+        <thead><tr><th>Frontier</th><th>Current status</th></tr></thead>
+        <tbody><tr><td>Field provenance</td><td>Blast-radius prediction is scored by a generated accuracy harness: 13 measured cases, 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance.</td></tr><tr><td>Change authority</td><td>ConfigHub records and gates operations; full per-field authority for every user or agent is not yet proven.</td></tr><tr><td>Live-to-desired flow</td><td>Live observations are recorded; authorized live fixes flowing back into desired state are future product work.</td></tr><tr><td>Hook execution</td><td>Hooks are inventoried, routed, observed, refused, or marked per-target; universal hook execution is not claimed.</td></tr><tr><td>Fleet propagation</td><td>Derived variants, blast-radius cases, and promotion examples exist; complete fleet propagation is still being built.</td></tr><tr><td>Signatures as trust</td><td>The claims register enforces reviewer guardrails: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="grid">
+        <div class="card"><h3>New Helm user</h3><p>Wants to see what a chart will do before it creates Secrets, CRDs, RBAC, storage, or workloads in a cluster.</p></div>
+        <div class="card"><h3>App team or GitOps operator</h3><p>Wants dev, staging, prod, region, and customer differences without values sprawl, fork pressure, or copy-paste promotion.</p></div>
+        <div class="card"><h3>Platform SRE</h3><p>Wants blast-radius preview, prerequisites, receipts, and observation freshness before fleet changes ship.</p></div>
+        <div class="card"><h3>Security reviewer</h3><p>Wants scans and gates on exact rendered objects before deployment.</p></div>
+        <div class="card"><h3>Catalog maintainer</h3><p>Wants to know which charts are ready, watch, blocked, or need better variants.</p></div>
       </div>
     </section>
 
-    <section aria-labelledby="start">
-      <h2 id="start">Start Here</h2>
-      <p>Try it first with a couple of charts. Add GitOps instead of kubectl. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
-      <div class="journey-flow" aria-label="Four-step product journey">
-        <a class="journey-step" href="./try.html">
-          <span class="kicker">First</span>
-          <h3>Look before you install</h3>
-          <p>Render a chart first, catch the parts you would change, and decide before anything reaches a cluster.</p>
-          <span class="go">Get Started</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./charts/index.html">
-          <span class="kicker">Second</span>
-          <h3>Pick a Helm Chart to Try</h3>
-          <p>Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.</p>
-          <span class="go">Helm Catalog</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./variants.html">
-          <span class="kicker">Then</span>
-          <h3>Your versions</h3>
-          <p>Start from one base and make as many versions as you need: dev, staging, prod, one per region or customer.</p>
-          <span class="go">Variants</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./journey.html">
-          <span class="kicker">Later</span>
-          <h3>Your apps, your releases</h3>
-          <p>Add your own apps alongside public charts, then move them from staging to production.</p>
-          <span class="go">Apps</span>
-        </a>
+    <section aria-labelledby="offer">
+      <h2 id="offer">What The Offering Is</h2>
+      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, policies, scans, GitOps/OCI delivery, fleet operations, and production receipts.</p>
+      <p>The free public lane helps users browse, inspect, template, install supported public chart bases, pull public artifacts, and verify available signatures, digests, and receipts. The paid lane is for private charts, custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, and production support.</p>
+      <div class="route">
+        <div>1. Pick chart</div>
+        <div>2. Pick base variant</div>
+        <div>3. Render exact objects</div>
+        <div>4. Review and verify</div>
+        <div>5. Operate variants</div>
       </div>
-      <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
+      <div class="card"><table>
+        <thead><tr><th>Layer</th><th>What it gives a Helm user</th></tr></thead>
+        <tbody><tr><td>Render parity</td><td>Compare regular Helm rendering with the cub installer package output.</td></tr><tr><td>Exact object review</td><td>Review the Kubernetes objects, not just the values file that may produce them.</td></tr><tr><td>Target prerequisites</td><td>Record required CRDs, Secrets, StorageClasses, cloud credentials, or controller assumptions as explicit facts.</td></tr><tr><td>Lifecycle evidence</td><td>Stage or route hook-like behavior and observe the target where a live claim is made.</td></tr><tr><td>Scans and gates</td><td>Bind policy findings and decisions to the rendered object set.</td></tr><tr><td>Variants</td><td>Use base variants for Helm render choices and derived ConfigHub variants for approved post-render changes.</td></tr><tr><td>Live evidence</td><td>Record what a local cluster, GitOps controller, or observer actually saw.</td></tr><tr><td>Watchlists</td><td>Keep target capability and lifecycle gaps visible instead of silently turning them green.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     </section>
 
-    <section aria-labelledby="limits">
-      <h2 id="limits">Our Helm Catalog provides best practices</h2>
-      <p>The Helm Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
-      <div class="catalog">
-        <div class="card"><h3>Preview upgrades</h3><p>Compare the old and new render intent before rollout, then inspect the exact object, CRD, Secret, hook, and prerequisite changes.</p></div>
-        <div class="card"><h3>Create variants safely</h3><p>See whether a change needs a new Helm-rendered base or can be handled as a post-render ConfigHub variant.</p></div>
-        <div class="card"><h3>Review AI changes</h3><p>Let AI propose values or patches, then review concrete objects and known extras instead of trusting plausible YAML.</p></div>
-        <div class="card"><h3>Repeat releases</h3><p>Rerun, promote, audit, and support a release from recorded inputs and receipts, not from memory.</p></div>
+    <section aria-labelledby="stages">
+      <h2 id="stages">Start At Your Stage</h2>
+      <p>Each stage asks for more trust and gives more value. Direct Helm paths answer immediate render or upload questions; the public catalog adds maintained bases and proof; ConfigHub-managed workflows add private inputs, teams, approvals, variants, and operations.</p>
+      <div class="card"><table>
+        <thead><tr><th>Path</th><th>Use it when</th><th>Command or surface</th><th>Boundary</th></tr></thead>
+        <tbody><tr><td>Quick render</td><td>See what a chart renders without ConfigHub state.</td><td>cub helm template</td><td>Free/direct</td></tr><tr><td>One-shot upload</td><td>Load one Helm render into ConfigHub Units quickly.</td><td>cub helm install</td><td>ConfigHub account</td></tr><tr><td>Public catalog package</td><td>Use a maintained base with render parity, receipts, scans, and proof.</td><td>cub installer setup --pull &lt;package&gt; --base &lt;base&gt;</td><td>Free for public packages</td></tr><tr><td>Reviewed ConfigHub base</td><td>Upload a reviewed rendered base before variants or approvals.</td><td>cub installer upload</td><td>ConfigHub account</td></tr><tr><td>Derived operations</td><td>Create environment, region, customer, or target variants after upload.</td><td>cub variant create</td><td>ConfigHub-managed</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/user/choose-your-path.md">Open the full route picker</a> for tutorial links, free/public boundaries, and ConfigHub-managed operations.</p>
+    </section>
+
+    <section aria-labelledby="two-uses">
+      <h2 id="two-uses">Why This Helps</h2>
+      <div class="split">
+        <section class="card">
+          <h3>Change safely</h3>
+          <p>When a person or AI agent changes a chart input, base variant, or post-render ConfigHub variant, the pipeline can compare the exact object set, scan it, and show the receipt trail before the change is promoted.</p>
+        </section>
+        <section class="card">
+          <h3>Stay on the supported path</h3>
+          <p>Many Helm failures come from accidentally driving a chart away from the path its authors expected. The catalog makes supported bases explicit, records where a custom choice belongs, and flags target or lifecycle gaps before they become production surprises. It keeps the user on the right path and makes departures visible.</p>
+        </section>
       </div>
-      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. Our Helm Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
-      <p>A one-shot Helm import gives you objects. The catalog gives you the intent behind those objects, plus defaults, variants, and out-of-the-box patterns that make Helm tractable.</p>
-      <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
+      <p>For a day-2 example, read <a href="../docs/user/helm-upgrade-crash-example.md">how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed</a>.</p>
+    </section>
+
+    <section aria-labelledby="try">
+      <h2 id="try">Try It Without A Big Commitment</h2>
+      <p>The first path should feel closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. Use a ConfigHub account when you want managed state, private inputs, or production workflows.</p>
+      <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \
+  --base default \
+  --work-dir .tmp/redis \
+  --non-interactive \
+  --namespace redis</pre>
+      <div class="split">
+        <section class="card">
+          <h3>Low-friction public use</h3>
+          <ul><li><strong>Browse public catalog:</strong> See chart versions, base variants, proof status, pain reports, and known gaps.</li><li><strong>Inspect and template:</strong> Use cub helm template and rendered-object views before committing to ConfigHub state.</li><li><strong>Use public packages:</strong> Run cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for supported public bases.</li><li><strong>Pull public artifacts:</strong> Use public package or OCI artifacts where available without uploading private repo or production state.</li><li><strong>Verify locally:</strong> Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine.</li><li><strong>Inspect proof:</strong> Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot.</li></ul>
+        </section>
+        <section class="card">
+          <h3>ConfigHub-managed use</h3>
+          <ul><li><strong>Private and custom catalogs:</strong> Import wrapper charts, private values, customer overlays, private OCI sources, and team-specific catalogs.</li><li><strong>Managed variants and teams:</strong> Create environment, region, customer, and target variants with teams, approvals, policies, links, target facts, and receipts.</li><li><strong>Fleet operations:</strong> Bulk scan, patch, approve, promote, observe, and audit across many spaces or clusters.</li><li><strong>GitOps and OCI operations:</strong> Manage delivery handoffs, controller credentials, artifact access, observations, rollback evidence, and audit history.</li><li><strong>Full-stack support:</strong> Target-scoped production decisions, patch services, upgrade services, old-version support, SLAs, policies, and approvals.</li></ul>
+        </section>
+      </div>
+    </section>
+
+    <section aria-labelledby="status">
+      <h2 id="status">What Is Proven Today</h2>
+      <p>The repo is explicit about what is proven and what is still a watch or blocked item. A green render check does not become a production support claim.</p>
+      <div class="grid">
+        <div class="metric"><strong>100/100</strong><span>Public catalog pages</span></div>
+        <div class="metric"><strong>108/110</strong><span>Recipe proofs</span></div>
+        <div class="metric"><strong>199/199</strong><span>Render parity</span></div>
+        <div class="metric"><strong>148/199</strong><span>Local live receipts</span></div>
+        <div class="metric"><strong>121/178</strong><span>Two-cluster parity</span></div>
+        <div class="metric"><strong>16/178</strong><span>Semantic defects</span></div>
+      </div>
+      <p>Top-100 readiness is also separated by usefulness:</p>
+      <div class="card"><table>
+        <thead><tr><th>Bucket</th><th>Charts</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with a reviewed first base and live evidence.</td></tr><tr><td>works-with-target-prerequisites</td><td>15</td><td>Works once the target provides the named prerequisite.</td></tr><tr><td>works-with-operator-review</td><td>23</td><td>Render proof exists, but an operator should review the named concern first.</td></tr><tr><td>needs-better-base-variant</td><td>33</td><td>The useful install shape has not been built and reviewed yet.</td></tr><tr><td>not-ready-yet</td><td>9</td><td>A limitation needs a support, disclose, defer, or block decision.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a> or <a href="../data/top100-user-readiness/summary.md">open the generated user-readiness table</a>.</p>
+    </section>
+
+    <section aria-labelledby="honesty">
+      <h2 id="honesty">Why This Should Be Trusted</h2>
+      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found Kubernetes 1.30 CRD capability issues in cert-manager and External Secrets, plus a Grafana RBAC server-normalization watch item: workloads converged, but strict rendered-object/live parity stayed blocked until the target behavior is modeled or accepted.</p>
+      <p>That is the point of the model. It tells the user what is true, what is watch, what is blocked, and what decision is needed next.</p>
+      <div class="card"><table>
+        <thead><tr><th>Signal</th><th>Current meaning</th></tr></thead>
+        <tbody><tr><td>PASS</td><td>The stated lane met its contract.</td></tr><tr><td>WATCH</td><td>The main path worked, but extra live state or a runtime condition needs review.</td></tr><tr><td>BLOCK</td><td>The lane found a missing prerequisite, runtime failure, or target capability conflict.</td></tr><tr><td>Missing</td><td>Backlog, not a failed chart.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="challenge">
+      <h2 id="challenge">Send A Problem Chart</h2>
+      <p>If a public Helm chart breaks the model, or if the catalog output for a supported chart does not match the Helm behavior you expect, send the chart and the values that expose the problem.</p>
+      <p>The expected response is a public fixture and a receipt: pass, watch, blocked, or refused with a named reason. Private charts, private values, production remediation, and fleet rollout work belong in managed ConfigHub workflows.</p>
+      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the problem chart issue template</a>.</p>
+    </section>
+
+    <section aria-labelledby="links">
+      <h2 id="links">Where To Go Next</h2>
+      <div class="grid">
+        <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
+        <div class="card"><h3>Check a chart</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
+        <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
+        <div class="card"><h3>Choose a path</h3><p><a href="../docs/user/choose-your-path.md">Open the route picker</a>.</p></div>
+        <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
+        <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
+        <div class="card"><h3>Review an upgrade story</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">Open the Helm upgrade crash example</a>.</p></div>
+        <div class="card"><h3>Check the trust boundary</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a>.</p></div>
+        <div class="card"><h3>Verify it yourself</h3><p><a href="../docs/user/verify-it-yourself.md">Open verification commands</a>.</p></div>
+        <div class="card"><h3>Understand production support</h3><p><a href="../docs/user/production-support-decisions.md">Open production support decisions</a>.</p></div>
+        <div class="card"><h3>Choose the right command</h3><p><a href="../docs/user/choosing-commands.md">Open command routing</a>.</p></div>
+      </div>
     </section>
   </main>
   <footer>
-    Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
+    Experimental public catalog proof. Production support requires a target-scoped decision and fresh receipts.
   </footer>
 </body>
 </html>

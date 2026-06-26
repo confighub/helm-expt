@@ -370,12 +370,13 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Custom Apps &amp; Stacks</h1>
-    <p class="tagline">A real app is often several Helm charts plus your own service. ConfigHub is useful when you want those pieces reviewed and shipped together.</p>
+    <p class="tagline">A real app is often several Helm charts plus your own service. The problem is keeping those pieces reviewable as one release instead of scattering them across repos, values files, and hand-written YAML.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-24T12:04:53.505Z UTC · source: committed helm-expt evidence for this custom apps page.</p>
     <section aria-labelledby="map">
       <h2 id="map">Where The Pieces Go</h2>
+      <p>Use the same routing rule as the README: render-changing choices become reviewed bases; post-render refinements become derived ConfigHub variants; production and private inputs belong in managed workflows.</p>
       <div class="card"><table>
         <thead><tr><th>Piece</th><th>Where it belongs</th><th>Why</th></tr></thead>
         <tbody><tr><td>Public chart</td><td>Start from a catalog base when a reviewed chart/version/base exists.</td><td>Keeps the upstream Helm source visible.</td></tr><tr><td>Custom app</td><td>Represent your own service as ConfigHub Units alongside chart Units.</td><td>Lets the stack be scanned, diffed, promoted, and delivered together.</td></tr><tr><td>Wrapper chart or overlay values</td><td>Use the recipe/import path when the overlay changes Helm render inputs.</td><td>This creates or updates a base, not just a derived variant.</td></tr><tr><td>Environment or customer refinement</td><td>Use derived variants when the change is post-render.</td><td>Targets, labels, approvals, links, observation policy, and selected field transforms.</td></tr><tr><td>Agentic app or plugin</td><td>Build a domain-specific tool on top of ConfigHub data when raw YAML edits are too low-level.</td><td>The tool should provide domain semantics, guardrails, dry-run output, and explicit commit steps.</td></tr><tr><td>Private catalog</td><td>Use ConfigHub-managed private paths when private sources, teams, SLAs, or production responsibility enter.</td><td>This is the paid and managed boundary.</td></tr></tbody>

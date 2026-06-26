@@ -381,6 +381,29 @@
       color: #ffe3a1;
       font-weight: 700;
     }
+    .terminal-caption {
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .audience-block {
+      max-width: 920px;
+      margin-top: 24px;
+    }
+    .audience-block h2 {
+      margin-top: 0;
+    }
+    .audience-note {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel);
+      color: var(--ink);
+    }
     @media (max-width: 640px) {
       .install-compare { grid-template-columns: 1fr; }
     }
@@ -397,18 +420,26 @@
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
-    <div class="terminal-card home-terminal" aria-label="Redis Secret preview before install">
-      <div class="terminal-title">Redis, before install</div>
+    <div class="terminal-card home-terminal" aria-label="AI key preview before install">
+      <div class="terminal-title">AI key in any typical Helm chart, before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
-  name: redis
+  name: ai-provider
 type: Opaque
-data:
-<span class="term-catch">  redis-password: cmFuZG9tLXJlbmRlci1wYXNzd29yZA==  # catch: generated credential</span>
+stringData:
+<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
 
-<span class="term-comment"># fix before install: use reuse-existing-secret and stage your own Secret</span>
+<span class="term-comment"># AI keys often live too long; catch them while this is still a file</span>
+<span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
+      <p class="terminal-caption">AI provider keys are easy to forget and hard to unwind after rollout. Rotate the key or point the chart at an external Secret before install.</p>
+    </div>
+    <div class="audience-block" aria-labelledby="audience-problems">
+      <h2 id="audience-problems">Everyone has had a Helm problem - now we can help</h2>
+      <p class="audience-note"><strong>New Helm user:</strong> the first problem is visibility. Helm tells you what landed after it lands; cub lets you read the exact objects first, change nothing, and still use Helm.</p>
+      <p class="audience-note"><strong>App team or GitOps operator:</strong> the problem is config sprawl. Dev, staging, prod, regions, and customers should not become copied values files and chart forks; they should become named variants with diffs and a clean Argo or Flux handoff.</p>
+      <p class="audience-note"><strong>Platform SRE or security reviewer:</strong> the problem is proof at scale. Before a fleet change ships, you need blast radius, scan and gate status, delivery receipts, and live observation boundaries, not just a green render.</p>
     </div>
   </header>
   <main>
@@ -416,9 +447,9 @@ data:
       <h2 id="look-first">What You See First</h2>
       <div class="catalog light-grid">
         <div class="card"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
-        <div class="card"><h3>Catch classic errors</h3><p>Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry.</p></div>
+        <div class="card"><h3>Catch classic errors</h3><p>AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry.</p></div>
         <div class="card"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
-        <div class="card"><h3>Bringing AI?</h3><p>When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML.</p></div>
+        <div class="card"><h3>Bringing AI?</h3><p>If an agent writes values, render them first. Do not apply plausible YAML you have not read.</p></div>
       </div>
       <p class="closing-line">You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you changed nothing.</p>
       <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>

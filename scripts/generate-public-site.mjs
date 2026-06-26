@@ -496,9 +496,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   ];
   const seeCards = [
     ["See every object", "The exact Kubernetes resources, as plain files you can read before anything reaches the cluster."],
-    ["Catch classic errors", "Many charts ship a generated password inside the render. Spot it and swap in your own before it lands in your cluster or registry."],
+    ["Catch classic errors", "AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry."],
     ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
-    ["Bringing AI?", "When AI writes your values, render what it produced before it is live. Read the objects on screen, not a wall of plausible YAML."],
+    ["Bringing AI?", "If an agent writes values, render them first. Do not apply plausible YAML you have not read."],
   ];
   const valueCards = [
     ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
@@ -525,18 +525,26 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
         <a class="button secondary" href="./charts/index.html">Pick a chart</a>
       </div>
     </div>
-    <div class="terminal-card home-terminal" aria-label="Redis Secret preview before install">
-      <div class="terminal-title">Redis, before install</div>
+    <div class="terminal-card home-terminal" aria-label="AI key preview before install">
+      <div class="terminal-title">AI key in any typical Helm chart, before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
-  name: redis
+  name: ai-provider
 type: Opaque
-data:
-<span class="term-catch">  redis-password: cmFuZG9tLXJlbmRlci1wYXNzd29yZA==  # catch: generated credential</span>
+stringData:
+<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
 
-<span class="term-comment"># fix before install: use reuse-existing-secret and stage your own Secret</span>
+<span class="term-comment"># AI keys often live too long; catch them while this is still a file</span>
+<span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
+      <p class="terminal-caption">AI provider keys are easy to forget and hard to unwind after rollout. Rotate the key or point the chart at an external Secret before install.</p>
+    </div>
+    <div class="audience-block" aria-labelledby="audience-problems">
+      <h2 id="audience-problems">Everyone has had a Helm problem - now we can help</h2>
+      <p class="audience-note"><strong>New Helm user:</strong> the first problem is visibility. Helm tells you what landed after it lands; cub lets you read the exact objects first, change nothing, and still use Helm.</p>
+      <p class="audience-note"><strong>App team or GitOps operator:</strong> the problem is config sprawl. Dev, staging, prod, regions, and customers should not become copied values files and chart forks; they should become named variants with diffs and a clean Argo or Flux handoff.</p>
+      <p class="audience-note"><strong>Platform SRE or security reviewer:</strong> the problem is proof at scale. Before a fleet change ships, you need blast radius, scan and gate status, delivery receipts, and live observation boundaries, not just a green render.</p>
     </div>
   </header>
   <main>
@@ -676,20 +684,21 @@ function howItWorksHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>How It Works</h1>
-    <p class="lead">Helm installs in one step and hides much of what happened. We split that step into four you can check: render the chart, route the tricky parts, deliver the result, and observe the live app.</p>
-    <p>Start here when you want the model before the commands. If you only want to run a chart, go to <a href="./try.html">Get Started</a>. If you want to choose a chart, go to the <a href="./charts/index.html">Helm Catalog</a>.</p>
+    <p class="lead">The problem is not that Helm can render objects. The problem is that a one-step install leaves teams guessing which objects were reviewed, which prerequisites were assumed, and what really happened after delivery.</p>
+    <p>Helm installs in one step; this page shows why ConfigHub splits that into four checkable moves: render the chart, route the tricky parts, deliver the result, and observe the live app. Use fast Helm paths when you only need a render; use the catalog path when the render needs to become reviewed, named, reusable, and supportable. For commands, start with <a href="./try.html">Get Started</a>.</p>
     <div class="move-spine" aria-label="Four-move spine">
-      <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Your chart becomes the same Kubernetes objects, proved object-for-object for the recorded recipe.</p></div>
-      <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Hooks, CRDs, target facts, and other quirks become explicit named steps.</p></div>
-      <div class="move-card"><span class="kicker">03</span><h3>Deliver</h3><p>ConfigHub publishes one OCI bundle. Your chosen controller pulls the same bytes.</p></div>
-      <div class="move-card"><span class="kicker">04</span><h3>Observe</h3><p>Receipts show the live result, including watch, blocked, and not-applicable states.</p></div>
+      <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Prove ConfigHub did not quietly change Helm's starting objects.</p></div>
+      <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Name the CRDs, Secrets, hooks, targets, and lifecycle work Helm otherwise hides.</p></div>
+      <div class="move-card"><span class="kicker">03</span><h3>Deliver</h3><p>Hand the reviewed object set to kubectl, Argo, Flux, or ConfigHub-managed delivery.</p></div>
+      <div class="move-card"><span class="kicker">04</span><h3>Observe</h3><p>Record what the cluster or controller actually saw, including watch and blocked states.</p></div>
     </div>
   </header>
   <main>
     ${generatedStamp(catalog, "how it works guide")}
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
-      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This proves the recipe, not that the target cluster is ready.</p>
+      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This is the migration assurance check, not the whole product value.</p>
+      <p>The value starts after parity: the recorded inputs, named base, receipts, and render intent give people and agents something durable to compare, scan, promote, rerun, and audit.</p>
       <p>A generated render intent records the compact config for that base variant: chart version, values profile, namespace, capability profile, source lock, package base, and the evidence lanes attached to it.</p>
       <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
         <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
@@ -702,6 +711,7 @@ function howItWorksHtml(catalog) {
     <section class="move-section" aria-labelledby="route">
       <h2 id="route">2. Route</h2>
       <p><strong>Claim:</strong> anything Helm would otherwise hide as lifecycle behavior is made visible as a named route. Current route actions marked automatic: <strong>${escapeHtml(String(automaticRouteActions))}/${escapeHtml(String(routeActionTotal))}</strong>.</p>
+      <p>This is where hard charts become understandable. A CRD, webhook certificate, generated Secret, setup job, or target prerequisite should appear as a route, fact, gate, receipt, or blocker instead of an invisible surprise.</p>
       <iframe class="proof-frame" title="Visible versus silent hook proof" src="../data/hook-test-proof/visible-vs-silent.html"></iframe>
       <p><a href="../docs/user/chart-hooks-what-happens.md">Go deeper: chart hooks</a> · <a href="../docs/user/pathway-route-hooks-transparently.md">route hooks transparently</a> · <a href="../data/lifecycle-route-actions/summary.md">lifecycle route actions</a></p>
     </section>
@@ -709,6 +719,7 @@ function howItWorksHtml(catalog) {
     <section class="move-section" aria-labelledby="deliver">
       <h2 id="deliver">3. Deliver</h2>
       <p><strong>Claim:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub should consume the same bundle, but the proof states differ.</p>
+      <p>The operational problem this solves is rerender drift. The controller should pull the reviewed object set, not independently rebuild a plausible-looking result from values at delivery time.</p>
       <div class="mini-visual oci-visual" aria-label="One OCI bundle consumed by three delivery paths">
         <div class="node"><strong>ConfigHub Units</strong><p>Reviewed desired state, labels, variants, gates, and receipts.</p></div>
         <div class="oci-arrow">&rarr;<br><code>OCI</code><br>&rarr;</div>
@@ -750,6 +761,7 @@ spec:
     <section class="move-section" aria-labelledby="observe">
       <h2 id="observe">4. Observe</h2>
       <p><strong>Claim:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
+      <p>This matters because synced is not the same as working. Receipts must say what was observed, when it was observed, and which target or namespace the claim applies to.</p>
       ${dispositionBar(counts)}
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(String(counts.pass))}</strong><span>pass cells</span></div>
@@ -1294,7 +1306,7 @@ function legacyDashboardHtml(catalog) {
 }
 
 function offeringHtml(catalog) {
-  return parityFirstHomeHtml(catalog, "public offering page");
+  return legacyOfferingHtml(catalog);
 }
 
 function legacyOfferingHtml(catalog) {
@@ -1334,10 +1346,10 @@ function legacyOfferingHtml(catalog) {
     ["Full-stack support", "Target-scoped production decisions, patch services, upgrade services, old-version support, SLAs, policies, and approvals."],
   ];
   const personaRows = [
-    ["Platform engineer", "Wants a safer path from public Helm chart to approved cluster config."],
-    ["App team", "Wants a simple install path that still allows dev/prod/customer variants."],
+    ["New Helm user", "Wants to see what a chart will do before it creates Secrets, CRDs, RBAC, storage, or workloads in a cluster."],
+    ["App team or GitOps operator", "Wants dev, staging, prod, region, and customer differences without values sprawl, fork pressure, or copy-paste promotion."],
+    ["Platform SRE", "Wants blast-radius preview, prerequisites, receipts, and observation freshness before fleet changes ship."],
     ["Security reviewer", "Wants scans and gates on exact rendered objects before deployment."],
-    ["SRE/operator", "Wants receipts for what was applied, observed, promoted, upgraded, or rolled back."],
     ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
   ];
   const frontierRows = [
@@ -1361,8 +1373,7 @@ function legacyOfferingHtml(catalog) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ConfigHub Helm Catalog Offering</title>
-  <style>
-    ${siteCss()}
+  <style>${siteCss()}
     .hero { padding-top: 56px; }
     .hero h1 { max-width: 900px; }
     .route { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
@@ -1383,7 +1394,8 @@ function legacyOfferingHtml(catalog) {
     ${generatedStamp(catalog, "offering page")}
     <section aria-labelledby="problem">
       <h2 id="problem">The Problem We Are Solving</h2>
-      <p>Helm users can usually install something. The harder problem is knowing exactly what was produced, whether the same thing was promoted, what changed between environments, whether the exact objects were scanned, and what the cluster actually observed after deployment.</p>
+      <p>Helm users can usually install something. The harder problem changes by audience: a new user cannot see what will land until after the install; an app team ends up with values-file sprawl and forks; a platform reviewer cannot prove blast radius, approvals, delivery, and live convergence at fleet scale.</p>
+      <p>ConfigHub's answer is staged visibility: render first, turn common install shapes into named bases, keep post-render variants explicit, and attach scans, gates, receipts, GitOps handoff, and observations to the object set.</p>
       <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
       <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, prove the boundaries, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation remain product frontier work. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
       <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
@@ -1542,7 +1554,7 @@ function tryHtml(catalog) {
       <div class="hero-copy">
         <p class="eyebrow">Get started</p>
         <h1>Two installs, one outcome</h1>
-        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is how much you can see on the way there.</p>
+        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is the checkpoint: cub writes the objects first, so you can inspect, swap, or stop before anything reaches Kubernetes.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Prometheus install comparison">
@@ -1562,7 +1574,7 @@ function tryHtml(catalog) {
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is the durable catalog path. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -1594,7 +1606,7 @@ function tryHtml(catalog) {
 
     <section class="narrow-section" aria-labelledby="proof">
       <h2 id="proof">What We Checked</h2>
-      <p>We checked that the no-account path can reach the same install outcome and can hand the rendered objects to existing delivery tools.</p>
+      <p>We checked the low-commitment claim: a no-account path can reach the same install outcome and can hand the reviewed rendered objects to existing delivery tools.</p>
       ${markdownLikeTable([
         ["Proof", "What it says", "Open"],
         ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
@@ -1624,7 +1636,7 @@ function serverlessHtml(catalog) {
       <div class="hero-copy">
         <p class="eyebrow">Serverless mode</p>
         <h1>Install without an account</h1>
-        <p class="lead">Serverless mode installs a Helm chart with no account and no sign-up. Same chart, same running result. The difference is that you can see every step.</p>
+        <p class="lead">Serverless mode is the no-account proof path. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
@@ -1646,7 +1658,7 @@ function serverlessHtml(catalog) {
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package. A package is a chart we've reviewed and prepared to install. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -1679,7 +1691,7 @@ function serverlessHtml(catalog) {
 
     <section class="narrow-section" aria-labelledby="edges">
       <h2 id="edges">The edges, kept in plain sight</h2>
-      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with a baked-in password. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
+      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path should catch. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> is not this OCI path.</strong> That command ships the un-rendered installer package. The OCI path above pushes the rendered result that Argo and Flux understand.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page should say which lifecycle steps apply.</p>
@@ -1745,9 +1757,22 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="lead">Start with a guide. Use the database only when you need exact chart status, receipts, or generated evidence.</p>
+    <p class="lead">Start with the problem you have. New Helm users need visibility before install; app teams need variants and promotion; platform reviewers need proof, receipts, and honest limits.</p>
+    <p>Use the guides for the product path. Use the generated database only when you need exact chart status, receipts, or evidence for a claim.</p>
   </header>
   <main>
+    <section aria-labelledby="first-ten">
+      <h2 id="first-ten">First 10 Minutes</h2>
+      ${markdownLikeTable([
+        ["If you are...", "Start with", "Why"],
+        ["Trying a chart", `<a href="./try.html">Get Started</a>`, "Render, inspect, then apply without creating an account."],
+        ["Choosing a public chart", `<a href="./charts/index.html">Helm Catalog</a>`, "See the first base, known prerequisites, and current proof."],
+        ["Managing environments", `<a href="./variants.html">Variants</a>`, "Decide base variant versus derived ConfigHub variant before values sprawl starts."],
+        ["Checking trust", `<a href="./proof.html">Proof</a>`, "See which lane proves render, ConfigHub, delivery, or live state."],
+        ["Asking hard questions", `<a href="./hard-questions.html">FAQ</a>`, "Read the caveats, refusals, and current limits without digging through raw data."],
+      ], { rawSecondColumn: true })}
+    </section>
+
     <section aria-labelledby="guides">
       <h2 id="guides">Guides</h2>
       ${markdownLikeTable([
@@ -1817,14 +1842,15 @@ function quirksHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Helm Quirks</h1>
-    <p class="lead">Some charts need more than “apply these objects.” This guide names the common cases: hooks, CRDs, webhooks, generated values, cluster lookups, storage, and RBAC.</p>
+    <p class="lead">Render parity tells you ConfigHub preserved Helm's object set. Quirks tell you what still has to be true for those objects to work: CRDs, webhooks, generated values, cluster lookups, storage, RBAC, hooks, and target facts.</p>
+    <p>This is the page for the “what will this chart assume?” question. Use it before trusting a green render or a green GitOps sync.</p>
     ${humanLinks([["Browse charts", "./charts/index.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
     <section aria-labelledby="how">
       <h2 id="how">How To Use This Page</h2>
       <div class="grid">
-        <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means and why it matters.</p></div>
+        <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means, why it matters, and what the user or target must provide.</p></div>
         <div class="card"><h3>Then check a chart</h3><p>Open the Helm Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
         <div class="card"><h3>Then check the route</h3><p>For hooks, CRDs, webhooks, target facts, and generated facts, use the row's route, gap, and next-action fields to see what must happen before delivery.</p></div>
       </div>
@@ -1902,13 +1928,15 @@ function proofHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Proof, not promises.</h1>
-    <p class="tagline">This page shows what the catalog proves and where the proof stops. It is for reviewers who want to audit the claims.</p>
+    <p class="tagline">This page answers the reviewer question: what exactly was rendered, uploaded, delivered, observed, and bounded by evidence?</p>
+    <p>Render parity is the first safety check. Governance starts when that rendered object set becomes data with scans, gates, receipts, live observations, and named limits.</p>
     ${humanLinks([["Read the matrix", "./matrix.html"], ["Read the claims register", "../data/claims-register/summary.md"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "proof page")}
     <section aria-labelledby="counters">
       <h2 id="counters">Current Proof Counters</h2>
+      <p>These counters are not one giant green badge. Each lane proves a different boundary, and production use still depends on target scope and fresh evidence.</p>
       <div class="grid">
         ${proofCounters.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)} · ${escapeHtml(body)}</span></div>`).join("\n        ")}
       </div>
@@ -1926,6 +1954,7 @@ function proofHtml(catalog) {
     <section aria-labelledby="serious">
       <h2 id="serious">Serious Charts Are The Test</h2>
       <p>The hard cases are where the product has to earn trust: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
+      <p>This is the expert/SRE problem: before a fleet change ships, someone needs to know blast radius, prerequisites, policy status, delivery path, and observation freshness.</p>
       <p>For these charts, a green render is not enough. The proof must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
@@ -2311,7 +2340,8 @@ function hardQuestionsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>FAQ for skeptical Helm users.</h1>
-    <p class="lead">This page answers the questions an engineer should ask before trusting the model. Each answer says what works today, what is still limited, and where to check the evidence.</p>
+    <p class="lead">This page answers the questions an engineer should ask before trusting the model: what problem does this solve, what is proven, what is still watch or frontier, and when should I keep using plain Helm?</p>
+    <p>Each answer says what works today, what is still limited, and where to check the evidence.</p>
   </header>
   <main>
     ${faqSections
@@ -2382,13 +2412,14 @@ function knownGapsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Known Gaps We Surface</h1>
-    <p class="tagline">This project should not hide rough edges. If a path is awkward, incomplete, or target-specific, we say so.</p>
+    <p class="tagline">A hidden gap is operational risk. A named gap is a decision: fix it, route it, accept it, block it, or keep using Helm for that case.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "known gaps page")}
     <section aria-labelledby="rule">
       <h2 id="rule">The Rule</h2>
       <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site should mark it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
+      <p>This is how the catalog solves a real governance problem: it turns uncertainty into an evidence-backed next action instead of asking users to trust a slogan.</p>
       <p>Positive framing is allowed. Overclaiming is not. The evidence link is part of the product.</p>
     </section>
 
@@ -2498,13 +2529,14 @@ function privateHtml(catalog) {
   <header class="hero human-hero">
     ${topNav("..")}
     <h1>Private catalogs and managed operations.</h1>
-    <p class="tagline">The public catalog is for learning and trying. Private catalogs are for your charts, your teams, your approvals, and your production workflows.</p>
+    <p class="tagline">The public catalog proves the path. Managed ConfigHub is for the harder problem: private inputs, many environments, approvals, production scope, fleet operations, and audit history.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "private page")}
     <section aria-labelledby="public-value">
       <h2 id="public-value">Why Use The Free Public Catalog?</h2>
       <p>Public Helm charts are flexible, but the rendered result is often opaque. The free catalog gives a Helm user the supported base choices, exact objects, proof boundary, and known gaps before they install or promote anything.</p>
+      <p>The managed tier starts when the question changes from “can I see this chart?” to “can my team operate many chart configurations safely over time?”</p>
       <div class="grid">
         ${publicCounters.map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`).join("\n        ")}
       </div>
@@ -2612,7 +2644,8 @@ function journeyHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps Guide</h1>
-    <p class="lead">The free path is for trying public charts. An account is for running your own: your apps, your custom versions, and releases you move from staging to production.</p>
+    <p class="lead">The app problem starts when one chart becomes a real system: several components, several environments, several owners, and a release path that should not depend on copy-pasted values files.</p>
+    <p>The free path is for trying public charts. An account is for running your own: your apps, your custom versions, and releases you move from staging to production.</p>
     <p>An app is the thing your team operates, not just one chart. It can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
     <p>Start with what you already have: a catalog chart, an Argo or Flux app, rendered YAML, a live cluster, or custom Kubernetes objects. The first safe result is visibility. ConfigHub should show what belongs to the app before it changes delivery.</p>
   </header>
@@ -2722,7 +2755,7 @@ function variantsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Variants</h1>
-    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Dev needs one shape. Prod needs another. A customer needs a different Secret, region, target, or storage choice.</p>
+    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Then dev, staging, prod, regions, and customers turn into values-file sprawl and fork pressure.</p>
     <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
     <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
   </header>
@@ -2828,12 +2861,13 @@ function customAppsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Custom Apps &amp; Stacks</h1>
-    <p class="tagline">A real app is often several Helm charts plus your own service. ConfigHub is useful when you want those pieces reviewed and shipped together.</p>
+    <p class="tagline">A real app is often several Helm charts plus your own service. The problem is keeping those pieces reviewable as one release instead of scattering them across repos, values files, and hand-written YAML.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "custom apps page")}
     <section aria-labelledby="map">
       <h2 id="map">Where The Pieces Go</h2>
+      <p>Use the same routing rule as the README: render-changing choices become reviewed bases; post-render refinements become derived ConfigHub variants; production and private inputs belong in managed workflows.</p>
       ${markdownLikeTable([
         ["Piece", "Where it belongs", "Why"],
         ...pieceRows,
@@ -2886,12 +2920,13 @@ function existingAppsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, start read-only. First understand what exists. Then decide what ConfigHub should manage.</p>
+    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first problem is ownership, not migration. Start read-only. First understand what exists. Then decide what ConfigHub should manage.</p>
   </header>
   <main>
     <section aria-labelledby="start">
       <h2 id="start">Start Read-Only</h2>
       <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub should make those facts visible before it tries to manage them.</p>
+      <p>The first safe outcome is an inventory and comparison, not a changed live deployment.</p>
       ${markdownLikeTable([
         ["Starting point", "First route", "Boundary"],
         ...routes,
@@ -2942,7 +2977,8 @@ function aiHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>AI-Assisted Operations</h1>
-    <p class="tagline">AI can help explain, propose, and check changes. ConfigHub should keep the actual config change visible before anything ships.</p>
+    <p class="tagline">The AI risk is not that an agent can write YAML. The risk is applying plausible YAML no one inspected. ConfigHub should keep the generated change visible, bounded, diffed, and receipted before anything ships.</p>
+    <p>AI can help explain, propose, and check changes, but the exact rendered objects and diffs remain the authority.</p>
   </header>
   <main>
     <section aria-labelledby="model">
@@ -3001,12 +3037,12 @@ function securityHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Security And Provenance</h1>
-    <p class="tagline">The public catalog is not a security certification. It shows how Helm output can be made visible, checked, delivered, and observed.</p>
+    <p class="tagline">The public catalog is not a security certification. It addresses a practical review problem: prove which objects were rendered, scanned, approved, delivered, and observed.</p>
   </header>
   <main>
     <section aria-labelledby="why">
       <h2 id="why">Why It Helps</h2>
-      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review.</p>
+      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review and attaches decisions to the rendered object set.</p>
     </section>
 
     <section aria-labelledby="controls">
@@ -3059,7 +3095,8 @@ function futureHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Future And Managed Ideas</h1>
-    <p class="tagline">This page separates what exists now from what we want to build next. It should stop roadmap ideas from sounding like shipped features.</p>
+    <p class="tagline">This page separates what exists now from what we want to build next. The hardest problems — fleet blast radius, governed promotion, and live-to-desired reconciliation — are real, but not all fully proven here.</p>
+    <p>Use it as a roadmap boundary: useful direction, not a replacement for current evidence.</p>
   </header>
   <main>
     <section aria-labelledby="now">
@@ -3081,6 +3118,7 @@ function futureHtml(catalog) {
     <section aria-labelledby="guardrails">
       <h2 id="guardrails">Guardrails</h2>
       <p>Planned ideas should not be described as shipped behavior. The public experiment should keep using evidence-backed words: pass, watch, blocked, refused, not applicable, and planned.</p>
+      <p>That honesty is part of the product story: expert users need to know which governance claims are strong today and which are still frontier work.</p>
       <div class="grid">
         <div class="card"><h3>Upgrade path</h3><p><a href="./private/">Private catalogs and managed operations</a></p></div>
         <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim status</a></p></div>
@@ -3192,7 +3230,7 @@ function operationsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Ops Guide</h1>
-    <p class="lead">Ops starts when an app already exists and the next change matters. You need to know what changed, who approved it, what reached the cluster, and what happened after delivery.</p>
+    <p class="lead">Ops starts when an app already exists and the next change matters. The problem is unknown blast radius: what changed, who approved it, what reached the cluster, and whether the live system actually converged.</p>
     <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use this page to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
   </header>
   <main>
@@ -3206,6 +3244,7 @@ function operationsHtml(catalog) {
       <div class="card">
         <h3>Status legend</h3>
         <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
+        <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
       </div>
 ${cards}
     </section>
@@ -3431,7 +3470,7 @@ function chartIndexHtml(catalog) {
   <header>
     ${topNav("..")}
     <h1>Helm Catalog</h1>
-    <p>This is a directory of ${escapeHtml(String(catalog.top100UserReadiness.length))} Helm charts and how each behaves in ConfigHub.</p>
+    <p>This is a directory of ${escapeHtml(String(catalog.top100UserReadiness.length))} Helm charts and how each behaves in ConfigHub. Use it to answer one practical question: what is the safest first path for this chart?</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
   </header>
   <main>
@@ -3440,6 +3479,7 @@ function chartIndexHtml(catalog) {
       <div class="card">
         <h3>How to read this table</h3>
         <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first base to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated YAML.</p>
+        <p>This is not a leaderboard. A watch or blocked row can be the most useful answer when it names a prerequisite, lifecycle route, or target decision.</p>
       </div>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
@@ -3656,6 +3696,7 @@ function chartPageHtml(catalog, entry) {
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
     <p>Everything we know about this Helm chart is on this page: how to run it, which variants exist, what we have proven, and what still needs work.</p>
+    <p>The point is not just to install the chart. It is to choose the first safe base, read the exact objects, catch prerequisites or classic errors, and know which evidence backs the current claim.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
@@ -4572,6 +4613,29 @@ function homePageCss() {
       background: rgba(240,195,109,.18);
       color: #ffe3a1;
       font-weight: 700;
+    }
+    .terminal-caption {
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .audience-block {
+      max-width: 920px;
+      margin-top: 24px;
+    }
+    .audience-block h2 {
+      margin-top: 0;
+    }
+    .audience-note {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel);
+      color: var(--ink);
     }
     @media (max-width: 640px) {
       .install-compare { grid-template-columns: 1fr; }
