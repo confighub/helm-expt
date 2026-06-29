@@ -546,17 +546,17 @@ stringData:
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
     </div>
     <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
-    <p class="ai-proof-link"><a class="button secondary" href="./ai.html">AI-assisted Helm Ops</a></p>
+    <p class="ai-proof-link"><a href="./ai.html">AI-assisted Helm Ops</a></p>
     <div class="start-block" aria-labelledby="start">
       <h2 id="start">How we help</h2>
       <p>Try it first with a couple of charts and add GitOps if you like. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
-        ${journeySteps.map(([number, title, body, href, linkText], index) => `<a class="journey-step" href="${escapeHtml(href)}">
+        ${journeySteps.map(([number, title, body, href, linkText]) => `<a class="journey-step" href="${escapeHtml(href)}">
           <span class="kicker">${escapeHtml(number)}</span>
           <h3>${escapeHtml(title)}</h3>
           <p>${escapeHtml(body)}</p>
           <span class="go">${escapeHtml(linkText)}</span>
-        </a>${index < journeySteps.length - 1 ? '<span class="journey-arrow" aria-hidden="true">&rarr;</span>' : ""}`).join("\n        ")}
+        </a>`).join("\n        ")}
       </div>
     </div>
     <div class="audience-block" aria-labelledby="audience-problems">
@@ -577,8 +577,8 @@ stringData:
     <section aria-labelledby="look-first">
       <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
-      <div class="catalog light-grid">
-        ${seeCards.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
+      <div class="home-list light-grid">
+        ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
     </section>
 
@@ -605,8 +605,8 @@ stringData:
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
       <p>ConfigHub adds a store and domain model, so you share and manage the many custom chart configurations your team actually runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
-      <div class="catalog">
-        ${valueCards.map(([title, body, href, linkText]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
+      <div class="home-list">
+        ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
     </section>
 
@@ -4792,37 +4792,39 @@ function homePageCss() {
     .ai-proof {
       margin-top: 16px;
       max-width: 820px;
-      color: #174a75;
-      font-weight: 650;
+      color: #374151;
+      font-weight: 600;
+    }
+    .ai-proof-link {
+      margin-top: 6px;
     }
     .value-callout {
-      margin: 22px 0 4px;
-      padding: 18px 20px;
-      max-width: 900px;
-      border: 1px solid #bfd4e8;
-      border-left: 5px solid var(--accent);
-      border-radius: 8px;
-      background: #f3f8fd;
+      margin: 18px 0 0;
+      padding: 0;
+      max-width: 880px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
     }
     .value-callout p {
       margin: 0;
       max-width: none;
-      color: #174a75;
-      font-size: 1.24rem;
-      line-height: 1.32;
-      font-weight: 700;
+      color: #374151;
+      font-size: 1.08rem;
+      line-height: 1.4;
+      font-weight: 650;
     }
     .value-callout p + p {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #d8e6f2;
+      margin-top: 3px;
+      padding-top: 0;
+      border-top: 0;
     }
     .audience-block {
       max-width: 920px;
       margin-top: 24px;
     }
     .start-block {
-      margin-top: 28px;
+      margin-top: 32px;
     }
     .start-block h2 {
       margin-top: 0;
@@ -4836,23 +4838,73 @@ function homePageCss() {
     }
     .audience-note {
       margin-top: 16px;
-      padding: 10px 12px;
-      border-left: 3px solid var(--accent);
-      background: var(--panel);
+      padding: 0 0 0 12px;
+      border-left: 2px solid var(--line);
+      background: transparent;
       color: var(--ink);
     }
     .audience-frame {
       margin-top: 18px;
-      padding: 14px 16px;
-      border: 1px solid #bfd4e8;
-      border-left: 5px solid var(--accent);
-      border-radius: 8px;
-      background: #f3f8fd;
-      color: #174a75;
-      font-weight: 650;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: #374151;
+      font-weight: 600;
+    }
+    .home-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 18px;
+    }
+    .home-list-item {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .home-list-item h3 {
+      margin: 0 0 6px;
+    }
+    .home-list-item p {
+      margin: 0;
+      font-size: .94rem;
+    }
+    .home-list-item p + p {
+      margin-top: 8px;
+    }
+    .home-hero .journey-flow {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+      gap: 22px;
+      margin: 24px 0 8px;
+    }
+    .home-hero .journey-step {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      padding: 14px 0 0;
+      gap: 7px;
+      transition: none;
+    }
+    .home-hero .journey-step:hover {
+      border-color: var(--line);
+    }
+    .home-hero .journey-step:hover h3 {
+      color: var(--accent);
+    }
+    .home-hero .journey-step .go {
+      margin-top: 4px;
+    }
+    .home-hero .journey-arrow {
+      display: none;
+    }
+    @media (max-width: 980px) {
+      .home-list { grid-template-columns: 1fr 1fr; }
+      .home-hero .journey-flow { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .install-compare { grid-template-columns: 1fr; }
+      .home-list { grid-template-columns: 1fr; }
+      .home-hero .journey-step { padding: 12px 0 0; }
     }
   `;
 }
