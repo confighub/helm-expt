@@ -518,15 +518,12 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header class="home-hero human-hero">
     ${topNav(".")}
     <div class="hero-copy">
-      <h1>Look before you install</h1>
-      <p class="lead">No more accidents when Helm installs a chart in one step and tells you what it did wrong - afterward. Render it with cub first, no account, and check what you are about to run. Customise any apps this way. Scale to fleet ops without Helm pains.</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-      </div>
+      <h1>Helm operations made simple</h1>
+      <p class="lead">Helm is a great packaging system, but operations can be unpredictable and tricky. We are here to help you fix this using our AI-friendly Helm tools and our catalog of charts and best practice customisations. Preview your installs to prevent errors. APIs for fixing config values when deployments go bad. User-customised application fleets without upgrade pains.</p>
     </div>
+    <p class="terminal-caption key-warning">AI provider keys are easy to forget and hard to unwind after rollout. Rotate the key or point the chart at an external Secret before install.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">For example, have you ever forgotten to change your AI key before a new install?</div>
+      <div class="terminal-title">For example, have you ever forgotten to change your AI API key before a new install? Now you can unwind this error at any time, even after rollout.</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
@@ -538,13 +535,16 @@ stringData:
 <span class="term-comment"># AI keys often live too long; catch them while this is still a file</span>
 <span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
-      <p class="terminal-caption">AI provider keys are easy to forget and hard to unwind after rollout. Rotate the key or point the chart at an external Secret before install.</p>
+    </div>
+    <div class="hero-actions" aria-label="Primary actions">
+      <a class="button primary" href="./try.html">Get started</a>
+      <a class="button secondary" href="./charts/index.html">Pick a chart</a>
     </div>
     <div class="audience-block" aria-labelledby="audience-problems">
-      <h2 id="audience-problems">Everyone has had a Helm problem - now we can help</h2>
-      <p class="audience-note"><strong>New Helm user:</strong> the first problem is visibility. Helm tells you what landed after it lands; cub lets you read the exact objects first, change nothing, and still use Helm.</p>
-      <p class="audience-note"><strong>App team or GitOps operator:</strong> the problem is config sprawl. Dev, staging, prod, regions, and customers should not become copied values files and chart forks; they should become named variants with diffs and a clean Argo or Flux handoff.</p>
-      <p class="audience-note"><strong>Platform SRE or security reviewer:</strong> the problem is proof at scale. Before a fleet change ships, you need blast radius, scan and gate status, delivery receipts, and live observation boundaries, not just a green render.</p>
+      <h2 id="audience-problems">Three More Helm Problems</h2>
+      <p class="audience-note"><strong>Got values files?</strong> Helm gets painful when you also need to change rendered objects, chart templates, policies, labels, selectors, hooks, or surrounding resources. The bad options are fork the chart forever, edit the chart, or add a Kustomize overlay that becomes hard to reason about.</p>
+      <p class="audience-note"><strong>Upgrades and Promotions?</strong> Even an unmodified chart is complex. Upgrades can change many objects at once, and Helm's normal path does not make that easy to audit before the change lands. Now try adding in variants that will let you run preview tests and roll into production safely.</p>
+      <p class="audience-note"><strong>Private Platform?</strong> You have a fleet of custom charts made by your teams using their favourite Helm features. But for some reason this won't render into YAML before you deploy it, and now you can't use your CVE scanners. You'd like to use AI but where to start?</p>
     </div>
   </header>
   <main>
@@ -4622,6 +4622,13 @@ function homePageCss() {
       color: var(--ink);
       font-size: .9rem;
       font-weight: 600;
+    }
+    .key-warning {
+      margin: 22px 0 10px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--warn);
+      border-radius: 8px;
+      max-width: 900px;
     }
     .audience-block {
       max-width: 920px;

@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Look before you install", "Render it with cub first", "no account", "Do More with ConfigHub", "Store chart configurations", "Preview upgrades"],
+    terms: ["Helm operations made simple", "AI-friendly Helm tools", "Preview your installs", "Three More Helm Problems", "Do More with ConfigHub", "Store chart configurations", "Preview upgrades"],
   },
   {
     file: "site/variants.html",
@@ -107,7 +107,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Look before you install", "Render it with cub first", "no account"],
+    headerTerms: ["Helm operations made simple", "AI-friendly Helm tools", "Preview your installs"],
   },
   {
     file: "site/try.html",
