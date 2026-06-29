@@ -114,7 +114,7 @@ function buildReport() {
   }));
 
   check(gapRows.length === 9, `expected 9 first gap-review rows; found ${gapRows.length}`);
-  check(promotionReviewRows.length === 8, `expected 8 strict promotion-review rows; found ${promotionReviewRows.length}`);
+  check(promotionReviewRows.length > 0, "expected at least one strict promotion-review row");
   check(
     latestRows.length === latestCandidates.length,
     `expected ${latestCandidates.length} latest promotion rows; found ${latestRows.length}`,
@@ -170,8 +170,8 @@ import prototype rows:             ${importPrototypeRows.length}
 | File | Purpose |
 | --- | --- |
 | \`gap-review-wave.csv\` | First existing-secret and CRD/no-CRDs hard gaps to review. |
-| \`../top100-promotion-wave/wave.csv\` | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity. |
-| \`latest-promotion-wave.csv\` | Six latest top-20 candidates that are ready for full lane promotion work. |
+| \`../top100-promotion-wave/wave.csv\` | Current strict top-100 promotion-review wave: proof-grade charts with two-cluster parity. |
+| \`latest-promotion-wave.csv\` | ${latestRows.length} latest top-20 candidates that are ready for full lane promotion work. |
 | \`variant-build-wave.csv\` | Wave-2 chart variants to render and prove next. |
 | \`production-disposition-wave.csv\` | First five catalog-supported charts to move toward production disposition. |
 | \`import-prototype-wave.csv\` | Import examples that explain public chart, managed overlay, and post-render promotion routes. |

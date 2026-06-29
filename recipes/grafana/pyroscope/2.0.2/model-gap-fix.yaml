@@ -1,0 +1,27 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: pyroscope-2.0.2-model-gap-fix
+  chart: grafana/pyroscope
+  version: 2.0.2
+spec:
+  gap_kind: crd-lifecycle
+  bases:
+    - base: ha
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=2 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||podlogs.monitoring.grafana.com and v1|Namespace||default"
+      receipt: runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml
+  fix_class: base-scope-decision
+  sibling_base_that_passes: "default (K pass); no-crds (K pass)"
+  decision: "Use the passing default or no-crds base when the user needs current two-cluster kind parity. The HA base carries a CRD/lifecycle object-set residue that needs an explicit CRD route or a scoped HA support decision."
+  fix_spec: "Decide whether the HA base should own the podlogs CRD lifecycle or should route users to the no-crds/default base for parity. If HA should own it, add the lifecycle route and normalization decision, then rerun kind parity."
+  verify_non_live: "Render the HA, default, and no-crds bases and confirm which bases include the podlogs CRD before recording the HA lifecycle route."
+  rerun_command: "npm run kind-parity:run -- --chart grafana/pyroscope --version 2.0.2 --base ha"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml
+    - "runs/live-kind-parity/grafana-pyroscope-default/receipt.yaml (result: pass, semantic-object-parity: pass)"
+    - "runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml (result: pass, semantic-object-parity: pass)"
+  not_claimed:
+    - "This card does not prove the HA cell passes; it requires applying the route or scope decision and a fresh live receipt."
+

@@ -37,7 +37,7 @@ spec:
     - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
       claim: Local kind observation records webhook TLS prerequisite staging, CRD bootstrap, CRD Established checks, workload rollout, and cub-scout checks.
     - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
-      claim: Two-cluster kind parity records regular Helm and cub installer runtime convergence plus semantic parity.
+      claim: Retained later-version two-cluster kind parity context; not used as matching-version proof for this 85.3.3 lifecycle receipt.
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: true

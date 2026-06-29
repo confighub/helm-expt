@@ -18,13 +18,13 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-696 non-green cells:
+690 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 459 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 128 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 62 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -32,8 +32,8 @@ columns). It changes no status and runs nothing.
 | `promotion` | 396 |
 | `G` | 64 |
 | `P` | 64 |
-| `lifecycle` | 62 |
 | `K` | 59 |
+| `lifecycle` | 56 |
 | `L` | 51 |
 
 | State | Cells |
@@ -43,11 +43,11 @@ columns). It changes no status and runs nothing.
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
 | `not-applicable-candidate` | 74 |
-| `todo` | 62 |
+| `todo` | 56 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (62)
+## needs-run (56)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -60,12 +60,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/mongodb@19.0.7 | existing-secret-replicaset | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/mongodb@19.0.7 | generated-passwords | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/postgresql@18.6.7 | existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/postgresql@18.6.7 | generated-passwords | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/redis@25.5.3 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/redis@25.5.3 | reuse-existing-secret | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |

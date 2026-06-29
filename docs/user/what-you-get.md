@@ -62,15 +62,16 @@ charts that have value-source-map coverage:
 The current public corpus contains:
 
 ```text
-100 recipe/package proof artifacts
+110 recipe/package proof artifacts
 20 top-chart catalog entries with bespoke base variants
 20 top-20 charts with chart-level local kind runtime receipts
 20 top-20 charts with chart-level ConfigHub upload, scan, and safe-operation receipt sets
-20 top-20 charts with production-review-ready disposition receipts
+19 top-20 charts with production-review-ready disposition receipts
+1 top-20 chart with a blocked pre-review disposition
 20 top-20 charts with target-scoped support decision artifacts
 17 top-20 charts with supported target-scoped proof scopes
 2 top-20 charts kept as superseded deprecated-source proof evidence
-1 top-20 chart with a rejected default base and a concrete follow-up route
+1 top-20 chart with a draft target-scoped support decision and a concrete follow-up route
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence

@@ -13,19 +13,19 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 696,
+  "cellCount": 690,
   "byCompletionClass": {
     "needs-target-or-prereq-fix": 459,
     "already-decided": 128,
-    "needs-run": 62,
+    "needs-run": 56,
     "needs-modeling": 47
   },
   "byLane": {
     "promotion": 396,
     "G": 64,
     "P": 64,
-    "lifecycle": 62,
     "K": 59,
+    "lifecycle": 56,
     "L": 51
   },
   "cells": [
@@ -1349,20 +1349,6 @@
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
       "variant": "existing-secret-replicaset",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/mongodb",
-      "version": "19.0.7",
-      "variant": "existing-secret-replicaset",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -1371,20 +1357,6 @@
       "support_artifact": "runs/mongodb-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/mongodb",
-      "version": "19.0.7",
-      "variant": "generated-passwords",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {
@@ -2217,20 +2189,6 @@
       "chart": "bitnami/postgresql",
       "version": "18.6.7",
       "variant": "existing-secret",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/postgresql",
-      "version": "18.6.7",
-      "variant": "existing-secret",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -2239,20 +2197,6 @@
       "support_artifact": "runs/postgresql-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/postgresql",
-      "version": "18.6.7",
-      "variant": "generated-passwords",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {
@@ -2371,20 +2315,6 @@
       "chart": "bitnami/redis",
       "version": "25.5.3",
       "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/redis",
-      "version": "25.5.3",
-      "variant": "default",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -2407,20 +2337,6 @@
       "support_artifact": "runs/derived-variant-execution/redis-prod-us-east/variant-create-receipt.yaml",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "bitnami/redis",
-      "version": "25.5.3",
-      "variant": "reuse-existing-secret",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {

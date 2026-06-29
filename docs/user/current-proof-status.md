@@ -42,10 +42,9 @@ scope, hooks, quirks, hard gap, and next action for each row.
 
 For the remaining non-pass live rows, use the generated
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md). The
-current committed queue has no semantic parity defects. Its remaining rows are
-watch or modeling work: Consul secure mesh needs GitOps/controller-health
-review after parity passed, and Cluster Autoscaler `default` needs a real
-values-profile base rather than another rerun of a missing-values render.
+current queue includes target prerequisites, runtime/watch rows, image
+retention rows, render-input modeling work, and 16 two-cluster semantic parity
+defects that need inspection before they can become stronger live claims.
 
 ## Product Frontiers
 
@@ -278,13 +277,13 @@ different outcome.
 Current aggregate status:
 
 ```text
-chart/base rows:                          191
-helm_template_vs_installer_setup:         191 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:   155 pass, 36 missing
-local_kind_kubectl_apply:                 138 pass
-confighub_oci_argo_live:                   83 pass
-live_helm_vs_confighub_dual_compare:       83 pass, 1 watch, 0 blocked
-two_cluster_kind_parity:                   73 pass, 1 watch, 0 blocked
+chart/base rows:                          199
+helm_template_vs_installer_setup:         199 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   198 pass, 1 missing
+local_kind_kubectl_apply:                 148 pass
+confighub_oci_argo_live:                  135 pass
+live_helm_vs_confighub_dual_compare:      135 pass, 53 watch, 10 blocked
+two_cluster_kind_parity:                  121 pass, 10 watch, 47 blocked
 ```
 
 Those counts come from the generated lane matrix:
@@ -294,35 +293,36 @@ The missing rows are backlog. They are not failed rows. `watch` and `blocked`
 mean a committed receipt exists and the lane found a target, lifecycle, or
 fixture condition that still needs a decision or rerun.
 
-GitOps/OCI live proof has started:
+GitOps/OCI live proof is tracked in two views:
 
-- the first runtime/GitOps wave has 11 committed receipts;
-- 8 first-wave receipts pass;
-- 3 first-wave receipts are non-pass target-fit receipts;
+- the broad outcome lane has 135 of 199 chart/base rows marked pass;
+- the first runtime/GitOps wave has 11 committed controller receipts;
+- 8 first-wave receipts pass and 3 are non-pass target-fit or runtime receipts;
 - exact chart/base/controller status is in the generated runtime summary:
   [Runtime/GitOps Wave](../../data/runtime-gitops/summary.md).
 
 Live Helm-vs-ConfigHub parity is selected-row evidence:
 
-- The selected live comparison lane has 84 committed receipts.
-- 83 rows pass and 1 row is watch.
-- The watch row is Consul secure mesh. Semantic parity and workload readiness
-  passed, but the GitOps controller health still needs review on the
-  three-node target profile before this lane can make a full pass claim.
-- Across the full 191-row lane matrix, rows without this receipt remain backlog
-  for this lane. That is planned work, not failed work.
+- The selected live comparison lane has 198 committed receipts.
+- 135 rows pass, 53 rows are watch, and 10 rows are blocked.
+- The lane currently has 0 ConfigHub/OCI semantic parity defect receipts.
+- Watch and blocked rows are routed to target prerequisites, capability
+  profiles, render-input modeling, image retention, runtime readiness, or
+  GitOps controller review before a stronger live claim is made.
+- Across the full 199-row lane matrix, use the generated outcome coverage to
+  distinguish pass rows, committed non-pass receipts, and rows without a pass.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:
   [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
-Strict two-cluster Helm-vs-installer parity now has 74 committed receipts:
+Strict two-cluster Helm-vs-installer parity now has 178 committed receipts:
 
-- 73 rows pass;
-- 1 row is watch;
-- 0 rows are blocked;
-- 74 rows have semantic object parity;
-- 0 rows currently report a semantic parity defect.
+- 121 rows pass;
+- 10 rows are watch;
+- 47 rows are blocked;
+- 153 rows have semantic object parity;
+- 16 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
@@ -330,23 +330,20 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has 1 active row and no semantic parity defects. The
-remaining row is Consul secure mesh, where semantic parity and workload
-readiness passed but the GitOps controller health still needs review. The raw
-Cluster Autoscaler default is no longer active rerun work because the
-`controller-default-reviewed` useful base models the required Helm values and
-has passing live evidence.
+The current rerun queue has 119 rows: 62 watch rows, 57 blocked rows, 63
+ConfigHub/OCI comparison rows, 56 two-cluster kind-parity rows, and 16 semantic
+parity defects. One row is documented as resolved by a separate useful base and
+is no longer active rerun work.
 
 Production support decisions are now explicit for the top-20 catalog:
 
 - 17 of 20 top-20 charts have supported target-scoped proof scopes.
 - 2 of 20 top-20 charts are superseded deprecated source charts and remain
   catalog proof evidence only.
-- 1 of 20 top-20 charts has a rejected target-scoped proof scope with a
-  concrete production-boundary reason.
-- 0 of 20 top-20 charts have draft support decisions.
-- 20 of 20 are production-review-ready by pre-review disposition receipt.
-- 0 of 20 still have blocked pre-review production dispositions.
+- 0 of 20 top-20 charts have rejected target-scoped proof scopes.
+- 1 of 20 top-20 charts has a draft support decision.
+- 19 of 20 are production-review-ready by pre-review disposition receipt.
+- 1 of 20 still has a blocked pre-review production disposition.
 - 105 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
@@ -355,10 +352,11 @@ Production support decisions are now explicit for the top-20 catalog:
 - A supported target scope is still narrow: it covers the named chart, base,
   target, delivery path, accepted risks, and live evidence rule only.
 
-The top-20 production queue has no remaining pre-review disposition blockers.
-Vault `dev-mode` remains rejected as a production support boundary because it
-is a local/demo base. The active support view is grouped from the current
-target-scoped decisions.
+The top-20 production queue has one remaining pre-review disposition blocker:
+cert-manager needs target-fact preflight closure. Vault is currently a draft
+target-scoped support decision for the default base; its `dev-mode` base remains
+documented as local/demo evidence rather than a production support path. The
+active support view is grouped from the current target-scoped decisions.
 Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
 evidence work before it becomes production-supported for a target scope.
 
@@ -366,8 +364,8 @@ evidence work before it becomes production-supported for a target scope.
 | --- | ---: | --- |
 | Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 | Superseded source chart | 2 | Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim. |
-| Rejected default base | 1 | Keep parity evidence, then create a better production base or target scope before support. |
-| Draft support decision | 0 | No current top-20 support decisions are draft. |
+| Rejected default base | 0 | No current top-20 support decisions are rejected. |
+| Draft support decision | 1 | Resolve the remaining target-scoped draft before making a production-support claim. |
 
 Use the target-scoped decision table for exact blockers and next actions:
 [Production Support Decisions](../../data/production-support-decisions/summary.md).

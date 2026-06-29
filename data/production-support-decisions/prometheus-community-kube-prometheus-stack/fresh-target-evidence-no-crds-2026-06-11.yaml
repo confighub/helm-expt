@@ -6,24 +6,24 @@ spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
   base: "no-crds"
-  observedAt: "2026-06-11T19:39:09Z"
+  observedAt: "2026-06-14T12:52:24Z"
   result: "pass"
   targetScope:
     clusterClass: "cub-lk-kind-vanilla"
     namespace: "monitoring"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-    rig: "helm-expt-parity-kpsnocrds-codex-0611"
-    kubeContext: "kind-helm-expt-parity-kpsnocrds-codex-0611"
-    target: "helm-expt-parity-kpsnocrds-codex-0611-cluster/oci"
-    workloadSpace: "helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack"
-    app: "kube-prometheus-stack-parity"
+    rig: "helm-expt-parity-prometheuscom8a5b5-mqdsasx9-1pgx"
+    kubeContext: "kind-helm-expt-parity-prometheuscom8a5b5-mqdsasx9-1pgx"
+    target: "helm-expt-parity-prometheuscom8a5b5-mqdsasx9-1pgx-cluster/oci"
+    workloadSpace: "helm-expt-parity-prometheuscom8a5b5-mqdsasx9-1pgx-prometheus-community-kube-prometheus-stack-no-crds"
+    app: "prometheus-community-kube-prometheus-stack-no-crds-parity"
   package:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
   recipe:
     path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3"
   oci:
-    revision: "sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2"
+    revision: "sha256:683da220f824a9cd737431234b6aa8b083f7360ac99b18bd9da75ba25171fb9c"
     controller: "Argo CD OCI"
     sync: "Synced"
     health: "Healthy"
@@ -34,6 +34,12 @@ spec:
       stagedSecrets:
         -
           namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+        -
+          namespace: "monitoring-apply"
           name: "kube-prometheus-stack-admission"
           keys:
             - "cert"
@@ -63,6 +69,12 @@ spec:
       stagedSecrets:
         -
           namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+        -
+          namespace: "monitoring-oci"
           name: "kube-prometheus-stack-admission"
           keys:
             - "cert"
@@ -120,11 +132,14 @@ spec:
     allowedExtraConfigHubObjects:
       - "v1|Namespace||monitoring"
   twoClusterCrossCheck:
-    path: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
-    result: "pass"
-    semanticParity: "pass"
-    regularHelmRuntime: "pass"
-    installerRuntime: "pass"
+    status: "not-used"
+    checkedPath: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
+    reason: "No matching-version two-cluster kind parity receipt is retained for prometheus-community/kube-prometheus-stack@85.3.3; later-version kind parity rows are deliberately excluded from this production-support evidence."
+    retainedReceipt:
+      chart: "prometheus-community/kube-prometheus-stack"
+      version: "86.1.0"
+      base: "no-crds"
+      result: "pass"
   source:
     liveReceiptPath: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
     cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
@@ -140,7 +155,7 @@ spec:
     -
       name: "confighub-oci-argo-runtime"
       result: "pass"
-      detail: "Argo app kube-prometheus-stack-parity: sync=Synced health=Healthy revision=sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2"
+      detail: "Argo app prometheus-community-kube-prometheus-stack-no-crds-parity: sync=Synced health=Healthy revision=sha256:683da220f824a9cd737431234b6aa8b083f7360ac99b18bd9da75ba25171fb9c"
     -
       name: "semantic-object-parity"
       result: "pass"

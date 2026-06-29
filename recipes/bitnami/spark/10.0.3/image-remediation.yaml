@@ -27,6 +27,13 @@ spec:
       failure_signature: "remote-image: the pinned image above could not be pulled on the target (container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
       receipt: runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml
       rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts"
+    - base: legacy
+      lane: G/P
+      missing_images: "docker.io/bitnamilegacy/spark:4.0.0-debian-12-r20"
+      image_location: container
+      failure_signature: "remote-image: the remapped legacy image above could not be pulled by the regular Helm leg; semantic object parity passed per the live comparison — still a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
   remediated_variant:
     name: legacy
     variant: recipes/bitnami/spark/10.0.3/variants/legacy/variant.yaml
@@ -40,6 +47,7 @@ spec:
   evidence:
     - runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml
     - runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-spark-legacy/receipt.yaml
     - data/remote-image-runtime-workdown/workdown.csv
     - data/image-digest-workdown/summary.md
   not_claimed:

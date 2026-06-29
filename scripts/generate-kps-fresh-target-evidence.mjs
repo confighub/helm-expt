@@ -46,7 +46,7 @@ if (mode === "--generate") {
 
 function buildReceipt(config) {
   const live = liveReceipt(config);
-  const kindParity = kindParityReceipt(config);
+  const twoClusterCrossCheck = kindParityCrossCheck(config);
   const oci = live.spec.legs.configHubOciArgo;
   const receipt = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -93,13 +93,7 @@ function buildReceipt(config) {
         helmVsConfigHubOciArgo: live.spec.semanticComparison.helmVsConfigHubOciArgo.result,
         allowedExtraConfigHubObjects: live.spec.semanticComparison.allowedExtraConfigHubObjects,
       },
-      twoClusterCrossCheck: {
-        path: relativeRepo(kindParityPath(config)),
-        result: kindParity.spec.result,
-        semanticParity: kindParity.spec.semanticComparison.helmVsCubInstallerApply.result,
-        regularHelmRuntime: kindParity.spec.legs.regularHelm.runtime.result,
-        installerRuntime: kindParity.spec.legs.cubInstallerApply.runtime.result,
-      },
+      twoClusterCrossCheck,
       source:
         {
           liveReceiptPath: relativeRepo(liveReceiptPath(config)),
@@ -165,6 +159,7 @@ function verifyReceipt(config) {
   check(spec.observedAt === live.spec.observedAt, `${relativeRepo(config.path)} observedAt mismatch`);
   check(spec.oci?.revision === live.spec.legs.configHubOciArgo.ociRevision, `${relativeRepo(config.path)} OCI revision mismatch`);
   check(spec.comparison?.helmVsConfigHubOciArgo === live.spec.semanticComparison.helmVsConfigHubOciArgo.result, `${relativeRepo(config.path)} semantic comparison mismatch`);
+  verifyKindParityCrossCheck(config, spec.twoClusterCrossCheck ?? {});
   if (config.base === "no-crds") {
     check((spec.limits ?? []).some((item) => item.includes("compatible Prometheus Operator CRDs")), `${relativeRepo(config.path)} must state CRD prerequisite limit`);
     check((spec.targetFacts?.configHubOciArgo?.stagedCRDs ?? []).length === 10, `${relativeRepo(config.path)} must record 10 staged CRDs`);
@@ -190,17 +185,75 @@ function liveReceipt(config) {
   return receipt;
 }
 
-function kindParityReceipt(config) {
+function kindParityCrossCheck(config) {
   const path = kindParityPath(config);
-  check(existsSync(path), `missing ${relativeRepo(path)}`);
+  const checkedPath = relativeRepo(path);
+  if (!existsSync(path)) return missingKindParityCrossCheck(checkedPath);
+
   const receipt = readYaml(path);
-  check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${relativeRepo(path)} kind mismatch`);
-  check(receipt.spec?.chart === chart, `${relativeRepo(path)} chart mismatch`);
-  check(receipt.spec?.version === version, `${relativeRepo(path)} version mismatch`);
-  check(receipt.spec?.base === config.base, `${relativeRepo(path)} base mismatch`);
-  check(receipt.spec?.result === "pass", `${relativeRepo(path)} result must pass`);
-  check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply?.result === "pass", `${relativeRepo(path)} semantic parity must pass`);
-  return receipt;
+  check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${checkedPath} kind mismatch`);
+  check(receipt.spec?.chart === chart, `${checkedPath} chart mismatch`);
+
+  if (receipt.spec?.version !== version || receipt.spec?.base !== config.base) {
+    return missingKindParityCrossCheck(checkedPath, receipt);
+  }
+
+  check(receipt.spec?.result === "pass", `${checkedPath} result must pass`);
+  check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply?.result === "pass", `${checkedPath} semantic parity must pass`);
+  return {
+    path: checkedPath,
+    result: receipt.spec.result,
+    semanticParity: receipt.spec.semanticComparison.helmVsCubInstallerApply.result,
+    regularHelmRuntime: receipt.spec.legs.regularHelm.runtime.result,
+    installerRuntime: receipt.spec.legs.cubInstallerApply.runtime.result,
+  };
+}
+
+function missingKindParityCrossCheck(checkedPath, receipt = null) {
+  const crossCheck = {
+    status: "not-used",
+    checkedPath,
+    reason:
+      `No matching-version two-cluster kind parity receipt is retained for ${chart}@${version}; later-version kind parity rows are deliberately excluded from this production-support evidence.`,
+  };
+  if (receipt?.spec) {
+    crossCheck.retainedReceipt = {
+      chart: receipt.spec.chart,
+      version: String(receipt.spec.version),
+      base: receipt.spec.base,
+      result: receipt.spec.result,
+    };
+  }
+  return crossCheck;
+}
+
+function verifyKindParityCrossCheck(config, crossCheck) {
+  const expected = kindParityCrossCheck(config);
+  if (expected.status === "not-used") {
+    check(crossCheck.status === "not-used", `${relativeRepo(config.path)} two-cluster cross-check status mismatch`);
+    check(crossCheck.checkedPath === expected.checkedPath, `${relativeRepo(config.path)} two-cluster cross-check path mismatch`);
+    check(crossCheck.reason === expected.reason, `${relativeRepo(config.path)} two-cluster cross-check reason mismatch`);
+    verifyRetainedReceiptSummary(config, crossCheck.retainedReceipt, expected.retainedReceipt);
+    return;
+  }
+
+  check(crossCheck.path === expected.path, `${relativeRepo(config.path)} two-cluster cross-check path mismatch`);
+  check(crossCheck.result === expected.result, `${relativeRepo(config.path)} two-cluster result mismatch`);
+  check(crossCheck.semanticParity === expected.semanticParity, `${relativeRepo(config.path)} two-cluster semantic parity mismatch`);
+  check(crossCheck.regularHelmRuntime === expected.regularHelmRuntime, `${relativeRepo(config.path)} two-cluster regular Helm runtime mismatch`);
+  check(crossCheck.installerRuntime === expected.installerRuntime, `${relativeRepo(config.path)} two-cluster installer runtime mismatch`);
+}
+
+function verifyRetainedReceiptSummary(config, actual, expected) {
+  if (!expected) {
+    check(!actual, `${relativeRepo(config.path)} retained kind-parity receipt summary should be absent`);
+    return;
+  }
+
+  check(actual?.chart === expected.chart, `${relativeRepo(config.path)} retained kind-parity chart mismatch`);
+  check(actual?.version === expected.version, `${relativeRepo(config.path)} retained kind-parity version mismatch`);
+  check(actual?.base === expected.base, `${relativeRepo(config.path)} retained kind-parity base mismatch`);
+  check(actual?.result === expected.result, `${relativeRepo(config.path)} retained kind-parity result mismatch`);
 }
 
 function targetFactSummary(live) {

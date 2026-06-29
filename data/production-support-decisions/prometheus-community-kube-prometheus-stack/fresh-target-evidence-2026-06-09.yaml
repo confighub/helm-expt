@@ -63,11 +63,14 @@ spec:
     allowedExtraConfigHubObjects:
       - "v1|Namespace||monitoring"
   twoClusterCrossCheck:
-    path: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
-    result: "pass"
-    semanticParity: "pass"
-    regularHelmRuntime: "pass"
-    installerRuntime: "pass"
+    status: "not-used"
+    checkedPath: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+    reason: "No matching-version two-cluster kind parity receipt is retained for prometheus-community/kube-prometheus-stack@85.3.3; later-version kind parity rows are deliberately excluded from this production-support evidence."
+    retainedReceipt:
+      chart: "prometheus-community/kube-prometheus-stack"
+      version: "86.1.0"
+      base: "default"
+      result: "blocked"
   source:
     liveReceiptPath: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
     cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"

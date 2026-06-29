@@ -8,7 +8,7 @@ the status per chart, base variant, derived variant, and Helm feature.
 
 ```text
 charts with model support:           108/110
-variant-rich charts:                 75/110
+variant-rich charts:                 77/110
 chart/base rows:                     199
 complete core lane rows:             126/199
 render parity rows:                  199/199

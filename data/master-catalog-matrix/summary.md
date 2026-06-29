@@ -54,7 +54,7 @@ from a different chart version's disposition row.
 | Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 386 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 83 |
-| Cells with deferred accepted disposition | 131 |
+| Cells with deferred accepted disposition | 125 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/prometheus@29.9.0`.
 
@@ -91,7 +91,7 @@ otherwise.
 | Decide a limitation first | 23 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/apache@11.4.29/default`, `bitnami/apache@11.4.29/legacy`, `bitnami/contour@21.1.4/default` |
 | Complete the core proof lane | 81 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
 | Active proof queue | 83 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
-| Deferred accepted dispositions | 45 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
+| Deferred accepted dispositions | 39 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
 | Candidate rows | 74 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
 | Custom-discussion candidates | 58 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/memcached@8.5.5/storage-default-reviewed`, `bitnami/phpmyadmin@20.0.0/web-ui-existing-secret` |
@@ -184,8 +184,8 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2c | candidate review | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/mongodb@19.0.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2b | base | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ✅ |
+|  | F2b | base | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
 | `bitnami/mongodb@19.0.9` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⬜ | ⚠️ | run | local-live | ⬜ |
 |  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
@@ -215,8 +215,8 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | local-live | ⬜ |
 |  | F2c | candidate review | web-ui-existing-secret | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/postgresql@18.6.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ✅ |
+|  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
 | `bitnami/postgresql@18.6.10` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | run | live-parity | ⬜ |
 |  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
@@ -227,8 +227,8 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 | `bitnami/redis@25.5.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ✅ |
-|  | F2b | base | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | deferred | live-parity | ⬜ |
+|  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 |  | F4a | derived from default | prod-us-east | derived | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 |  | F4b | derived from default | staging-eu-west | derived | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | ✅ | - | - | ❌ | - | - | - | stage | derived-intended-state | ❌ |
 | `bitnami/redis@27.0.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

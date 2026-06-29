@@ -17,7 +17,7 @@ spec:
   decidedAt: "2026-06-09"
   claim: "The selected KPS hook/lifecycle route has observed evidence for the public monitoring proof scope: webhook TLS prerequisite staging, CRD bootstrap and Established checks, operator and workload rollout, and ConfigHub OCI/Argo runtime health. This closes the lifecycle decision for the current proof scope, but not for every production target or upgrade path."
   route:
-    result: "route-selected"
+    result: "observed"
     summary: "Admission webhook patch hooks are handled as explicit lifecycle work, not as hidden render parity."
     phases:
       -
@@ -85,11 +85,14 @@ spec:
         stderrPath: "cub-scout.closed-world.stderr.txt"
         stderrSHA256: "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
     twoClusterParity:
-      result: "pass"
-      observedAt: "2026-06-09T07:30:29Z"
-      regularHelmRuntime: "pass"
-      installerRuntime: "pass"
-      semanticParity: "pass"
+      status: "not-used"
+      checkedPath: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      reason: "No matching-version two-cluster kind parity receipt is retained for prometheus-community/kube-prometheus-stack@85.3.3; later-version kind parity rows are deliberately excluded from this lifecycle decision."
+      retainedReceipt:
+        chart: "prometheus-community/kube-prometheus-stack"
+        version: "86.1.0"
+        base: "default"
+        result: "blocked"
     confighubOciArgo:
       result: "pass"
       observedAt: "2026-06-09T09:59:35Z"
@@ -114,7 +117,7 @@ spec:
       claim: "Records webhook TLS prerequisite staging, CRD bootstrap/Established checks, workload rollout, and cub-scout checks."
     -
       path: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
-      claim: "Records two-cluster Helm-vs-installer runtime and semantic parity for the default base."
+      claim: "Records the retained later-version two-cluster kind parity row; it is not used as matching-version proof for this lifecycle decision."
     -
       path: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
       claim: "Records regular Helm, ConfigHub apply, and ConfigHub OCI/Argo runtime and semantic parity."

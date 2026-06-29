@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: nfs-subdir-external-provisioner-4.0.18-model-gap-fix
+  chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+  version: 4.0.18
+spec:
+  gap_kind: unknown
+  bases:
+    - base: default
+      lane: G/P
+      failure_signature: "helm-runtime: upstream leg blocked"
+      receipt: runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml
+  fix_class: base-scope-decision
+  sibling_base_that_passes: "none"
+  decision: "The row is currently a runtime/operator-review item rather than a proven ConfigHub object-model defect. Decide whether the default base needs target prerequisites, longer Helm readiness waits, or a narrower support target before rerunning."
+  fix_spec: "Inspect the upstream Helm leg receipt, identify the target/runtime condition that blocked readiness, and either record a target prerequisite/support boundary or adjust the live runner wait policy. Do not change the recipe unless the object comparison starts failing."
+  verify_non_live: "Review the receipt and target prerequisites without changing live state; render parity should remain unchanged."
+  rerun_command: "npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default"
+  automatic: false
+  evidence:
+    - runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it records the review route before any fresh live receipt."
+

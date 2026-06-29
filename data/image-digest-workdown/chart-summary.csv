@@ -30,6 +30,11 @@ bitnami/redis,25.5.3,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,non
 bitnami/redis,27.0.0,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
 ingress-nginx/ingress-nginx,4.15.1,catalog-supported,top20-catalog-supported,3,0,3,0,0,0,0,none
 argo-cd/argo-workflows,1.0.14,proof-grade,next80-proof-grade,3,3,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/contour,21.1.4,proof-grade,next80-proof-grade,3,3,12,12,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/elasticsearch,22.1.6,proof-grade,next80-proof-grade,3,3,36,36,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/opensearch,2.0.10,proof-grade,next80-proof-grade,3,3,36,36,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/spark,10.0.3,proof-grade,next80-proof-grade,3,3,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/zookeeper,13.8.7,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 elastic/eck-operator,3.4.0,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 external-dns/external-dns,1.21.1,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 grafana/pyroscope,2.0.2,proof-grade,next80-proof-grade,3,3,9,9,0,0,0,resolve image digests for each affected variant before production OCI support
@@ -38,11 +43,8 @@ aqua/trivy-operator,0.32.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve 
 argo-cd/argo-events,2.4.21,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 argo-cd/argo-rollouts,2.40.9,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 autoscaler/vertical-pod-autoscaler,0.9.0,proof-grade,next80-proof-grade,2,2,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/contour,21.1.4,proof-grade,next80-proof-grade,2,2,8,8,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/elasticsearch,22.1.6,proof-grade,next80-proof-grade,2,2,24,24,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/opensearch,2.0.10,proof-grade,next80-proof-grade,2,2,24,24,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/spark,10.0.3,proof-grade,next80-proof-grade,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/zookeeper,13.8.7,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/apache,11.4.29,proof-grade,next80-proof-grade,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
+bitnami/phpmyadmin,20.0.0,proof-grade,next80-proof-grade,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 cloudnative-pg/cloudnative-pg,0.28.2,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 elastic/filebeat,8.5.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 elastic/logstash,8.5.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
@@ -76,9 +78,7 @@ vm/victoria-metrics-single,0.39.0,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,r
 argo-cd/argocd-image-updater,1.2.2,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 autoscaler/cluster-autoscaler,9.57.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,proof-grade,next80-proof-grade,1,1,11,11,0,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/apache,11.4.29,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 bitnami/memcached,8.5.5,proof-grade,next80-proof-grade,1,1,1,0,1,0,0,resolve image digests for each affected variant before production OCI support
-bitnami/phpmyadmin,20.0.0,proof-grade,next80-proof-grade,1,1,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 coredns/coredns,1.45.2,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support
 crossplane-stable/crossplane,2.3.1,proof-grade,next80-proof-grade,1,1,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 descheduler/descheduler,0.36.0,proof-grade,next80-proof-grade,1,1,1,1,0,0,0,resolve image digests for each affected variant before production OCI support

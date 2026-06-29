@@ -20,6 +20,13 @@ spec:
       failure_signature: "remote-image: the pinned image above could not be pulled on the target (init-container, ImagePullBackOff); semantic object parity passed per the live comparison — a registry-retention/override issue, not a ConfigHub object-model defect"
       receipt: runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml
       rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts"
+    - base: legacy
+      lane: G/P
+      missing_images: "docker.io/bitnamilegacy/apache:2.4.65-debian-12-r2"
+      image_location: init-container
+      failure_signature: "remote-image: the remapped legacy image above could not be pulled by the regular Helm leg; semantic object parity passed per the live comparison — still a registry-retention/override issue, not a ConfigHub object-model defect"
+      receipt: runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml
+      rerun_command: "npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
   remediated_variant:
     name: legacy
     variant: recipes/bitnami/apache/11.4.29/variants/legacy/variant.yaml
@@ -32,6 +39,7 @@ spec:
   automatic: false
   evidence:
     - runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml
     - data/remote-image-runtime-workdown/workdown.csv
     - data/image-digest-workdown/summary.md
   not_claimed:

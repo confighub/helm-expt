@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: phpmyadmin-20.0.0-model-gap-fix
+  chart: bitnami/phpmyadmin
+  version: 20.0.0
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: legacy
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; objects include apps/v1|Deployment|default|phpmyadmin; runtime also fails to pull image"
+      receipt: runs/live-kind-parity/bitnami-phpmyadmin-legacy/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "The legacy base has both an image-runtime residue and a small semantic object-shape residue. Keep image pull remediation separate; use this card to resolve the Namespace/object diff before claiming two-cluster parity."
+  fix_spec: "Classify the installer-added default Namespace as allowed normalization if it is the only extra object, then inspect the phpMyAdmin Deployment diff and reconcile the recipe/render inputs or record a narrow intentional normalization."
+  verify_non_live: "Render the legacy base and compare the Deployment fields against regular Helm under the same values; no undocumented diff should remain."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/phpmyadmin --version 20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-phpmyadmin-legacy/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
+

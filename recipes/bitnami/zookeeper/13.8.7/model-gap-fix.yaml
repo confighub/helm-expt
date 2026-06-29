@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: zookeeper-13.8.7-model-gap-fix
+  chart: bitnami/zookeeper
+  version: 13.8.7
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: legacy
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; objects include apps/v1|StatefulSet|default|zookeeper; runtime also fails to pull image"
+      receipt: runs/live-kind-parity/bitnami-zookeeper-legacy/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "The legacy base needs the remaining object-shape residue resolved separately from the remote-image residue. The Namespace extra is probably allowed normalization; the Zookeeper StatefulSet diff needs review."
+  fix_spec: "Classify the installer-added default Namespace through semantic normalization, then inspect the Zookeeper StatefulSet diff and reconcile render inputs or record a narrow intentional normalization."
+  verify_non_live: "Render the legacy base and compare the StatefulSet fields against regular Helm under the same values; no undocumented diff should remain."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/zookeeper --version 13.8.7 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-zookeeper-legacy/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
+

@@ -91,8 +91,9 @@ Use ConfigHub-managed workflows when you need:
 The current catalog proves a lot, but not everything:
 
 - 20 top-chart entries have public catalog bases;
-- 100 charts have recipe/package proof artifacts;
-- 191 chart/base rows have render parity against regular Helm;
+- 110 charts have recipe/package proof artifacts;
+- 199 chart/base rows have render parity against regular Helm;
+- 198 of those rows have the stricter in-ConfigHub proof lane marked pass;
 - local, GitOps, parity, lifecycle, and production support lanes are tracked
   separately.
 

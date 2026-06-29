@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-24T12:04:53.505Z",
+  "generatedAt": "2026-06-29T07:35:15.016Z",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -98,7 +98,7 @@
     "top500MatchedProofs": 91,
     "latestCandidates": 7,
     "runtimeGitopsWave": 11,
-    "imageSubjectsNeedingResolution": 162,
+    "imageSubjectsNeedingResolution": 169,
     "nextTenGapRows": 9,
     "baseVariants": 42,
     "startHereBaseVariants": 26,
@@ -158,7 +158,7 @@
     {
       "section": "outcome coverage",
       "metric": "variant-rich maintained chart rows",
-      "value": "75",
+      "value": "77",
       "total": "110",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
@@ -35520,11 +35520,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "base",
@@ -35594,11 +35594,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/generated-passwords",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "source",
@@ -36926,11 +36926,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/postgresql/18.6.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/existing-secret",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "base",
@@ -37000,11 +37000,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/postgresql/18.6.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/generated-passwords",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "source",
@@ -37370,11 +37370,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/redis/25.5.3/bases/default",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "base",
@@ -37444,11 +37444,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/redis/25.5.3/bases/reuse-existing-secret",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "derived",

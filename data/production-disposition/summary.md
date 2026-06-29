@@ -19,8 +19,8 @@ production-blocked pending disposition: 1
 target-scoped support decision artifacts: 20
 target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
-target-scoped rejected decisions: 1
-target-scoped draft decisions: 0
+target-scoped rejected decisions: 0
+target-scoped draft decisions: 1
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
@@ -82,11 +82,11 @@ active support state.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
-| Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
 | Image digest resolution | 10 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (existing-secret-ingress)<br>and 5 more |
 | Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (internal-clusterip) |
 | Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (server-only-ephemeral)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
 | Close open dispositions | 1 | Write or fix missing disposition receipts before making a support decision.<br>`jetstack/cert-manager@v1.20.2` (crds-enabled) |
+| Scope decision | 1 | Write the missing target-scoped support boundary.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
 
 For the full per-chart contract, use
 `data/production-disposition/support-decision-contract.md`. For the

@@ -326,24 +326,25 @@ chart/base row has every lane complete.
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
 20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
-20/20 top-20 charts are production-review-ready by disposition receipt.
-0/20 top-20 charts are production-blocked pending pre-review disposition.
-0/20 top-20 charts still need pre-review target-fact preflight disposition.
+19/20 top-20 charts are production-review-ready by disposition receipt.
+1/20 top-20 charts is production-blocked pending pre-review disposition.
+1/20 top-20 charts still needs pre-review target-fact preflight disposition.
 20/20 top-20 charts have target-scoped support decision artifacts.
 17/20 top-20 charts have supported target-scoped proof scopes.
 2/20 top-20 charts are superseded deprecated source charts.
-1/20 top-20 charts has a rejected target-scoped proof scope with a concrete production-boundary reason.
-0/20 top-20 charts remain draft support decisions.
-100 charts have recipe/package proof artifacts.
-191 chart/base rows have Helm-template versus cub installer render parity.
-155/191 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected live Helm-vs-ConfigHub comparison lane has 84 committed receipts:
-83 pass, 1 watch, 0 blocked rows, and 0 semantic
-parity defects.
-The top-20 base-variant two-cluster kind parity lane has 42 committed
-receipts: 42 pass, 0 watch, 0 blocked, and 0 semantic parity defects.
-The broader two-cluster kind parity corpus has 74 committed receipts:
-73 pass, 1 watch, 0 blocked, and 0 semantic parity defects.
+0/20 top-20 charts have rejected target-scoped proof scopes.
+1/20 top-20 charts remains a draft support decision.
+110 charts have recipe/package proof artifacts.
+199 chart/base rows have Helm-template versus cub installer render parity.
+198/199 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
+148/199 chart/base rows have local live proof.
+135/199 chart/base rows have GitOps/OCI live proof marked pass.
+The selected live Helm-vs-ConfigHub comparison lane has 198 committed receipts:
+135 pass, 53 watch, 10 blocked rows, and 0 ConfigHub/OCI semantic parity
+defect receipts.
+The two-cluster kind parity corpus has 178 committed receipts:
+121 pass, 10 watch, 47 blocked rows, 153/178 semantic parity pass rows,
+and 16 semantic parity defects.
 11/100 public top-100 source-scan rows contain Helm hooks.
 5 maintained hook queue rows have hook route receipts.
 5/5 maintained hook queue rows have lifecycle observation receipts.
@@ -399,18 +400,16 @@ ConfigHub OCI
 
 That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The strict
-live Helm-vs-ConfigHub comparison lane currently has 84 committed receipts:
-83 pass, 1 watch, and 0 blocked rows. The remaining watch row is Consul secure
-mesh; semantic parity and workload readiness passed, but the GitOps controller
-health still needs review on the three-node target profile. Across the full
-191-row lane matrix, the remaining rows are backlog, useful-base work,
-controller-health review, or target-fit work, not semantic parity defects. The
-strict two-cluster kind parity lane has receipts for all 42 maintained top-20 base variants and
-74 committed receipts overall: 73 pass and 1 watch. The watch row is the raw
-Cluster Autoscaler default; the product route is the
-`controller-default-reviewed` useful base, which models the required Helm values
-and has passing live evidence. The lane separates semantic parity from target
-prerequisites, runtime readiness, hooks, and storage behavior.
+live Helm-vs-ConfigHub comparison lane currently has 198 committed receipts:
+135 pass, 53 watch, and 10 blocked rows. The non-pass rows are routed to
+target prerequisites, capability profiles, render-input modeling, image
+retention, runtime readiness, or GitOps controller review before they become
+broader support claims. The two-cluster kind parity lane has 178 committed
+receipts overall: 121 pass, 10 watch, and 47 blocked rows. It is stricter
+about semantic object equality and currently reports 16 semantic parity
+defects to inspect before turning those rows into stronger live claims. The
+lane separates semantic parity from target prerequisites, runtime readiness,
+hooks, storage behavior, and operating policy.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
@@ -905,10 +904,10 @@ The Argo CD / Flux OCI path is verified in a separate live lane because it needs
 a running GitOps controller and cluster. The current generated status is:
 
 ```text
-GitOps/OCI live pass rows: 83/191
-selected live Helm-vs-ConfigHub comparison: 83 pass, 1 watch, 0 blocked
-all-base top-20 two-cluster kind parity: 42 pass, 0 watch, 0 blocked, 0 semantic defects
-broader two-cluster kind parity corpus: 73 pass, 1 watch, 0 blocked, 0 semantic defects
+GitOps/OCI live pass rows: 135/199
+selected live Helm-vs-ConfigHub comparison: 135 pass, 53 watch, 10 blocked
+two-cluster kind parity corpus: 121 pass, 10 watch, 47 blocked
+two-cluster semantic parity: 153/178 pass, 16 defects
 ```
 
 Use the generated summaries for exact chart/base status:

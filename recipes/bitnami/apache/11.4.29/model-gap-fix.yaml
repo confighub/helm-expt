@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: apache-11.4.29-model-gap-fix
+  chart: bitnami/apache
+  version: 11.4.29
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: legacy
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=1 diffs=1; extra=v1|Namespace||default; runtime also fails to pull docker.io/bitnami/apache"
+      receipt: runs/live-kind-parity/bitnami-apache-legacy/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "The legacy base fixes the local-live image pull residue, but its two-cluster kind parity row still reports an object-set shape residue: an installer-added Namespace plus one field diff. Treat the Namespace as a candidate semantic normalization and inspect the remaining diff before making a pass claim."
+  fix_spec: "Diff the legacy installer render against the regular Helm object set, classify the installer-added default Namespace as allowed normalization when appropriate, then reconcile or explicitly normalize the remaining object diff. Keep the image remediation card separate; this card only covers the model/object-set residue."
+  verify_non_live: "Render the legacy base and compare its object inventory against regular Helm with the same values and capability profile; the remaining non-Namespace diff should either disappear or be covered by an explicit semantic-normalization decision."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/apache --version 11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-apache-legacy/receipt.yaml
+    - recipes/bitnami/apache/11.4.29/image-remediation.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
+

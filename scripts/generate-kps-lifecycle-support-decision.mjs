@@ -33,7 +33,7 @@ if (mode === "--generate") {
 function buildDecision() {
   const route = hookRoute();
   const observation = localObservation();
-  const kindParity = liveReceipt(kindParityPath, "LiveHelmInstallerKindParityReceipt");
+  const kindParity = kindParitySignal();
   const confighubParity = liveReceipt(confighubParityPath, "LiveHelmConfigHubParityReceipt");
 
   return {
@@ -75,13 +75,7 @@ function buildDecision() {
           cubScoutWorkloads: requiredCheck(observation, "cub-scout-workloads-converged"),
           closedWorld: checkByName(observation, "cub-scout-closed-world-object-set"),
         },
-        twoClusterParity: {
-          result: kindParity.spec.result,
-          observedAt: kindParity.spec.observedAt,
-          regularHelmRuntime: kindParity.spec.legs.regularHelm.runtime.result,
-          installerRuntime: kindParity.spec.legs.cubInstallerApply.runtime.result,
-          semanticParity: kindParity.spec.semanticComparison.helmVsCubInstallerApply.result,
-        },
+        twoClusterParity: kindParity,
         confighubOciArgo: {
           result: confighubParity.spec.result,
           observedAt: confighubParity.spec.observedAt,
@@ -111,7 +105,9 @@ function buildDecision() {
         },
         {
           path: relativeRepo(kindParityPath),
-          claim: "Records two-cluster Helm-vs-installer runtime and semantic parity for the default base.",
+          claim: kindParity.status === "not-used"
+            ? "Records the retained later-version two-cluster kind parity row; it is not used as matching-version proof for this lifecycle decision."
+            : "Records two-cluster Helm-vs-installer runtime and semantic parity for the default base.",
         },
         {
           path: relativeRepo(confighubParityPath),
@@ -151,8 +147,7 @@ function verifyDecision() {
   check(spec.observedLifecycleSignals?.localKindObservation?.crdsEstablished === observation.spec.checks.filter((item) => item.name === "crd-established").length, `${relativeRepo(decisionPath)} CRD count mismatch`);
   check(spec.observedLifecycleSignals?.localKindObservation?.closedWorld?.result === "watch", `${relativeRepo(decisionPath)} must preserve closed-world WATCH state`);
 
-  const kindParity = liveReceipt(kindParityPath, "LiveHelmInstallerKindParityReceipt");
-  check(spec.observedLifecycleSignals?.twoClusterParity?.semanticParity === kindParity.spec.semanticComparison.helmVsCubInstallerApply.result, `${relativeRepo(decisionPath)} two-cluster semantic parity mismatch`);
+  verifyKindParitySignal(spec.observedLifecycleSignals?.twoClusterParity ?? {});
 
   const confighubParity = liveReceipt(confighubParityPath, "LiveHelmConfigHubParityReceipt");
   check(spec.observedLifecycleSignals?.confighubOciArgo?.argoSync === "Synced", `${relativeRepo(decisionPath)} Argo sync mismatch`);
@@ -164,6 +159,76 @@ function verifyDecision() {
   }
 }
 
+function kindParitySignal() {
+  const checkedPath = relativeRepo(kindParityPath);
+  if (!existsSync(kindParityPath)) return missingKindParitySignal(checkedPath);
+
+  const receipt = readYaml(kindParityPath);
+  check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${checkedPath} must be kind LiveHelmInstallerKindParityReceipt`);
+  check(receipt.spec?.chart === chart, `${checkedPath} chart mismatch`);
+
+  if (receipt.spec?.version !== version || receipt.spec?.base !== base) {
+    return missingKindParitySignal(checkedPath, receipt);
+  }
+
+  check(receipt.spec?.result === "pass", `${checkedPath} result must pass`);
+  check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply?.result === "pass", `${checkedPath} semantic parity must pass`);
+  return {
+    result: receipt.spec.result,
+    observedAt: receipt.spec.observedAt,
+    regularHelmRuntime: receipt.spec.legs.regularHelm.runtime.result,
+    installerRuntime: receipt.spec.legs.cubInstallerApply.runtime.result,
+    semanticParity: receipt.spec.semanticComparison.helmVsCubInstallerApply.result,
+  };
+}
+
+function missingKindParitySignal(checkedPath, receipt = null) {
+  const signal = {
+    status: "not-used",
+    checkedPath,
+    reason:
+      `No matching-version two-cluster kind parity receipt is retained for ${chart}@${version}; later-version kind parity rows are deliberately excluded from this lifecycle decision.`,
+  };
+  if (receipt?.spec) {
+    signal.retainedReceipt = {
+      chart: receipt.spec.chart,
+      version: String(receipt.spec.version),
+      base: receipt.spec.base,
+      result: receipt.spec.result,
+    };
+  }
+  return signal;
+}
+
+function verifyKindParitySignal(actual) {
+  const expected = kindParitySignal();
+  if (expected.status === "not-used") {
+    check(actual.status === "not-used", `${relativeRepo(decisionPath)} two-cluster signal status mismatch`);
+    check(actual.checkedPath === expected.checkedPath, `${relativeRepo(decisionPath)} two-cluster signal path mismatch`);
+    check(actual.reason === expected.reason, `${relativeRepo(decisionPath)} two-cluster signal reason mismatch`);
+    verifyRetainedReceiptSummary(actual.retainedReceipt, expected.retainedReceipt);
+    return;
+  }
+
+  check(actual.result === expected.result, `${relativeRepo(decisionPath)} two-cluster result mismatch`);
+  check(actual.observedAt === expected.observedAt, `${relativeRepo(decisionPath)} two-cluster observedAt mismatch`);
+  check(actual.regularHelmRuntime === expected.regularHelmRuntime, `${relativeRepo(decisionPath)} two-cluster regular Helm runtime mismatch`);
+  check(actual.installerRuntime === expected.installerRuntime, `${relativeRepo(decisionPath)} two-cluster installer runtime mismatch`);
+  check(actual.semanticParity === expected.semanticParity, `${relativeRepo(decisionPath)} two-cluster semantic parity mismatch`);
+}
+
+function verifyRetainedReceiptSummary(actual, expected) {
+  if (!expected) {
+    check(!actual, `${relativeRepo(decisionPath)} retained kind-parity receipt summary should be absent`);
+    return;
+  }
+
+  check(actual?.chart === expected.chart, `${relativeRepo(decisionPath)} retained kind-parity chart mismatch`);
+  check(actual?.version === expected.version, `${relativeRepo(decisionPath)} retained kind-parity version mismatch`);
+  check(actual?.base === expected.base, `${relativeRepo(decisionPath)} retained kind-parity base mismatch`);
+  check(actual?.result === expected.result, `${relativeRepo(decisionPath)} retained kind-parity result mismatch`);
+}
+
 function hookRoute() {
   check(existsSync(hookRoutePath), `missing ${relativeRepo(hookRoutePath)}`);
   const route = readYaml(hookRoutePath);
@@ -171,7 +236,7 @@ function hookRoute() {
   check(route.spec?.chart === chart, `${relativeRepo(hookRoutePath)} chart mismatch`);
   check(route.spec?.version === version, `${relativeRepo(hookRoutePath)} version mismatch`);
   check(route.spec?.base === base, `${relativeRepo(hookRoutePath)} base mismatch`);
-  check(route.spec?.result === "route-selected", `${relativeRepo(hookRoutePath)} must be route-selected`);
+  check(["route-selected", "observed"].includes(route.spec?.result), `${relativeRepo(hookRoutePath)} must be route-selected or observed`);
   return route;
 }
 

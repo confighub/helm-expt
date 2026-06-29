@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: spark-10.0.3-model-gap-fix
+  chart: bitnami/spark
+  version: 10.0.3
+spec:
+  gap_kind: object-set-shape
+  bases:
+    - base: legacy
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=1 diffs=2; extra=v1|Namespace||default; objects include spark master/worker StatefulSets"
+      receipt: runs/live-kind-parity/bitnami-spark-legacy/receipt.yaml
+  fix_class: applicable-fix-spec
+  sibling_base_that_passes: "none"
+  decision: "The legacy base still needs semantic object-shape review. The installer-added Namespace can likely be normalized; the Spark StatefulSet diffs need field-level reconciliation."
+  fix_spec: "Normalize the installer-added default Namespace only if it matches the existing allowed-extra policy, then diff Spark master/worker StatefulSet fields and reconcile recipe/render inputs or add a narrow documented normalization for intentional differences."
+  verify_non_live: "Render the legacy base and diff the Spark StatefulSet objects against regular Helm; no undocumented StatefulSet diff should remain before rerun."
+  rerun_command: "npm run kind-parity:run -- --chart bitnami/spark --version 10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/bitnami-spark-legacy/receipt.yaml
+  not_claimed:
+    - "This card does not prove the cell passes; it requires applying the fix and a fresh live receipt."
+

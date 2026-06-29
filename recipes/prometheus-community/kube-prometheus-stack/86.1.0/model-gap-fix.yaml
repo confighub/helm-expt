@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ModelGapFix
+metadata:
+  name: kube-prometheus-stack-86.1.0-model-gap-fix
+  chart: prometheus-community/kube-prometheus-stack
+  version: 86.1.0
+spec:
+  gap_kind: crd-lifecycle
+  bases:
+    - base: default
+      lane: K
+      failure_signature: "semantic object parity issue: missing=0 extra=11 diffs=0; extra Prometheus Operator CRDs are present in the installer-applied set"
+      receipt: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+  fix_class: base-scope-decision
+  sibling_base_that_passes: "no-crds (K pass)"
+  decision: "Use the no-crds base for current two-cluster parity when CRDs are managed out of band. The default base needs an explicit CRD lifecycle/support route before it can be claimed as passing this strict K lane."
+  fix_spec: "Record whether the default base owns the Prometheus Operator CRD lifecycle or whether CRD ownership belongs to a separate bootstrap/no-crds path. If default owns it, add lifecycle evidence and a semantic normalization decision for the CRD set; otherwise route users to no-crds for strict parity."
+  verify_non_live: "Render default and no-crds and compare the Prometheus Operator CRD set before selecting the support route."
+  rerun_command: "npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 86.1.0 --base default"
+  automatic: false
+  evidence:
+    - runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+    - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds-86-1-0/receipt.yaml (result: pass, semantic-object-parity: pass)"
+  not_claimed:
+    - "This card does not prove the default cell passes; it requires applying the route or scope decision and a fresh live receipt."
+
