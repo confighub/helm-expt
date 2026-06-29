@@ -16,7 +16,7 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try It Now with Kubernetes", "quick dev cluster", "AI_API_KEY", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
+    terms: ["Try It Now with Kubernetes", "quick dev cluster", "Change it after install", "AI_API_KEY", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",
@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
+    terms: ["F1 · The chart you pick", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
 ];
 
@@ -121,7 +121,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Helm already turns charts", "Render, record, route", "Get Started"],
+    headerTerms: ["Helm rebuilds your whole configuration", "Render, record, route", "F1", "Get Started"],
   },
   {
     file: "site/variants.html",
