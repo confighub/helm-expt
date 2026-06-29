@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Catalog</title>
+  <title>ConfigHub Helm Ops</title>
   <style>
     :root {
       color-scheme: light;
@@ -390,19 +390,50 @@
       font-size: .9rem;
       font-weight: 600;
     }
-    .key-warning {
-      margin: 22px 0 10px;
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--warn);
-      border-radius: 8px;
+    .ai-proof {
+      margin-top: 16px;
+      max-width: 820px;
+      color: #174a75;
+      font-weight: 650;
+    }
+    .value-callout {
+      margin: 22px 0 4px;
+      padding: 18px 20px;
       max-width: 900px;
+      border: 1px solid #bfd4e8;
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      background: #f3f8fd;
+    }
+    .value-callout p {
+      margin: 0;
+      max-width: none;
+      color: #174a75;
+      font-size: 1.24rem;
+      line-height: 1.32;
+      font-weight: 700;
+    }
+    .value-callout p + p {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #d8e6f2;
     }
     .audience-block {
       max-width: 920px;
       margin-top: 24px;
     }
+    .start-block {
+      margin-top: 28px;
+    }
+    .start-block h2 {
+      margin-top: 0;
+      font-size: 2.1rem;
+      line-height: 1.08;
+    }
     .audience-block h2 {
       margin-top: 0;
+      font-size: 2.1rem;
+      line-height: 1.08;
     }
     .audience-note {
       margin-top: 16px;
@@ -411,6 +442,16 @@
       background: var(--panel);
       color: var(--ink);
     }
+    .audience-frame {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid #bfd4e8;
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      background: #f3f8fd;
+      color: #174a75;
+      font-weight: 650;
+    }
     @media (max-width: 640px) {
       .install-compare { grid-template-columns: 1fr; }
     }
@@ -418,12 +459,16 @@
 </head>
 <body>
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
-      <h1>Helm operations made simple</h1>
-      <p class="lead">Helm is a great packaging system, but operations can be unpredictable and tricky. We are here to help you fix this using our AI-friendly Helm tools and our catalog of charts and best practice customisations. Preview your installs to prevent errors. APIs for fixing config values when deployments go bad. User-customised application fleets without upgrade pains.</p>
+      <h1>Helm Ops made simple</h1>
+      <p class="lead">Helm is a fine packaging system, but using it in app delivery operations can be unpredictable. We are here to help you fix this. This site introduces new AI-friendly Helm tools, and our Catalog of standard Helm charts with best practice customisations. We use ConfigHub for advanced functions and you can get started without using it at all.</p>
+      <div class="value-callout" aria-label="ConfigHub Helm operations promises">
+        <p>Preview your installs</p>
+        <p>Use APIs to fix config values in broken deployments</p>
+        <p>Manage highly user-customised application fleets without upgrade pains</p>
+      </div>
     </div>
-    <p class="terminal-caption key-warning">AI provider keys are easy to forget and hard to unwind after rollout. Rotate the key or point the chart at an external Secret before install.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
       <div class="terminal-title">For example, have you ever forgotten to change your AI API key before a new install? Now you can unwind this error at any time, even after rollout.</div>
       <pre class="terminal-body"><code>apiVersion: v1
@@ -438,33 +483,68 @@ stringData:
 <span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
     </div>
-    <div class="hero-actions" aria-label="Primary actions">
-      <a class="button primary" href="./try.html">Get started</a>
-      <a class="button secondary" href="./charts/index.html">Pick a chart</a>
+    <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
+    <p class="ai-proof-link"><a class="button secondary" href="./ai.html">AI-assisted Helm Ops</a></p>
+    <div class="start-block" aria-labelledby="start">
+      <h2 id="start">How we help</h2>
+      <p>Try it first with a couple of charts and add GitOps if you like. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
+      <div class="journey-flow" aria-label="Four-step product journey">
+        <a class="journey-step" href="./try.html">
+          <span class="kicker">First</span>
+          <h3>Pre Flight Checks</h3>
+          <p>WITHOUT connecting to our systems, preview your chart rendering, catch the parts you would change, and fix issues before deployment.</p>
+          <span class="go">Get Started</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./charts/index.html">
+          <span class="kicker">Second</span>
+          <h3>Helm Ops Catalog</h3>
+          <p>We maintain a public catalog of standard charts with known good variants, risk advice, and support for hooks, CRDs, setup jobs, and other Helm extras.</p>
+          <span class="go">Go to Catalog</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./variants.html">
+          <span class="kicker">Then</span>
+          <h3>Manage Helm Lifecycle</h3>
+          <p>Add promotions and upgrades. Start from one base and make multiple versions for users, dev, staging, prod, per-region.</p>
+          <span class="go">What are Variants?</span>
+        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
+        <a class="journey-step" href="./journey.html">
+          <span class="kicker">Later</span>
+          <h3>Application Delivery Tools</h3>
+          <p>Use your favourite GitOps tools with ConfigHub to add custom apps alongside your chart-based platform.</p>
+          <span class="go">Apps on ConfigHub</span>
+        </a>
+      </div>
     </div>
     <div class="audience-block" aria-labelledby="audience-problems">
-      <h2 id="audience-problems">Three More Helm Problems</h2>
-      <p class="audience-note"><strong>Got values files?</strong> Helm gets painful when you also need to change rendered objects, chart templates, policies, labels, selectors, hooks, or surrounding resources. The bad options are fork the chart forever, edit the chart, or add a Kustomize overlay that becomes hard to reason about.</p>
-      <p class="audience-note"><strong>Upgrades and Promotions?</strong> Even an unmodified chart is complex. Upgrades can change many objects at once, and Helm's normal path does not make that easy to audit before the change lands. Now try adding in variants that will let you run preview tests and roll into production safely.</p>
-      <p class="audience-note"><strong>Private Platform?</strong> You have a fleet of custom charts made by your teams using their favourite Helm features. But for some reason this won't render into YAML before you deploy it, and now you can't use your CVE scanners. You'd like to use AI but where to start?</p>
+      <h2 id="audience-problems">Examples</h2>
+      <p class="audience-note"><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
+      <p class="audience-note"><strong>Upgrades and Promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>
+      <p class="audience-note"><strong>Private Platform?</strong> You have custom charts made by your teams using their favourite Helm features, but the final YAML is hard to review before deploy and hard to scan afterward. ConfigHub's model lets you treat those renders as governed data, keep Argo or Flux, and add approval, scanning, and observation around the exact objects.</p>
+      <p class="audience-frame"><strong>ConfigHub:</strong> stop approving guesses. Preview one install, compare the difference between installs, then prove fleet changes with recorded data, diffs, gates, receipts, GitOps handoff, and live observations.</p>
+      <div class="hero-actions" aria-label="Primary actions">
+        <a class="button primary" href="./try.html">Get started</a>
+        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
+        <a class="button secondary" href="./docs.html">Read Docs</a>
+        <a class="button secondary" href="./verification.html">Verify proof</a>
+      </div>
     </div>
   </header>
   <main>
     <section aria-labelledby="look-first">
-      <h2 id="look-first">New Users Try It Out - no sign up, no server required!</h2>
+      <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
       <div class="catalog light-grid">
         <div class="card"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
         <div class="card"><h3>Catch classic errors</h3><p>AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry.</p></div>
         <div class="card"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
-        <div class="card"><h3>Bringing AI?</h3><p>If an agent writes values, render them first. Do not apply plausible YAML you have not read.</p></div>
+        <div class="card"><h3>Bringing AI?</h3><p>Agents can write plausible values quickly. Render them first so humans and checks review the exact objects, diffs, Secrets, hooks, CRDs, and target assumptions.</p></div>
       </div>
-      <p class="quiet-line">And it is provably the same objects Helm would install. We are not changing your install. We are showing you what is in it.</p>
     </section>
 
     <section aria-labelledby="try-now">
-      <h2 id="try-now">Try it now on Kubernetes</h2>
-      <p>Use a clean throwaway cluster for each lane. Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app.</p>
+      <h2 id="try-now">Try It Now with Kubernetes</h2>
+      <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
+      <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -478,14 +558,12 @@ stringData:
 <span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
         </div>
       </div>
-      <p class="closing-line">Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
       <p><a href="./try.html">Open the full try-now walkthrough</a></p>
     </section>
 
     <section aria-labelledby="control-value">
-      <h2 id="control-value">Do More with ConfigHub</h2>
-      <p>ConfigHub adds the server for what comes next: store and share the chart configurations your team actually runs.</p>
-      <p>Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
+      <h2 id="control-value">Try It Now with ConfigHub</h2>
+      <p>ConfigHub adds a store and domain model, so you share and manage the many custom chart configurations your team actually runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="catalog">
         <div class="card"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
         <div class="card"><h3>Make your versions</h3><p>Start from one reviewed base, then create dev, staging, prod, region, or customer variants without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
@@ -494,49 +572,11 @@ stringData:
       </div>
     </section>
 
-    <section aria-labelledby="start">
-      <h2 id="start">Start Here</h2>
-      <p>Try it first with a couple of charts. Add GitOps instead of kubectl. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
-      <div class="journey-flow" aria-label="Four-step product journey">
-        <a class="journey-step" href="./try.html">
-          <span class="kicker">First</span>
-          <h3>Look before you install</h3>
-          <p>Render a chart first, catch the parts you would change, and decide before anything reaches a cluster.</p>
-          <span class="go">Get Started</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./charts/index.html">
-          <span class="kicker">Second</span>
-          <h3>Pick a Helm Chart to Try</h3>
-          <p>Choose from the public Helm Catalog and open the chart page for variants, known risks, and source links.</p>
-          <span class="go">Helm Catalog</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./variants.html">
-          <span class="kicker">Then</span>
-          <h3>Your versions</h3>
-          <p>Start from one base and make as many versions as you need: dev, staging, prod, one per region or customer.</p>
-          <span class="go">Variants</span>
-        </a><span class="journey-arrow" aria-hidden="true">&rarr;</span>
-        <a class="journey-step" href="./journey.html">
-          <span class="kicker">Later</span>
-          <h3>Your apps, your releases</h3>
-          <p>Add your own apps alongside public charts, then move them from staging to production.</p>
-          <span class="go">Apps</span>
-        </a>
-      </div>
-      <p><a href="./try.html">Get Started</a> · <a href="./charts/index.html">Helm Catalog</a> · <a href="./variants.html">Variants</a> · <a href="./journey.html">Apps</a> · <a href="./operations.html">Ops</a></p>
-    </section>
-
     <section aria-labelledby="limits">
-      <h2 id="limits">Our Helm Catalog provides best practices</h2>
-      <p>The Helm Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
-      <div class="catalog">
-        <div class="card"><h3>Preview upgrades</h3><p>Compare the old and new render intent before rollout, then inspect the exact object, CRD, Secret, hook, and prerequisite changes.</p></div>
-        <div class="card"><h3>Create variants safely</h3><p>See whether a change needs a new Helm-rendered base or can be handled as a post-render ConfigHub variant.</p></div>
-        <div class="card"><h3>Review AI changes</h3><p>Let AI propose values or patches, then review concrete objects and known extras instead of trusting plausible YAML.</p></div>
-        <div class="card"><h3>Repeat releases</h3><p>Rerun, promote, audit, and support a release from recorded inputs and receipts, not from memory.</p></div>
-      </div>
-      <p>Some charts need extra setup before they run: CRDs, certificates, cloud accounts, Secrets, or setup jobs. Our Helm Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
-      <p>A one-shot Helm import gives you objects. The catalog gives you the intent behind those objects, plus defaults, variants, and out-of-the-box patterns that make Helm tractable.</p>
+      <h2 id="limits">Try It Now with our Helm Ops Catalog</h2>
+      <p>The Helm Ops Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
+      <p>Hooks, CRDs, setup jobs, webhook certificates, generated Secrets, and cloud accounts do not disappear. Our Helm Ops Catalog turns them into named routes, checks, variants, or handoff notes so teams can manage them deliberately.</p>
+      <p>Some charts need extra setup before they run. Our Helm Ops Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
   </main>

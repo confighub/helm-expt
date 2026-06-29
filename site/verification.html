@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Future And Managed Ideas · ConfigHub Helm Ops</title>
+  <title>Verification · ConfigHub Helm Ops</title>
   <style>
     :root {
       color-scheme: light;
@@ -369,16 +369,19 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Future And Managed Ideas</h1>
-    <p class="tagline">This page separates what exists now from what we want to build next. The hardest problems — fleet blast radius, governed promotion, and live-to-desired reconciliation — are real, but not all fully proven here.</p>
-    <p>Use it as a roadmap boundary: useful direction, not a replacement for current evidence.</p>
+    <h1>Verification</h1>
+    <p class="lead">Use npm proof commands to check a claim. They are verification tools for this repo, not product install commands.</p>
+    <p>Start with the question you need answered: generated site freshness, rendered tutorial output, committed receipts, or a fresh live parity run.</p>
+    <p style="margin-top:14px;font-size:.95rem"><a href="../docs/user/verify-it-yourself.md">Verify it yourself</a> · <a href="../docs/user/verification-lanes.md">Verification lanes</a> · <a href="./proof.html">Proof page</a></p>
   </header>
   <main>
-    <section aria-labelledby="now">
-      <h2 id="now">What Exists In The Public Experiment</h2>
+    <p class="generated"><b>Generated at:</b> 2026-06-29T07:35:15.016Z UTC · source: committed helm-expt evidence for this verification page.</p>
+    <section aria-labelledby="start-question">
+      <h2 id="start-question">Start With The Question</h2>
+      <p>Use the narrowest check that proves the claim. A passing generated-file check is useful, but it is not a fresh live test. A fresh live test is stronger for one row, but it can create clusters and receipts.</p>
       <div class="card"><table>
-        <thead><tr><th>Area</th><th>Current state</th></tr></thead>
-        <tbody><tr><td>Top-100 catalog</td><td>Public chart snapshots, chart pages, matrix rows, and per-chart caveats.</td></tr><tr><td>Variants</td><td>Base variants and derived ConfigHub variants for selected chart paths.</td></tr><tr><td>Delivery evidence</td><td>Argo OCI evidence for committed paths, plus live parity and observation lanes.</td></tr><tr><td>Sceptic tests</td><td>Known gaps, fuzzing, dry-run checks, drift findings, and refusal boundaries.</td></tr></tbody>
+        <thead><tr><th>Question</th><th>Command or surface</th><th>Needs cluster?</th><th>What it proves</th></tr></thead>
+        <tbody><tr><td>Generated site/docs/data</td><td><code>npm run site:verify</code><br><code>npm run docs:verify</code><br><code>npm run data:index:verify</code></td><td>No</td><td>Generated surfaces match committed source and data.</td></tr><tr><td>Rendered tutorial output</td><td><code>npm run redis:verify-install:render -- ...</code></td><td>No</td><td>A user's workdir render matches the expected chart/base/package contract.</td></tr><tr><td>Broad repo gate</td><td><code>npm run verify</code></td><td>No cluster by default</td><td>The committed corpus, generated files, receipts, and docs are self-consistent.</td></tr><tr><td>Fresh Helm-vs-cub comparison</td><td><code>npm run kind-parity:run -- ...</code></td><td>Yes, kind</td><td>Regular Helm and cub installer are compared on two vanilla kind clusters.</td></tr><tr><td>Committed kind receipts</td><td><code>npm run kind-parity:verify</code></td><td>No</td><td>Existing two-cluster receipts and summaries remain internally consistent.</td></tr><tr><td>ConfigHub/OCI live lane</td><td><code>npm run live-parity:run -- ...</code></td><td>Yes, kind plus ConfigHub and OCI path</td><td>The stricter live path for a committed recipe/base.</td></tr><tr><td>Lane semantics</td><td><code>npm run lane-tests:verify</code></td><td>No</td><td>The lane matrix and its status vocabulary are still valid.</td></tr><tr><td>cub-scout receipt</td><td><code>cub-scout receipt validate &lt;receipt.json&gt;</code></td><td>No</td><td>A receipt fingerprint and structure validate locally.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -388,31 +391,53 @@
       </style>
     </section>
 
-    <section aria-labelledby="next">
-      <h2 id="next">What This Points Toward</h2>
-      <div class="card"><table>
-        <thead><tr><th>Idea</th><th>What would make it useful</th></tr></thead>
-        <tbody><tr><td>Private catalogs</td><td>Bring private charts, wrapper charts, and customer overlays into the same model.</td></tr><tr><td>Fleet operations</td><td>Promote, patch, scan, and observe many variants with a clear blast radius.</td></tr><tr><td>Reverse reconcile</td><td>Accept an authorized live fix back into desired state only when policy and round-trip checks allow it.</td></tr><tr><td>AI agents</td><td>Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records.</td></tr><tr><td>AICR, NIM, and stacks</td><td>Apply the same recipe, variant, and evidence model to larger AI and platform stacks.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="guardrails">
-      <h2 id="guardrails">Guardrails</h2>
-      <p>Planned ideas should not be described as shipped behavior. The public experiment should keep using evidence-backed words: pass, watch, blocked, refused, not applicable, and planned.</p>
-      <p>That honesty is part of the product story: expert users need to know which governance claims are strong today and which are still frontier work.</p>
+    <section aria-labelledby="product-vs-proof">
+      <h2 id="product-vs-proof">Product Commands And Proof Commands</h2>
       <div class="grid">
-        <div class="card"><h3>Upgrade path</h3><p><a href="./private/">Private catalogs and managed operations</a></p></div>
-        <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim status</a></p></div>
-        <div class="card"><h3>Refusals</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a></p></div>
+        <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
+        <div class="card"><h3>Npm proof commands</h3><p><code>npm run ...</code> checks repo evidence: generated files, docs, data, tutorial renders, lane receipts, and proof summaries.</p></div>
+        <div class="card"><h3>Full repo gate</h3><p><code>npm run verify</code> is a broad consistency gate. Use it before publishing or reviewing a large change, not as the first-user experience.</p></div>
       </div>
     </section>
+
+    <section aria-labelledby="render-record-route">
+      <h2 id="render-record-route">Render, Record, Route</h2>
+      <p>Flat YAML shows what would run. Verification adds the trail behind it and the routes around it, so hooks, CRDs, generated Secrets, setup jobs, and target prerequisites do not disappear.</p>
+      <div class="card"><table>
+        <thead><tr><th>Move</th><th>Meaning</th><th>What gets checked</th></tr></thead>
+        <tbody><tr><td>Render</td><td>Turn a chart, version, values, release name, namespace, and capability profile into exact Kubernetes objects.</td><td>Object parity checks and rendered install checks.</td></tr><tr><td>Record</td><td>Keep inputs, source lock, objects, diffs, receipts, scans, and observations with the chart configuration.</td><td>A reviewer can see what changed and rerun the same proof boundary.</td></tr><tr><td>Route</td><td>Name the extras Helm leaves around the edges: hooks, CRDs, webhooks, generated facts, target prerequisites, Secrets, setup jobs, and GitOps handoff.</td><td>Each extra is applied, observed, blocked, refused, or marked target-specific.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="fresh-committed">
+      <h2 id="fresh-committed">Fresh Evidence And Committed Evidence</h2>
+      <div class="grid">
+        <div class="card"><h3>Committed evidence</h3><p>Already in the repo. Use it to review a claim, publish generated pages, and confirm summaries still match receipts and CSVs.</p></div>
+        <div class="card"><h3>Fresh evidence</h3><p>Created by a new run. It may create kind clusters, use ConfigHub, publish OCI artifacts, wait for Argo or Flux, or write receipts.</p></div>
+        <div class="card"><h3>Run live lanes serially</h3><p>Fresh live lanes should not overlap. Keep clusters, namespaces, credentials, and receipts isolated.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="subtopics">
+      <h2 id="subtopics">Subtopics</h2>
+      <div class="card"><table>
+        <thead><tr><th>Topic</th><th>Use it for</th></tr></thead>
+        <tbody><tr><td><a href="../docs/user/verification.md">Verification docs</a></td><td>The canonical docs landing page for proof commands and render-record-route.</td></tr><tr><td><a href="../docs/user/verify-it-yourself.md">Verify It Yourself</a></td><td>The practical command list for offline checks, rendered installs, parity receipts, and cub-scout receipts.</td></tr><tr><td><a href="../docs/user/verification-lanes.md">Verification Lanes</a></td><td>What each lane proves and what it does not prove.</td></tr><tr><td><a href="../docs/user/choosing-commands.md">Choosing Commands</a></td><td>When to use product commands versus repo verifiers.</td></tr><tr><td><a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a></td><td>Which steps need a cluster and what output to expect.</td></tr><tr><td><a href="../docs/user/outcomes-and-tests.md">Outcomes And Tests</a></td><td>Which repo promises map to which test commands and CSVs.</td></tr><tr><td><a href="../docs/user/live-parity.md">Live Parity</a></td><td>How to read live Helm-vs-ConfigHub parity status.</td></tr><tr><td><a href="../docs/user/chain-of-proof.md">Chain Of Proof</a></td><td>Which boundary is proven by render, ConfigHub, delivery, and live observations.</td></tr><tr><td><a href="../docs/user/what-we-refuse-to-claim.md">What We Refuse To Claim</a></td><td>The refusal boundaries that keep proof language honest.</td></tr><tr><td><a href="../docs/reference/two-cluster-parity-harness.md">Two-Cluster Harness</a></td><td>The stricter Helm-vs-cub kind harness.</td></tr><tr><td><a href="../tests/npm-scripts.md">NPM Script Catalog</a></td><td>The full script catalog for maintainers.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
   </main>
-  <footer>Future and managed topics are useful only when they stay clearly separated from current evidence.</footer>
+  <footer>Generated from committed helm-expt evidence. Verification commands check claims; product commands perform the Helm and ConfigHub work.</footer>
 </body>
 </html>

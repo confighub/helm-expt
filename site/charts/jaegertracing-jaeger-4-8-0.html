@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jaegertracing/jaeger 4.8.0 · ConfigHub Helm Catalog</title>
+  <title>jaegertracing/jaeger 4.8.0 · ConfigHub Helm Ops</title>
   <style>
     :root {
       color-scheme: light;
@@ -368,7 +368,7 @@
 </head>
 <body>
   <header>
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../variants.html">Variants</a><a href="../journey.html">Apps</a><a href="../operations.html">Ops</a><a href="../docs.html">Docs</a><a href="../verification.html">Verification</a><a href="../hard-questions.html">FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>jaegertracing/jaeger</h1>
     <p>Everything we know about this Helm chart is on this page: how to run it, which variants exist, what we have proven, and what still needs work.</p>
     <p>The point is not just to install the chart. It is to choose the first safe base, read the exact objects, catch prerequisites or classic errors, and know which evidence backs the current claim.</p>
@@ -397,6 +397,17 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+    </section>
+
+    <section aria-labelledby="render-record-route">
+      <h2 id="render-record-route">Render, Record, Route</h2>
+      <p>The chart page has two layers. The user-facing layer is the render intent: the compact record of this chart version, base variant, namespace, values profile, capability profile, package base, and evidence lanes. The full evidence chain underneath is recipe → base → rendered revision → package → ConfigHub Units → variants and receipts.</p>
+      <div class="grid">
+        <div class="card"><h3>Render</h3><p>Choose a base variant and turn the Helm chart into the exact Kubernetes objects for that install shape.</p></div>
+        <div class="card"><h3>Record</h3><p>Keep the render inputs, source lock, package base, proof lanes, and <a href="../../data/helm-render-intents/intents/jaegertracing-jaeger-4-8-0-default.yaml">default render intent</a> together so people and agents can rerun or compare the same baseline.</p></div>
+        <div class="card"><h3>Route</h3><p>Do not hide hooks, CRDs, setup jobs, external Secrets, target facts, or webhook certificates. They become named routes, checks, variants, blockers, or handoff notes.</p></div>
+      </div>
+      <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a></p>
     </section>
 
     <section aria-labelledby="run-this">
@@ -575,7 +586,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks And Other Actions</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, setup jobs, webhook certificates, migrations, or checks. This section shows whether this chart has a known route for that work. If no route is shown, that does not prove the upstream chart has no hooks; it only means the public catalog has no chart-specific action to show yet.</p>
-      <p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
     </section>
 
     <section aria-labelledby="production">

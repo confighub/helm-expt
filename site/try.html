@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get Started · ConfigHub Helm Catalog</title>
+  <title>Get Started · ConfigHub Helm Ops</title>
   <style>
     :root {
       color-scheme: light;
@@ -443,6 +443,16 @@
       border-radius: 0;
       background: var(--term);
     }
+    .term-catch {
+      display: inline-block;
+      width: 100%;
+      margin: 2px 0;
+      padding: 2px 6px;
+      border-left: 3px solid #f0c36d;
+      background: rgba(240,195,109,.18);
+      color: #ffe3a1;
+      font-weight: 700;
+    }
     .term-comment { color: #7f8b96; }
     .term-prompt { color: #78d99d; font-weight: 700; }
     .mono-line {
@@ -461,12 +471,12 @@
 </head>
 <body>
   <header class="hero human-hero install-hero">
-    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Cub Helm</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="install-hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Get started</p>
-        <h1>Two installs, one outcome</h1>
-        <p class="lead">For a reasonable chart, <code>helm install</code> and <code>cub installer</code> reach the same running result. The difference is the checkpoint: cub writes the objects first, so you can inspect, swap, or stop before anything reaches Kubernetes.</p>
+        <h1>Try It Now with Kubernetes</h1>
+        <p class="lead">Use a quick dev cluster to compare Helm and cub. You can see that both lanes deliver the same app, verify the baseline with npm proof commands, then make changes with a review point before install.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Prometheus install comparison">
@@ -481,17 +491,17 @@
 <span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
       </div>
     </div>
-    <p class="caption">Same Prometheus, same namespace — that is parity.</p>
+    <p class="caption">Same chart, same namespace, same Kubernetes result. cub gives you a checkpoint before the install.</p>
   </header>
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is the durable catalog path. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, known routes, and proof links. That is the durable catalog path. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
       <h2 id="how">Helm hides one step. cub shows it.</h2>
-      <p><code>helm install</code> renders the chart and applies it in a single step, so you only see the objects once they are already running. cub does the same in two steps you can watch.</p>
+      <p><code>helm install</code> renders the chart and applies it in a single step, so you only see the objects once they are already running. cub does the same work in two visible steps: render first, then apply.</p>
       <div class="step-grid">
         <div class="card">
           <h3>1 · Render</h3>
@@ -506,6 +516,23 @@
       <p><strong>Same objects, confirmed before you install. Helm-verified. No surprise installs.</strong></p>
     </section>
 
+    <section class="narrow-section" aria-labelledby="catch">
+      <h2 id="catch">Catch a classic error first</h2>
+      <p>AI keys, generated passwords, and other Secrets can slip into a rendered chart. In the cub lane they are still files you can inspect, rotate, externalize, or block before the cluster or registry sees them.</p>
+      <div class="terminal-card" aria-label="AI key before install">
+        <div class="terminal-title">rendered Secret before install</div>
+        <pre class="terminal-body"><code>apiVersion: v1
+kind: Secret
+metadata:
+  name: ai-provider
+type: Opaque
+stringData:
+<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # rotate or externalize</span>
+
+<span class="term-comment"># status: rendered, reviewed, not applied</span></code></pre>
+      </div>
+    </section>
+
     <section class="narrow-section" aria-labelledby="gitops">
       <h2 id="gitops">The other delivery — GitOps via OCI</h2>
       <p>Already running Argo or Flux from an OCI registry? Skip <code>kubectl</code>. Push the same rendered output to your registry and let the controller you already trust pull it in:</p>
@@ -518,7 +545,7 @@
 
     <section class="narrow-section" aria-labelledby="proof">
       <h2 id="proof">What We Checked</h2>
-      <p>We checked the low-commitment claim: a no-account path can reach the same install outcome and can hand the reviewed rendered objects to existing delivery tools.</p>
+      <p>We checked the low-commitment claim: a no-account path can reach the same install outcome, hand reviewed rendered objects to existing delivery tools, and give you a correct baseline before you make changes.</p>
       <div class="card"><table>
         <thead><tr><th>Proof</th><th>What it says</th><th>Open</th></tr></thead>
         <tbody><tr><td>Render and install parity</td><td>Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.</td><td><a href="../data/serverless-install-parity-proof/summary.html">Render and install parity</a></td></tr><tr><td>OCI for Argo and Flux</td><td>The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.</td><td><a href="../data/serverless-oci-gitops-proof/summary.html">OCI for Argo and Flux</a></td></tr></tbody>
@@ -529,7 +556,18 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="./serverless.html">Read the serverless guide</a></p>
+      <p><a href="./verification.html">Open Verification</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="./serverless.html">Read the serverless guide</a></p>
+    </section>
+
+    <section class="narrow-section callout-section" aria-labelledby="verify-baseline">
+      <h2 id="verify-baseline">Verify The Baseline</h2>
+      <p>Npm proof commands are checks for the repo evidence. They are separate from product commands such as <code>cub installer setup</code>, <code>helm install</code>, and <code>kubectl apply</code>.</p>
+      <div class="terminal-card">
+        <div class="terminal-title">render contract check</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run redis:verify-install:render -- \
+    --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
+      </div>
+      <p><a href="./verification.html">Use the Verification landing page</a> to choose between user-side checks, committed evidence checks, and fresh live lanes.</p>
     </section>
   </main>
   <footer><p class="generated"><b>Generated at:</b> 2026-06-29T07:35:15.016Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state should be shared and managed.</p></footer>

@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm operations made simple", "AI-friendly Helm tools", "Preview your installs", "Three More Helm Problems", "Do More with ConfigHub", "Store chart configurations", "Preview upgrades"],
+    terms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs", "AI-assisted Helm Ops", "Examples", "Try It Now with ConfigHub", "Store chart configurations", "Try It Now with our Helm Ops Catalog", "Verify proof"],
   },
   {
     file: "site/variants.html",
@@ -16,7 +16,7 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Two installs, one outcome", "same running result", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
+    terms: ["Try It Now with Kubernetes", "quick dev cluster", "AI_API_KEY", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",
@@ -24,11 +24,11 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Helm Catalog", "chart versions shown"],
+    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "Render, Record, Route", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -44,7 +44,11 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Get Started", "AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Five Stages", "Get Started", "Verification", "AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+  },
+  {
+    file: "site/verification.html",
+    terms: ["Verification", "Start With The Question", "Product Commands And Proof Commands", "Render, Record, Route", "Fresh Evidence And Committed Evidence", "Verify It Yourself", "NPM Script Catalog"],
   },
   {
     file: "site/existing-apps.html",
@@ -80,6 +84,7 @@ const menuGuidePages = [
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
+  "site/verification.html",
   "site/hard-questions.html",
 ];
 
@@ -91,6 +96,7 @@ const humanSplitPages = [
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
+  "site/verification.html",
   "site/hard-questions.html",
   "site/known-gaps.html",
   "site/quirks.html",
@@ -107,11 +113,11 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Helm operations made simple", "AI-friendly Helm tools", "Preview your installs"],
+    headerTerms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs"],
   },
   {
     file: "site/try.html",
-    headerTerms: ["same running result", "helm install", "cub installer"],
+    headerTerms: ["quick dev cluster", "helm install", "cub installer"],
   },
   {
     file: "site/how-it-works.html",
@@ -128,6 +134,10 @@ const guideOpeningChecks = [
   {
     file: "site/operations.html",
     headerTerms: ["Ops starts when an app already exists", "what changed", "review diffs"],
+  },
+  {
+    file: "site/verification.html",
+    headerTerms: ["npm proof commands", "verification tools", "fresh live parity"],
   },
 ];
 
