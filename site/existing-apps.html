@@ -364,22 +364,104 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first problem is ownership, not migration. Start read-only. First understand what exists. Then decide what ConfigHub should manage.</p>
+    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first problem is ownership, not migration. Start read-only. First understand what exists. Then decide what ConfigHub will manage.</p>
   </header>
   <main>
     <section aria-labelledby="start">
       <h2 id="start">Start Read-Only</h2>
-      <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub should make those facts visible before it tries to manage them.</p>
+      <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage them.</p>
       <p>The first safe outcome is an inventory and comparison, not a changed live deployment.</p>
       <div class="card"><table>
         <thead><tr><th>Starting point</th><th>First route</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Argo or Flux app</td><td>Start by reading the current source, rendered objects, target namespace, health, and sync state.</td><td>Do not change delivery yet. Compare what exists with a catalog or recipe path first.</td></tr><tr><td>Rendered YAML</td><td>Import or inspect the object set as desired state data.</td><td>Check object identity, labels, namespaces, Secrets, CRDs, and hooks before trying to manage it.</td></tr><tr><td>Live cluster</td><td>Use observation first: what is running, who owns it, what changed, and what target facts are required?</td><td>Treat live state as evidence, not automatically as desired state.</td></tr><tr><td>Helm release</td><td>Keep the chart, version, values, and release name as the starting facts.</td><td>Then decide whether the first ConfigHub base should match that release exactly or intentionally differ.</td></tr></tbody>
+        <tbody><tr><td>Argo or Flux app</td><td>Start by reading the current source, rendered objects, target namespace, health, and sync state.</td><td>Do not change delivery yet. Compare what exists with a catalog or recipe path first.</td></tr><tr><td>Rendered YAML</td><td>Import or inspect the object set as desired state data.</td><td>Check object identity, labels, namespaces, Secrets, CRDs, and hooks before trying to manage it.</td></tr><tr><td>Live cluster</td><td>Use observation first: what is running, who owns it, what changed, and what target facts are required?</td><td>Treat live state as evidence, not automatically as desired state.</td></tr><tr><td>Helm release</td><td>Keep the chart, version, values, and release name as the starting facts.</td><td>Then decide whether the first ConfigHub base matches that release exactly or intentionally differs.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -412,6 +494,6 @@
       </div>
     </section>
   </main>
-  <footer>Existing-app adoption should begin with observation and comparison. Management comes after the current state is understood.</footer>
+  <footer>Existing-app adoption begins with observation and comparison. Management comes after the current state is understood.</footer>
 </body>
 </html>

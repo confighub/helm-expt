@@ -372,16 +372,98 @@
     .app-step p { margin: 0; font-size: .9rem; }
     @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 640px) { .app-flow { grid-template-columns: 1fr; } }
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
   </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Apps Guide</h1>
-    <p class="lead">The app problem starts when one chart becomes a real system: several components, several environments, several owners, and a release path that should not depend on copy-pasted values files.</p>
+    <p class="lead">The app problem starts when one chart becomes a real system: several components, several environments, several owners, and a release path that does not have to depend on copy-pasted values files.</p>
     <p>The free path is for trying public charts. An account is for running your own: your apps, your custom versions, and releases you move from staging to production.</p>
     <p>An app is the thing your team operates, not just one chart. It can include public Helm charts, your own Kubernetes objects, platform services, and stacks.</p>
-    <p>Start with what you already have: a catalog chart, an Argo or Flux app, rendered YAML, a live cluster, or custom Kubernetes objects. The first safe result is visibility. ConfigHub should show what belongs to the app before it changes delivery.</p>
+    <p>Start with what you already have: a catalog chart, an Argo or Flux app, rendered YAML, a live cluster, or custom Kubernetes objects. The first safe result is visibility: ConfigHub shows what belongs to the app before it changes delivery.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
@@ -426,9 +508,9 @@
 
     <section aria-labelledby="existing">
       <h2 id="existing">Can I Start From An Existing App?</h2>
-      <p>Yes. Existing apps and live-cluster resources should enter through discovery or import first. The first result should be read-only: ConfigHub shows what it found, where it came from, and what the next safe decision is.</p>
+      <p>Yes. Existing apps and live-cluster resources start with discovery or import first. The first result is read-only: ConfigHub shows what it found, where it came from, and what the next safe decision is.</p>
       <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First route</th><th>You should see</th></tr></thead>
+        <thead><tr><th>Starting point</th><th>First route</th><th>What you see</th></tr></thead>
         <tbody><tr><td>Argo CD app</td><td>discover or import the Argo app</td><td>source, target, rendered objects, and links are visible before changing delivery</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>discover or import Flux state</td><td>controller source and target ownership are preserved</td></tr><tr><td>Rendered YAML or KRM</td><td>import as ConfigHub Units</td><td>objects can be labeled, scanned, linked, and diffed</td></tr><tr><td>Live cluster</td><td>discover or import current resources</td><td>inventory first, then explicit import or graduation decision</td></tr><tr><td>Platform or stack</td><td>represent several chart bases and custom app objects as one app</td><td>components and targets show what belongs together</td></tr></tbody>
       </table></div>
       <style>
@@ -439,13 +521,13 @@
       </style>
       <div class="card">
         <h3>Start read-only</h3>
-        <p>These commands should show discovery or import previews before ConfigHub changes delivery.</p>
+        <p>These commands show discovery or import previews before ConfigHub changes delivery.</p>
         <pre><code>cub gitops discover --space my-space my-k8s-target
 cub gitops import --space my-space my-k8s-target my-render-target \
   --where-resource "metadata.namespace = 'argocd'"
 kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
 cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You should see the resources ConfigHub found or would import, plus the target and namespace context. At this stage the safe result is visibility, not a changed live deployment.</p>
+        <p>You see the resources ConfigHub found or would import, plus the target and namespace context. At this stage the safe result is visibility, not a changed live deployment.</p>
       </div>
       <p>Only graduate an existing app to a <code>cub installer</code> recipe when it needs a maintained render path, future chart refreshes, and catalog-grade proof. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
     </section>

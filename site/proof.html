@@ -364,21 +364,103 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Proof, not promises.</h1>
-    <p class="tagline">This page answers the reviewer question: what exactly was rendered, uploaded, delivered, observed, and bounded by evidence?</p>
-    <p>Render parity is the first safety check. Governance starts when that rendered object set becomes data with scans, gates, receipts, live observations, and named limits.</p>
+    <h1>What We Checked</h1>
+    <p class="tagline">Use this page to see which claims have evidence and which ones still need a chart, values file, or target-specific check.</p>
+    <p>First we check that cub preserves Helm's objects. Then we track scans, approvals, delivery, live checks, and limits separately.</p>
     <p style="margin-top:14px;font-size:.95rem"><a href="./verification.html">Start with Verification</a> · <a href="./matrix.html">Read the matrix</a> · <a href="../data/claims-register/summary.md">Read the claims register</a></p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-29T07:35:15.016Z UTC · source: committed helm-expt evidence for this proof page.</p>
     <section aria-labelledby="counters">
       <h2 id="counters">Current Proof Counters</h2>
-      <p>These counters are not one giant green badge. Each lane proves a different boundary, and production use still depends on target scope and fresh evidence.</p>
+      <p>These counters are not one giant green badge. Each lane checks a different question, and production use still depends on target scope and fresh evidence.</p>
       <div class="grid">
         <div class="metric"><strong>199/199</strong><span>Render parity · Regular Helm output and cub installer package output match under recorded inputs.</span></div>
         <div class="metric"><strong>198/199</strong><span>In-ConfigHub proof · Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units.</span></div>
@@ -408,9 +490,9 @@
 
     <section aria-labelledby="serious">
       <h2 id="serious">Serious Charts Are The Test</h2>
-      <p>The hard cases are where the product has to earn trust: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
-      <p>This is the expert/SRE problem: before a fleet change ships, someone needs to know blast radius, prerequisites, policy status, delivery path, and observation freshness.</p>
-      <p>For these charts, a green render is not enough. The proof must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
+      <p>Hard charts are where mistakes hurt: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
+      <p>This is the expert/SRE problem. Before a fleet change ships, someone needs to know what it touches, what the cluster must already provide, which checks passed, how it will be delivered, and what the live system reported afterward.</p>
+      <p>For these charts, a green render is not enough. The page must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
         <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
@@ -423,7 +505,7 @@
 
     <section aria-labelledby="sceptic">
       <h2 id="sceptic">Sceptic Tests</h2>
-      <p>A sceptic with a breaking chart is useful QA. The rule is that a breaker becomes a fixture, a named refusal, or a routed gap; it should not disappear into prose.</p>
+      <p>A breaking chart is useful QA. It needs to become a test fixture, a named refusal, or a routed gap. It must not disappear into prose.</p>
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       <div class="card"><table>
         <thead><tr><th>Surface</th><th>What it answers</th><th>Open</th></tr></thead>
@@ -441,7 +523,7 @@
       <h2 id="refusals">What This Does Not Claim</h2>
       <div class="card"><table>
         <thead><tr><th>Refusal</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, lane, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and receipted.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
+        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, lane, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

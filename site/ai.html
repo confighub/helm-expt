@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI-Assisted Operations · ConfigHub Helm Ops</title>
+  <title>AI And The Catalog · ConfigHub Helm Ops</title>
   <style>
     :root {
       color-scheme: light;
@@ -364,27 +364,125 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>AI-Assisted Operations</h1>
-    <p class="tagline">The AI risk is not that an agent can write YAML. The risk is applying plausible YAML no one inspected. ConfigHub should keep the generated change visible, bounded, diffed, and receipted before anything ships.</p>
-    <p>AI can help explain, propose, and check changes, but the exact rendered objects and diffs remain the authority.</p>
+    <h1>AI And The Catalog</h1>
+    <p>AI is useful here because Helm charts are too large to inspect by hand, one value at a time. We use agents to help read charts, propose useful bases, write checks, and explain evidence.</p>
+    <p>The rule is strict: AI can suggest, but tests and receipts decide. A catalog claim is not true because an agent wrote it; it is true when the rendered objects, generated data, and verification commands back it.</p>
   </header>
   <main>
-    <section aria-labelledby="model">
-      <h2 id="model">The Safe Shape</h2>
-      <p>Helm charts create a lot of text and a lot of choices. AI can help explain that complexity, suggest variants, and find likely fixes. ConfigHub gives those suggestions a safer shape: exact object diffs, target facts, gates, receipts, and live observations.</p>
-      <p>The rule is simple: AI can help produce a change, but the reviewed config remains the source of truth.</p>
+    <section aria-labelledby="catalog">
+      <h2 id="catalog">How AI Helps Build The Catalog</h2>
+      <p>The main AI use today is not autonomous production change. It is catalog work: finding what a chart does, proposing safe starting points, generating checks, and turning evidence into language people can read.</p>
+      <div class="card"><table>
+        <thead><tr><th>AI helps with</th><th>How we keep it honest</th></tr></thead>
+        <tbody><tr><td>Read chart behavior</td><td>AI helps inspect chart docs, values, templates, hooks, CRDs, defaults, and prerequisites so the catalog starts from the right questions.</td></tr><tr><td>Draft base variants</td><td>AI can suggest useful install shapes, such as default, existing Secret, no-CRDs, dev, or production-like bases. The generator and receipts decide what is accepted.</td></tr><tr><td>Generate checks</td><td>AI helps draft tests, summaries, and verifier commands. A page is not treated as true until committed data and verification commands back it.</td></tr><tr><td>Triage failures</td><td>AI helps sort a failure into render input, target prerequisite, lifecycle route, runtime health, or unsupported chart behavior.</td></tr><tr><td>Explain evidence</td><td>AI helps turn receipts, diffs, and generated data into plain English for chart pages and docs.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="./how-it-works.html">Read how render, record, and route work</a> · <a href="./verification.html">Check the verification commands</a></p>
+    </section>
+
+    <section aria-labelledby="user-agents">
+      <h2 id="user-agents">When Users Bring AI</h2>
+      <p>AI can also help a user propose Helm values, patches, variants, or fixes. ConfigHub makes that safer by turning the suggestion into exact Kubernetes objects, diffs, known extras, checks, and approvals before it reaches a cluster.</p>
+      <p>The reviewed config remains the source of truth. AI explains and proposes; ConfigHub records and verifies.</p>
     </section>
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">Good AI Tasks</h2>
       <div class="card"><table>
         <thead><tr><th>Task</th><th>Fit</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Explain a diff</td><td>Good fit</td><td>AI can summarize changed objects and paths. ConfigHub should keep the underlying diff as the authority.</td></tr><tr><td>Create a variant</td><td>Good fit with review</td><td>AI can propose labels, target facts, and transforms. A user or policy gate should approve the exact result.</td></tr><tr><td>Patch a fleet</td><td>Good fit with bounds</td><td>AI can propose a safe patch, but blast radius and affected variants must be shown before delivery.</td></tr><tr><td>Triage a broken chart</td><td>Good fit</td><td>AI can route the failure to render, target prerequisite, lifecycle, runtime, or unsupported behavior.</td></tr><tr><td>Use a domain app</td><td>Good fit</td><td>A plugin plus skills can give the agent higher-level tools, such as Kubernetes RBAC analysis, instead of raw YAML editing.</td></tr><tr><td>Change production live state directly</td><td>Not the default path</td><td>The safe path is propose, diff, gate, deliver, observe. Direct writes need a narrow authority rule.</td></tr></tbody>
+        <tbody><tr><td>Explain a diff</td><td>Good fit</td><td>AI can summarize which objects changed. Keep the actual diff visible as the record.</td></tr><tr><td>Create a variant</td><td>Good fit with review</td><td>AI can draft labels, targets, and transforms. A person or policy gate approves the exact result.</td></tr><tr><td>Patch a fleet</td><td>Good fit with scope</td><td>AI can draft the patch; ConfigHub shows which apps, variants, and objects it touches before rollout.</td></tr><tr><td>Triage a broken chart</td><td>Good fit</td><td>AI can help decide whether the problem is values, cluster prerequisites, lifecycle steps, image pulls, or runtime health.</td></tr><tr><td>Use a domain app</td><td>Good fit</td><td>Give the agent purpose-built commands, such as Kubernetes RBAC analysis, instead of raw YAML editing.</td></tr><tr><td>Change production live state directly</td><td>Not the default path</td><td>The safer path is propose, diff, approve, deliver, observe. Direct writes need clear authority, scope, and rollback.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -403,6 +501,8 @@
     <section aria-labelledby="guides">
       <h2 id="guides">Guides And Evidence</h2>
       <div class="grid">
+        <div class="card"><h3>How it works</h3><p>The core model: render the chart, record the evidence, route the extras, deliver and observe.</p><p><a href="./how-it-works.html">Open page</a></p></div>
+        <div class="card"><h3>Verification</h3><p>Npm commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
         <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern: CLI/plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
@@ -410,6 +510,6 @@
       </div>
     </section>
   </main>
-  <footer>AI should make Helm operations easier to understand, not less accountable.</footer>
+  <footer>AI must make Helm operations easier to understand, not less accountable.</footer>
 </body>
 </html>

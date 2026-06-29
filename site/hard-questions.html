@@ -364,13 +364,95 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>FAQ for skeptical Helm users.</h1>
-    <p class="lead">This page answers the questions an engineer should ask before trusting the model: what problem does this solve, what is proven, what is still watch or frontier, and when should I keep using plain Helm?</p>
+    <p class="lead">This page answers the questions an engineer asks before trusting the model: what problem does this solve, what is proven, what is still limited, and when is plain Helm still the right tool?</p>
     <p>Each answer says what works today, what is still limited, and where to check the evidence.</p>
   </header>
   <main>
@@ -461,7 +543,7 @@
           <h3>What is safe for AI to change?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>AI is safest when it proposes changes against explicit desired state: a new base, a derived variant, a policy change, or a patch that ConfigHub can diff, gate, and observe. AI should not silently rewrite live state or bypass the route that records what changed.</p>
+        <p>AI is safest when it proposes changes against explicit desired state: a new base, a derived variant, a policy change, or a patch that ConfigHub can diff, gate, and observe. Do not let AI silently rewrite live state or bypass the route that records what changed.</p>
         <p class="faq-links"><a href="../docs/user/creating-variants.md">Creating variants</a> · <a href="../docs/user/change-routing-before-oci.md">Change routing before OCI</a></p>
       </article>
       </div>
@@ -483,7 +565,7 @@
           <h3>Where do Secrets and credentials live?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>They should not be hidden inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
+        <p>Do not hide them inside ConfigHub by accident. The catalog separates generated Secrets, existing-Secret references, target facts, and runtime Secret lifecycle where the chart requires that distinction.</p>
         <p class="faq-links"><a href="../docs/user/security-end-to-end.md">Security end to end</a> · <a href="../data/secret-lifecycle/summary.md">Secret lifecycle data</a> · <a href="../docs/user/target-prerequisites.md">Target prerequisites</a></p>
       </article>
         <article class="faq-card answered">
@@ -537,7 +619,7 @@
           <h3>Can a live Kubernetes fix flow back into desired ConfigHub state?</h3>
           <span class="faq-status">P1 backlog</span>
         </div>
-        <p>Not as a shipped product path yet. The reverse-reconcile design defines authority, bounded write-back, attribution, and round-trip proof. The product still needs a gated command and live proof.</p>
+        <p>Not as a shipped product path yet. The reverse-reconcile design defines authority, scoped write-back, attribution, and round-trip proof. The product still needs a gated command and live proof.</p>
         <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="../docs/user/reverse-reconcile-design.md">Reverse reconcile design</a></p>
       </article>
       </div>
@@ -559,7 +641,7 @@
           <h3>Can I load my existing app, platform, stack, or live cluster?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Yes, but the first step should be read-only. Discover or import the existing app, show its sources, targets, objects, labels, and ownership, then decide whether it stays as imported Units, graduates to a recipe, or becomes a managed app graph.</p>
+        <p>Yes, but the first step is read-only. Discover or import the existing app, show its sources, targets, objects, labels, and ownership, then decide whether it stays as imported Units, graduates to a recipe, or becomes a managed app graph.</p>
         <p class="faq-links"><a href="../docs/user/adopting-existing-apps.md">Adopting existing apps</a> · <a href="./journey.html">Apps guide</a></p>
       </article>
         <article class="faq-card answered">
@@ -684,7 +766,7 @@
           <h3>Can cub-direct first-install CRD charts without ordering?</h3>
           <span class="faq-status">watch</span>
         </div>
-        <p>Not safely yet. A plain apply of a bundle that contains both a CRD and a custom resource can apply the custom resource before the CRD is established. The no-controller path needs CRD-first ordering and a wait/retry step, or it should use a controller.</p>
+        <p>Not safely yet. A plain apply of a bundle that contains both a CRD and a custom resource can apply the custom resource before the CRD is established. The no-controller path needs CRD-first ordering and a wait/retry step, or a controller that handles ordering.</p>
         <p class="faq-links"><a href="../data/crd-ordering-gap/summary.md">CRD ordering gap</a> · <a href="../docs/user/cub-deployment-path.md">Deployment path</a></p>
       </article>
         <article class="faq-card watch">
@@ -706,6 +788,6 @@
       </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. FAQ answers should route to evidence, not slogans.</footer>
+  <footer>Generated from helm-expt proof data. FAQ answers route to evidence, not slogans.</footer>
 </body>
 </html>

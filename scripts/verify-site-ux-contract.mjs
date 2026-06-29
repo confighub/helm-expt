@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs", "AI-assisted Helm Ops", "Examples", "Try It Now with ConfigHub", "Store chart configurations", "Try It Now with our Helm Ops Catalog", "Verify proof"],
+    terms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs", "Examples", "Try It Now with ConfigHub", "Store chart configurations", "Try It Now with our Helm Ops Catalog", "Check Tests"],
   },
   {
     file: "site/variants.html",
@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Five Stages", "Get Started", "Verification", "AI-assisted operations", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Five Stages", "Get Started", "Verification", "AI and the catalog", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -56,7 +56,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["AI-Assisted Operations", "AI can help explain, propose, and check changes", "Good AI Tasks", "RBAC Manager for Agents"],
+    terms: ["AI And The Catalog", "AI can suggest, but tests and receipts decide", "How AI Helps Build The Catalog", "Good AI Tasks", "RBAC Manager for Agents"],
   },
   {
     file: "site/custom-apps.html",
@@ -121,7 +121,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Helm installs in one step", "render the chart", "Get Started"],
+    headerTerms: ["Helm already turns charts", "Render, record, route", "Get Started"],
   },
   {
     file: "site/variants.html",

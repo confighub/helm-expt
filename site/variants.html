@@ -364,9 +364,91 @@
       pre { font-size: .8rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Variants</h1>
@@ -388,7 +470,7 @@ Variants:
   payments-api/prod-eu</code></pre>
       <div class="card"><table>
         <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Component</td><td>The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice.</td></tr><tr><td>Variant</td><td>One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a.</td></tr><tr><td>Base variant</td><td>A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects.</td></tr><tr><td>Derived variant</td><td>A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and bounded post-render changes.</td></tr><tr><td>Promotion</td><td>A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied.</td></tr></tbody>
+        <tbody><tr><td>Component</td><td>The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice.</td></tr><tr><td>Variant</td><td>One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a.</td></tr><tr><td>Base variant</td><td>A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects.</td></tr><tr><td>Derived variant</td><td>A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes.</td></tr><tr><td>Promotion</td><td>A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -416,10 +498,10 @@ Variants:
 
     <section aria-labelledby="journey">
       <h2 id="journey">A Good Variant Flow</h2>
-      <p>A good variant flow should be plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
+      <p>A good variant flow is plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Choose a base</td><td>Pick the closest proved install shape from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes should stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>
+        <tbody><tr><td>Choose a base</td><td>Pick the closest proved install shape from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -436,9 +518,9 @@ Variants:
 cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>You should see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
+      <p>You see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
       <div class="card">
-        <h3>You should see something like this</h3>
+        <h3>Expected output</h3>
         <pre><code>created downstream variant
 cloned Units linked to upstream Units
 changed labels/target/gates only, unless an allowed mutation receipt says otherwise

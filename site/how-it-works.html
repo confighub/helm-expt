@@ -395,14 +395,96 @@
       .move-spine, .parallel, .oci-visual { grid-template-columns: 1fr; }
       .parallel .arrow, .oci-arrow { display: none; }
     }
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .95em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
   </style>
 </head>
-<body>
+<body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./variants.html">Variants</a><a href="./journey.html">Apps</a><a href="./operations.html">Ops</a><a href="./docs.html">Docs</a><a href="./verification.html">Verification</a><a href="./hard-questions.html">FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>How It Works</h1>
-    <p class="lead">The problem is not that Helm can render objects. The problem is that a one-step install leaves teams guessing which objects were reviewed, which prerequisites were assumed, and what really happened after delivery.</p>
-    <p>Helm installs in one step; this page shows why ConfigHub splits that into four checkable moves: render the chart, route the tricky parts, deliver the result, and observe the live app. Use fast Helm paths when you only need a render; use the catalog path when the render needs to become reviewed, named, reusable, and supportable. For commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p class="lead">Helm already turns charts into Kubernetes objects. The hard part is seeing what changed, what the cluster needs first, and what actually happened after delivery.</p>
+    <p><strong>Render, record, route.</strong> Render the chart, record the inputs and evidence, and route the tricky parts Helm leaves around the edges. Then deliver and observe the live app. Use the fast Helm paths for a quick check. Use the catalog path when the same render needs to be reviewed, reused, promoted, and supported. For commands, start with <a href="./try.html">Get Started</a>.</p>
     <div class="move-spine" aria-label="Four-move spine">
       <div class="move-card"><span class="kicker">01</span><h3>Render</h3><p>Prove ConfigHub did not quietly change Helm's starting objects.</p></div>
       <div class="move-card"><span class="kicker">02</span><h3>Route</h3><p>Name the CRDs, Secrets, hooks, targets, and lifecycle work Helm otherwise hides.</p></div>
@@ -414,8 +496,8 @@
     <p class="generated"><b>Generated at:</b> 2026-06-29T07:35:15.016Z UTC · source: committed helm-expt evidence for this how it works guide.</p>
     <section class="move-section" aria-labelledby="render">
       <h2 id="render">1. Render</h2>
-      <p><strong>Claim:</strong> under the same chart, values, base, and capability profile, the cub installer recipe preserves Helm's rendered object set. This is the migration assurance check, not the whole product value.</p>
-      <p>The value starts after parity: the recorded inputs, named base, receipts, and render intent give people and agents something durable to compare, scan, promote, rerun, and audit.</p>
+      <p><strong>First check:</strong> under the same chart, values, base, and capability profile, the cub installer recipe produces the same Kubernetes objects as Helm. That proves ConfigHub did not quietly change the starting point.</p>
+      <p>The value comes next: recorded inputs, a named base, receipts, and render intent give people and agents something durable to compare, scan, promote, rerun, and audit.</p>
       <p>A generated render intent records the compact config for that base variant: chart version, values profile, namespace, capability profile, source lock, package base, and the evidence lanes attached to it.</p>
       <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
         <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
@@ -427,16 +509,16 @@
 
     <section class="move-section" aria-labelledby="route">
       <h2 id="route">2. Route</h2>
-      <p><strong>Claim:</strong> anything Helm would otherwise hide as lifecycle behavior is made visible as a named route. Current route actions marked automatic: <strong>0/25</strong>.</p>
-      <p>This is where hard charts become understandable. A CRD, webhook certificate, generated Secret, setup job, or target prerequisite should appear as a route, fact, gate, receipt, or blocker instead of an invisible surprise.</p>
+      <p><strong>Second check:</strong> lifecycle work that Helm leaves around the edges becomes visible as a named route. Current route actions marked automatic: <strong>0/25</strong>.</p>
+      <p>This is where hard charts become understandable. A CRD, webhook certificate, generated Secret, setup job, or target prerequisite appears as a route, fact, gate, receipt, or blocker instead of an invisible surprise.</p>
       <iframe class="proof-frame" title="Visible versus silent hook proof" src="../data/hook-test-proof/visible-vs-silent.html"></iframe>
       <p><a href="../docs/user/chart-hooks-what-happens.md">Go deeper: chart hooks</a> · <a href="../docs/user/pathway-route-hooks-transparently.md">route hooks transparently</a> · <a href="../data/lifecycle-route-actions/summary.md">lifecycle route actions</a></p>
     </section>
 
     <section class="move-section" aria-labelledby="deliver">
       <h2 id="deliver">3. Deliver</h2>
-      <p><strong>Claim:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub should consume the same bundle, but the proof states differ.</p>
-      <p>The operational problem this solves is rerender drift. The controller should pull the reviewed object set, not independently rebuild a plausible-looking result from values at delivery time.</p>
+      <p><strong>Delivery check:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub can consume the same bundle, with each delivery path checked separately.</p>
+      <p>The operational problem is rerender drift. The controller pulls the reviewed object set instead of independently rebuilding a lookalike result from values at delivery time.</p>
       <div class="mini-visual oci-visual" aria-label="One OCI bundle consumed by three delivery paths">
         <div class="node"><strong>ConfigHub Units</strong><p>Reviewed desired state, labels, variants, gates, and receipts.</p></div>
         <div class="oci-arrow">&rarr;<br><code>OCI</code><br>&rarr;</div>
@@ -448,7 +530,7 @@
       </div>
       <div class="card">
         <h3>Three adoption caveats we manage</h3>
-        <p>These apply to the cub-direct path for every chart. They are not hidden as proof wins; they are the first-run friction points that must be handled before cub feels better than plain Helm.</p>
+        <p>These apply to the cub-direct path for every chart. They are not hidden as successes; they are the first-run friction points that must be handled before cub feels better than plain Helm.</p>
         <div class="card"><table>
         <thead><tr><th>Caveat</th><th>Managed path</th></tr></thead>
         <tbody><tr><td>Customize with declared inputs or a base edit, not Helm --set</td><td>cub rejects Helm flags instead of silently absorbing typos. Use <code>--input</code> for declared inputs, <code>--set-image</code> for declared images, or edit/author a base. See <a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a>.</td></tr><tr><td>cub-direct upgrades must prune removed objects</td><td>Plain <code>kubectl apply</code> leaves orphans. Use the managed cub-direct applier, which prunes, or use Argo/Flux for controller-managed prune.</td></tr><tr><td>server-side apply conflicts need a readable choice</td><td>A manual live edit can conflict on re-apply. The managed applier surfaces the reconcile choice in plain words instead of letting a raw Kubernetes error be the user experience.</td></tr></tbody>
@@ -476,14 +558,14 @@ spec:
   url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
   secretRef:
     name: confighub-oci-creds</code></pre>
-        <p>You should see the controller report its normal synced or healthy status after it pulls the same ConfigHub OCI bundle. In this public corpus, Argo-from-OCI has committed receipts; Flux-from-OCI remains in progress until equivalent receipts are committed.</p>
+        <p>The controller reports its normal synced or healthy status after it pulls the same ConfigHub OCI bundle. In this public corpus, Argo-from-OCI has committed receipts; Flux-from-OCI remains in progress until equivalent receipts are committed.</p>
       </div>
       <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
     </section>
 
     <section class="move-section" aria-labelledby="observe">
       <h2 id="observe">4. Observe</h2>
-      <p><strong>Claim:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
+      <p><strong>Live check:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
       <p>This matters because synced is not the same as working. Receipts must say what was observed, when it was observed, and which target or namespace the claim applies to.</p>
       <div class="disposition-bar" aria-label="Matrix lane disposition mix">
         <span class="pass" style="width:34.67%" title="pass: 961"></span>
