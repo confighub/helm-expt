@@ -431,7 +431,7 @@ function calmPage(html) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("verification.html")}">Verification</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("variants.html")}">Variants</a><a href="${link("journey.html")}">Apps</a><a href="${link("operations.html")}">Ops</a><a href="${link("docs.html")}">Docs</a><a href="${link("verification.html")}">Verification</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {

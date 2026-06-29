@@ -163,7 +163,7 @@ for (const file of menuGuidePages) {
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
     failures.push(`${file}: generated timestamp appears in the hero/header`);
   }
-  const bannerIndex = header.indexOf("THIS IS AN EXPERIMENTAL TEST PAGE AND NOT REAL");
+  const bannerIndex = header.indexOf("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS");
   const navIndex = header.indexOf("class=\"topbar\"");
   if (bannerIndex < 0) failures.push(`${file}: missing experimental banner in the hero/header`);
   else if (navIndex >= 0 && bannerIndex > navIndex) failures.push(`${file}: experimental banner must appear before the home/menu row`);
