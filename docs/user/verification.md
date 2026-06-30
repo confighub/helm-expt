@@ -19,14 +19,15 @@ Use the narrowest check that answers the question in front of you.
   GitOps controllers. Committed checks read evidence that is already in the
   repo.
 
-## Render, Record, Route
+## Recipe, Render, Record, Route
 
-The verification model has three moves:
+The verification model has four steps:
 
-| Move | Meaning | What gets checked |
+| Step | Meaning | What gets checked |
 | --- | --- | --- |
-| Render | Turn a chart, version, values, release name, namespace, and capability profile into exact Kubernetes objects. | The rendered object set matches the recorded package or Helm baseline. |
-| Record | Keep the inputs, source lock, objects, diffs, receipts, scans, and observations with the chart configuration. | A later reviewer can see what changed and rerun the same proof boundary. |
+| Recipe | Lock and record the inputs as the recipe: chart source, version, values profile, release name, namespace, capability profile, and source lock. | The inputs are pinned and recorded, so the render is reproducible. |
+| Render | Turn that recipe into exact Kubernetes objects. | The rendered object set matches the recorded package or Helm baseline. |
+| Record | Keep the output evidence with the render: objects, diffs, receipts, scans, and observations. | A later reviewer can see what changed and rerun the same proof boundary. |
 | Route | Name everything Helm leaves around the edges: hooks, CRDs, webhooks, generated facts, target prerequisites, Secrets, setup jobs, and GitOps handoff. | Each extra is applied, observed, blocked, refused, or marked target-specific instead of being hidden inside prose. |
 
 This is why a flat YAML render is only the start. The value is that the render
