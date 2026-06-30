@@ -1690,8 +1690,8 @@ $ cub installer setup --pull .../prometheus/29.9.0
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
     <div class="box">
-      <h3>With an account: any edit stays</h3>
-      <p class="tag">account</p>
+      <h3>With a free account: any edit stays</h3>
+      <p class="tag">free account</p>
       <pre><code>$ cub installer upload --space my-app
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
