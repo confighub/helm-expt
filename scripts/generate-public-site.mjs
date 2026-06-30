@@ -1876,13 +1876,13 @@ function docsHtml(catalog) {
     ${topNav(".")}
     <h1>Docs/FAQ</h1>
     <p class="lead">These pages are for technical users who want to try ConfigHub, understand how it works, and check the claims for themselves.</p>
-    <p>Start with the task in front of you. Use the guides for product behavior, the verification pages for tests, and the generated data when you need chart-by-chart evidence.</p>
+    <p>Use this page as a map. For a first run, open Get Started. To understand the model, open How it works. To check whether a claim is backed by tests, open Verification. For exact status on one chart, use the Helm Ops Catalog and the matrix.</p>
     ${humanLinks([["Get Started", "./try.html"], ["How it works", "./how-it-works.html"], ["Verification", "./verification.html"], ["FAQ", "./hard-questions.html"]])}
   </header>
   <main>
     <section aria-labelledby="start-here">
       <h2 id="start-here">Start Here</h2>
-      <p>Pick the row that matches your work. The site is meant to be used from the top down, not read like a book.</p>
+      <p>Choose what you want to do next and open the matching page.</p>
       ${markdownLikeTable([
         ["Task", "Open", "Why"],
         ...startRows,
@@ -1891,11 +1891,11 @@ function docsHtml(catalog) {
 
     <section aria-labelledby="five-stages">
       <h2 id="five-stages">Five Stages</h2>
-      <p>Start with the smallest step that answers your question. Move deeper only when you need stored records, shared versions, approvals, GitOps handoff, or operations.</p>
+      <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
       ${markdownLikeTable([
         ["Stage", "What you do", "Command or page", "Needs ConfigHub?"],
         ...stageRows,
-      ], { rawThirdColumn: true })}
+      ], { rawThirdColumn: true, firstColumnWidthCh: 12 })}
     </section>
 
     <section aria-labelledby="guides">
@@ -1909,7 +1909,7 @@ function docsHtml(catalog) {
 
     <section aria-labelledby="database">
       <h2 id="database">Verification And Evidence</h2>
-      <p>The Helm Ops Catalog is the browsing surface. The matrix and generated data are the evidence behind it. Use them when you need exact chart status, receipts, or claim support.</p>
+      <p>Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work. They show where the chart answer came from: render inputs, test results, receipts, known gaps, and claim status.</p>
       ${markdownLikeTable([
         ["Surface", "What it helps with", "Open"],
         ...dataRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
@@ -2857,10 +2857,10 @@ function journeyHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>AI Apps</h1>
-    <p class="lead">This page is about running your own applications with ConfigHub, not only trying public Helm charts.</p>
-    <p>You can start from a Helm chart, an Argo or Flux application, rendered YAML, a live namespace, or Kubernetes files written by your team. ConfigHub first shows the files and objects it would manage before it changes delivery.</p>
-    <p>After that, you can make named versions for development, staging, production, regions, or customers. AI can suggest changes, but the result still has to become a concrete file diff that a person or policy can review.</p>
-    <p>The point is simple: see what belongs to the application, change it deliberately, and keep those changes when the application is released again.</p>
+    <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
+    <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
+    <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
+    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. The suggestion becomes a concrete file diff, gets checked, and only then moves toward release. When the application is upgraded, ConfigHub keeps those changes in the next version.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
@@ -4810,6 +4810,9 @@ function scanRouteMeaning(route) {
 
 function markdownLikeTable(rows, options = {}) {
   const [headers, ...body] = rows;
+  const firstColumnRule = options.firstColumnWidthCh
+    ? `\n        th:first-child, td:first-child { min-width: ${Number(options.firstColumnWidthCh).toFixed(0)}ch; }`
+    : "";
   return `<div class="card"><table>
         <thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead>
         <tbody>${body
@@ -4820,7 +4823,7 @@ function markdownLikeTable(rows, options = {}) {
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
+        th { color: var(--muted); font-weight: 600; }${firstColumnRule}
       </style>`;
 }
 

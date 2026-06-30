@@ -453,13 +453,13 @@
     <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">AI Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Docs/FAQ</h1>
     <p class="lead">These pages are for technical users who want to try ConfigHub, understand how it works, and check the claims for themselves.</p>
-    <p>Start with the task in front of you. Use the guides for product behavior, the verification pages for tests, and the generated data when you need chart-by-chart evidence.</p>
+    <p>Use this page as a map. For a first run, open Get Started. To understand the model, open How it works. To check whether a claim is backed by tests, open Verification. For exact status on one chart, use the Helm Ops Catalog and the matrix.</p>
     <p style="margin-top:14px;font-size:.95rem"><a href="./try.html">Get Started</a> · <a href="./how-it-works.html">How it works</a> · <a href="./verification.html">Verification</a> · <a href="./hard-questions.html">FAQ</a></p>
   </header>
   <main>
     <section aria-labelledby="start-here">
       <h2 id="start-here">Start Here</h2>
-      <p>Pick the row that matches your work. The site is meant to be used from the top down, not read like a book.</p>
+      <p>Choose what you want to do next and open the matching page.</p>
       <div class="card"><table>
         <thead><tr><th>Task</th><th>Open</th><th>Why</th></tr></thead>
         <tbody><tr><td>Try a chart without an account</td><td><a href="./try.html">Get Started</a></td><td>Render a catalog package, inspect the files, and apply them to Kubernetes yourself.</td></tr><tr><td>Understand the model</td><td><a href="./how-it-works.html">How it works</a></td><td>Render, record, and route: the short version of what ConfigHub adds to Helm.</td></tr><tr><td>Choose a public chart</td><td><a href="./charts/index.html">Helm Ops Catalog</a></td><td>Find the safest current starting point for a chart.</td></tr><tr><td>Use your own application</td><td><a href="./journey.html">AI Apps</a></td><td>Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files.</td></tr><tr><td>Check a claim</td><td><a href="./verification.html">Verification</a></td><td>Choose the npm check that matches the claim instead of treating every test as the same thing.</td></tr><tr><td>Read the limits</td><td><a href="./hard-questions.html">FAQ</a></td><td>Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps.</td></tr><tr><td>Know when managed help begins</td><td><a href="./private/">Upgrade</a></td><td>Private sources, production support, teams, policies, fleet operations, and commercial boundaries.</td></tr></tbody>
@@ -474,7 +474,7 @@
 
     <section aria-labelledby="five-stages">
       <h2 id="five-stages">Five Stages</h2>
-      <p>Start with the smallest step that answers your question. Move deeper only when you need stored records, shared versions, approvals, GitOps handoff, or operations.</p>
+      <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
       <div class="card"><table>
         <thead><tr><th>Stage</th><th>What you do</th><th>Command or page</th><th>Needs ConfigHub?</th></tr></thead>
         <tbody><tr><td>1. Preview</td><td>Render a chart and read the files before anything reaches a cluster.</td><td><code>cub installer setup --pull &lt;package&gt;</code></td><td>No</td></tr><tr><td>2. Compare</td><td>Install the same chart with Helm and with cub on a throwaway cluster.</td><td><a href="./try.html">Get Started</a></td><td>No</td></tr><tr><td>3. Record</td><td>Keep the chart version, values, rendered files, and known extra work together.</td><td><a href="./how-it-works.html">How it works</a></td><td>No for public catalog packages</td></tr><tr><td>4. Manage</td><td>Make versions for development, staging, production, regions, or customers.</td><td><a href="./variants.html">Variants</a></td><td>Yes</td></tr><tr><td>5. Operate</td><td>Review diffs, run checks, hand off to GitOps, observe live state, and promote releases.</td><td><a href="./operations.html">Ops</a></td><td>Yes</td></tr></tbody>
@@ -484,6 +484,7 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
+        th:first-child, td:first-child { min-width: 12ch; }
       </style>
     </section>
 
@@ -504,7 +505,7 @@
 
     <section aria-labelledby="database">
       <h2 id="database">Verification And Evidence</h2>
-      <p>The Helm Ops Catalog is the browsing surface. The matrix and generated data are the evidence behind it. Use them when you need exact chart status, receipts, or claim support.</p>
+      <p>Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work. They show where the chart answer came from: render inputs, test results, receipts, known gaps, and claim status.</p>
       <div class="card"><table>
         <thead><tr><th>Surface</th><th>What it helps with</th><th>Open</th></tr></thead>
         <tbody><tr><td>Helm Ops Catalog database</td><td>The chart and variant matrix.</td><td><a href="./matrix.html">Helm Ops Catalog database</a></td></tr><tr><td>Generated data index</td><td>The generated data catalog for this repository.</td><td><a href="../data/README.md">Generated data index</a></td></tr><tr><td>Status dashboard</td><td>Current aggregate status and active proof queue.</td><td><a href="../data/status-dashboard/summary.md">Status dashboard</a></td></tr><tr><td>cub adoption caveats</td><td>The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.</td><td><a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a></td></tr><tr><td>Helm render intents</td><td>One generated render-intent object per real base variant.</td><td><a href="../data/helm-render-intents/summary.md">Helm render intents</a></td></tr><tr><td>Claims register</td><td>What is backed, partial, planned, or refused.</td><td><a href="../data/claims-register/summary.md">Claims register</a></td></tr><tr><td>Verification landing page</td><td>Choose the right npm proof command.</td><td><a href="./verification.html">Verification landing page</a></td></tr><tr><td>Deep proof page</td><td>Detailed proof lanes for reviewers who want the full evidence trail.</td><td><a href="./proof.html">Deep proof page</a></td></tr></tbody>

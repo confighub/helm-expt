@@ -129,7 +129,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/journey.html",
-    headerTerms: ["running your own applications", "concrete file diff", "keep those changes"],
+    headerTerms: ["applications your team owns", "concrete file diff", "keeps those changes"],
   },
   {
     file: "site/operations.html",

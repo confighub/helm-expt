@@ -460,10 +460,10 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">AI Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>AI Apps</h1>
-    <p class="lead">This page is about running your own applications with ConfigHub, not only trying public Helm charts.</p>
-    <p>You can start from a Helm chart, an Argo or Flux application, rendered YAML, a live namespace, or Kubernetes files written by your team. ConfigHub first shows the files and objects it would manage before it changes delivery.</p>
-    <p>After that, you can make named versions for development, staging, production, regions, or customers. AI can suggest changes, but the result still has to become a concrete file diff that a person or policy can review.</p>
-    <p>The point is simple: see what belongs to the application, change it deliberately, and keep those changes when the application is released again.</p>
+    <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
+    <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
+    <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
+    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. The suggestion becomes a concrete file diff, gets checked, and only then moves toward release. When the application is upgraded, ConfigHub keeps those changes in the next version.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
